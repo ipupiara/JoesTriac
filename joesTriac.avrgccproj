@@ -34,6 +34,11 @@
       <AvrGcc>
         <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
         <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+        <avrgcc.compiler.directories.IncludePaths>
+          <ListValues>
+            <Value>../include</Value>
+          </ListValues>
+        </avrgcc.compiler.directories.IncludePaths>
         <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
         <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
         <avrgcc.compiler.optimization.DebugLevel>Default (-g2)</avrgcc.compiler.optimization.DebugLevel>
@@ -43,9 +48,22 @@
     </ToolchainSettings>
     <MemorySettings>
     </MemorySettings>
+    <GenerateHexFile>True</GenerateHexFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="joesTriac.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="st7565r.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="st7565r.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="triacPID.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="triacPID.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
