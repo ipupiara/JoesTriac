@@ -66,6 +66,12 @@
     <Compile Include="triacPID.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="triacUI.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="triacUI.h">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\AvrGCC.targets" />
 </Project>

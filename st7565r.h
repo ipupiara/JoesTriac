@@ -104,11 +104,12 @@
 /*
  * Functions
  */
-/*
+
 void lcd_init(void);
 void lcd_cmd(uint8_t cmd);
 void lcd_write(uint8_t data);
-uint8_t lcd_read(void);
+//uint8_t lcd_read(void);
+/*
 uint8_t lcd_status(void);
 void lcd_read_dummy(void);
 
