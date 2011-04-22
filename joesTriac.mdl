@@ -7,7 +7,6 @@
 (object Design "Logical View"
     is_unit    	TRUE
     is_loaded  	TRUE
-    quid       	"4DB16C740167"
     defaults   	(object defaults
 	rightMargin 	0.250000
 	leftMargin 	0.250000
@@ -55,6 +54,12 @@
 	logical_models 	(list unit_reference_list
 	    (object Class "ATMega_AVR"
 		quid       	"4DB16C7C0040"
+		operations 	(list Operations
+		    (object Operation "main"
+			quid       	"4DB170370332"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
+			uid        	0))
 		language   	"C++")
 	    (object Class "Ammeter"
 		quid       	"4DB16C900360"
@@ -67,15 +72,71 @@
 		language   	"C++")
 	    (object Class "NumKeypad"
 		quid       	"4DB16CE20130"
+		class_attributes 	(list class_attribute_list
+		    (object ClassAttribute "name"
+			quid       	"4DB1707A0275"
+			type       	"type"
+			initv      	"initval"))
 		language   	"C++")
 	    (object Class "LCD_Display"
 		quid       	"4DB16CEF0207"
+		operations 	(list Operations
+		    (object Operation "promptcalibration"
+			quid       	"4DB17063019B"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
+			uid        	0)
+		    (object Operation "promptLowcalibValSet"
+			quid       	"4DB170A002C3"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
+			uid        	0)
+		    (object Operation "promptHighCalibValSet"
+			quid       	"4DB170B901A4"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
+			uid        	0))
 		language   	"C++")
 	    (object Class "PID_Controller"
 		quid       	"4DB16D6000A9"
 		language   	"C++")
 	    (object Class "Calibrator"
 		quid       	"4DB16D8E004F"
+		operations 	(list Operations
+		    (object Operation "calibrate"
+			quid       	"4DB1704A002B"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
+			uid        	0)
+		    (object Operation "calcAmpsVal"
+			quid       	"4DB17100015D"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
+			uid        	0)
+		    (object Operation "storeCalibValLow"
+			quid       	"4DB171E80289"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
+			uid        	0)
+		    (object Operation "storeCalibValHigh"
+			quid       	"4DB171F0009B"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
+			uid        	0)
+		    (object Operation "setCurrentAmpValues"
+			quid       	"4DB171F801D0"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
+			uid        	0))
+		class_attributes 	(list class_attribute_list
+		    (object ClassAttribute "int LowCalibADCVal(Persistent)"
+			quid       	"4DB170E6001F")
+		    (object ClassAttribute "int HighCalibADCVal(Persistent)"
+			quid       	"4DB170F2013B")
+		    (object ClassAttribute "float currentAmpd"
+			quid       	"4DB1711B0093")
+		    (object ClassAttribute "int currentAmpADCVal"
+			quid       	"4DB1712C01CB"))
 		language   	"C++"))
 	logical_presentations 	(list unit_reference_list
 	    (object ClassDiagram "Main"
@@ -91,10 +152,10 @@
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
-			location   	(976, 528)
+			location   	(784, 496)
 			label      	(object ItemLabel
 			    Parent_View 	@1
-			    location   	(834, 477)
+			    location   	(642, 415)
 			    fill_color 	13434879
 			    nlines     	1
 			    max_width  	284
@@ -104,18 +165,26 @@
 			line_color 	3342489
 			fill_color 	13434879
 			quidu      	"4DB16C7C0040"
+			compartment 	(object Compartment
+			    Parent_View 	@1
+			    location   	(642, 475)
+			    icon_style 	"Icon"
+			    fill_color 	16777215
+			    anchor     	2
+			    nlines     	2
+			    max_width  	162)
 			width      	302
-			height     	126
+			height     	186
 			annotation 	8
 			autoResize 	TRUE)
 		    (object ClassView "Class" "Logical View::Ammeter" @2
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
-			location   	(1808, 352)
+			location   	(2224, 368)
 			label      	(object ItemLabel
 			    Parent_View 	@2
-			    location   	(1701, 301)
+			    location   	(2117, 317)
 			    fill_color 	13434879
 			    nlines     	1
 			    max_width  	214
@@ -178,39 +247,55 @@
 			location   	(240, 224)
 			label      	(object ItemLabel
 			    Parent_View 	@5
-			    location   	(114, 173)
+			    location   	(33, 143)
 			    fill_color 	13434879
 			    nlines     	1
-			    max_width  	252
+			    max_width  	414
 			    justify    	0
 			    label      	"NumKeypad")
 			icon_style 	"Icon"
 			line_color 	3342489
 			fill_color 	13434879
 			quidu      	"4DB16CE20130"
-			width      	270
-			height     	126
+			compartment 	(object Compartment
+			    Parent_View 	@5
+			    location   	(33, 203)
+			    icon_style 	"Icon"
+			    fill_color 	16777215
+			    anchor     	2
+			    nlines     	2
+			    max_width  	412)
+			width      	432
+			height     	186
 			annotation 	8
 			autoResize 	TRUE)
 		    (object ClassView "Class" "Logical View::LCD_Display" @6
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
-			location   	(208, 544)
+			location   	(256, 544)
 			label      	(object ItemLabel
 			    Parent_View 	@6
-			    location   	(73, 493)
+			    location   	(11, 413)
 			    fill_color 	13434879
 			    nlines     	1
-			    max_width  	270
+			    max_width  	490
 			    justify    	0
 			    label      	"LCD_Display")
 			icon_style 	"Icon"
 			line_color 	3342489
 			fill_color 	13434879
 			quidu      	"4DB16CEF0207"
-			width      	288
-			height     	126
+			compartment 	(object Compartment
+			    Parent_View 	@6
+			    location   	(11, 473)
+			    icon_style 	"Icon"
+			    fill_color 	16777215
+			    anchor     	2
+			    nlines     	4
+			    max_width  	487)
+			width      	508
+			height     	286
 			annotation 	8
 			autoResize 	TRUE)
 		    (object ClassView "Class" "Logical View::PID_Controller" @7
@@ -238,21 +323,29 @@
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
-			location   	(1392, 224)
+			location   	(1392, 288)
 			label      	(object ItemLabel
 			    Parent_View 	@8
-			    location   	(1285, 173)
+			    location   	(1080, 7)
 			    fill_color 	13434879
 			    nlines     	1
-			    max_width  	214
+			    max_width  	624
 			    justify    	0
 			    label      	"Calibrator")
 			icon_style 	"Icon"
 			line_color 	3342489
 			fill_color 	13434879
 			quidu      	"4DB16D8E004F"
-			width      	232
-			height     	126
+			compartment 	(object Compartment
+			    Parent_View 	@8
+			    location   	(1080, 67)
+			    icon_style 	"Icon"
+			    fill_color 	16777215
+			    anchor     	2
+			    nlines     	10
+			    max_width  	622)
+			width      	642
+			height     	586
 			annotation 	8
 			autoResize 	TRUE)))))
     root_subsystem 	(object SubSystem "Component View"
