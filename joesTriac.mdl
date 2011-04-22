@@ -63,6 +63,12 @@
 		language   	"C++")
 	    (object Class "Ammeter"
 		quid       	"4DB16C900360"
+		operations 	(list Operations
+		    (object Operation "getAmpADCValue"
+			quid       	"4DB173A3039F"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
+			uid        	0))
 		language   	"C++")
 	    (object Class "TriacTriggerTimer"
 		quid       	"4DB16CA30130"
@@ -137,7 +143,39 @@
 			quid       	"4DB1711B0093")
 		    (object ClassAttribute "int currentAmpADCVal"
 			quid       	"4DB1712C01CB"))
-		language   	"C++"))
+		language   	"C++")
+	    (object Mechanism @1
+		logical_models 	(list unit_reference_list
+		    (object Object "$UNNAMED$0"
+			quid       	"4DB1733C0211"
+			class      	"Logical View::ATMega_AVR"
+			quidu      	"4DB16C7C0040"
+			persistence 	"Transient"
+			multi      	FALSE)
+		    (object Object "$UNNAMED$1"
+			quid       	"4DB1738300EA"
+			class      	"Logical View::Ammeter"
+			quidu      	"4DB16C900360"
+			persistence 	"Transient"
+			multi      	FALSE)
+		    (object Object "$UNNAMED$2"
+			quid       	"4DB173DD01C1"
+			class      	"Logical View::Calibrator"
+			quidu      	"4DB16D8E004F"
+			persistence 	"Transient"
+			multi      	FALSE)
+		    (object Object "$UNNAMED$3"
+			quid       	"4DB173F902BE"
+			class      	"Logical View::LCD_Display"
+			quidu      	"4DB16CEF0207"
+			persistence 	"Transient"
+			multi      	FALSE)
+		    (object Object "$UNNAMED$4"
+			quid       	"4DB17424011B"
+			class      	"Logical View::NumKeypad"
+			quidu      	"4DB16CE20130"
+			persistence 	"Transient"
+			multi      	FALSE))))
 	logical_presentations 	(list unit_reference_list
 	    (object ClassDiagram "Main"
 		quid       	"4DB16C740220"
@@ -148,13 +186,13 @@
 		origin_x   	0
 		origin_y   	0
 		items      	(list diagram_item_list
-		    (object ClassView "Class" "Logical View::ATMega_AVR" @1
+		    (object ClassView "Class" "Logical View::ATMega_AVR" @2
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
 			location   	(784, 496)
 			label      	(object ItemLabel
-			    Parent_View 	@1
+			    Parent_View 	@2
 			    location   	(642, 415)
 			    fill_color 	13434879
 			    nlines     	1
@@ -166,45 +204,53 @@
 			fill_color 	13434879
 			quidu      	"4DB16C7C0040"
 			compartment 	(object Compartment
-			    Parent_View 	@1
+			    Parent_View 	@2
 			    location   	(642, 475)
 			    icon_style 	"Icon"
 			    fill_color 	16777215
 			    anchor     	2
 			    nlines     	2
-			    max_width  	162)
+			    max_width  	171)
 			width      	302
 			height     	186
 			annotation 	8
 			autoResize 	TRUE)
-		    (object ClassView "Class" "Logical View::Ammeter" @2
+		    (object ClassView "Class" "Logical View::Ammeter" @3
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
 			location   	(2224, 368)
 			label      	(object ItemLabel
-			    Parent_View 	@2
-			    location   	(2117, 317)
+			    Parent_View 	@3
+			    location   	(2024, 287)
 			    fill_color 	13434879
 			    nlines     	1
-			    max_width  	214
+			    max_width  	400
 			    justify    	0
 			    label      	"Ammeter")
 			icon_style 	"Icon"
 			line_color 	3342489
 			fill_color 	13434879
 			quidu      	"4DB16C900360"
-			width      	232
-			height     	126
+			compartment 	(object Compartment
+			    Parent_View 	@3
+			    location   	(2024, 347)
+			    icon_style 	"Icon"
+			    fill_color 	16777215
+			    anchor     	2
+			    nlines     	2
+			    max_width  	397)
+			width      	418
+			height     	186
 			annotation 	8
 			autoResize 	TRUE)
-		    (object ClassView "Class" "Logical View::TriacTriggerTimer" @3
+		    (object ClassView "Class" "Logical View::TriacTriggerTimer" @4
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
 			location   	(1664, 656)
 			label      	(object ItemLabel
-			    Parent_View 	@3
+			    Parent_View 	@4
 			    location   	(1496, 605)
 			    fill_color 	13434879
 			    nlines     	1
@@ -219,13 +265,13 @@
 			height     	126
 			annotation 	8
 			autoResize 	TRUE)
-		    (object ClassView "Class" "Logical View::TriacDurationTimer" @4
+		    (object ClassView "Class" "Logical View::TriacDurationTimer" @5
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
 			location   	(1696, 928)
 			label      	(object ItemLabel
-			    Parent_View 	@4
+			    Parent_View 	@5
 			    location   	(1503, 877)
 			    fill_color 	13434879
 			    nlines     	1
@@ -240,13 +286,13 @@
 			height     	126
 			annotation 	8
 			autoResize 	TRUE)
-		    (object ClassView "Class" "Logical View::NumKeypad" @5
+		    (object ClassView "Class" "Logical View::NumKeypad" @6
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
 			location   	(240, 224)
 			label      	(object ItemLabel
-			    Parent_View 	@5
+			    Parent_View 	@6
 			    location   	(33, 143)
 			    fill_color 	13434879
 			    nlines     	1
@@ -258,24 +304,24 @@
 			fill_color 	13434879
 			quidu      	"4DB16CE20130"
 			compartment 	(object Compartment
-			    Parent_View 	@5
+			    Parent_View 	@6
 			    location   	(33, 203)
 			    icon_style 	"Icon"
 			    fill_color 	16777215
 			    anchor     	2
 			    nlines     	2
-			    max_width  	412)
+			    max_width  	425)
 			width      	432
 			height     	186
 			annotation 	8
 			autoResize 	TRUE)
-		    (object ClassView "Class" "Logical View::LCD_Display" @6
+		    (object ClassView "Class" "Logical View::LCD_Display" @7
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
 			location   	(256, 544)
 			label      	(object ItemLabel
-			    Parent_View 	@6
+			    Parent_View 	@7
 			    location   	(11, 413)
 			    fill_color 	13434879
 			    nlines     	1
@@ -287,24 +333,24 @@
 			fill_color 	13434879
 			quidu      	"4DB16CEF0207"
 			compartment 	(object Compartment
-			    Parent_View 	@6
+			    Parent_View 	@7
 			    location   	(11, 473)
 			    icon_style 	"Icon"
 			    fill_color 	16777215
 			    anchor     	2
 			    nlines     	4
-			    max_width  	487)
+			    max_width  	500)
 			width      	508
 			height     	286
 			annotation 	8
 			autoResize 	TRUE)
-		    (object ClassView "Class" "Logical View::PID_Controller" @7
+		    (object ClassView "Class" "Logical View::PID_Controller" @8
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
 			location   	(656, 912)
 			label      	(object ItemLabel
-			    Parent_View 	@7
+			    Parent_View 	@8
 			    location   	(510, 861)
 			    fill_color 	13434879
 			    nlines     	1
@@ -319,13 +365,13 @@
 			height     	126
 			annotation 	8
 			autoResize 	TRUE)
-		    (object ClassView "Class" "Logical View::Calibrator" @8
+		    (object ClassView "Class" "Logical View::Calibrator" @9
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
 			location   	(1392, 288)
 			label      	(object ItemLabel
-			    Parent_View 	@8
+			    Parent_View 	@9
 			    location   	(1080, 7)
 			    fill_color 	13434879
 			    nlines     	1
@@ -337,17 +383,137 @@
 			fill_color 	13434879
 			quidu      	"4DB16D8E004F"
 			compartment 	(object Compartment
-			    Parent_View 	@8
+			    Parent_View 	@9
 			    location   	(1080, 67)
 			    icon_style 	"Icon"
 			    fill_color 	16777215
 			    anchor     	2
 			    nlines     	10
-			    max_width  	622)
+			    max_width  	637)
 			width      	642
 			height     	586
 			annotation 	8
-			autoResize 	TRUE)))))
+			autoResize 	TRUE)))
+	    (object InteractionDiagram "Startup"
+		mechanism_ref 	@1
+		quid       	"4DB172E1033E"
+		title      	"Startup"
+		zoom       	100
+		max_height 	28350
+		max_width  	21600
+		origin_x   	0
+		origin_y   	0
+		items      	(list diagram_item_list
+		    (object InterObjView "$UNNAMED$0" @10
+			location   	(512, 224)
+			font       	(object Font
+			    underline  	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@10
+			    location   	(512, 224)
+			    fill_color 	13434879
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	813
+			    justify    	0
+			    label      	"")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"4DB1733C0211"
+			width      	831
+			height     	120
+			icon_height 	0
+			icon_width 	0
+			annotation 	1)
+		    (object InterObjView "$UNNAMED$1" @11
+			location   	(3072, 224)
+			font       	(object Font
+			    underline  	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@11
+			    location   	(3072, 224)
+			    fill_color 	13434879
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	282
+			    justify    	0
+			    label      	"")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"4DB1738300EA"
+			width      	300
+			height     	120
+			icon_height 	0
+			icon_width 	0
+			annotation 	1)
+		    (object InterObjView "$UNNAMED$4" @12
+			location   	(2208, 224)
+			font       	(object Font
+			    underline  	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@12
+			    location   	(2208, 224)
+			    fill_color 	13434879
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	282
+			    justify    	0
+			    label      	"")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"4DB17424011B"
+			width      	300
+			height     	120
+			icon_height 	0
+			icon_width 	0
+			annotation 	1)
+		    (object InterObjView "$UNNAMED$3" @13
+			location   	(1680, 224)
+			font       	(object Font
+			    underline  	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@13
+			    location   	(1680, 224)
+			    fill_color 	13434879
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	282
+			    justify    	0
+			    label      	"")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"4DB173F902BE"
+			width      	300
+			height     	120
+			icon_height 	0
+			icon_width 	0
+			annotation 	1)
+		    (object InterObjView "$UNNAMED$2" @14
+			location   	(1200, 224)
+			font       	(object Font
+			    underline  	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@14
+			    location   	(1200, 224)
+			    fill_color 	13434879
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	282
+			    justify    	0
+			    label      	"")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"4DB173DD01C1"
+			width      	300
+			height     	120
+			icon_height 	0
+			icon_width 	0
+			annotation 	1)))))
     root_subsystem 	(object SubSystem "Component View"
 	quid       	"4DB16C74016A"
 	physical_models 	(list unit_reference_list)
