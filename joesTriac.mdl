@@ -59,6 +59,16 @@
 			quid       	"4DB170370332"
 			concurrency 	"Sequential"
 			opExportControl 	"Public"
+			uid        	0)
+		    (object Operation "timeOutAskCalibration"
+			quid       	"4DB1768000C0"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
+			uid        	0)
+		    (object Operation "calibFinish"
+			quid       	"4DB17A3800F7"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
 			uid        	0))
 		language   	"C++")
 	    (object Class "Ammeter"
@@ -133,6 +143,11 @@
 			quid       	"4DB171F801D0"
 			concurrency 	"Sequential"
 			opExportControl 	"Public"
+			uid        	0)
+		    (object Operation "stopCalibTimer"
+			quid       	"4DB17B8D0213"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
 			uid        	0))
 		class_attributes 	(list class_attribute_list
 		    (object ClassAttribute "int LowCalibADCVal(Persistent)"
@@ -148,24 +163,189 @@
 		logical_models 	(list unit_reference_list
 		    (object Object "$UNNAMED$0"
 			quid       	"4DB1733C0211"
+			collaborators 	(list link_list
+			    (object Link
+				quid       	"4DB1757A01B7"
+				supplier   	"$UNNAMED$0"
+				quidu      	"4DB1733C0211"
+				messages   	(list Messages
+				    (object Message "main( )"
+					quid       	"4DB1757A01D9"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"FromClientToSupplier"
+					sequence   	""
+					ordinal    	0
+					quidu      	"4DB170370332")))
+			    (object Link
+				quid       	"4DB175B80278"
+				supplier   	"$UNNAMED$1"
+				quidu      	"4DB173F902BE"
+				messages   	(list Messages
+				    (object Message "promptcalibration( )"
+					quid       	"4DB175B80279"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"FromClientToSupplier"
+					sequence   	""
+					ordinal    	1
+					quidu      	"4DB17063019B")
+				    (object Message "timeOutAskCalibration( )"
+					quid       	"4DB176380195"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"ToClientFromSupplier"
+					sequence   	""
+					ordinal    	11
+					quidu      	"4DB1768000C0"))))
 			class      	"Logical View::ATMega_AVR"
 			quidu      	"4DB16C7C0040"
 			persistence 	"Transient"
 			multi      	FALSE)
-		    (object Object "$UNNAMED$1"
+		    (object Object "$UNNAMED$2"
 			quid       	"4DB1738300EA"
 			class      	"Logical View::Ammeter"
 			quidu      	"4DB16C900360"
 			persistence 	"Transient"
 			multi      	FALSE)
-		    (object Object "$UNNAMED$2"
+		    (object Object "$UNNAMED$3"
 			quid       	"4DB173DD01C1"
+			collaborators 	(list link_list
+			    (object Link
+				quid       	"4DB177260165"
+				supplier   	"$UNNAMED$4"
+				quidu      	"4DB17424011B"
+				messages   	(list Messages
+				    (object Message "deletethis"
+					quid       	"4DB177260166"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"FromClientToSupplier"
+					sequence   	""
+					ordinal    	13)
+				    (object Message "storeCalibValLow( )"
+					quid       	"4DB17973000B"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"ToClientFromSupplier"
+					sequence   	""
+					ordinal    	5
+					quidu      	"4DB171E80289")
+				    (object Message "storeCalibValHigh( )"
+					quid       	"4DB179DB01E0"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"ToClientFromSupplier"
+					sequence   	""
+					ordinal    	8
+					quidu      	"4DB171F0009B")
+				    (object Message "calibrate( )"
+					quid       	"4DB17B78008F"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"ToClientFromSupplier"
+					sequence   	""
+					ordinal    	2
+					quidu      	"4DB1704A002B")))
+			    (object Link
+				quid       	"4DB179920282"
+				supplier   	"$UNNAMED$3"
+				quidu      	"4DB173DD01C1"
+				messages   	(list Messages
+				    (object Message "storeCalibValLow( )"
+					quid       	"4DB179920283"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"FromClientToSupplier"
+					sequence   	""
+					ordinal    	12
+					quidu      	"4DB171E80289")
+				    (object Message "stopCalibTimer( )"
+					quid       	"4DB17B820126"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"FromClientToSupplier"
+					sequence   	""
+					ordinal    	3
+					quidu      	"4DB17B8D0213")))
+			    (object Link
+				quid       	"4DB17A2D01E2"
+				supplier   	"$UNNAMED$0"
+				quidu      	"4DB1733C0211"
+				messages   	(list Messages
+				    (object Message "calibFinish( )"
+					quid       	"4DB17A2D01E3"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"FromClientToSupplier"
+					sequence   	""
+					ordinal    	10
+					quidu      	"4DB17A3800F7")))
+			    (object Link
+				quid       	"4DB17C7E029C"
+				supplier   	"$UNNAMED$2"
+				quidu      	"4DB1738300EA"
+				messages   	(list Messages
+				    (object Message "getAmpADCValue( )"
+					quid       	"4DB17C7E029D"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"FromClientToSupplier"
+					sequence   	""
+					ordinal    	6
+					quidu      	"4DB173A3039F")
+				    (object Message "getAmpADCValue( )"
+					quid       	"4DB17C9801E9"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"FromClientToSupplier"
+					sequence   	""
+					ordinal    	9
+					quidu      	"4DB173A3039F"))))
 			class      	"Logical View::Calibrator"
 			quidu      	"4DB16D8E004F"
 			persistence 	"Transient"
 			multi      	FALSE)
-		    (object Object "$UNNAMED$3"
+		    (object Object "$UNNAMED$1"
 			quid       	"4DB173F902BE"
+			collaborators 	(list link_list
+			    (object Link
+				quid       	"4DB175F902C5"
+				supplier   	"$UNNAMED$3"
+				quidu      	"4DB173DD01C1"
+				messages   	(list Messages
+				    (object Message "calibrate( )"
+					quid       	"4DB175F902C6"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"FromClientToSupplier"
+					sequence   	""
+					ordinal    	14
+					quidu      	"4DB1704A002B")
+				    (object Message "promptLowcalibValSet( )"
+					quid       	"4DB17958030C"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"ToClientFromSupplier"
+					sequence   	""
+					ordinal    	15
+					quidu      	"4DB170A002C3")
+				    (object Message "promptHighCalibValSet( )"
+					quid       	"4DB179A200EC"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"ToClientFromSupplier"
+					sequence   	""
+					ordinal    	7
+					quidu      	"4DB170B901A4")
+				    (object Message "promptLowcalibValSet( )"
+					quid       	"4DB17C5302B4"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"ToClientFromSupplier"
+					sequence   	""
+					ordinal    	4
+					quidu      	"4DB170A002C3"))))
 			class      	"Logical View::LCD_Display"
 			quidu      	"4DB16CEF0207"
 			persistence 	"Transient"
@@ -193,10 +373,10 @@
 			location   	(784, 496)
 			label      	(object ItemLabel
 			    Parent_View 	@2
-			    location   	(642, 415)
+			    location   	(544, 365)
 			    fill_color 	13434879
 			    nlines     	1
-			    max_width  	284
+			    max_width  	480
 			    justify    	0
 			    label      	"ATMega_AVR")
 			icon_style 	"Icon"
@@ -205,14 +385,14 @@
 			quidu      	"4DB16C7C0040"
 			compartment 	(object Compartment
 			    Parent_View 	@2
-			    location   	(642, 475)
+			    location   	(544, 425)
 			    icon_style 	"Icon"
 			    fill_color 	16777215
 			    anchor     	2
-			    nlines     	2
-			    max_width  	171)
-			width      	302
-			height     	186
+			    nlines     	4
+			    max_width  	478)
+			width      	498
+			height     	286
 			annotation 	8
 			autoResize 	TRUE)
 		    (object ClassView "Class" "Logical View::Ammeter" @3
@@ -239,7 +419,7 @@
 			    fill_color 	16777215
 			    anchor     	2
 			    nlines     	2
-			    max_width  	397)
+			    max_width  	409)
 			width      	418
 			height     	186
 			annotation 	8
@@ -369,10 +549,10 @@
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
-			location   	(1392, 288)
+			location   	(1392, 320)
 			label      	(object ItemLabel
 			    Parent_View 	@9
-			    location   	(1080, 7)
+			    location   	(1080, 14)
 			    fill_color 	13434879
 			    nlines     	1
 			    max_width  	624
@@ -384,22 +564,22 @@
 			quidu      	"4DB16D8E004F"
 			compartment 	(object Compartment
 			    Parent_View 	@9
-			    location   	(1080, 67)
+			    location   	(1080, 74)
 			    icon_style 	"Icon"
 			    fill_color 	16777215
 			    anchor     	2
-			    nlines     	10
-			    max_width  	637)
+			    nlines     	11
+			    max_width  	622)
 			width      	642
-			height     	586
+			height     	636
 			annotation 	8
 			autoResize 	TRUE)))
-	    (object InteractionDiagram "Startup"
+	    (object InteractionDiagram "StartupCalibration"
 		mechanism_ref 	@1
 		quid       	"4DB172E1033E"
-		title      	"Startup"
+		title      	"StartupCalibration"
 		zoom       	100
-		max_height 	28350
+		max_height 	28752
 		max_width  	21600
 		origin_x   	0
 		origin_y   	0
@@ -422,16 +602,37 @@
 			fill_color 	13434879
 			quidu      	"4DB1733C0211"
 			width      	831
-			height     	120
+			height     	28957
 			icon_height 	0
 			icon_width 	0
-			annotation 	1)
-		    (object InterObjView "$UNNAMED$1" @11
+			annotation 	1
+			Focus_Of_Control 	(object Focus_Of_Control "" @11
+			    location   	(512, 400)
+			    line_color 	3342489
+			    InterObjView 	@10
+			    height     	312
+			    y_coord    	252
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @12
+			    location   	(512, 1920)
+			    line_color 	3342489
+			    InterObjView 	@10
+			    height     	60
+			    y_coord    	0
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @13
+			    location   	(512, 2112)
+			    line_color 	3342489
+			    InterObjView 	@10
+			    height     	60
+			    y_coord    	0
+			    Nested     	FALSE))
+		    (object InterObjView "$UNNAMED$2" @14
 			location   	(3072, 224)
 			font       	(object Font
 			    underline  	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@11
+			    Parent_View 	@14
 			    location   	(3072, 224)
 			    fill_color 	13434879
 			    anchor_loc 	1
@@ -444,17 +645,31 @@
 			fill_color 	13434879
 			quidu      	"4DB1738300EA"
 			width      	300
-			height     	120
+			height     	28957
 			icon_height 	0
 			icon_width 	0
-			annotation 	1)
-		    (object InterObjView "$UNNAMED$4" @12
-			location   	(2208, 224)
+			annotation 	1
+			Focus_Of_Control 	(object Focus_Of_Control "" @15
+			    location   	(3072, 1328)
+			    line_color 	3342489
+			    InterObjView 	@14
+			    height     	60
+			    y_coord    	0
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @16
+			    location   	(3072, 1776)
+			    line_color 	3342489
+			    InterObjView 	@14
+			    height     	60
+			    y_coord    	0
+			    Nested     	FALSE))
+		    (object InterObjView "$UNNAMED$4" @17
+			location   	(2160, 224)
 			font       	(object Font
 			    underline  	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@12
-			    location   	(2208, 224)
+			    Parent_View 	@17
+			    location   	(2160, 224)
 			    fill_color 	13434879
 			    anchor_loc 	1
 			    nlines     	2
@@ -466,17 +681,45 @@
 			fill_color 	13434879
 			quidu      	"4DB17424011B"
 			width      	300
-			height     	120
+			height     	28957
 			icon_height 	0
 			icon_width 	0
-			annotation 	1)
-		    (object InterObjView "$UNNAMED$3" @13
-			location   	(1680, 224)
+			annotation 	1
+			Focus_Of_Control 	(object Focus_Of_Control "" @18
+			    location   	(2160, 704)
+			    line_color 	3342489
+			    InterObjView 	@17
+			    height     	260
+			    y_coord    	200
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @19
+			    location   	(2160, 1024)
+			    line_color 	3342489
+			    InterObjView 	@17
+			    height     	484
+			    y_coord    	424
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @20
+			    location   	(2160, 1680)
+			    line_color 	3342489
+			    InterObjView 	@17
+			    height     	276
+			    y_coord    	216
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @21
+			    location   	(2160, 28704)
+			    line_color 	3342489
+			    InterObjView 	@17
+			    height     	60
+			    y_coord    	0
+			    Nested     	FALSE))
+		    (object InterObjView "$UNNAMED$1" @22
+			location   	(1824, 224)
 			font       	(object Font
 			    underline  	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@13
-			    location   	(1680, 224)
+			    Parent_View 	@22
+			    location   	(1824, 224)
 			    fill_color 	13434879
 			    anchor_loc 	1
 			    nlines     	2
@@ -488,16 +731,58 @@
 			fill_color 	13434879
 			quidu      	"4DB173F902BE"
 			width      	300
-			height     	120
+			height     	28957
 			icon_height 	0
 			icon_width 	0
-			annotation 	1)
-		    (object InterObjView "$UNNAMED$2" @14
+			annotation 	1
+			Focus_Of_Control 	(object Focus_Of_Control "" @23
+			    location   	(1824, 592)
+			    line_color 	3342489
+			    InterObjView 	@22
+			    height     	60
+			    y_coord    	0
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @24
+			    location   	(1824, 1056)
+			    line_color 	3342489
+			    InterObjView 	@22
+			    height     	60
+			    y_coord    	0
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @25
+			    location   	(1824, 1456)
+			    line_color 	3342489
+			    InterObjView 	@22
+			    height     	60
+			    y_coord    	0
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @26
+			    location   	(1824, 2112)
+			    line_color 	3342489
+			    InterObjView 	@22
+			    height     	120
+			    y_coord    	60
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @27
+			    location   	(1824, 28816)
+			    line_color 	3342489
+			    InterObjView 	@22
+			    height     	276
+			    y_coord    	216
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @28
+			    location   	(1824, 28912)
+			    line_color 	3342489
+			    InterObjView 	@22
+			    height     	60
+			    y_coord    	0
+			    Nested     	TRUE))
+		    (object InterObjView "$UNNAMED$3" @29
 			location   	(1200, 224)
 			font       	(object Font
 			    underline  	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@14
+			    Parent_View 	@29
 			    location   	(1200, 224)
 			    fill_color 	13434879
 			    anchor_loc 	1
@@ -510,10 +795,439 @@
 			fill_color 	13434879
 			quidu      	"4DB173DD01C1"
 			width      	300
-			height     	120
+			height     	28957
 			icon_height 	0
 			icon_width 	0
-			annotation 	1)))))
+			annotation 	1
+			Focus_Of_Control 	(object Focus_Of_Control "" @30
+			    location   	(1200, 704)
+			    line_color 	3342489
+			    InterObjView 	@29
+			    height     	200
+			    y_coord    	140
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @31
+			    location   	(1200, 1056)
+			    line_color 	3342489
+			    InterObjView 	@29
+			    height     	120
+			    y_coord    	60
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @32
+			    location   	(1200, 1248)
+			    line_color 	3342489
+			    InterObjView 	@29
+			    height     	200
+			    y_coord    	140
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @33
+			    location   	(1200, 1456)
+			    line_color 	3342489
+			    InterObjView 	@29
+			    height     	120
+			    y_coord    	60
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @34
+			    location   	(1200, 1680)
+			    line_color 	3342489
+			    InterObjView 	@29
+			    height     	216
+			    y_coord    	156
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @35
+			    location   	(1200, 1920)
+			    line_color 	3342489
+			    InterObjView 	@29
+			    height     	120
+			    y_coord    	60
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @36
+			    location   	(1200, 24272)
+			    line_color 	3342489
+			    InterObjView 	@29
+			    height     	120
+			    y_coord    	60
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @37
+			    location   	(1200, 28704)
+			    line_color 	3342489
+			    InterObjView 	@29
+			    height     	120
+			    y_coord    	60
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @38
+			    location   	(1200, 28816)
+			    line_color 	3342489
+			    InterObjView 	@29
+			    height     	216
+			    y_coord    	156
+			    Nested     	FALSE))
+		    (object SelfMessView "" @39
+			location   	(0, 432)
+			label      	(object SegLabel @40
+			    Parent_View 	@39
+			    location   	(603, 388)
+			    quidu      	"4DB1757A01D9"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	125
+			    justify    	0
+			    label      	"main( )"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	0)
+			line_color 	3342489
+			client     	@10
+			supplier   	@10
+			Focus_Src  	@11
+			origin     	(528, 432)
+			terminus   	(678, 432)
+			ordinal    	0)
+		    (object InterMessView "" @41
+			location   	(0, 592)
+			label      	(object SegLabel @42
+			    Parent_View 	@41
+			    location   	(1168, 548)
+			    quidu      	"4DB175B80279"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	350
+			    justify    	0
+			    label      	"promptcalibration( )"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	0)
+			line_color 	3342489
+			client     	@10
+			supplier   	@22
+			Focus_Src  	@11
+			Focus_Entry 	@23
+			origin     	(528, 592)
+			terminus   	(1808, 592)
+			ordinal    	1)
+		    (object InterMessView "" @43
+			location   	(0, 28816)
+			label      	(object SegLabel @44
+			    Parent_View 	@43
+			    location   	(1512, 28772)
+			    quidu      	"4DB175F902C6"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	194
+			    justify    	0
+			    label      	"calibrate( )"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	1)
+			line_color 	3342489
+			client     	@22
+			supplier   	@29
+			Focus_Src  	@27
+			Focus_Entry 	@38
+			origin     	(1808, 28816)
+			terminus   	(1216, 28816)
+			ordinal    	14)
+		    (object InterMessView "" @45
+			location   	(0, 2112)
+			label      	(object SegLabel @46
+			    Parent_View 	@45
+			    location   	(1168, 2068)
+			    quidu      	"4DB176380195"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	447
+			    justify    	0
+			    label      	"timeOutAskCalibration( )"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	1)
+			line_color 	3342489
+			client     	@22
+			supplier   	@10
+			Focus_Src  	@26
+			Focus_Entry 	@13
+			origin     	(1808, 2112)
+			terminus   	(528, 2112)
+			ordinal    	11)
+		    (object NoteView @47
+			location   	(1184, 2352)
+			label      	(object ItemLabel
+			    Parent_View 	@47
+			    location   	(609, 2149)
+			    fill_color 	13434879
+			    nlines     	8
+			    max_width  	1115
+			    label      	
+|Eventually Timeout or else calibrate()
+|
+|during calibration user restarts controller to abort calibration
+			    )
+			line_color 	3342489
+			fill_color 	13434879
+			width      	1175
+			height     	418)
+		    (object InterMessView "" @48
+			location   	(0, 28704)
+			label      	(object SegLabel @49
+			    Parent_View 	@48
+			    location   	(1680, 28660)
+			    quidu      	"4DB177260166"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	175
+			    justify    	0
+			    label      	"deletethis"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	0)
+			line_color 	3342489
+			client     	@29
+			supplier   	@17
+			Focus_Src  	@37
+			Focus_Entry 	@21
+			origin     	(1216, 28704)
+			terminus   	(2144, 28704)
+			ordinal    	13)
+		    (object InterMessView "" @50
+			location   	(0, 28912)
+			label      	(object SegLabel @51
+			    Parent_View 	@50
+			    location   	(1512, 28868)
+			    quidu      	"4DB17958030C"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	441
+			    justify    	0
+			    label      	"promptLowcalibValSet( )"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	0)
+			line_color 	3342489
+			client     	@29
+			supplier   	@22
+			Focus_Src  	@38
+			Focus_Entry 	@28
+			origin     	(1216, 28912)
+			terminus   	(1808, 28912)
+			ordinal    	15)
+		    (object InterMessView "" @52
+			location   	(0, 1248)
+			label      	(object SegLabel @53
+			    Parent_View 	@52
+			    location   	(1680, 1204)
+			    quidu      	"4DB17973000B"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	350
+			    justify    	0
+			    label      	"storeCalibValLow( )"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	1)
+			line_color 	3342489
+			client     	@17
+			supplier   	@29
+			Focus_Src  	@19
+			Focus_Entry 	@32
+			origin     	(2144, 1248)
+			terminus   	(1216, 1248)
+			ordinal    	5)
+		    (object SelfMessView "" @54
+			location   	(0, 24272)
+			label      	(object SegLabel @55
+			    Parent_View 	@54
+			    location   	(1291, 24228)
+			    quidu      	"4DB179920283"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	350
+			    justify    	0
+			    label      	"storeCalibValLow( )"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	0)
+			line_color 	3342489
+			client     	@29
+			supplier   	@29
+			Focus_Src  	@36
+			origin     	(1216, 24272)
+			terminus   	(1366, 24272)
+			ordinal    	12)
+		    (object InterMessView "" @56
+			location   	(0, 1456)
+			label      	(object SegLabel @57
+			    Parent_View 	@56
+			    location   	(1512, 1412)
+			    quidu      	"4DB179A200EC"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	456
+			    justify    	0
+			    label      	"promptHighCalibValSet( )"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	0)
+			line_color 	3342489
+			client     	@29
+			supplier   	@22
+			Focus_Src  	@33
+			Focus_Entry 	@25
+			origin     	(1216, 1456)
+			terminus   	(1808, 1456)
+			ordinal    	7)
+		    (object InterMessView "" @58
+			location   	(0, 1680)
+			label      	(object SegLabel @59
+			    Parent_View 	@58
+			    location   	(1680, 1636)
+			    quidu      	"4DB179DB01E0"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	359
+			    justify    	0
+			    label      	"storeCalibValHigh( )"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	1)
+			line_color 	3342489
+			client     	@17
+			supplier   	@29
+			Focus_Src  	@20
+			Focus_Entry 	@34
+			origin     	(2144, 1680)
+			terminus   	(1216, 1680)
+			ordinal    	8)
+		    (object InterMessView "" @60
+			location   	(0, 1920)
+			label      	(object SegLabel @61
+			    Parent_View 	@60
+			    location   	(856, 1876)
+			    quidu      	"4DB17A2D01E3"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	231
+			    justify    	0
+			    label      	"calibFinish( )"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	1)
+			line_color 	3342489
+			client     	@29
+			supplier   	@10
+			Focus_Src  	@35
+			Focus_Entry 	@12
+			origin     	(1184, 1920)
+			terminus   	(528, 1920)
+			ordinal    	10)
+		    (object InterMessView "" @62
+			location   	(0, 704)
+			label      	(object SegLabel @63
+			    Parent_View 	@62
+			    location   	(1680, 660)
+			    quidu      	"4DB17B78008F"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	194
+			    justify    	0
+			    label      	"calibrate( )"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	1)
+			line_color 	3342489
+			client     	@17
+			supplier   	@29
+			Focus_Src  	@18
+			Focus_Entry 	@30
+			origin     	(2144, 704)
+			terminus   	(1216, 704)
+			ordinal    	2)
+		    (object SelfMessView "" @64
+			location   	(0, 784)
+			label      	(object SegLabel @65
+			    Parent_View 	@64
+			    location   	(1291, 740)
+			    quidu      	"4DB17B820126"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	309
+			    justify    	0
+			    label      	"stopCalibTimer( )"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	0)
+			line_color 	3342489
+			client     	@29
+			supplier   	@29
+			Focus_Src  	@30
+			origin     	(1216, 784)
+			terminus   	(1366, 784)
+			ordinal    	3)
+		    (object InterMessView "" @66
+			location   	(0, 1056)
+			label      	(object SegLabel @67
+			    Parent_View 	@66
+			    location   	(1512, 1012)
+			    quidu      	"4DB17C5302B4"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	441
+			    justify    	0
+			    label      	"promptLowcalibValSet( )"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	0)
+			line_color 	3342489
+			client     	@29
+			supplier   	@22
+			Focus_Src  	@31
+			Focus_Entry 	@24
+			origin     	(1216, 1056)
+			terminus   	(1808, 1056)
+			ordinal    	4)
+		    (object InterMessView "" @68
+			location   	(0, 1328)
+			label      	(object SegLabel @69
+			    Parent_View 	@68
+			    location   	(2439, 1268)
+			    quidu      	"4DB17C7E029D"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	363
+			    justify    	0
+			    label      	"getAmpADCValue( )"
+			    pctDist    	0.664674
+			    height     	60
+			    orientation 	0)
+			line_color 	3342489
+			client     	@29
+			supplier   	@14
+			Focus_Src  	@32
+			Focus_Entry 	@15
+			origin     	(1216, 1328)
+			terminus   	(3056, 1328)
+			ordinal    	6)
+		    (object InterMessView "" @70
+			location   	(0, 1776)
+			label      	(object SegLabel @71
+			    Parent_View 	@70
+			    location   	(2505, 1734)
+			    quidu      	"4DB17C9801E9"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	363
+			    justify    	0
+			    label      	"getAmpADCValue( )"
+			    pctDist    	0.700543
+			    height     	42
+			    orientation 	0)
+			line_color 	3342489
+			client     	@29
+			supplier   	@14
+			Focus_Src  	@34
+			Focus_Entry 	@16
+			origin     	(1216, 1776)
+			terminus   	(3056, 1776)
+			ordinal    	9)))))
     root_subsystem 	(object SubSystem "Component View"
 	quid       	"4DB16C74016A"
 	physical_models 	(list unit_reference_list)
