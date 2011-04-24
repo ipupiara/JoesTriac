@@ -17,6 +17,4 @@ void createPID();
 int m_started;
 real m_kp, m_ki, m_kd, m_h, m_inv_h, m_prev_error, m_error_thresh, m_integral;
 
-
-
 #endif
