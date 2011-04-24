@@ -21,6 +21,9 @@
  */
 
 #include <avr/io.h>
+
+ #define F_CPU 1000000UL  // 1 MHz
+    //#define F_CPU 14.7456E6
 #include <util/delay.h>
 
 #include "st7565r.h"

@@ -7,7 +7,7 @@ void createPID()
 	m_kd = 0;
 }
 
-Initialize(real kp, real ki, real kd, real error_thresh, real step_time)
+void InitializePID(real kp, real ki, real kd, real error_thresh, real step_time)
 {
     // Initialize controller parameters
     m_kp = kp;

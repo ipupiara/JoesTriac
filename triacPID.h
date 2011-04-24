@@ -8,7 +8,7 @@
 typedef double real;
 
 
-void Initialize(real kp, real ki, real kd, real error_thresh, real step_time);
+void InitializePID(real kp, real ki, real kd, real error_thresh, real step_time);
 
 real Update(real error);
 
