@@ -5,8 +5,13 @@
 
 
 
+int16_t triacTriggerDelayus;
 
 
+void setTriacTriggerDelay(int16_t usecs)
+{
+	triacTriggerDelayus = usecs;
+}
 
 
 ISR(PCINT0_vect)
@@ -35,24 +40,16 @@ void stopExtInt()
 	EIMSK = 0x00;
 }
 
-void startCalibrationTimer()
+
+
+void startDurationTimer(int16_t secs)
 {
-	calibTimerReachead = 0;
-	
-	
+	durationTimerReachead = 0;
 }
 
-void stopCalibrationTimer()
-{
-	
-}
 
-void startTriacDurationTimer()
-{
-	
-}
 
-void stopTriacDurationTimer()
+void stopDurationTimer()
 {
 	
 }

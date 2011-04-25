@@ -8,17 +8,17 @@
 #include <util/atomic.h>
 	
 	
-	int calibTimerReachead;
+	int durationTimerReachead;
 
 
 
-void startCalibrationTimer();
-void stopCalibrationTimer();
 
-void startTriacDurationTimer();
-void stopTriacDurationTimer();
+void startDurationTimer(int16_t secs);
+void stopDurationTimer();
+
 
 void initExtInterrupts();
+void setTriacTriggerDelay(int16_t usecs);
 void startExtInt();
 void stopExtInt();
 

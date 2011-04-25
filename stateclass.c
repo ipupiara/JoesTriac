@@ -35,6 +35,28 @@ enum eStates
 	eNumberOfStates
 };
 
+void startCalibrationTimer()
+{
+	
+	
+	
+}
+
+void stopCalibrationTimer()
+{
+	
+}
+
+void startTriacDurationTimer()
+{
+	
+}
+
+void stopTriacDurationTimer()
+{
+	
+}
+
 
 void entryGBKHState(void)
 {

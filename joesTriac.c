@@ -37,7 +37,7 @@ int main(void)
 	initExtInterrupts();
 	createPID();
 	displayCalibrationPrompt();
-	startCalibrationTimer();
+	//startCalibrationTimer();
 	
 	startStateCharts();
 
@@ -50,7 +50,7 @@ int main(void)
 	while ((!charPressed()) && (!calibTimerReachead))  {	
 	}
 	if (!calibTimerReachead)  {
-		stopCalibrationTimer();
+		//stopCalibrationTimer();
 		calibrate();
 	}
     while(1)
