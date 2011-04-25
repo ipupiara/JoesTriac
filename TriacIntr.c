@@ -2,11 +2,7 @@
 #include <avr/io.h>
 #include "TriacIntr.h"
 
-
-
-
 int16_t triacTriggerDelayus;
-
 
 void setTriacTriggerDelay(int16_t usecs)
 {
