@@ -34,7 +34,7 @@ int main(void)
 	
 	
 	lcd_init();
-	initExtInterrupts();
+	initInterrupts();
 	createPID();
 	displayCalibrationPrompt();
 	//startCalibrationTimer();
@@ -47,12 +47,12 @@ int main(void)
 	res= processGrowBoxEvent(&SHumidityStateChart, &ev);
 	
 	
-	while ((!charPressed()) && (!calibTimerReachead))  {	
+/*	while ((!charPressed()) && (!calibTimerReachead))  {	
 	}
 	if (!calibTimerReachead)  {
 		//stopCalibrationTimer();
 		calibrate();
-	}
+	}*/
     while(1)
     {
         //TODO:: Please write your application code 
