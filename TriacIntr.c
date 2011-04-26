@@ -18,6 +18,11 @@ ISR(PCINT0_vect)
       
 }   
 
+ISR(TIMER1_COMPA_vect)
+{
+	
+}
+
 
 void initInterrupts()
 {
