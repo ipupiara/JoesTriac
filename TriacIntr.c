@@ -1,5 +1,9 @@
 
 #include <avr/io.h>
+
+//#include "uart.h"
+
+
 #include "TriacIntr.h"
 
 int16_t triacTriggerDelayus;
@@ -8,7 +12,6 @@ void setTriacTriggerDelay(int16_t usecs)
 {
 	triacTriggerDelayus = usecs;
 }
-
 
 ISR(PCINT0_vect)
 {
@@ -70,3 +73,8 @@ void stopDurationTimer()
 	TIMSK1 = 0x00;
 	
 }
+
+
+
+
+
