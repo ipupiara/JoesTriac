@@ -10,6 +10,8 @@
 	
 	int durationTimerReachead;
 	int runningSecondsTimer;
+	
+	int16_t ampsADCValue();
 
 
 

@@ -100,7 +100,7 @@ int main(void)
 			processTriacEvent(&SJoesTriacStateChart,&ev);
 			
 		}  */
-		if (ky = keyEntered()){
+		if ((ky = keyEntered())){
 			
 		}
 		

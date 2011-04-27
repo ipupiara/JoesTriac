@@ -8,6 +8,8 @@
 
 int16_t triacTriggerDelaydms;   // deci-millis-secs, not exactly but approximate, PID will handle the rest
 
+int16_t lastAmpsADCVal;
+
 void startTriacTriggerDelay()
 {
 	OCR2A = triacTriggerDelaydms;
@@ -33,9 +35,18 @@ ISR(TIMER2_COMPA_vect)
 	
 }
 
+ISR(ADC_vect)
+{
+	lastAmpsADCVal = ADC;
+}
+
 ISR(PCINT0_vect)
 {
-      
+	if (PD2 == 0) {
+		ADCSRA |= 0b01000000 ;
+        //   ADCSRA = 0b11001111;  // start one single AD conversion
+	} else {
+	}			  
 }   
 
 ISR(TIMER1_COMPA_vect)
@@ -97,6 +108,12 @@ void initInterrupts()
 		TIMSK2  = 0x00; // disa  Interrupt 
 //		TIMSK2   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
 
+//     init ADC
+		
+		ADMUX = 0b01000000;      // AVCC as ref,  right adjust, mux to adc0
+		ADCSRA = 0b10001111;  // ADC ena, not yet start (single start mode), no Autotrigger, iflag = 0, inz ena, prescale /128
+		ADCSRB = 0x00;  // no ACME, no free running mode
+
 }
 
 void startExtInt()
@@ -110,7 +127,14 @@ void stopExtInt()
 	EIMSK = 0x00;
 }
 
-
+int16_t ampsADCValue()
+{
+	int16_t res;
+	cli();
+	res = lastAmpsADCVal;
+	sei();
+	return res;
+}
 
 void startDurationTimer(int16_t secs)
 {
