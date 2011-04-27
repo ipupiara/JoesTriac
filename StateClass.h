@@ -13,18 +13,14 @@
 //#include "stdtype.h"
 #include "TStatechart.h"
 
-#define HumidifyingUpperLimit  92.0
-#define HumidifyingLowerLimit   98.5
-#define DryingUpperLimit   93.0 
-#define DryingLowerLimit  94.5
-
 
 enum eEventTypes
 {
-	eReset,
-	eValueAssignement,
-	eVentilationStartTimer,
-	eVentilationStopTimer
+	eKeyPressed,
+	eKeyReleased,
+	eTimeOutDurationTimer,
+	eStartPressed,
+	eStopPressed
 };
 
 
@@ -32,11 +28,8 @@ enum eEventTypes
 
 typedef struct  {
 	int evType;
-	float temperature;
-	float humidity;
-	
-//	const CGrowBoxEvent& operator=(const CGrowBoxEvent& src);
-} CGrowBoxEvent ;
+	int8_t keyCode;
+} CJoesTriacEvent ;
 
 
 
@@ -47,7 +40,7 @@ void startStateCharts();
 void stopStateCharts();
 
 
-bool processGrowBoxEvent(TStatechart* t,CGrowBoxEvent* ev);
+bool processJoesTriacEvent(TStatechart* t,CGrowBoxEvent* ev);
 
 
 

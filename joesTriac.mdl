@@ -121,7 +121,7 @@
 			    statemachine 	(object State_Machine "State/Activity Model2"
 				quid       	"4DB5742200C9"
 				states     	(list States
-				    (object State "Init/AskForCalibrate"
+				    (object State "AskForCalibration"
 					quid       	"4DB5742200CB"
 					statemachine 	(object State_Machine "State/Activity Model7"
 					    quid       	"4DB7539302EE"
@@ -214,9 +214,9 @@
 			    label      	""
 			    supplier   	"Logical View::ATMega_AVR::State/Activity Model::JoesTriac::State/Activity Model2::TriacIdle"
 			    supplier_quidu 	"4DB57445017B"
-			    client     	"Logical View::ATMega_AVR::State/Activity Model::JoesTriac::State/Activity Model2::Init/AskForCalibrate"
+			    client     	"Logical View::ATMega_AVR::State/Activity Model::JoesTriac::State/Activity Model2::AskForCalibration"
 			    client_quidu 	"4DB5742200CB"
-			    Event      	(object Event "timeOutAskCalibration"
+			    Event      	(object Event "timeOutAskCalibration (durationTimer)"
 				quid       	"4DB5751803E2")
 			    sendEvent  	(object sendEvent
 				quid       	"4DB5751803E4"))
@@ -225,7 +225,7 @@
 			    label      	""
 			    supplier   	"Logical View::ATMega_AVR::State/Activity Model::JoesTriac::State/Activity Model2::Calibrating"
 			    supplier_quidu 	"4DB5749E0070"
-			    client     	"Logical View::ATMega_AVR::State/Activity Model::JoesTriac::State/Activity Model2::Init/AskForCalibrate"
+			    client     	"Logical View::ATMega_AVR::State/Activity Model::JoesTriac::State/Activity Model2::AskForCalibration"
 			    client_quidu 	"4DB5742200CB"
 			    Event      	(object Event "keypressed"
 				quid       	"4DB5753C002F")
@@ -249,7 +249,7 @@
 			    supplier_quidu 	"4DB57445017B"
 			    client     	"Logical View::ATMega_AVR::State/Activity Model::JoesTriac::State/Activity Model2::TriacRunning"
 			    client_quidu 	"4DB5746301E7"
-			    Event      	(object Event "abortPressed"
+			    Event      	(object Event "stopPressed"
 				quid       	"4DB5756D0270")
 			    sendEvent  	(object sendEvent
 				quid       	"4DB5756D0272"))
@@ -260,7 +260,7 @@
 			    supplier_quidu 	"4DB57445017B"
 			    client     	"Logical View::ATMega_AVR::State/Activity Model::JoesTriac::State/Activity Model2::TriacRunning"
 			    client_quidu 	"4DB5746301E7"
-			    Event      	(object Event "timeOver"
+			    Event      	(object Event "timeOver (DurationTimer)"
 				quid       	"4DB5759202C1")
 			    sendEvent  	(object sendEvent
 				quid       	"4DB5759202C3"))
@@ -277,7 +277,7 @@
 				quid       	"4DB575BD031B"))
 			(object State_Transition
 			    quid       	"4DB575DC0076"
-			    supplier   	"Logical View::ATMega_AVR::State/Activity Model::JoesTriac::State/Activity Model2::Init/AskForCalibrate"
+			    supplier   	"Logical View::ATMega_AVR::State/Activity Model::JoesTriac::State/Activity Model2::AskForCalibration"
 			    supplier_quidu 	"4DB5742200CB"
 			    client     	"Logical View::ATMega_AVR::State/Activity Model::JoesTriac::State/Activity Model2::Calibrating"
 			    client_quidu 	"4DB5749E0070"
@@ -285,7 +285,7 @@
 				quid       	"4DB575DC0079"))
 			(object State_Transition
 			    quid       	"4DB5763900AC"
-			    supplier   	"Logical View::ATMega_AVR::State/Activity Model::JoesTriac::State/Activity Model2::Init/AskForCalibrate"
+			    supplier   	"Logical View::ATMega_AVR::State/Activity Model::JoesTriac::State/Activity Model2::AskForCalibration"
 			    supplier_quidu 	"4DB5742200CB"
 			    client     	"$UNNAMED$0"
 			    client_quidu 	"4DB576340076"
@@ -456,7 +456,7 @@
 			    max_height 	28350
 			    max_width  	21600
 			    origin_x   	0
-			    origin_y   	274
+			    origin_y   	78
 			    items      	(list diagram_item_list
 				(object StateView "Normal" "JoesTriac" @1
 				    location   	(2304, 1472)
@@ -485,7 +485,7 @@
 				    width      	3886
 				    height     	2372
 				    autoResize 	TRUE)
-				(object StateView "Normal" "Init/AskForCalibrate" @2
+				(object StateView "Normal" "AskForCalibration" @2
 				    Parent_View 	@1
 				    location   	(864, 592)
 				    font       	(object Font
@@ -505,12 +505,12 @@
 					nlines     	2
 					max_width  	438
 					justify    	0
-					label      	"Init/AskForCalibrate")
+					label      	"AskForCalibration")
 				    icon_style 	"Label"
 				    line_color 	3342489
 				    fill_color 	13434879
 				    quidu      	"4DB5742200CB"
-				    width      	535
+				    width      	534
 				    height     	268
 				    autoResize 	TRUE)
 				(object StateView "Normal" "TriacIdle" @3
@@ -609,7 +609,7 @@
 					default_color 	TRUE)
 				    label      	(object SegLabel @7
 					Parent_View 	@6
-					location   	(1538, 635)
+					location   	(1521, 616)
 					font       	(object Font
 					    size       	10
 					    face       	"Arial"
@@ -621,11 +621,11 @@
 					    default_color 	TRUE)
 					anchor_loc 	1
 					nlines     	1
-					max_width  	450
+					max_width  	720
 					justify    	0
-					label      	"timeOutAskCalibration"
-					pctDist    	0.500000
-					height     	45
+					label      	"timeOutAskCalibration (durationTimer)"
+					pctDist    	0.476896
+					height     	62
 					orientation 	0)
 				    stereotype 	TRUE
 				    line_color 	3342489
@@ -832,7 +832,7 @@
 					default_color 	TRUE)
 				    label      	(object SegLabel @18
 					Parent_View 	@17
-					location   	(762, 1778)
+					location   	(753, 1867)
 					font       	(object Font
 					    size       	10
 					    face       	"Arial"
@@ -849,7 +849,7 @@
 					label      	"keyPressed"
 					pctDist    	0.500000
 					height     	45
-					orientation 	0)
+					orientation 	1)
 				    stereotype 	TRUE
 				    line_color 	3342489
 				    quidu      	"4DB62AF7007E"
@@ -914,7 +914,7 @@
 					default_color 	TRUE)
 				    label      	(object SegLabel @22
 					Parent_View 	@21
-					location   	(3747, 1685)
+					location   	(3916, 1474)
 					font       	(object Font
 					    size       	10
 					    face       	"Arial"
@@ -926,12 +926,12 @@
 					    default_color 	TRUE)
 					anchor_loc 	1
 					nlines     	1
-					max_width  	450
+					max_width  	242
 					justify    	0
-					label      	"abortPressed"
+					label      	"stopPressed"
 					pctDist    	0.527689
 					height     	136
-					orientation 	0)
+					orientation 	1)
 				    stereotype 	TRUE
 				    line_color 	3342489
 				    quidu      	"4DB5756D026F"
@@ -955,7 +955,7 @@
 					default_color 	TRUE)
 				    label      	(object SegLabel @24
 					Parent_View 	@23
-					location   	(2575, 1622)
+					location   	(2900, 912)
 					font       	(object Font
 					    size       	10
 					    face       	"Arial"
@@ -969,10 +969,10 @@
 					nlines     	1
 					max_width  	450
 					justify    	0
-					label      	"timeOver"
-					pctDist    	0.429977
-					height     	122
-					orientation 	1)
+					label      	"timeOver (DurationTimer)"
+					pctDist    	1.578127
+					height     	14
+					orientation 	0)
 				    stereotype 	TRUE
 				    line_color 	3342489
 				    quidu      	"4DB5759202C0"
