@@ -67,7 +67,7 @@ void calibrate()
 
 int main(void)
 {
-	CGrowBoxEvent ev;
+	CJoesTriacEvent ev;
 	bool res;
 	
 	
@@ -79,11 +79,11 @@ int main(void)
 	
 	startStateCharts();
 
-	ev.evType = eValueAssignement;
+/*	ev.evType = eValueAssignement;
 	ev.humidity = 85.0;
 
 	res= processGrowBoxEvent(&SHumidityStateChart, &ev);
-	
+	*/
 	
 /*	while ((!charPressed()) && (!calibTimerReachead))  {	
 	}

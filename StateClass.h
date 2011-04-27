@@ -40,7 +40,7 @@ void startStateCharts();
 void stopStateCharts();
 
 
-bool processJoesTriacEvent(TStatechart* t,CGrowBoxEvent* ev);
+bool processTriacEvent(TStatechart* t,CJoesTriacEvent* ev);
 
 
 
