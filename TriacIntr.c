@@ -10,15 +10,15 @@ int16_t triacTriggerDelaydms;   // deci-millis-secs, not exactly but approximate
 
 void startTriacTriggerDelay()
 {
-	OCR0A = triacTriggerDelaydms;
-	TIMSK0   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
-	TCCR0B = 0b00000101  ; // CTC on CC0A , set clk / 24, timer started
+	OCR2A = triacTriggerDelaydms;
+	TIMSK2   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
+	TCCR2B = 0b00000111  ; // CTC on CC2A , set clk / 1024, timer started
 }
 
 void stopTriacTriggerDelay()
 {
-	  TCCR0B = 0b00000000  ;  // CTC, timer stopped
-	  TIMSK0  = 0x00;
+	  TCCR2B = 0b00000000  ;  // CTC, timer stopped
+	  TIMSK2  = 0x00;
 }	  
 
 void setTriacTriggerDelay(int16_t dmsecs)
@@ -28,7 +28,7 @@ void setTriacTriggerDelay(int16_t dmsecs)
 	sei();
 }
 
-ISR(TIMER0_COMPA_vect)
+ISR(TIMER2_COMPA_vect)
 {
 	
 }
@@ -52,7 +52,7 @@ void initInterrupts()
       EIMSK = 0x00;   
       // sei();  
 	  
-	  // Timer 2 as Duration Timer
+	  // Timer 1 as Duration Timer
 	  
 			runningSecondsTimer = 0;
 	  
@@ -69,19 +69,33 @@ void initInterrupts()
 		TIMSK1  = 0x00; // disa  Interrupt 
 //		TIMSK1   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
 
-	  // Timer 0 as Triac Trigger Delay Timer
+	  // Timer 0 as ADC clock 
 	  
 	      TCCR0A = 0b00000010;  //  CTC 
 		  
-		//TCCR0B = 0b00000101  ; // CTC on CC0A , set clk / 24, timer started
+		TCCR0B = 0b00000101  ; // CTC on CC0A , set clk / 1024, timer started
 	  
-		  TCCR0B = 0b00000000  ;  // CTC, timer stopped
 	  
 		  OCR0A = 0xAA;  // counter top value  , just anything for start, will later be set by PID
 	      TCNT0 = 0x00 ;  
 	  
 		TIMSK0  = 0x00; // disa  Interrupt 
-//		TIMSK0   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
+
+
+	  // Timer 2 as Triac Trigger Delay Timer
+	  
+	      TCCR2A = 0b00000010;  //  CTC 
+		  
+		//TCCR2B = 0b00000111  ; // CTC on CC0A , set clk / 1024, timer started
+	  
+		  TCCR2B = 0b00000000  ;  // CTC, timer stopped
+		  ASSR = 0x00;
+	  
+		  OCR2A = 0xAA;  // counter top value  , just anything for start, will later be set by PID
+	      TCNT2 = 0x00 ;  
+	  
+		TIMSK2  = 0x00; // disa  Interrupt 
+//		TIMSK2   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
 
 }
 
