@@ -24,6 +24,6 @@ void storeCalibLow(uint16_t cl);
 
 void storeCalibHigh(uint16_t ch);
 
-
+void calcNextTriacDelay();
 
 #endif

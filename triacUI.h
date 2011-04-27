@@ -3,11 +3,12 @@
 
 #include <inttypes.h>
 
+void displayRunningValues();
+
 void displayCalibrationPrompt();
 
 uint8_t lastChar;
 
-uint8_t charPressed();
 
 
 #endif

@@ -71,3 +71,8 @@ void storeCalibHigh(uint16_t ch)
 	eeprom_write_word((uint16_t*)calibHighEEPROMpos,ch);
 	calibHigh = ch;
 }
+
+void calcNextTriacDelay()
+{
+	
+}

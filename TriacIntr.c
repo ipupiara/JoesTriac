@@ -54,6 +54,8 @@ void initInterrupts()
 	  
 	  // Timer 2 as Duration Timer
 	  
+			runningSecondsTimer = 0;
+	  
 	      TCCR1A = 0x00;  // normal mode or CTC dep.on TCCR1B
 		//TCCR1B = 0b00001101  ; // CTC on CC1A , set clk / 1024, timer started
 	  

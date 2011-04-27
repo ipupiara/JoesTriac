@@ -9,6 +9,7 @@
 	
 	
 	int durationTimerReachead;
+	int runningSecondsTimer;
 
 
 

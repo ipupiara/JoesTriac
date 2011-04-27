@@ -54,47 +54,55 @@ static int uart_putchar(char c, FILE *stream)
 extern const uStInt u32HandlingDone;
 
 
-extern TStatechart SHumidityStateChart;
+extern TStatechart SJoesTriacStateChart;
 
 
 
 
-void calibrate()
+void secondTimer()
 {
-	
+	calcNextTriacDelay();
+	displayRunningValues();
 }
 
 
 int main(void)
 {
 	CJoesTriacEvent ev;
-	bool res;
+	int8_t ky;
 	
 	
 	lcd_init();
 	initInterrupts();
 	createPID();
-	displayCalibrationPrompt();
-	//startCalibrationTimer();
 	
 	startStateCharts();
-
-/*	ev.evType = eValueAssignement;
-	ev.humidity = 85.0;
-
-	res= processGrowBoxEvent(&SHumidityStateChart, &ev);
-	*/
 	
-/*	while ((!charPressed()) && (!calibTimerReachead))  {	
-	}
-	if (!calibTimerReachead)  {
-		//stopCalibrationTimer();
-		calibrate();
-	}*/
-    while(1)
-    {
-        //TODO:: Please write your application code 
-		
+	
+	while (1)
+	{
+		if (runningSecondsTimer){
+			cli();
+			runningSecondsTimer = 0;
+			sei();
+			secondTimer();
+		}
+		if (durationTimerReachead) {
+			cli();
+			durationTimerReachead = 0;
+			sei();
+			ev.evType = eTimeOutDurationTimer;
+			processTriacEvent(&SJoesTriacStateChart,&ev);
+			
+		}
+/*		if (keyPressed()){
+			ev.evType = eKeyPressed;
+			processTriacEvent(&SJoesTriacStateChart,&ev);
+			
+		}  */
+		if (ky = keyEntered()){
+			
+		}
 		
 		
 		

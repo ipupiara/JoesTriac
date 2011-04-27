@@ -1,14 +1,14 @@
 
 #include "triacUI.h"
 
+void displayRunningValues()
+{
+	
+}
+
 
 void displayCalibrationPrompt()
 {
 	
 }
 
-
-uint8_t charPressed()
-{
-	return 0;
-}
