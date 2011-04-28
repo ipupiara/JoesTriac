@@ -227,7 +227,7 @@
 			    supplier_quidu 	"4DB5749E0070"
 			    client     	"Logical View::ATMega_AVR::State/Activity Model::JoesTriac::State/Activity Model2::AskForCalibration"
 			    client_quidu 	"4DB5742200CB"
-			    Event      	(object Event "keypressed"
+			    Event      	(object Event "function1Pressed"
 				quid       	"4DB5753C002F")
 			    sendEvent  	(object sendEvent
 				quid       	"4DB5753C0031"))
@@ -271,7 +271,7 @@
 			    supplier_quidu 	"4DB57445017B"
 			    client     	"Logical View::ATMega_AVR::State/Activity Model::JoesTriac::State/Activity Model2::Calibrating::State/Activity Model3::calibrateHigh"
 			    client_quidu 	"4DB62AD403C8"
-			    Event      	(object Event "keypressed"
+			    Event      	(object Event "function1pressed"
 				quid       	"4DB575BD0319")
 			    sendEvent  	(object sendEvent
 				quid       	"4DB575BD031B"))
@@ -333,7 +333,7 @@
 			    supplier_quidu 	"4DB62AD403C8"
 			    client     	"Logical View::ATMega_AVR::State/Activity Model::JoesTriac::State/Activity Model2::Calibrating::State/Activity Model3::calibrateLow"
 			    client_quidu 	"4DB62AB60195"
-			    Event      	(object Event "keyPressed"
+			    Event      	(object Event "function1Pressed"
 				quid       	"4DB62AF7007F")
 			    sendEvent  	(object sendEvent
 				quid       	"4DB62AF70081"))
@@ -661,9 +661,9 @@
 					    default_color 	TRUE)
 					anchor_loc 	1
 					nlines     	1
-					max_width  	450
+					max_width  	311
 					justify    	0
-					label      	"keypressed"
+					label      	"function1Pressed"
 					pctDist    	0.474102
 					height     	133
 					orientation 	0)
@@ -844,9 +844,9 @@
 					    default_color 	TRUE)
 					anchor_loc 	1
 					nlines     	1
-					max_width  	450
+					max_width  	326
 					justify    	0
-					label      	"keyPressed"
+					label      	"function1Pressed"
 					pctDist    	0.500000
 					height     	45
 					orientation 	1)
@@ -885,9 +885,9 @@
 					    default_color 	TRUE)
 					anchor_loc 	1
 					nlines     	1
-					max_width  	209
+					max_width  	320
 					justify    	0
-					label      	"keypressed"
+					label      	"function1pressed"
 					pctDist    	0.592141
 					height     	117
 					orientation 	0)
