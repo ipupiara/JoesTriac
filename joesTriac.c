@@ -76,22 +76,22 @@ int main(void)
 	initKeyPad();
 	initInterrupts();
 	createPID();
+	initUI();
 	
 	startStateCharts();
-	
 	
 	while (1)
 	{
 		if (runningSecondsTimer){
-			cli();
+	//		cli();    // 8-bit access is already atomic
 			runningSecondsTimer = 0;
-			sei();
+	//		sei();
 			secondTimer();
 		}
 		if (durationTimerReachead) {
-			cli();
+	//		cli();   // 8-bit access is alread atomic
 			durationTimerReachead = 0;
-			sei();
+	//		sei();
 			ev.evType = eTimeOutDurationTimer;
 			processTriacEvent(&SJoesTriacStateChart,&ev);
 			
@@ -102,7 +102,17 @@ int main(void)
 			
 		}  */
 		if ((ky = keyEntered())){
-			
+			if (ky == kpFunction1) ev.evType = eFunction1Pressed;
+//			if (ky == kpFunction2) ev.evType = eFunction2Pressed;   // not yet in use
+			if (ky == kpStart) ev.evType = eStartPressed;
+			if (ky == kpStop) ev.evType = eStopPressed;
+			if (ky == kpRed) ev.evType = eRedPressed;
+			if (ky == kpWhite) ev.evType = eWhitePressed;
+			if (ky >= kp0){
+				ev.evType = eCharEntered;
+				ev.keyCode = ky;			
+			}	
+			processTriacEvent(&SJoesTriacStateChart,&ev);	
 		}
 		
 		

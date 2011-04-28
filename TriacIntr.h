@@ -8,8 +8,8 @@
 #include <util/atomic.h>
 	
 	
-	int durationTimerReachead;
-	int runningSecondsTimer;
+	int8_t durationTimerReachead;
+	int8_t runningSecondsTimer;
 	
 	int16_t ampsADCValue();
 

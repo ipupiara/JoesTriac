@@ -59,10 +59,9 @@ ISR(TIMER1_COMPA_vect)
 void initInterrupts()
 {
 	// Ext. Interrupt
-	  cli();
+	//  cli();
 	  EICRA = 0x01;   // both, fall/rise edge trigger    
       EIMSK = 0x00;   
-      // sei();  
 	  
 	  // Timer 1 as Duration Timer
 	  
@@ -91,8 +90,7 @@ void initInterrupts()
 		  OCR0A = 0xAA;  // counter top value  , just anything for start, will later be set by PID
 	      TCNT0 = 0x00 ;  
 	  
-		TIMSK0  = 0x00; // disa  Interrupt 
-
+		TIMSK0  = 0b00000010;  // disa  ena, just let run ADC
 
 	  // Timer 2 as Triac Trigger Delay Timer
 	  
@@ -115,6 +113,7 @@ void initInterrupts()
 		ADCSRA = 0b10001111;  // ADC ena, not yet start (single start mode), no Autotrigger, iflag = 0, inz ena, prescale /128
 		ADCSRB = 0x00;  // no ACME, no free running mode
 
+		sei();  // start interrupts if not yet started
 }
 
 void startExtInt()

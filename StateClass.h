@@ -16,14 +16,15 @@
 
 enum eEventTypes
 {
-	eKeyPressed,
-	eKeyReleased,
+	eCharEntered,
+	eFunction1Pressed,
+	eFunction2Pressed,
+	eRedPressed,
+	eWhitePressed,
 	eTimeOutDurationTimer,
 	eStartPressed,
 	eStopPressed
 };
-
-
 
 
 typedef struct  {

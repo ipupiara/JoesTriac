@@ -955,7 +955,7 @@
 					default_color 	TRUE)
 				    label      	(object SegLabel @24
 					Parent_View 	@23
-					location   	(2900, 912)
+					location   	(2275, 1569)
 					font       	(object Font
 					    size       	10
 					    face       	"Arial"
@@ -970,8 +970,8 @@
 					max_width  	450
 					justify    	0
 					label      	"timeOver (DurationTimer)"
-					pctDist    	1.578127
-					height     	14
+					pctDist    	0.494340
+					height     	240
 					orientation 	0)
 				    stereotype 	TRUE
 				    line_color 	3342489
