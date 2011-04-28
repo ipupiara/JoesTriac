@@ -55,6 +55,7 @@ ISR(TIMER1_COMPA_vect)
 }
 
 
+
 void initInterrupts()
 {
 	// Ext. Interrupt

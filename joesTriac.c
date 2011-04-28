@@ -73,6 +73,7 @@ int main(void)
 	
 	
 	lcd_init();
+	initKeyPad();
 	initInterrupts();
 	createPID();
 	

@@ -7,12 +7,13 @@
 #include <stdint.h>
 
 enum  kpKey {
-	kpStart,
+	kpStart = 1,
 	kpStop,
-	kpFunction,
+	kpFunction1,
+	kpFunction2,   // not yet in use
 	kpRed,
 	kpWhite,
-	kp0,
+	kp0 = 0x30 ,
 	kp1,
 	kp2,
 	kp3,
@@ -27,6 +28,8 @@ enum  kpKey {
 //int8_t keyPressed();
 
 int8_t keyEntered();
+
+void initKeyPad();
 
 
 

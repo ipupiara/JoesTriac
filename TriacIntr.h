@@ -14,8 +14,6 @@
 	int16_t ampsADCValue();
 
 
-
-
 void startDurationTimer(int16_t secs);
 void stopDurationTimer();
 
