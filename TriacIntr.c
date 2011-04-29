@@ -6,13 +6,12 @@
 
 #include "TriacIntr.h"
 
-int16_t triacTriggerDelaydms;   // deci-millis-secs, not exactly but approximate, PID will handle the rest
 
 int16_t lastAmpsADCVal;
 
 void startTriacTriggerDelay()
 {
-	OCR2A = triacTriggerDelaydms;
+	OCR2A = triacTriggerDelayCms;
 	TIMSK2   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
 	TCCR2B = 0b00000111  ; // CTC on CC2A , set clk / 1024, timer started
 }
@@ -23,10 +22,10 @@ void stopTriacTriggerDelay()
 	  TIMSK2  = 0x00;
 }	  
 
-void setTriacTriggerDelay(int16_t dmsecs)
+void setTriacTriggerDelay(int16_t cmsecs)
 {
 	cli();
-	triacTriggerDelaydms = dmsecs;
+	triacTriggerDelayCms = cmsecs;
 	sei();
 }
 

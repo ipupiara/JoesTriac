@@ -75,7 +75,8 @@ int main(void)
 	lcd_init();
 	initKeyPad();
 	initInterrupts();
-	createPID();
+//	InitializePID(real kp, real ki, real kd, real error_thresh, real step_time);   
+	InitializePID(-0.01, 0.3, 0.3, 0.3, 1);
 	initUI();
 	
 	startStateCharts();

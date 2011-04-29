@@ -3,11 +3,17 @@
 #include <avr/eeprom.h>
 #include "triacPID.h"
 #include "TriacDefines.h"
+#include "TriacIntr.h"
 
-void createPID()
+float gradAmps;
+
+void updateGradAmps()
 {
-	m_kd = 0;
+	if ( fabs(calibHighAdc - calibLowAdc) > 1) {  
+		gradAmps = (calibHighAmps - calibLowAmps) / (calibHighAdc - calibLowAdc);
+	} else gradAmps = 0;	
 }
+
 
 void InitializePID(real kp, real ki, real kd, real error_thresh, real step_time)
 {
@@ -25,9 +31,11 @@ void InitializePID(real kp, real ki, real kd, real error_thresh, real step_time)
     m_integral = 0;
     m_started = 0;
 	
-	
-	calibHigh = eeprom_read_word((uint16_t*)calibHighEEPROMpos);
-	calibLow = eeprom_read_word((uint16_t*)calibLowEEPROMpos);
+	calibHighCms = eeprom_read_word((uint16_t*)calibHighCmsEEPROMpos);
+	calibLowCms = eeprom_read_word((uint16_t*)calibLowCmsEEPROMpos);
+	calibHighAdc = eeprom_read_word((uint16_t*)calibHighAdcEEPROMpos);
+	calibLowAdc = eeprom_read_word((uint16_t*)calibLowAdcEEPROMpos);
+	 updateGradAmps();
 }
 
 real Update(real error)
@@ -60,19 +68,48 @@ real Update(real error)
 }
 
 
-void storeCalibLow(uint16_t cl)
+void storeCalibLowCms(uint16_t cl)
 {
-	eeprom_write_word((uint16_t*)calibLowEEPROMpos,cl);
-	calibLow = cl;
+	eeprom_write_word((uint16_t*)calibLowCmsEEPROMpos,cl);
+	calibLowCms = cl;
 }
 
-void storeCalibHigh(uint16_t ch)
+void storeCalibHighCms(uint16_t ch)
 {
-	eeprom_write_word((uint16_t*)calibHighEEPROMpos,ch);
-	calibHigh = ch;
+	eeprom_write_word((uint16_t*)calibHighCmsEEPROMpos,ch);
+	calibHighCms = ch;
+}
+
+float currentAmps()
+{
+	int16_t adcAmps, res;
+	adcAmps = ampsADCValue();
+	res = calibLowAmps + (gradAmps * (adcAmps - calibLowAdc  ));
+	return res;
 }
 
 void calcNextTriacDelay()
-{
+{  
+	float err;
+	float corr, newDelay;
+	err = currentAmps()  - desiredAmps ;
+	corr = Update(err);
+	newDelay = triacTriggerDelayCms - corr;
+	setTriacTriggerDelay(newDelay);
 	
+}
+
+
+void storeCalibLowAdc(uint16_t cl)
+{
+	eeprom_write_word((uint16_t*)calibLowAdcEEPROMpos,cl);
+	calibLowAdc = cl;	 
+	updateGradAmps();
+}
+
+void storeCalibHighAdc(uint16_t ch)
+{
+	eeprom_write_word((uint16_t*)calibHighAdcEEPROMpos,ch);
+	calibHighAdc = ch;
+	updateGradAmps();
 }

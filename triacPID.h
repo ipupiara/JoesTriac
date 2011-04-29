@@ -4,25 +4,33 @@
 
 #include<stdint.h>
 #include <math.h>
+#include "triacUI.h"
 
 // Select 'double' or 'float' here:
 typedef double real;
+
+#define calibLowAmps  20
+#define calibHighAmps  60
 
 
 void InitializePID(real kp, real ki, real kd, real error_thresh, real step_time);
 
 real Update(real error);
 
-void createPID();
-
 int m_started;
 real m_kp, m_ki, m_kd, m_h, m_inv_h, m_prev_error, m_error_thresh, m_integral;
 
-uint16_t calibLow, calibHigh;
+uint16_t calibLowCms, calibHighCms;
 
-void storeCalibLow(uint16_t cl);
+uint16_t calibLowAdc, calibHighAdc;
 
-void storeCalibHigh(uint16_t ch);
+void storeCalibLowCms(uint16_t cl);
+
+void storeCalibHighCms(uint16_t ch);
+
+void storeCalibLowAdc(uint16_t cl);
+
+void storeCalibHighAdc(uint16_t ch);
 
 void calcNextTriacDelay();
 

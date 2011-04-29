@@ -26,22 +26,35 @@ void displayCalibrationPrompt()
 	
 }
 
+void calcDesiredAmps()
+{
+	desiredAmps = ((amps100 - 0x30) * 100 ) + ((amps10 -0x30) *10) + (amps - 0x30);
+}
+
+void calcDesiredTime()
+{
+	
+}
+
 void storeAmps100(int8_t val)
 {
 	eeprom_write_byte((uint8_t*)amps100EEPROMpos,val);
 	amps100 = val;
+	calcDesiredAmps();
 }
 
 void storeAmps10(int8_t val)
 {
 	eeprom_write_byte((uint8_t*)amps10EEPROMpos,val);
 	amps10 = val;	
+	calcDesiredAmps();
 }
 
 void storeAmps(int8_t val)
 {
 	eeprom_write_byte((uint8_t*)ampsEEPROMpos,val);
 	amps = val;	
+	calcDesiredAmps();
 }
 
 void storeMin10(int8_t val)

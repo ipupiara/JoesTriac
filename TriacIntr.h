@@ -12,6 +12,7 @@
 	int8_t runningSecondsTimer;
 	
 	int16_t ampsADCValue();
+int16_t triacTriggerDelayCms;   // centi-millis-secs, not exactly but approximate, PID will handle the rest
 
 
 void startDurationTimer(int16_t secs);
