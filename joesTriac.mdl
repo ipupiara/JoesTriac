@@ -113,6 +113,9 @@
 			concurrency 	"Sequential"
 			opExportControl 	"Public"
 			uid        	0))
+		class_attributes 	(list class_attribute_list
+		    (object ClassAttribute "ADConverter"
+			quid       	"4DBB482C0365"))
 		statemachine 	(object State_Machine "State/Activity Model"
 		    quid       	"4DB557390341"
 		    states     	(list States
@@ -1856,7 +1859,7 @@
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
-			location   	(784, 496)
+			location   	(976, 464)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1868,10 +1871,10 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@51
-			    location   	(541, 365)
+			    location   	(732, 308)
 			    fill_color 	13434879
 			    nlines     	1
-			    max_width  	486
+			    max_width  	488
 			    justify    	0
 			    label      	"ATMega_AVR")
 			icon_style 	"Icon"
@@ -1880,7 +1883,7 @@
 			quidu      	"4DB16C7C0040"
 			compartment 	(object Compartment
 			    Parent_View 	@51
-			    location   	(541, 426)
+			    location   	(732, 369)
 			    font       	(object Font
 				size       	10
 				face       	"Arial"
@@ -1893,18 +1896,18 @@
 			    icon_style 	"Icon"
 			    fill_color 	16777215
 			    anchor     	2
-			    nlines     	4
-			    max_width  	490
+			    nlines     	5
+			    max_width  	485
 			    justify    	1)
-			width      	504
-			height     	286
+			width      	506
+			height     	336
 			annotation 	8
 			autoResize 	TRUE)
 		    (object ClassView "Class" "Logical View::Ammeter" @52
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
-			location   	(2224, 368)
+			location   	(2704, 368)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1916,7 +1919,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@52
-			    location   	(2024, 287)
+			    location   	(2504, 287)
 			    fill_color 	13434879
 			    nlines     	1
 			    max_width  	400
@@ -1928,7 +1931,7 @@
 			quidu      	"4DB16C900360"
 			compartment 	(object Compartment
 			    Parent_View 	@52
-			    location   	(2024, 348)
+			    location   	(2504, 348)
 			    font       	(object Font
 				size       	10
 				face       	"Arial"
@@ -1952,7 +1955,7 @@
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
-			location   	(1664, 656)
+			location   	(1808, 1056)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1964,7 +1967,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@53
-			    location   	(1495, 605)
+			    location   	(1639, 1005)
 			    fill_color 	13434879
 			    nlines     	1
 			    max_width  	338
@@ -1982,7 +1985,7 @@
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
-			location   	(1696, 928)
+			location   	(1792, 1232)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1994,7 +1997,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@54
-			    location   	(1508, 877)
+			    location   	(1604, 1181)
 			    fill_color 	13434879
 			    nlines     	1
 			    max_width  	376
@@ -2012,7 +2015,7 @@
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
-			location   	(240, 224)
+			location   	(400, 160)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2024,7 +2027,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@55
-			    location   	(33, 118)
+			    location   	(193, 54)
 			    fill_color 	13434879
 			    nlines     	1
 			    max_width  	414
@@ -2036,7 +2039,7 @@
 			quidu      	"4DB16CE20130"
 			compartment 	(object Compartment
 			    Parent_View 	@55
-			    location   	(33, 179)
+			    location   	(193, 115)
 			    font       	(object Font
 				size       	10
 				face       	"Arial"
@@ -2060,7 +2063,7 @@
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
-			location   	(256, 544)
+			location   	(336, 528)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2072,7 +2075,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@56
-			    location   	(11, 363)
+			    location   	(91, 347)
 			    fill_color 	13434879
 			    nlines     	1
 			    max_width  	490
@@ -2084,7 +2087,7 @@
 			quidu      	"4DB16CEF0207"
 			compartment 	(object Compartment
 			    Parent_View 	@56
-			    location   	(11, 424)
+			    location   	(91, 408)
 			    font       	(object Font
 				size       	10
 				face       	"Arial"
@@ -2108,7 +2111,7 @@
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
-			location   	(656, 912)
+			location   	(928, 1296)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2120,7 +2123,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@57
-			    location   	(507, 861)
+			    location   	(779, 1245)
 			    fill_color 	13434879
 			    nlines     	1
 			    max_width  	298
@@ -2138,7 +2141,7 @@
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
-			location   	(1392, 320)
+			location   	(1712, 592)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2150,7 +2153,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@58
-			    location   	(1080, 14)
+			    location   	(1400, 286)
 			    fill_color 	13434879
 			    nlines     	1
 			    max_width  	624
@@ -2162,7 +2165,7 @@
 			quidu      	"4DB16D8E004F"
 			compartment 	(object Compartment
 			    Parent_View 	@58
-			    location   	(1080, 75)
+			    location   	(1400, 347)
 			    font       	(object Font
 				size       	10
 				face       	"Arial"

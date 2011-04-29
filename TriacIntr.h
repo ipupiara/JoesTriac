@@ -24,5 +24,4 @@ void setTriacTriggerDelay(int16_t usecs);
 void startExtInt();
 void stopExtInt();
 
-
 #endif
