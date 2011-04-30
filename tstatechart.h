@@ -22,15 +22,6 @@
 #if !defined(__TSTATECHART_HPP__)
 #define __TSTATECHART_HPP__
 
-//#include <stdlib.h>
-//#include <string.h>
-//#include <assert.h>
-/*#pragma warning(push, 3)
-#pragma warning(disable : 4100)
-#pragma warning(disable : 4663)
-#pragma warning(disable : 4018)
-#pragma warning(disable : 4245)
-#pragma warning(disable : 4663)	   */
 //#include <vector>
 //#include <algorithm>
 //#pragma warning(pop)
@@ -38,13 +29,6 @@
 #include<stdint.h>
 #include<stdbool.h>
 
-
-///////////////////////////////////////////////////////////////////////
-// These are to be returned from event check methods.
-
-
-//typedef  uint32 uStInt;
-//typedef  int32  stInt;
 
 typedef  uint8_t uStInt;
 typedef  int8_t  stInt;

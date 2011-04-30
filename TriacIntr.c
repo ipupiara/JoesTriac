@@ -9,9 +9,15 @@
 
 int16_t lastAmpsADCVal;
 
+int16_t remainingTriacTriggerDelayCounts;
+
+int16_t secondsRemaining;
+
+#define ocra2aValue 0XAA  // still to be defined
+
 void startTriacTriggerDelay()
 {
-	OCR2A = triacTriggerDelayCms;
+	remainingTriacTriggerDelayCounts = triacTriggerDelayCms;
 	TIMSK2   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
 	TCCR2B = 0b00000111  ; // CTC on CC2A , set clk / 1024, timer started
 }
@@ -31,7 +37,17 @@ void setTriacTriggerDelay(int16_t cmsecs)
 
 ISR(TIMER2_COMPA_vect)
 {
-	
+	if (remainingTriacTriggerDelayCounts == 0) {
+		// todo  Trigger Triac
+		TCCR2B = 0b00000000  ;  // CTC, timer stopped
+		TIMSK2  = 0x00;
+	}
+	if (remainingTriacTriggerDelayCounts < ocra2aValue) {
+		TCNT2 = remainingTriacTriggerDelayCounts; // 8-bit access already atomic 
+		remainingTriacTriggerDelayCounts = 0;
+	} else {
+		remainingTriacTriggerDelayCounts += ocra2aValue;
+	}
 }
 
 ISR(ADC_vect)
@@ -50,6 +66,13 @@ ISR(PCINT0_vect)
 
 ISR(TIMER1_COMPA_vect)
 {
+	secondsRemaining --;
+	if (secondsRemaining <= 0) {
+		stopDurationTimer();
+		durationTimerReachead = 1;
+	} else {
+		runningSecondsTick = 1;
+	}
 	
 }
 
@@ -57,14 +80,14 @@ ISR(TIMER1_COMPA_vect)
 
 void initInterrupts()
 {
-	// Ext. Interrupt
-	//  cli();
+// Ext. Interrupt
+	
 	  EICRA = 0x01;   // both, fall/rise edge trigger    
       EIMSK = 0x00;   
 	  
-	  // Timer 1 as Duration Timer
+// Timer 1 as Duration Timer
 	  
-			runningSecondsTimer = 0;
+			runningSecondsTick = 0;
 	  
 	      TCCR1A = 0x00;  // normal mode or CTC dep.on TCCR1B
 		//TCCR1B = 0b00001101  ; // CTC on CC1A , set clk / 1024, timer started
@@ -77,9 +100,9 @@ void initInterrupts()
 	      TCNT1 = 0x00 ;  
 	  
 		TIMSK1  = 0x00; // disa  Interrupt 
-//		TIMSK1   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
+	//		TIMSK1   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
 
-	  // Timer 0 as ADC clock 
+// Timer 0 as ADC clock 
 	  
 	      TCCR0A = 0b00000010;  //  CTC 
 		  
@@ -91,7 +114,7 @@ void initInterrupts()
 	  
 		TIMSK0  = 0b00000010;  // disa  ena, just let run ADC
 
-	  // Timer 2 as Triac Trigger Delay Timer
+// Timer 2 as Triac Trigger Delay Timer
 	  
 	      TCCR2A = 0b00000010;  //  CTC 
 		  
@@ -106,7 +129,7 @@ void initInterrupts()
 		TIMSK2  = 0x00; // disa  Interrupt 
 //		TIMSK2   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
 
-//     init ADC
+//  init ADC
 		
 		ADMUX = 0b01000000;      // AVCC as ref,  right adjust, mux to adc0
 		ADCSRA = 0b10001111;  // ADC ena, not yet start (single start mode), no Autotrigger, iflag = 0, inz ena, prescale /128
@@ -138,10 +161,10 @@ int16_t ampsADCValue()
 void startDurationTimer(int16_t secs)
 {
 	durationTimerReachead = 0;
+	secondsRemaining = secs;
 	
 	TIMSK1   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
 	TCCR1B = 0b00001101  ; // CTC on CC1A , set clk / 24, timer started
-	sei();
 }
 
 

@@ -59,7 +59,7 @@ extern TStatechart SJoesTriacStateChart;
 
 
 
-void secondTimer()
+void secondsTick()
 {
 	calcNextTriacDelay();
 	displayRunningValues();
@@ -83,34 +83,29 @@ int main(void)
 	
 	while (1)
 	{
-		if (runningSecondsTimer){
+		if (runningSecondsTick){
 	//		cli();    // 8-bit access is already atomic
-			runningSecondsTimer = 0;
+			runningSecondsTick = 0;
 	//		sei();
-			secondTimer();
+			secondsTick();
 		}
 		if (durationTimerReachead) {
 	//		cli();   // 8-bit access is alread atomic
 			durationTimerReachead = 0;
 	//		sei();
-			ev.evType = eTimeOutDurationTimer;
-			processTriacEvent(&SJoesTriacStateChart,&ev);
-			
+			ev.evType = evTimeOutDurationTimer;
+			processTriacEvent(&SJoesTriacStateChart,&ev);	
 		}
-/*		if (keyPressed()){
-			ev.evType = eKeyPressed;
-			processTriacEvent(&SJoesTriacStateChart,&ev);
-			
-		}  */
+
 		if ((ky = keyEntered())){
-			if (ky == kpFunction1) ev.evType = eFunction1Pressed;
+			if (ky == kpFunction1) ev.evType = evFunction1Pressed;
 //			if (ky == kpFunction2) ev.evType = eFunction2Pressed;   // not yet in use
-			if (ky == kpStart) ev.evType = eStartPressed;
-			if (ky == kpStop) ev.evType = eStopPressed;
-			if (ky == kpRed) ev.evType = eRedPressed;
-			if (ky == kpWhite) ev.evType = eWhitePressed;
+			if (ky == kpStart) ev.evType = evStartPressed;
+			if (ky == kpStop) ev.evType = evStopPressed;
+			if (ky == kpRed) ev.evType = evRedPressed;
+			if (ky == kpWhite) ev.evType = evWhitePressed;
 			if (ky >= kp0){
-				ev.evType = eCharEntered;
+				ev.evType = evCharEntered;
 				ev.keyCode = ky;			
 			}	
 			processTriacEvent(&SJoesTriacStateChart,&ev);	

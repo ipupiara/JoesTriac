@@ -1,11 +1,3 @@
-//
-// Module Name:	StateClass.cpp
-//
-// Description:	Test class for statechart engine.  This class exemplifies
-//				any class that would actually contain and use the engine.
-//
-// Copyright (c) 1994-2005 Grant D. Schultz.	All rights reserved.
-//
 
 #include <avr/io.h>
 //#include <iostream.h>
@@ -14,6 +6,10 @@
 #include "TStatechart.h"
 #include "StateClass.h"
 #include "TriacIntr.h"
+#include "triacPID.h"
+#include "triacUI.h"
+#include "TriacKeyPad.h"
+
 
 extern const uStInt u32HandlingDone;
 extern const uStInt u32NoMatch;
@@ -40,71 +36,59 @@ enum eStates
 	eNumberOfStates
 };
 
-
-
-
 uStInt evJoesTriacChecker(void)
 {
-	//	printf("check for event in State evStateGrowBoxKeepingHumidity\n");
-/*	if (currentEvent->evType == eReset)
-	{
-		resetHistoryReturns(&SHumidityStateChart);
-		BEGIN_EVENT_HANDLER( PHumidityStateChart, eStateGrowBoxKeepingHumidity );
-			// No event action.
-		END_EVENT_HANDLER( PHumidityStateChart);
-		
-		return (u32HandlingDone);
-	} */
 	return (u32NoMatch);
 }
 
 void entryAskForCalibrationState(void)
 {
 //	printf("entry AskForCalibration\n");
+	displayCalibrationPrompt();
+	startDurationTimer(3);
 }
 
 void exitAskForCalibrationState(void)
 {
 //	printf("exit I\n");
+	stopDurationTimer();
 }
 
 uStInt evAskForCalibrationChecker(void)
 {
+	int res = u32NoMatch;
 //	printf("check for event in State evStateIdle\n");
-/*
-	if (currentEvent->evType == eValueAssignement) 
-	{	if (HumidifyingLowerLimit > currentEvent->humidity)
-		{
-			BEGIN_EVENT_HANDLER(PHumidityStateChart, eStateHumidifying);
+
+	if (currentEvent->evType == evTimeOutDurationTimer) 
+	{	
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
 				// No event action.
-			END_EVENT_HANDLER(PHumidityStateChart);
-			return (u32HandlingDone);
-		}
-		if (DryingUpperLimit < currentEvent->humidity)
-		{
-			BEGIN_EVENT_HANDLER(PHumidityStateChart, eStateDrying);
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  u32HandlingDone;
+	}
+	if ((currentEvent->evType == evCharEntered) && (currentEvent->keyCode==kpFunction1)) 
+	{	
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrating);
 				// No event action.
-			END_EVENT_HANDLER(PHumidityStateChart);
-			return (u32HandlingDone);
-		}
-	}*/
-	return (u32NoMatch); 
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  u32HandlingDone;
+	}
+	return (res); 
 }
 
+void entryCalibratingState(void)
+{
+//	printf("entry I\n");
+	displayCalibratingExplanation();
+}
+
+void exitCalibratingState(void)
+{
+//	printf("exit I\n");
+}
 
 uStInt evCalibratingChecker(void)
 {
-//	printf("check for event in State evStateIdle\n");
-
-//	if (currentEvent->evType == eValueAssignement) 
-//	{	if (HumidifyingLowerLimit > currentEvent->humidity)
-//		{
-//			BEGIN_EVENT_HANDLER(PHumidityStateChart, eStateHumidifying);
-//				// No event action.
-//			END_EVENT_HANDLER(PHumidityStateChart);
-//			return (u32HandlingDone);
-//		}
-//	}
 	return (u32NoMatch);
 }
 
@@ -112,6 +96,7 @@ uStInt evCalibratingChecker(void)
 void entryCalibrateLowState(void)
 {
 //	printf("entry I\n");
+	displayCalibrateLow();
 }
 
 void exitCalibrateLowState(void)
@@ -122,23 +107,35 @@ void exitCalibrateLowState(void)
 uStInt evCalibrateLowChecker(void)
 {
 //	printf("check for event in State evStateIdle\n");
+	int res = u32NoMatch;
+	int dummyForLater;
+	
+	if (currentEvent->evType == evCharEntered) {
+		switch (currentEvent->keyCode) {
+			case kp1 : 
+				dummyForLater++;
+				break;
+			case kp2 :
+				dummyForLater += 10;
+				break ;	
+		}
+	}
 
-//	if (currentEvent->evType == eValueAssignement) 
-//	{	if (HumidifyingLowerLimit > currentEvent->humidity)
-//		{
-//			BEGIN_EVENT_HANDLER(PHumidityStateChart, eStateHumidifying);
-//				// No event action.
-//			END_EVENT_HANDLER(PHumidityStateChart);
-//			return (u32HandlingDone);
-//		}
-//	}
-	return (u32NoMatch);
+	if ((currentEvent->evType == evCharEntered) && (currentEvent->keyCode==kpFunction1)) 
+	{	
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateHigh);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  u32HandlingDone;
+	}
+	return res;
 }
 
 
 void entryCalibrateHighState(void)
 {
 //	printf("entry I\n");
+	displayCalibrateHigh();
 }
 
 void exitCalibrateHighState(void)
@@ -148,18 +145,16 @@ void exitCalibrateHighState(void)
 
 uStInt evCalibrateHighChecker(void)
 {
-//	printf("check for event in State evStateIdle\n");
+	int res = u32NoMatch;
 
-//	if (currentEvent->evType == eValueAssignement) 
-//	{	if (HumidifyingLowerLimit > currentEvent->humidity)
-//		{
-//			BEGIN_EVENT_HANDLER(PHumidityStateChart, eStateHumidifying);
-//				// No event action.
-//			END_EVENT_HANDLER(PHumidityStateChart);
-//			return (u32HandlingDone);
-//		}
-//	}
-	return (u32NoMatch);
+	if ((currentEvent->evType == evCharEntered) && (currentEvent->keyCode==kpFunction1)) 
+	{	
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+			// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  u32HandlingDone;
+	}
+	return res;
 }
 
 
@@ -180,9 +175,9 @@ uStInt evTriacIdleChecker(void)
 //	if (currentEvent->evType == eValueAssignement) 
 //	{	if (HumidifyingLowerLimit > currentEvent->humidity)
 //		{
-//			BEGIN_EVENT_HANDLER(PHumidityStateChart, eStateHumidifying);
+//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateHumidifying);
 //				// No event action.
-//			END_EVENT_HANDLER(PHumidityStateChart);
+//			END_EVENT_HANDLER(PJoesTriacStateChart);
 //			return (u32HandlingDone);
 //		}
 //	}
@@ -207,9 +202,9 @@ uStInt evIdleChecker(void)
 //	if (currentEvent->evType == eValueAssignement) 
 //	{	if (HumidifyingLowerLimit > currentEvent->humidity)
 //		{
-//			BEGIN_EVENT_HANDLER(PHumidityStateChart, eStateHumidifying);
+//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateHumidifying);
 //				// No event action.
-//			END_EVENT_HANDLER(PHumidityStateChart);
+//			END_EVENT_HANDLER(PJoesTriacStateChart);
 //			return (u32HandlingDone);
 //		}
 //	}
@@ -233,9 +228,9 @@ uStInt evEditAmpsChecker(void)
 //	if (currentEvent->evType == eValueAssignement) 
 //	{	if (HumidifyingLowerLimit > currentEvent->humidity)
 //		{
-//			BEGIN_EVENT_HANDLER(PHumidityStateChart, eStateHumidifying);
+//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateHumidifying);
 //				// No event action.
-//			END_EVENT_HANDLER(PHumidityStateChart);
+//			END_EVENT_HANDLER(PJoesTriacStateChart);
 //			return (u32HandlingDone);
 //		}
 //	}
@@ -260,9 +255,9 @@ uStInt evEditDurationChecker(void)
 //	if (currentEvent->evType == eValueAssignement) 
 //	{	if (HumidifyingLowerLimit > currentEvent->humidity)
 //		{
-//			BEGIN_EVENT_HANDLER(PHumidityStateChart, eStateHumidifying);
+//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateHumidifying);
 //				// No event action.
-//			END_EVENT_HANDLER(PHumidityStateChart);
+//			END_EVENT_HANDLER(PJoesTriacStateChart);
 //			return (u32HandlingDone);
 //		}
 //	}
@@ -286,9 +281,9 @@ uStInt evTriacRunningChecker(void)
 //	if (currentEvent->evType == eValueAssignement) 
 //	{	if (HumidifyingLowerLimit > currentEvent->humidity)
 //		{
-//			BEGIN_EVENT_HANDLER(PHumidityStateChart, eStateHumidifying);
+//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateHumidifying);
 //				// No event action.
-//			END_EVENT_HANDLER(PHumidityStateChart);
+//			END_EVENT_HANDLER(PJoesTriacStateChart);
 //			return (u32HandlingDone);
 //		}
 //	}
@@ -315,9 +310,9 @@ uStInt ev...Checker(void)
 //	if (currentEvent->evType == eValueAssignement) 
 //	{	if (HumidifyingLowerLimit > currentEvent->humidity)
 //		{
-//			BEGIN_EVENT_HANDLER(PHumidityStateChart, eStateHumidifying);
+//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateHumidifying);
 //				// No event action.
-//			END_EVENT_HANDLER(PHumidityStateChart);
+//			END_EVENT_HANDLER(PJoesTriacStateChart);
 //			return (u32HandlingDone);
 //		}
 //	}
@@ -362,8 +357,8 @@ xStateType xaStates[eNumberOfStates] = {
  	0,
  	evCalibratingChecker,
  	tfNull,
- 	tfNull,
- 	tfNull},
+ 	entryCalibratingState,
+ 	exitCalibratingState},
 	 
 	 {eStateCalibrateLow,
  	eStateCalibrating,

@@ -7,6 +7,12 @@ void displayRunningValues();
 
 void displayCalibrationPrompt();
 
+void displayCalibratingExplanation();
+
+void displayCalibrateLow();
+
+void displayCalibrateHigh();
+
 float desiredAmps;
 int16_t desiredTimeS;
 
@@ -27,15 +33,6 @@ void setSec10(int8_t val);
 void setSec(int8_t val);
 
 void initUI();
-
-void startDurationEntry();
-
-void abortDurationEntry();
-
-void startAmpsEntry();
-
-void abortAmpsEntry();
-
 
 
 #endif

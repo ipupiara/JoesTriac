@@ -15,6 +15,18 @@ void initUI()
 	sec = eeprom_read_byte((uint8_t*)secEEPROMpos);
 }
 
+void displayCalibratingExplanation()
+{
+}
+
+void displayCalibrateLow()
+{
+}
+
+void displayCalibrateHigh()
+{
+}
+
 void displayRunningValues()
 {
 	
@@ -25,6 +37,7 @@ void displayCalibrationPrompt()
 {
 	
 }
+
 
 void calcDesiredAmps()
 {
@@ -120,22 +133,3 @@ void setSec(int8_t val)
 	storeSec(val);
 }
 
-void startDurationEntry()
-{
-	// set cursor at correct pos
-}
-
-void abortDurationEntry()
-{
-	// clear cursor
-}
-
-void startAmpsEntry()
-{
-	
-}
-
-void abortAmpsEntry()
-{
-	
-}
