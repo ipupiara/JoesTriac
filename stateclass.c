@@ -278,6 +278,12 @@ uStInt evTriacRunningChecker(void)
 {
 //	printf("check for event in State evStateIdle\n");
 
+    // secondsTick
+	//calcNextTriacDelay();
+	//displayRunningValues();
+
+
+
 //	if (currentEvent->evType == eValueAssignement) 
 //	{	if (HumidifyingLowerLimit > currentEvent->humidity)
 //		{

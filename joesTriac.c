@@ -57,15 +57,6 @@ extern const uStInt u32HandlingDone;
 extern TStatechart SJoesTriacStateChart;
 
 
-
-
-void secondsTick()
-{
-	calcNextTriacDelay();
-	displayRunningValues();
-}
-
-
 int main(void)
 {
 	CJoesTriacEvent ev;
@@ -87,7 +78,8 @@ int main(void)
 	//		cli();    // 8-bit access is already atomic
 			runningSecondsTick = 0;
 	//		sei();
-			secondsTick();
+			ev.evType = evSecondsTick;
+			processTriacEvent(&SJoesTriacStateChart,&ev);	
 		}
 		if (durationTimerReachead) {
 	//		cli();   // 8-bit access is alread atomic
