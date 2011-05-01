@@ -17,6 +17,14 @@ void displayCurrentAmps();
 
 void displayCountDown();
 
+void displayTriacRunning();
+
+void displayEditAmpsDuration();
+
+void startEditAmps();
+
+void startEditDuration();
+
 float desiredAmps;
 int16_t desiredTimeS;
 

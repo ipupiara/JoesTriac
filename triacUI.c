@@ -140,3 +140,19 @@ void setSec(int8_t val)
 void displayCountDown()
 {
 }
+
+void displayTriacRunning()
+{
+}
+
+void displayEditAmpsDuration()
+{
+}
+
+void startEditAmps()
+{
+}
+
+void startEditDuration()
+{
+}

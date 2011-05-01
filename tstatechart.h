@@ -46,13 +46,13 @@ typedef struct
 	stInt	m_vi32Ancestry[maxDepth];
 	stInt  m_vi32AncestrySize;
 
-	stInt				m_i32HistoryReturnState;
+	stInt				m_stIntHistoryReturnState;
 } xInternalState;
 
 
 typedef void(*t_fvoid)(void);
 
-typedef uStInt (*t_i32Void) (void);
+typedef uStInt (*t_uStIntVoid) (void);
 
 typedef struct
 {
@@ -61,7 +61,7 @@ typedef struct
 	stInt	m_i32DefaultChildToEnter;
 	stInt   m_keepHistory;
 
-	t_i32Void m_pfu32EventChecker;
+	t_uStIntVoid m_pfu32EventChecker;
 	t_fvoid  m_pfDefaultStateEntry; 
 	t_fvoid  m_pfEnteringState;
 	t_fvoid m_pfLeavingState;

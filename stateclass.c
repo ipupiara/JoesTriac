@@ -29,7 +29,7 @@ enum eStates
 	eStateCalibrateLow,
 	eStateCalibrateHigh,
 	eStateTriacIdle,
-	eStateIdle,
+	eStateEditIdle,
 	eStateEditAmps,
 	eStateEditDuration,
 	eStateTriacRunning,
@@ -193,10 +193,13 @@ uStInt evCalibrateHighChecker(void)
 	return res;
 }
 
+int8_t keyInd;
+
 
 void entryTriacIdleState(void)
 {
 //	printf("entry I\n");
+	displayEditAmpsDuration();
 }
 
 void exitTriacIdleState(void)
@@ -220,17 +223,17 @@ uStInt evTriacIdleChecker(void)
 }
 
 
-void entryIdleState(void)
+void entryEditIdleState(void)
 {
 //	printf("entry I\n");
 }
 
-void exitIdleState(void)
+void exitEditIdleState(void)
 {
 //	printf("exit I\n");
 }
 
-uStInt evIdleChecker(void)
+uStInt evEditIdleChecker(void)
 {
 	int res = uStIntNoMatch;
 	//	printf("check for event in State evStateIdle\n");
@@ -255,6 +258,8 @@ uStInt evIdleChecker(void)
 void entryEditAmpsState(void)
 {
 //	printf("entry I\n");
+	startEditAmps();
+	keyInd = 0;
 }
 
 void exitEditAmpsState(void)
@@ -274,6 +279,30 @@ uStInt evEditAmpsChecker(void)
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 		}
+				if (currentEvent->keyCode==kpRed)  {	
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+		}
+		if ((currentEvent->keyCode <= kp9) && (currentEvent->keyCode >= kp0)) {
+			switch (keyInd)
+			{
+				case 0: 
+					setAmps100(currentEvent->keyCode);
+					break;
+				case 1:
+					setAmps10(currentEvent->keyCode);
+					break;
+				case 2:
+					setAmps(currentEvent->keyCode);
+					BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
+				
+					END_EVENT_HANDLER(PJoesTriacStateChart);				
+			}
+			keyInd ++;
+			res =  uStIntHandlingDone;
+		}
 	}		
 	return res;
 }
@@ -282,6 +311,8 @@ uStInt evEditAmpsChecker(void)
 void entryEditDurationState(void)
 {
 //	printf("entry I\n");
+	startEditDuration();
+	keyInd = 0;
 }
 
 void exitEditDurationState(void)
@@ -301,6 +332,33 @@ uStInt evEditDurationChecker(void)
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 		}
+		if (currentEvent->keyCode==kpWhite)  {	
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+		}
+		if ((currentEvent->keyCode <= kp9) && (currentEvent->keyCode >= kp0)) {
+			switch (keyInd)
+			{
+				case 0: 
+					setMin10(currentEvent->keyCode);
+					break;
+				case 1:
+					setMin(currentEvent->keyCode);
+					break;
+				case 2:	
+					if (currentEvent->keyCode <= kp5) setSec10(currentEvent->keyCode);
+					break;
+				case 3:
+					setSec(currentEvent->keyCode);
+					BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
+				
+					END_EVENT_HANDLER(PJoesTriacStateChart);				
+			}
+			keyInd ++;
+			res =  uStIntHandlingDone;
+		}
 	}		
 	return res;
 }
@@ -308,6 +366,7 @@ uStInt evEditDurationChecker(void)
 void entryTriacRunningState(void)
 {
 //	printf("entry I\n");
+	displayTriacRunning();
 	startTriacRun();
 }
 
@@ -341,7 +400,6 @@ uStInt evTriacRunningChecker(void)
 		displayCountDown();
 		res =  uStIntHandlingDone;
 	}			
-
 	return res;
 }
 
@@ -435,21 +493,21 @@ xStateType xaStates[eNumberOfStates] = {
 
  	{eStateTriacIdle,
  	eStateJoesTriac,
- 	eStateIdle,
+ 	eStateEditIdle,
  	0,
  	evTriacIdleChecker,
  	tfNull,
  	entryTriacIdleState,
  	exitTriacIdleState},
 
- 	{eStateIdle,
+ 	{eStateEditIdle,
  	eStateTriacIdle,
  	-1,
  	0,
- 	evIdleChecker,
+ 	evEditIdleChecker,
  	tfNull,
- 	entryIdleState,
- 	exitIdleState},
+ 	entryEditIdleState,
+ 	exitEditIdleState},
 
  	{eStateEditAmps,
  	eStateTriacIdle,
