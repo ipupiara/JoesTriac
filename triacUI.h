@@ -15,6 +15,8 @@ void displayCalibrateHigh();
 
 void displayCurrentAmps();
 
+void displayCountDown();
+
 float desiredAmps;
 int16_t desiredTimeS;
 

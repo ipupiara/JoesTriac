@@ -11,8 +11,8 @@
 #include "TriacKeyPad.h"
 
 
-extern const uStInt u32HandlingDone;
-extern const uStInt u32NoMatch;
+extern const uStInt uStIntHandlingDone;
+extern const uStInt uStIntNoMatch;
 
 TStatechart SJoesTriacStateChart;
 TStatechart* PJoesTriacStateChart;
@@ -38,7 +38,7 @@ enum eStates
 
 uStInt evJoesTriacChecker(void)
 {
-	return (u32NoMatch);
+	return (uStIntNoMatch);
 }
 
 void entryAskForCalibrationState(void)
@@ -56,7 +56,7 @@ void exitAskForCalibrationState(void)
 
 uStInt evAskForCalibrationChecker(void)
 {
-	int res = u32NoMatch;
+	int res = uStIntNoMatch;
 //	printf("check for event in State evStateIdle\n");
 
 	if (currentEvent->evType == evTimeOutDurationTimer) 
@@ -64,14 +64,19 @@ uStInt evAskForCalibrationChecker(void)
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
 				// No event action.
 			END_EVENT_HANDLER(PJoesTriacStateChart);
-			res =  u32HandlingDone;
+			res =  uStIntHandlingDone;
 	}
 	if ((currentEvent->evType == evCharEntered) && (currentEvent->keyCode==kpFunction1)) 
 	{	
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrating);
 				// No event action.
 			END_EVENT_HANDLER(PJoesTriacStateChart);
-			res =  u32HandlingDone;
+			res =  uStIntHandlingDone;
+	}
+	if (currentEvent->evType == evSecondsTick) 
+	{	
+		displayCountDown();
+		res =  uStIntHandlingDone;
 	}
 	return (res); 
 }
@@ -94,7 +99,9 @@ void exitCalibratingState(void)
 uStInt evCalibratingChecker(void)
 {
 	int16_t triggerDelay;
+	int8_t res;
 	
+	res = uStIntNoMatch;
 	if (currentEvent->evType == evCharEntered) {
 		triggerDelay = triacTriggerDelayCms;
 		switch (currentEvent->keyCode) {
@@ -118,13 +125,15 @@ uStInt evCalibratingChecker(void)
 				break ;									
 		}
 		setTriacTriggerDelay(triggerDelay);
+		res =  uStIntHandlingDone;
 	}
 	if (currentEvent->evType == evSecondsTick) 
 	{	
 		displayCurrentAmps();
+		res =  uStIntHandlingDone;
 	}
 	
-	return (u32NoMatch);
+	return res;
 }
 
 
@@ -144,14 +153,14 @@ void exitCalibrateLowState(void)
 uStInt evCalibrateLowChecker(void)
 {
 //	printf("check for event in State evStateIdle\n");
-	int res = u32NoMatch;
+	int res = uStIntNoMatch;
 
 	if ((currentEvent->evType == evCharEntered) && (currentEvent->keyCode==kpFunction1)) 
 	{	
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateHigh);
 				// No event action.
 			END_EVENT_HANDLER(PJoesTriacStateChart);
-			res =  u32HandlingDone;
+			res =  uStIntHandlingDone;
 	}
 	return res;
 }
@@ -172,14 +181,14 @@ void exitCalibrateHighState(void)
 
 uStInt evCalibrateHighChecker(void)
 {
-	int res = u32NoMatch;
+	int res = uStIntNoMatch;
 
 	if ((currentEvent->evType == evCharEntered) && (currentEvent->keyCode==kpFunction1)) 
 	{	
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
 			// No event action.
 		END_EVENT_HANDLER(PJoesTriacStateChart);
-		res =  u32HandlingDone;
+		res =  uStIntHandlingDone;
 	}
 	return res;
 }
@@ -198,17 +207,16 @@ void exitTriacIdleState(void)
 uStInt evTriacIdleChecker(void)
 {
 //	printf("check for event in State evStateIdle\n");
+	int res = uStIntNoMatch;
 
-//	if (currentEvent->evType == eValueAssignement) 
-//	{	if (HumidifyingLowerLimit > currentEvent->humidity)
-//		{
-//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateHumidifying);
-//				// No event action.
-//			END_EVENT_HANDLER(PJoesTriacStateChart);
-//			return (u32HandlingDone);
-//		}
-//	}
-	return (u32NoMatch);
+	if ((currentEvent->evType == evCharEntered) && (currentEvent->keyCode==kpStart)) 
+	{	
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacRunning);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+	}
+	return res;
 }
 
 
@@ -224,18 +232,24 @@ void exitIdleState(void)
 
 uStInt evIdleChecker(void)
 {
-//	printf("check for event in State evStateIdle\n");
+	int res = uStIntNoMatch;
+	//	printf("check for event in State evStateIdle\n");
 
-//	if (currentEvent->evType == eValueAssignement) 
-//	{	if (HumidifyingLowerLimit > currentEvent->humidity)
-//		{
-//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateHumidifying);
-//				// No event action.
-//			END_EVENT_HANDLER(PJoesTriacStateChart);
-//			return (u32HandlingDone);
-//		}
-//	}
-	return (u32NoMatch);
+	if (currentEvent->evType == evCharEntered) {
+		if (currentEvent->keyCode==kpRed) {	
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditAmps);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+		}
+		if (currentEvent->keyCode==kpWhite) {	
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditDuration);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+		}
+	}			
+	return res;
 }
 
 void entryEditAmpsState(void)
@@ -250,18 +264,18 @@ void exitEditAmpsState(void)
 
 uStInt evEditAmpsChecker(void)
 {
-//	printf("check for event in State evStateIdle\n");
+	int res = uStIntNoMatch;
+	//	printf("check for event in State evStateIdle\n");
 
-//	if (currentEvent->evType == eValueAssignement) 
-//	{	if (HumidifyingLowerLimit > currentEvent->humidity)
-//		{
-//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateHumidifying);
-//				// No event action.
-//			END_EVENT_HANDLER(PJoesTriacStateChart);
-//			return (u32HandlingDone);
-//		}
-//	}
-	return (u32NoMatch);
+	if (currentEvent->evType == evCharEntered) {
+		if (currentEvent->keyCode==kpWhite)  {	
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditDuration);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+		}
+	}		
+	return res;
 }
 
 
@@ -277,50 +291,58 @@ void exitEditDurationState(void)
 
 uStInt evEditDurationChecker(void)
 {
-//	printf("check for event in State evStateIdle\n");
+	int res = uStIntNoMatch;
+	//	printf("check for event in State evStateIdle\n");
 
-//	if (currentEvent->evType == eValueAssignement) 
-//	{	if (HumidifyingLowerLimit > currentEvent->humidity)
-//		{
-//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateHumidifying);
-//				// No event action.
-//			END_EVENT_HANDLER(PJoesTriacStateChart);
-//			return (u32HandlingDone);
-//		}
-//	}
-	return (u32NoMatch);
+	if (currentEvent->evType == evCharEntered) {
+		if (currentEvent->keyCode==kpRed)  {	
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditAmps);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+		}
+	}		
+	return res;
 }
 
 void entryTriacRunningState(void)
 {
 //	printf("entry I\n");
+	startTriacRun();
 }
 
 void exitTriacRunningState(void)
 {
 //	printf("exit I\n");
+	stopTriacRun();
 }
 
 uStInt evTriacRunningChecker(void)
 {
-//	printf("check for event in State evStateIdle\n");
+	int res = uStIntNoMatch;
+	//	printf("check for event in State evStateIdle\n");
 
-    // secondsTick
-	//calcNextTriacDelay();
-	//displayRunningValues();
+	if (currentEvent->evType == evCharEntered) {
+		if (currentEvent->keyCode==kpStop)  {	
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+		}
+	}		
+	if (currentEvent->evType == evTimeOutDurationTimer) {
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+			// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}			
+	if (currentEvent->evType == evSecondsTick) {
+		displayCurrentAmps();
+		displayCountDown();
+		res =  uStIntHandlingDone;
+	}			
 
-
-
-//	if (currentEvent->evType == eValueAssignement) 
-//	{	if (HumidifyingLowerLimit > currentEvent->humidity)
-//		{
-//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateHumidifying);
-//				// No event action.
-//			END_EVENT_HANDLER(PJoesTriacStateChart);
-//			return (u32HandlingDone);
-//		}
-//	}
-	return (u32NoMatch);
+	return res;
 }
 
 

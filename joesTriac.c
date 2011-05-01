@@ -51,7 +51,7 @@ static int uart_putchar(char c, FILE *stream)
 
 */
 
-extern const uStInt u32HandlingDone;
+extern const uStInt uStIntHandlingDone;
 
 
 extern TStatechart SJoesTriacStateChart;

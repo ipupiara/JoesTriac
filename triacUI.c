@@ -137,3 +137,6 @@ void setSec(int8_t val)
 	storeSec(val);
 }
 
+void displayCountDown()
+{
+}

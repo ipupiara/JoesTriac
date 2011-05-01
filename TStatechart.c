@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include "TStatechart.h"
 
-const uStInt	u32NoMatch = 0x80,
-				u32HandlingDone = 0x40;
+const uStInt	uStIntNoMatch = 0x80,
+				uStIntHandlingDone = 0x40;
 
 /*
 void verifyStateNames(TStatechart* t)
@@ -293,7 +293,7 @@ bool ProcessEvent(TStatechart* t)
 
 //		xs = t->m_pxaUserStateDefns[i32StateBeingTried].m_pfu32EventChecker();
 //		u32result = xs.m_pfu32EventChecker();
-		bMatchFound = (u32result ==  u32HandlingDone);
+		bMatchFound = (u32result ==  uStIntHandlingDone);
 
 #if defined (TESTING)
 		if (bMatchFound)
