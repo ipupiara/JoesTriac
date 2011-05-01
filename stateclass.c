@@ -81,12 +81,14 @@ void entryCalibratingState(void)
 //	printf("entry I\n");
 	displayCalibratingExplanation();
 	startDurationTimer(0xFFFF);   // enable secondsTick
+	startTriacRun();
 }
 
 void exitCalibratingState(void)
 {
 //	printf("exit I\n");
 	stopDurationTimer();
+	stopTriacRun();
 }
 
 uStInt evCalibratingChecker(void)

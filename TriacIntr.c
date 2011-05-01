@@ -38,15 +38,17 @@ void setTriacTriggerDelay(int16_t cmsecs)
 ISR(TIMER2_COMPA_vect)
 {
 	if (remainingTriacTriggerDelayCounts == 0) {
-		// todo  Trigger Triac
+		
+		// todo  Trigger Triac			// T O D O   try to cast types so that only 8 bit single cycle operations are happen
+		
 		TCCR2B = 0b00000000  ;  // CTC, timer stopped
 		TIMSK2  = 0x00;
 	}
-	if (remainingTriacTriggerDelayCounts < ocra2aValue) {
+	if (remainingTriacTriggerDelayCounts < ocra2aValue) {    
 		TCNT2 = remainingTriacTriggerDelayCounts; // 8-bit access already atomic 
 		remainingTriacTriggerDelayCounts = 0;
 	} else {
-		remainingTriacTriggerDelayCounts += ocra2aValue;
+		remainingTriacTriggerDelayCounts -= ocra2aValue;
 	}
 }
 
@@ -59,8 +61,10 @@ ISR(PCINT0_vect)
 {
 	if (PD2 == 0) {
 		ADCSRA |= 0b01000000 ;
+		stopTriacTriggerDelay();
         //   ADCSRA = 0b11001111;  // start one single AD conversion
 	} else {
+		startTriacTriggerDelay();
 	}			  
 }   
 
@@ -138,15 +142,16 @@ void initInterrupts()
 		sei();  // start interrupts if not yet started
 }
 
-void startExtInt()
+void startTriacRun()
 {
 	EIFR = 0x00;
 	EIMSK = 0x01;
 }
 
-void stopExtInt()
+void stopTriacRun()
 {
 	EIMSK = 0x00;
+	stopTriacTriggerDelay();
 }
 
 int16_t ampsADCValue()
