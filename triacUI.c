@@ -15,6 +15,10 @@ void initUI()
 	sec = eeprom_read_byte((uint8_t*)secEEPROMpos);
 }
 
+void displayCurrentAmps()
+{
+}
+
 void displayCalibratingExplanation()
 {
 }

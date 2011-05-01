@@ -80,15 +80,48 @@ void entryCalibratingState(void)
 {
 //	printf("entry I\n");
 	displayCalibratingExplanation();
+	startDurationTimer(0xFFFF);   // enable secondsTick
 }
 
 void exitCalibratingState(void)
 {
 //	printf("exit I\n");
+	stopDurationTimer();
 }
 
 uStInt evCalibratingChecker(void)
 {
+	int16_t triggerDelay;
+	
+	if (currentEvent->evType == evCharEntered) {
+		triggerDelay = triacTriggerDelayCms;
+		switch (currentEvent->keyCode) {
+			case kp1 : 
+				triggerDelay++;
+				break;
+			case kp2 :
+				triggerDelay += 2;
+				break ;	
+			case kp3 :
+				triggerDelay += 10;
+				break ;		
+			case kp7 : 
+				triggerDelay--;
+				break;
+			case kp8 :
+				triggerDelay -= 2;
+				break ;	
+			case kp9 :
+				triggerDelay -= 10;
+				break ;									
+		}
+		setTriacTriggerDelay(triggerDelay);
+	}
+	if (currentEvent->evType == evSecondsTick) 
+	{	
+		displayCurrentAmps();
+	}
+	
 	return (u32NoMatch);
 }
 
@@ -102,24 +135,14 @@ void entryCalibrateLowState(void)
 void exitCalibrateLowState(void)
 {
 //	printf("exit I\n");
+	storeCalibLowCms(triacTriggerDelayCms);
+	storeCalibLowAdc(ampsADCValue());
 }
 
 uStInt evCalibrateLowChecker(void)
 {
 //	printf("check for event in State evStateIdle\n");
 	int res = u32NoMatch;
-	int dummyForLater;
-	
-	if (currentEvent->evType == evCharEntered) {
-		switch (currentEvent->keyCode) {
-			case kp1 : 
-				dummyForLater++;
-				break;
-			case kp2 :
-				dummyForLater += 10;
-				break ;	
-		}
-	}
 
 	if ((currentEvent->evType == evCharEntered) && (currentEvent->keyCode==kpFunction1)) 
 	{	
@@ -141,6 +164,8 @@ void entryCalibrateHighState(void)
 void exitCalibrateHighState(void)
 {
 //	printf("exit I\n");
+	storeCalibHighCms(triacTriggerDelayCms);
+	storeCalibHighAdc(ampsADCValue());
 }
 
 uStInt evCalibrateHighChecker(void)

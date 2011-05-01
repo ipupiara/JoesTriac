@@ -22,7 +22,7 @@ void stopDurationTimer();
 
 
 void initInterrupts();
-void setTriacTriggerDelay(int16_t usecs);
+void setTriacTriggerDelay(int16_t cmsecs);
 void startExtInt();
 void stopExtInt();
 
