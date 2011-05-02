@@ -6,7 +6,6 @@
  */ 
 
 #include <avr/io.h>
-#include <stdio.h>
 #include "st7565r.h"
 #include "triacPID.h"
 #include "triacUI.h"
@@ -63,12 +62,13 @@ int main(void)
 	int8_t ky;
 	
 	
-	lcd_init();
+/*	lcd_init();
 	initKeyPad();
 	initInterrupts();
 //	InitializePID(real kp, real ki, real kd, real error_thresh, real step_time);   
 	InitializePID(-0.01, 0.3, 0.3, 0.3, 1);
 	initUI();
+	*/
 	
 	startStateCharts();
 	
