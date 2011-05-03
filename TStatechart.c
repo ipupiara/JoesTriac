@@ -144,13 +144,13 @@ void setInitialState(TStatechart* t, uStInt u32InitialState)
 void createTStatechart(TStatechart* t, xStateType* const xaStates,
 	const uStInt u32NS, const uStInt u32InitialState)
 {
-	int16_t sz;
+//	int16_t sz;
 	t->m_u32NumStates= u32NS;
 	t->m_pxaUserStateDefns = xaStates;
 
 //	t->m_xaStateData = new xInternalState[t->m_u32NumStates];
-	sz = t->m_u32NumStates * sizeof(xInternalState);
-	printf("size of used heap %i\n",sz);
+//	sz = t->m_u32NumStates * sizeof(xInternalState);
+//	printf("size of used heap %i\n",sz);
 	t->m_xaStateData = malloc (t->m_u32NumStates * sizeof(xInternalState));
 //	verifyStateNames(t);  // dont use this line
 	generateAncestries(t);

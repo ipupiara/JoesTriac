@@ -5,19 +5,26 @@
 
 #include "TStatechart.h"
 #include "StateClass.h"
+
+TStatechart SJoesTriacStateChart;
+TStatechart* PJoesTriacStateChart;
+
+CJoesTriacEvent* currentEvent;
+
+extern const uStInt uStIntHandlingDone;
+extern const uStInt uStIntNoMatch;
+
+
+/*
+
 #include "TriacIntr.h"
 #include "triacPID.h"
 #include "triacUI.h"
 #include "TriacKeyPad.h"
 
 
-extern const uStInt uStIntHandlingDone;
-extern const uStInt uStIntNoMatch;
 
-TStatechart SJoesTriacStateChart;
-TStatechart* PJoesTriacStateChart;
 
-CJoesTriacEvent* currentEvent;
 
 // This defines and names the states the class has.
 enum eStates
@@ -404,37 +411,6 @@ uStInt evTriacRunningChecker(void)
 }
 
 
-
-/*
-void entry...State(void)
-{
-//	printf("entry I\n");
-}
-
-void exit...State(void)
-{
-//	printf("exit I\n");
-}
-
-uStInt ev...Checker(void)
-{
-//	printf("check for event in State evStateIdle\n");
-
-//	if (currentEvent->evType == eValueAssignement) 
-//	{	if (HumidifyingLowerLimit > currentEvent->humidity)
-//		{
-//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateHumidifying);
-//				// No event action.
-//			END_EVENT_HANDLER(PJoesTriacStateChart);
-//			return (u32HandlingDone);
-//		}
-//	}
-	return (u32NoMatch);
-}
-
-*/
-
-
 #ifndef  sdccNULL 
 
 #define tfNull 0
@@ -538,6 +514,109 @@ xStateType xaStates[eNumberOfStates] = {
 };
 
 
+
+*/
+
+
+
+
+/*
+void entry...State(void)
+{
+//	printf("entry I\n");
+}
+
+void exit...State(void)
+{
+//	printf("exit I\n");
+}
+
+uStInt ev...Checker(void)
+{
+//	printf("check for event in State evStateIdle\n");
+
+//	if (currentEvent->evType == eValueAssignement) 
+//	{	if (HumidifyingLowerLimit > currentEvent->humidity)
+//		{
+//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateHumidifying);
+//				// No event action.
+//			END_EVENT_HANDLER(PJoesTriacStateChart);
+//			return (u32HandlingDone);
+//		}
+//	}
+	return (u32NoMatch);
+}
+
+*/
+
+enum eStates
+{
+	eStateJoesTriac,
+	eStartState = eStateJoesTriac,
+	eStateAskForCalibration,
+	eStateCalibrating,
+	eNumberOfStates
+};
+
+
+uStInt evJoesTriacChecker(void)
+{
+	return (uStIntNoMatch);
+}
+
+uStInt evAskForCalibrationChecker(void)
+{
+	return (uStIntNoMatch);
+}
+
+uStInt evCalibratingChecker(void)
+{
+	return (uStIntNoMatch);
+}
+
+
+#ifndef  sdccNULL 
+
+#define tfNull 0
+
+#else
+
+t_fvoid  tfNull;
+
+#endif 
+
+xStateType xaStates[eNumberOfStates] = {
+ 	{eStateJoesTriac,    // name
+ 	-1,									//parent
+ 	eStateAskForCalibration,    // default substate
+ 	0,    // keep history
+ 	evJoesTriacChecker,    // event checking fu
+	tfNull,       // def state entry function
+ 	tfNull,     //    entering state
+ 	tfNull},     // exiting state
+
+ 	{eStateAskForCalibration,
+ 	eStateJoesTriac,
+ 	-1,
+ 	0,									
+ 	evAskForCalibrationChecker,
+ 	tfNull,
+ 	tfNull,
+ 	tfNull},
+
+ 	{eStateCalibrating,
+ 	eStateJoesTriac,
+ 	-1,
+ 	0,
+ 	evCalibratingChecker,
+ 	tfNull,
+ 	tfNull,
+ 	tfNull},
+	 
+
+};
+
+
 void startStateCharts()
 {
 
@@ -564,6 +643,4 @@ bool processTriacEvent(TStatechart* t,CJoesTriacEvent* ev)
 	currentEvent = ev;
 	return ProcessEvent(t);
 }
-
-
 

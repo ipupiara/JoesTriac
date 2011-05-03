@@ -5,6 +5,7 @@
 
 
 #include "TriacIntr.h"
+#include "TriacDefines.h"
 
 
 int16_t lastAmpsADCVal;
@@ -13,9 +14,9 @@ int16_t remainingTriacTriggerDelayCounts;
 
 int16_t secondsRemaining;
 
-#define triacAtmega128
 
-#ifdef triacAtmega32
+
+#ifdef triacAtmegaX4P
 
 //Atmega324P
 
@@ -199,14 +200,17 @@ void stopDurationTimer()
 void startTriacTriggerDelay()
 {
 	remainingTriacTriggerDelayCounts = triacTriggerDelayCms;
-	TIMSK2   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
-	TCCR2B = 0b00000111  ; // CTC on CC2A , set clk / 1024, timer started
+//	TIMSK2   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
+	
+	OCR2 = 0x00;
+	TCCR2 = 0b00001101;    // no fuck, CTC, disconn OC2, clk / 1024 timer started
 }
 
 void stopTriacTriggerDelay()
 {
-	  TCCR2B = 0b00000000  ;  // CTC, timer stopped
-	  TIMSK2  = 0x00;
+	  TCCR2 = 0b00001000;    // no fuck, CTC, disconn OC2, clk stopped
+
+//	  TIMSK2  = 0x00;
 }	  
 
 void setTriacTriggerDelay(int16_t cmsecs)
@@ -221,9 +225,9 @@ ISR(TIMER2_COMPA_vect)
 	if (remainingTriacTriggerDelayCounts == 0) {
 		
 		// todo  Trigger Triac			// T O D O   try to cast types so that only 8 bit single cycle operations are happen
-		
-		TCCR2B = 0b00000000  ;  // CTC, timer stopped
-		TIMSK2  = 0x00;
+
+		TCCR2 = 0b00001000;    // no fuck, CTC, disconn OC2, clk stopped
+//		TIMSK2  = 0x00;
 	}
 	if (remainingTriacTriggerDelayCounts < ocra2aValue) {    
 		TCNT2 = remainingTriacTriggerDelayCounts; // 8-bit access already atomic 
@@ -284,7 +288,7 @@ void initInterrupts()
 		  OCR1A = 0x2A30;  // counter top value  , this value at clk/1024 will cause a delay of exact 1 sec
 	      TCNT1 = 0x00 ;  
 	  
-		TIMSK  = 0x00; // disa  Interrupt 
+		TIMSK  = 0b00010000; // ena  Interrupt 
 		ETIFR = 0x00;
 
 // Timer 0 as ADC clock 
@@ -296,19 +300,16 @@ void initInterrupts()
 		  TIMSK &= 0b11111100  ;   // disa interrupts, just let run on ADC
 
 // Timer 2 as Triac Trigger Delay Timer
-	  
-	      TCCR2A = 0b00000010;  //  CTC 
+
+//		  TRCC2 = 0b00001101;    // no fuck, CTC, disconn OC2, clk / 1024
+		  TCCR2 = 0b00001000;    // no fuck, CTC, disconn OC2, timer stopped
 		  
 		//TCCR2B = 0b00000111  ; // CTC on CC0A , set clk / 1024, timer started
 	  
-		  TCCR2B = 0b00000000  ;  // CTC, timer stopped
-		  ASSR = 0x00;
-	  
-		  OCR2A = 0xAA;  // counter top value  , just anything for start, will later be set by PID
+		  OCR2 = 0xAA;  // counter top value  , just anything for start, will later be set by PID
 	      TCNT2 = 0x00 ;  
 	  
-		TIMSK2  = 0x00; // disa  Interrupt 
-//		TIMSK2   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
+		TIMSK  = (TIMSK & 0b00111111) | 0b10000000 ;
 
 //  init ADC
 		
@@ -347,7 +348,9 @@ void startDurationTimer(int16_t secs)
 	secondsRemaining = secs;
 	
 //	TIMSK   = 0b00010000;  //  Output Compare A Match Interrupt Enable 
-	TIMSK |=  0b00010000;
+//	TIMSK |=  0b00010000;
+
+	OCR2 = 0x00;
 	TCCR1B = 0b00001101  ; // CTC on CC1A , set clk / 24, timer started
 }
 
@@ -356,7 +359,7 @@ void startDurationTimer(int16_t secs)
 void stopDurationTimer()
 {
 	TCCR1B = 0b00001000 ;  // CTC, timer stopped
-	TIMSK &= 0b11000011 ;
+//	TIMSK &= 0b11000011 ;
 //	TIMSK = 0x00;
 	
 }

@@ -1,7 +1,15 @@
 
 
+// TriacDefines.h contains global and some local defines, but not all of the local defines
+
+
 #ifndef TriacDefines_H
 	#define TriacDefines_H
+	
+//	#define triacAtmega128
+	#define triacAtmegaX4P
+
+	
 	
 	#define calibLowCmsEEPROMpos   0
 	#define calibHighCmsEEPROMpos  2   // both int16

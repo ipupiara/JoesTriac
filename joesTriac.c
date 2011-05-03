@@ -6,12 +6,12 @@
  */ 
 
 #include <avr/io.h>
-#include "st7565r.h"
-#include "triacPID.h"
-#include "triacUI.h"
+//#include "st7565r.h"
+//#include "triacPID.h"
+//#include "triacUI.h"
 #include "StateClass.h"
-#include "TriacIntr.h"
-#include "TriacKeyPad.h"
+//#include "TriacIntr.h"
+//#include "TriacKeyPad.h"
 
 /*
 
@@ -55,6 +55,13 @@ extern const uStInt uStIntHandlingDone;
 
 extern TStatechart SJoesTriacStateChart;
 
+void ininit()
+{ int r1, r2, r3;
+	r1= 3;
+	r2 = 1;
+	r3 = r1 + r2;
+}
+
 
 int main(void)
 {
@@ -70,11 +77,13 @@ int main(void)
 	initUI();
 	*/
 	
+	ininit();
+	
 	startStateCharts();
 	
 	while (1)
 	{
-		if (runningSecondsTick){
+/*		if (runningSecondsTick){
 	//		cli();    // 8-bit access is already atomic
 			runningSecondsTick = 0;
 	//		sei();
@@ -103,7 +112,7 @@ int main(void)
 			processTriacEvent(&SJoesTriacStateChart,&ev);	
 		}
 		
-		
+		*/
 		
     }
 }
