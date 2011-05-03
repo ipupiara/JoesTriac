@@ -1,17 +1,18 @@
 /*
  * joesTriac.c
  *
- * Created: 18.04.2011 14:34:59
+ * Created: 03.05.2011 09:20:38
  *  Author: duenda
  */ 
 
+
 #include <avr/io.h>
-//#include "st7565r.h"
-//#include "triacPID.h"
-//#include "triacUI.h"
+#include "st7565r.h"
+#include "triacPID.h"
+#include "triacUI.h"
 #include "StateClass.h"
-//#include "TriacIntr.h"
-//#include "TriacKeyPad.h"
+#include "TriacIntr.h"
+#include "TriacKeyPad.h"
 
 /*
 
@@ -55,13 +56,6 @@ extern const uStInt uStIntHandlingDone;
 
 extern TStatechart SJoesTriacStateChart;
 
-void ininit()
-{ int r1, r2, r3;
-	r1= 3;
-	r2 = 1;
-	r3 = r1 + r2;
-}
-
 
 int main(void)
 {
@@ -69,15 +63,13 @@ int main(void)
 	int8_t ky;
 	
 	
-/*	lcd_init();
+	lcd_init();
 	initKeyPad();
 	initInterrupts();
 //	InitializePID(real kp, real ki, real kd, real error_thresh, real step_time);   
 	InitializePID(-0.01, 0.3, 0.3, 0.3, 1);
 	initUI();
-	*/
 	
-	ininit();
 	
 	startStateCharts();
 	

@@ -15,7 +15,7 @@ extern const uStInt uStIntHandlingDone;
 extern const uStInt uStIntNoMatch;
 
 
-/*
+
 
 #include "TriacIntr.h"
 #include "triacPID.h"
@@ -515,7 +515,7 @@ xStateType xaStates[eNumberOfStates] = {
 
 
 
-*/
+
 
 
 
@@ -548,6 +548,8 @@ uStInt ev...Checker(void)
 }
 
 */
+
+/*
 
 enum eStates
 {
@@ -615,6 +617,8 @@ xStateType xaStates[eNumberOfStates] = {
 	 
 
 };
+
+*/
 
 
 void startStateCharts()
