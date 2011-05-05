@@ -113,17 +113,17 @@ void initInterrupts()
 		TIMSK1  = 0x00; // disa  Interrupt 
 	//		TIMSK1   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
 
-// Timer 0 as ADC clock 
+// Timer 0    , not needed so far 
 	  
-	      TCCR0A = 0b00000010;  //  CTC 
+//	      TCCR0A = 0b00000010;  //  CTC 
 		  
-		TCCR0B = 0b00000101  ; // CTC on CC0A , set clk / 1024, timer started
+//		TCCR0B = 0b00000101  ; // CTC on CC0A , set clk / 1024, timer started
 	  
 	  
-		  OCR0A = 0xAA;  // counter top value  , just anything for start, will later be set by PID
-	      TCNT0 = 0x00 ;  
+//		  OCR0A = 0xAA;  // counter top value  , just anything for start, will later be set by PID
+//	      TCNT0 = 0x00 ;  
 	  
-		TIMSK0  = 0b00000010;  // disa  ena, just let run ADC
+//		TIMSK0  = 0b00000010;  // disa  ena, just let run ADC
 
 // Timer 2 as Triac Trigger Delay Timer
 	  
@@ -143,10 +143,11 @@ void initInterrupts()
 //  init ADC
 		
 		ADMUX = 0b01000000;      // AVCC as ref,  right adjust, mux to adc0
-		ADCSRA = 0b10001111;  // ADC ena, not yet start (single start mode), no Autotrigger, iflag = 0, inz ena, prescale /128
+		ADCSRA = 0b10001111;  // ADC ena, not yet start (single start mode), no Autotrigger, iflag = 0, int ena, prescale /128
 		ADCSRB = 0x00;  // no ACME, no free running mode
 
 		sei();  // start interrupts if not yet started
+		
 }
 
 void startTriacRun()
@@ -176,7 +177,7 @@ void startDurationTimer(int16_t secs)
 	secondsRemaining = secs;
 	
 	TIMSK1   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
-	TCCR1B = 0b00001101  ; // CTC on CC1A , set clk / 24, timer started
+	TCCR1B = 0b00001101  ; // CTC on CC1A , set clk / 24, timer started 
 }
 
 
@@ -191,7 +192,7 @@ void stopDurationTimer()
 
 #endif
 
-
+/*
 #ifdef triacAtmega128
 
 
@@ -366,3 +367,5 @@ void stopDurationTimer()
 
 
 #endif
+
+*/

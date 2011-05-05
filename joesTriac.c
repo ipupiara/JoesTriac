@@ -72,10 +72,16 @@ int main(void)
 	
 	
 	startStateCharts();
-	
+	int cnt = 0;	
 	while (1)
 	{
-/*		if (runningSecondsTick){
+
+		++ cnt;
+		if (((cnt % 460) == 0)) {
+			cli();
+			sei();
+		}
+		if (runningSecondsTick){
 	//		cli();    // 8-bit access is already atomic
 			runningSecondsTick = 0;
 	//		sei();
@@ -102,9 +108,6 @@ int main(void)
 				ev.keyCode = ky;			
 			}	
 			processTriacEvent(&SJoesTriacStateChart,&ev);	
-		}
-		
-		*/
-		
+		}	
     }
 }
