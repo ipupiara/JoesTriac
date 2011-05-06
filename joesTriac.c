@@ -77,7 +77,7 @@ int main(void)
 	{
 
 		++ cnt;
-		if (((cnt % 460) == 0)) {
+		if (((cnt % 4000) == 0)) {
 			cli();
 			sei();
 		}
