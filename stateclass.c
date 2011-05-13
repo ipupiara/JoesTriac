@@ -51,14 +51,14 @@ uStInt evJoesTriacChecker(void)
 
 void entryAskForCalibrationState(void)
 {
-	printf("entry AskForCalibration\n");
+//	printf("entry AskForCalibration\n");
 	displayCalibrationPrompt();
 	startDurationTimer(3);
 }
 
 void exitAskForCalibrationState(void)
 {
-	printf("exit I\n");
+//	printf("exit I\n");
 	stopDurationTimer();
 }
 

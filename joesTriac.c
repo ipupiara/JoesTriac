@@ -63,7 +63,8 @@ int main(void)
 	CJoesTriacEvent ev;
 	int8_t ky;
 	
-	USART_Init( 143 );   // baud 4800 at 11.0952 mhz, single uart speed
+	USART_Init( 143 );   // baud 4800 at 11.0592 mhz, single uart speed
+	stdout = &mystdout;
 	lcd_init();
 	initKeyPad();
 	initInterrupts();
