@@ -7,6 +7,7 @@
 
 
 #include <avr/io.h>
+#include <stdio.h>
 #include "st7565r.h"
 #include "triacPID.h"
 #include "triacUI.h"
@@ -14,7 +15,7 @@
 #include "TriacIntr.h"
 #include "TriacKeyPad.h"
 
-/*
+
 
 void USART_Init( unsigned int baud )
 {
@@ -49,7 +50,7 @@ static int uart_putchar(char c, FILE *stream)
    return 0;
 }
 
-*/
+
 
 extern const uStInt uStIntHandlingDone;
 
@@ -62,7 +63,7 @@ int main(void)
 	CJoesTriacEvent ev;
 	int8_t ky;
 	
-	
+	USART_Init( 143 );   // baud 4800 at 11.0952 mhz, single uart speed
 	lcd_init();
 	initKeyPad();
 	initInterrupts();
@@ -77,7 +78,7 @@ int main(void)
 	{
 
 		++ cnt;
-		if (((cnt % 4000) == 0)) {
+		if (((cnt % 40) == 0)) {
 			cli();
 			sei();
 		}

@@ -14,6 +14,15 @@ int16_t remainingTriacTriggerDelayCounts;
 
 int16_t secondsRemaining;
 
+int16_t getSecondsRemaining()
+{
+	int16_t res;
+	cli();
+	res = secondsRemaining;
+	sei();
+	return res;
+}
+
 
 
 #ifdef triacAtmegaX4P

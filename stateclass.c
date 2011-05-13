@@ -84,6 +84,7 @@ uStInt evAskForCalibrationChecker(void)
 	if (currentEvent->evType == evSecondsTick) 
 	{	
 		displayCountDown();
+		printf("cnt %i\n",getSecondsRemaining());
 		res =  uStIntHandlingDone;
 	}
 	return (res); 
