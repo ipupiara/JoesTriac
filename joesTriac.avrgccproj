@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>1.0</ProjectVersion>
     <ProjectGuid>{8ff61f78-ed86-4577-9194-b30e2abc78bf}</ProjectGuid>
-    <avrdevice>ATmega1284P</avrdevice>
+    <avrdevice>ATmega644A</avrdevice>
     <avrdeviceseries>none</avrdeviceseries>
     <OutputFile>$(MSBuildProjectName).elf</OutputFile>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
@@ -15,13 +15,13 @@
     <RootNamespace>joesTriac</RootNamespace>
     <avrtool>com.atmel.avrdbg.tool.simulator</avrtool>
     <com_atmel_avrdbg_tool_simulator>
-      <ToolType xmlns="">com.atmel.avrdbg.tool.simulator</ToolType>
-      <ToolName xmlns="">AVR Simulator</ToolName>
-      <ToolNumber xmlns="">
+      <ToolType>com.atmel.avrdbg.tool.simulator</ToolType>
+      <ToolName>AVR Simulator</ToolName>
+      <ToolNumber>
       </ToolNumber>
-      <Channel xmlns="">
+      <Channel>
         <host>127.0.0.1</host>
-        <port>59704</port>
+        <port>53242</port>
         <ssl>False</ssl>
       </Channel>
     </com_atmel_avrdbg_tool_simulator>
@@ -46,15 +46,19 @@
       <AvrGcc>
         <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
         <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
-        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
-        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
         <avrgcc.compiler.optimization.DebugLevel>Default (-g2)</avrgcc.compiler.optimization.DebugLevel>
         <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
         <avrgcc.assembler.debugging.DebugLevel>Default (-g2)</avrgcc.assembler.debugging.DebugLevel>
       </AvrGcc>
     </ToolchainSettings>
     <MemorySettings>
+      <MemorySegments>
+  <InitialStack IsEnabled="0">
+    <Address>0x1000</Address>
+  </InitialStack>
+</MemorySegments>
     </MemorySettings>
+    <GenerateHexFile>True</GenerateHexFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="fontACM.h">

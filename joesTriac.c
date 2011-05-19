@@ -65,12 +65,13 @@ int main(void)
 	
 	USART_Init( 143 );   // baud 4800 at 11.0592 mhz, single uart speed
 	stdout = &mystdout;
-	lcd_init();
-	initKeyPad();
-	initInterrupts();
+	printf("startup\n");
+//	lcd_init();
+//	initKeyPad();
+//	initInterrupts();
 //	InitializePID(real kp, real ki, real kd, real error_thresh, real step_time);   
-	InitializePID(-0.01, 0.3, 0.3, 0.3, 1);
-	initUI();
+//	InitializePID(-0.01, 0.3, 0.3, 0.3, 1);
+//	initUI();
 	
 	
 	startStateCharts();

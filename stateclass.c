@@ -62,6 +62,8 @@ void exitAskForCalibrationState(void)
 	stopDurationTimer();
 }
 
+int8_t bl = 0;
+
 uStInt evAskForCalibrationChecker(void)
 {
 	int res = uStIntNoMatch;
@@ -83,8 +85,12 @@ uStInt evAskForCalibrationChecker(void)
 	}
 	if (currentEvent->evType == evSecondsTick) 
 	{	
-		displayCountDown();
-		printf("cnt %i\n",getSecondsRemaining());
+		int16_t srem = getSecondsRemaining();
+//		bl != bl;
+//		if (bl) {
+			displayCountDown();
+			printf("cnt %i\n",srem);
+//		}		
 		res =  uStIntHandlingDone;
 	}
 	return (res); 
