@@ -5,7 +5,7 @@
 #include "TriacDefines.h"
 #include "TriacIntr.h"
 
-float gradAmps;
+float gradAmps; // amperes ....
 
 void updateGradAmps()
 {
