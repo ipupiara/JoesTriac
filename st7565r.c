@@ -21,13 +21,11 @@
  */
 
 #include <avr/io.h>
-
- #define F_CPU 1000000UL  // 1 MHz
-    //#define F_CPU 14.7456E6
+#define F_CPU 11095200
 #include <util/delay.h>
 
 #include "st7565r.h"
-#include "fontACM.h"
+//#include "fontACM.h"
 
 
 void lcd_init() {

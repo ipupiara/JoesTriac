@@ -5,6 +5,7 @@
  *  Author: duenda
  */ 
 
+#define F_CPU 11095200
 
 #include <avr/io.h>
 #include <stdio.h>
@@ -29,7 +30,7 @@ void USART_Init( unsigned int baud )
 	UCSR0B=(1<<RXEN0)|(1<<TXEN0);
 //	UCSR0B = 0b00011000;  // rx compl intr ena - tx compl intr ena - dreg empty intr ena - rx ena - tx ena - sz2 (size bit 2)  - 9. bit rx - 9. tx
 
-	UCSR0C = 0b01000110; // "01" async usart - "00" disa parity - 1 (or 2) stop bit - sz1 - sz0 (set t0 8 bit) - clk polarity (sync only)
+	UCSR0C = 0b00000110; // "00" async usart - "00" disa parity - 1 (or 2) stop bit - sz1 - sz0 (set t0 8 bit) - clk polarity (sync only)
 }
 
 
@@ -68,7 +69,7 @@ int main(void)
 	printf("startup\n");
 //	lcd_init();
 //	initKeyPad();
-//	initInterrupts();
+	initInterrupts();
 //	InitializePID(real kp, real ki, real kd, real error_thresh, real step_time);   
 //	InitializePID(-0.01, 0.3, 0.3, 0.3, 1);
 //	initUI();

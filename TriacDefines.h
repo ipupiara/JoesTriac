@@ -5,9 +5,6 @@
 
 #ifndef TriacDefines_H
 	#define TriacDefines_H
-	
-//	#define triacAtmega128
-	#define triacAtmegaX4P
 
 	
 	
