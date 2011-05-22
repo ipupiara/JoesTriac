@@ -26,17 +26,60 @@
 
 #include "st7565r.h"
 
+#define RS	0x02	// register select aka. A0; H: display, L: control data
+#define RW	0x04	// read/write; H: read, L: write (6800 MPU)
+#define En	0x01	// enable - impulse; L: active (6800 MPU)
+
+
+#define LCD_CMD PORTD		//control port of uC for LCD display
+#define LCD_CMD_IODIR DDRD	//io direction for control port
+#define LCD_DATA PORTB		//data port of uC for LCD display
+#define LCD_DATA_IODIR DDRB	//io direction for data port
+
+
+
+
+void lcd_write(uint8_t dataW, uint8_t toDataIR) {
+
+	int8_t busy;
+
+	LCD_DATA_IODIR = 0x00; // configure LCD_DATA IOs as input for read Busy Flag
+							// pull -up ???
+	
+	LCD_CMD &= ~RS; 	//  RS = 0
+	LCD_CMD |= RW;		//  RW = 1  (means read)
+
+	busy = 1;
+	while (busy) {
+		LCD_CMD |= En; 	// E = 1
+		_delay_us(1);
+		busy = LCD_DATA & 0x80 ;
+		LCD_CMD	&= ~En;	// E = 0
+		_delay_us(1);
+	}
+	
+
+	LCD_DATA_IODIR = 0xFF;  // configure LCD_DATA as output
+	if (toDataIR)  LCD_CMD |= RS;  //  RS = 1
+	LCD_CMD &= ~RW;    // RW = 0  (means write)
+
+		LCD_CMD |= En; 	// E = 1
+		_delay_us(1);
+		LCD_DATA = dataW ;
+		LCD_CMD	&= ~En;	// E = 0
+}
+
+
+
 
 void lcd_init() {
 
-/*
+	LCD_CMD_IODIR |= 0x03;  // lowest 3 Pins as output, leave rest as is
+	LCD_CMD  &= 0b11111000 ;
 
-
-
-
-
-*/
-
+	LCD_DATA_IODIR  = 0x00;  // init as read-port
+//	LCD_DATA_IODIR  = 0xFF  // all are used as output only in this application	
+//	LCD_DATA = 0x00;
 
 /*
 	// Port A set to output (high impedance) 
@@ -80,28 +123,5 @@ void lcd_clrscr()
 }
 
 
-void lcd_write_command(unit8_t cmd)
-{
-}
-
-void lcd_write_data(uint8_t data) {
-
-//	LCD_DATA_IODIR = 0xFF; // configure LCD_DATA IOs as output
-
-	LCD_CMD = LCD_CMD | RS; // display data
-	LCD_CMD = LCD_CMD & ~RW; // write
-//	LCD_CMD = LCD_CMD & ~CS; // accept data/commands
-	LCD_CMD = LCD_CMD | E;
-	_delay_us(1); // 180 ns would be save (see page 62)
-	LCD_DATA = data;
-	_delay_us(1); // 40 ns would be save (see page 62)
-	LCD_CMD = LCD_CMD & ~E;
-	LCD_DATA = 0x00; // default state
-//	LCD_CMD = LCD_CMD | CS; // do not accept further data/commands
-	LCD_CMD = LCD_CMD | RW; // read
-	LCD_CMD = LCD_CMD | RS; // display data
-
-//	LCD_DATA_IODIR = 0x00; // configure LCD_DATA IOs as intput
-}
 
 

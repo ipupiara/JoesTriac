@@ -20,26 +20,11 @@
 #ifndef ST7565R_H
 	#define ST7565R_H
 
-/*
- * Terminals
- */
-
-
-#define RS	0x04	// register select aka. A0; H: display, L: control data
-#define RW	0x08	// read/write; H: read, L: write (6800 MPU)
-#define E	0x10	// enable - impulse; L: active (6800 MPU)
-
-
-#define LCD_CMD PORTA		//control port of uC for LCD display
-#define LCD_CMD_IODIR DDRA	//io direction for control port
-#define LCD_DATA PORTC		//data port of uC for LCD display
-#define LCD_DATA_IODIR DDRC	//io direction for data port
-
 
 
 void lcd_init(void);
 
-void lcd_write(uint8_t data);
+// void lcd_write(uint8_t data);
 //uint8_t lcd_read(void);
 /*
 uint8_t lcd_status(void);
@@ -53,4 +38,5 @@ void show_icon(const uint8_t *bitmap,
 					 uint8_t mode);
 void lcd_putc(uint8_t c);
 */
+
 #endif
