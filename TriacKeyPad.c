@@ -11,6 +11,10 @@ int8_t lastCharPressed;
 #define keyPort PORTC
 #define keyPortC
 
+//#define keyPort PORTB
+//#define keyPortB
+
+
 int8_t getKeypadState()
 {
 	int8_t ch;
@@ -75,6 +79,38 @@ ISR(PCINT2_vect)
 	}
 	PORTC = 0xF0;
 	PCICR = 0b0000100;  // ena pcint int
+}
+
+#endif
+
+
+#ifdef keyPortB
+
+void initKeyPad()
+{
+	anyKeyPressed = 0;
+	lastCharPressed = 0;
+
+
+	DDRB = 0xF0;  // higher four pins as output, lower as Input , resp. Interrupt sources
+	PORTB = 0xF0;  // set higher four pins high	
+	
+	// init PCInt 2 on Port C , pc pins 16 .. 23
+	PCMSK1 = 0x0F;  // lower  4 pins will cause interrupt, upper 4 used as output for scanning keyPad
+	PCICR = 0b0000010;  // enable pcint2
+
+	sei(); //  enable all interrupts
+}
+
+ISR(PCINT1_vect)
+{
+	PCICR = 0b0000000;  // disa pcin interrupts ,evtl will need to reconfigure port ddr.. to be tested
+	
+	if ((PORTB & 0x0F))  {  // any key pressed (toggle down)
+		lastCharPressed = getKeypadState();
+	}
+	PORTB = 0xF0;
+	PCICR = 0b0000010;  // ena pcint int
 }
 
 #endif
