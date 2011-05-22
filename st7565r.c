@@ -77,7 +77,9 @@ void lcd_init() {
 	LCD_CMD_IODIR |= 0x03;  // lowest 3 Pins as output, leave rest as is
 	LCD_CMD  &= 0b11111000 ;
 
-	LCD_DATA_IODIR  = 0x00;  // init as read-port
+	LCD_DATA_IODIR  = 0x00;  
+	
+// init as read-port
 //	LCD_DATA_IODIR  = 0xFF  // all are used as output only in this application	
 //	LCD_DATA = 0x00;
 
