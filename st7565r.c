@@ -66,6 +66,7 @@ void lcd_write(uint8_t dataW, uint8_t toDataIR) {
 		LCD_CMD |= En; 	// E = 1
 		_delay_us(1);
 		LCD_DATA = dataW ;
+		_delay_us(1);
 		LCD_CMD	&= ~En;	// E = 0
 }
 
