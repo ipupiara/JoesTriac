@@ -125,8 +125,8 @@ int main(void)
 //			if (ky == kpFunction2) ev.evType = eFunction2Pressed;   // not yet in use
 			if (ky == kpStart) ev.evType = evStartPressed;
 			if (ky == kpStop) ev.evType = evStopPressed;
-			if (ky == kpRed) ev.evType = evRedPressed;
-			if (ky == kpWhite) ev.evType = evWhitePressed;
+			if (ky == kpAst) ev.evType = evAstPressed;
+			if (ky == kpNum) ev.evType = evNumPressed;
 			if (ky >= kp0){
 				ev.evType = evCharEntered;
 				ev.keyCode = ky;			

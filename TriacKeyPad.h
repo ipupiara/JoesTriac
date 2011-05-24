@@ -11,8 +11,8 @@ enum  kpKey {
 	kpStop,
 	kpFunction1,
 	kpFunction2,   // not yet in use
-	kpRed,
-	kpWhite,
+	kpAst,
+	kpNum,
 	kp0 = 0x30 ,
 	kp1,
 	kp2,

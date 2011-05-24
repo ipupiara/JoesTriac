@@ -36,6 +36,7 @@
 #define LCD_CMD_IODIR DDRD	//io direction for control port
 #define LCD_DATA PORTB		//data port of uC for LCD display
 #define LCD_DATA_IODIR DDRB	//io direction for data port
+#define LCD_DATA_PIN PINB    // pins for data port
 
 
 
@@ -45,7 +46,8 @@ void lcd_write(uint8_t dataW, uint8_t toDataIR, uint8_t Enx) {
 	int8_t busy;
 
 	LCD_DATA_IODIR = 0x00; // configure LCD_DATA IOs as input for read Busy Flag
-							// pull -up ???
+	LCD_DATA    = 0x00;
+
 	LCD_CMD = LCD_CMD & 0b00001111 ;
 	
 	LCD_CMD = LCD_CMD & ~RS; 	//  RS = 0
@@ -55,17 +57,18 @@ void lcd_write(uint8_t dataW, uint8_t toDataIR, uint8_t Enx) {
 	while (busy) {
 		LCD_CMD = LCD_CMD | Enx; 	// E = 1
 		_delay_us(1);
-		busy = LCD_DATA & 0x80 ;
+		busy = LCD_DATA_PIN & 0x80 ;
 		LCD_CMD	= LCD_CMD & ~Enx;	// E = 0
 		_delay_us(1);
 	}
 	
 
 	LCD_DATA_IODIR = 0xFF;  // configure LCD_DATA as output
+	LCD_DATA = dataW ;
+
 	if (toDataIR)  LCD_CMD |= RS;  //  RS = 1
 	LCD_CMD = LCD_CMD & ~RW;    // RW = 0  (means write)
 
-	LCD_DATA = dataW ;
 	_delay_us(1);
 	LCD_CMD = LCD_CMD | Enx; 	// E = 1
 
@@ -82,18 +85,18 @@ void lcd_init() {
 	LCD_CMD  = LCD_CMD & 0b00001111 ;
 
 	LCD_DATA_IODIR  = 0x00;  
+	LCD_DATA   = 0x00;
 
 	lcd_write (0b00000001, 0,En1);   // clear display
-//	lcd_write (0b00000001, 0,En2);   // clear display
+
 
 	lcd_write( 0b00111000,0, En1);   // 8-bit operation, 5x8Font, 2 lines
-//	lcd_write( 0b00111000,0, En2);   // 8-bit operation, 5x8Font, 2 lines
+
 
 	lcd_write( 0b00001100, 0, En1);   // disp on, curs off, space mode (cause of initialization)
-//	lcd_write( 0b00001100, 0, En2);   // disp on, curs off, space mode (cause of initialization)
+
 
 	lcd_write (0b00000110, 0, En1 );  // inc adr, shift curs, no char shift
-//	lcd_write (0b00000110, 0, En2 );  // inc adr, shift curs, no char shift
 
 
 //   lcd_write (0b11000000, 0); // adr of ddram to start 2nd line (cursor move)
@@ -103,7 +106,7 @@ void lcd_init() {
 void lcd_clrscr()
 {
 	lcd_write (0b00000001, 0, En1); // clr scr and move home
-	lcd_write (0b00000001, 0, En2); // clr scr and move home
+
 }
 
 void lcd_Line2(int8_t Enx)

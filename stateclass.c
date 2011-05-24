@@ -254,13 +254,13 @@ uStInt evEditIdleChecker(void)
 	//	printf("check for event in State evStateIdle\n");
 
 	if (currentEvent->evType == evCharEntered) {
-		if (currentEvent->keyCode==kpRed) {	
+		if (currentEvent->keyCode==kpAst) {	
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditAmps);
 				// No event action.
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 		}
-		if (currentEvent->keyCode==kpWhite) {	
+		if (currentEvent->keyCode==kpNum) {	
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditDuration);
 				// No event action.
 			END_EVENT_HANDLER(PJoesTriacStateChart);
@@ -288,13 +288,13 @@ uStInt evEditAmpsChecker(void)
 	//	printf("check for event in State evStateIdle\n");
 
 	if (currentEvent->evType == evCharEntered) {
-		if (currentEvent->keyCode==kpWhite)  {	
+		if (currentEvent->keyCode==kpNum)  {	
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditDuration);
 				// No event action.
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 		}
-				if (currentEvent->keyCode==kpRed)  {	
+				if (currentEvent->keyCode==kpAst)  {	
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
 				// No event action.
 			END_EVENT_HANDLER(PJoesTriacStateChart);
@@ -341,13 +341,13 @@ uStInt evEditDurationChecker(void)
 	//	printf("check for event in State evStateIdle\n");
 
 	if (currentEvent->evType == evCharEntered) {
-		if (currentEvent->keyCode==kpRed)  {	
+		if (currentEvent->keyCode==kpAst)  {	
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditAmps);
 				// No event action.
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 		}
-		if (currentEvent->keyCode==kpWhite)  {	
+		if (currentEvent->keyCode==kpNum)  {	
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
 				// No event action.
 			END_EVENT_HANDLER(PJoesTriacStateChart);

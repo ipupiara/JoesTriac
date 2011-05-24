@@ -23,7 +23,7 @@ int8_t getKeypadState()
 		if (ch & 0b00001000) ch = kp1;
 		if (ch & 0b00000100) ch = kp4;
 		if (ch & 0b00000010) ch = kp7;
-		if (ch & 0b00000001) ch = kpRed;		
+		if (ch & 0b00000001) ch = kpAst;		
 	} else {
 		keyPort = 0b0100000;
 		if ((ch=keyPort & 0x0F)){
@@ -37,7 +37,7 @@ int8_t getKeypadState()
 					if (ch & 0b00001000) ch = kp3;
 					if (ch & 0b00000100) ch = kp6;
 					if (ch & 0b00000010) ch = kp9;
-					if (ch & 0b00000001) ch = kpWhite;		
+					if (ch & 0b00000001) ch = kpNum;		
 				}  else {
 					keyPort = 0b00010000;
 					if ((ch=keyPort & 0x0F)){
