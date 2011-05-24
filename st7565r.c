@@ -64,11 +64,12 @@ void lcd_write(uint8_t dataW, uint8_t toDataIR, uint8_t Enx) {
 	if (toDataIR)  LCD_CMD |= RS;  //  RS = 1
 	LCD_CMD &= ~RW;    // RW = 0  (means write)
 
-		LCD_CMD |= Enx; 	// E = 1
-		_delay_us(1);
-		LCD_DATA = dataW ;
-		_delay_us(1);
-		LCD_CMD	&= ~Enx;	// E = 0
+	LCD_DATA = dataW ;
+	_delay_us(1);
+	LCD_CMD |= Enx; 	// E = 1
+
+	_delay_us(1);
+	LCD_CMD	&= ~Enx;	// E = 0
 }
 
 
