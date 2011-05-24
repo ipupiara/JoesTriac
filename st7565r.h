@@ -1,4 +1,4 @@
-/*
+ /*
  * ST7565R LCD controller driver for Atmel (R) AVR (R) 8-Bit RISC
  * Copyright (C) 2009 Alexander Meinke <ameinke@online.de>
  *
