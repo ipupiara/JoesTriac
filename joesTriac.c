@@ -17,6 +17,20 @@
 #include "TriacKeyPad.h"
 
 
+void initBlink()
+{
+	DDRA = 0xFF;
+	PORTA = 0x00;
+}
+
+void blink()
+{
+	while (1) {
+		PINA=0xFF;
+	}
+
+}
+
 
 void USART_Init( unsigned int baud )
 {
@@ -63,11 +77,17 @@ int main(void)
 {
 	CJoesTriacEvent ev;
 	int8_t ky;
+
+
+//	initBlink();
+//	blink();
 	
 	USART_Init( 143 );   // baud 4800 at 11.0592 mhz, single uart speed
 	stdout = &mystdout;
 	printf("startup\n");
-//	lcd_init();
+	lcd_init();
+	lcd_AskCalibration();
+
 //	initKeyPad();
 	initInterrupts();
 //	InitializePID(real kp, real ki, real kd, real error_thresh, real step_time);   

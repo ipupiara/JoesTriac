@@ -26,9 +26,10 @@
 
 #include "st7565r.h"
 
-#define RS	0x02	// register select aka. A0; H: display, L: control data
-#define RW	0x04	// read/write; H: read, L: write (6800 MPU)
-#define En	0x01	// enable - impulse; L: active (6800 MPU)
+#define RS	0x80	// register select aka. A0; H: display, L: control data
+#define RW	0x40	// read/write; H: read, L: write (6800 MPU)
+#define En1	0x20	// enable lcd1  - impulse; L: active (6800 MPU)
+#define En2 0x10    // enable lcd2
 
 
 #define LCD_CMD PORTD		//control port of uC for LCD display
@@ -39,7 +40,7 @@
 
 
 
-void lcd_write(uint8_t dataW, uint8_t toDataIR) {
+void lcd_write(uint8_t dataW, uint8_t toDataIR, uint8_t Enx) {
 
 	int8_t busy;
 
@@ -51,10 +52,10 @@ void lcd_write(uint8_t dataW, uint8_t toDataIR) {
 
 	busy = 1;
 	while (busy) {
-		LCD_CMD |= En; 	// E = 1
+		LCD_CMD |= Enx; 	// E = 1
 		_delay_us(1);
 		busy = LCD_DATA & 0x80 ;
-		LCD_CMD	&= ~En;	// E = 0
+		LCD_CMD	&= ~Enx;	// E = 0
 		_delay_us(1);
 	}
 	
@@ -63,11 +64,11 @@ void lcd_write(uint8_t dataW, uint8_t toDataIR) {
 	if (toDataIR)  LCD_CMD |= RS;  //  RS = 1
 	LCD_CMD &= ~RW;    // RW = 0  (means write)
 
-		LCD_CMD |= En; 	// E = 1
+		LCD_CMD |= Enx; 	// E = 1
 		_delay_us(1);
 		LCD_DATA = dataW ;
 		_delay_us(1);
-		LCD_CMD	&= ~En;	// E = 0
+		LCD_CMD	&= ~Enx;	// E = 0
 }
 
 
@@ -75,56 +76,64 @@ void lcd_write(uint8_t dataW, uint8_t toDataIR) {
 
 void lcd_init() {
 
-	LCD_CMD_IODIR |= 0x03;  // lowest 3 Pins as output, leave rest as is
-	LCD_CMD  &= 0b11111000 ;
+	LCD_CMD_IODIR |= 0xF0;  // highest 4 Pins as output, leave rest as is
+	LCD_CMD  &= 0b00001111 ;
 
 	LCD_DATA_IODIR  = 0x00;  
-	
-// init as read-port
-//	LCD_DATA_IODIR  = 0xFF  // all are used as output only in this application	
-//	LCD_DATA = 0x00;
 
-/*
-	// Port A set to output (high impedance) 
-	LCD_CMD_IODIR = 0xFF;
+	lcd_write (0b00000001, 0,En1);   // clear display
+	lcd_write (0b00000001, 0,En2);   // clear display
 
-	// Predefine state after hardware reset 
-	LCD_CMD = LCD_CMD & ~LI; // background light off
-	LCD_CMD = LCD_CMD | PS; // parallel
-	LCD_CMD = LCD_CMD | CS; // do not accept data/commands
-	LCD_CMD = LCD_CMD | MI; // 6800 MPU interface
-	LCD_CMD = LCD_CMD & ~E; // impulse is low
+	lcd_write( 0b00111000,0, En1);   // 8-bit operation, 5x8Font, 2 lines
+	lcd_write( 0b00111000,0, En2);   // 8-bit operation, 5x8Font, 2 lines
 
-	// Hardware reset 
-	LCD_CMD = LCD_CMD & ~RST;
-	_delay_us(2);
-	LCD_CMD = LCD_CMD | RST;
-	_delay_us(2); // 2 us are save (see page 65)
+	lcd_write( 0b00001100, 0, En1);   // disp on, curs off, space mode (cause of initialization)
+	lcd_write( 0b00001100, 0, En2);   // disp on, curs off, space mode (cause of initialization)
 
-	// Display settings 
-	lcd_cmd(ADC_NORMAL);
-	lcd_cmd(BIAS_1_9);
-	lcd_cmd(SCAN_DIR_REVERSE);
+	lcd_write (0b00000110, 0, En1 );  // inc adr, shift curs, no char shift
+	lcd_write (0b00000110, 0, En2 );  // inc adr, shift curs, no char shift
 
-	// Contrast settings 
-	lcd_cmd(INTERNAL_RRATIO | (INTERNAL_RRATIO_MASK & 0x07));
-	lcd_cmd(INTERNAL_RRATIO_MOD);
-	lcd_cmd(INTERNAL_RRATIO_VOL | (INTERNAL_RRATIO_VOL_MASK & 0x00));
 
-	// Power supply settings 
-	lcd_cmd(INTERNAL_POWER | (INTERNAL_POWER_MASK & 0x07));
+//   lcd_write (0b11000000, 0); // adr of ddram to start 2nd line (cursor move)
 
-	lcd_cmd(DISPLAY_ON);
-	LCD_CMD = LCD_CMD | LI; // background light on
-
-*/
 }
 
 void lcd_clrscr()
 {
+	lcd_write (0b00000001, 0, En1); // clr scr and move home
+	lcd_write (0b00000001, 0, En2); // clr scr and move home
+}
 
+void lcd_Line2(int8_t Enx)
+{
+	lcd_write (0b11000000, 0, Enx);
 }
 
 
 
+void lcd_write_str(char* st1, int8_t Enx)
+{
+	int8_t ch1;
+
+	// acceleration would be possible by writing both screens together
+	// (during the wait times for  completion)
+	while ((ch1= *st1))
+	{
+		lcd_write(ch1,1, Enx);
+		st1++;
+	}
+}
+
+void lcd_AskCalibration()
+{
+	lcd_clrscr();
+	lcd_write_str("Calibrate? *=Yes",En1);
+	lcd_Line2(En1);
+	lcd_write_str("or wait",En1);
+
+}
+
+
+// set 20 amps (use 1..3,7..9)
+// # save, * skip
 

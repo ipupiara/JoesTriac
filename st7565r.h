@@ -24,6 +24,8 @@
 
 void lcd_init(void);
 
+void lcd_AskCalibration();
+
 // void lcd_write(uint8_t data);
 //uint8_t lcd_read(void);
 /*
