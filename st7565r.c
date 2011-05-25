@@ -30,6 +30,8 @@
 #define RW	0x40	// read/write; H: read, L: write (6800 MPU)
 #define En  0x20
 
+#define pseudoUsToWait  1
+
 
 
 #define LCD_CMD PORTD		//control port of uC for LCD display
@@ -56,10 +58,10 @@ void lcd_write(uint8_t dataW, uint8_t toDataIR, uint8_t Scr) {
 	busy = 1;
 	while (busy) {
 		LCD_CMD = LCD_CMD | En; 	// E = 1
-		_delay_us(1);
+		_delay_us(pseudoUsToWait);
 		busy = LCD_DATA_PIN & 0x80 ;
 		LCD_CMD	= LCD_CMD & ~En;	// E = 0
-		_delay_us(1);
+		_delay_us(pseudoUsToWait);
 	}
 	
 
@@ -69,11 +71,12 @@ void lcd_write(uint8_t dataW, uint8_t toDataIR, uint8_t Scr) {
 	if (toDataIR)  LCD_CMD |= RS;  //  RS = 1
 	LCD_CMD = LCD_CMD & ~RW;    // RW = 0  (means write)
 
-	_delay_us(1);
+	_delay_us(pseudoUsToWait);
 	LCD_CMD = LCD_CMD | En; 	// E = 1
 
-	_delay_us(1);
+	_delay_us(pseudoUsToWait);
 	LCD_CMD	= LCD_CMD & ~En;	// E = 0
+	busy = busy + 1;
 }
 
 
@@ -81,7 +84,7 @@ void lcd_write(uint8_t dataW, uint8_t toDataIR, uint8_t Scr) {
 
 void lcd_init() {
 
-	LCD_CMD_IODIR |= 0b1110000;  // highest 3 Pins as output, leave rest as is
+	LCD_CMD_IODIR |= 0b11100000;  // highest 3 Pins as output, leave rest as is
 	LCD_CMD  = LCD_CMD & 0b00011111 ;
 
 	LCD_DATA_IODIR  = 0x00;  

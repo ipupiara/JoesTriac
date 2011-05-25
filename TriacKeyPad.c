@@ -4,49 +4,55 @@
 #include "TriacKeyPad.h"
 #include "TriacDefines.h"
 
-int anyKeyPressed;
 
 int8_t lastCharPressed;
 
-//#define keyPort PORTC
-//#define keyPortC
-//#define keyPin  PINC
-
 #define keyPort PORTB
-#define keyPortB
-#define keyPin PINB
+#define keyPin  PINB
+#define keyDDR  DDRB
+#define IntrMsk  PCMSK1
+#define PCICRPos  1
+#define PCINTVECT  PCINT1_vect
+
+//#define keyPort PORTC
+//#define keyPin PINC
+//#define keyDDR  DDRC
+//#define IntrMsk  PCMSK2
+//#define PCICRPos  2
+//#define PCINTVECT  PCINT2_vect
 
 
 int8_t getKeypadState()
 {
 	int8_t ch;
-	keyPort = 0b1000000;
-	if ((ch=keyPin & 0x0F)){
-		if (ch & 0b00001000) ch = kp1;
-		if (ch & 0b00000100) ch = kp4;
-		if (ch & 0b00000010) ch = kp7;
-		if (ch & 0b00000001) ch = kpAst;		
+	ch = 0x00;cv 
+	keyPort = 0b00000010;
+	if ((ch=keyPin & 0xF0)){
+		if (ch & 0b10000000) ch = kp1;
+		if (ch & 0b01000000) ch = kp4;
+		if (ch & 0b00100000) ch = kp7;
+		if (ch & 0b00010000) ch = kpAst;		
 	} else {
-		keyPort = 0b0100000;
-		if ((ch=keyPin & 0x0F)){
-			if (ch & 0b00001000) ch = kp2;
-			if (ch & 0b00000100) ch = kp5;
-			if (ch & 0b00000010) ch = kp8;
-			if (ch & 0b00000001) ch = kp0;		
+		keyPort = 0b00000100;
+		if ((ch=keyPin & 0xF0)){
+			if (ch & 0b10000000) ch = kp2;
+			if (ch & 0b01000000) ch = kp5;
+			if (ch & 0b00100000) ch = kp8;
+			if (ch & 0b00010000) ch = kp0;		
 		}	else {
-				keyPort = 0b00100000;
-				if ((ch=keyPin & 0x0F)){
-					if (ch & 0b00001000) ch = kp3;
-					if (ch & 0b00000100) ch = kp6;
-					if (ch & 0b00000010) ch = kp9;
-					if (ch & 0b00000001) ch = kpNum;		
+				keyPort = 0b00001000;
+				if ((ch=keyPin & 0xF0)){
+					if (ch & 0b10000000) ch = kp3;
+					if (ch & 0b01000000) ch = kp6;
+					if (ch & 0b00100000) ch = kp9;
+					if (ch & 0b00010000) ch = kpNum;		
 				}  else {
-					keyPort = 0b00010000;
-					if ((ch=keyPin & 0x0F)){
-						if (ch & 0b00001000) ch = kpStart;
-						if (ch & 0b00000100) ch = kpStop;
-						if (ch & 0b00000010) ch = kpFunction1;
-						if (ch & 0b00000001) ch = kpFunction2;		
+					keyPort = 0b00000001;
+					if ((ch=keyPin & 0xF0)){
+						if (ch & 0b10000000) ch = kpStart;
+						if (ch & 0b01000000) ch = kpStop;
+						if (ch & 0b00100000) ch = kpFunction1;
+						if (ch & 0b00010000) ch = kpFunction2;		
 					}	
 				}
 			}														
@@ -54,68 +60,34 @@ int8_t getKeypadState()
 	return ch;
 }
 
-#ifdef keyPortC
 
 void initKeyPad()
 {
-	anyKeyPressed = 0;
 	lastCharPressed = 0;
 
 
-	DDRC = 0xF0;  // higher four pins as output, lower as Input , resp. Interrupt sources
-	PORTC = 0xF0;  // set higher four pins high	
+	keyDDR = 0x0F;  // higher four pins as output, lower as Input , resp. Interrupt sources
+	keyPort = 0x0F;  // set higher four pins high	
 	
 	// init PCInt 2 on Port C , pc pins 16 .. 23
-	PCMSK2 = 0x0F;  // lower  4 pins will cause interrupt, upper 4 used as output for scanning keyPad
-	PCICR = 0b0000100;  // enable pcint2
+	IntrMsk = 0xF0;  // lower  4 pins will cause interrupt, upper 4 used as output for scanning keyPad
+	PCICR = PCICR |( 1 << PCICRPos );  // enable pcint
 
 	sei(); //  enable all interrupts
 }
 
-ISR(PCINT2_vect)
+ISR(PCINTVECT)
 {
+	int8_t  tmp1;
 	PCICR = 0b0000000;  // disa pcin interrupts ,evtl will need to reconfigure port ddr.. to be tested
 	
-	if ((PORTC & 0x0F))  {  // any key pressed (toggle down)
+	if (( tmp1 = (keyPin & 0xF0)))  {  // any key pressed (toggle down)
 		lastCharPressed = getKeypadState();
 	}
-	PORTC = 0xF0;
-	PCICR = 0b0000100;  // ena pcint int
+	keyPort = 0x0F;
+	PCICR = PCICR |( 1 << PCICRPos );  // ena pcint int
 }
 
-#endif
-
-
-#ifdef keyPortB
-
-void initKeyPad()
-{
-	anyKeyPressed = 0;
-	lastCharPressed = 0;
-
-
-	DDRB = 0xF0;  // higher four pins as output, lower as Input , resp. Interrupt sources
-	PORTB = 0xF0;  // set higher four pins high	
-	
-	// init PCInt 2 on Port C , pc pins 16 .. 23
-	PCMSK1 = 0x0F;  // lower  4 pins will cause interrupt, upper 4 used as output for scanning keyPad
-	PCICR = 0b0000010;  // enable pcint2
-
-	sei(); //  enable all interrupts
-}
-
-ISR(PCINT1_vect)
-{
-	PCICR = 0b0000000;  // disa pcin interrupts ,evtl will need to reconfigure port ddr.. to be tested
-	
-	if ((PINB & 0x0F))  {  // any key pressed (toggle down)
-		lastCharPressed = getKeypadState();
-	}
-	PORTB = 0xF0;
-	PCICR = 0b0000010;  // ena pcint int
-}
-
-#endif
 
 
 /*
