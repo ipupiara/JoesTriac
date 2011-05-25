@@ -39,7 +39,10 @@ void displayRunningValues()
 
 void displayCalibrationPrompt()
 {
-	
+	lcd_clrscr(LCD1);
+	lcd_write_str("Calibrate? *=Yes",LCD1);
+	lcd_Line2(LCD1);
+	lcd_write_str("or wait",LCD1);
 }
 
 

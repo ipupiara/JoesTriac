@@ -86,9 +86,9 @@ int main(void)
 	stdout = &mystdout;
 	printf("startup\n");
 	lcd_init();
-	lcd_AskCalibration();
+	displayCalibrationPrompt();
 
-//	initKeyPad();
+	initKeyPad();
 	initInterrupts();
 //	InitializePID(real kp, real ki, real kd, real error_thresh, real step_time);   
 //	InitializePID(-0.01, 0.3, 0.3, 0.3, 1);

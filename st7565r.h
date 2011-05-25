@@ -20,11 +20,14 @@
 #ifndef ST7565R_H
 	#define ST7565R_H
 
-
+#define LCD1	0x20	// use lcd1  
+#define LCD2 0x10       // use lcd2
 
 void lcd_init(void);
 
-void lcd_AskCalibration();
+void lcd_clrscr(int8_t Scr);
+void lcd_write_str(char* st1, int8_t Scr);
+void lcd_Line2(int8_t Scr);
 
 // void lcd_write(uint8_t data);
 //uint8_t lcd_read(void);

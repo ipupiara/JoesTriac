@@ -53,7 +53,7 @@ void entryAskForCalibrationState(void)
 {
 //	printf("entry AskForCalibration\n");
 	displayCalibrationPrompt();
-	startDurationTimer(120);
+	startDurationTimer(0xFFFF);
 }
 
 void exitAskForCalibrationState(void)

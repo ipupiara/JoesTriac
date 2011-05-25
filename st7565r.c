@@ -28,8 +28,8 @@
 
 #define RS	0x80	// register select aka. A0; H: display, L: control data
 #define RW	0x40	// read/write; H: read, L: write (6800 MPU)
-#define En1	0x20	// enable lcd1  - impulse; L: active (6800 MPU)
-#define En2 0x10    // enable lcd2
+#define En  0x20
+
 
 
 #define LCD_CMD PORTD		//control port of uC for LCD display
@@ -41,7 +41,7 @@
 
 
 
-void lcd_write(uint8_t dataW, uint8_t toDataIR, uint8_t Enx) {
+void lcd_write(uint8_t dataW, uint8_t toDataIR, uint8_t Scr) {
 
 	int8_t busy;
 
@@ -55,10 +55,10 @@ void lcd_write(uint8_t dataW, uint8_t toDataIR, uint8_t Enx) {
 
 	busy = 1;
 	while (busy) {
-		LCD_CMD = LCD_CMD | Enx; 	// E = 1
+		LCD_CMD = LCD_CMD | En; 	// E = 1
 		_delay_us(1);
 		busy = LCD_DATA_PIN & 0x80 ;
-		LCD_CMD	= LCD_CMD & ~Enx;	// E = 0
+		LCD_CMD	= LCD_CMD & ~En;	// E = 0
 		_delay_us(1);
 	}
 	
@@ -70,10 +70,10 @@ void lcd_write(uint8_t dataW, uint8_t toDataIR, uint8_t Enx) {
 	LCD_CMD = LCD_CMD & ~RW;    // RW = 0  (means write)
 
 	_delay_us(1);
-	LCD_CMD = LCD_CMD | Enx; 	// E = 1
+	LCD_CMD = LCD_CMD | En; 	// E = 1
 
 	_delay_us(1);
-	LCD_CMD	= LCD_CMD & ~Enx;	// E = 0
+	LCD_CMD	= LCD_CMD & ~En;	// E = 0
 }
 
 
@@ -81,42 +81,42 @@ void lcd_write(uint8_t dataW, uint8_t toDataIR, uint8_t Enx) {
 
 void lcd_init() {
 
-	LCD_CMD_IODIR |= 0xF0;  // highest 4 Pins as output, leave rest as is
-	LCD_CMD  = LCD_CMD & 0b00001111 ;
+	LCD_CMD_IODIR |= 0b1110000;  // highest 3 Pins as output, leave rest as is
+	LCD_CMD  = LCD_CMD & 0b00011111 ;
 
 	LCD_DATA_IODIR  = 0x00;  
 	LCD_DATA   = 0x00;
 
-	lcd_write (0b00000001, 0,En1);   // clear display
+	lcd_write (0b00000001, 0, LCD1);   // clear display
 
 
-	lcd_write( 0b00111000,0, En1);   // 8-bit operation, 5x8Font, 2 lines
+	lcd_write( 0b00111000,0, LCD1);   // 8-bit operation, 5x8Font, 2 lines
 
 
-	lcd_write( 0b00001100, 0, En1);   // disp on, curs off, space mode (cause of initialization)
+	lcd_write( 0b00001100, 0, LCD1);   // disp on, curs off, space mode (cause of initialization)
 
 
-	lcd_write (0b00000110, 0, En1 );  // inc adr, shift curs, no char shift
+	lcd_write (0b00000110, 0, LCD1 );  // inc adr, shift curs, no char shift
 
 
 //   lcd_write (0b11000000, 0); // adr of ddram to start 2nd line (cursor move)
 
 }
 
-void lcd_clrscr()
+void lcd_clrscr(int8_t Scr)
 {
-	lcd_write (0b00000001, 0, En1); // clr scr and move home
+	lcd_write (0b00000001, 0, Scr); // clr scr and move home
 
 }
 
-void lcd_Line2(int8_t Enx)
+void lcd_Line2(int8_t Scr)
 {
-	lcd_write (0b11000000, 0, Enx);
+	lcd_write (0b11000000, 0, Scr);
 }
 
 
 
-void lcd_write_str(char* st1, int8_t Enx)
+void lcd_write_str(char* st1, int8_t Scr)
 {
 	int8_t ch1;
 
@@ -124,19 +124,12 @@ void lcd_write_str(char* st1, int8_t Enx)
 	// (during the wait times for  completion)
 	while ((ch1= *st1))
 	{
-		lcd_write(ch1,1, Enx);
+		lcd_write(ch1,1, Scr);
 		st1++;
 	}
 }
 
-void lcd_AskCalibration()
-{
-	lcd_clrscr();
-	lcd_write_str("Calibrate? *=Yes",En1);
-	lcd_Line2(En1);
-	lcd_write_str("or wait",En1);
 
-}
 
 
 // set 20 amps (use 1..3,7..9)
