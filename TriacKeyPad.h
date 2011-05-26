@@ -32,7 +32,9 @@ int8_t keyEntered();
 void initKeyPad();
 
 
+int getKeybIntCnt();
 
 
+int getKeybIntRes();
 
 #endif

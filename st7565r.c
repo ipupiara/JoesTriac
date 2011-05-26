@@ -43,6 +43,9 @@
 
 
 
+//  T O D O    replace delay with nopNCall
+
+
 void lcd_write(uint8_t dataW, uint8_t toDataIR, uint8_t Scr) {
 
 	int8_t busy;

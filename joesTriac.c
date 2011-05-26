@@ -100,7 +100,7 @@ int main(void)
 	while (1)   {
 		if ((ky = keyEntered()))   {
 		
-			printf("\nky entered %c value %i",ky,ky);
+			printf("\nky entered %c ",ky);
 		
 		}
 	}

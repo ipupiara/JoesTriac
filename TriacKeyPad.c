@@ -24,57 +24,69 @@ int8_t lastCharPressed;
 //#define PCICRPos  2
 //#define PCINTVECT  PCINT2_vect
 
-#define waitForRaiseUS 3
+#define waitForRaiseUS
+
+void nopNCall()
+{  
+	//  do a call/ret and some push and pop, this will need appox 2 us at 11 Mhz clk
+}
+
 
 
 int8_t getKeypadState()
 {
 	int8_t ch;
+	int8_t chr;
 	ch = 0x00;
+	chr = 0x00;
 	keyPort = 0b00000010;
-	_delay_us(waitForRaiseUS);  // needs appeox 2 us to change value
+//	nopNCall();      // needs appeox 2 us to change value
 	if ((ch=keyPin & 0xF0)){
-		if (ch & 0b10000000) ch = kp1;
-		if (ch & 0b01000000) ch = kp4;
-		if (ch & 0b00100000) ch = kp7;
-		if (ch & 0b00010000) ch = kpAst;		
+		if (ch & 0b10000000) chr = kp2;
+		if (ch & 0b01000000) chr = kp0;
+		if (ch & 0b00100000) chr = kp8;  
+		if (ch & 0b00010000) chr = kp5;		
 	} else {
 		keyPort = 0b00000100;
-		_delay_us(waitForRaiseUS);  // needs appeox 2 us to change value
+//		nopNCall();
+//		_delay_us(waitForRaiseUS);  // needs appeox 2 us to change value
 		if ((ch=keyPin & 0xF0)){
-			if (ch & 0b10000000) ch = kp2;
-			if (ch & 0b01000000) ch = kp5;
-			if (ch & 0b00100000) ch = kp8;
-			if (ch & 0b00010000) ch = kp0;		
+			if (ch & 0b10000000) chr = kp1;
+			if (ch & 0b01000000) chr = kpAst;
+			if (ch & 0b00100000) chr = kp7;
+			if (ch & 0b00010000) chr = kp4;		
 		}	else {
 				keyPort = 0b00001000;
-				_delay_us(waitForRaiseUS);  // needs appeox 2 us to change value
+//				nopNCall();
+//				_delay_us(waitForRaiseUS);  // needs appeox 2 us to change value
 				if ((ch=keyPin & 0xF0)){
-					if (ch & 0b10000000) ch = kp3;
-					if (ch & 0b01000000) ch = kp6;
-					if (ch & 0b00100000) ch = kp9;
-					if (ch & 0b00010000) ch = kpNum;		
+					if (ch & 0b10000000) chr = kp3;
+					if (ch & 0b01000000) chr = kpNum;
+					if (ch & 0b00100000) chr = kp9;
+					if (ch & 0b00010000) chr = kp6;		
 				}  else {
 					keyPort = 0b00000001;
-					_delay_us(waitForRaiseUS);  // needs appeox 2 us to change value
+//					nopNCall();
+//					_delay_us(waitForRaiseUS);  // needs appeox 2 us to change value
 					if ((ch=keyPin & 0xF0)){
-						if (ch & 0b10000000) ch = kpStart;
-						if (ch & 0b01000000) ch = kpStop;
-						if (ch & 0b00100000) ch = kpFunction1;
-						if (ch & 0b00010000) ch = kpFunction2;		
+						if (ch & 0b10000000) chr = kpStart;
+						if (ch & 0b01000000) chr = kpStop;
+						if (ch & 0b00100000) chr = kpFunction1;
+						if (ch & 0b00010000) chr = kpFunction2;		
 					}	
 				}
 			}														
 	}
-	return ch;
+	return chr;
 }
 
-int lastValueZero; 
+int8_t lastValueZero; 
+
 
 void initKeyPad()
 {
 	lastCharPressed = 0;
-	lastValueZero = 0;
+	lastValueZero = 1;
 
 	keyDDR = 0x0F;  // lower four pins as output, higher as Input , resp. Interrupt sources
 	keyPort = 0x0F;  // set lower four pins high	
@@ -89,7 +101,7 @@ void initKeyPad()
 
 ISR(PCINTVECT)
 {
-	PCICR = 0b0000000;  // disa pcin interrupts ,evtl will need to reconfigure port ddr.. to be tested
+	PCICR = 0b0000000;  
 	IntrMsk = 0x00;
 	
 	if ((keyPin & 0xF0))  {  // any key pressed (toggle down)
@@ -102,40 +114,19 @@ ISR(PCINTVECT)
 	}
 	
 	keyPort = 0x0F;
-
-PORTA  =  ~PORTA;
-	
-	IntrMsk = 0xF0;
 	PCIFR = 0x00;
+	IntrMsk = 0xF0;
 	PCICR = PCICR |( 1 << PCICRPos );  // ena pcint int
 }
 
 
-
-/*
-int8_t keyEntered()  // when polling in main loop
-{	int res;
-	int ky;
-	
-	res = 0;
-	ky = getKeypadState();
-	if ((!anyKeyPressed) && ky){
-		res = ky;
-		anyKeyPressed = 1;
-	} 
-	
-	if ((!ky) && anyKeyPressed ){
-			anyKeyPressed = 0;
-	}	
-	return res;
-}
-*/
-
 int8_t keyEntered()  // with interrupts
 {
 	int8_t res;
+	cli();
 	res = lastCharPressed;
 	lastCharPressed = 0;
+	sei();
 	return res;
 }
 
