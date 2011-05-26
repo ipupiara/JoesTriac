@@ -6,7 +6,10 @@
 #ifndef TriacDefines_H
 	#define TriacDefines_H
 
-	
+
+
+
+	#define JT_F_CPU 11095200	
 	
 	#define calibLowCmsEEPROMpos   0
 	#define calibHighCmsEEPROMpos  2   // both int16

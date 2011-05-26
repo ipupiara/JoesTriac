@@ -95,6 +95,20 @@ int main(void)
 	initKeyPad();
 //	initInterrupts();
 
+
+
+	while (1)   {
+		if ((ky = keyEntered()))   {
+		
+			printf("\nky entered %c value %i",ky,ky);
+		
+		}
+	}
+
+
+
+
+
 	blink();
 
 //	InitializePID(real kp, real ki, real kd, real error_thresh, real step_time);   

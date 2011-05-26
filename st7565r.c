@@ -21,9 +21,9 @@
  */
 
 #include <avr/io.h>
-#define F_CPU 11095200
+#include "TriacDefines.h"
+#define F_CPU JT_F_CPU
 #include <util/delay.h>
-
 #include "st7565r.h"
 
 #define RS	0x80	// register select aka. A0; H: display, L: control data
