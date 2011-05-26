@@ -2,35 +2,33 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "TriacDefines.h"
-#define F_CPU JT_F_CPU
-#include <util/delay.h>
 #include "TriacKeyPad.h"
 
 
 
 int8_t lastCharPressed;
 
-#define keyPort PORTB
-#define keyPin  PINB
-#define keyDDR  DDRB
-#define IntrMsk  PCMSK1
-#define PCICRPos  1
-#define PCINTVECT  PCINT1_vect
+//#define KeyPortB
 
-//#define keyPort PORTC
-//#define keyPin PINC
-//#define keyDDR  DDRC
-//#define IntrMsk  PCMSK2
-//#define PCICRPos  2
-//#define PCINTVECT  PCINT2_vect
+#ifdef KeyPortB
 
-#define waitForRaiseUS
+	#define keyPort PORTB
+	#define keyPin  PINB
+	#define keyDDR  DDRB
+	#define IntrMsk  PCMSK1
+	#define PCICRPos  1
+	#define PCINTVECT  PCINT1_vect
 
-void nopNCall()
-{  
-	//  do a call/ret and some push and pop, this will need appox 2 us at 11 Mhz clk
-}
+#else
 
+	#define keyPort PORTC
+	#define keyPin PINC
+	#define keyDDR  DDRC
+	#define IntrMsk  PCMSK2
+	#define PCICRPos  2
+	#define PCINTVECT  PCINT2_vect
+
+#endif
 
 
 int8_t getKeypadState()
@@ -39,8 +37,7 @@ int8_t getKeypadState()
 	int8_t chr;
 	ch = 0x00;
 	chr = 0x00;
-	keyPort = 0b00000010;
-//	nopNCall();      // needs appeox 2 us to change value
+	keyPort = 0b00000010;  // so far no delay needed for physical line to come up
 	if ((ch=keyPin & 0xF0)){
 		if (ch & 0b10000000) chr = kp2;
 		if (ch & 0b01000000) chr = kp0;
@@ -48,8 +45,6 @@ int8_t getKeypadState()
 		if (ch & 0b00010000) chr = kp5;		
 	} else {
 		keyPort = 0b00000100;
-//		nopNCall();
-//		_delay_us(waitForRaiseUS);  // needs appeox 2 us to change value
 		if ((ch=keyPin & 0xF0)){
 			if (ch & 0b10000000) chr = kp1;
 			if (ch & 0b01000000) chr = kpAst;
@@ -57,17 +52,13 @@ int8_t getKeypadState()
 			if (ch & 0b00010000) chr = kp4;		
 		}	else {
 				keyPort = 0b00001000;
-//				nopNCall();
-//				_delay_us(waitForRaiseUS);  // needs appeox 2 us to change value
 				if ((ch=keyPin & 0xF0)){
 					if (ch & 0b10000000) chr = kp3;
 					if (ch & 0b01000000) chr = kpNum;
 					if (ch & 0b00100000) chr = kp9;
 					if (ch & 0b00010000) chr = kp6;		
 				}  else {
-					keyPort = 0b00000001;
-//					nopNCall();
-//					_delay_us(waitForRaiseUS);  // needs appeox 2 us to change value
+					keyPort = 0b00000001; 
 					if ((ch=keyPin & 0xF0)){
 						if (ch & 0b10000000) chr = kpStart;
 						if (ch & 0b01000000) chr = kpStop;
@@ -123,7 +114,7 @@ ISR(PCINTVECT)
 int8_t keyEntered()  // with interrupts
 {
 	int8_t res;
-	cli();
+	cli();  
 	res = lastCharPressed;
 	lastCharPressed = 0;
 	sei();

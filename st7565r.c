@@ -46,6 +46,13 @@
 //  T O D O    replace delay with nopNCall
 
 
+// takes approx  2 us at 10 Mhz with -o0 (no opts. !) ,with all  call/ret, push N Pop
+void delayEmptyProc () 
+{
+}
+
+
+
 void lcd_write(uint8_t dataW, uint8_t toDataIR, uint8_t Scr) {
 
 	int8_t busy;

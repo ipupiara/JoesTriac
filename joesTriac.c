@@ -83,14 +83,14 @@ int main(void)
 	int8_t ky;
 
 
-	initBlink();
+//	initBlink();
 //	blink();
 	
 	USART_Init( 143 );   // baud 4800 at 11.0592 mhz, single uart speed
 	stdout = &mystdout;
 	printf("startup\n");
-//	lcd_init();
-//	displayCalibrationPrompt();
+	lcd_init();
+	displayCalibrationPrompt();
 
 	initKeyPad();
 //	initInterrupts();
@@ -105,11 +105,6 @@ int main(void)
 		}
 	}
 
-
-
-
-
-	blink();
 
 //	InitializePID(real kp, real ki, real kd, real error_thresh, real step_time);   
 	InitializePID(-0.01, 0.3, 0.3, 0.3, 1);
