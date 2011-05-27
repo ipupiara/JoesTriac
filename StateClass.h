@@ -4,6 +4,11 @@
 
 #include "TStatechart.h"
 
+TStatechart SJoesTriacStateChart;
+TStatechart* PJoesTriacStateChart;
+
+
+
 enum eEventTypes
 {
 	evCharEntered,

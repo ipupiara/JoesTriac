@@ -37,10 +37,6 @@ typedef  int8_t  stInt;
 
 
 
-
-// Internal transactions need an internal-substate
-
-
 typedef struct
 {
 	stInt	m_vi32Ancestry[maxDepth];

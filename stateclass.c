@@ -7,14 +7,11 @@
 #include "TStatechart.h"
 #include "StateClass.h"
 
-TStatechart SJoesTriacStateChart;
-TStatechart* PJoesTriacStateChart;
-
-CJoesTriacEvent* currentEvent;
 
 extern const uStInt uStIntHandlingDone;
 extern const uStInt uStIntNoMatch;
 
+CJoesTriacEvent* currentEvent;
 
 
 
@@ -85,12 +82,7 @@ uStInt evAskForCalibrationChecker(void)
 	}
 	if (currentEvent->evType == evSecondsTick) 
 	{	
-		int16_t srem = getSecondsRemaining();
-//		bl != bl;
-//		if (bl) {
-			displayCountDown();
-			printf("cnt %i\n",srem);
-//		}		
+		displayCountDown();		
 		res =  uStIntHandlingDone;
 	}
 	return (res); 

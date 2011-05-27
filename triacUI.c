@@ -1,5 +1,7 @@
-
+#include <avr/io.h>
+#include <stdio.h>
 #include <avr/eeprom.h>
+#include "TriacIntr.h"
 #include "triacUI.h"
 #include "st7565r.h"
 #include "TriacDefines.h"
@@ -142,6 +144,15 @@ void setSec(int8_t val)
 
 void displayCountDown()
 {
+	int16_t secondsRem = getSecondsRemaining();
+	int16_t minRem  = secondsRem / 60;			//  250 us on 1 Mhz Simulator 2
+	int8_t secsRem	= secondsRem - (minRem * 60);  // subtraction + multiply by 60 faster than division
+													// 25 us on 1 Mhz Sim 2 
+	char buffer [10];
+	sprintf((char*)&buffer,"%3im%2i",minRem,secsRem);   // 1.4 ms on 1 Mhz Sim2
+
+	lcd_goto(1,9,LCD1);
+	lcd_write_str(&buffer,LCD1);
 }
 
 void displayTriacRunning()

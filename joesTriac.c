@@ -70,57 +70,25 @@ static int uart_putchar(char c, FILE *stream)
 }
 
 
-
-extern const uStInt uStIntHandlingDone;
-
-
-extern TStatechart SJoesTriacStateChart;
-
-
 int main(void)
 {
 	CJoesTriacEvent ev;
 	int8_t ky;
 
-
-//	initBlink();
-//	blink();
-	
 	USART_Init( 143 );   // baud 4800 at 11.0592 mhz, single uart speed
 	stdout = &mystdout;
 	printf("startup\n");
 	lcd_init();
-	displayCalibrationPrompt();
-
 	initKeyPad();
-//	initInterrupts();
-
-
-
-	while (1)   {
-		if ((ky = keyEntered()))   {
-		
-			printf("\nky entered %c ",ky);
-		
-		}
-	}
-
+	initInterrupts();
 
 //	InitializePID(real kp, real ki, real kd, real error_thresh, real step_time);   
-	InitializePID(-0.01, 0.3, 0.3, 0.3, 1);
-//	initUI();
+//	InitializePID(-0.01, 0.3, 0.3, 0.3, 1);
+	initUI();
 	
-	
-	startStateCharts();
-	int cnt = 0;	
+	startStateCharts();	
 	while (1)
 	{
-
-		++ cnt;
-		if (((cnt % 40) == 0)) {
-			cli();
-			sei();
-		}
 		if (runningSecondsTick){
 	//		cli();    // 8-bit access is already atomic
 			runningSecondsTick = 0;
