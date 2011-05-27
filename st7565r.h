@@ -11,5 +11,8 @@ void lcd_clrscr(int8_t Scr);
 void lcd_write_str(char* st1, int8_t Scr);
 void lcd_Line2(int8_t Scr);
 void lcd_goto(int8_t line, int8_t pos,int8_t Scr);
+void lcd_write_char(int8_t ch1, int8_t Scr);
+void lcd_set_cursor(int8_t line, int8_t pos,int8_t Scr);
+void lcd_hide_cursor();
 
 #endif

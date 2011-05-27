@@ -63,7 +63,7 @@ void lcd_init()
 
 	lcd_write (0b00000001, 0, LCD1);   // clear display
 	lcd_write( 0b00111000,0, LCD1);   // 8-bit operation, 5x8Font, 2 lines
-	lcd_write( 0b00001100, 0, LCD1);   // disp on, curs off, space mode (cause of initialization)
+	lcd_write( 0b00001100, 0, LCD1);   // disp on, curs off
 	lcd_write (0b00000110, 0, LCD1 );  // inc adr, shift curs, no char shift
 }
 
@@ -96,8 +96,18 @@ void lcd_goto(int8_t line, int8_t pos,int8_t Scr)
 	lcd_write(adrC,0,Scr);
 }
 
+void lcd_set_cursor(int8_t line, int8_t pos,int8_t Scr)
+{
+	lcd_goto(line,pos,Scr);
+	lcd_write( 0b00001111, 0, LCD1);   // disp on, curs on blinking
+}
 
+void lcd_hide_cursor()
+{
+	lcd_write( 0b00001100, 0, LCD1);   // disp on, curs off
+}
 
-// set 20 amps (use 1..3,7..9)
-// # save, * skip
-
+void lcd_write_char(int8_t ch1, int8_t Scr)
+{
+	lcd_write(ch1,1, Scr);
+}

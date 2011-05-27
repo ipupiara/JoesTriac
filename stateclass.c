@@ -51,7 +51,8 @@ void entryAskForCalibrationState(void)
 {
 	printf("entry AskForCalibration\n");
 	displayCalibrationPrompt();
-	startDurationTimer(maxSecsPossible);
+	startDurationTimer(6);
+//	startDurationTimer(maxSecsPossible);
 }
 
 void exitAskForCalibrationState(void)
@@ -75,7 +76,7 @@ uStInt evAskForCalibrationChecker(void)
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 	}
-	if (currentEvent->evType == evNumPressed) 
+	if (currentEvent->evType == evAstPressed) 
 	{	
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrating);
 				// No event action.
@@ -92,7 +93,7 @@ uStInt evAskForCalibrationChecker(void)
 
 void entryCalibratingState(void)
 {
-	printf("\nentry Calib");
+//	printf("\nentry Calib");
 	displayCalibratingExplanation();
 	startDurationTimer(maxSecsPossible);   // enable secondsTick
 //	startTriacRun();
@@ -100,7 +101,7 @@ void entryCalibratingState(void)
 
 void exitCalibratingState(void)
 {
-	printf("exit calib\n");
+//	printf("exit calib\n");
 	stopDurationTimer();
 //	stopTriacRun();
 }
@@ -148,13 +149,13 @@ uStInt evCalibratingChecker(void)
 
 void entryCalibrateLowState(void)
 {
-	printf("entry calib Low\n");
+//	printf("entry calib Low\n");
 	displayCalibrateLow();
 }
 
 void exitCalibrateLowState(void)
 {
-	printf("exit calib Low\n");
+//	printf("exit calib Low\n");
 	clr_scr();
 }
 
@@ -223,7 +224,6 @@ int8_t keyInd;
 void entryTriacIdleState(void)
 {
 //	printf("entry I\n");
-	displayEditAmpsDuration();
 }
 
 void exitTriacIdleState(void)
@@ -250,6 +250,9 @@ uStInt evTriacIdleChecker(void)
 
 void entryEditIdleState(void)
 {
+	displayEditAmpsDuration();
+	displayAmps(-1);
+	displayTime(-1);
 //	printf("entry I\n");
 }	
 
@@ -261,15 +264,19 @@ void exitEditIdleState(void)
 uStInt evEditIdleChecker(void)
 {
 	int res = uStIntNoMatch;
-	//	printf("check for event in State evStateIdle\n");
+	printf("\ncheck for event in State evStateIdle");
 
-	if (currentEvent->keyCode==evAstPressed) {	
+	if (currentEvent->evType==evAstPressed) {
+		printf("\ncheck for event in State evStateIdle amps");
+	
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditAmps);
 			// No event action.
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
 	}
-	if (currentEvent->keyCode==evNumPressed) {	
+	if (currentEvent->evType==evNumPressed) {	
+		printf("\ncheck for event in State evStateIdle dur");
+
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditDuration);
 			// No event action.
 		END_EVENT_HANDLER(PJoesTriacStateChart);
@@ -282,13 +289,15 @@ uStInt evEditIdleChecker(void)
 void entryEditAmpsState(void)
 {
 //	printf("entry I\n");
-	startEditAmps();
+	displayEditAmps();
 	keyInd = 0;
+	displayAmps(keyInd);
 }
 
 void exitEditAmpsState(void)
 {
 //	printf("exit I\n");
+	displayAmps(-1);
 }
 
 uStInt evEditAmpsChecker(void)
@@ -314,7 +323,7 @@ uStInt evEditAmpsChecker(void)
 	if (currentEvent->evType == evCharEntered) {
 
 		if ((currentEvent->keyCode <= kp9) && (currentEvent->keyCode >= kp0)) {
-/*			switch (keyInd)
+			switch (keyInd)
 			{
 				case 0: 
 					setAmps100(currentEvent->keyCode);
@@ -329,7 +338,8 @@ uStInt evEditAmpsChecker(void)
 					END_EVENT_HANDLER(PJoesTriacStateChart);				
 			}
 			keyInd ++;
-			*/
+			displayAmps(keyInd);  // if keyInd = 3, dispAmps can be done again in next State, no matter
+			
 			res =  uStIntHandlingDone;
 		}
 	}		
@@ -340,13 +350,15 @@ uStInt evEditAmpsChecker(void)
 void entryEditDurationState(void)
 {
 //	printf("entry I\n");
-	startEditDuration();
+	displayEditDuration();
 	keyInd = 0;
+	displayTime(keyInd);
 }
 
 void exitEditDurationState(void)
 {
 //	printf("exit I\n");
+	displayTime(-1);
 }
 
 uStInt evEditDurationChecker(void)
@@ -371,24 +383,28 @@ uStInt evEditDurationChecker(void)
 
 		if ((currentEvent->keyCode <= kp9) && (currentEvent->keyCode >= kp0)) {
 			switch (keyInd)
-/*			{
+			{
 				case 0: 
 					setMin10(currentEvent->keyCode);
 					break;
 				case 1:
 					setMin(currentEvent->keyCode);
+					keyInd++;
 					break;
-				case 2:	
-					if (currentEvent->keyCode <= kp5) setSec10(currentEvent->keyCode);
+				case 3:	
+					if (currentEvent->keyCode <= kp5) {
+						setSec10(currentEvent->keyCode);
+					} else keyInd --;
 					break;
-				case 3:
+				case 4:
 					setSec(currentEvent->keyCode);
 					BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
 				
 					END_EVENT_HANDLER(PJoesTriacStateChart);				
 			}
 			keyInd ++;
-			*/
+			displayTime(keyInd);
+			
 			res =  uStIntHandlingDone;
 		}
 	}		
@@ -397,14 +413,14 @@ uStInt evEditDurationChecker(void)
 
 void entryTriacRunningState(void)
 {
-//	printf("entry I\n");
+	printf("entry Running\n");
 	displayTriacRunning();
 //	startTriacRun();
 }
 
 void exitTriacRunningState(void)
 {
-//	printf("exit I\n");
+	printf("exit Running\n");
 //	stopTriacRun();
 	clr_scr();
 }

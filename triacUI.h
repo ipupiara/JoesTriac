@@ -23,9 +23,13 @@ void displayTriacRunning();
 
 void displayEditAmpsDuration();
 
-void startEditAmps();
+void displayAmps(int8_t kInd);
 
-void startEditDuration();
+void displayTime(int8_t kInd);
+
+void displayEditAmps();
+
+void displayEditDuration();
 
 float desiredAmps;
 int16_t desiredTimeS;
