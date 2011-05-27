@@ -6,7 +6,7 @@
 #ifndef TriacDefines_H
 	#define TriacDefines_H
 
-
+	#define maxSecsPossible  0x7FFF
 
 
 	#define JT_F_CPU 11095200	

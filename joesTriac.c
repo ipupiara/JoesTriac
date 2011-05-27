@@ -75,6 +75,10 @@ int main(void)
 	CJoesTriacEvent ev;
 	int8_t ky;
 
+
+//	initBlink();
+//	blink();
+
 	USART_Init( 143 );   // baud 4800 at 11.0592 mhz, single uart speed
 	stdout = &mystdout;
 	printf("startup\n");
@@ -105,6 +109,7 @@ int main(void)
 		}
 
 		if ((ky = keyEntered())){
+			printf("\nky %X",ky);
 			if (ky == kpFunction1) ev.evType = evFunction1Pressed;
 //			if (ky == kpFunction2) ev.evType = eFunction2Pressed;   // not yet in use
 			if (ky == kpStart) ev.evType = evStartPressed;

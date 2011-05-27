@@ -27,15 +27,28 @@ void displayCalibratingExplanation()
 
 void displayCalibrateLow()
 {
+	lcd_clrscr(LCD1);
+	lcd_write_str("Calibrate Low",LCD1);
+	lcd_Line2(LCD1);
+	lcd_write_str("#,*,R",LCD1);
 }
 
 void displayCalibrateHigh()
 {
+	lcd_clrscr(LCD1);
+	lcd_write_str("Calibrate High",LCD1);
+	lcd_Line2(LCD1);
+	lcd_write_str("#,*,R",LCD1);
 }
 
 void displayRunningValues()
 {
 	
+}
+
+void clr_scr()
+{
+	lcd_clrscr(LCD1);
 }
 
 
@@ -145,28 +158,45 @@ void setSec(int8_t val)
 void displayCountDown()
 {
 	int16_t secondsRem = getSecondsRemaining();
-	int16_t minRem  = secondsRem / 60;			//  250 us on 1 Mhz Simulator 2
+	int32_t minRem  = secondsRem / 60; ;        //(250 us on 1Mhz Simulator)
+	int16_t mRem = minRem;
 	int8_t secsRem	= secondsRem - (minRem * 60);  // subtraction + multiply by 60 faster than division
 													// 25 us on 1 Mhz Sim 2 
-	char buffer [10];
-	sprintf((char*)&buffer,"%3im%2i",minRem,secsRem);   // 1.4 ms on 1 Mhz Sim2
+	char buffer [8];
+	sprintf((char*)&buffer,"%3im%02i",mRem,secsRem);
 
 	lcd_goto(1,9,LCD1);
-	lcd_write_str(&buffer,LCD1);
+	lcd_write_str((char*)&buffer,LCD1);
 }
 
 void displayTriacRunning()
 {
+	lcd_clrscr(LCD1);
+	lcd_write_str("Triac Running",LCD1);
+	lcd_Line2(LCD1);
+	lcd_write_str("wait or H",LCD1);
 }
 
 void displayEditAmpsDuration()
 {
+	lcd_clrscr(LCD1);
+	lcd_write_str("A     T",LCD1);
+	lcd_Line2(LCD1);
+	lcd_write_str("#     *,S",LCD1);
 }
 
 void startEditAmps()
 {
+	lcd_clrscr(LCD1);
+	lcd_write_str("Amps  T",LCD1);
+	lcd_Line2(LCD1);
+	lcd_write_str("#     *,S",LCD1);
 }
 
 void startEditDuration()
 {
+	lcd_clrscr(LCD1);
+	lcd_write_str("A     Time",LCD1);
+	lcd_Line2(LCD1);
+	lcd_write_str("#     *,S",LCD1);
 }

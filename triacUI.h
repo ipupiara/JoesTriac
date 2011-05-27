@@ -3,6 +3,8 @@
 
 #include <inttypes.h>
 
+void clr_scr();
+
 void displayRunningValues();
 
 void displayCalibrationPrompt();
