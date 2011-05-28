@@ -23,6 +23,7 @@
 	#define calibLowAdcEEPROMpos   11
 	#define calibHighAdcEEPROMpos  13   // both int16
 
-
+// takes approx  2 us at 10 Mhz with -o0 (no opts. !) ,with all  call/ret, push N Pop
+void delayEmptyProc (); 
 
 #endif

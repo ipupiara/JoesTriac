@@ -15,10 +15,6 @@
 #define LCD_DATA_PIN PINB    // pins for data port
 
 
-// takes approx  2 us at 10 Mhz with -o0 (no opts. !) ,with all  call/ret, push N Pop
-void delayEmptyProc () 
-{
-}
 
 void lcd_write(uint8_t dataW, uint8_t toDataIR, uint8_t Scr) 
 {
