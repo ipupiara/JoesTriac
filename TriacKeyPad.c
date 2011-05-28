@@ -37,7 +37,8 @@ int8_t getKeypadState()
 	int8_t chr;
 	ch = 0x00;
 	chr = 0x00;
-	keyPort = 0b00000010;  // so far no delay needed for physical line to come up
+	keyPort = 0b00000010;  
+	delayEmptyProc ();
 	if ((ch=keyPin & 0xF0)){
 		if (ch & 0b10000000) chr = kp2;
 		if (ch & 0b01000000) chr = kp0;
@@ -45,6 +46,7 @@ int8_t getKeypadState()
 		if (ch & 0b00010000) chr = kp5;		
 	} else {
 		keyPort = 0b00000100;
+		delayEmptyProc ();
 		if ((ch=keyPin & 0xF0)){
 			if (ch & 0b10000000) chr = kp1;
 			if (ch & 0b01000000) chr = kpAst;
@@ -52,6 +54,7 @@ int8_t getKeypadState()
 			if (ch & 0b00010000) chr = kp4;		
 		}	else {
 				keyPort = 0b00001000;
+				delayEmptyProc ();
 				if ((ch=keyPin & 0xF0)){
 					if (ch & 0b10000000) chr = kp3;
 					if (ch & 0b01000000) chr = kpNum;
@@ -59,6 +62,7 @@ int8_t getKeypadState()
 					if (ch & 0b00010000) chr = kp6;		
 				}  else {
 					keyPort = 0b00000001; 
+					delayEmptyProc ();
 					if ((ch=keyPin & 0xF0)){
 						if (ch & 0b10000000) chr = kpStart;
 						if (ch & 0b01000000) chr = kpStop;
@@ -105,6 +109,7 @@ ISR(PCINTVECT)
 	}
 	
 	keyPort = 0x0F;
+	delayEmptyProc ();
 	PCIFR = 0x00;
 	IntrMsk = 0xF0;
 	PCICR = PCICR |( 1 << PCICRPos );  // ena pcint int
