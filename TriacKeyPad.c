@@ -8,7 +8,7 @@
 
 int8_t lastCharPressed;
 
-//#define KeyPortB
+#define KeyPortB
 
 #ifdef KeyPortB
 

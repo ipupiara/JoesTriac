@@ -90,8 +90,8 @@ void displayCurrentAmps()
 {
 }
 
-void displayCalibratingExplanation()
-{
+void displayCalibratingExplanation()   // on LCD2
+{    
 }
 
 void displayCalibrateLow()

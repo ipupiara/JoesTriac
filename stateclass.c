@@ -415,12 +415,14 @@ void entryTriacRunningState(void)
 {
 	printf("entry Running\n");
 	displayTriacRunning();
+	startDurationTimer(desiredTimeS);
 //	startTriacRun();
 }
 
 void exitTriacRunningState(void)
 {
 	printf("exit Running\n");
+	stopDurationTimer();
 //	stopTriacRun();
 	clr_scr();
 }

@@ -82,8 +82,15 @@ int main(void)
 	USART_Init( 143 );   // baud 4800 at 11.0592 mhz, single uart speed
 	stdout = &mystdout;
 	printf("startup\n");
-	lcd_init();
+//	lcd_init();
 	initKeyPad();
+
+	while(1) {
+		if ((ky = keyEntered())){
+			printf("\nmain() ky %c %X",ky,ky);
+		}
+	}
+
 	initInterrupts();
 
 //	InitializePID(real kp, real ki, real kd, real error_thresh, real step_time);   
@@ -109,7 +116,7 @@ int main(void)
 		}
 
 		if ((ky = keyEntered())){
-//			printf("\main() ky %X",ky);
+			printf("\nmain() ky %c %X",ky,ky);
 			if (ky == kpFunction1) ev.evType = evFunction1Pressed;
 //			if (ky == kpFunction2) ev.evType = eFunction2Pressed;   // not yet in use
 			if (ky == kpStart) ev.evType = evStartPressed;
