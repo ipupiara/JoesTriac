@@ -8,7 +8,7 @@
 
 int8_t lastCharPressed;
 
-#define KeyPortB
+//#define KeyPortB
 
 #ifdef KeyPortB
 
@@ -39,6 +39,7 @@ int8_t getKeypadState()
 	chr = 0x00;
 	keyPort = 0b00000010;  
 	delayEmptyProc ();
+	// delay6pnt2d5us(2);
 	if ((ch=keyPin & 0xF0)){
 		if (ch & 0b10000000) chr = kp2;
 		if (ch & 0b01000000) chr = kp0;

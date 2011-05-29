@@ -26,4 +26,22 @@
 // takes approx  2 us at 10 Mhz with -o0 (no opts. !) ,with all  call/ret, push N Pop
 void delayEmptyProc (); 
 
+
+void delay6pnt2d5us(unsigned int n);
+
+//delay approx ( n * 2.5 us ) + 6    at 11.0592  mhz  wit -o0 (no opts)
+// 2 Plus N Times  2 Dot 5
+
+//n        t    tested on Simulator 2  (PN 28. May 2011)
+
+//0		6
+//1		8 - 9
+//2		11
+//4		16
+//8		25 -26
+//6		45   approx 500 cycles
+
+//  accurate enough for our keyboard delays
+
+
 #endif
