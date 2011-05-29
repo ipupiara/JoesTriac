@@ -26,10 +26,12 @@ int8_t lastCharPressed;
 	#define keyDDR  DDRC
 	#define IntrMsk  PCMSK2
 	#define PCICRPos  2
-	#define PCINTVECT  PCINT2_vect
+	#define PCINTVECT  PCINT2_vect   
 
 #endif
 
+
+#define keypadSignalDelayFaktor  8
 
 int8_t getKeypadState()
 {
@@ -38,7 +40,7 @@ int8_t getKeypadState()
 	ch = 0x00;
 	chr = 0x00;
 	keyPort = 0b00000010;  
-	delayEmptyProc ();
+	delay6pnt2d5us(keypadSignalDelayFaktor);
 	// delay6pnt2d5us(2);
 	if ((ch=keyPin & 0xF0)){
 		if (ch & 0b10000000) chr = kp2;
@@ -47,7 +49,7 @@ int8_t getKeypadState()
 		if (ch & 0b00010000) chr = kp5;		
 	} else {
 		keyPort = 0b00000100;
-		delayEmptyProc ();
+		delay6pnt2d5us(keypadSignalDelayFaktor);
 		if ((ch=keyPin & 0xF0)){
 			if (ch & 0b10000000) chr = kp1;
 			if (ch & 0b01000000) chr = kpAst;
@@ -55,7 +57,7 @@ int8_t getKeypadState()
 			if (ch & 0b00010000) chr = kp4;		
 		}	else {
 				keyPort = 0b00001000;
-				delayEmptyProc ();
+				delay6pnt2d5us(keypadSignalDelayFaktor);
 				if ((ch=keyPin & 0xF0)){
 					if (ch & 0b10000000) chr = kp3;
 					if (ch & 0b01000000) chr = kpNum;
@@ -63,7 +65,7 @@ int8_t getKeypadState()
 					if (ch & 0b00010000) chr = kp6;		
 				}  else {
 					keyPort = 0b00000001; 
-					delayEmptyProc ();
+					delay6pnt2d5us(keypadSignalDelayFaktor);
 					if ((ch=keyPin & 0xF0)){
 						if (ch & 0b10000000) chr = kpStart;
 						if (ch & 0b01000000) chr = kpStop;
