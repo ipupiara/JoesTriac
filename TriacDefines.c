@@ -12,7 +12,7 @@ void delayEmptyProc ()
 void delay6pnt2d5us(unsigned int n)
 {
 //delay approx ( n * 2.5 us ) + 6    at 11.0592  mhz  
-// 2 Plus N Times  2 Dot 5
+//    6 Plus N Times  2 Dot 5  (  "6pnt2d5"  )
 
 //n        t    tested on Simulator 2  (PN 28. May 2011)
 
