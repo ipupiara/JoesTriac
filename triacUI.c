@@ -84,6 +84,8 @@ void initUI()
 	if ((sec10 < 0x30) || (sec10 > 0x35)) { storeSec10(0x30);}
 	sec = eeprom_read_byte((uint8_t*)secEEPROMpos);
 	if ((sec < 0x30) || (sec > 0x39)) { storeSec(0x30);}
+	calcDesiredTime();
+	calcDesiredAmps();
 }
 
 void displayCurrentAmps()
