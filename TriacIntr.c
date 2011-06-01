@@ -80,6 +80,10 @@ ISR(PCINT0_vect)
 	}			  
 }   
 
+ISR(TIMER0_COMPA_vect)
+{    // needed for ADC so far..
+}
+
 ISR(TIMER1_COMPA_vect)
 {
 	secondsRemaining --;
@@ -122,13 +126,14 @@ void initInterrupts()
 	  
 	      TCCR0A = 0b00000010;  //  CTC 
 
-		  OCR0A = 0xFF;  // counter top value, means 42.18 ADC measures and write to mem per sec
-						// far too much, but runs parallel except the very short ADC-complete interrrupt
+		  OCR0A = 0x4F;  // counter top value, 0xFF means 42.18 ADC measures and write to mem per sec
+						// far too much for our needs, but runs parallel except 
+						//  the very short ADC-complete interrrupt
 	      TCNT0 = 0x00 ;  
 	  	  
 		TCCR0B = 0b00000101  ; // CTC on CC0A , set clk / 1024, timer started	  
 
-		TIMSK0  = 0b00000000;  // disa  interrupts, just let run ADC
+		TIMSK0  = 0b00000010;  // disa  interrupts, just let run ADC
 
 // Timer 2 as Triac Trigger Delay Timer
 	  

@@ -74,6 +74,7 @@ int main(void)
 {
 	CJoesTriacEvent ev;
 	int8_t ky;
+	int16_t dummyI;
 
 
 //	initBlink();
@@ -83,16 +84,21 @@ int main(void)
 	USART_Init( 71 );   // baud 9600 at 11.0592 mhz, single uart speed
 	stdout = &mystdout;
 	printf("startup\n");
-	lcd_init();
-	initKeyPad();
-
-/*	while(1) {
-		if ((ky = keyEntered())){
-			printf("\nmain() ky %c %X",ky,ky);
-		}
-	}*/
-
+//	lcd_init();
+//	initKeyPad();
 	initInterrupts();
+
+	dummyI = 0;
+	while(1) {
+		++ dummyI;
+		if (dummyI == 0) {
+			if ((ky = keyEntered())){
+					printf("\nmain() ky %c %X",ky,ky);
+			}
+		}
+	}
+
+	
 
 //	InitializePID(real kp, real ki, real kd, real error_thresh, real step_time);   
 //	InitializePID(-0.01, 0.3, 0.3, 0.3, 1);
