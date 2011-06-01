@@ -118,17 +118,17 @@ void initInterrupts()
 		TIMSK1  = 0x00; // disa  Interrupt 
 	//		TIMSK1   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
 
-// Timer 0    , not needed so far 
+// Timer 0    
 	  
-//	      TCCR0A = 0b00000010;  //  CTC 
-		  
-//		TCCR0B = 0b00000101  ; // CTC on CC0A , set clk / 1024, timer started
-	  
-	  
-//		  OCR0A = 0xAA;  // counter top value  , just anything for start, will later be set by PID
-//	      TCNT0 = 0x00 ;  
-	  
-//		TIMSK0  = 0b00000010;  // disa  ena, just let run ADC
+	      TCCR0A = 0b00000010;  //  CTC 
+
+		  OCR0A = 0xFF;  // counter top value, means 42.18 ADC measures and write to mem per sec
+						// far too much, but runs parallel except the very short ADC-complete interrrupt
+	      TCNT0 = 0x00 ;  
+	  	  
+		TCCR0B = 0b00000101  ; // CTC on CC0A , set clk / 1024, timer started	  
+
+		TIMSK0  = 0b00000000;  // disa  interrupts, just let run ADC
 
 // Timer 2 as Triac Trigger Delay Timer
 	  
@@ -148,8 +148,12 @@ void initInterrupts()
 //  init ADC
 		
 		ADMUX = 0b01000000;      // AVCC as ref,  right adjust, mux to adc0
-		ADCSRA = 0b10001111;  // ADC ena, not yet start (single start mode), no Autotrigger, iflag = 0, int ena, prescale /128
-		ADCSRB = 0x00;  // no ACME, no free running mode
+		ADCSRA = 0b10101111;  // ADC ena, not yet start (single start mode),  Autotrigger, iflag = 0
+								// int ena, prescale /128
+								// ADC clock will run at 86400 hz, or max 6646. read per sec,what is ok
+								// for our settings of 42. read per sec	
+
+		ADCSRB = 0x03;  // no ACME, trigger ADC on Timer0 compare match
 
 		sei();  // start interrupts if not yet started
 		
