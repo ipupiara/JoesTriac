@@ -21,7 +21,12 @@
 	#define sec10EEPROMpos    9   // 8-bit
 	#define secEEPROMpos    10   // 8-bit
 	#define calibLowAdcEEPROMpos   11
-	#define calibHighAdcEEPROMpos  13   // both int16
+	#define calibHighAdcEEPROMpos  13   // both uint16
+	#define calibLowTriggerDelay   15
+	#define calibHighTriggerDelay   17   // both uint16
+
+	#define calibLowAmps        30
+	#define calibHighAmps       40
 
 // takes approx  2 us at 10 Mhz with -o0 (no opts. !) ,with all  call/ret, push N Pop
 void delayEmptyProc (); 

@@ -9,9 +9,6 @@
 // Select 'double' or 'float' here:
 typedef double real;
 
-#define calibLowAmps  20
-#define calibHighAmps  60
-
 
 void InitializePID(real kp, real ki, real kd, real error_thresh, real step_time);
 

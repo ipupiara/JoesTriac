@@ -31,12 +31,12 @@ void startTriacTriggerDelay()
 {
 	remainingTriacTriggerDelayCounts = triacTriggerDelayCms;
 	TIMSK2   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
-	TCCR2B = 0b00000111  ; // CTC on CC2A , set clk / 1024, timer started
+	TCCR2B = 0b00000111  ; // CTC on CC2A , set clk / 1024, timer 2 started
 }
 
 void stopTriacTriggerDelay()
 {
-	  TCCR2B = 0b00000000  ;  // CTC, timer stopped
+	  TCCR2B = 0b00000000  ;  // CTC, timer 2 stopped
 	  TIMSK2  = 0x00;
 }	  
 
@@ -50,14 +50,15 @@ void setTriacTriggerDelay(int16_t cmsecs)
 ISR(TIMER2_COMPA_vect)
 {
 	if (remainingTriacTriggerDelayCounts == 0) {
-		
-		// todo  Trigger Triac			// T O D O   try to cast types so that only 8 bit single cycle operations are happen
-		
+				
 		TCCR2B = 0b00000000  ;  // CTC, timer stopped
 		TIMSK2  = 0x00;
+
+		// Trigger Triac
+
 	}
 	if (remainingTriacTriggerDelayCounts < ocra2aValue) {    
-		TCNT2 = remainingTriacTriggerDelayCounts; // 8-bit access already atomic 
+		TCNT2 = ocra2aValue - remainingTriacTriggerDelayCounts; // 8-bit access already atomic 
 		remainingTriacTriggerDelayCounts = 0;
 	} else {
 		remainingTriacTriggerDelayCounts -= ocra2aValue;
@@ -72,7 +73,6 @@ ISR(ADC_vect)
 ISR(PCINT0_vect)
 {
 	if (PD2 == 0) {
-		ADCSRA |= 0b01000000 ;
 		stopTriacTriggerDelay();
         //   ADCSRA = 0b11001111;  // start one single AD conversion
 	} else {

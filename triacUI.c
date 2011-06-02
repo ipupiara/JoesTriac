@@ -65,8 +65,22 @@ void storeSec(int8_t val)
 	calcDesiredTime();		
 }
 
+void storeCalibLowADC()
+{
+	calibLowADC = ampsADCValue();
+	eeprom_write_word((uint16_t *) calibLowAdcEEPROMpos, calibLowADC);
 
-                              
+}
+
+void storeCalibHighADC()
+{
+	calibHighADC = ampsADCValue();
+	eeprom_write_word((uint16_t *) calibHighAdcEEPROMpos, calibHighADC);
+}    
+
+void storeCalibLowTriggerDelay()
+{
+}                          
 
 void initUI()
 {
@@ -86,10 +100,30 @@ void initUI()
 	if ((sec < 0x30) || (sec > 0x39)) { storeSec(0x30);}
 	calcDesiredTime();
 	calcDesiredAmps();
+	calibLowADC = eeprom_read_word((uint16_t*) calibLowAdcEEPROMpos);
+	calibHighADC = eeprom_read_word((uint16_t*) calibHighAdcEEPROMpos);
 }
 
 void displayCurrentAmps()
 {
+}
+
+void displayDebugVoltageNTriggerDelay()
+{
+	int16_t VHex;
+	int16_t trigDel;
+	float   VFl;
+	char buffer [16];
+	
+	VHex = ampsADCValue();
+	VFl = (VHex * 5.0) / 0x03FF;
+	
+
+	sprintf((char*)&buffer,"%4.2fV %i D",(double)VFl,trigDel);
+
+	lcd_Line2(LCD1);
+	lcd_write_str((char*)&buffer,LCD1);
+
 }
 
 void displayCalibratingExplanation()   // on LCD2
@@ -99,17 +133,15 @@ void displayCalibratingExplanation()   // on LCD2
 void displayCalibrateLow()
 {
 	lcd_clrscr(LCD1);
-	lcd_write_str("Calibrate Low",LCD1);
-	lcd_Line2(LCD1);
-	lcd_write_str("#,*,R",LCD1);
+	lcd_write_str("Set 30A #,* Skip",LCD1);  
+
 }
 
 void displayCalibrateHigh()
 {
 	lcd_clrscr(LCD1);
-	lcd_write_str("Calibrate High",LCD1);
-	lcd_Line2(LCD1);
-	lcd_write_str("#,*,R",LCD1);
+	lcd_write_str("Set 70A #,* Skip",LCD1);
+
 }
 
 void displayRunningValues()
@@ -127,7 +159,7 @@ void displayCalibrationPrompt()
 {
 	lcd_clrscr(LCD1);
 	lcd_write_str("Calibrate? *=Yes",LCD1);
-	lcd_Line2(LCD1);
+
 	lcd_write_str("or wait",LCD1);
 }
 
