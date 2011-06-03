@@ -5,12 +5,16 @@
 #include "TriacDefines.h"
 #include "TriacIntr.h"
 
+
+int m_started;
+real m_kp, m_ki, m_kd, m_h, m_inv_h, m_prev_error, m_error_thresh, m_integral;
+
 float gradAmps; // amperes ....
 
 void updateGradAmps()
 {
-	if ( fabs(calibHighAdc - calibLowAdc) > 1) {  
-		gradAmps = (calibHighAmps - calibLowAmps) / (calibHighAdc - calibLowAdc);
+	if ( fabs(calibHighADC - calibLowADC) > 1) {  
+		gradAmps = (calibHighAmps - calibLowAmps) / (calibHighADC - calibLowADC);
 	} else gradAmps = 0;	
 }
 
@@ -31,10 +35,6 @@ void InitializePID(real kp, real ki, real kd, real error_thresh, real step_time)
     m_integral = 0;
     m_started = 0;
 	
-	calibHighCms = eeprom_read_word((uint16_t*)calibHighCmsEEPROMpos);
-	calibLowCms = eeprom_read_word((uint16_t*)calibLowCmsEEPROMpos);
-	calibHighAdc = eeprom_read_word((uint16_t*)calibHighAdcEEPROMpos);
-	calibLowAdc = eeprom_read_word((uint16_t*)calibLowAdcEEPROMpos);
 	 updateGradAmps();
 }
 
@@ -67,24 +67,11 @@ real Update(real error)
     return m_kp*(error + m_ki*m_integral + m_kd*deriv);
 }
 
-
-void storeCalibLowCms(uint16_t cl)
-{
-	eeprom_write_word((uint16_t*)calibLowCmsEEPROMpos,cl);
-	calibLowCms = cl;
-}
-
-void storeCalibHighCms(uint16_t ch)
-{
-	eeprom_write_word((uint16_t*)calibHighCmsEEPROMpos,ch);
-	calibHighCms = ch;
-}
-
 float currentAmps()
 {
 	int16_t adcAmps, res;
 	adcAmps = ampsADCValue();
-	res = calibLowAmps + (gradAmps * (adcAmps - calibLowAdc  ));
+	res = calibLowAmps + (gradAmps * (adcAmps - calibLowADC  ));
 	return res;
 }
 
@@ -100,16 +87,3 @@ void calcNextTriacDelay()
 }
 
 
-void storeCalibLowAdc(uint16_t cl)
-{
-	eeprom_write_word((uint16_t*)calibLowAdcEEPROMpos,cl);
-	calibLowAdc = cl;	 
-	updateGradAmps();
-}
-
-void storeCalibHighAdc(uint16_t ch)
-{
-	eeprom_write_word((uint16_t*)calibHighAdcEEPROMpos,ch);
-	calibHighAdc = ch;
-	updateGradAmps();
-}

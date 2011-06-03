@@ -10,6 +10,7 @@
 #include <avr/io.h>
 #include <stdio.h>
 #include "st7565r.h"
+#include "TriacDefines.h"
 #include "triacPID.h"
 #include "triacUI.h"
 #include "StateClass.h"
@@ -74,8 +75,7 @@ int main(void)
 {
 	CJoesTriacEvent ev;
 	int8_t ky;
-	int16_t dummyI;
-
+//	int16_t dummyI;
 
 //	initBlink();
 //	blink();
@@ -84,11 +84,12 @@ int main(void)
 	USART_Init( 71 );   // baud 9600 at 11.0592 mhz, single uart speed
 	stdout = &mystdout;
 	printf("startup\n");
-//	lcd_init();
-//	initKeyPad();
+	restorePersistentData();
+	lcd_init();
+	initKeyPad();
 	initInterrupts();
 
-	dummyI = 0;
+/*	dummyI = 0;
 	while(1) {
 		++ dummyI;
 		if (dummyI == 0) {
@@ -96,7 +97,7 @@ int main(void)
 					printf("\nmain() ky %c %X",ky,ky);
 			}
 		}
-	}
+	}   */
 
 	
 
@@ -105,6 +106,10 @@ int main(void)
 	initUI();
 	
 	startStateCharts();	
+
+/*	 ev.evType = evAstPressed;
+	processTriacEvent(&SJoesTriacStateChart,&ev);  */
+
 	while (1)
 	{
 		if (runningSecondsTick){

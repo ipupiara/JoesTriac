@@ -14,8 +14,7 @@ void InitializePID(real kp, real ki, real kd, real error_thresh, real step_time)
 
 real Update(real error);
 
-int m_started;
-real m_kp, m_ki, m_kd, m_h, m_inv_h, m_prev_error, m_error_thresh, m_integral;
+/*
 
 uint16_t calibLowCms, calibHighCms;
 
@@ -28,6 +27,8 @@ void storeCalibHighCms(uint16_t ch);
 void storeCalibLowAdc(uint16_t cl);
 
 void storeCalibHighAdc(uint16_t ch);
+
+*/
 
 void calcNextTriacDelay();
 

@@ -139,7 +139,7 @@ uStInt evCalibratingChecker(void)
 	}
 	if (currentEvent->evType == evSecondsTick) 
 	{	
-		displayCurrentAmps();
+		displayDebugVoltageNTriggerDelay();
 		res =  uStIntHandlingDone;
 	}
 	
@@ -167,8 +167,8 @@ uStInt evCalibrateLowChecker(void)
 	if (currentEvent->evType == evAstPressed) 
 	{	
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateHigh);
-			//	storeCalibLowCms(triacTriggerDelayCms);
-			//	storeCalibLowAdc(ampsADCValue());				// No event action.
+				storeCalibLowTriggerDelay();
+				storeCalibLowADC();				// No event action.
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 	}
@@ -203,8 +203,8 @@ uStInt evCalibrateHighChecker(void)
 	if (currentEvent->evType == evAstPressed) 
 	{	
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
-		//	storeCalibHighCms(triacTriggerDelayCms);
-		//	storeCalibHighAdc(ampsADCValue());
+			storeCalibHighTriggerDelay(triacTriggerDelayCms);
+			storeCalibHighADC(ampsADCValue());
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
 	}
