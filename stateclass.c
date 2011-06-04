@@ -14,16 +14,10 @@ extern const uStInt uStIntNoMatch;
 
 CJoesTriacEvent* currentEvent;
 
-
-
 #include "TriacIntr.h"
 #include "triacPID.h"
 #include "triacUI.h"
 #include "TriacKeyPad.h"
-
-
-
-
 
 // This defines and names the states the class has.
 enum eStates
@@ -96,14 +90,14 @@ void entryCalibratingState(void)
 //	printf("\nentry Calib");
 	displayCalibratingExplanation();
 	startDurationTimer(maxSecsPossible);   // enable secondsTick
-//	startTriacRun();
+	startTriacRun();
 }
 
 void exitCalibratingState(void)
 {
 //	printf("exit calib\n");
 	stopDurationTimer();
-//	stopTriacRun();
+	stopTriacRun();
 }
 
 uStInt evCalibratingChecker(void)
@@ -142,7 +136,6 @@ uStInt evCalibratingChecker(void)
 		displayDebugVoltageNTriggerDelay();
 		res =  uStIntHandlingDone;
 	}
-	
 	return res;
 }
 
@@ -151,6 +144,7 @@ void entryCalibrateLowState(void)
 {
 //	printf("entry calib Low\n");
 	displayCalibrateLow();
+	setTriacTriggerDelay(calibLowTriggerDelay);// approximate somewhat, depending on used load
 }
 
 void exitCalibrateLowState(void)
@@ -187,12 +181,12 @@ void entryCalibrateHighState(void)
 {
 //	printf("entry I\n");
 	displayCalibrateHigh();
+	setTriacTriggerDelay(calibHighTriggerDelay);  // approximate somewhat, depending on used load
 }
 
 void exitCalibrateHighState(void)
 {
 //	printf("exit I\n");
-
 	clr_scr();
 }
 
@@ -416,14 +410,14 @@ void entryTriacRunningState(void)
 	printf("entry Running\n");
 	displayTriacRunning();
 	startDurationTimer(desiredTimeS);
-//	startTriacRun();
+	startTriacRun();
 }
 
 void exitTriacRunningState(void)
 {
 	printf("exit Running\n");
 	stopDurationTimer();
-//	stopTriacRun();
+	stopTriacRun();
 	clr_scr();
 }
 
@@ -448,7 +442,11 @@ uStInt evTriacRunningChecker(void)
 		displayCurrentAmps();
 		displayCountDown();
 		res =  uStIntHandlingDone;
-	}			
+	}	
+	if (currentEvent->evType == evAdcTick)
+	{
+		 calcNextTriacDelay();
+	}		
 	return res;
 }
 

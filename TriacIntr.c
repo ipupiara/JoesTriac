@@ -14,6 +14,8 @@ int16_t remainingTriacTriggerDelayCounts;
 
 int16_t secondsRemaining;
 
+int8_t adcCnt;
+
 int16_t getSecondsRemaining()
 {
 	int16_t res;
@@ -68,6 +70,11 @@ ISR(TIMER2_COMPA_vect)
 ISR(ADC_vect)
 {
 	lastAmpsADCVal = ADC;
+	++ adcCnt;
+	if (adcCnt == 30)  {
+		adcCnt = 0;
+		adcTick = 1;
+	}
 }
 
 ISR(PCINT0_vect)
@@ -122,7 +129,7 @@ void initInterrupts()
 		TIMSK1  = 0x00; // disa  Interrupt 
 	//		TIMSK1   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
 
-// Timer 0    
+// Timer 0    used for ADC triggering
 	  
 	      TCCR0A = 0b00000010;  //  CTC 
 
@@ -131,9 +138,12 @@ void initInterrupts()
 						//  the very short ADC-complete interrrupt
 	      TCNT0 = 0x00 ;  
 	  	  
-		TCCR0B = 0b00000101  ; // CTC on CC0A , set clk / 1024, timer started	  
-
-		TIMSK0  = 0b00000010;  // disa  interrupts, just let run ADC
+//		TCCR0B = 0b00000101  ; // CTC on CC0A , set clk / 1024, timer started	  
+//		TIMSK0  = 0b00000010;  // ena  interrupts, and let run ADC
+// 	not yet start Timer0 and ADC, to be tested
+		TCCR0B = 0b00000000  ; // CTC on CC0A , not yet started	  
+		TIMSK0  = 0b00000000;
+	
 
 // Timer 2 as Triac Trigger Delay Timer
 	  
@@ -160,6 +170,9 @@ void initInterrupts()
 
 		ADCSRB = 0x03;  // no ACME, trigger ADC on Timer0 compare match
 
+		adcTick = 0;
+		adcCnt = 0;
+
 		sei();  // start interrupts if not yet started
 		
 }
@@ -167,13 +180,21 @@ void initInterrupts()
 void startTriacRun()
 {
 	EIFR = 0x00;
-	EIMSK = 0x01;
+	EIMSK = 0x01;  				// start external interrupt (zero pass detection)
+
+		TCCR0B = 0b00000101  ; // CTC on CC0A , set clk / 1024, timer 0 started	  
+		TIMSK0  = 0b00000010;  // ena  interrupts, and let run ADC
+
+
 }
 
 void stopTriacRun()
 {
-	EIMSK = 0x00;
+	EIMSK = 0x00;				// stop external interrupt
 	stopTriacTriggerDelay();
+
+		TCCR0B = 0b00000000  ; // stop timer 0	  
+		TIMSK0  = 0b00000000;  // to stop ADC
 }
 
 int16_t ampsADCValue()

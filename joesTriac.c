@@ -119,6 +119,11 @@ int main(void)
 			ev.evType = evSecondsTick;
 			processTriacEvent(&SJoesTriacStateChart,&ev);	
 		}
+		if (adcTick){
+			adcTick = 0; // 8-bit access is atomic
+			ev.evType = evAdcTick;
+			processTriacEvent(&SJoesTriacStateChart,&ev);	
+		}
 		if (durationTimerReachead) {
 	//		cli();   // 8-bit access is alread atomic
 			durationTimerReachead = 0;

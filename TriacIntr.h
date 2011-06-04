@@ -10,6 +10,8 @@
 	
 int8_t durationTimerReachead;
 int8_t runningSecondsTick;
+
+int8_t adcTick;
 	
 int16_t ampsADCValue();
 int16_t triacTriggerDelayCms;   // centi-millis-secs, not exactly but approximate, PID will handle the rest

@@ -19,7 +19,8 @@ enum eEventTypes
 	evTimeOutDurationTimer,
 	evSecondsTick,
 	evStartPressed,
-	evStopPressed
+	evStopPressed,
+	evAdcTick
 };
 
 

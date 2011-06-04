@@ -26,7 +26,8 @@ void delay6pnt2d5us(unsigned int n)
 
 //  accurate enough for our keyboard delays
 
-unsigned int x;   // left this unused variable because method was tested like this 
+uint8_t x;   // left this unused variable because method was tested like this 
+	x= 0;
 
   while(n--){
   }
