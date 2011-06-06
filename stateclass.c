@@ -162,15 +162,17 @@ uStInt evCalibrateLowChecker(void)
 	if (currentEvent->evType == evAstPressed) 
 	{	
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateHigh);
-				storeCalibLowTriggerDelay();
-				storeCalibLowADC();				// No event action.
+			// No event action.
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 	}
 	if (currentEvent->evType == evNumPressed) 
 	{	
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateHigh);
-			// No event action.
+			
+			storeCalibLowTriggerDelay();
+			storeCalibLowADC();			
+
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 	}
@@ -198,15 +200,17 @@ uStInt evCalibrateHighChecker(void)
 	if (currentEvent->evType == evAstPressed) 
 	{	
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
-			storeCalibHighTriggerDelay(triacTriggerDelayCms);
-			storeCalibHighADC(ampsADCValue());
+
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
 	}
 	if (currentEvent->evType == evNumPressed) 
 	{	
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
-			// No event action.
+
+		storeCalibHighTriggerDelay();
+		storeCalibHighADC();			
+
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
 	}

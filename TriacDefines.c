@@ -111,14 +111,13 @@ void storeCalibHighADC()
 void storeCalibLowTriggerDelay()
 {
 	calibLowTriggerDelay = triacTriggerDelayCms;
-	printf("\nstoreCalibLowTD TD %i\n",calibLowTriggerDelay);
 	eeprom_write_word((uint16_t *) calibLowTriggerDelayEEPROMpos, calibLowTriggerDelay);
 }
 
 void storeCalibHighTriggerDelay()
 {
 	calibHighTriggerDelay = triacTriggerDelayCms;
-	eeprom_write_word((uint16_t *) calibLowTriggerDelayEEPROMpos, calibHighTriggerDelay);
+	eeprom_write_word((uint16_t *) calibHighTriggerDelayEEPROMpos, calibHighTriggerDelay);
 }
 
 void restorePersistentData()
