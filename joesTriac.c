@@ -83,7 +83,7 @@ int main(void)
 //	USART_Init( 143 );   // baud 4800 at 11.0592 mhz, single uart speed
 	USART_Init( 71 );   // baud 9600 at 11.0592 mhz, single uart speed
 	stdout = &mystdout;
-	printf("startup\n");
+	printf("\nSTARTUP\n");
 	restorePersistentData();
 	lcd_init();
 	initKeyPad();

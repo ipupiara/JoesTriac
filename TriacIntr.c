@@ -1,5 +1,6 @@
 
 #include <avr/io.h>
+#include <stdio.h>
 
 //#include "uart.h"
 
@@ -77,13 +78,15 @@ ISR(ADC_vect)
 	}
 }
 
-ISR(PCINT0_vect)
+ISR(INT0_vect)
 {
+	printf(" int 0 \n");
 	if (PD2 == 0) {
-		stopTriacTriggerDelay();
-        //   ADCSRA = 0b11001111;  // start one single AD conversion
+		PORTA |= 0x80;
+//		stopTriacTriggerDelay();
 	} else {
-		startTriacTriggerDelay();
+		PORTA &= ~0x80;
+//		startTriacTriggerDelay();
 	}			  
 }   
 
@@ -108,6 +111,8 @@ ISR(TIMER1_COMPA_vect)
 void initInterrupts()
 {
 // Ext. Interrupt
+
+		DDRA |= 0x80;    // set pin 7 of port A as output for debugging
 	
 	  EICRA = 0x01;   // both, fall/rise edge trigger    
       EIMSK = 0x00;   
@@ -182,10 +187,8 @@ void startTriacRun()
 	EIFR = 0x00;
 	EIMSK = 0x01;  				// start external interrupt (zero pass detection)
 
-		TCCR0B = 0b00000101  ; // CTC on CC0A , set clk / 1024, timer 0 started	  
-		TIMSK0  = 0b00000010;  // ena  interrupts, and let run ADC
-
-
+	TCCR0B = 0b00000101  ; // CTC on CC0A , set clk / 1024, timer 0 started	  
+	TIMSK0  = 0b00000010;  // ena  interrupts, and let run ADC
 }
 
 void stopTriacRun()
@@ -193,8 +196,8 @@ void stopTriacRun()
 	EIMSK = 0x00;				// stop external interrupt
 	stopTriacTriggerDelay();
 
-		TCCR0B = 0b00000000  ; // stop timer 0	  
-		TIMSK0  = 0b00000000;  // to stop ADC
+	TCCR0B = 0b00000000  ; // stop timer 0	  
+	TIMSK0  = 0b00000000;  // to stop ADC
 }
 
 int16_t ampsADCValue()

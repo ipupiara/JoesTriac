@@ -1,5 +1,5 @@
 
-
+#include <stdio.h>
 #include "TriacDefines.h"
 #include "TriacIntr.h"
 #include <avr/eeprom.h>
@@ -26,7 +26,7 @@ void delay6pnt2d5us(unsigned int n)
 
 //  accurate enough for our keyboard delays
 
-uint8_t x;   // left this unused variable because method was tested like this 
+uint8_t x;  
 	x= 0;
 
   while(n--){
@@ -111,6 +111,7 @@ void storeCalibHighADC()
 void storeCalibLowTriggerDelay()
 {
 	calibLowTriggerDelay = triacTriggerDelayCms;
+	printf("\nstoreCalibLowTD TD %i\n",calibLowTriggerDelay);
 	eeprom_write_word((uint16_t *) calibLowTriggerDelayEEPROMpos, calibLowTriggerDelay);
 }
 
@@ -143,6 +144,7 @@ void restorePersistentData()
 	calibHighADC = eeprom_read_word((uint16_t*) calibHighAdcEEPROMpos);
 	if (calibHighADC == 0xFFFF) calibHighADC = 0x0000;   
 	calibLowTriggerDelay = eeprom_read_word((uint16_t*) calibLowTriggerDelayEEPROMpos);
+	printf("\nrestore calibLowTD %x \n",calibLowTriggerDelay);
 	if (calibLowTriggerDelay == 0xFFFF) calibLowTriggerDelay = 0x0000;
 	calibHighTriggerDelay = eeprom_read_word((uint16_t*) calibHighTriggerDelayEEPROMpos);
 	if (calibHighTriggerDelay == 0xFFFF) calibHighTriggerDelay = 0x0000;

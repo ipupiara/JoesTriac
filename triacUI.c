@@ -118,7 +118,7 @@ void displayCountDown()
 void displayTriacRunning()
 {
 	lcd_clrscr(LCD1);
-	lcd_write_str("Triac Running",LCD1);
+	lcd_write_str("Triac running",LCD1);
 	lcd_Line2(LCD1);
 	lcd_write_str("wait or H",LCD1);
 }

@@ -144,6 +144,7 @@ void entryCalibrateLowState(void)
 {
 //	printf("entry calib Low\n");
 	displayCalibrateLow();
+//	printf("\n,entryCalibrateLowState, delay cms %x",calibLowTriggerDelay);
 	setTriacTriggerDelay(calibLowTriggerDelay);// approximate somewhat, depending on used load
 }
 
@@ -258,10 +259,10 @@ void exitEditIdleState(void)
 uStInt evEditIdleChecker(void)
 {
 	int res = uStIntNoMatch;
-	printf("\ncheck for event in State evStateIdle");
+//	printf("\ncheck for event in State evStateIdle");
 
 	if (currentEvent->evType==evAstPressed) {
-		printf("\ncheck for event in State evStateIdle amps");
+//		printf("\ncheck for event in State evStateIdle amps");
 	
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditAmps);
 			// No event action.
@@ -269,7 +270,7 @@ uStInt evEditIdleChecker(void)
 		res =  uStIntHandlingDone;
 	}
 	if (currentEvent->evType==evNumPressed) {	
-		printf("\ncheck for event in State evStateIdle dur");
+//		printf("\ncheck for event in State evStateIdle dur");
 
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditDuration);
 			// No event action.
