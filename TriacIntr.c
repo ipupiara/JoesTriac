@@ -80,8 +80,7 @@ ISR(ADC_vect)
 
 ISR(INT0_vect)
 {
-	printf(" int 0 \n");
-	if (PD2 == 0) {
+	if ((PIND & 0x04) != 0) {
 		PORTA |= 0x80;
 //		stopTriacTriggerDelay();
 	} else {
@@ -112,7 +111,7 @@ void initInterrupts()
 {
 // Ext. Interrupt
 
-		DDRA |= 0x80;    // set pin 7 of port A as output for debugging
+		DDRA |= 0b11000000;    // set pin 7 and 6 of port A as output for debugging
 	
 	  EICRA = 0x01;   // both, fall/rise edge trigger    
       EIMSK = 0x00;   

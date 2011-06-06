@@ -144,7 +144,6 @@ void entryCalibrateLowState(void)
 {
 //	printf("entry calib Low\n");
 	displayCalibrateLow();
-//	printf("\n,entryCalibrateLowState, delay cms %x",calibLowTriggerDelay);
 	setTriacTriggerDelay(calibLowTriggerDelay);// approximate somewhat, depending on used load
 }
 

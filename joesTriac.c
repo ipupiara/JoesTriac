@@ -18,25 +18,6 @@
 #include "TriacKeyPad.h"
 
 
-void initBlink()
-{
-	DDRA = 0xFF;
-	PORTA = 0x00;
-}
-
-void blink()
-{
-	int dummyInt;
-
-	while (1) {
-		dummyInt = 5;
-		PORTA  =  ~PORTA;
-		dummyInt = 4;
-	}
-
-}
-
-
 void USART_Init( unsigned int baud )
 {
 	// Set baud rate 
