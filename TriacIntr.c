@@ -28,19 +28,62 @@ int16_t getSecondsRemaining()
 
 
 
-#define ocra2aValue 0XAA  // still to be defined
+#define ocra2aValue 0XFC  // still to be defined
 
-void startTriacTriggerDelay()
+//int phaseCount;
+
+int8_t t2Running;
+
+void startTriacTriggerDelay()  // must run protected between cli and sei
 {
-	remainingTriacTriggerDelayCounts = triacTriggerDelayCms;
-	TIMSK2   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
-	TCCR2B = 0b00000111  ; // CTC on CC2A , set clk / 1024, timer 2 started
+	if (!t2Running) {
+		TIFR2 = 0x00;
+//		phaseCount = 0;
+
+//		++phaseCount;
+//		PORTA &= ~0x3C;
+//		PORTA |= (1 << (1 + phaseCount));
+
+		remainingTriacTriggerDelayCounts = triggerDelayMax - triacTriggerDelayCms;
+		if (remainingTriacTriggerDelayCounts <= 0) {
+			remainingTriacTriggerDelayCounts = 1;  // dont set tnt2 to ocra2a
+													// cause timer will run once more
+		}
+		if (remainingTriacTriggerDelayCounts < ocra2aValue) {    
+			TCNT2 = ocra2aValue - remainingTriacTriggerDelayCounts; 
+			remainingTriacTriggerDelayCounts = 0;
+		} else {
+			remainingTriacTriggerDelayCounts -= ocra2aValue;
+			TCNT2 = 0;
+		}
+		TIMSK2   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
+		TCCR2B = 0b00000101  ; // CTC on CC2A , set clk / 128, timer 2 started
+		t2Running = 1;
+	}
 }
 
-void stopTriacTriggerDelay()
+void stopTriacTriggerDelay()   // must run protected between cli and sei
 {
-	  TCCR2B = 0b00000000  ;  // CTC, timer 2 stopped
-	  TIMSK2  = 0x00;
+/*	if (t2Running) {
+		TCCR2B = 0b00000000  ;  // CTC, timer 2 stopped
+		TIMSK2  = 0x00;
+		t2Running = 0; 
+	//	TCNT2 = 0;
+	}
+				does not work, no idea so far what goes wrong.
+				Gives problems when t2 interrupt intersects with 
+				external interrupt, trying to stop t2 timer. 
+				Maybe not possible to synchronize properly ?????
+				Suddenly t2-trigger-interrupt happens ocra2aValue-times earlier 
+				(approx 2.8 ms, approx 1 phase in above debbuging code)  
+				on oscilloscope if it intersects.....
+				Left this problem for later for "time to market" reasons.
+				Triac application runs like that at 50 Hz AC without any problems.
+				t2-interrupt will stop early enough by itself with delay max value of 810 (TriacDefines.h).
+				But would be more state of the art when stopping the trigger from 
+				the ext-interrupt would  work
+ 
+				*/  
 }	  
 
 void setTriacTriggerDelay(int16_t cmsecs)
@@ -50,22 +93,34 @@ void setTriacTriggerDelay(int16_t cmsecs)
 	sei();
 }
 
+
 ISR(TIMER2_COMPA_vect)
 {
+	cli();
+
+//	++phaseCount;
+//	PORTA &= ~0x3C;
+//	PORTA |= (1 << (1 + phaseCount));
+
 	if (remainingTriacTriggerDelayCounts == 0) {
-				
+
 		TCCR2B = 0b00000000  ;  // CTC, timer stopped
 		TIMSK2  = 0x00;
 
 		// Trigger Triac
-
-	}
-	if (remainingTriacTriggerDelayCounts < ocra2aValue) {    
-		TCNT2 = ocra2aValue - remainingTriacTriggerDelayCounts; // 8-bit access already atomic 
-		remainingTriacTriggerDelayCounts = 0;
+		PORTD |= 0x10;
+		delay6pnt2d5us(10);   // approx 30 us of triac trigger
+		PORTD &= ~0x10;			// handled synchronous
+		t2Running = 0;
 	} else {
-		remainingTriacTriggerDelayCounts -= ocra2aValue;
+		if (remainingTriacTriggerDelayCounts < ocra2aValue) { 
+			TCNT2 =    ocra2aValue - remainingTriacTriggerDelayCounts;
+			remainingTriacTriggerDelayCounts = 0;
+		} else {
+			remainingTriacTriggerDelayCounts -= ocra2aValue;  // TCNT2 is already zero due to interrupt
+		}
 	}
+	sei();
 }
 
 ISR(ADC_vect)
@@ -80,13 +135,15 @@ ISR(ADC_vect)
 
 ISR(INT0_vect)
 {
+	cli();
 	if ((PIND & 0x04) != 0) {
-		PORTA |= 0x80;
-//		stopTriacTriggerDelay();
+//		PORTA |= 0x80;
+		stopTriacTriggerDelay();
 	} else {
-		PORTA &= ~0x80;
-//		startTriacTriggerDelay();
-	}			  
+//		PORTA &= ~0x80;
+		startTriacTriggerDelay();
+	}
+	sei();		  
 }   
 
 ISR(TIMER0_COMPA_vect)
@@ -111,8 +168,12 @@ void initInterrupts()
 {
 // Ext. Interrupt
 
-		DDRA |= 0b11000000;    // set pin 7 and 6 of port A as output for debugging
-	
+//		DDRA |= 0b11111100;    // set pin 7 to 2 of port A as output for debugging
+//		PORTA &= ~0xFC;
+
+		DDRD |= 0x10;			// set Portd pin 04 be Triac output
+		PORTD &= ~0x10; 		// and initialize with 0-value
+			
 	  EICRA = 0x01;   // both, fall/rise edge trigger    
       EIMSK = 0x00;   
 	  
@@ -150,15 +211,17 @@ void initInterrupts()
 	
 
 // Timer 2 as Triac Trigger Delay Timer
+
+			t2Running = 0;
 	  
 	      TCCR2A = 0b00000010;  //  CTC 
 		  
-		//TCCR2B = 0b00000111  ; // CTC on CC0A , set clk / 1024, timer started
+		//TCCR2B = 0b00000101  ; // CTC on CC0A , set clk / 128, timer started
 	  
 		  TCCR2B = 0b00000000  ;  // CTC, timer stopped
 		  ASSR = 0x00;
 	  
-		  OCR2A = 0xAA;  // counter top value  , just anything for start, will later be set by PID
+		  OCR2A = ocra2aValue;  // counter top value  , just anything for start, will later be set by PID
 	      TCNT2 = 0x00 ;  
 	  
 		TIMSK2  = 0x00; // disa  Interrupt 
@@ -193,7 +256,9 @@ void startTriacRun()
 void stopTriacRun()
 {
 	EIMSK = 0x00;				// stop external interrupt
+	cli();
 	stopTriacTriggerDelay();
+	sei();
 
 	TCCR0B = 0b00000000  ; // stop timer 0	  
 	TIMSK0  = 0b00000000;  // to stop ADC

@@ -22,7 +22,6 @@ int16_t getSecondsRemaining();
 
 void stopDurationTimer();
 
-
 void initInterrupts();
 void setTriacTriggerDelay(int16_t cmsecs);
 void startTriacRun();

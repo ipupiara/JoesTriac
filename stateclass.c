@@ -113,22 +113,25 @@ uStInt evCalibratingChecker(void)
 				triggerDelay++;
 				break;
 			case kp2 :
-				triggerDelay += 2;
+				triggerDelay += 10;
 				break ;	
 			case kp3 :
-				triggerDelay += 10;
+				triggerDelay += 100;
 				break ;		
 			case kp7 : 
 				triggerDelay--;
 				break;
 			case kp8 :
-				triggerDelay -= 2;
+				triggerDelay -= 10;
 				break ;	
 			case kp9 :
-				triggerDelay -= 10;
+				triggerDelay -= 100;
 				break ;									
 		}
+		if (triggerDelay < 0) triggerDelay = 0;
+		if (triggerDelay > triggerDelayMax) triggerDelay = triggerDelayMax;
 		setTriacTriggerDelay(triggerDelay);
+		displayDebugVoltageNTriggerDelay();
 		res =  uStIntHandlingDone;
 	}
 	if (currentEvent->evType == evSecondsTick) 

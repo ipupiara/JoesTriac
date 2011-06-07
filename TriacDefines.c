@@ -22,7 +22,7 @@ void delay6pnt2d5us(unsigned int n)
 //2		11
 //4		16
 //8		25 -26
-//6		45   approx 500 cycles
+//16	45   approx 500 cycles
 
 //  accurate enough for our keyboard delays
 

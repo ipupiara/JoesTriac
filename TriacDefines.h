@@ -33,6 +33,8 @@
 	#define calibLowAmps        30
 	#define calibHighAmps       40
 
+	#define triggerDelayMax 810     // works properly with 50 Hz Ac 
+
 // takes approx  2 us at 10 Mhz with -o0 (no opts. !) ,with all  call/ret, push N Pop
 void delayEmptyProc (); 
 
