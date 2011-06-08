@@ -30,18 +30,24 @@ void displayCalibratingExplanation()   // on LCD2
 {    
 }
 
+void displayCalibrate(int amps)
+{
+	char buffer [2];
+	lcd_clrscr(LCD1);
+	lcd_write_str("Set ",LCD1);
+	sprintf((char*)&buffer,"%2i",amps);
+	lcd_write_str((char*)&buffer,LCD1);
+	lcd_write_str("A #,* Skip",LCD1);  
+}
+
 void displayCalibrateLow()
 {
-	lcd_clrscr(LCD1);
-	lcd_write_str("Set 30A #,* Skip",LCD1);  
-
+	displayCalibrate(calibLowAmps);
 }
 
 void displayCalibrateHigh()
 {
-	lcd_clrscr(LCD1);
-	lcd_write_str("Set 70A #,* Skip",LCD1);
-
+	displayCalibrate(calibHighAmps);
 }
 
 void displayRunningValues()

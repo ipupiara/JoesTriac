@@ -30,7 +30,7 @@
 	#define calibLowTriggerDelayEEPROMpos   15
 	#define calibHighTriggerDelayEEPROMpos   17   // both uint16
 
-	#define calibLowAmps        30
+	#define calibLowAmps        20
 	#define calibHighAmps       40
 
 	#define triggerDelayMax 810     // works properly with 50 Hz Ac 

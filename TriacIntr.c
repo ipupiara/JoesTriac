@@ -45,9 +45,13 @@ void startTriacTriggerDelay()  // must run protected between cli and sei
 //		PORTA |= (1 << (1 + phaseCount));
 
 		remainingTriacTriggerDelayCounts = triggerDelayMax - triacTriggerDelayCms;
-		if (remainingTriacTriggerDelayCounts <= 0) {
-			remainingTriacTriggerDelayCounts = 1;  // dont set tnt2 to ocra2a
+		if (remainingTriacTriggerDelayCounts <= 14) {
+			remainingTriacTriggerDelayCounts = 15;  // dont set to 0  (means below tcnt2 to ocra2aValue)
 													// cause timer will run once more
+
+													// further on values below 11 cant be used by
+													// 230 V 50Hz AC because trigger comes too early
+													// and cant set on current
 		}
 		if (remainingTriacTriggerDelayCounts < ocra2aValue) {    
 			TCNT2 = ocra2aValue - remainingTriacTriggerDelayCounts; 
