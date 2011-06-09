@@ -225,6 +225,7 @@ int8_t keyInd;
 void entryTriacIdleState(void)
 {
 //	printf("entry I\n");
+//	debugEvent1Triggered = 1;
 }
 
 void exitTriacIdleState(void)
@@ -417,6 +418,7 @@ void entryTriacRunningState(void)
 	printf("entry Running\n");
 	displayTriacRunning();
 	startDurationTimer(desiredTimeS);
+//	startDurationTimer(maxSecsPossible);   // sometimes used for debugging	
 	startTriacRun();
 }
 

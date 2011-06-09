@@ -63,6 +63,9 @@ int16_t  calibHighTriggerDelay;
 
 int8_t amps100, amps10, amps, min10, min, sec10, sec;
 
+int8_t debugEvent1Triggered;    // signals that a debug event was triggered somewhere in the code
+								// to inform the main-loop do do a specific action. This is used for
+								// debugging without keypad (JTAG) to go into a specific state automatically.
 
 void calcDesiredAmps();
 

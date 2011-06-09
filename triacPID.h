@@ -14,6 +14,8 @@ void InitializePID(real kp, real ki, real kd, real error_thresh, real step_time)
 
 real Update(real error);
 
+double currentAmpsValue;
+
 /*
 
 uint16_t calibLowCms, calibHighCms;

@@ -13,9 +13,13 @@ float gradAmps; // amperes ....
 
 void updateGradAmps()
 {
-	if ( fabs(calibHighADC - calibLowADC) > 1) {  
-		gradAmps = (calibHighAmps - calibLowAmps) / (calibHighADC - calibLowADC);
-	} else gradAmps = 0;	
+	float dADC;
+	float dAmps;
+	dAmps = calibHighAmps - calibLowAmps;
+	dADC = calibHighADC - calibLowADC;
+	if ( fabs(dADC) > 1) {  
+		gradAmps = dAmps / dADC;
+	} else gradAmps = 0;
 }
 
 
@@ -69,20 +73,22 @@ real Update(real error)
 
 float currentAmps()
 {
-	int16_t adcAmps, res;
+	int16_t adcAmps;
+	float res;
 	adcAmps = ampsADCValue();
 	res = calibLowAmps + (gradAmps * (adcAmps - calibLowADC  ));
+	currentAmpsValue = res;   // set this for ui
 	return res;
 }
 
 void calcNextTriacDelay()
 {  
 	float err;
-	float corr, newDelay;
+//	float corr, newDelay;
 	err = currentAmps()  - desiredAmps ;
-	corr = Update(err);
-	newDelay = triacTriggerDelayCms - corr;
-	setTriacTriggerDelay(newDelay);
+//	corr = Update(err);
+//	newDelay = triacTriggerDelayCms - corr;
+//	setTriacTriggerDelay(newDelay);
 	
 }
 

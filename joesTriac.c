@@ -83,7 +83,7 @@ int main(void)
 	
 
 //	InitializePID(real kp, real ki, real kd, real error_thresh, real step_time);   
-//	InitializePID(-0.01, 0.3, 0.3, 0.3, 1);
+	InitializePID(-0.01, 0.3, 0.3, 0.3, 1);
 	initUI();
 	
 	startStateCharts();	
@@ -127,5 +127,10 @@ int main(void)
 			}	
 			processTriacEvent(&SJoesTriacStateChart,&ev);	
 		}	
+/*		if (debugEvent1Triggered) {
+			debugEvent1Triggered = 0;
+			ev.evType = evStartPressed;
+			processTriacEvent(&SJoesTriacStateChart,&ev);
+		}  */
     }
 }

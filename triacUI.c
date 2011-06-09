@@ -4,10 +4,7 @@
 #include "triacUI.h"
 #include "st7565r.h"
 #include "TriacDefines.h"
-
-void displayCurrentAmps()
-{
-}
+#include "triacPID.h"
 
 void displayDebugVoltageNTriggerDelay()
 {
@@ -48,11 +45,6 @@ void displayCalibrateLow()
 void displayCalibrateHigh()
 {
 	displayCalibrate(calibHighAmps);
-}
-
-void displayRunningValues()
-{
-	
 }
 
 void clr_scr()
@@ -107,6 +99,16 @@ void setSec(int8_t val)
 	storeSec(val);
 }
 
+void displayCurrentAmps()
+{
+	char buffer [8];
+	double amps;
+	amps = currentAmpsValue;
+	sprintf((char *)&buffer,"%5.1fA",amps);
+	lcd_goto(1,0,LCD1);
+	lcd_write_str((char *)&buffer, LCD1);
+}
+
 void displayCountDown()
 {
 	int16_t secondsRem = getSecondsRemaining();
@@ -124,9 +126,9 @@ void displayCountDown()
 void displayTriacRunning()
 {
 	lcd_clrscr(LCD1);
-	lcd_write_str("Triac running",LCD1);
-	lcd_Line2(LCD1);
-	lcd_write_str("wait or H",LCD1);
+	lcd_write_str("Running.. , H ",LCD1);
+//	lcd_Line2(LCD1);
+//	lcd_write_str("wait or H",LCD1);
 }
 
 void displayEditAmpsDuration()

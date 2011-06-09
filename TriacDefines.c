@@ -147,6 +147,8 @@ void restorePersistentData()
 	if (calibLowTriggerDelay == 0xFFFF) calibLowTriggerDelay = 0x0000;
 	calibHighTriggerDelay = eeprom_read_word((uint16_t*) calibHighTriggerDelayEEPROMpos);
 	if (calibHighTriggerDelay == 0xFFFF) calibHighTriggerDelay = 0x0000;
+
+	debugEvent1Triggered = 0;
 }
 
 

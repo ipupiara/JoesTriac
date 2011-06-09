@@ -5,8 +5,6 @@
 
 void clr_scr();
 
-void displayRunningValues();
-
 void displayCalibrationPrompt();
 
 void displayCalibratingExplanation();
