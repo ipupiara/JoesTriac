@@ -80,10 +80,7 @@ int main(void)
 		}
 	}   */
 
-	
-
-//	InitializePID(real kp, real ki, real kd, real error_thresh, real step_time);   
-	InitializePID(-0.01, 0.3, 0.3, 0.3, 1);
+	InitPID();
 	initUI();
 	
 	startStateCharts();	

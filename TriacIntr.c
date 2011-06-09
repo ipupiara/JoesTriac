@@ -7,6 +7,7 @@
 
 #include "TriacIntr.h"
 #include "TriacDefines.h"
+#include "triacPID.h"
 
 
 int16_t lastAmpsADCVal;
@@ -131,7 +132,7 @@ ISR(ADC_vect)
 {
 	lastAmpsADCVal = ADC;
 	++ adcCnt;
-	if (adcCnt == 30)  {
+	if (adcCnt == pidStepDelays)  {
 		adcCnt = 0;
 		adcTick = 1;
 	}
@@ -202,7 +203,7 @@ void initInterrupts()
 	  
 	      TCCR0A = 0b00000010;  //  CTC 
 
-		  OCR0A = 0x4F;  // counter top value, 0xFF means 42.18 ADC measures and write to mem per sec
+		  OCR0A = 0xFF;  // counter top value, 0xFF means approx 42.18 ADC measures and write to mem per sec
 						// far too much for our needs, but runs parallel except 
 						//  the very short ADC-complete interrrupt
 	      TCNT0 = 0x00 ;  
@@ -234,7 +235,7 @@ void initInterrupts()
 //  init ADC
 		
 		ADMUX = 0b01000000;      // AVCC as ref,  right adjust, mux to adc0
-		ADCSRA = 0b10101111;  // ADC ena, not yet start (single start mode),  Autotrigger, iflag = 0
+		ADCSRA = 0b10101111;  
 								// int ena, prescale /128
 								// ADC clock will run at 86400 hz, or max 6646. read per sec,what is ok
 								// for our settings of 42. read per sec	

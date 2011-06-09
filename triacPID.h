@@ -10,7 +10,11 @@
 typedef double real;
 
 
-void InitializePID(real kp, real ki, real kd, real error_thresh, real step_time);
+#define pidStepDelays  30  // unit is 1/42.18 sec, 
+							// eg. 20 means approx 2 per second, 80 means 1 all 2 seconds
+
+
+void InitPID();
 
 real Update(real error);
 

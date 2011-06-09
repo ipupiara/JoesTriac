@@ -6,10 +6,12 @@
 #include "TriacIntr.h"
 
 
-int m_started;
-real m_kp, m_ki, m_kd, m_h, m_inv_h, m_prev_error, m_error_thresh, m_integral;
+int8_t m_started;
+real m_kP, m_kI, m_kD, m_stepTime, m_inv_stepTime, m_prev_error, m_error_thresh, m_integral;
 
 float gradAmps; // amperes ....
+
+float carryCorr;     // carry amount if correction in float gives zero correction in int
 
 void updateGradAmps()
 {
@@ -26,34 +28,37 @@ void updateGradAmps()
 void InitializePID(real kp, real ki, real kd, real error_thresh, real step_time)
 {
     // Initialize controller parameters
-    m_kp = kp;
-    m_ki = ki;
-    m_kd = kd;
+    m_kP = kp;
+    m_kI = ki;
+    m_kD = kd;
     m_error_thresh = error_thresh;
 
     // Controller step time and its inverse
-    m_h = step_time;
-    m_inv_h = 1 / step_time;
+    m_stepTime = step_time;
+    m_inv_stepTime = 1 / step_time;
 
     // Initialize integral and derivative calculations
     m_integral = 0;
     m_started = 0;
 	
 	 updateGradAmps();
+
+	 carryCorr = 0;
 }
 
 real Update(real error)
 {
-    // Set q to 1 if the error magnitude is below
+    // Set q_fact to 1 if the error magnitude is below
     // the threshold and 0 otherwise
-    real q;
+    real q_fact;
+	real res;
     if (fabs(error) < m_error_thresh)
-        q = 1;
+        q_fact = 1.0;
     else
-        q = 0;
+        q_fact = 0.0;
 
     // Update the error integral
-    m_integral += m_h*q*error;
+    m_integral += m_stepTime*q_fact*error;
 
     // Compute the error derivative
     real deriv;
@@ -63,12 +68,13 @@ real Update(real error)
         deriv = 0;
     }
     else
-        deriv = (error - m_prev_error) * m_inv_h;
+        deriv = (error - m_prev_error) * m_inv_stepTime;
 
     m_prev_error = error;
 
     // Return the PID controller actuator command
-    return m_kp*(error + m_ki*m_integral + m_kd*deriv);
+	res = m_kP*(error + m_kI*m_integral + m_kD*deriv);
+    return res;
 }
 
 float currentAmps()
@@ -81,15 +87,32 @@ float currentAmps()
 	return res;
 }
 
+
+
 void calcNextTriacDelay()
 {  
 	float err;
-//	float corr, newDelay;
+	float corr;
+	float newDelay;
+	int16_t corrInt;
 	err = currentAmps()  - desiredAmps ;
-//	corr = Update(err);
-//	newDelay = triacTriggerDelayCms - corr;
-//	setTriacTriggerDelay(newDelay);
+	corr = Update(err) + carryCorr;
+	corrInt = corr;     
+	if (corrInt == 0) {
+		carryCorr = corr;
+	} else  {
+		carryCorr = 0;  // forget rounding errors, if any correction took place, 
+						// but dont forget, if no correction at all took place
+	}
+	newDelay = triacTriggerDelayCms - corr;
+	setTriacTriggerDelay(newDelay);
 	
+}
+
+void InitPID()
+{
+//	InitializePID(real kp, real ki, real kd, real error_thresh, real step_time);   
+	InitializePID(-0.01, 0.3, 0.3, 4, (pidStepDelays/42.18));
 }
 
 
