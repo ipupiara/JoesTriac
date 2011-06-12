@@ -251,6 +251,7 @@ void initInterrupts()
 
 void startTriacRun()
 {
+	resetPID();
 	EIFR = 0x00;
 	EIMSK = 0x01;  				// start external interrupt (zero pass detection)
 
@@ -275,6 +276,7 @@ int16_t ampsADCValue()
 	cli();
 	res = lastAmpsADCVal;
 	sei();
+//	printf("ampsADC %i ",lastAmpsADCVal);
 	return res;
 }
 

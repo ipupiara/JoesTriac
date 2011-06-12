@@ -6,6 +6,22 @@
 #include "TriacDefines.h"
 #include "triacPID.h"
 
+
+void displayVoltage()
+{
+	int16_t VHex;
+	double   VFl;
+	char buffer [8];
+	
+	VHex = ampsADCValue();
+	VFl = (VHex * 5.0) / 0x03FF;
+	
+	sprintf((char*)&buffer,"%5.2fV",VFl);
+
+	lcd_goto(0, 9, LCD1);
+	lcd_write_str((char*)&buffer,LCD1);
+}
+
 void displayDebugVoltageNTriggerDelay()
 {
 	int16_t VHex;
@@ -126,7 +142,7 @@ void displayCountDown()
 void displayTriacRunning()
 {
 	lcd_clrscr(LCD1);
-	lcd_write_str("Running.. , H ",LCD1);
+	lcd_write_str("Running ",LCD1);
 //	lcd_Line2(LCD1);
 //	lcd_write_str("wait or H",LCD1);
 }

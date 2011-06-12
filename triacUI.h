@@ -50,5 +50,6 @@ void initUI();
 
 void displayDebugVoltageNTriggerDelay();
 
+void displayVoltage();
 
 #endif

@@ -16,6 +16,8 @@ typedef double real;
 
 void InitPID();
 
+void resetPID();
+
 real Update(real error);
 
 double currentAmpsValue;

@@ -450,11 +450,12 @@ uStInt evTriacRunningChecker(void)
 	if (currentEvent->evType == evSecondsTick) {
 		displayCurrentAmps();
 		displayCountDown();
+		displayVoltage();	
 		res =  uStIntHandlingDone;
 	}	
 	if (currentEvent->evType == evAdcTick)
 	{
-		 calcNextTriacDelay();
+		calcNextTriacDelay();
 	}		
 	return res;
 }
