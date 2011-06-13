@@ -147,7 +147,10 @@ void entryCalibrateLowState(void)
 {
 //	printf("entry calib Low\n");
 	displayCalibrateLow();
-	setTriacTriggerDelay(calibLowTriggerDelay);// approximate somewhat, depending on used load
+//	setTriacTriggerDelay(calibLowTriggerDelay);  // approximate somewhat, depending on used load
+								// no more.. leads to fuse ejects on 220V that 
+								// urges eeprom erase or somewhat like that, so set to 0
+	setTriacTriggerDelay(0);
 }
 
 void exitCalibrateLowState(void)
@@ -186,7 +189,10 @@ void entryCalibrateHighState(void)
 {
 //	printf("entry I\n");
 	displayCalibrateHigh();
-	setTriacTriggerDelay(calibHighTriggerDelay);  // approximate somewhat, depending on used load
+//	setTriacTriggerDelay(calibHighTriggerDelay);  // approximate somewhat, depending on used load
+								// no more.. leads to fuse ejects on 220V that 
+								// urges eeprom erase or somewhat like that, 
+								//  so this value let at delay from calib low
 }
 
 void exitCalibrateHighState(void)
@@ -419,6 +425,9 @@ void entryTriacRunningState(void)
 	displayTriacRunning();
 	startDurationTimer(desiredTimeS);
 //	startDurationTimer(maxSecsPossible);   // sometimes used for debugging	
+	setTriacTriggerDelay(calibLowTriggerDelay);  // start defined,  not just somewhere
+												// because of 220 V fuse ejects
+												// lowCalib seems better joice than 0
 	startTriacRun();
 }
 
