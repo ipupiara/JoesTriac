@@ -29,6 +29,8 @@ void displayEditAmps();
 
 void displayEditDuration();
 
+void displayJobOk();
+
 
 
 

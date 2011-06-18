@@ -33,6 +33,7 @@ enum eStates
 	eStateEditAmps,
 	eStateEditDuration,
 	eStateTriacRunning,
+	eStateJobOkDisplay,
 	eNumberOfStates
 };
 
@@ -451,7 +452,7 @@ uStInt evTriacRunningChecker(void)
 			res =  uStIntHandlingDone;
 	}		
 	if (currentEvent->evType == evTimeOutDurationTimer) {
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateJobOkDisplay);
 			// No event action.
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
@@ -467,6 +468,32 @@ uStInt evTriacRunningChecker(void)
 		calcNextTriacDelay();
 	}		
 	return res;
+}
+
+
+void entryJobOkDisplayState(void)
+{
+//	printf("entry I\n");
+	displayJobOk();
+}
+
+void exitJobOkDisplayState(void)
+{
+//	printf("exit I\n");
+}
+
+uStInt evJobOkDisplayChecker(void)
+{
+	int res = uStIntNoMatch;
+	//	printf("check for event in State evStateIdle\n");
+
+	if (currentEvent->evType == evAstPressed)  {	
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+	}
+	return (res);
 }
 
 
@@ -569,7 +596,16 @@ xStateType xaStates[eNumberOfStates] = {
  	evTriacRunningChecker,
  	tfNull,
  	entryTriacRunningState,
- 	exitTriacRunningState}	 
+ 	exitTriacRunningState},
+	 
+	{eStateJobOkDisplay,
+ 	eStateJoesTriac,
+ 	-1,
+ 	0,
+ 	evJobOkDisplayChecker,
+ 	tfNull,
+ 	entryJobOkDisplayState,
+ 	exitJobOkDisplayState}	 	 
 };
 
 

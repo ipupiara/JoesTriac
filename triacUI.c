@@ -199,3 +199,12 @@ void displayTime(int8_t kInd)
 void initUI()
 {
 }
+
+void displayJobOk()
+{
+	lcd_clrscr(LCD1);
+	lcd_write_str("Job OK",LCD1);
+	lcd_Line2(LCD1);
+	lcd_write_str("*",LCD1);
+}
+
