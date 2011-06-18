@@ -44,26 +44,28 @@ void startTriacTriggerDelay()  // must run protected between cli and sei
 //		++phaseCount;
 //		PORTA &= ~0x3C;
 //		PORTA |= (1 << (1 + phaseCount));
+		
+		if (triacTriggerDelayCms > 0) {   // practically used just for debugging hardware
+			remainingTriacTriggerDelayCounts = triggerDelayMax - triacTriggerDelayCms;
+			if (remainingTriacTriggerDelayCounts <= 14) {
+				remainingTriacTriggerDelayCounts = 15;  // dont set to 0  (means below tcnt2 to ocra2aValue)
+														// cause timer will run once more
 
-		remainingTriacTriggerDelayCounts = triggerDelayMax - triacTriggerDelayCms;
-		if (remainingTriacTriggerDelayCounts <= 14) {
-			remainingTriacTriggerDelayCounts = 15;  // dont set to 0  (means below tcnt2 to ocra2aValue)
-													// cause timer will run once more
-
-													// further on values below 11 cant be used by
-													// 230 V 50Hz AC because trigger comes too early
-													// and cant set on current
+														// further on values below 11 cant be used by
+														// 230 V 50Hz AC because trigger comes too early
+														// and cant set on current
+			}
+			if (remainingTriacTriggerDelayCounts < ocra2aValue) {    
+				TCNT2 = ocra2aValue - remainingTriacTriggerDelayCounts; 
+				remainingTriacTriggerDelayCounts = 0;
+			} else {
+				remainingTriacTriggerDelayCounts -= ocra2aValue;
+				TCNT2 = 0;
+			}
+			TIMSK2   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
+			TCCR2B = 0b00000101  ; // CTC on CC2A , set clk / 128, timer 2 started
+			t2Running = 1;
 		}
-		if (remainingTriacTriggerDelayCounts < ocra2aValue) {    
-			TCNT2 = ocra2aValue - remainingTriacTriggerDelayCounts; 
-			remainingTriacTriggerDelayCounts = 0;
-		} else {
-			remainingTriacTriggerDelayCounts -= ocra2aValue;
-			TCNT2 = 0;
-		}
-		TIMSK2   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
-		TCCR2B = 0b00000101  ; // CTC on CC2A , set clk / 128, timer 2 started
-		t2Running = 1;
 	}
 }
 
