@@ -6,8 +6,8 @@
 #include "TriacDefines.h"
 #include "TriacIntr.h"
 
-#define usePrintfPid
-
+//#define printfPid
+#define printfAmps
 
 int8_t m_started;
 real m_kPTot, m_kI, m_kD, m_stepTime, m_inv_stepTime, m_prev_error, m_error_thresh, m_integral;
@@ -80,7 +80,7 @@ real nextAdjust(real error)
     // Return the PID controller actuator command
 	res = m_kPTot*(error + m_kI*m_integral + m_kD*deriv);
 
-#ifdef usePrintfPID
+#ifdef printfPID
 	double errD = error;
 	double intD = m_integral;
 	double derivD = deriv;
@@ -96,10 +96,12 @@ float currentAmps()
 	adcAmps = ampsADCValue();
 	res = calibLowAmps + (gradAmps * (adcAmps - calibLowADC  ));
 
-/*	double grdA = gradAmps ;
+#ifdef printfAmps
+	double grdA = gradAmps ;
 	double resD = res;
 	printf("adcA %i grad %f calow %i cahi %i res %f\n",adcAmps,grdA,calibLowADC, calibHighADC, resD);
-*/
+#endif
+
 	currentAmpsValue = res;   // set this for ui
 	return res;
 }
@@ -125,7 +127,7 @@ void calcNextTriacDelay()
 	corrCarryOver = corr - corrInt;
 	newDelay = triacTriggerDelayCms + corrInt;
 	setTriacTriggerDelay(newDelay);
-#ifdef usePrintfPID
+#ifdef printfPID
 	double corrD = corr;
 	double carryCorrD = corrCarryOver;
 	double ampsD  = currentAmps();

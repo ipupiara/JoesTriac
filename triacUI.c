@@ -152,7 +152,7 @@ void displayEditAmpsDuration()
 	lcd_clrscr(LCD1);
 	lcd_write_str("A     T",LCD1);
 	lcd_Line2(LCD1);
-	lcd_write_str("*     #       ,S",LCD1);
+	lcd_write_str("*     #       ",LCD1);
 }
 
 
