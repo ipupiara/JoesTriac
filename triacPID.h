@@ -18,6 +18,8 @@ void InitPID();
 
 void resetPID();
 
+void onIdleSecondTick();
+
 real Update(real error);
 
 double currentAmpsValue;

@@ -233,11 +233,13 @@ void entryTriacIdleState(void)
 {
 //	printf("entry I\n");
 //	debugEvent1Triggered = 1;
+	startDurationTimer(maxSecsPossible);   // enable secondsTick
 }
 
 void exitTriacIdleState(void)
 {
 //	printf("exit I\n");
+	stopDurationTimer();
 	clr_scr();
 }
 
@@ -252,6 +254,16 @@ uStInt evTriacIdleChecker(void)
 				// No event action.
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
+	}
+	if (currentEvent->evType == evTimeOutDurationTimer) 
+	{	
+		startDurationTimer(maxSecsPossible);   // enable secondsTick
+		res =  uStIntHandlingDone;
+	}
+	if (currentEvent->evType == evSecondsTick) 
+	{	
+		onIdleSecondTick();
+		res =  uStIntHandlingDone;
 	}
 	return res;
 }

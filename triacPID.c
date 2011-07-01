@@ -27,6 +27,30 @@ void updateGradAmps()
 	} else gradAmps = 0;
 }
 
+int8_t idleTickCnt;
+
+void initSensorOffsetAdjust()
+{
+	//  init for auto-adjust of the sensor's zero-level
+	//  if needed
+	idleTickCnt = 0;
+}
+
+void adjustSensorOffset()
+{
+	// during idle time, the sensor's zero offset can be adjustet
+	// this is done during the timer of the idle state
+}
+
+
+void onIdleSecondTick()
+{
+	if (idleTickCnt == 0) {
+		adjustSensorOffset();
+	}
+	++ idleTickCnt;
+	if (idleTickCnt > 59) idleTickCnt = 0;
+}
 
 void InitializePID(real kpTot, real ki, real kd, real error_thresh, real step_time)
 {
@@ -47,6 +71,8 @@ void InitializePID(real kpTot, real ki, real kd, real error_thresh, real step_ti
 	 updateGradAmps();
 
 	 corrCarryOver = 0;
+
+	 initSensorOffsetAdjust();
 }
 
 real nextAdjust(real error)
