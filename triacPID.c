@@ -27,20 +27,97 @@ void updateGradAmps()
 	} else gradAmps = 0;
 }
 
-int8_t idleTickCnt;
+uint8_t idleTickCnt;
+
+uint16_t  potiPos;
+
+
+void poti1Dn()
+{
+}
+
+void poti2Dn()
+{
+}
+
+void poti1Up()
+{
+}
+
+void poti2Up()
+{
+}
+
+void potiDn()
+{
+	if (potiPos > 0) {
+		if (potiPos >= 100 ) {
+			poti2Dn();
+		} else {
+			poti1Dn();
+		}
+		--potiPos;
+	}
+}
+
+void potiUp()
+{
+	if (potiPos < 199) {
+		if (potiPos >= 100 ) {
+			poti2Up();
+		} else {
+			poti1Up();
+		}
+		++potiPos;
+	}
+}
 
 void initSensorOffsetAdjust()
 {
 	//  init for auto-adjust of the sensor's zero-level
 	//  if needed
+	int8_t cnt;
+
 	idleTickCnt = 0;
+	potiPos = 0;
+	for (cnt =0; cnt < 99; ++ cnt) {
+		poti1Dn();
+		poti2Dn();
+	}
 }
 
 void adjustSensorOffset()
 {
 	// during idle time, the sensor's zero offset can be adjustet
 	// this is done during the timer of the idle state
+	if (ampsADCValue() > 0)  {
+		while((ampsADCValue() > 0) && ( potiPos > 0 )) {
+			potiDn();
+			// evtl. delay 
+		}
+	}  else {
+		while((ampsADCValue() < 0) && ( potiPos < 199 )) {
+			potiUp();
+			// evtl. delay
+		}		
+	}
 }
+
+#define maxIdleTickCnt  59
+
+/*
+
+it might be needed to add a delay of about 5 seconds after entering idle 
+before a first offsetadjust can be done due to ammeter fall - down time
+
+else start whenever count reaches max, even though the count is not set on reentering
+idle state and will then have just any value
+
+void onEntryIdle()
+{
+	idleTickCnt = maxIdleTickCnt - 5;
+}
+*/
 
 
 void onIdleSecondTick()
@@ -49,7 +126,7 @@ void onIdleSecondTick()
 		adjustSensorOffset();
 	}
 	++ idleTickCnt;
-	if (idleTickCnt > 59) idleTickCnt = 0;
+	if (idleTickCnt > maxIdleTickCnt) idleTickCnt = 0;
 }
 
 void InitializePID(real kpTot, real ki, real kd, real error_thresh, real step_time)
