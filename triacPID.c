@@ -27,7 +27,15 @@ void updateGradAmps()
 	} else gradAmps = 0;
 }
 
+
 uint8_t idleTickCnt;
+
+/*
+
+//  draft code to adjust zero-offset of current sensor
+//  but now LEM HTFS 200 is used that offers ref voltage as input (and also as output!)
+//  so this code was left for eventual future use
+//  free portA pins can be used for poti control
 
 uint16_t  potiPos;
 
@@ -103,6 +111,8 @@ void adjustSensorOffset()
 	}
 }
 
+*/
+
 #define maxIdleTickCnt  59
 
 /*
@@ -123,7 +133,7 @@ void onEntryIdle()
 void onIdleSecondTick()
 {
 	if (idleTickCnt == 0) {
-		adjustSensorOffset();
+//		adjustSensorOffset();
 	}
 	++ idleTickCnt;
 	if (idleTickCnt > maxIdleTickCnt) idleTickCnt = 0;
@@ -149,7 +159,7 @@ void InitializePID(real kpTot, real ki, real kd, real error_thresh, real step_ti
 
 	 corrCarryOver = 0;
 
-	 initSensorOffsetAdjust();
+//	 initSensorOffsetAdjust();
 }
 
 real nextAdjust(real error)
