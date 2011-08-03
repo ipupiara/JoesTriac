@@ -282,6 +282,24 @@ int16_t ampsADCValue()
 	return res;
 }
 
+int16_t  valueFrom6Bit2Complement(int16_t adcV)
+{
+	if (adcV & 0x0200) {
+		adcV--;
+		adcV = ~(adcV | 0xFC00);
+		adcV = - adcV;
+	}
+	return adcV;
+}
+
+int16_t diffADCValue()
+{  
+	int16_t res;
+	res = ampsADCValue();
+	res = valueFrom6Bit2Complement(res);
+	return res;
+}
+
 void startDurationTimer(int16_t secs)
 {
 	durationTimerReachead = 0;
