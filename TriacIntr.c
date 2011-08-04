@@ -289,7 +289,7 @@ void setDiffADC()
 		adcTick = 0;
 		adcCnt = 0;
 
-		ADMUX = 0b01000000;      // AVCC as ref,  right adjust, mux to adc0
+		ADMUX = 0b11001101;      // 2.56V as ref,  right adjust, mux to diff adc3, adc2
 		ADCSRA = 0b10101111;  
 								// int ena, prescale /128
 								// ADC clock will run at 86400 hz, or max 6646. read per sec,what is ok
@@ -351,9 +351,16 @@ double adcVoltage()
 {
 	int16_t VHex;
 	double   VFl;
-	
-	VHex = ampsADCValue();
-	VFl = (VHex * 5.0) / 0x03FF;
+
+	VFl = 0.0;
+	if (ADMUX ==  0b01000000) {
+		VHex = ampsADCValue();
+		VFl = (VHex * 5.0) / 0x03FF;
+	}
+	if (ADMUX == 0b11001101) {
+		VHex = diffADCValue();
+		VFl =  (VHex * 2.56) / (10.0 * 0x200);
+	}
 	
 	return VFl;
 
