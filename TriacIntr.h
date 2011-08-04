@@ -12,12 +12,13 @@ int8_t durationTimerReachead;
 int8_t runningSecondsTick;
 
 int8_t adcTick;
-	
+void setAmpsADC();
+void setDiffADC();
 int16_t ampsADCValue();
 int16_t diffADCValue();
-int16_t triacTriggerDelayCms;   // centi-millis-secs, not exactly but approximate, PID will handle the rest
 double adcVoltage();
 
+int16_t triacTriggerDelayCms;   // centi-millis-secs, not exactly but approximate, PID will handle the rest
 
 void startDurationTimer(int16_t secs);
 int16_t getSecondsRemaining();

@@ -20,6 +20,7 @@ enum eEventTypes
 	evSecondsTick,
 	evStartPressed,
 	evStopPressed,
+	evZeroSignalOK,
 	evAdcTick
 };
 

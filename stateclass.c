@@ -26,6 +26,7 @@ enum eStates
 	eStartState = eStateJoesTriac,
 	eStateAskForCalibration,
 	eStateCalibrating,
+	eStateCalibrateZeroSignal,
 	eStateCalibrateLow,
 	eStateCalibrateHigh,
 	eStateTriacIdle,
@@ -143,6 +144,38 @@ uStInt evCalibratingChecker(void)
 	return res;
 }
 
+void entryCalibrateZeroSignalState(void)
+{
+//	printf("entry I\n");
+	setDiffADC();
+}
+
+void exitCalibrateZeroSignalState(void)
+{
+//	printf("exit I\n");
+	setAmpsADC();
+}
+
+uStInt evCalibrateZeroSignalChecker(void)
+{
+//	printf("check for event in State evStateIdle\n");
+	int res = uStIntNoMatch;
+
+	if (currentEvent->evType == evZeroSignalOK) 
+	{	
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateLow);
+			// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+	}
+	if (currentEvent->evType == evSecondsTick) 
+	{	
+//		displayDebugVoltageNTriggerDelay();
+		res =  uStIntHandlingDone;
+	}
+	return (res);
+}
+
 
 void entryCalibrateLowState(void)
 {
@@ -234,12 +267,14 @@ void entryTriacIdleState(void)
 //	printf("entry I\n");
 //	debugEvent1Triggered = 1;
 	startDurationTimer(maxSecsPossible);   // enable secondsTick
+	void setDiffADC();
 }
 
 void exitTriacIdleState(void)
 {
 //	printf("exit I\n");
 	stopDurationTimer();
+	setAmpsADC();
 	clr_scr();
 }
 
@@ -540,12 +575,21 @@ xStateType xaStates[eNumberOfStates] = {
 
  	{eStateCalibrating,
  	eStateJoesTriac,
- 	eStateCalibrateLow,
+ 	eStateCalibrateZeroSignal,
  	0,
  	evCalibratingChecker,
  	tfNull,
  	entryCalibratingState,
  	exitCalibratingState},
+
+	 {eStateCalibrateZeroSignal,
+ 	eStateCalibrating,
+ 	-1,
+ 	0,
+ 	evCalibrateZeroSignalChecker,
+ 	tfNull,
+ 	entryCalibrateZeroSignalState,
+ 	exitCalibrateZeroSignalState},
 	 
 	 {eStateCalibrateLow,
  	eStateCalibrating,

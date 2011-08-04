@@ -252,17 +252,7 @@ void initInterrupts()
 
 //  init ADC
 
-		adcTick = 0;
-		adcCnt = 0;
-		
-		ADMUX = 0b01000000;      // AVCC as ref,  right adjust, mux to adc0
-		ADCSRA = 0b10101111;  
-								// int ena, prescale /128
-								// ADC clock will run at 86400 hz, or max 6646 (13 cycles). 
-								// 3456 (25 cycles) read per sec,what is ok
-								// for our settings of 42. read per sec	
-
-		ADCSRB = 0x03;  // no ACME, trigger ADC on Timer0 compare match
+		setAmpsADC();
 
 		sei();  // start interrupts if not yet started
 		
