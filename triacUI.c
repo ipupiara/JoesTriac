@@ -9,12 +9,10 @@
 
 void displayVoltage()
 {
-	int16_t VHex;
 	double   VFl;
 	char buffer [8];
 	
-	VHex = ampsADCValue();
-	VFl = (VHex * 5.0) / 0x03FF;
+	VFl = adcVoltage();
 	
 	sprintf((char*)&buffer,"%5.2fV",VFl);
 

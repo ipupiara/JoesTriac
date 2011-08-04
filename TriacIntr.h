@@ -16,6 +16,7 @@ int8_t adcTick;
 int16_t ampsADCValue();
 int16_t diffADCValue();
 int16_t triacTriggerDelayCms;   // centi-millis-secs, not exactly but approximate, PID will handle the rest
+double adcVoltage();
 
 
 void startDurationTimer(int16_t secs);

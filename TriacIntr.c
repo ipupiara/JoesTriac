@@ -347,6 +347,18 @@ int16_t diffADCValue()
 	return res;
 }
 
+double adcVoltage()
+{
+	int16_t VHex;
+	double   VFl;
+	
+	VHex = ampsADCValue();
+	VFl = (VHex * 5.0) / 0x03FF;
+	
+	return VFl;
+
+}
+
 void startDurationTimer(int16_t secs)
 {
 	durationTimerReachead = 0;
