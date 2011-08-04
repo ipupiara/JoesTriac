@@ -134,6 +134,22 @@ ISR(ADC_vect)
 {
 	lastAmpsADCVal = ADC;
 	++ adcCnt;
+
+
+/*
+see the confusing text of chapter 20.5 "Prescaling and Conversion Timing"
+in the  AVR 16/32/64 datasheet ("8011O–AVR–07/10"):
+
+By disabling and then re-enabling the
+ADC between each conversion (writing ADEN in ADCSRA to “0” then to “1”), 
+only extended conversions
+are performed. The result from the extended conversions will be valid.
+
+*/
+		ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE	
+		ADCSRA = 0b10101111;   // ena    
+
+
 	if (adcCnt == pidStepDelays)  {
 		adcCnt = 0;
 		adcTick = 1;
@@ -235,7 +251,29 @@ void initInterrupts()
 //		TIMSK2   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
 
 //  init ADC
+
+		adcTick = 0;
+		adcCnt = 0;
 		
+		ADMUX = 0b01000000;      // AVCC as ref,  right adjust, mux to adc0
+		ADCSRA = 0b10101111;  
+								// int ena, prescale /128
+								// ADC clock will run at 86400 hz, or max 6646 (13 cycles). 
+								// 3456 (25 cycles) read per sec,what is ok
+								// for our settings of 42. read per sec	
+
+		ADCSRB = 0x03;  // no ACME, trigger ADC on Timer0 compare match
+
+		sei();  // start interrupts if not yet started
+		
+}
+
+void setAmpsADC()
+{
+		ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE	
+		adcTick = 0;
+		adcCnt = 0;
+
 		ADMUX = 0b01000000;      // AVCC as ref,  right adjust, mux to adc0
 		ADCSRA = 0b10101111;  
 								// int ena, prescale /128
@@ -243,12 +281,21 @@ void initInterrupts()
 								// for our settings of 42. read per sec	
 
 		ADCSRB = 0x03;  // no ACME, trigger ADC on Timer0 compare match
+}
 
+void setDiffADC()
+{
+		ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE	
 		adcTick = 0;
 		adcCnt = 0;
 
-		sei();  // start interrupts if not yet started
-		
+		ADMUX = 0b01000000;      // AVCC as ref,  right adjust, mux to adc0
+		ADCSRA = 0b10101111;  
+								// int ena, prescale /128
+								// ADC clock will run at 86400 hz, or max 6646. read per sec,what is ok
+								// for our settings of 42. read per sec	
+
+		ADCSRB = 0x03;  // no ACME, trigger ADC on Timer0 compare match
 }
 
 void startTriacRun()
