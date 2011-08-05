@@ -37,24 +37,26 @@ uint8_t idleTickCnt;
 //  so this code was left for eventual future use
 //  free portA pins can be used for poti control
 
-uint16_t  potiPos;
 
 
-void poti1Dn()
+
+void zeroPotiPosDown()
 {
+	// set cs/UpDn Pin and pulse inc pin
+	if (zeroPotiPos > 0) {
+	  storeZeroPotiPos(--zeroPotiPos);
+	}
 }
 
-void poti2Dn()
+
+void zeroPotiPosUp()
 {
+	// set cs/UpDn Pin and pulse inc pin
+	if (zeroPotiPos > 0) {
+	  storeZeroPotiPos(++zeroPotiPos);
+	}
 }
 
-void poti1Up()
-{
-}
-
-void poti2Up()
-{
-}
 
 void potiDn()
 {
