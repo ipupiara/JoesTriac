@@ -191,8 +191,8 @@ void initInterrupts()
 {
 // Ext. Interrupt
 
-//		DDRA |= 0b11111100;    // set pin 7 to 2 of port A as output for debugging
-//		PORTA &= ~0xFC;
+		DDRA |= 0b11100000;    // set pin 7 to 5 of port A as output for digital poti (zero adj)
+		PORTA &= ~0xE0;
 
 		DDRD |= 0x10;			// set Portd pin 04 be Triac output
 		PORTD &= ~0x10; 		// and initialize with 0-value

@@ -30,57 +30,95 @@ void updateGradAmps()
 
 uint8_t idleTickCnt;
 
+
+
+//  code to adjust zero-offset of current sensor
+
+
+void setPotiCS(int8_t on)
+{
+	if (on) {
+		PORTA &= ~0x80;
+	} else  {
+		PORTA |= 0x80;
+	}
+
+}
+
+
+void setPotiINC(int8_t on)
+{
+	if (on) {
+		PORTA &= ~0x40;
+	} else  {
+		PORTA |= 0x40;
+	}
+
+}
+
+void setPotiUD(int8_t up)
+{
+	if (up) {
+		PORTA |= 0x20;
+	} else  {
+		PORTA &= ~0x20;
+	}
+
+}
+
+
+void zeroPotiPosDownVolatile()
+{
+//	if (zeroPotiPos > 0) { checked by caller
+		setPotiCS(1);
+		setPotiUD(0);
+		setPotiINC(1);
+		setPotiINC(0);
+		setPotiINC(1);
+		setPotiCS(0);
+		setPotiINC(0);
+	  	--zeroPotiPos;
+//	}
+}
+
+
+void zeroPotiPosUpVolatile()
+{
+	// set cs/UpDn Pin and pulse inc pin
+//	if (zeroPotiPos < 100) {  checked by caller
+		setPotiCS(1);
+		setPotiUD(1);
+		setPotiINC(1);
+		setPotiINC(0);
+		setPotiINC(1);
+		setPotiCS(0);
+		setPotiINC(0);
+	  	++zeroPotiPos;
+//	}
+}
+
+void volatileZeroAdjStep()
+{	double volts;
+	volts = adcVoltage();
+   	if (volts > 3E-3) {		
+		if (zeroPotiPos > 0)  {
+			zeroPotiPosDownVolatile();
+		} else {
+			// error and switch to manual  mode
+		}
+	} else { 
+		if (volts < -3E-3) {
+			if (zeroPotiPos < 100) {
+				zeroPotiPosUpVolatile();
+			} else {
+				// error and switch to manual mode
+			}
+		}
+	}
+}
+
+
 /*
-
-//  draft code to adjust zero-offset of current sensor
-//  but now LEM HTFS 200 is used that offers ref voltage as input (and also as output!)
-//  so this code was left for eventual future use
-//  free portA pins can be used for poti control
-
-
-
-
-void zeroPotiPosDown()
-{
-	// set cs/UpDn Pin and pulse inc pin
-	if (zeroPotiPos > 0) {
-	  storeZeroPotiPos(--zeroPotiPos);
-	}
-}
-
-
-void zeroPotiPosUp()
-{
-	// set cs/UpDn Pin and pulse inc pin
-	if (zeroPotiPos > 0) {
-	  storeZeroPotiPos(++zeroPotiPos);
-	}
-}
-
-
-void potiDn()
-{
-	if (potiPos > 0) {
-		if (potiPos >= 100 ) {
-			poti2Dn();
-		} else {
-			poti1Dn();
-		}
-		--potiPos;
-	}
-}
-
-void potiUp()
-{
-	if (potiPos < 199) {
-		if (potiPos >= 100 ) {
-			poti2Up();
-		} else {
-			poti1Up();
-		}
-		++potiPos;
-	}
-}
 
 void initSensorOffsetAdjust()
 {
@@ -96,26 +134,10 @@ void initSensorOffsetAdjust()
 	}
 }
 
-void adjustSensorOffset()
-{
-	// during idle time, the sensor's zero offset can be adjustet
-	// this is done during the timer of the idle state
-	if (ampsADCValue() > 0)  {
-		while((ampsADCValue() > 0) && ( potiPos > 0 )) {
-			potiDn();
-			// evtl. delay 
-		}
-	}  else {
-		while((ampsADCValue() < 0) && ( potiPos < 199 )) {
-			potiUp();
-			// evtl. delay
-		}		
-	}
-}
 
 */
 
-#define maxIdleTickCnt  59
+#define maxIdleTickCnt  9
 
 /*
 
@@ -135,7 +157,8 @@ void onEntryIdle()
 void onIdleSecondTick()
 {
 	if (idleTickCnt == 0) {
-//		adjustSensorOffset();
+//		adjust sensor offset
+		volatileZeroAdjStep();
 	}
 	++ idleTickCnt;
 	if (idleTickCnt > maxIdleTickCnt) idleTickCnt = 0;

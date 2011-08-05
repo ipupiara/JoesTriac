@@ -42,4 +42,5 @@ void storeCalibHighAdc(uint16_t ch);
 
 void calcNextTriacDelay();
 
+
 #endif
