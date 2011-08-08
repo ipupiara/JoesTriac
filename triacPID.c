@@ -118,24 +118,6 @@ void volatileZeroAdjStep()
 }
 
 
-/*
-
-void initSensorOffsetAdjust()
-{
-	//  init for auto-adjust of the sensor's zero-level
-	//  if needed
-	int8_t cnt;
-
-	idleTickCnt = 0;
-	potiPos = 0;
-	for (cnt =0; cnt < 99; ++ cnt) {
-		poti1Dn();
-		poti2Dn();
-	}
-}
-
-
-*/
 
 #define maxIdleTickCnt  9
 
@@ -184,7 +166,6 @@ void InitializePID(real kpTot, real ki, real kd, real error_thresh, real step_ti
 
 	 corrCarryOver = 0;
 
-//	 initSensorOffsetAdjust();
 }
 
 real nextAdjust(real error)
