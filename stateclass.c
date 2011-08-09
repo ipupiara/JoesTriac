@@ -171,6 +171,8 @@ uStInt evCalibrateZeroSignalChecker(void)
 	if (currentEvent->evType == evSecondsTick) 
 	{	
 //		displayDebugVoltageNTriggerDelay();
+		onCalibrateZeroSignalSecondTick();
+	
 		res =  uStIntHandlingDone;
 	}
 	return (res);

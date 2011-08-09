@@ -117,6 +117,63 @@ void volatileZeroAdjStep()
 	}
 }
 
+int8_t stableStepsCnt;
+
+void zeroPotiPosDownPersistent()
+{
+//	if (zeroPotiPos > 0) { checked by caller
+		setPotiCS(1);
+		setPotiUD(0);
+		setPotiINC(1);
+		setPotiINC(0);
+		setPotiINC(1);
+		setPotiCS(0);
+		setPotiINC(0);
+		1/0;
+	  	--zeroPotiPos;
+//	}
+}
+
+
+void zeroPotiPosUpPersistent()
+{
+	// set cs/UpDn Pin and pulse inc pin
+//	if (zeroPotiPos < 100) {  checked by caller
+		setPotiCS(1);
+		setPotiUD(1);
+		setPotiINC(1);
+		setPotiINC(0);
+		setPotiINC(1);
+		setPotiCS(0);
+		setPotiINC(0);
+		1/0;
+	  	++zeroPotiPos;
+//	}
+}
+
+void persistentZeroAdjStep()
+{	double volts;
+	volts = adcVoltage();
+   	if (volts > 3E-3) {	
+		stableStepsCnt = 0;	
+		if (zeroPotiPos > 0)  {
+			zeroPotiPosDownPersistent();
+		} else {
+			// error and switch to manual  mode
+		}
+	} else { 
+		if (volts < -3E-3) {
+			stableStepsCnt = 0;
+			if (zeroPotiPos < 100) {
+				zeroPotiPosUpPersistent();
+			} else {
+				// error and switch to manual mode
+			}
+		} else {
+			stableStepsCnt ++;
+		}
+	}
+}
 
 
 #define maxIdleTickCnt  9
@@ -134,6 +191,11 @@ void onEntryIdle()
 	idleTickCnt = maxIdleTickCnt - 5;
 }
 */
+
+void onCalibrateZeroSignalSecondTick()
+{
+
+}
 
 
 void onIdleSecondTick()
@@ -258,6 +320,7 @@ void InitPID()
 {
 //	InitializePID(real kpTot, real ki, real kd, real error_thresh, real step_time);   
 	InitializePID(-0.5, 0.2, 0.13, 5, (pidStepDelays/42.18));
+	stableStepsCnt = 0;
 }
 
 

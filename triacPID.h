@@ -40,6 +40,8 @@ void storeCalibHighAdc(uint16_t ch);
 
 */
 
+void onCalibrateZeroSignalSecondTick();
+
 void calcNextTriacDelay();
 
 
