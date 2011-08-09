@@ -147,6 +147,8 @@ uStInt evCalibratingChecker(void)
 void entryCalibrateZeroSignalState(void)
 {
 //	printf("entry I\n");
+	stableZeroAdjReached = 0;
+	resetZeroAdj();
 	setDiffADC();
 }
 

@@ -91,6 +91,11 @@ int main(void)
 
 	while (1)
 	{
+		if (adcTick){
+			adcTick = 0; // 8-bit access is atomic
+			ev.evType = evAdcTick;
+			processTriacEvent(&SJoesTriacStateChart,&ev);	
+		}
 		if (runningSecondsTick){
 	//		cli();    // 8-bit access is already atomic
 			runningSecondsTick = 0;
@@ -98,11 +103,7 @@ int main(void)
 			ev.evType = evSecondsTick;
 			processTriacEvent(&SJoesTriacStateChart,&ev);	
 		}
-		if (adcTick){
-			adcTick = 0; // 8-bit access is atomic
-			ev.evType = evAdcTick;
-			processTriacEvent(&SJoesTriacStateChart,&ev);	
-		}
+
 		if (durationTimerReachead) {
 	//		cli();   // 8-bit access is alread atomic
 			durationTimerReachead = 0;
@@ -123,6 +124,11 @@ int main(void)
 				ev.evType = evCharEntered;
 				ev.keyCode = ky;			
 			}	
+			processTriacEvent(&SJoesTriacStateChart,&ev);	
+		}
+		if (stableZeroAdjReached) {
+			stableZeroAdjReached = 0;
+			ev.evType = evZeroSignalOK;
 			processTriacEvent(&SJoesTriacStateChart,&ev);	
 		}	
 /*		if (debugEvent1Triggered) {

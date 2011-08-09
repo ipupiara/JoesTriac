@@ -18,11 +18,15 @@ void InitPID();
 
 void resetPID();
 
+void resetZeroAdj();
+
 void onIdleSecondTick();
 
 real Update(real error);
 
 double currentAmpsValue;
+
+int8_t stableZeroAdjReached;
 
 /*
 

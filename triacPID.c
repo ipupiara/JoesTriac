@@ -56,60 +56,57 @@ void setPotiINC(int8_t on)
 
 }
 
-void setPotiUD(int8_t up)
+void setPotiUp(int8_t up)
 {
 	if (up) {
-		PORTA |= 0x20;
-	} else  {
 		PORTA &= ~0x20;
+	} else  {
+		PORTA |= 0x20;
 	}
 
 }
 
 
-void zeroPotiPosDownVolatile()
+void zeroPotiPosUpPersistent(int8_t up, int8_t persistent)
 {
-//	if (zeroPotiPos > 0) { checked by caller
+//	if ((zeroPotiPos > 0) && (zeroPotiPos < 100) ) { checked by caller
 		setPotiCS(1);
-		setPotiUD(0);
+		if (up) {
+			setPotiUp(1);
+			++ zeroPotiPos;
+		} else {
+			setPotiUp(0);
+			-- zeroPotiPos;
+		}
 		setPotiINC(1);
 		setPotiINC(0);
-		setPotiINC(1);
+		if (!persistent) {
+			setPotiINC(1);
+		}  
 		setPotiCS(0);
-		setPotiINC(0);
-	  	--zeroPotiPos;
+		if (persistent) {
+			storeZeroPotiPos(zeroPotiPos);
+		} else {
+			setPotiINC(0);
+		}
+		setPotiUp(0);
 //	}
 }
 
-
-void zeroPotiPosUpVolatile()
-{
-	// set cs/UpDn Pin and pulse inc pin
-//	if (zeroPotiPos < 100) {  checked by caller
-		setPotiCS(1);
-		setPotiUD(1);
-		setPotiINC(1);
-		setPotiINC(0);
-		setPotiINC(1);
-		setPotiCS(0);
-		setPotiINC(0);
-	  	++zeroPotiPos;
-//	}
-}
 
 void volatileZeroAdjStep()
 {	double volts;
 	volts = adcVoltage();
    	if (volts > 3E-3) {		
 		if (zeroPotiPos > 0)  {
-			zeroPotiPosDownVolatile();
+			zeroPotiPosUpPersistent(0, 0);
 		} else {
 			// error and switch to manual  mode
 		}
 	} else { 
 		if (volts < -3E-3) {
 			if (zeroPotiPos < 100) {
-				zeroPotiPosUpVolatile();
+				zeroPotiPosUpPersistent(1, 0);
 			} else {
 				// error and switch to manual mode
 			}
@@ -119,37 +116,6 @@ void volatileZeroAdjStep()
 
 int8_t stableStepsCnt;
 
-void zeroPotiPosDownPersistent()
-{
-//	if (zeroPotiPos > 0) { checked by caller
-		setPotiCS(1);
-		setPotiUD(0);
-		setPotiINC(1);
-		setPotiINC(0);
-		setPotiINC(1);
-		setPotiCS(0);
-		setPotiINC(0);
-		1/0;
-	  	--zeroPotiPos;
-//	}
-}
-
-
-void zeroPotiPosUpPersistent()
-{
-	// set cs/UpDn Pin and pulse inc pin
-//	if (zeroPotiPos < 100) {  checked by caller
-		setPotiCS(1);
-		setPotiUD(1);
-		setPotiINC(1);
-		setPotiINC(0);
-		setPotiINC(1);
-		setPotiCS(0);
-		setPotiINC(0);
-		1/0;
-	  	++zeroPotiPos;
-//	}
-}
 
 void persistentZeroAdjStep()
 {	double volts;
@@ -157,7 +123,7 @@ void persistentZeroAdjStep()
    	if (volts > 3E-3) {	
 		stableStepsCnt = 0;	
 		if (zeroPotiPos > 0)  {
-			zeroPotiPosDownPersistent();
+			zeroPotiPosUpPersistent(0,1);
 		} else {
 			// error and switch to manual  mode
 		}
@@ -165,7 +131,7 @@ void persistentZeroAdjStep()
 		if (volts < -3E-3) {
 			stableStepsCnt = 0;
 			if (zeroPotiPos < 100) {
-				zeroPotiPosUpPersistent();
+				zeroPotiPosUpPersistent(1,1);
 			} else {
 				// error and switch to manual mode
 			}
@@ -176,7 +142,22 @@ void persistentZeroAdjStep()
 }
 
 
-#define maxIdleTickCnt  9
+void resetZeroAdj()
+{
+	int i1;
+	setPotiCS(1);
+	setPotiUp(0);
+	for (i1 = 0; i1 < 100; ++ i1) 
+	{
+		setPotiINC(1);
+		setPotiINC(0);
+	}	
+	setPotiCS(0);	
+	storeZeroPotiPos(0x00);
+}
+
+
+#define maxIdleTickCnt  5
 
 /*
 
@@ -194,6 +175,11 @@ void onEntryIdle()
 
 void onCalibrateZeroSignalSecondTick()
 {
+	if ( stableStepsCnt < 10) {
+		stableZeroAdjReached = 1;
+	} else {
+		
+	}
 
 }
 
@@ -230,7 +216,7 @@ void InitializePID(real kpTot, real ki, real kd, real error_thresh, real step_ti
 
 }
 
-real nextAdjust(real error)
+real nextCorrection(real error)
 {
     // Set q_fact to 1 if the error magnitude is below
     // the threshold and 0 otherwise
@@ -296,7 +282,7 @@ void calcNextTriacDelay()
 	int16_t newDelay;
 	int16_t corrInt;
 	err = currentAmps()  - desiredAmps ;
-	corr = nextAdjust(err) + corrCarryOver;
+	corr = nextCorrection(err) + corrCarryOver;
 	corrInt = corr;     
 /*	if (corrInt == 0) {
 		corrCarryOver += corr;
@@ -321,6 +307,10 @@ void InitPID()
 //	InitializePID(real kpTot, real ki, real kd, real error_thresh, real step_time);   
 	InitializePID(-0.5, 0.2, 0.13, 5, (pidStepDelays/42.18));
 	stableStepsCnt = 0;
+	stableZeroAdjReached = 0;
+	setPotiCS(0);
+	setPotiINC(0);
+	setPotiUp(0);
 }
 
 
