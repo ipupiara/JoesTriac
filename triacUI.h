@@ -7,7 +7,6 @@ void clr_scr();
 
 void displayCalibrationPrompt();
 
-void displayCalibratingExplanation();
 
 void displayCalibrateLow();
 

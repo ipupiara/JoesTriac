@@ -37,9 +37,7 @@ void displayDebugVoltageNTriggerDelay()
 
 }
 
-void displayCalibratingExplanation()   // on LCD2
-{    
-}
+
 
 void displayCalibrate(int amps)
 {

@@ -27,6 +27,7 @@ enum eStates
 	eStateAskForCalibration,
 	eStateCalibrating,
 	eStateCalibrateZeroSignal,
+	eStateCalibrateScale,
 	eStateCalibrateLow,
 	eStateCalibrateHigh,
 	eStateTriacIdle,
@@ -90,7 +91,6 @@ uStInt evAskForCalibrationChecker(void)
 void entryCalibratingState(void)
 {
 //	printf("\nentry Calib");
-	displayCalibratingExplanation();
 	startDurationTimer(maxSecsPossible);   // enable secondsTick
 	startTriacRun();
 }
@@ -103,6 +103,63 @@ void exitCalibratingState(void)
 }
 
 uStInt evCalibratingChecker(void)
+{
+	int8_t res;
+	
+	res = uStIntNoMatch;
+
+	return res;
+}
+
+void entryCalibrateZeroSignalState(void)
+{
+//	printf("entry I\n");
+	stableZeroAdjReached = 0;
+	resetZeroAdj();
+	setDiffADC();
+}
+
+void exitCalibrateZeroSignalState(void)
+{
+//	printf("exit I\n");
+	setAmpsADC();
+}
+
+uStInt evCalibrateZeroSignalChecker(void)
+{
+//	printf("check for event in State evStateIdle\n");
+	int res = uStIntNoMatch;
+
+	if (currentEvent->evType == evZeroSignalOK) 
+	{	
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateScale);
+			// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+	}
+	if (currentEvent->evType == evSecondsTick) 
+	{	
+//		displayDebugVoltageNTriggerDelay();
+		onCalibrateZeroSignalSecondTick();
+	
+		res =  uStIntHandlingDone;
+	}
+	return (res);
+}
+
+void entryCalibrateScaleState(void)
+{
+//	printf("\nentry Calib");
+
+}
+
+void exitCalibrateScaleState(void)
+{
+//	printf("exit calib\n");
+
+}
+
+uStInt evCalibrateScaleChecker(void)
 {
 	int16_t triggerDelay;
 	int8_t res;
@@ -142,42 +199,6 @@ uStInt evCalibratingChecker(void)
 		res =  uStIntHandlingDone;
 	}
 	return res;
-}
-
-void entryCalibrateZeroSignalState(void)
-{
-//	printf("entry I\n");
-	stableZeroAdjReached = 0;
-	resetZeroAdj();
-	setDiffADC();
-}
-
-void exitCalibrateZeroSignalState(void)
-{
-//	printf("exit I\n");
-	setAmpsADC();
-}
-
-uStInt evCalibrateZeroSignalChecker(void)
-{
-//	printf("check for event in State evStateIdle\n");
-	int res = uStIntNoMatch;
-
-	if (currentEvent->evType == evZeroSignalOK) 
-	{	
-			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateLow);
-			// No event action.
-			END_EVENT_HANDLER(PJoesTriacStateChart);
-			res =  uStIntHandlingDone;
-	}
-	if (currentEvent->evType == evSecondsTick) 
-	{	
-//		displayDebugVoltageNTriggerDelay();
-		onCalibrateZeroSignalSecondTick();
-	
-		res =  uStIntHandlingDone;
-	}
-	return (res);
 }
 
 
@@ -594,9 +615,19 @@ xStateType xaStates[eNumberOfStates] = {
  	tfNull,
  	entryCalibrateZeroSignalState,
  	exitCalibrateZeroSignalState},
+
+ 	{eStateCalibrateScale,
+ 	eStateCalibrating,
+ 	eStateCalibrateLow,
+ 	0,
+ 	evCalibrateScaleChecker,
+ 	tfNull,
+ 	entryCalibrateScaleState,
+ 	exitCalibrateScaleState},
+
 	 
 	 {eStateCalibrateLow,
- 	eStateCalibrating,
+ 	eStateCalibrateScale,
  	-1,
  	0,
  	evCalibrateLowChecker,
@@ -605,7 +636,7 @@ xStateType xaStates[eNumberOfStates] = {
  	exitCalibrateLowState},
 	 
  	{eStateCalibrateHigh,
- 	eStateCalibrating,
+ 	eStateCalibrateScale,
  	-1,
  	0,
  	evCalibrateHighChecker,
