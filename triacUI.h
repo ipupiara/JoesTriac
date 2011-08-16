@@ -51,6 +51,10 @@ void initUI();
 
 void displayDebugVoltageNTriggerDelay();
 
+void displayADCVoltageNPotiPos();
+
+void displayCalibrateZeroPotiPos();
+
 void displayVoltage();
 
 #endif

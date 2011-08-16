@@ -22,12 +22,13 @@ void displayVoltage()
 
 void displayDebugVoltageNTriggerDelay()
 {
-	int16_t VHex;
+//	int16_t VHex;
 	double   VFl;
 	char buffer [16];
-	
-	VHex = ampsADCValue();
-	VFl = (VHex * 5.0) / 0x03FF;
+//	VHex = ampsADCValue();
+//	VFl = (VHex * 5.0) / 0x03FF;
+
+	VFl = adcVoltage();
 	
 
 	sprintf((char*)&buffer,"%5.2fV %5i D",VFl,triacTriggerDelayCms);
@@ -37,6 +38,29 @@ void displayDebugVoltageNTriggerDelay()
 
 }
 
+
+void displayADCVoltageNPotiPos()
+{
+//	int16_t VHex;
+	double   VFl;
+	char buffer [16];
+//	VHex = ampsADCValue();
+//	VFl = (VHex * 5.0) / 0x03FF;
+
+	VFl = adcVoltage();
+	
+	sprintf((char*)&buffer,"%7.3fV %5i P",VFl,zeroPotiPos);
+
+	lcd_Line2(LCD1);
+	lcd_write_str((char*)&buffer,LCD1);
+
+}
+
+void displayCalibrateZeroPotiPos()
+{
+	lcd_clrscr(LCD1);
+	lcd_write_str("calib Zero",LCD1);
+}
 
 
 void displayCalibrate(int amps)

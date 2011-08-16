@@ -114,8 +114,9 @@ uStInt evCalibratingChecker(void)
 void entryCalibrateZeroSignalState(void)
 {
 //	printf("entry I\n");
+	displayCalibrateZeroPotiPos();
 	stableZeroAdjReached = 0;
-	resetZeroAdj();
+//	resetZeroAdj();
 	setDiffADC();
 }
 
@@ -137,10 +138,20 @@ uStInt evCalibrateZeroSignalChecker(void)
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 	}
+/*	
+	if (currentEvent->evType == evNumPressed) 
+	{	
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateScale);
+			// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+	}
+	*/
 	if (currentEvent->evType == evSecondsTick) 
 	{	
-//		displayDebugVoltageNTriggerDelay();
-		onCalibrateZeroSignalSecondTick();
+
+//		onCalibrateZeroSignalSecondTick();
+		displayADCVoltageNPotiPos();
 	
 		res =  uStIntHandlingDone;
 	}
