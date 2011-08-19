@@ -14,6 +14,7 @@ int8_t runningSecondsTick;
 int8_t adcTick;
 void setAmpsADC();
 void setDiffADC();
+void startSingleADC();
 int16_t ampsADCValue();
 int16_t diffADCValue();
 double adcVoltage();

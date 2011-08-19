@@ -139,6 +139,9 @@ void persistentZeroAdjStep()
 			stableStepsCnt ++;
 		}
 	}
+	if ( stableStepsCnt < 10) {
+		stableZeroAdjReached = 1;
+	}
 }
 
 
@@ -173,18 +176,12 @@ void onEntryIdle()
 }
 */
 
-void onCalibrateZeroSignalSecondTick()
-{
-	if ( stableStepsCnt < 10) {
-		stableZeroAdjReached = 1;
-	} else {
-		
-	}
 
+void onCalibrateZeroAdcTick()
+{
 }
 
-
-void onIdleSecondTick()
+void onIdleAdcTick()
 {
 	if (idleTickCnt == 0) {
 //		adjust sensor offset

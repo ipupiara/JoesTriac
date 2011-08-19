@@ -150,10 +150,15 @@ are performed. The result from the extended conversions will be valid.
 		ADCSRA = 0b10101111;   // ena    
 
 
-	if (adcCnt == pidStepDelays)  {
+/*	
+	if (adcCnt == pidStepDelays)  {     // adate set
 		adcCnt = 0;
 		adcTick = 1;
 	}
+	*/
+
+		adcTick = 1;   // manual start
+
 }
 
 ISR(INT0_vect)
@@ -217,7 +222,7 @@ void initInterrupts()
 		TIMSK1  = 0x00; // disa  Interrupt 
 	//		TIMSK1   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
 
-// Timer 0    used for ADC triggering
+// Timer 0    used for ADC triggering  in TriaRunning mode
 	  
 	      TCCR0A = 0b00000010;  //  CTC 
 
@@ -231,7 +236,7 @@ void initInterrupts()
 // 	not yet start Timer0 and ADC, to be tested
 		TCCR0B = 0b00000000  ; // CTC on CC0A , not yet started	  
 		TIMSK0  = 0b00000000;
-	
+
 
 // Timer 2 as Triac Trigger Delay Timer
 
@@ -252,7 +257,7 @@ void initInterrupts()
 
 //  init ADC
 
-		setAmpsADC();
+//		setAmpsADC();
 
 		sei();  // start interrupts if not yet started
 		
@@ -264,13 +269,28 @@ void setAmpsADC()
 		adcTick = 0;
 		adcCnt = 0;
 
-		ADMUX = 0b01000000;      // AVCC as ref,  right adjust, mux to adc0
+		if (ampsInputPin == 0x01) {
+			ADMUX = 0b01000001;
+		} else {
+			ADMUX = 0b01000000;      // AVCC as ref,  right adjust, mux to adc0
+		}
 		ADCSRA = 0b10101111;  
 								// int ena, prescale /128
-								// ADC clock will run at 86400 hz, or max 6646. read per sec,what is ok
+								// ADC clock will run at 86400 hz, or max 6646. 
+								//  read per sec,what is ok
 								// for our settings of 42. read per sec	
+								// or manuals start 
 
 		ADCSRB = 0x03;  // no ACME, trigger ADC on Timer0 compare match
+
+// start adc manual
+/*
+		ADCSRA = 0b10001111;    // adc ena, no auto trigger, prescale 128
+		ADCSRB = 0x00;
+
+*/
+		DIDR0 = 0x0F;			// disa digital input on a0..a3
+
 }
 
 void setDiffADC()
@@ -280,12 +300,24 @@ void setDiffADC()
 		adcCnt = 0;
 
 		ADMUX = 0b11001101;      // 2.56V as ref,  right adjust, mux to diff adc3, adc2
-		ADCSRA = 0b10101111;  
+//		ADCSRA = 0b10101111;  
 								// int ena, prescale /128
 								// ADC clock will run at 86400 hz, or max 6646. read per sec,what is ok
 								// for our settings of 42. read per sec	
 
-		ADCSRB = 0x03;  // no ACME, trigger ADC on Timer0 compare match
+//		ADCSRB = 0x03;  // no ACME, trigger ADC on Timer0 compare match
+
+		ADCSRA = 0b10001111;    // adc ena, no auto trigger, prescale 128
+		ADCSRB = 0x00;
+		DIDR0 = 0x0F;			// disa digital input on a0..a3
+
+
+
+}
+
+void startSingleADC()
+{
+	ADCSRA |=  0b01000000;
 }
 
 void startTriacRun()
@@ -343,13 +375,13 @@ double adcVoltage()
 	double   VFl;
 
 	VFl = 0.0;
-	if (ADMUX ==  0b01000000) {
-		VHex = ampsADCValue();
-		VFl = (VHex * 5.0) / 0x03FF;
-	}
+
 	if (ADMUX == 0b11001101) {
 		VHex = diffADCValue();
 		VFl =  (VHex * 2.56) / (10.0 * 0x200);
+	} else {
+		VHex = ampsADCValue();
+		VFl = (VHex * 5.0) / 0x03FF;
 	}
 	
 	return VFl;

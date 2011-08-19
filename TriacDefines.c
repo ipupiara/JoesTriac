@@ -127,6 +127,12 @@ void storeZeroPotiPos(int8_t val)
 }
 
 
+void storeAmpsInputPin(int8_t val)
+{
+	ampsInputPin = val;
+	eeprom_write_byte((uint8_t *) ampsInputPinEEPROMpos, ampsInputPin);
+}
+
 void restorePersistentData()
 {
 	amps100 = eeprom_read_byte((uint8_t*)amps100EEPROMpos);	
@@ -156,6 +162,8 @@ void restorePersistentData()
 	if (calibHighTriggerDelay == 0xFFFF) calibHighTriggerDelay = 0x0000;
 	zeroPotiPos = eeprom_read_byte((uint8_t*)zeroPotiPosEEPROMpos);	
 	if ((zeroPotiPos < 0x00) || (zeroPotiPos > 100)) { storeZeroPotiPos(0x00);}   
+	ampsInputPin = eeprom_read_byte((uint8_t*)ampsInputPinEEPROMpos);	
+	if ( (ampsInputPin < 0x00) || (ampsInputPin > 0x01)) { storeZeroPotiPos(0x00);}   
 
 	debugEvent1Triggered = 0;
 }

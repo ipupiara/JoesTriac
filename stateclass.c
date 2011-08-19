@@ -49,6 +49,7 @@ void entryAskForCalibrationState(void)
 	printf("entry AskForCalibration\n");
 	displayCalibrationPrompt();
 	startDurationTimer(6);
+
 //	startDurationTimer(maxSecsPossible);
 }
 
@@ -63,7 +64,7 @@ int8_t bl = 0;
 
 uStInt evAskForCalibrationChecker(void)
 {
-	int res = uStIntNoMatch;
+	uStInt res = uStIntNoMatch;
 //	printf("check for event in State evStateIdle\n");
 
 	if (currentEvent->evType == evTimeOutDurationTimer) 
@@ -84,6 +85,7 @@ uStInt evAskForCalibrationChecker(void)
 	{	
 		displayCountDown();		
 		res =  uStIntHandlingDone;
+//		debugEvent1Triggered = 1;
 	}
 	return (res); 
 }
@@ -92,14 +94,13 @@ void entryCalibratingState(void)
 {
 //	printf("\nentry Calib");
 	startDurationTimer(maxSecsPossible);   // enable secondsTick
-	startTriacRun();
 }
 
 void exitCalibratingState(void)
 {
 //	printf("exit calib\n");
 	stopDurationTimer();
-	stopTriacRun();
+
 }
 
 uStInt evCalibratingChecker(void)
@@ -123,13 +124,33 @@ void entryCalibrateZeroSignalState(void)
 void exitCalibrateZeroSignalState(void)
 {
 //	printf("exit I\n");
-	setAmpsADC();
 }
+
+uStInt checkCalibZeroInner()
+// maybe AVR Studio produced code will not crash anymore
+// when this is outplaced into inner method
+// lets hope ?????  , silly problems, silly solutions
+{
+	uStInt res = uStIntNoMatch;
+	if (currentEvent->evType == evNumPressed) 
+	{	
+//		debugEvent1Triggered = 1;			
+		
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateScale);
+		// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+		
+	}
+	// check if abvove still crashes,  
+	return res;
+}
+
 
 uStInt evCalibrateZeroSignalChecker(void)
 {
 //	printf("check for event in State evStateIdle\n");
-	int res = uStIntNoMatch;
+	uStInt res = uStIntNoMatch;
 
 	if (currentEvent->evType == evZeroSignalOK) 
 	{	
@@ -138,35 +159,41 @@ uStInt evCalibrateZeroSignalChecker(void)
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 	}
-/*	
-	if (currentEvent->evType == evNumPressed) 
-	{	
-			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateScale);
-			// No event action.
-			END_EVENT_HANDLER(PJoesTriacStateChart);
-			res =  uStIntHandlingDone;
-	}
-	*/
+	
 	if (currentEvent->evType == evSecondsTick) 
 	{	
+		startSingleADC();
+	
+		res =  uStIntHandlingDone;
+	}
 
-//		onCalibrateZeroSignalSecondTick();
+	if (currentEvent->evType == evAdcTick) 
+	{	
+//		persistentZeroAdjStep();
 		displayADCVoltageNPotiPos();
 	
 		res =  uStIntHandlingDone;
 	}
+
+
+	res = checkCalibZeroInner();
+	// check if abvove still crashes,  
+
+
 	return (res);
 }
 
 void entryCalibrateScaleState(void)
 {
 //	printf("\nentry Calib");
-
+	setAmpsADC();
+	startTriacRun();
 }
 
 void exitCalibrateScaleState(void)
 {
 //	printf("exit calib\n");
+	stopTriacRun();
 
 }
 
@@ -232,7 +259,7 @@ void exitCalibrateLowState(void)
 uStInt evCalibrateLowChecker(void)
 {
 //	printf("check for event in State evStateIdle\n");
-	int res = uStIntNoMatch;
+	uStInt res = uStIntNoMatch;
 
 	if (currentEvent->evType == evAstPressed) 
 	{	
@@ -273,7 +300,7 @@ void exitCalibrateHighState(void)
 
 uStInt evCalibrateHighChecker(void)
 {
-	int res = uStIntNoMatch;
+	uStInt res = uStIntNoMatch;
 
 	if (currentEvent->evType == evAstPressed) 
 	{	
@@ -303,21 +330,20 @@ void entryTriacIdleState(void)
 //	printf("entry I\n");
 //	debugEvent1Triggered = 1;
 	startDurationTimer(maxSecsPossible);   // enable secondsTick
-	void setDiffADC();
+	setDiffADC();
 }
 
 void exitTriacIdleState(void)
 {
 //	printf("exit I\n");
 	stopDurationTimer();
-	setAmpsADC();
 	clr_scr();
 }
 
 uStInt evTriacIdleChecker(void)
 {
 //	printf("check for event in State evStateIdle\n");
-	int res = uStIntNoMatch;
+	uStInt res = uStIntNoMatch;
 
 	if (currentEvent->evType == evStartPressed) 
 	{	
@@ -333,7 +359,12 @@ uStInt evTriacIdleChecker(void)
 	}
 	if (currentEvent->evType == evSecondsTick) 
 	{	
-		onIdleSecondTick();
+		startSingleADC();
+		res =  uStIntHandlingDone;
+	}
+	if (currentEvent->evType == evSecondsTick) 
+	{	
+		onIdleAdcTick();
 		res =  uStIntHandlingDone;
 	}
 	return res;
@@ -355,7 +386,7 @@ void exitEditIdleState(void)
 
 uStInt evEditIdleChecker(void)
 {
-	int res = uStIntNoMatch;
+	uStInt res = uStIntNoMatch;
 //	printf("\ncheck for event in State evStateIdle");
 
 	if (currentEvent->evType==evAstPressed) {
@@ -394,7 +425,7 @@ void exitEditAmpsState(void)
 
 uStInt evEditAmpsChecker(void)
 {
-	int res = uStIntNoMatch;
+	uStInt res = uStIntNoMatch;
 	//	printf("check for event in State evStateIdle\n");
 
 
@@ -455,7 +486,7 @@ void exitEditDurationState(void)
 
 uStInt evEditDurationChecker(void)
 {
-	int res = uStIntNoMatch;
+	uStInt res = uStIntNoMatch;
 	//	printf("check for event in State evStateIdle\n");
 
 	if (currentEvent->evType == evAstPressed)  {	
@@ -512,6 +543,7 @@ void entryTriacRunningState(void)
 	setTriacTriggerDelay(calibLowTriggerDelay);  // start defined,  not just somewhere
 												// because of 220 V fuse ejects
 												// lowCalib seems better joice than 0
+	setAmpsADC();
 	startTriacRun();
 }
 
@@ -525,7 +557,7 @@ void exitTriacRunningState(void)
 
 uStInt evTriacRunningChecker(void)
 {
-	int res = uStIntNoMatch;
+	uStInt res = uStIntNoMatch;
 	//	printf("check for event in State evStateIdle\n");
 
 	if (currentEvent->evType == evStopPressed)  {	
@@ -567,7 +599,7 @@ void exitJobOkDisplayState(void)
 
 uStInt evJobOkDisplayChecker(void)
 {
-	int res = uStIntNoMatch;
+	uStInt res = uStIntNoMatch;
 	//	printf("check for event in State evStateIdle\n");
 
 	if (currentEvent->evType == evAstPressed)  {	

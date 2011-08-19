@@ -30,6 +30,7 @@
 	#define calibLowTriggerDelayEEPROMpos   15
 	#define calibHighTriggerDelayEEPROMpos   17   // both uint16
 	#define zeroPotiPosEEPROMpos                19   // unit8
+	#define ampsInputPinEEPROMpos         20     // uint8
 
 	#define calibLowAmps        20
 	#define calibHighAmps       55
@@ -65,6 +66,8 @@ int16_t  calibHighTriggerDelay;
 int8_t amps100, amps10, amps, min10, min, sec10, sec;
 
 uint8_t  zeroPotiPos;
+
+uint8_t  ampsInputPin;
 
 int8_t debugEvent1Triggered;    // signals that a debug event was triggered somewhere in the code
 								// to inform the main-loop do do a specific action. This is used for

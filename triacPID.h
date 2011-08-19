@@ -44,7 +44,9 @@ void storeCalibHighAdc(uint16_t ch);
 
 */
 
-void onCalibrateZeroSignalSecondTick();
+void onIdleAdcTick();
+
+void persistentZeroAdjStep();
 
 void calcNextTriacDelay();
 
