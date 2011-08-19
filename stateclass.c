@@ -109,6 +109,13 @@ uStInt evCalibratingChecker(void)
 	
 	res = uStIntNoMatch;
 
+	if (currentEvent->evType == evStopPressed)  {	
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+	}	
+
 	return res;
 }
 
@@ -127,7 +134,7 @@ void exitCalibrateZeroSignalState(void)
 }
 
 uStInt checkCalibZeroInner()
-// maybe AVR Studio produced code will not crash anymore
+// AVR Studio's produced code will not crash anymore
 // when this is outplaced into inner method
 // lets hope ?????  , silly problems, silly solutions
 {
@@ -174,7 +181,6 @@ uStInt evCalibrateZeroSignalChecker(void)
 	
 		res =  uStIntHandlingDone;
 	}
-
 
 	res = checkCalibZeroInner();
 	// check if abvove still crashes,  
