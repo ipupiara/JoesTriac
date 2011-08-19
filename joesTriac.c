@@ -91,6 +91,11 @@ int main(void)
 
 	while (1)
 	{
+		if (fatalErrorOccurred) {     // do this with highest priority (at the beginning)
+			fatalErrorOccurred = 0;
+			ev.evType = evFatalError;
+			processTriacEvent(&SJoesTriacStateChart,&ev);	
+		}
 		if (adcTick){
 			adcTick = 0; // 8-bit access is atomic
 			ev.evType = evAdcTick;

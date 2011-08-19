@@ -319,7 +319,7 @@
 			    supplier_quidu 	"4DB57445017B"
 			    client     	"Logical View::ATMega_AVR::State/Activity Model::JoesTriac::State/Activity Model10::JoesTriacOperating::State/Activity Model2::Calibrating::State/Activity Model3::calibrateScale::State/Activity Model4::calibrateHigh"
 			    client_quidu 	"4DB62AD403C8"
-			    Event      	(object Event "function1pressed"
+			    Event      	(object Event "astOrNumPressed"
 				quid       	"4DB575BD0319")
 			    sendEvent  	(object sendEvent
 				quid       	"4DB575BD031B"))
@@ -381,7 +381,7 @@
 			    supplier_quidu 	"4DB62AD403C8"
 			    client     	"Logical View::ATMega_AVR::State/Activity Model::JoesTriac::State/Activity Model10::JoesTriacOperating::State/Activity Model2::Calibrating::State/Activity Model3::calibrateScale::State/Activity Model4::calibrateLow"
 			    client_quidu 	"4DB62AB60195"
-			    Event      	(object Event "function1Pressed"
+			    Event      	(object Event "AstOrNumPressed"
 				quid       	"4DB62AF7007F")
 			    sendEvent  	(object sendEvent
 				quid       	"4DB62AF70081"))
@@ -593,14 +593,14 @@
 			(object State_Diagram "JoesTriacStates"
 			    quid       	"4DB557390351"
 			    title      	"JoesTriacStates"
-			    zoom       	75
+			    zoom       	70
 			    max_height 	28350
 			    max_width  	21600
 			    origin_x   	0
-			    origin_y   	734
+			    origin_y   	902
 			    items      	(list diagram_item_list
 				(object StateView "Normal" "JoesTriac" @1
-				    location   	(3680, 2256)
+				    location   	(3872, 2256)
 				    font       	(object Font
 					size       	10
 					face       	"Arial"
@@ -612,23 +612,23 @@
 					default_color 	TRUE)
 				    label      	(object ItemLabel
 					Parent_View 	@1
-					location   	(3680, 327)
+					location   	(3872, 327)
 					fill_color 	13434879
 					anchor_loc 	1
 					nlines     	2
-					max_width  	7252
+					max_width  	7632
 					justify    	0
 					label      	"JoesTriac")
 				    icon_style 	"Label"
 				    line_color 	3342489
 				    fill_color 	13434879
 				    quidu      	"4E4E4C5600F2"
-				    width      	7348
+				    width      	7729
 				    height     	3978
 				    autoResize 	TRUE)
 				(object StateView "Normal" "JoesTriacOperating" @2
 				    Parent_View 	@1
-				    location   	(2176, 1824)
+				    location   	(2240, 1824)
 				    font       	(object Font
 					size       	10
 					face       	"Arial"
@@ -640,18 +640,18 @@
 					default_color 	TRUE)
 				    label      	(object ItemLabel
 					Parent_View 	@2
-					location   	(2176, 631)
+					location   	(2240, 631)
 					fill_color 	13434879
 					anchor_loc 	1
 					nlines     	2
-					max_width  	4256
+					max_width  	4386
 					justify    	0
 					label      	"JoesTriacOperating")
 				    icon_style 	"Label"
 				    line_color 	3342489
 				    fill_color 	13434879
 				    quidu      	"4DB5574F02C0"
-				    width      	4352
+				    width      	4483
 				    height     	2506
 				    autoResize 	TRUE)
 				(object StateView "Normal" "AskForCalibration" @3
@@ -1337,7 +1337,7 @@
 					default_color 	TRUE)
 				    label      	(object SegLabel @36
 					Parent_View 	@35
-					location   	(3410, 2198)
+					location   	(3177, 2220)
 					font       	(object Font
 					    size       	10
 					    face       	"Arial"
@@ -1352,9 +1352,9 @@
 					max_width  	450
 					justify    	0
 					label      	"startPressed"
-					pctDist    	1.233110
-					height     	102
-					orientation 	0)
+					pctDist    	1.299993
+					height     	130
+					orientation 	1)
 				    stereotype 	TRUE
 				    line_color 	3342489
 				    quidu      	"4DB5755400F2"
@@ -1384,14 +1384,14 @@
 					fill_color 	13434879
 					anchor_loc 	1
 					nlines     	2
-					max_width  	1448
+					max_width  	1450
 					justify    	0
 					label      	"Calibrating")
 				    icon_style 	"Icon"
 				    line_color 	3342489
 				    fill_color 	13434879
 				    quidu      	"4DB5749E0070"
-				    width      	1544
+				    width      	1547
 				    height     	1258
 				    autoResize 	TRUE)
 				(object StateView "Normal" "calibrateZeroSignal" @38
@@ -1565,47 +1565,6 @@
 					default_color 	TRUE)
 				    label      	(object SegLabel @46
 					Parent_View 	@45
-					location   	(1296, 1495)
-					font       	(object Font
-					    size       	10
-					    face       	"Arial"
-					    bold       	FALSE
-					    italics    	FALSE
-					    underline  	FALSE
-					    strike     	FALSE
-					    color      	0
-					    default_color 	TRUE)
-					anchor_loc 	1
-					nlines     	1
-					max_width  	317
-					justify    	0
-					label      	"function1pressed"
-					pctDist    	0.638160
-					height     	259
-					orientation 	0)
-				    stereotype 	TRUE
-				    line_color 	3342489
-				    quidu      	"4DB575BD0318"
-				    client     	@44
-				    supplier   	@5
-				    vertices   	(list Points
-					(1249, 2429)
-					(1620, 1350)
-					(1884, 1309))
-				    line_style 	0
-				    x_offset   	FALSE)
-				(object TransView "" @47
-				    font       	(object Font
-					size       	10
-					face       	"Arial"
-					bold       	FALSE
-					italics    	FALSE
-					underline  	FALSE
-					strike     	FALSE
-					color      	0
-					default_color 	TRUE)
-				    label      	(object SegLabel @48
-					Parent_View 	@47
 					location   	(1079, 2205)
 					font       	(object Font
 					    size       	10
@@ -1618,9 +1577,9 @@
 					    default_color 	TRUE)
 					anchor_loc 	1
 					nlines     	1
-					max_width  	326
+					max_width  	354
 					justify    	0
-					label      	"function1Pressed"
+					label      	"AstOrNumPressed"
 					pctDist    	0.426616
 					height     	99
 					orientation 	0)
@@ -1635,7 +1594,7 @@
 					(1135, 2429))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @49
+				(object TransView "" @47
 				    font       	(object Font
 					size       	10
 					face       	"Arial"
@@ -1645,8 +1604,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @50
-					Parent_View 	@49
+				    label      	(object SegLabel @48
+					Parent_View 	@47
 					location   	(938, 1292)
 					font       	(object Font
 					    size       	10
@@ -1675,7 +1634,7 @@
 					(798, 1594))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @51
+				(object TransView "" @49
 				    font       	(object Font
 					size       	10
 					face       	"Arial"
@@ -1685,9 +1644,9 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @52
-					Parent_View 	@51
-					location   	(1718, 1669)
+				    label      	(object SegLabel @50
+					Parent_View 	@49
+					location   	(1719, 1669)
 					font       	(object Font
 					    size       	10
 					    face       	"Arial"
@@ -1711,11 +1670,11 @@
 				    client     	@37
 				    supplier   	@5
 				    vertices   	(list Points
-					(1556, 1832)
+					(1557, 1831)
 					(1979, 1617))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object StateView "Normal" "JobOkDisplay" @53
+				(object StateView "Normal" "JobOkDisplay" @51
 				    Parent_View 	@2
 				    location   	(1856, 2400)
 				    font       	(object Font
@@ -1728,7 +1687,7 @@
 					color      	0
 					default_color 	TRUE)
 				    label      	(object ItemLabel
-					Parent_View 	@53
+					Parent_View 	@51
 					location   	(1856, 2300)
 					fill_color 	13434879
 					anchor_loc 	1
@@ -1743,7 +1702,7 @@
 				    width      	523
 				    height     	320
 				    autoResize 	TRUE)
-				(object TransView "" @54
+				(object TransView "" @52
 				    font       	(object Font
 					size       	10
 					face       	"Arial"
@@ -1753,8 +1712,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @55
-					Parent_View 	@54
+				    label      	(object SegLabel @53
+					Parent_View 	@52
 					location   	(1838, 1857)
 					font       	(object Font
 					    size       	10
@@ -1776,7 +1735,7 @@
 				    stereotype 	TRUE
 				    line_color 	3342489
 				    quidu      	"4DFC3E590156"
-				    client     	@53
+				    client     	@51
 				    supplier   	@5
 				    vertices   	(list Points
 					(1863, 2239)
@@ -1784,7 +1743,7 @@
 					(2131, 1617))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @56
+				(object TransView "" @54
 				    font       	(object Font
 					size       	10
 					face       	"Arial"
@@ -1794,8 +1753,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @57
-					Parent_View 	@56
+				    label      	(object SegLabel @55
+					Parent_View 	@54
 					location   	(2386, 2340)
 					font       	(object Font
 					    size       	10
@@ -1818,13 +1777,13 @@
 				    line_color 	3342489
 				    quidu      	"4DB5759202C0"
 				    client     	@32
-				    supplier   	@53
+				    supplier   	@51
 				    vertices   	(list Points
 					(2686, 2409)
 					(2117, 2402))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object StateView "Normal" "FatalError" @58
+				(object StateView "Normal" "FatalError" @56
 				    Parent_View 	@1
 				    location   	(1024, 3856)
 				    font       	(object Font
@@ -1837,7 +1796,7 @@
 					color      	0
 					default_color 	TRUE)
 				    label      	(object ItemLabel
-					Parent_View 	@58
+					Parent_View 	@56
 					location   	(1024, 3621)
 					fill_color 	13434879
 					anchor_loc 	1
@@ -1852,7 +1811,7 @@
 				    width      	1042
 				    height     	590
 				    autoResize 	TRUE)
-				(object TransView "" @59
+				(object TransView "" @57
 				    font       	(object Font
 					size       	10
 					face       	"Arial"
@@ -1862,9 +1821,9 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @60
-					Parent_View 	@59
-					location   	(1563, 3357)
+				    label      	(object SegLabel @58
+					Parent_View 	@57
+					location   	(1580, 3361)
 					font       	(object Font
 					    size       	10
 					    face       	"Arial"
@@ -1886,14 +1845,14 @@
 				    line_color 	3342489
 				    quidu      	"4E4E4CEA01D9"
 				    client     	@2
-				    supplier   	@58
+				    supplier   	@56
 				    vertices   	(list Points
-					(1465, 3076)
-					(1191, 3560))
+					(1490, 3076)
+					(1200, 3560))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object SelfTransView "" @61
-				    location   	(3680, 117)
+				(object SelfTransView "" @59
+				    location   	(3872, 117)
 				    font       	(object Font
 					size       	10
 					face       	"Arial"
@@ -1903,9 +1862,9 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @62
-					Parent_View 	@61
-					location   	(3679, 58)
+				    label      	(object SegLabel @60
+					Parent_View 	@59
+					location   	(3871, 58)
 					font       	(object Font
 					    size       	10
 					    face       	"Arial"
@@ -1929,10 +1888,10 @@
 				    client     	@1
 				    supplier   	@1
 				    vertices   	(list Points
-					(3623, 267)
-					(3737, 266))
+					(3815, 267)
+					(3929, 266))
 				    line_style 	4)
-				(object StateView "Normal" "AskingRmsAvr" @63
+				(object StateView "Normal" "AskingRmsAvr" @61
 				    Parent_View 	@37
 				    location   	(272, 1792)
 				    font       	(object Font
@@ -1945,7 +1904,7 @@
 					color      	0
 					default_color 	TRUE)
 				    label      	(object ItemLabel
-					Parent_View 	@63
+					Parent_View 	@61
 					location   	(272, 1731)
 					fill_color 	13434879
 					anchor_loc 	1
@@ -1960,14 +1919,14 @@
 				    width      	434
 				    height     	242
 				    autoResize 	TRUE)
-				(object StateView "StartState" "$UNNAMED$3" @64
-				    Parent_View 	@63
+				(object StateView "StartState" "$UNNAMED$3" @62
+				    Parent_View 	@61
 				    location   	(144, 1792)
 				    icon_style 	"Icon"
 				    line_color 	3342489
 				    quidu      	"4DB62AE901E1"
 				    autoResize 	TRUE)
-				(object TransView "" @65
+				(object TransView "" @63
 				    font       	(object Font
 					size       	10
 					face       	"Arial"
@@ -1977,8 +1936,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @66
-					Parent_View 	@65
+				    label      	(object SegLabel @64
+					Parent_View 	@63
 					location   	(704, 1748)
 					font       	(object Font
 					    size       	10
@@ -2000,11 +1959,52 @@
 				    stereotype 	TRUE
 				    line_color 	3342489
 				    quidu      	"4E4E6D6E0215"
-				    client     	@63
+				    client     	@61
 				    supplier   	@38
 				    vertices   	(list Points
 					(489, 1792)
 					(918, 1792))
+				    line_style 	0
+				    x_offset   	FALSE)
+				(object TransView "" @65
+				    font       	(object Font
+					size       	10
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object SegLabel @66
+					Parent_View 	@65
+					location   	(1466, 1415)
+					font       	(object Font
+					    size       	10
+					    face       	"Arial"
+					    bold       	FALSE
+					    italics    	FALSE
+					    underline  	FALSE
+					    strike     	FALSE
+					    color      	0
+					    default_color 	TRUE)
+					anchor_loc 	1
+					nlines     	1
+					max_width  	348
+					justify    	0
+					label      	"astOrNumPressed"
+					pctDist    	0.751491
+					height     	166
+					orientation 	0)
+				    stereotype 	TRUE
+				    line_color 	3342489
+				    quidu      	"4DB575BD0318"
+				    client     	@44
+				    supplier   	@5
+				    vertices   	(list Points
+					(1253, 2429)
+					(1661, 1371)
+					(1884, 1331))
 				    line_style 	0
 				    x_offset   	FALSE)))))
 		language   	"C++")

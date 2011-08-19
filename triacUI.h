@@ -30,6 +30,8 @@ void displayEditDuration();
 
 void displayJobOk();
 
+void displayRmsAvrQuery();
+
 
 
 
@@ -56,5 +58,9 @@ void displayADCVoltageNPotiPos();
 void displayCalibrateZeroPotiPos();
 
 void displayVoltage();
+
+char lastFatalErrorString [17];
+
+void displayFatalError();
 
 #endif

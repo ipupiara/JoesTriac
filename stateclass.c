@@ -24,9 +24,11 @@ enum eStates
 {
 	eStateJoesTriac,
 	eStartState = eStateJoesTriac,
+	eStateTriacOperating,
 	eStateAskForCalibration,
 	eStateCalibrating,
 	eStateCalibrateZeroSignal,
+	eStateAskingRmsAvr,
 	eStateCalibrateScale,
 	eStateCalibrateLow,
 	eStateCalibrateHigh,
@@ -36,6 +38,7 @@ enum eStates
 	eStateEditDuration,
 	eStateTriacRunning,
 	eStateJobOkDisplay,
+	eStateFatalError,
 	eNumberOfStates
 };
 
@@ -43,6 +46,26 @@ uStInt evJoesTriacChecker(void)
 {
 	return (uStIntNoMatch);
 }
+
+uStInt evTriacOperatingChecker(void)
+{
+	uStInt res = uStIntNoMatch;
+//	printf("check for event in State evTriacOperating\n");
+
+/*	if (currentEvent->evType == evTimeOutDurationTimer) 
+	{	
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateFatalError);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+	}
+	*/
+	return (res); 
+}
+
+
+
+
 
 void entryAskForCalibrationState(void)
 {
@@ -59,8 +82,6 @@ void exitAskForCalibrationState(void)
 	stopDurationTimer();
 	clr_scr();
 }
-
-int8_t bl = 0;
 
 uStInt evAskForCalibrationChecker(void)
 {
@@ -117,6 +138,54 @@ uStInt evCalibratingChecker(void)
 	}	
 
 	return res;
+}
+
+void entryAskingRmsAvrState(void)
+{
+//	printf("entry I\n");
+	displayRmsAvrQuery();
+}
+
+void exitAskingRmsAvrState(void)
+{
+//	printf("exit I\n");
+}
+
+uStInt evAskingRmsAvrChecker(void)
+{
+//	printf("check for event in State evStateIdle\n");
+	uStInt res = uStIntNoMatch;
+
+	if (currentEvent->evType == evNumPressed) 
+	{	
+//		debugEvent1Triggered = 1;			
+		
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateZeroSignal);
+		// No event action.
+		
+		storeAmpsInputPin(0x01);
+
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+		
+	}
+
+	if (currentEvent->evType == evAstPressed) 
+	{	
+//		debugEvent1Triggered = 1;			
+		
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateZeroSignal);
+		// No event action.
+
+		storeAmpsInputPin(0x00);
+
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+		
+	}
+
+
+	return (res);
 }
 
 void entryCalibrateZeroSignalState(void)
@@ -188,6 +257,7 @@ uStInt evCalibrateZeroSignalChecker(void)
 
 	return (res);
 }
+
 
 void entryCalibrateScaleState(void)
 {
@@ -618,6 +688,28 @@ uStInt evJobOkDisplayChecker(void)
 }
 
 
+
+void entryFatalErrorState(void)
+{
+//	printf("entry FatalError\n");
+	displayFatalError();
+}
+
+void exitFatalErrorState(void)
+{
+//	printf("exit FatalErro\n");
+}
+
+uStInt evFatalErrorChecker(void)
+{
+	uStInt res = uStIntNoMatch;
+	//	printf("check for event in State evStateIdle\n");
+
+	return (res);
+}
+
+
+
 #ifndef  sdccNULL 
 
 #define tfNull 0
@@ -631,15 +723,25 @@ t_fvoid  tfNull;
 xStateType xaStates[eNumberOfStates] = {
  	{eStateJoesTriac,    // name
  	-1,									//parent
- 	eStateAskForCalibration,    // default substate
+ 	eStateTriacOperating,    // default substate
  	0,    // keep history
  	evJoesTriacChecker,    // event checking fu
 	tfNull,       // def state entry function
  	tfNull,     //    entering state
  	tfNull},     // exiting state
 
- 	{eStateAskForCalibration,
+ 	{eStateTriacOperating,
  	eStateJoesTriac,
+ 	eStateAskForCalibration,
+ 	0,									
+ 	evTriacOperatingChecker,
+ 	tfNull,
+ 	tfNull,
+ 	tfNull},
+
+
+ 	{eStateAskForCalibration,
+ 	eStateTriacOperating,
  	-1,
  	0,									
  	evAskForCalibrationChecker,
@@ -648,13 +750,23 @@ xStateType xaStates[eNumberOfStates] = {
  	exitAskForCalibrationState},
 
  	{eStateCalibrating,
- 	eStateJoesTriac,
- 	eStateCalibrateZeroSignal,
+ 	eStateTriacOperating,
+ 	eStateAskingRmsAvr,
  	0,
  	evCalibratingChecker,
  	tfNull,
  	entryCalibratingState,
  	exitCalibratingState},
+
+ 	{eStateAskingRmsAvr,
+ 	eStateCalibrating,
+ 	-1,
+ 	0,
+ 	evAskingRmsAvrChecker,
+ 	tfNull,
+ 	entryAskingRmsAvrState,
+ 	exitAskingRmsAvrState},
+
 
 	 {eStateCalibrateZeroSignal,
  	eStateCalibrating,
@@ -694,7 +806,7 @@ xStateType xaStates[eNumberOfStates] = {
  	exitCalibrateHighState},
 
  	{eStateTriacIdle,
- 	eStateJoesTriac,
+ 	eStateTriacOperating,
  	eStateEditIdle,
  	0,
  	evTriacIdleChecker,
@@ -730,7 +842,7 @@ xStateType xaStates[eNumberOfStates] = {
  	exitEditDurationState},
 	 
 	{eStateTriacRunning,
- 	eStateJoesTriac,
+ 	eStateTriacOperating,
  	-1,
  	0,
  	evTriacRunningChecker,
@@ -739,13 +851,22 @@ xStateType xaStates[eNumberOfStates] = {
  	exitTriacRunningState},
 	 
 	{eStateJobOkDisplay,
- 	eStateJoesTriac,
+ 	eStateTriacOperating,
  	-1,
  	0,
  	evJobOkDisplayChecker,
  	tfNull,
  	entryJobOkDisplayState,
- 	exitJobOkDisplayState}	 	 
+ 	exitJobOkDisplayState},
+	
+	{eStateFatalError,
+ 	eStateJoesTriac,
+ 	-1,
+ 	0,
+ 	evFatalErrorChecker,
+ 	tfNull,
+ 	entryFatalErrorState,
+ 	exitFatalErrorState}	 	 	 
 };
 
 

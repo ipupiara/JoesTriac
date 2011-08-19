@@ -93,6 +93,12 @@ void zeroPotiPosUpPersistent(int8_t up, int8_t persistent)
 //	}
 }
 
+void errorPotiPosExceeded()
+{
+	sprintf((char *) &lastFatalErrorString,"out of 0 Pos");
+	fatalErrorOccurred = 1;
+}
+
 
 void volatileZeroAdjStep()
 {	double volts;
@@ -101,14 +107,14 @@ void volatileZeroAdjStep()
 		if (zeroPotiPos > 0)  {
 			zeroPotiPosUpPersistent(0, 0);
 		} else {
-			// error and switch to manual  mode
+			errorPotiPosExceeded();
 		}
 	} else { 
 		if (volts < -3E-3) {
 			if (zeroPotiPos < 100) {
 				zeroPotiPosUpPersistent(1, 0);
 			} else {
-				// error and switch to manual mode
+				errorPotiPosExceeded();
 			}
 		}
 	}
@@ -125,7 +131,7 @@ void persistentZeroAdjStep()
 		if (zeroPotiPos > 0)  {
 			zeroPotiPosUpPersistent(0,1);
 		} else {
-			// error and switch to manual  mode
+			errorPotiPosExceeded();
 		}
 	} else { 
 		if (volts < -3E-3) {
@@ -133,7 +139,7 @@ void persistentZeroAdjStep()
 			if (zeroPotiPos < 100) {
 				zeroPotiPosUpPersistent(1,1);
 			} else {
-				// error and switch to manual mode
+				errorPotiPosExceeded();
 			}
 		} else {
 			stableStepsCnt ++;

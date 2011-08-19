@@ -73,6 +73,8 @@ int8_t debugEvent1Triggered;    // signals that a debug event was triggered some
 								// to inform the main-loop do do a specific action. This is used for
 								// debugging without keypad (JTAG) to go into a specific state automatically.
 
+int8_t fatalErrorOccurred;
+
 void calcDesiredAmps();
 
 void storeAmps100(int8_t val);
@@ -102,6 +104,8 @@ void storeCalibLowTriggerDelay();
 void storeCalibHighTriggerDelay();
 
 void storeZeroPotiPos(int8_t val);
+
+void storeAmpsInputPin(int8_t val);
 
 void restorePersistentData();
 

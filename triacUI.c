@@ -63,6 +63,22 @@ void displayCalibrateZeroPotiPos()
 }
 
 
+void displayRmsAvrQuery()
+{
+	lcd_clrscr(LCD1);
+	lcd_write_str("select",LCD1);
+	lcd_Line2(LCD1);
+	lcd_write_str("RMS *, AVR #",LCD1);
+}
+
+void displayFatalError()
+{
+	lcd_clrscr(LCD1);
+	lcd_write_str("Error",LCD1);
+	lcd_Line2(LCD1);
+	lcd_write_str(lastFatalErrorString,LCD1);
+}
+
 void displayCalibrate(int amps)
 {
 	char buffer [2];
@@ -93,7 +109,7 @@ void displayCalibrationPrompt()
 {
 	lcd_clrscr(LCD1);
 	lcd_write_str("Calibrate? *=Yes",LCD1);
-
+	lcd_Line2(LCD1);
 	lcd_write_str("or wait",LCD1);
 }
 

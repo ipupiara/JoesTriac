@@ -163,9 +163,10 @@ void restorePersistentData()
 	zeroPotiPos = eeprom_read_byte((uint8_t*)zeroPotiPosEEPROMpos);	
 	if ((zeroPotiPos < 0x00) || (zeroPotiPos > 100)) { storeZeroPotiPos(0x00);}   
 	ampsInputPin = eeprom_read_byte((uint8_t*)ampsInputPinEEPROMpos);	
-	if ( (ampsInputPin < 0x00) || (ampsInputPin > 0x01)) { storeZeroPotiPos(0x00);}   
+	if ( (ampsInputPin < 0x00) || (ampsInputPin > 0x01)) { storeAmpsInputPin(0x00);}   
 
 	debugEvent1Triggered = 0;
+    fatalErrorOccurred = 0;
 }
 
 

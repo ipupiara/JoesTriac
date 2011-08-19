@@ -21,7 +21,8 @@ enum eEventTypes
 	evStartPressed,
 	evStopPressed,
 	evZeroSignalOK,
-	evAdcTick
+	evAdcTick,
+	evFatalError
 };
 
 
