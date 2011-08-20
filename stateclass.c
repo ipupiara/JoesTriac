@@ -20,6 +20,7 @@ CJoesTriacEvent* currentEvent;
 #include "TriacKeyPad.h"
 
 // This defines and names the states the class has.
+// attention: sequence must be the same as in xaStates (below)  !!!
 enum eStates
 {
 	eStateJoesTriac,
@@ -27,8 +28,8 @@ enum eStates
 	eStateTriacOperating,
 	eStateAskForCalibration,
 	eStateCalibrating,
-	eStateCalibrateZeroSignal,
 	eStateAskingRmsAvr,
+	eStateCalibrateZeroSignal,
 	eStateCalibrateScale,
 	eStateCalibrateLow,
 	eStateCalibrateHigh,
@@ -95,7 +96,7 @@ uStInt evAskForCalibrationChecker(void)
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 	}
-	if (currentEvent->evType == evAstPressed) 
+	if ((currentEvent->evType == evAstPressed) || (currentEvent->evType == evStartPressed))
 	{	
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrating);
 				// No event action.
@@ -166,8 +167,7 @@ uStInt evAskingRmsAvrChecker(void)
 		storeAmpsInputPin(0x01);
 
 		END_EVENT_HANDLER(PJoesTriacStateChart);
-		res =  uStIntHandlingDone;
-		
+		res =  uStIntHandlingDone;		
 	}
 
 	if (currentEvent->evType == evAstPressed) 
@@ -180,11 +180,8 @@ uStInt evAskingRmsAvrChecker(void)
 		storeAmpsInputPin(0x00);
 
 		END_EVENT_HANDLER(PJoesTriacStateChart);
-		res =  uStIntHandlingDone;
-		
+		res =  uStIntHandlingDone;		
 	}
-
-
 	return (res);
 }
 
@@ -720,6 +717,8 @@ t_fvoid  tfNull;
 
 #endif 
 
+// attention: sequence must be the same as above enum eStates
+
 xStateType xaStates[eNumberOfStates] = {
  	{eStateJoesTriac,    // name
  	-1,									//parent
@@ -767,8 +766,7 @@ xStateType xaStates[eNumberOfStates] = {
  	entryAskingRmsAvrState,
  	exitAskingRmsAvrState},
 
-
-	 {eStateCalibrateZeroSignal,
+	{eStateCalibrateZeroSignal,
  	eStateCalibrating,
  	-1,
  	0,

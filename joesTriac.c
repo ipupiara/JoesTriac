@@ -143,6 +143,6 @@ int main(void)
 			ev.evType = evAstPressed;
 			processTriacEvent(&SJoesTriacStateChart,&ev);
 		}  
-		*/
+	*/	
     }
 }
