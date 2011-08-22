@@ -79,10 +79,9 @@ void zeroPotiPosUpPersistent(int8_t up, int8_t persistent)
 			-- zeroPotiPos;
 		}
 		setPotiINC(1);
-		setPotiINC(0);
-		if (!persistent) {
-			setPotiINC(1);
-		}  
+		if (persistent) {
+			setPotiINC(0);
+		}
 		setPotiCS(0);
 		if (persistent) {
 			storeZeroPotiPos(zeroPotiPos);
@@ -164,7 +163,44 @@ void resetZeroAdj()
 	setPotiCS(0);	
 	storeZeroPotiPos(0x00);
 }
+/*
+void zeroAdjTest()
+{
+		DDRA = 0b11100000;    // set pin 7 to 5 of port A as output for digital poti (zero adj)
+		PORTA = 0b11100000; 
+		DIDR0 = 0x0F;			// disa digital input on a0..a3
 
+	while (1) {
+		int i1;
+
+		i1= 0;
+		
+		for (i1= 0; i1 < 10; ++ i1) {
+			zeroPotiPosUpPersistent(1, 1);
+		}
+
+		i1 = 1;
+
+		for (i1= 0; i1 < 10; ++ i1) {
+			zeroPotiPosUpPersistent(0, 1);
+		}
+
+		i1 = 2;
+
+		for (i1= 0; i1 < 10; ++ i1) {
+			zeroPotiPosUpPersistent(1, 0);
+		}
+
+		i1 = 3;
+
+		for (i1= 0; i1 < 10; ++ i1) {
+			zeroPotiPosUpPersistent(0, 0);
+		}
+	
+	}
+
+}
+*/
 
 #define maxIdleTickCnt  5
 

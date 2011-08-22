@@ -24,6 +24,8 @@ void onIdleSecondTick();
 
 real Update(real error);
 
+void zeroAdjTest();
+
 double currentAmpsValue;
 
 int8_t stableZeroAdjReached;
