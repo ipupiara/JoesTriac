@@ -182,6 +182,12 @@ uStInt evAskingRmsAvrChecker(void)
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;		
 	}
+	if (currentEvent->evType == evSecondsTick) 
+	{	
+//		debugEvent1Triggered = 1;	
+		res =  uStIntHandlingDone;
+		
+	}
 	return (res);
 }
 

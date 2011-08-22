@@ -45,7 +45,7 @@ void startTriacTriggerDelay()  // must run protected between cli and sei
 //		PORTA &= ~0x3C;
 //		PORTA |= (1 << (1 + phaseCount));
 		
-		if (triacTriggerDelayCms > 0) {   // practically used just for debugging hardware
+		if (triacTriggerDelayCms > 0) {   
 			remainingTriacTriggerDelayCounts = triggerDelayMax - triacTriggerDelayCms;
 			if (remainingTriacTriggerDelayCounts <= 14) {
 				remainingTriacTriggerDelayCounts = 15;  // dont set to 0  (means below tcnt2 to ocra2aValue)
@@ -149,26 +149,23 @@ are performed. The result from the extended conversions will be valid.
 		ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE	
 		ADCSRA = 0b10101111;   // ena    
 
-
-/*	
-	if (adcCnt == pidStepDelays)  {     // adate set
-		adcCnt = 0;
-		adcTick = 1;
+	if (ADMUX == 0b11001101) {
+		adcTick = 1; 
+	} else {
+		if (adcCnt == pidStepDelays)  {     
+			adcCnt = 0;
+			adcTick = 1;
+		}
+	
 	}
-	*/
-
-		adcTick = 1;   // manual start
-
 }
 
 ISR(INT0_vect)
 {
 	cli();
 	if ((PIND & 0x04) != 0) {
-//		PORTA |= 0x80;
 		stopTriacTriggerDelay();
 	} else {
-//		PORTA &= ~0x80;
 		startTriacTriggerDelay();
 	}
 	sei();		  
@@ -196,8 +193,9 @@ void initInterrupts()
 {
 // Ext. Interrupt
 
-		DDRA |= 0b11100000;    // set pin 7 to 5 of port A as output for digital poti (zero adj)
-		PORTA &= ~0xE0;
+		DDRA = 0b11100000;    // set pin 7 to 5 of port A as output for digital poti (zero adj)
+		PORTA = 0x00;
+		DIDR0 = 0x0F;			// disa digital input on a0..a3
 
 		DDRD |= 0x10;			// set Portd pin 04 be Triac output
 		PORTD &= ~0x10; 		// and initialize with 0-value
@@ -289,7 +287,7 @@ void setAmpsADC()
 		ADCSRB = 0x00;
 
 */
-		DIDR0 = 0x0F;			// disa digital input on a0..a3
+	
 
 }
 
@@ -304,15 +302,10 @@ void setDiffADC()
 								// int ena, prescale /128
 								// ADC clock will run at 86400 hz, or max 6646. read per sec,what is ok
 								// for our settings of 42. read per sec	
-
 //		ADCSRB = 0x03;  // no ACME, trigger ADC on Timer0 compare match
 
 		ADCSRA = 0b10001111;    // adc ena, no auto trigger, prescale 128
 		ADCSRB = 0x00;
-		DIDR0 = 0x0F;			// disa digital input on a0..a3
-
-
-
 }
 
 void startSingleADC()
