@@ -24,7 +24,7 @@ void onIdleSecondTick();
 
 real Update(real error);
 
-void zeroAdjTest();
+// void zeroAdjTest();
 
 double currentAmpsValue;
 

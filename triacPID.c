@@ -175,7 +175,7 @@ void resetZeroAdj()
 }
 
 
-
+/*
 void zeroAdjTest()
 {
 		DDRA = 0b11100000;    // set pin 7 to 5 of port A as output for digital poti (zero adj)
@@ -212,7 +212,7 @@ void zeroAdjTest()
 	}
 
 }
-
+*/
 
 #define maxIdleTickCnt  5
 
