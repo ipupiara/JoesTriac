@@ -58,7 +58,7 @@ int main(void)
 	int8_t ky;
 //	int16_t dummyI;
 
-//	zeroAdjTest();
+	zeroAdjTest();
 
 //	USART_Init( 143 );   // baud 4800 at 11.0592 mhz, single uart speed
 //	USART_Init( 71 );   // baud 9600 at 11.0592 mhz, single uart speed
@@ -67,7 +67,7 @@ int main(void)
 	printf("\nSTARTUP\n");
 	restorePersistentData();
 	lcd_init();
-	initKeyPad();
+//	initKeyPad();
 	initInterrupts();
 
 /*	dummyI = 0;
@@ -135,13 +135,14 @@ int main(void)
 			ev.evType = evZeroSignalOK;
 			processTriacEvent(&SJoesTriacStateChart,&ev);	
 		}	
-/*		if (debugEvent1Triggered) {
+// /*		
+	if (debugEvent1Triggered) {
 			debugEvent1Triggered = 0;
 //			ev.evType = evStartPressed;
 //			processTriacEvent(&SJoesTriacStateChart,&ev);
 			ev.evType = evAstPressed;
 			processTriacEvent(&SJoesTriacStateChart,&ev);
 		}  
-		*/
+//		*/
     }
 }

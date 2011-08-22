@@ -107,7 +107,7 @@ uStInt evAskForCalibrationChecker(void)
 	{	
 		displayCountDown();		
 		res =  uStIntHandlingDone;
-//		debugEvent1Triggered = 1;
+		debugEvent1Triggered = 1;
 	}
 	return (res); 
 }
@@ -137,7 +137,6 @@ uStInt evCalibratingChecker(void)
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 	}	
-
 	return res;
 }
 
@@ -159,8 +158,6 @@ uStInt evAskingRmsAvrChecker(void)
 
 	if (currentEvent->evType == evNumPressed) 
 	{	
-//		debugEvent1Triggered = 1;			
-		
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateZeroSignal);
 		// No event action.
 		
@@ -172,8 +169,6 @@ uStInt evAskingRmsAvrChecker(void)
 
 	if (currentEvent->evType == evAstPressed) 
 	{	
-//		debugEvent1Triggered = 1;			
-		
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateZeroSignal);
 		// No event action.
 
@@ -184,9 +179,8 @@ uStInt evAskingRmsAvrChecker(void)
 	}
 	if (currentEvent->evType == evSecondsTick) 
 	{	
-//		debugEvent1Triggered = 1;	
-		res =  uStIntHandlingDone;
-		
+		debugEvent1Triggered = 1;	
+		res =  uStIntHandlingDone;		
 	}
 	return (res);
 }
@@ -196,7 +190,7 @@ void entryCalibrateZeroSignalState(void)
 //	printf("entry I\n");
 	displayCalibrateZeroPotiPos();
 	stableZeroAdjReached = 0;
-//	resetZeroAdj();
+	resetZeroAdj();
 	setDiffADC();
 }
 
@@ -207,8 +201,8 @@ void exitCalibrateZeroSignalState(void)
 
 uStInt checkCalibZeroInner()
 // AVR Studio's produced code will not crash anymore
-// when this is outplaced into inner method
-// lets hope ?????  , silly problems, silly solutions
+// when this is outplaced into inner method (method size problem ??)
+// "silly problems, silly solutions"
 {
 	uStInt res = uStIntNoMatch;
 	if (currentEvent->evType == evNumPressed) 
@@ -248,15 +242,14 @@ uStInt evCalibrateZeroSignalChecker(void)
 
 	if (currentEvent->evType == evAdcTick) 
 	{	
-//		persistentZeroAdjStep();
+		persistentZeroAdjStep();
 		displayADCVoltageNPotiPos();
 	
 		res =  uStIntHandlingDone;
 	}
 
 	res = checkCalibZeroInner();
-	// check if abvove still crashes,  
-
+	// check if it still crashes,  
 
 	return (res);
 }
@@ -441,7 +434,7 @@ uStInt evTriacIdleChecker(void)
 		startSingleADC();
 		res =  uStIntHandlingDone;
 	}
-	if (currentEvent->evType == evSecondsTick) 
+	if (currentEvent->evType == evAdcTick) 
 	{	
 		onIdleAdcTick();
 		res =  uStIntHandlingDone;

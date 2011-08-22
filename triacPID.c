@@ -42,7 +42,6 @@ void setPotiCS(int8_t on)
 	} else  {
 		PORTA |= 0x80;
 	}
-
 }
 
 
@@ -53,7 +52,6 @@ void setPotiINC(int8_t on)
 	} else  {
 		PORTA |= 0x40;
 	}
-
 }
 
 void setPotiUp(int8_t up)
@@ -63,7 +61,6 @@ void setPotiUp(int8_t up)
 	} else  {
 		PORTA |= 0x20;
 	}
-
 }
 
 
@@ -92,12 +89,12 @@ void zeroPotiPosUpPersistent(int8_t up, int8_t persistent)
 //	}
 }
 
+
 void errorPotiPosExceeded()
 {
 	sprintf((char *) &lastFatalErrorString,"out of 0 Pos");
 	fatalErrorOccurred = 1;
 }
-
 
 void volatileZeroAdjStep()
 {	double volts;
@@ -144,7 +141,7 @@ void persistentZeroAdjStep()
 			stableStepsCnt ++;
 		}
 	}
-	if ( stableStepsCnt < 10) {
+	if ( stableStepsCnt > 10) {
 		stableZeroAdjReached = 1;
 	}
 }
@@ -153,6 +150,17 @@ void persistentZeroAdjStep()
 void resetZeroAdj()
 {
 	int i1;
+
+	setPotiCS(1);
+	setPotiUp(1);
+	for (i1 = 0; i1 < 100; ++ i1) 
+	{
+		setPotiINC(1);
+		setPotiINC(0);
+	}	
+	setPotiCS(0);	
+	storeZeroPotiPos(100);   // up on 100  , debug stop
+
 	setPotiCS(1);
 	setPotiUp(0);
 	for (i1 = 0; i1 < 100; ++ i1) 
@@ -161,9 +169,13 @@ void resetZeroAdj()
 		setPotiINC(0);
 	}	
 	setPotiCS(0);	
-	storeZeroPotiPos(0x00);
+	storeZeroPotiPos(0x00);    //down on zero, debug stop
+
+
 }
-/*
+
+
+
 void zeroAdjTest()
 {
 		DDRA = 0b11100000;    // set pin 7 to 5 of port A as output for digital poti (zero adj)
@@ -175,32 +187,32 @@ void zeroAdjTest()
 
 		i1= 0;
 		
-		for (i1= 0; i1 < 10; ++ i1) {
+		for (i1= 0; i1 < 100; ++ i1) {
 			zeroPotiPosUpPersistent(1, 1);
 		}
 
 		i1 = 1;
 
-		for (i1= 0; i1 < 10; ++ i1) {
+		for (i1= 0; i1 < 100; ++ i1) {
 			zeroPotiPosUpPersistent(0, 1);
 		}
 
 		i1 = 2;
 
-		for (i1= 0; i1 < 10; ++ i1) {
+		for (i1= 0; i1 < 50; ++ i1) {
 			zeroPotiPosUpPersistent(1, 0);
 		}
 
 		i1 = 3;
 
-		for (i1= 0; i1 < 10; ++ i1) {
+		for (i1= 0; i1 < 50; ++ i1) {
 			zeroPotiPosUpPersistent(0, 0);
 		}
 	
 	}
 
 }
-*/
+
 
 #define maxIdleTickCnt  5
 
@@ -217,11 +229,6 @@ void onEntryIdle()
 	idleTickCnt = maxIdleTickCnt - 5;
 }
 */
-
-
-void onCalibrateZeroAdcTick()
-{
-}
 
 void onIdleAdcTick()
 {
@@ -252,7 +259,6 @@ void InitializePID(real kpTot, real ki, real kd, real error_thresh, real step_ti
 	 updateGradAmps();
 
 	 corrCarryOver = 0;
-
 }
 
 real nextCorrection(real error)

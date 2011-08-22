@@ -59,7 +59,7 @@ void displayADCVoltageNPotiPos()
 void displayCalibrateZeroPotiPos()
 {
 	lcd_clrscr(LCD1);
-	lcd_write_str("calib Zero",LCD1);
+	lcd_write_str("calib Zero  ,#",LCD1);
 }
 
 
