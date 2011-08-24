@@ -141,7 +141,7 @@ void persistentZeroAdjStep()
 			stableStepsCnt ++;
 		}
 	}
-	if ( stableStepsCnt > 10) {
+	if ( stableStepsCnt > 30) {
 		stableZeroAdjReached = 1;
 	}
 }

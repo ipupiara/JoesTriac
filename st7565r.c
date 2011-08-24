@@ -23,7 +23,7 @@ void lcd_write(uint8_t dataW, uint8_t toDataIR, uint8_t Scr)
 	LCD_DATA_IODIR = 0x00; // configure LCD_DATA IOs as input for read Busy Flag
 	LCD_DATA    = 0x00;
 
-	LCD_CMD = LCD_CMD & 0b00001111 ;	
+	LCD_CMD = LCD_CMD & 0b00011111 ;	
 	LCD_CMD = LCD_CMD & ~RS; 	//  RS = 0
 	LCD_CMD = LCD_CMD |  RW;		//  RW = 1  (means read)
 

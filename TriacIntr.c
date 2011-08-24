@@ -193,13 +193,17 @@ void initInterrupts()
 {
 // Ext. Interrupt
 
-		DDRA = 0b11100000;    // set pin 7 to 5 of port A as output for digital poti (zero adj)
+		DDRA = 0b11110000;    // set pin 7 to 4 of port A as output for digital poti (zero adj)
 		PORTA = 0b11100000;
 		DIDR0 = 0x0F;			// disa digital input on a0..a3
 
 		DDRD |= 0x10;			// set Portd pin 04 be Triac output
 		PORTD &= ~0x10; 		// and initialize with 0-value
-			
+		
+
+
+		DDRD &= ~0x04;		// set PortD pin 2 as input for trigger Ext Int 0
+		PORTD &=  ~0x04;   // without pulldown 
 	  EICRA = 0x01;   // both, fall/rise edge trigger    
       EIMSK = 0x00;   
 	  
@@ -263,36 +267,40 @@ void initInterrupts()
 
 void setAmpsADC()
 {
-		ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE	
-		adcTick = 0;
-		adcCnt = 0;
+	ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE	
+	adcTick = 0;
+	adcCnt = 0;
 
-		if (ampsInputPin == 0x01) {
-			ADMUX = 0b01000001;
-		} else {
-			ADMUX = 0b01000000;      // AVCC as ref,  right adjust, mux to adc0
-		}
-		ADCSRA = 0b10101111;  
-								// int ena, prescale /128
-								// ADC clock will run at 86400 hz, or max 6646. 
-								//  read per sec,what is ok
-								// for our settings of 42. read per sec	
-								// or manuals start 
+	if (ampsInputPin == 0x01) {
+		ADMUX = 0b01000001;
+	} else {
+		ADMUX = 0b01000000;      // AVCC as ref,  right adjust, mux to adc0
+	}
+	ADCSRA = 0b10101111;  
+							// int ena, prescale /128
+							// ADC clock will run at 86400 hz, or max 6646. 
+							//  read per sec,what is ok
+							// for our settings of 42. read per sec	
+							// or manuals start 
 
-		ADCSRB = 0x03;  // no ACME, trigger ADC on Timer0 compare match
+	ADCSRB = 0x03;  // no ACME, trigger ADC on Timer0 compare match
 
-// start adc manual
-/*
-		ADCSRA = 0b10001111;    // adc ena, no auto trigger, prescale 128
-		ADCSRB = 0x00;
+	TCCR0B = 0b00000101  ; // CTC on CC0A , set clk / 1024, timer 0 started	  
+	TIMSK0  = 0b00000010;  // ena  interrupts, and let run ADC	
+}
 
-*/
-	
+void closeAmpsADC()
+{
+	ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE	
+
+	TCCR0B = 0b00000000  ; // stop timer 0	  
+	TIMSK0  = 0b00000000;  // 
 
 }
 
 void setDiffADC()
 {
+		PORTA  |= 0x10;        //  open signal relais, signal need to be within protection diode range 
 		ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE	
 		adcTick = 0;
 		adcCnt = 0;
@@ -308,6 +316,13 @@ void setDiffADC()
 		ADCSRB = 0x00;
 }
 
+void closeDiffADC()
+{
+	PORTA &= ~0x10;  // close signal relais to prevent signal cut off by protection diode
+	ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE	
+
+}
+
 void startSingleADC()
 {
 	ADCSRA |=  0b01000000;
@@ -319,8 +334,7 @@ void startTriacRun()
 	EIFR = 0x00;
 	EIMSK = 0x01;  				// start external interrupt (zero pass detection)
 
-	TCCR0B = 0b00000101  ; // CTC on CC0A , set clk / 1024, timer 0 started	  
-	TIMSK0  = 0b00000010;  // ena  interrupts, and let run ADC
+
 }
 
 void stopTriacRun()
@@ -330,8 +344,6 @@ void stopTriacRun()
 	stopTriacTriggerDelay();
 	sei();
 
-	TCCR0B = 0b00000000  ; // stop timer 0	  
-	TIMSK0  = 0b00000000;  // to stop ADC
 }
 
 int16_t ampsADCValue()

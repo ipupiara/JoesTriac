@@ -53,14 +53,14 @@ uStInt evTriacOperatingChecker(void)
 	uStInt res = uStIntNoMatch;
 //	printf("check for event in State evTriacOperating\n");
 
-/*	if (currentEvent->evType == evTimeOutDurationTimer) 
+	if (currentEvent->evType == eStateFatalError) 
 	{	
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateFatalError);
 				// No event action.
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 	}
-	*/
+	
 	return (res); 
 }
 
@@ -197,14 +197,14 @@ void entryCalibrateZeroSignalState(void)
 void exitCalibrateZeroSignalState(void)
 {
 //	printf("exit I\n");
+	closeDiffADC();
 }
 
-uStInt checkCalibZeroInner()
+uStInt checkCalibZeroInner(uStInt res)
 // AVR Studio's produced code will not crash anymore
 // when this is outplaced into inner method (method size problem ??)
 // "silly problems, silly solutions"
 {
-	uStInt res = uStIntNoMatch;
 	if (currentEvent->evType == evNumPressed) 
 	{	
 //		debugEvent1Triggered = 1;			
@@ -248,7 +248,7 @@ uStInt evCalibrateZeroSignalChecker(void)
 		res =  uStIntHandlingDone;
 	}
 
-	res = checkCalibZeroInner();
+	res = checkCalibZeroInner(res);
 	// check if it still crashes,  
 
 	return (res);
@@ -266,6 +266,7 @@ void exitCalibrateScaleState(void)
 {
 //	printf("exit calib\n");
 	stopTriacRun();
+	closeAmpsADC();
 
 }
 
@@ -409,6 +410,8 @@ void exitTriacIdleState(void)
 {
 //	printf("exit I\n");
 	stopDurationTimer();
+	closeDiffADC();
+
 	clr_scr();
 }
 
@@ -624,6 +627,7 @@ void exitTriacRunningState(void)
 	printf("exit Running\n");
 	stopDurationTimer();
 	stopTriacRun();
+	closeAmpsADC();
 	clr_scr();
 }
 
