@@ -88,7 +88,6 @@ ISR(TWI_vect)
     {
     case TW_START:
         // START has been transmitted
-        // Fall through...
 
     case TW_REP_START:
         // REPEATED START has been transmitted
@@ -101,7 +100,6 @@ ISR(TWI_vect)
 
     case TW_MT_SLA_ACK:
         // SLA+W has been tramsmitted and ACK received
-        // Fall through...
 
     case TW_MT_DATA_ACK:
         // Data byte has been tramsmitted and ACK received
@@ -125,6 +123,9 @@ ISR(TWI_vect)
 #endif
             // Transfer finished
             twi_status = TWI_STATUS_DONE;
+
+			twiDataSent = 1;
+
         }
         break;
 
@@ -134,7 +135,6 @@ ISR(TWI_vect)
         *twi_data++ = TWDR;
         // Decrement counter
         twi_data_counter--;
-        // Fall through...
 
     case TW_MR_SLA_ACK:
         // SLA+R has been transmitted and ACK received
@@ -146,8 +146,12 @@ ISR(TWI_vect)
         }
         else
         {
-            // Send NACK after next reception
+			// Send NACK after next reception
             TWCR = (1<<TWINT)|(0<<TWEA)|(0<<TWSTA)|(0<<TWSTO)|(0<<TWWC)|(1<<TWEN)|(1<<TWIE);
+			// already NACK on last byte in any case, not too early ????
+			
+			twiDataReceived = 1;	
+
         }
         break;
 
@@ -186,6 +190,10 @@ ISR(TWI_vect)
 /* _____FUNCTIONS_____________________________________________________ */
 void twi_init(void)
 {
+
+	twiDataSent = 0;
+	twiDataReceived	= 0;  // both added by PN 30. Aug 2011 (see also remarks in twi_start_tx)
+
     // Initialise variable
     twi_data_counter = 0;
 
@@ -201,8 +209,17 @@ void twi_init(void)
 }
 
 void twi_start_tx(u8_t adr, u8_t *data, u8_t bytes_to_send)
+
 {
+	twiDataSent = 0;  // PN 30. Aug. 2011. The user should better wait until the previous transaction 
+						// completed event of same type is handled at it's end, before starting a new one.
+						// to prevent, that buffer data is changed by the application while the interrupt
+						// driven communication is sitll busy. Therefor twiDataSent already should  be 0 
+						// anyhow
+
+
     // Wait for previous transaction to finish
+
     while(twi_busy())
     {
         ;
@@ -221,6 +238,9 @@ void twi_start_tx(u8_t adr, u8_t *data, u8_t bytes_to_send)
 
 void twi_start_rx(u8_t adr, u8_t *data, u8_t bytes_to_receive)
 {
+
+	twiDataReceived = 0;
+
     // Wait for previous transaction to finish
     while(twi_busy())
     {

@@ -165,7 +165,15 @@ extern u8_t twi_get_status(void);
  * 
  */
 extern void twi_stop(void);
+
 #endif
+
+
+
+int8_t  twiDataReceived;  // added by PN as an application event notification variable  30. Aug 2011
+int8_t  twiDataSent;	// added by PN as an application event notification variable  30. Aug 2011
+
+
 
 /* _____MACROS_______________________________________________________________ */
 
