@@ -139,7 +139,7 @@ ISR(TWI_vect)
     case TW_MR_SLA_ACK:
         // SLA+R has been transmitted and ACK received
         // See if last expected byte will be received ...
-        if(twi_data_counter > 1)
+        if(twi_data_counter > 1)    
         {
             // Send ACK after reception
             TWCR = (1<<TWINT)|(1<<TWEA)|(0<<TWSTA)|(0<<TWSTO)|(0<<TWWC)|(1<<TWEN)|(1<<TWIE);
@@ -148,10 +148,7 @@ ISR(TWI_vect)
         {
 			// Send NACK after next reception
             TWCR = (1<<TWINT)|(0<<TWEA)|(0<<TWSTA)|(0<<TWSTO)|(0<<TWWC)|(1<<TWEN)|(1<<TWIE);
-			// already NACK on last byte in any case, not too early ????
-			
-			twiDataReceived = 1;	
-
+						
         }
         break;
 
@@ -171,6 +168,9 @@ ISR(TWI_vect)
 #endif
         // Transfer finished
         twi_status = TWI_STATUS_DONE;
+
+		twiDataReceived = 1;
+
         break;
 
     case TW_MT_ARB_LOST:

@@ -97,6 +97,13 @@ int main(void)
 			ev.evType = evFatalError;
 			processTriacEvent(&SJoesTriacStateChart,&ev);	
 		}
+		if (twiDataReceived ==  1) {
+			twiDataReceived = 0;
+		}
+		if (twiDataSent ==  1) {
+			twiDataSent = 0;
+		}
+
 		if (adcTick){
 			adcTick = 0; // 8-bit access is atomic
 			ev.evType = evAdcTick;
@@ -128,7 +135,7 @@ int main(void)
 			if (ky == kpNum) ev.evType = evNumPressed;
 			if (ky >= kp0){
 				ev.evType = evCharEntered;
-				ev.keyCode = ky;			
+				ev.evData.keyCode = ky;			
 			}	
 			processTriacEvent(&SJoesTriacStateChart,&ev);	
 		}

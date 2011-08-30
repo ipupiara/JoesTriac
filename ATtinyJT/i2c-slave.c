@@ -327,11 +327,6 @@ SIGNAL(USI_OVF_vect)
 		i2c_wrbuf[i2c_wrlen++] = USIDR;
 		USIDR = 0;					// ACK = send 1 bit low
 
-
-
-
-
-
 		setTransmit(1);
 		usi_state = USI_RequestData;
     }

@@ -273,7 +273,7 @@ uStInt evCalibrateScaleChecker(void)
 	res = uStIntNoMatch;
 	if (currentEvent->evType == evCharEntered) {
 		triggerDelay = triacTriggerDelayCms;
-		switch (currentEvent->keyCode) {
+		switch (currentEvent->evData.keyCode) {
 			case kp1 : 
 				triggerDelay++;
 				break;
@@ -513,17 +513,17 @@ uStInt evEditAmpsChecker(void)
 
 	if (currentEvent->evType == evCharEntered) {
 
-		if ((currentEvent->keyCode <= kp9) && (currentEvent->keyCode >= kp0)) {
+		if ((currentEvent->evData.keyCode <= kp9) && (currentEvent->evData.keyCode >= kp0)) {
 			switch (keyInd)
 			{
 				case 0: 
-					setAmps100(currentEvent->keyCode);
+					setAmps100(currentEvent->evData.keyCode);
 					break;
 				case 1:
-					setAmps10(currentEvent->keyCode);
+					setAmps10(currentEvent->evData.keyCode);
 					break;
 				case 2:
-					setAmps(currentEvent->keyCode);
+					setAmps(currentEvent->evData.keyCode);
 					BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
 				
 					END_EVENT_HANDLER(PJoesTriacStateChart);				
@@ -572,23 +572,23 @@ uStInt evEditDurationChecker(void)
 
 	if (currentEvent->evType == evCharEntered) {
 
-		if ((currentEvent->keyCode <= kp9) && (currentEvent->keyCode >= kp0)) {
+		if ((currentEvent->evData.keyCode <= kp9) && (currentEvent->evData.keyCode >= kp0)) {
 			switch (keyInd)
 			{
 				case 0: 
-					setMin10(currentEvent->keyCode);
+					setMin10(currentEvent->evData.keyCode);
 					break;
 				case 1:
-					setMin(currentEvent->keyCode);
+					setMin(currentEvent->evData.keyCode);
 					keyInd++;
 					break;
 				case 3:	
-					if (currentEvent->keyCode <= kp5) {
-						setSec10(currentEvent->keyCode);
+					if (currentEvent->evData.keyCode <= kp5) {
+						setSec10(currentEvent->evData.keyCode);
 					} else keyInd --;
 					break;
 				case 4:
-					setSec(currentEvent->keyCode);
+					setSec(currentEvent->evData.keyCode);
 					BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
 				
 					END_EVENT_HANDLER(PJoesTriacStateChart);				

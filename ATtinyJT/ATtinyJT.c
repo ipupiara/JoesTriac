@@ -12,7 +12,7 @@ int8_t adcTick;
 int8_t zeroPotiPos;
 //int8_t currentJobState;
 
-enum jobState 
+enum jobStates 
 {
 	idle,
 	persistentZeroAdjust,

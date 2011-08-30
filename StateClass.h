@@ -25,10 +25,25 @@ enum eEventTypes
 	evFatalError
 };
 
+enum jobStates 
+{
+	idle,
+	persistentZeroAdjust,
+	transientZeroAdjust,
+	fatalError	
+};
+
 
 typedef struct  {
 	int evType;
-	int8_t keyCode;
+	union {
+		int8_t keyCode;
+		struct {
+			float   voltage;
+			int8_t  potiPos;
+			int8_t  jobType;
+		} zeroAdjustingState;
+	}  evData;
 } CJoesTriacEvent ;
 
 
