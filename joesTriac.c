@@ -16,6 +16,7 @@
 #include "StateClass.h"
 #include "TriacIntr.h"
 #include "TriacKeyPad.h"
+#include "twi_master.h"
 
 
 void USART_Init( unsigned int baud )
@@ -69,6 +70,7 @@ int main(void)
 	lcd_init();
 	initKeyPad();
 	initInterrupts();
+	twi_init();
 
 /*	dummyI = 0;
 	while(1) {

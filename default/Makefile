@@ -25,7 +25,7 @@ ASMFLAGS += -x assembler-with-cpp -Wa,-gdwarf2
 
 ## Linker flags
 LDFLAGS = $(COMMON)
-LDFLAGS += -Wl,-u,vfprintf-Wl,--defsym=__stack=0x800  -Wl,-Map=joesTriac.map
+LDFLAGS += -Wl,-u,vfprintf-Wl,--defsym=__stack=0x800 -Wl,-Map=joesTriac.map
 
 
 ## Intel Hex file production flags
@@ -40,7 +40,7 @@ HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0 --no-change-warnings
 LIBS = -lm -lprintf_flt 
 
 ## Objects that must be built in order to link
-OBJECTS = joesTriac.o st7565r.o stateclass.o TriacIntr.o TriacKeyPad.o triacPID.o triacUI.o TStatechart.o TriacDefines.o 
+OBJECTS = joesTriac.o st7565r.o stateclass.o TriacIntr.o TriacKeyPad.o triacPID.o triacUI.o TStatechart.o TriacDefines.o twi_master.o 
 
 ## Objects explicitly added by the user
 LINKONLYOBJECTS = 
@@ -74,6 +74,9 @@ TStatechart.o: ../TStatechart.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
 TriacDefines.o: ../TriacDefines.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
+
+twi_master.o: ../twi_master.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
 ##Link
