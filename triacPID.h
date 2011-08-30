@@ -20,6 +20,8 @@ void resetPID();
 
 void resetZeroAdj();
 
+void onEntryIdle();
+
 void onIdleSecondTick();
 
 real Update(real error);
@@ -46,7 +48,7 @@ void storeCalibHighAdc(uint16_t ch);
 
 */
 
-void onIdleAdcTick();
+//void onIdleAdcTick();
 
 void persistentZeroAdjStep();
 

@@ -39,17 +39,17 @@ void displayDebugVoltageNTriggerDelay()
 }
 
 
-void displayADCVoltageNPotiPos()
+void displayPotiPos()
 {
 //	int16_t VHex;
-	double   VFl;
+//	double   VFl;
 	char buffer [16];
 //	VHex = ampsADCValue();
 //	VFl = (VHex * 5.0) / 0x03FF;
 
-	VFl = adcVoltage();
+//	VFl = adcVoltage();
 	
-	sprintf((char*)&buffer,"%7.3fV %5i P",VFl,zeroPotiPos);
+	sprintf((char*)&buffer," %5i P",zeroPotiPos);
 
 	lcd_Line2(LCD1);
 	lcd_write_str((char*)&buffer,LCD1);

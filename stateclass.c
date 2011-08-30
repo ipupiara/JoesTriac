@@ -190,14 +190,14 @@ void entryCalibrateZeroSignalState(void)
 //	printf("entry I\n");
 	displayCalibrateZeroPotiPos();
 	stableZeroAdjReached = 0;
-	resetZeroAdj();
-	setDiffADC();
+//	resetZeroAdj();
+//	setDiffADC();
 }
 
 void exitCalibrateZeroSignalState(void)
 {
 //	printf("exit I\n");
-	closeDiffADC();
+//	closeDiffADC();
 }
 
 uStInt checkCalibZeroInner(uStInt res)
@@ -235,15 +235,10 @@ uStInt evCalibrateZeroSignalChecker(void)
 	
 	if (currentEvent->evType == evSecondsTick) 
 	{	
-		startSingleADC();
+//		startSingleADC();
 	
-		res =  uStIntHandlingDone;
-	}
-
-	if (currentEvent->evType == evAdcTick) 
-	{	
 		persistentZeroAdjStep();
-		displayADCVoltageNPotiPos();
+		displayPotiPos();
 	
 		res =  uStIntHandlingDone;
 	}
@@ -403,14 +398,15 @@ void entryTriacIdleState(void)
 //	printf("entry I\n");
 //	debugEvent1Triggered = 1;
 	startDurationTimer(maxSecsPossible);   // enable secondsTick
-	setDiffADC();
+	onEntryIdle();
+//	setDiffADC();
 }
 
 void exitTriacIdleState(void)
 {
 //	printf("exit I\n");
 	stopDurationTimer();
-	closeDiffADC();
+//	closeDiffADC();
 
 	clr_scr();
 }
@@ -434,12 +430,9 @@ uStInt evTriacIdleChecker(void)
 	}
 	if (currentEvent->evType == evSecondsTick) 
 	{	
-		startSingleADC();
-		res =  uStIntHandlingDone;
-	}
-	if (currentEvent->evType == evAdcTick) 
-	{	
-		onIdleAdcTick();
+//		startSingleADC();
+	
+		onIdleSecondTick();
 		res =  uStIntHandlingDone;
 	}
 	return res;

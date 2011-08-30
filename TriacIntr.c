@@ -200,10 +200,9 @@ void initInterrupts()
 		DDRD |= 0x10;			// set Portd pin 04 be Triac output
 		PORTD &= ~0x10; 		// and initialize with 0-value
 		
-
-
 		DDRD &= ~0x04;		// set PortD pin 2 as input for trigger Ext Int 0
-		PORTD &=  ~0x04;   // without pulldown 
+		PORTD &=  ~0x04;   // without pullup 
+
 	  EICRA = 0x01;   // both, fall/rise edge trigger    
       EIMSK = 0x00;   
 	  
@@ -298,9 +297,12 @@ void closeAmpsADC()
 
 }
 
+/*
+
 void setDiffADC()
 {
 		PORTA  |= 0x10;        //  open signal relais, signal need to be within protection diode range 
+
 		ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE	
 		adcTick = 0;
 		adcCnt = 0;
@@ -316,9 +318,11 @@ void setDiffADC()
 		ADCSRB = 0x00;
 }
 
+
 void closeDiffADC()
 {
 	PORTA &= ~0x10;  // close signal relais to prevent signal cut off by protection diode
+
 	ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE	
 
 }
@@ -327,6 +331,8 @@ void startSingleADC()
 {
 	ADCSRA |=  0b01000000;
 }
+
+*/
 
 void startTriacRun()
 {

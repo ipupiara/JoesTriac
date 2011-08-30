@@ -53,7 +53,7 @@ void initUI();
 
 void displayDebugVoltageNTriggerDelay();
 
-void displayADCVoltageNPotiPos();
+void displayPotiPos();
 
 void displayCalibrateZeroPotiPos();
 

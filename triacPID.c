@@ -97,7 +97,9 @@ void errorPotiPosExceeded()
 }
 
 void volatileZeroAdjStep()
-{	double volts;
+{
+/*
+	double volts;
 	volts = adcVoltage();
    	if (volts > 3E-3) {		
 		if (zeroPotiPos > 0)  {
@@ -114,13 +116,15 @@ void volatileZeroAdjStep()
 			}
 		}
 	}
+	*/
 }
 
 int8_t stableStepsCnt;
 
 
 void persistentZeroAdjStep()
-{	double volts;
+{	
+/*	double volts;
 	volts = adcVoltage();
    	if (volts > 3E-3) {	
 		stableStepsCnt = 0;	
@@ -144,12 +148,13 @@ void persistentZeroAdjStep()
 	if ( stableStepsCnt > 30) {
 		stableZeroAdjReached = 1;
 	}
+	*/
 }
 
 
 void resetZeroAdj()
 {
-	int i1;
+/*	int i1;
 
 	setPotiCS(1);
 	setPotiUp(1);
@@ -171,7 +176,7 @@ void resetZeroAdj()
 	setPotiCS(0);	
 	storeZeroPotiPos(0x00);    //down on zero, debug stop
 
-
+*/
 }
 
 
@@ -223,14 +228,14 @@ before a first offsetadjust can be done due to ammeter fall - down time
 
 else start whenever count reaches max, even though the count is not set on reentering
 idle state and will then have just any value
-
+*/
 void onEntryIdle()
 {
-	idleTickCnt = maxIdleTickCnt - 5;
+	idleTickCnt = 1;
 }
-*/
 
-void onIdleAdcTick()
+
+void onIdleSecondTick()
 {
 	if (idleTickCnt == 0) {
 //		adjust sensor offset

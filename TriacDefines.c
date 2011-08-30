@@ -156,7 +156,7 @@ void restorePersistentData()
 	calibHighADC = eeprom_read_word((uint16_t*) calibHighAdcEEPROMpos);
 	if (calibHighADC == 0xFFFF) calibHighADC = 0x0000;   
 	calibLowTriggerDelay = eeprom_read_word((uint16_t*) calibLowTriggerDelayEEPROMpos);
-	printf("\nrestore calibLowTD %x \n",calibLowTriggerDelay);
+//	printf("\nrestore calibLowTD %x \n",calibLowTriggerDelay);
 	if (calibLowTriggerDelay == 0xFFFF) calibLowTriggerDelay = 0x0000;
 	calibHighTriggerDelay = eeprom_read_word((uint16_t*) calibHighTriggerDelayEEPROMpos);
 	if (calibHighTriggerDelay == 0xFFFF) calibHighTriggerDelay = 0x0000;

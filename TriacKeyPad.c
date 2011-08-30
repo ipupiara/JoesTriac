@@ -22,8 +22,10 @@ int8_t lastCharPressed;
 #else
 
 	#define keyPort PORTC
+	#define KeyPortOut2  PORTA
 	#define keyPin PINC
 	#define keyDDR  DDRC
+	#define keyDDROut2   DDRA
 	#define IntrMsk  PCMSK2
 	#define PCICRPos  2
 	#define PCINTVECT  PCINT2_vect   
@@ -40,6 +42,7 @@ int8_t getKeypadState()
 	ch = 0x00;
 	chr = 0x00;
 	keyPort = 0b00000010;  
+//	KeyPortOut2  = 0b00000010;  
 	delay6pnt2d5us(keypadSignalDelayFaktor);
 	// delay6pnt2d5us(2);
 	if ((ch=keyPin & 0xF0)){
@@ -65,6 +68,7 @@ int8_t getKeypadState()
 					if (ch & 0b00010000) chr = kp6;		
 				}  else {
 					keyPort = 0b00000001; 
+//					keyPortOut2 =  = 0b00000001; 
 					delay6pnt2d5us(keypadSignalDelayFaktor);
 					if ((ch=keyPin & 0xF0)){
 						if (ch & 0b10000000) chr = kpStart;
@@ -87,7 +91,12 @@ void initKeyPad()
 	lastValueZero = 1;
 
 	keyDDR = 0x0F;  // lower four pins as output, higher as Input , resp. Interrupt sources
-	keyPort = 0x0F;  // set lower four pins high	
+//	keyDDR  = 0x0C;
+//	keyDDROut2 = 0x03;
+
+	keyPort = 0x0F;  // set lower four pins high
+//	keyPort = 0x0C;  // set upper2 of lower four pins high
+//	KeyPortOut2	 = 0x03;
 	
 	// init PCInt 1 on Port B, 2 on C 
 	IntrMsk = 0xF0;  // higher  4 pins will cause interrupt, upper 4 used as output for scanning keyPad
@@ -112,6 +121,10 @@ ISR(PCINTVECT)
 	}
 	
 	keyPort = 0x0F;
+
+//	keyPort = 0x0C;  // set upper2 of lower four pins high
+//	KeyPortOut2	 = 0x03;
+
 	delayEmptyProc ();
 	PCIFR = 0x00;
 	IntrMsk = 0xF0;
