@@ -236,6 +236,13 @@ void twi_start_tx(u8_t adr, u8_t *data, u8_t bytes_to_send)
     TWCR = (1<<TWINT)|(0<<TWEA)|(1<<TWSTA)|(0<<TWSTO)|(0<<TWWC)|(1<<TWEN)|(1<<TWIE);
 }
 
+void twi_synchronous_tx(u8_t adr, u8_t *data, u8_t bytes_to_send)
+{
+	twi_start_tx(adr, data, bytes_to_send);
+	while (! twiDataSent) {
+	}
+}
+
 void twi_start_rx(u8_t adr, u8_t *data, u8_t bytes_to_receive)
 {
 

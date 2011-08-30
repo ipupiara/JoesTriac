@@ -2,14 +2,23 @@
 #include <stdio.h>
 #include <avr/interrupt.h>
 #include <util/atomic.h>
+#include <avr/eeprom.h>
 #include "i2c-slave.h"
+
+
+
+#define zeroPotiPosEEPROMpos                0   // unit8
+
+
 
 int8_t runningSecondsTick;
 int8_t adcTick;
 
 
 
-int8_t zeroPotiPos;
+int8_t* p_zeroPotiPos;
+float* p_voltage;
+int8_t* p_jobState;
 //int8_t currentJobState;
 
 enum jobStates 
@@ -61,16 +70,25 @@ void setPotiUp(int8_t up)
 }
 
 
+
+
+void storeZeroPotiPos(int8_t val)
+{
+	*p_zeroPotiPos = val;
+	eeprom_write_byte((uint8_t *) zeroPotiPosEEPROMpos, *p_zeroPotiPos);
+}
+
+
 void zeroPotiPosUpPersistent(int8_t up, int8_t persistent)
 {
 //	if ((zeroPotiPos > 0) && (zeroPotiPos < 100) ) { checked by caller
 		setPotiCS(1);
 		if (up) {
 			setPotiUp(1);
-			++ zeroPotiPos;
+			++ *p_zeroPotiPos;
 		} else {
 			setPotiUp(0);
-			-- zeroPotiPos;
+			-- *p_zeroPotiPos;
 		}
 		setPotiINC(1);
 		if (persistent) {
@@ -78,7 +96,7 @@ void zeroPotiPosUpPersistent(int8_t up, int8_t persistent)
 		}
 		setPotiCS(0);
 		if (persistent) {
-//			storeZeroPotiPos(zeroPotiPos);
+			storeZeroPotiPos(*p_zeroPotiPos);
 		} else {
 			setPotiINC(0);
 		}
@@ -232,11 +250,24 @@ void initHW()
 
 }
 
+void initPID()
+{
+	p_zeroPotiPos = (int8_t*) (&i2c_rdbuf[0]);
+	p_voltage    =  (float*) (&i2c_rdbuf[1]);
+	p_jobState =(int8_t*) (&i2c_rdbuf[5]);
+
+	*p_zeroPotiPos = eeprom_read_byte((uint8_t*)zeroPotiPosEEPROMpos);	
+	if ((*p_zeroPotiPos < 0x00) || (*p_zeroPotiPos > 100)) { storeZeroPotiPos(0x00);}   
+
+
+}
+
 
 
 
 int main(void)
 {
+	initPID();
 	initHW();
 	i2c_initialize (0x10);
 

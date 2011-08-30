@@ -193,10 +193,10 @@ i2c_reply_ready(void)
 {
     cli();
     if (usi_state & USI_MasterRead) {
-	sei();
-	return 0;
+		sei();
+		return 0;
     }
-    return 1;
+    return 1;  // pn 30. Aug 2011, and then left under cli() without any sei() ??
 }
 
 /****************************************************************************
@@ -264,14 +264,23 @@ SIGNAL(USI_OVF_vect)
 		uint8_t addr = USIDR;
 		if (addr == 0 || (addr & ~1) == i2c_address) {	// global address or matching
 		    if (addr & 1) {				// master read mode?
-				if (i2c_rdlen == 0)			// abort if buffer empty
-				    goto abort;
+//				if (i2c_rdlen == 0)			// abort if buffer empty
+//				    goto abort;
+
+				i2c_rdlen = 6;  // pn 30.aug 11  set this here, always the same message sent
+
 				i2c_rdptr = 0;
 				usi_state = USI_SendData;
 			 } else {					// master write mode
-				if (i2c_wrlen != 0)			// abort if buffer full
-				    goto abort;
-				i2c_rdlen = 0;				// ignore subsequent master reads
+
+
+				i2c_wrlen = 0;  // do this reset here, it is always the same message received 
+//				if (i2c_wrlen != 0)			// abort if buffer full
+//				    goto abort;
+// pn 30.aug 11 all this is not needed in our application
+//					i2c_rdlen = 0;				// ignore subsequent master reads
+
+
 				usi_state = USI_RequestData;
 		 	 }
 		    USIDR = 0;					// ACK = send 1 bit low
@@ -325,6 +334,11 @@ SIGNAL(USI_OVF_vect)
 		if (i2c_wrlen >= I2C_WRSIZE)			// abort on overflow
 		    goto abort;
 		i2c_wrbuf[i2c_wrlen++] = USIDR;
+
+		i2c_rdbuf[5]  = USIDR;  // PN 30. Aug 2011 do this jobState changde synchronous while msg is sent
+								// just application specific, but ok for a small mcu unit application
+		
+
 		USIDR = 0;					// ACK = send 1 bit low
 
 		setTransmit(1);
