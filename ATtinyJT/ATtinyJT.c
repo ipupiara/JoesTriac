@@ -3,6 +3,7 @@
 #include <avr/interrupt.h>
 #include <util/atomic.h>
 #include <avr/eeprom.h>
+#include "ATtinyjt.h"
 #include "i2c-slave.h"
 
 
@@ -15,7 +16,6 @@ int8_t runningSecondsTick;
 int8_t adcTick;
 
 int8_t stableStepsCnt;
-int8_t stableZeroAdjReached;
 
 int8_t firstPersistentStepDone;
 
@@ -27,7 +27,7 @@ int8_t* p_jobState;
 
 enum zeroAdjustJobStates 
 {
-	idle,
+	jobIdle,
 	persistentZeroAdjust,
 	volatileZeroAdjust,
 	fatalError	
@@ -69,15 +69,22 @@ int16_t diffADCValue()
 	return res;
 }
 
-double adcVoltage()
+float adcVoltage()
 {
 	int16_t VHex;
-	double   VFl;
+	float   VFl;
 
 	VFl = 0.0;
 
 	VHex = diffADCValue();
 	VFl =  (VHex * 1.1) / (1.0 * 0x200);
+
+	cli();  // dont change voltage while interrupt happens (4 byte variable)
+
+	*p_voltage = VFl;
+
+	sei();
+	
 
 	return VFl;
 
@@ -156,7 +163,7 @@ void errorPotiPosExceeded()
 void volatileZeroAdjStep()
 {
 
-	double volts;
+	float volts;
 	volts = adcVoltage();
    	if (volts > 3E-3) {		
 		if (*p_zeroPotiPos > 0)  {
@@ -176,15 +183,14 @@ void volatileZeroAdjStep()
 	
 }
 
-
-
 void persistentZeroAdjStep()
 {	
-	double volts;
+	float volts;
 	volts = adcVoltage();
    	if (volts > 3E-3) {	
 		stableStepsCnt = 0;	
-		if (*p_zeroPotiPos > 0)  {
+		if (*p_zeroPotiPos > 0)  { 
+			if (*p_jobState == persistentZeroAdjust) // job might have changed meanwhile
 			zeroPotiPosUpPersistent(0,1);
 		} else {
 			errorPotiPosExceeded();
@@ -192,7 +198,8 @@ void persistentZeroAdjStep()
 	} else { 
 		if (volts < -3E-3) {
 			stableStepsCnt = 0;
-			if (*p_zeroPotiPos < 100) {
+			if (*p_zeroPotiPos < 100 ) {
+			if (*p_jobState == persistentZeroAdjust) // job might have changed meanwhile
 				zeroPotiPosUpPersistent(1,1);
 			} else {
 				errorPotiPosExceeded();
@@ -202,7 +209,7 @@ void persistentZeroAdjStep()
 		}
 	}
 	if ( stableStepsCnt > 30) {
-		stableZeroAdjReached = 1;
+		*p_jobState = jobIdle;
 	}	
 }
 
@@ -266,19 +273,20 @@ void initHW()
 	TCCR1B = 0b00001101  ; // CTC on CC1A , set clk / 24, timer started 
 
 
-		ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE	
+		ADCSRA = (0x0 ||(1<<ADPS2) || (1<< ADPS1) || (1<< ADPS1));
+//		ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE	
 		adcTick = 0;
 
-		ADMUX = 0b11001101;      // 2.56V as ref,  right adjust, mux to diff adc3, adc2
-//		ADCSRA = 0b10101111;  
+		ADMUX = 0b11001101;      // 2.56V as ref,  right adjust, mux to diff adc3, adc2 
 								// int ena, prescale /128
 								// ADC clock will run at 86400 hz, or max 6646. read per sec,what is ok
 								// for our settings of 42. read per sec	
-//		ADCSRB = 0x03;  // no ACME, trigger ADC on Timer0 compare match
 
-		ADCSRA = 0b10001111;    // adc ena, no auto trigger, prescale 128
+		ADCSRA |= ((1<< ADEN) || (1<< ADIE));
 		ADCSRB = 0x00;
 
+		lastAmpsADCVal = 0;
+		adcTick = 0;
 
 		sei();
 }
@@ -300,13 +308,10 @@ void onADCTick()
 		if (!firstPersistentStepDone) {
 			resetZeroAdj();
 			firstPersistentStepDone = 1;
-		}
-		persistentZeroAdjStep();
-		
-	}  else {
-		firstPersistentStepDone = 0;
-		stableZeroAdjReached = 0;
-	}
+		} else {
+			persistentZeroAdjStep();
+		}		
+	}  
 	
 }
 
@@ -320,10 +325,24 @@ void initPID()
 
 	*p_zeroPotiPos = eeprom_read_byte((uint8_t*)zeroPotiPosEEPROMpos);	
 	if ((*p_zeroPotiPos < 0x00) || (*p_zeroPotiPos > 100)) { storeZeroPotiPos(0x00);}   
+
+	*p_voltage = 0.0;
+	*p_jobState = jobIdle;
 	 
 	stableStepsCnt = 0;
-	stableZeroAdjReached = 0;
 	firstPersistentStepDone = 0;
+}
+
+
+void byteReceived(int8_t jS)
+{	
+	if (* p_jobState != fatalError) {
+		if (jS == persistentZeroAdjust) {
+			firstPersistentStepDone = 0;
+			stableStepsCnt = 0;
+		}
+		* p_jobState = jS;
+	}
 }
 
 

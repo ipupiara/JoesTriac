@@ -11,6 +11,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "i2c-slave.h"
+#include "ATtinyjt.h"
 
 #define DEBUG 0
 
@@ -196,7 +197,7 @@ i2c_reply_ready(void)
 		sei();
 		return 0;
     }
-    return 1;  // pn 30. Aug 2011, and then left under cli() without any sei() ??
+    return 1;  // pn 30. Aug 2011, and then left done cli() without any sei() ??
 }
 
 /****************************************************************************
@@ -335,8 +336,8 @@ SIGNAL(USI_OVF_vect)
 		    goto abort;
 		i2c_wrbuf[i2c_wrlen++] = USIDR;
 
-		i2c_rdbuf[5]  = USIDR;  // PN 30. Aug 2011 do this jobState changde synchronous while msg is sent
-								// just application specific, but ok for a small mcu unit application
+		byteReceived(USIDR);  // PN 30. Aug 2011 do this synchronous while msg is still running
+								//  application specific, but ok for a small mcu unit application
 		
 
 		USIDR = 0;					// ACK = send 1 bit low
