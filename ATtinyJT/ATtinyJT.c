@@ -9,11 +9,15 @@
 
 #define zeroPotiPosEEPROMpos                0   // unit8
 
-
+int16_t lastAmpsADCVal;
 
 int8_t runningSecondsTick;
 int8_t adcTick;
 
+int8_t stableStepsCnt;
+int8_t stableZeroAdjReached;
+
+int8_t firstPersistentStepDone;
 
 
 int8_t* p_zeroPotiPos;
@@ -21,11 +25,11 @@ float* p_voltage;
 int8_t* p_jobState;
 //int8_t currentJobState;
 
-enum jobStates 
+enum zeroAdjustJobStates 
 {
 	idle,
 	persistentZeroAdjust,
-	transientZeroAdjust,
+	volatileZeroAdjust,
 	fatalError	
 };
 
@@ -36,10 +40,48 @@ ISR(TIM1_COMPA_vect)
 }
 
 
-void onRunningSecondsTick()
+
+int16_t ampsADCValue()
 {
+	int16_t res;
+	cli();
+	res = lastAmpsADCVal;
+	sei();
+//	printf("ampsADC %i ",lastAmpsADCVal);
+	return res;
 }
 
+int16_t  valueFrom6Bit2Complement(int16_t adcV)
+{
+	if (adcV & 0x0200) {
+		adcV--;
+		adcV = ~(adcV | 0xFC00);
+		adcV = - adcV;
+	}
+	return adcV;
+}
+
+int16_t diffADCValue()
+{  
+	int16_t res;
+	res = ampsADCValue();
+	res = valueFrom6Bit2Complement(res);
+	return res;
+}
+
+double adcVoltage()
+{
+	int16_t VHex;
+	double   VFl;
+
+	VFl = 0.0;
+
+	VHex = diffADCValue();
+	VFl =  (VHex * 1.1) / (1.0 * 0x200);
+
+	return VFl;
+
+}
 
 void setPotiCS(int8_t on)
 {
@@ -81,7 +123,7 @@ void storeZeroPotiPos(int8_t val)
 
 void zeroPotiPosUpPersistent(int8_t up, int8_t persistent)
 {
-//	if ((zeroPotiPos > 0) && (zeroPotiPos < 100) ) { checked by caller
+	if ((*p_zeroPotiPos > 0) && (*p_zeroPotiPos < 100) ) { 
 		setPotiCS(1);
 		if (up) {
 			setPotiUp(1);
@@ -101,48 +143,48 @@ void zeroPotiPosUpPersistent(int8_t up, int8_t persistent)
 			setPotiINC(0);
 		}
 		setPotiUp(0);
-//	}
+	}
 }
 
 
 void errorPotiPosExceeded()
 {
-//	sprintf((char *) &lastFatalErrorString,"out of 0 Pos");
-//	fatalErrorOccurred = 1;
+	*p_jobState = fatalError ;
+
 }
 
 void volatileZeroAdjStep()
 {
-/*
+
 	double volts;
 	volts = adcVoltage();
    	if (volts > 3E-3) {		
-		if (zeroPotiPos > 0)  {
+		if (*p_zeroPotiPos > 0)  {
 			zeroPotiPosUpPersistent(0, 0);
 		} else {
 			errorPotiPosExceeded();
 		}
 	} else { 
 		if (volts < -3E-3) {
-			if (zeroPotiPos < 100) {
+			if (*p_zeroPotiPos < 100) {
 				zeroPotiPosUpPersistent(1, 0);
 			} else {
 				errorPotiPosExceeded();
 			}
 		}
 	}
-	*/
+	
 }
 
 
 
 void persistentZeroAdjStep()
 {	
-/*	double volts;
+	double volts;
 	volts = adcVoltage();
    	if (volts > 3E-3) {	
 		stableStepsCnt = 0;	
-		if (zeroPotiPos > 0)  {
+		if (*p_zeroPotiPos > 0)  {
 			zeroPotiPosUpPersistent(0,1);
 		} else {
 			errorPotiPosExceeded();
@@ -150,7 +192,7 @@ void persistentZeroAdjStep()
 	} else { 
 		if (volts < -3E-3) {
 			stableStepsCnt = 0;
-			if (zeroPotiPos < 100) {
+			if (*p_zeroPotiPos < 100) {
 				zeroPotiPosUpPersistent(1,1);
 			} else {
 				errorPotiPosExceeded();
@@ -161,14 +203,13 @@ void persistentZeroAdjStep()
 	}
 	if ( stableStepsCnt > 30) {
 		stableZeroAdjReached = 1;
-	}
-	*/
+	}	
 }
 
 
 void resetZeroAdj()
 {
-/*	int i1;
+	int i1;
 
 	setPotiCS(1);
 	setPotiUp(1);
@@ -189,22 +230,16 @@ void resetZeroAdj()
 	}	
 	setPotiCS(0);	
 	storeZeroPotiPos(0x00);    //down on zero, debug stop
-
-*/
 }
-
 
 
 
 ISR(ADC_vect)
 {
-		adcTick = 1; 
+	lastAmpsADCVal = ADC;
+	adcTick = 1; 
 }
 
-
-void onADCTick()
-{
-}
 
 void initHW()
 {
@@ -243,12 +278,39 @@ void initHW()
 
 		ADCSRA = 0b10001111;    // adc ena, no auto trigger, prescale 128
 		ADCSRB = 0x00;
-		DIDR0 = 0x0F;			// disa digital input on a0..a3
+
 
 		sei();
-
-
 }
+
+
+
+void startSingleADC()
+{
+	ADCSRA |=  0b01000000;
+}
+
+
+void onADCTick()
+{
+	if (*p_jobState == volatileZeroAdjust) {
+		volatileZeroAdjStep();
+	}
+	if (*p_jobState == persistentZeroAdjust) {
+		if (!firstPersistentStepDone) {
+			resetZeroAdj();
+			firstPersistentStepDone = 1;
+		}
+		persistentZeroAdjStep();
+		
+	}  else {
+		firstPersistentStepDone = 0;
+		stableZeroAdjReached = 0;
+	}
+	
+}
+
+
 
 void initPID()
 {
@@ -258,11 +320,11 @@ void initPID()
 
 	*p_zeroPotiPos = eeprom_read_byte((uint8_t*)zeroPotiPosEEPROMpos);	
 	if ((*p_zeroPotiPos < 0x00) || (*p_zeroPotiPos > 100)) { storeZeroPotiPos(0x00);}   
-
-
+	 
+	stableStepsCnt = 0;
+	stableZeroAdjReached = 0;
+	firstPersistentStepDone = 0;
 }
-
-
 
 
 int main(void)
@@ -275,10 +337,11 @@ int main(void)
 
 		if (runningSecondsTick == 1) {
 			runningSecondsTick = 0;
-			onRunningSecondsTick();
+			startSingleADC();	
 		}
 		if (adcTick == 1)  {
-		  onADCTick();
+			adcTick = 0;
+		  	onADCTick();
 		}
 	
 	}
