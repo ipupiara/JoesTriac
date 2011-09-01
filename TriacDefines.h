@@ -114,6 +114,10 @@ enum zeroAdjustJobStates
 	jobIdle,
 	persistentZeroAdjust,
 	volatileZeroAdjust,
+	up10,
+	up1,
+	down10,
+	down1,
 	fatalError	
 };
 

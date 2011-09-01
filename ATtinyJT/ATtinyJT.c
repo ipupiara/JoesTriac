@@ -20,6 +20,8 @@ int8_t stableStepsCnt;
 int8_t firstPersistentStepDone;
 
 
+int8_t  extraJob;
+
 int8_t* p_zeroPotiPos;
 float* p_voltage;
 int8_t* p_jobState;
@@ -30,6 +32,10 @@ enum zeroAdjustJobStates
 	jobIdle,
 	persistentZeroAdjust,
 	volatileZeroAdjust,
+	up10,
+	up1,
+	down10,
+	down1,
 	fatalError	
 };
 
@@ -152,6 +158,23 @@ void zeroPotiPosUpPersistent(int8_t up, int8_t persistent)
 		setPotiUp(0);
 	}
 }
+
+
+
+
+
+// use this method only during initial program test. Otherwise it might kill the digital poti (ds1804)
+
+void volatilePotiUpAmt(int8_t  up, int8_t amt)
+{
+	int8_t  cnt;
+	for (cnt = 0; cnt < amt; ++cnt)
+	{
+		zeroPotiPosUpPersistent(up, 0);	
+	}
+}
+
+
 
 
 void errorPotiPosExceeded()
@@ -293,9 +316,9 @@ void initHW()
 
 
 
-void startSingleADC()
-{
-	ADCSRA |=  0b01000000;
+void onSecondTick()
+{	
+	ADCSRA |= (1<< ADSC);
 }
 
 
@@ -328,6 +351,7 @@ void initPID()
 
 	*p_voltage = 0.0;
 	*p_jobState = jobIdle;
+	extraJob = jobIdle;
 	 
 	stableStepsCnt = 0;
 	firstPersistentStepDone = 0;
@@ -339,12 +363,16 @@ void initPID()
 
 void byteReceived(int8_t jS)
 {	
-	if (* p_jobState != fatalError) {
-		if (jS == persistentZeroAdjust) {
-			firstPersistentStepDone = 0;
-			stableStepsCnt = 0;
+	if ((jS == up1)  ||  (jS == up10)||  (jS == down1)||  (jS == down10)) {
+		extraJob = jS;
+	} else {
+		if (* p_jobState != fatalError) {
+			if (jS == persistentZeroAdjust) {
+				firstPersistentStepDone = 0;
+				stableStepsCnt = 0;
+			}
+			* p_jobState = jS;
 		}
-		* p_jobState = jS;
 	}
 }
 
@@ -357,9 +385,22 @@ int main(void)
 
 	while(1) {
 
+		if (extraJob == up1)  {
+			volatilePotiUpAmt(1,1);
+		}
+		if (extraJob == up10)  {
+			volatilePotiUpAmt(1,10);
+		}
+		if (extraJob == down1)  {
+			volatilePotiUpAmt(0,1);
+		}
+		if (extraJob == down10)  {
+			volatilePotiUpAmt(0,10);
+		}
+		extraJob = jobIdle;
 		if (runningSecondsTick == 1) {
 			runningSecondsTick = 0;
-			startSingleADC();	
+				onSecondTick();	
 		}
 		if (adcTick == 1)  {
 			adcTick = 0;

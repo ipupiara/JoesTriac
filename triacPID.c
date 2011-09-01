@@ -226,7 +226,7 @@ void zeroAdjTest()
 uint8_t  sendMessageBuffer [4];
 uint8_t  receiveMessageBuffer[8];
 
-void sendStartZeroAdjustMsg(int8_t jobS)
+void sendZeroAdjustMsg(int8_t jobS)
 {
 
 	memset(sendMessageBuffer,0,sizeof(sendMessageBuffer));
