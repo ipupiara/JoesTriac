@@ -99,6 +99,8 @@ int main(void)
 		}
 		if (twiDataReceived ==  1) {
 			twiDataReceived = 0;
+			ev.evType = evTWIDataReceived;
+			processTriacEvent(&SJoesTriacStateChart,&ev);	
 		}
 		if (twiDataSent ==  1) {
 			twiDataSent = 0;

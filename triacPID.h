@@ -14,11 +14,13 @@ typedef double real;
 							// eg. 20 means approx 2 per second, 80 means 1 all 2 seconds
 
 
+float zeroAdjustDiffVoltage;
+
 void InitPID();
 
 void resetPID();
 
-void resetZeroAdj();
+//void resetZeroAdj();
 
 void onEntryIdle();
 
@@ -49,6 +51,10 @@ void storeCalibHighAdc(uint16_t ch);
 */
 
 //void onIdleAdcTick();
+
+void checkTWIZeroAdjustMsg();
+
+void sendStartZeroAdjustMsg(int8_t jobS);
 
 void persistentZeroAdjStep();
 

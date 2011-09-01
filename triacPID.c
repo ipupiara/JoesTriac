@@ -1,10 +1,12 @@
 #include <avr/io.h>
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
 #include <avr/eeprom.h>
 #include "triacPID.h"
 #include "TriacDefines.h"
 #include "TriacIntr.h"
+#include "TWI_master.h"
 
 //#define printfPid
 #define printfAmps
@@ -34,7 +36,7 @@ uint8_t idleTickCnt;
 
 //  code to adjust zero-offset of current sensor
 
-
+/*
 void setPotiCS(int8_t on)
 {
 	if (on) {
@@ -98,7 +100,7 @@ void errorPotiPosExceeded()
 
 void volatileZeroAdjStep()
 {
-/*
+
 	double volts;
 	volts = adcVoltage();
    	if (volts > 3E-3) {		
@@ -116,15 +118,15 @@ void volatileZeroAdjStep()
 			}
 		}
 	}
-	*/
+	
 }
 
 int8_t stableStepsCnt;
-
-
+*/
+/*
 void persistentZeroAdjStep()
 {	
-/*	double volts;
+	double volts;
 	volts = adcVoltage();
    	if (volts > 3E-3) {	
 		stableStepsCnt = 0;	
@@ -148,13 +150,15 @@ void persistentZeroAdjStep()
 	if ( stableStepsCnt > 30) {
 		stableZeroAdjReached = 1;
 	}
-	*/
-}
+*/	
+//}
 
 
+
+/*
 void resetZeroAdj()
 {
-/*	int i1;
+	int i1;
 
 	setPotiCS(1);
 	setPotiUp(1);
@@ -176,9 +180,9 @@ void resetZeroAdj()
 	setPotiCS(0);	
 	storeZeroPotiPos(0x00);    //down on zero, debug stop
 
-*/
-}
 
+}
+*/
 
 /*
 void zeroAdjTest()
@@ -219,6 +223,41 @@ void zeroAdjTest()
 }
 */
 
+uint8_t  sendMessageBuffer [4];
+uint8_t  receiveMessageBuffer[8];
+
+void sendStartZeroAdjustMsg(int8_t jobS)
+{
+
+	memset(sendMessageBuffer,0,sizeof(sendMessageBuffer));
+	sendMessageBuffer[0] = jobS;
+	twi_synchronous_tx(0x10, (uint8_t *) &sendMessageBuffer, 1);
+}
+
+void persistentZeroAdjStep()
+{
+	memset(receiveMessageBuffer,0,sizeof(receiveMessageBuffer));
+	twi_start_rx(0x10, (uint8_t *) &receiveMessageBuffer, 6);	
+}
+
+void checkTWIZeroAdjustMsg()
+{   
+	int8_t  jobS;
+
+	zeroPotiPos = receiveMessageBuffer[0];
+	zeroAdjustDiffVoltage = (float) receiveMessageBuffer[1];
+	jobS =  receiveMessageBuffer[6];
+	if (jobS == jobIdle) {
+		stableZeroAdjReached = 1;
+	}
+	if (jobS == fatalError) {
+//		sprintf((char *) &lastFatalErrorString,"out of 0 Pos");
+		fatalErrorOccurred = 1;		
+	}
+}
+
+
+
 #define maxIdleTickCnt  5
 
 /*
@@ -237,12 +276,12 @@ void onEntryIdle()
 
 void onIdleSecondTick()
 {
-	if (idleTickCnt == 0) {
+/*	if (idleTickCnt == 0) {
 //		adjust sensor offset
 		volatileZeroAdjStep();
 	}
 	++ idleTickCnt;
-	if (idleTickCnt > maxIdleTickCnt) idleTickCnt = 0;
+	if (idleTickCnt > maxIdleTickCnt) idleTickCnt = 0;  */
 }
 
 void InitializePID(real kpTot, real ki, real kd, real error_thresh, real step_time)
@@ -356,11 +395,11 @@ void InitPID()
 {
 //	InitializePID(real kpTot, real ki, real kd, real error_thresh, real step_time);   
 	InitializePID(-0.5, 0.2, 0.13, 5, (pidStepDelays/42.18));
-	stableStepsCnt = 0;
+//	stableStepsCnt = 0;
 	stableZeroAdjReached = 0;
-	setPotiCS(0);
-	setPotiINC(0);
-	setPotiUp(0);
+//	setPotiCS(0);
+//	setPotiINC(0);
+//	setPotiUp(0);
 }
 
 

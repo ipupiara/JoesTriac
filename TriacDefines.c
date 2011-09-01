@@ -119,13 +119,13 @@ void storeCalibHighTriggerDelay()
 	calibHighTriggerDelay = triacTriggerDelayCms;
 	eeprom_write_word((uint16_t *) calibHighTriggerDelayEEPROMpos, calibHighTriggerDelay);
 }
-
+/*
 void storeZeroPotiPos(int8_t val)
 {
 	zeroPotiPos = val;
 	eeprom_write_byte((uint8_t *) zeroPotiPosEEPROMpos, zeroPotiPos);
 }
-
+*/
 
 void storeAmpsInputPin(int8_t val)
 {
@@ -160,8 +160,8 @@ void restorePersistentData()
 	if (calibLowTriggerDelay == 0xFFFF) calibLowTriggerDelay = 0x0000;
 	calibHighTriggerDelay = eeprom_read_word((uint16_t*) calibHighTriggerDelayEEPROMpos);
 	if (calibHighTriggerDelay == 0xFFFF) calibHighTriggerDelay = 0x0000;
-	zeroPotiPos = eeprom_read_byte((uint8_t*)zeroPotiPosEEPROMpos);	
-	if ((zeroPotiPos < 0x00) || (zeroPotiPos > 100)) { storeZeroPotiPos(0x00);}   
+//	zeroPotiPos = eeprom_read_byte((uint8_t*)zeroPotiPosEEPROMpos);	
+//	if ((zeroPotiPos < 0x00) || (zeroPotiPos > 100)) { storeZeroPotiPos(0x00);}   
 	ampsInputPin = eeprom_read_byte((uint8_t*)ampsInputPinEEPROMpos);	
 	if ( (ampsInputPin < 0x00) || (ampsInputPin > 0x01)) { storeAmpsInputPin(0x00);}   
 

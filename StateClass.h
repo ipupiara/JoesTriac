@@ -22,15 +22,8 @@ enum eEventTypes
 	evStopPressed,
 	evZeroSignalOK,
 	evAdcTick,
+	evTWIDataReceived,
 	evFatalError
-};
-
-enum jobStates 
-{
-	idle,
-	persistentZeroAdjust,
-	transientZeroAdjust,
-	fatalError	
 };
 
 
@@ -38,8 +31,8 @@ typedef struct  {
 	int evType;
 	union {
 		int8_t keyCode;
-		struct {
-			float   voltage;
+		struct {			// currently not in use
+			float   voltage;  
 			int8_t  potiPos;
 			int8_t  jobType;
 		} zeroAdjustingState;

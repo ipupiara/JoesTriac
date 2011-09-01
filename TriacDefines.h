@@ -29,7 +29,7 @@
 	#define calibHighAdcEEPROMpos  13   // both uint16
 	#define calibLowTriggerDelayEEPROMpos   15
 	#define calibHighTriggerDelayEEPROMpos   17   // both uint16
-	#define zeroPotiPosEEPROMpos                19   // unit8
+//	#define zeroPotiPosEEPROMpos                19   // unit8  (obsolete, leaf place free )
 	#define ampsInputPinEEPROMpos         20     // uint8
 
 	#define calibLowAmps        20
@@ -103,12 +103,18 @@ void storeCalibLowTriggerDelay();
 
 void storeCalibHighTriggerDelay();
 
-void storeZeroPotiPos(int8_t val);
+//void storeZeroPotiPos(int8_t val);
 
 void storeAmpsInputPin(int8_t val);
 
 void restorePersistentData();
 
-
+enum zeroAdjustJobStates 
+{
+	jobIdle,
+	persistentZeroAdjust,
+	volatileZeroAdjust,
+	fatalError	
+};
 
 #endif

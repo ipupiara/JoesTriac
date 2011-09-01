@@ -190,12 +190,15 @@ void entryCalibrateZeroSignalState(void)
 //	printf("entry I\n");
 	displayCalibrateZeroPotiPos();
 	stableZeroAdjReached = 0;
+	sendStartZeroAdjustMsg(persistentZeroAdjust);
 //	resetZeroAdj();
 //	setDiffADC();
 }
 
 void exitCalibrateZeroSignalState(void)
 {
+
+	sendStartZeroAdjustMsg(jobIdle);
 //	printf("exit I\n");
 //	closeDiffADC();
 }
@@ -215,6 +218,12 @@ uStInt checkCalibZeroInner(uStInt res)
 		res =  uStIntHandlingDone;
 		
 	}
+
+	if (currentEvent->evType == evNumPressed) 
+	{				
+		checkTWIZeroAdjustMsg();
+	}
+
 	// check if abvove still crashes,  
 	return res;
 }

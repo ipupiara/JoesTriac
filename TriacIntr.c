@@ -105,10 +105,6 @@ ISR(TIMER2_COMPA_vect)
 {
 	cli();
 
-//	++phaseCount;
-//	PORTA &= ~0x3C;
-//	PORTA |= (1 << (1 + phaseCount));
-
 	if (remainingTriacTriggerDelayCounts == 0) {
 
 		TCCR2B = 0b00000000  ;  // CTC, timer stopped
@@ -136,28 +132,15 @@ ISR(ADC_vect)
 	++ adcCnt;
 
 
-/*
-see the confusing text of chapter 20.5 "Prescaling and Conversion Timing"
-in the  AVR 16/32/64 datasheet ("8011O–AVR–07/10"):
-
-By disabling and then re-enabling the
-ADC between each conversion (writing ADEN in ADCSRA to “0” then to “1”), 
-only extended conversions
-are performed. The result from the extended conversions will be valid.
-
-*/
-		ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE	
-		ADCSRA = 0b10101111;   // ena    
-
-	if (ADMUX == 0b11001101) {
-		adcTick = 1; 
-	} else {
+//	if (ADMUX == 0b11001101) {         //  diff Voltage
+//		adcTick = 1; 
+//	} else {
 		if (adcCnt == pidStepDelays)  {     
 			adcCnt = 0;
 			adcTick = 1;
 		}
 	
-	}
+//	}
 }
 
 ISR(INT0_vect)
@@ -361,7 +344,7 @@ int16_t ampsADCValue()
 //	printf("ampsADC %i ",lastAmpsADCVal);
 	return res;
 }
-
+/*
 int16_t  valueFrom6Bit2Complement(int16_t adcV)
 {
 	if (adcV & 0x0200) {
@@ -379,7 +362,7 @@ int16_t diffADCValue()
 	res = valueFrom6Bit2Complement(res);
 	return res;
 }
-
+*/
 double adcVoltage()
 {
 	int16_t VHex;
@@ -387,13 +370,13 @@ double adcVoltage()
 
 	VFl = 0.0;
 
-	if (ADMUX == 0b11001101) {
+/*	if (ADMUX == 0b11001101) {
 		VHex = diffADCValue();
 		VFl =  (VHex * 2.56) / (10.0 * 0x200);
-	} else {
+	} else { */
 		VHex = ampsADCValue();
 		VFl = (VHex * 5.0) / 0x03FF;
-	}
+//	}
 	
 	return VFl;
 

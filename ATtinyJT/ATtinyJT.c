@@ -331,6 +331,9 @@ void initPID()
 	 
 	stableStepsCnt = 0;
 	firstPersistentStepDone = 0;
+	setPotiCS(0);
+	setPotiINC(0);
+	setPotiUp(0);
 }
 
 
