@@ -25,6 +25,7 @@ int8_t  extraJob;
 int8_t* p_zeroPotiPos;
 float* p_voltage;
 int8_t* p_jobState;
+int8_t  prevJobState;
 //int8_t currentJobState;
 
 enum zeroAdjustJobStates 
@@ -159,7 +160,19 @@ void zeroPotiPosUpPersistent(int8_t up, int8_t persistent)
 	}
 }
 
+void storePotiPos()  // one should not make too much (only 50000 possible) EEPROM storages
+{
 
+		setPotiINC(1);		  // to be tested which oone
+
+		setPotiCS(1);
+
+//		setPotiINC(1);   // to be tested which oone
+
+		setPotiINC(0);
+		setPotiCS(0);
+		storeZeroPotiPos(*p_zeroPotiPos);
+}
 
 
 
@@ -214,7 +227,8 @@ void persistentZeroAdjStep()
 		stableStepsCnt = 0;	
 		if (*p_zeroPotiPos > 0)  { 
 			if (*p_jobState == persistentZeroAdjust) // job might have changed meanwhile
-			zeroPotiPosUpPersistent(0,1);
+//			zeroPotiPosUpPersistent(0,1);
+			zeroPotiPosUpPersistent(0,0);
 		} else {
 			errorPotiPosExceeded();
 		}
@@ -223,7 +237,8 @@ void persistentZeroAdjStep()
 			stableStepsCnt = 0;
 			if (*p_zeroPotiPos < 100 ) {
 			if (*p_jobState == persistentZeroAdjust) // job might have changed meanwhile
-				zeroPotiPosUpPersistent(1,1);
+//				zeroPotiPosUpPersistent(1,1);
+				zeroPotiPosUpPersistent(1,0);
 			} else {
 				errorPotiPosExceeded();
 			}
@@ -300,10 +315,8 @@ void initHW()
 //		ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE	
 		adcTick = 0;
 
-		ADMUX = 0b11001101;      // 2.56V as ref,  right adjust, mux to diff adc3, adc2 
-								// int ena, prescale /128
-								// ADC clock will run at 86400 hz, or max 6646. read per sec,what is ok
-								// for our settings of 42. read per sec	
+		ADMUX = (0x00 ||  (1<<REFS1) || (1<< MUX5) || (1<< MUX4)); // int ref 1.1V, ADC2 neg, ADC3 pos
+
 
 		ADCSRA |= ((1<< ADEN) || (1<< ADIE));
 		ADCSRB = 0x00;
@@ -351,6 +364,7 @@ void initPID()
 
 	*p_voltage = 0.0;
 	*p_jobState = jobIdle;
+	prevJobState = jobIdle;
 	extraJob = jobIdle;
 	 
 	stableStepsCnt = 0;
@@ -363,15 +377,18 @@ void initPID()
 
 void byteReceived(int8_t jS)
 {	
-	if ((jS == up1)  ||  (jS == up10)||  (jS == down1)||  (jS == down10)) {
-		extraJob = jS;
-	} else {
-		if (* p_jobState != fatalError) {
-			if (jS == persistentZeroAdjust) {
-				firstPersistentStepDone = 0;
-				stableStepsCnt = 0;
+	if (jS !=  *p_jobState) {
+		if ((jS == up1)  ||  (jS == up10)||  (jS == down1)||  (jS == down10)) {
+			extraJob = jS;
+		} else {
+			if (* p_jobState != fatalError) {
+				if (jS == persistentZeroAdjust) {
+					firstPersistentStepDone = 0;
+					stableStepsCnt = 0;
+				}
+				prevJobState = *p_jobState;
+				* p_jobState = jS;
 			}
-			* p_jobState = jS;
 		}
 	}
 }
@@ -398,6 +415,9 @@ int main(void)
 			volatilePotiUpAmt(0,10);
 		}
 		extraJob = jobIdle;
+		if (prevJobState == persistentZeroAdjust)  {
+			storePotiPos();
+		}
 		if (runningSecondsTick == 1) {
 			runningSecondsTick = 0;
 				onSecondTick();	
