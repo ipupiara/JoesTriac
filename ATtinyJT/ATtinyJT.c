@@ -100,9 +100,9 @@ float adcVoltage()
 void setPotiCS(int8_t on)
 {
 	if (on) {
-//		PORTA &= ~0x80;
+		PORTB &= ~0x02;
 	} else  {
-//		PORTA |= 0x80;
+		PORTB |= 0x02;
 	}
 }
 
@@ -110,18 +110,18 @@ void setPotiCS(int8_t on)
 void setPotiINC(int8_t on)
 {
 	if (on) {
-//		PORTA &= ~0x40;
+		PORTB &= ~0x04;
 	} else  {
-//		PORTA |= 0x40;
+		PORTB |= 0x04;
 	}
 }
 
 void setPotiUp(int8_t up)
 {
 	if (up) {
-//		PORTA &= ~0x20;
+		PORTB &= ~0x01;
 	} else  {
-//		PORTA |= 0x20;
+		PORTB |= 0x01;
 	}
 }
 
@@ -255,7 +255,7 @@ void persistentZeroAdjStep()
 void resetZeroAdj()
 {
 	int i1;
-
+/*
 	setPotiCS(1);
 	setPotiUp(1);
 	for (i1 = 0; i1 < 100; ++ i1) 
@@ -265,16 +265,18 @@ void resetZeroAdj()
 	}	
 	setPotiCS(0);	
 	storeZeroPotiPos(100);   // up on 100  , debug stop
-
+*/
 	setPotiCS(1);
 	setPotiUp(0);
 	for (i1 = 0; i1 < 100; ++ i1) 
 	{
 		setPotiINC(1);
 		setPotiINC(0);
-	}	
-	setPotiCS(0);	
-	storeZeroPotiPos(0x00);    //down on zero, debug stop
+	}
+	setPotiINC(1);	// do not store
+	setPotiCS(0);
+	setPotiINC(0);	
+//	storeZeroPotiPos(0x00);    //down on zero, debug stop
 }
 
 
@@ -291,40 +293,28 @@ void initHW()
 
 	cli();
 // Timer 1 as Duration Timer
-	  
-			runningSecondsTick = 0;
-	  
-	      TCCR1A = 0x00;  // normal mode or CTC dep.on TCCR1B
-		//TCCR1B = 0b00001101  ; // CTC on CC1A , set clk / 1024, timer started
-	  
-		  TCCR1B = 0b00001000  ;  // CTC, timer stopped
-	
-		  TCCR1C = 0x00; // no Force output compare
-	  
-		  OCR1A = 0x2A30;  // counter top value  , this value at clk/1024 will cause a delay of exact 1 sec
-	      TCNT1 = 0x00 ;  
-	  
-		TIMSK1  = 0x00; // disa  Interrupt 
-	//		TIMSK1   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
 
-	TIMSK1   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
-	TCCR1B = 0b00001101  ; // CTC on CC1A , set clk / 24, timer started 
+	runningSecondsTick = 0;
 
+	TCCR1A = 0x00;  // normal mode , CTC dep.on TCCR1B
+	TCCR1B = (0x00 || (1<<WGM12));  //  CTC, timer still stopped
+	TCCR1C = 0x00; // no Force output compare
+	OCR1A = 0x7A12;  // counter top value  , this value at clk/256 will cause a delay of exact 1 sec
+	TCNT1 = 0x00 ;  
+	TIMSK1   =  (0x00 || (1<<OCIE1A));  //  Output Compare A Match Interrupt Enable 
+	TCCR1B = (TCCR1B || (1<<CS12)); // prescaler clk / 256, timer started
 
-		ADCSRA = (0x0 ||(1<<ADPS2) || (1<< ADPS1) || (1<< ADPS1));
-//		ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE	
-		adcTick = 0;
+// adc settings
 
-		ADMUX = (0x00 ||  (1<<REFS1) || (1<< MUX5) || (1<< MUX4)); // int ref 1.1V, ADC2 neg, ADC3 pos
+	adcTick = 0;
 
+	lastAmpsADCVal = 0;
+	ADCSRA = (0x0 ||(1<<ADPS2) || (1<< ADPS1) );  // prescaler / 64, gives approx. 125 kHz ADC clock freq.
+	ADMUX = (0x00 ||  (1<<REFS1) || (1<< MUX5) || (1<< MUX4)); // int ref 1.1V, ADC2 neg, ADC3 pos
+	ADCSRA |= ((1<< ADEN) || (1<< ADIE));
+	ADCSRB = 0x00;
 
-		ADCSRA |= ((1<< ADEN) || (1<< ADIE));
-		ADCSRB = 0x00;
-
-		lastAmpsADCVal = 0;
-		adcTick = 0;
-
-		sei();
+	sei();
 }
 
 
@@ -376,20 +366,21 @@ void initPID()
 
 
 void byteReceived(int8_t jS)
-{	
-	if (jS !=  *p_jobState) {
-		if ((jS == up1)  ||  (jS == up10)||  (jS == down1)||  (jS == down10)) {
-			extraJob = jS;
-		} else {
-			if (* p_jobState != fatalError) {
-				if (jS == persistentZeroAdjust) {
-					firstPersistentStepDone = 0;
-					stableStepsCnt = 0;
-				}
-				prevJobState = *p_jobState;
-				* p_jobState = jS;
+{
+
+
+	if ((jS == up1)  ||  (jS == up10)||  (jS == down1)||  (jS == down10)) {
+		extraJob = jS;
+	} else {	
+		if ((jS !=  *p_jobState) && (* p_jobState != fatalError)) {
+			if (jS == persistentZeroAdjust) {
+				firstPersistentStepDone = 0;
+				stableStepsCnt = 0;
 			}
+			prevJobState = *p_jobState;
+			* p_jobState = jS;
 		}
+	
 	}
 }
 
