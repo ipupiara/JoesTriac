@@ -393,16 +393,12 @@ int main(void)
 //	initPID();
 
 	DDRB &= ~(1<< DDB0);
-
 	DDRA |= 0x04;
- 
 	PORTA &= ~0x04;
-
 
 	while (PINB & (1<< PINB0)) {}
 
 	PORTA |= 0x04; 
-
 
 	initHW();
 	USI_TWI_Slave_Initialise(0x10);
