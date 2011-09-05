@@ -7,14 +7,17 @@
 #include "USI_TWI_Slave.h"
 
 
-/*
-
-#define zeroPotiPosEEPROMpos                0   // unit8
 
 int16_t lastAmpsADCVal;
 
 int8_t runningSecondsTick;
 int8_t adcTick;
+
+
+/*
+
+#define zeroPotiPosEEPROMpos                0   // unit8
+
 
 int8_t stableStepsCnt;
 
@@ -46,10 +49,6 @@ enum zeroAdjustJobStates
 };
 
 
-ISR(TIM1_COMPA_vect)
-{
-		runningSecondsTick = 1;
-}
 
 
 
@@ -274,12 +273,18 @@ void resetZeroAdj()
 //	storeZeroPotiPos(0x00);    //down on zero, debug stop
 }
 
-
+*/
 
 ISR(ADC_vect)
 {
 	lastAmpsADCVal = ADC;
 	adcTick = 1; 
+}
+
+
+ISR(TIM1_COMPA_vect)
+{
+		runningSecondsTick = 1;
 }
 
 
@@ -302,22 +307,24 @@ void initHW()
 // adc settings
 
 	adcTick = 0;
-
+/*
 	lastAmpsADCVal = 0;
 	ADCSRA = (0x0 ||(1<<ADPS2) || (1<< ADPS1) );  // prescaler / 64, gives approx. 125 kHz ADC clock freq.
 	ADMUX = (0x00 ||  (1<<REFS1) || (1<< MUX5) || (1<< MUX4)); // int ref 1.1V, ADC2 neg, ADC3 pos
 	ADCSRA |= ((1<< ADEN) || (1<< ADIE));
 	ADCSRB = 0x00;
-
+*/
 	sei();
 }
 
 
-
+/*
 void onSecondTick()
 {	
 	ADCSRA |= (1<< ADSC);
 }
+
+
 
 
 void onADCTick()
@@ -384,10 +391,31 @@ void byteReceived(int8_t jS)
 int main(void)
 {
 //	initPID();
-//	initHW();
+
+	DDRB &= ~(1<< DDB0);
+
+	DDRA |= 0x04;
+ 
+	PORTA &= ~0x04;
+
+
+	while (PINB & (1<< PINB0)) {}
+
+	PORTA |= 0x04; 
+
+
+	initHW();
 	USI_TWI_Slave_Initialise(0x10);
 
 	while(1) {
+
+
+		if (runningSecondsTick == 1) {
+			runningSecondsTick = 0;
+//				onSecondTick();	
+		}
+
+
 /*
 		if (extraJob == up1)  {
 			volatilePotiUpAmt(1,1);
@@ -406,10 +434,8 @@ int main(void)
 			storePotiPos();
 			prevJobState =jobIdle;
 		}
-		if (runningSecondsTick == 1) {
-			runningSecondsTick = 0;
-				onSecondTick();	
-		}
+
+		
 		if (adcTick == 1)  {
 			adcTick = 0;
 		  	onADCTick();

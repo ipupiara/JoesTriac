@@ -228,6 +228,7 @@ uint8_t  receiveMessageBuffer[8];
 
 void sendZeroAdjustMsg(int8_t jobS)
 {
+jobS = 0xA5;
 
 	memset(sendMessageBuffer,0,sizeof(sendMessageBuffer));
 	sendMessageBuffer[0] = jobS;

@@ -71,6 +71,7 @@ int main(void)
 	restorePersistentData();
 	lcd_init();
 //	initKeyPad();
+
 	initInterrupts();
 	twi_init();
 
@@ -89,13 +90,12 @@ int main(void)
 	
 	startStateCharts();	
 
+
 /*	 ev.evType = evAstPressed;
 	processTriacEvent(&SJoesTriacStateChart,&ev);  */
 
 	while (1)
 	{
-
-
 		checkDebugBuffer();
 
 		if (fatalErrorOccurred) {     // do this with highest priority (at the beginning)

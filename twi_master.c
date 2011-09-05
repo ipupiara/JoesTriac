@@ -103,7 +103,7 @@ void checkDebugBuffer()
 	memset(debugBuffer,0,sizeof(debugBuffer));
 	sei();
 	if (strlen(tmpBuf) > 0) {
-		printf("\n\n%s\n\n",tmpBuf);
+		printf("\n%s\n",tmpBuf);
 	}
 
 }
@@ -246,6 +246,8 @@ void twi_init(void)
     TWCR = (0<<TWINT)|(0<<TWEA)|(0<<TWSTA)|(0<<TWSTO)|(0<<TWWC)|(1<<TWEN)|(0<<TWIE);
 }
 
+
+
 void twi_start_tx(u8_t adr, u8_t *data, u8_t bytes_to_send)
 
 {
@@ -269,12 +271,13 @@ void twi_start_tx(u8_t adr, u8_t *data, u8_t bytes_to_send)
     TWCR = (1<<TWINT)|(0<<TWEA)|(1<<TWSTA)|(0<<TWSTO)|(0<<TWWC)|(1<<TWEN)|(1<<TWIE);
 }
 
-void twi_synchronous_tx(u8_t adr, u8_t *data, u8_t bytes_to_send)
+int twi_synchronous_tx(u8_t adr, u8_t *data, u8_t bytes_to_send)
 {
 	twi_start_tx(adr, data, bytes_to_send);
-	while (! twiDataSent) {
+	while ((! twiDataSent ) &&  twi_busy()) {
 		checkDebugBuffer();
 	}
+	return ( twi_busy() == TRUE);
 }
 
 void twi_start_rx(u8_t adr, u8_t *data, u8_t bytes_to_receive)

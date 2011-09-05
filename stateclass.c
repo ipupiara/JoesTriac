@@ -18,6 +18,7 @@ CJoesTriacEvent* currentEvent;
 #include "triacPID.h"
 #include "triacUI.h"
 #include "TriacKeyPad.h"
+#include "twi_master.h"
 
 // This defines and names the states the class has.
 // attention: sequence must be the same as in xaStates (below)  !!!
@@ -190,7 +191,7 @@ void entryCalibrateZeroSignalState(void)
 //	printf("entry I\n");
 	displayCalibrateZeroPotiPos();
 	stableZeroAdjReached = 0;
-	sendZeroAdjustMsg(persistentZeroAdjust);
+//	sendZeroAdjustMsg(persistentZeroAdjust);
 //	resetZeroAdj();
 //	setDiffADC();
 }
@@ -245,6 +246,7 @@ uStInt checkCalibZeroInner(uStInt res)
 	return res;
 }
 
+int8_t tCnt;
 
 uStInt evCalibrateZeroSignalChecker(void)
 {
@@ -262,8 +264,18 @@ uStInt evCalibrateZeroSignalChecker(void)
 	if (currentEvent->evType == evSecondsTick) 
 	{	
 //		startSingleADC();
-	
-		persistentZeroAdjStep();
+
+		++tCnt;
+		if (tCnt > 7) {
+			tCnt = 0;
+//			twi_reset();
+		}
+		if (tCnt == 7) {
+			sendZeroAdjustMsg(persistentZeroAdjust);
+		}
+
+
+//		persistentZeroAdjStep();
 		displayPotiPos();
 	
 		res =  uStIntHandlingDone;

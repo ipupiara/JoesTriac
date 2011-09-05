@@ -121,7 +121,7 @@ void checkDebugBuffer();
  */
 extern void twi_start_tx(u8_t adr, u8_t *data, u8_t bytes_to_send);
 
-extern void twi_synchronous_tx(u8_t adr, u8_t *data, u8_t bytes_to_send);
+extern int twi_synchronous_tx(u8_t adr, u8_t *data, u8_t bytes_to_send);
 // PN 30. Aug. 2011 send and wait until send is completed
 // can be helpful to know that message was received at the other end by return of the method
 // mainly if other end handles event in application level synchronousely when message received
