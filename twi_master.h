@@ -78,7 +78,7 @@
 
 /* _____DEFINITIONS _________________________________________________________ */
 /// Select TWI clock frequency
-#define TWI_FREQUENCY_HZ 100000ul   // 100 kHz
+#define TWI_FREQUENCY_HZ 5000ul   // 100 kHz   PN 5 kHz for debugging
 
 #define F_CPU 11095200
 

@@ -31,11 +31,6 @@
 
 uint8_t			i2c_address;
 
-volatile uint8_t	i2c_rdbuf[I2C_RDSIZE];
-volatile uint8_t	i2c_rdlen, i2c_rdptr;
-volatile uint8_t	i2c_wrbuf[I2C_WRSIZE];
-volatile uint8_t	i2c_wrlen;
-
 volatile uint8_t	usi_state;
 // #define usi_state	GPIOR2	// save ~28 bytes of code
 

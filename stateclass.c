@@ -107,7 +107,7 @@ uStInt evAskForCalibrationChecker(void)
 	{	
 		displayCountDown();		
 		res =  uStIntHandlingDone;
-//		debugEvent1Triggered = 1;
+		debugEvent1Triggered = 1;
 	}
 	return (res); 
 }
@@ -179,7 +179,7 @@ uStInt evAskingRmsAvrChecker(void)
 	}
 	if (currentEvent->evType == evSecondsTick) 
 	{	
-//		debugEvent1Triggered = 1;	
+		debugEvent1Triggered = 1;	
 		res =  uStIntHandlingDone;		
 	}
 	return (res);
@@ -219,7 +219,7 @@ uStInt checkCalibZeroInner(uStInt res)
 		
 	}
 
-	if (currentEvent->evType == evNumPressed) 
+	if (currentEvent->evType == evTWIDataReceived) 
 	{				
 		checkTWIZeroAdjustMsg();
 	}

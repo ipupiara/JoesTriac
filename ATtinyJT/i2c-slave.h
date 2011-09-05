@@ -38,13 +38,11 @@
 #define I2C_WRSIZE	8	// master => slave buffer size
 
 void    i2c_initialize (uint8_t addr);		// set slave address, 8bit format
-uint8_t	i2c_idle (void);
-uint8_t i2c_message_ready (void);
-void    i2c_message_done (void);
-uint8_t i2c_reply_ready (void);
-void    i2c_reply_done (uint8_t nbytes);	// set i2c_rdlen
 
-extern volatile uint8_t	i2c_rdbuf[I2C_RDSIZE];
-extern volatile uint8_t	i2c_rdlen;
-extern volatile uint8_t	i2c_wrbuf[I2C_WRSIZE];
-extern volatile uint8_t	i2c_wrlen;
+
+ uint8_t	i2c_rdbuf[I2C_RDSIZE];
+ uint8_t	i2c_rdlen;
+ uint8_t	i2c_wrbuf[I2C_WRSIZE];
+ uint8_t	i2c_wrlen;
+
+ uint8_t    i2c_rdptr;

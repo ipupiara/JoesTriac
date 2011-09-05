@@ -46,7 +46,7 @@
 
 /* _____LOCAL DEFINITIONS____________________________________________________ */
 /// Size TWI clock prescaler according to desired TWI clock frequency
-#define TWI_PRESCALER    ((0<<TWPS1)|(0<<TWPS0))
+#define TWI_PRESCALER    ((1<<TWPS1)|(0<<TWPS0))
 
 /// Map TWI clock prescaler to prescaler value
 #if   (TWI_PRESCALER == ((0<<TWPS1)|(0<<TWPS0)))
@@ -124,7 +124,7 @@ ISR(TWI_vect)
             // Transfer finished
             twi_status = TWI_STATUS_DONE;
 
-			twiDataSent = 1;
+			twiDataSent = 1;        // added by pn 30aug11 to send event to main loop
 
         }
         break;
@@ -169,7 +169,7 @@ ISR(TWI_vect)
         // Transfer finished
         twi_status = TWI_STATUS_DONE;
 
-		twiDataReceived = 1;
+		twiDataReceived = 1;    // added by pn 30aug11 to send event to main loop
 
         break;
 
@@ -192,7 +192,7 @@ void twi_init(void)
 {
 
 	twiDataSent = 0;
-	twiDataReceived	= 0;  // both added by PN 30. Aug 2011 (see also remarks in twi_start_tx)
+	twiDataReceived	= 0;  // both added by PN 30. Aug 2011 
 
     // Initialise variable
     twi_data_counter = 0;
@@ -211,19 +211,14 @@ void twi_init(void)
 void twi_start_tx(u8_t adr, u8_t *data, u8_t bytes_to_send)
 
 {
-	twiDataSent = 0;  // PN 30. Aug. 2011. The user should better wait until the previous transaction 
-						// completed event of same type is handled at it's end, before starting a new one.
-						// to prevent, that buffer data is changed by the application while the interrupt
-						// driven communication is sitll busy. Therefor twiDataSent already should  be 0 
-						// anyhow
-
-
     // Wait for previous transaction to finish
 
     while(twi_busy())
     {
         ;
     }
+
+	twiDataSent = 0;     // added by pn 30. aug 11
 
     // Copy address; clear R/~W bit in SLA+R/W address field
     twi_adr = adr & ~TW_READ;
@@ -245,14 +240,14 @@ void twi_synchronous_tx(u8_t adr, u8_t *data, u8_t bytes_to_send)
 
 void twi_start_rx(u8_t adr, u8_t *data, u8_t bytes_to_receive)
 {
-
-	twiDataReceived = 0;
-
     // Wait for previous transaction to finish
     while(twi_busy())
     {
         ;
     }
+
+	twiDataReceived = 0;   // added by PN 30 aug 11
+
 
     // Copy address; set R/~W bit in SLA+R/W address field
     twi_adr = adr | TW_READ;
