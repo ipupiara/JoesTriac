@@ -109,6 +109,8 @@ void storeAmpsInputPin(int8_t val);
 
 void restorePersistentData();
 
+#define zeroAdjustATtinyID  0x10
+
 enum zeroAdjustJobStates 
 {
 	jobIdle,

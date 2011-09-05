@@ -38,6 +38,10 @@
 ============================================================================= */
 
 /* _____STANDARD INCLUDES____________________________________________________ */
+#include <avr/io.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include <compat/twi.h>
 #include <avr/interrupt.h>
 
@@ -80,6 +84,33 @@ static u8_t *twi_data;
 static u8_t twi_data_counter;
 static u8_t twi_status;
 
+
+
+
+void appendDebugChar(char ch)
+{
+	int8_t pos;
+	if ((pos = strlen(debugBuffer)) < 8) {
+		debugBuffer[pos] = ch;
+	}
+}
+
+void checkDebugBuffer()
+{	char tmpBuf [8];
+	
+	cli();
+	memcpy(tmpBuf,debugBuffer,8);
+	memset(debugBuffer,0,sizeof(debugBuffer));
+	sei();
+	if (strlen(tmpBuf) > 0) {
+		printf("\n\n%s\n\n",tmpBuf);
+	}
+
+}
+
+
+
+
 /* _____PRIVATE FUNCTIONS____________________________________________________ */
 /// TWI state machine interrupt handler
 ISR(TWI_vect)
@@ -91,7 +122,7 @@ ISR(TWI_vect)
 
     case TW_REP_START:
         // REPEATED START has been transmitted
-
+appendDebugChar('s');
         // Load data register with TWI slave address
         TWDR = twi_adr;
         // TWI Interrupt enabled and clear flag to send next byte
@@ -103,6 +134,7 @@ ISR(TWI_vect)
 
     case TW_MT_DATA_ACK:
         // Data byte has been tramsmitted and ACK received
+		appendDebugChar('d');
         if(twi_data_counter != 0)
         {
             // Decrement counter
@@ -194,6 +226,12 @@ void twi_init(void)
 	twiDataSent = 0;
 	twiDataReceived	= 0;  // both added by PN 30. Aug 2011 
 
+
+	memset(debugBuffer,0,sizeof(debugBuffer));
+
+	appendDebugChar('n');
+
+
     // Initialise variable
     twi_data_counter = 0;
 
@@ -235,6 +273,7 @@ void twi_synchronous_tx(u8_t adr, u8_t *data, u8_t bytes_to_send)
 {
 	twi_start_tx(adr, data, bytes_to_send);
 	while (! twiDataSent) {
+		checkDebugBuffer();
 	}
 }
 

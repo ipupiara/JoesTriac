@@ -9,6 +9,7 @@
 
 #include <avr/io.h>
 #include <stdio.h>
+#include <string.h>
 #include "st7565r.h"
 #include "TriacDefines.h"
 #include "triacPID.h"
@@ -53,6 +54,7 @@ static int uart_putchar(char c, FILE *stream)
 }
 
 
+
 int main(void)
 {
 	CJoesTriacEvent ev;
@@ -92,6 +94,10 @@ int main(void)
 
 	while (1)
 	{
+
+
+		checkDebugBuffer();
+
 		if (fatalErrorOccurred) {     // do this with highest priority (at the beginning)
 			fatalErrorOccurred = 0;
 			ev.evType = evFatalError;

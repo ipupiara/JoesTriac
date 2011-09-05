@@ -231,13 +231,13 @@ void sendZeroAdjustMsg(int8_t jobS)
 
 	memset(sendMessageBuffer,0,sizeof(sendMessageBuffer));
 	sendMessageBuffer[0] = jobS;
-	twi_synchronous_tx(0x10, (uint8_t *) &sendMessageBuffer, 1);
+	twi_synchronous_tx(zeroAdjustATtinyID, (uint8_t *) &sendMessageBuffer, 1);
 }
 
 void persistentZeroAdjStep()
 {
 	memset(receiveMessageBuffer,0,sizeof(receiveMessageBuffer));
-	twi_start_rx(0x10, (uint8_t *) &receiveMessageBuffer, 6);	
+	twi_start_rx(zeroAdjustATtinyID, (uint8_t *) &receiveMessageBuffer, 6);	
 }
 
 void checkTWIZeroAdjustMsg()

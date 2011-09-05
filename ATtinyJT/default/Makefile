@@ -37,7 +37,7 @@ HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0 --no-change-warnings
 
 
 ## Objects that must be built in order to link
-OBJECTS = ATtinyJT.o i2c-slave.o 
+OBJECTS = ATtinyJT.o USI_TWI_Slave.o 
 
 ## Objects explicitly added by the user
 LINKONLYOBJECTS = 
@@ -49,7 +49,7 @@ all: $(TARGET) ATtinyJT.hex ATtinyJT.eep ATtinyJT.lss size
 ATtinyJT.o: ../ATtinyJT.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
-i2c-slave.o: ../i2c-slave.c
+USI_TWI_Slave.o: ../USI_TWI_Slave.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
 ##Link

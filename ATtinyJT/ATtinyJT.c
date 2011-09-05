@@ -4,9 +4,10 @@
 #include <util/atomic.h>
 #include <avr/eeprom.h>
 #include "ATtinyjt.h"
-#include "i2c-slave.h"
+#include "USI_TWI_Slave.h"
 
 
+/*
 
 #define zeroPotiPosEEPROMpos                0   // unit8
 
@@ -27,6 +28,10 @@ float* p_voltage;
 int8_t* p_jobState;
 int8_t  prevJobState;
 //int8_t currentJobState;
+
+
+
+
 
 enum zeroAdjustJobStates 
 {
@@ -255,17 +260,7 @@ void persistentZeroAdjStep()
 void resetZeroAdj()
 {
 	int i1;
-/*
-	setPotiCS(1);
-	setPotiUp(1);
-	for (i1 = 0; i1 < 100; ++ i1) 
-	{
-		setPotiINC(1);
-		setPotiINC(0);
-	}	
-	setPotiCS(0);	
-	storeZeroPotiPos(100);   // up on 100  , debug stop
-*/
+
 	setPotiCS(1);
 	setPotiUp(0);
 	for (i1 = 0; i1 < 100; ++ i1) 
@@ -363,12 +358,12 @@ void initPID()
 	setPotiINC(0);
 	setPotiUp(0);
 }
-
+*/
 
 void byteReceived(int8_t jS)
 {
 
-
+/*
 	if ((jS == up1)  ||  (jS == up10)||  (jS == down1)||  (jS == down10)) {
 		extraJob = jS;
 	} else {	
@@ -382,17 +377,18 @@ void byteReceived(int8_t jS)
 		}
 	
 	}
+	*/
 }
 
 
 int main(void)
 {
-	initPID();
-	initHW();
-	i2c_initialize (0x10);
+//	initPID();
+//	initHW();
+	USI_TWI_Slave_Initialise(0x10);
 
 	while(1) {
-
+/*
 		if (extraJob == up1)  {
 			volatilePotiUpAmt(1,1);
 		}
@@ -408,6 +404,7 @@ int main(void)
 		extraJob = jobIdle;
 		if (prevJobState == persistentZeroAdjust)  {
 			storePotiPos();
+			prevJobState =jobIdle;
 		}
 		if (runningSecondsTick == 1) {
 			runningSecondsTick = 0;
@@ -417,7 +414,7 @@ int main(void)
 			adcTick = 0;
 		  	onADCTick();
 		}
-	
+	*/
 	}
 
 }

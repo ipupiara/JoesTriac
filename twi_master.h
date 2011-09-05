@@ -109,6 +109,8 @@
  */
 extern void twi_init(void);
 
+void checkDebugBuffer();
+
 /**
  *  Start TWI transmission.
  * 
@@ -173,6 +175,9 @@ extern void twi_stop(void);
 
 #endif
 
+
+
+char debugBuffer [8];
 
 
 int8_t  twiDataReceived;  // added by PN as an application event notification variable  30. Aug 2011
