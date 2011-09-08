@@ -5,9 +5,7 @@
 
 
 
-void byteReceived(int8_t by);
-
-
+int8_t jobBuffer;
 
 
 

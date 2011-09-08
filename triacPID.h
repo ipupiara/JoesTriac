@@ -56,6 +56,8 @@ void checkTWIZeroAdjustMsg();
 
 void sendZeroAdjustMsg(int8_t jobS);
 
+int8_t getAndTestZeroAdjustState(int8_t jobS);
+
 void persistentZeroAdjStep();
 
 void calcNextTriacDelay();

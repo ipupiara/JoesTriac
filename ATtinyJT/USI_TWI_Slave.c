@@ -32,19 +32,24 @@
 static unsigned char TWI_slaveAddress;
 static volatile unsigned char USI_TWI_Overflow_State;
 
-int8_t t0Cnt;
-#define t0MaxCnt  50   // approx 30 per second
 
-void stopTWITimer()
-{
-	TCCR0B = 0x00;
+#define START_TWI_TIMER()                    \
+{											\
+	t0Cnt = 0x00;							\
+	TCNT0 = 0x00;									\
+	TCCR0B = 0x00 | (1<<CS02) | (1<<CS00);     /* prescaler 1024 and started   */  \
+}   
+
+
+#define STOP_TWI_TIMER()			\
+{									\
+	TCCR0B = 0x00;					\
+	t0Cnt = 0;						\
 }
 
-void startTWITimer()
-{
-	TCNT0 = 0x00;
-	TCCR0B = 0x00 | (1<<CS02) | (1<<CS00);  // prescaler 1024 and started
-}
+
+
+
 
 void initTWITimer()
 {
@@ -60,9 +65,11 @@ void initTWITimer()
 
 ISR(TIM0_OVF_vect)
 {
+PINA |= 0x08;
 	++t0Cnt;
 	if (t0Cnt == t0MaxCnt) {
-		stopTWITimer();
+		STOP_TWI_TIMER();
+		USISR |= (1<<USI_START_COND_INT);   // clear flag 
 		SET_USI_TO_TWI_START_CONDITION_MODE();
 PORTA &= ~0x08;
 	}
@@ -77,18 +84,21 @@ PORTA &= ~0x08;
  */
 void USI_TWI_Slave_Initialise( unsigned char TWI_ownAddress )
 {
+	
+	DDRA |= 0x8f;
+	PORTA |= 0x8f;  // pn debug lines a0..a3 switched to leds
+
 
 	 initTWITimer();   
 
-	DDRA |= 0x0f;
-	PORTA |= 0x0f;  // pn debug lines a0..a3 switched to leds
 
   TWI_slaveAddress = TWI_ownAddress;
 
-  PORT_USI |=  (1<<PORT_USI_SCL);                                 // Set SCL high
-  PORT_USI |=  (1<<PORT_USI_SDA);                                 // Set SDA high
-  DDR_USI  |=  (1<<PORT_USI_SCL);                                 // Set SCL as output
-  DDR_USI  &= ~(1<<PORT_USI_SDA);                                 // Set SDA as input
+  DDR_USI |= ( 1 << PORT_USI_SCL ) | ( 1 << PORT_USI_SDA );	  // Set SCL and SDA as output
+  PORT_USI |= ( 1 << PORT_USI_SCL );  // Set SCL high
+  PORT_USI |= ( 1 << PORT_USI_SDA );  // Set SDA high
+  DDR_USI &= ~( 1 << PORT_USI_SDA );  // Set SDA as input
+
   USICR    =  (1<<USISIE)|(0<<USIOIE)|                            // Enable Start Condition Interrupt. Disable Overflow Interrupt.
               (1<<USIWM1)|(0<<USIWM0)|                            // Set USI in Two-wire mode. No USI Counter overflow prior
                                                                   // to first Start Condition (potentail failure)
@@ -97,6 +107,8 @@ void USI_TWI_Slave_Initialise( unsigned char TWI_ownAddress )
   USISR    = 0xF0; 
                                                 // Clear all flags and reset overflow counter
 	sei();
+//	PORTA &= 0xF0;
+//	PORTA |= 0x0F;
 }
 
 
@@ -108,20 +120,22 @@ void USI_TWI_Slave_Initialise( unsigned char TWI_ownAddress )
 
 ISR(USI_START_VECTOR)
 {
-	startTWITimer();
+//	START_TWI_TIMER();
+	PORTA |= 0x0f;
                                               // Not necessary, but prevents warnings
 // Set default starting conditions for new TWI package
     USI_TWI_Overflow_State = USI_SLAVE_CHECK_ADDRESS;
-    DDR_USI  &= ~(1<<PORT_USI_SDA);  
+    DDR_USI  &= ~(1<<PORT_USI_SDA);     // Set SDA as input
+
+	// Wait for SCL to go low to ensure the Start Condition has completed (the
+	// Start detector will hold SCL low ) - if a Stop Condition arises then leave
+	// The interrupt to prevent waiting forever - don't use USISR to test for Stop
+	// Condition as in Application Note AVR312 because the Stop Condition Flag is
+	// going to be set from the last TWI sequence
 	
-	                               // Set SDA as input
-    while ( (PIN_USI & (1<<PORT_USI_SCL)) & !(USISR & (1<<USIPF)) );   // Wait for SCL to go low to ensure the "Start Condition" has completed.
-    
-	                                                                   // If a Stop condition arises then leave the interrupt to prevent waiting forever.
+	while ((PIN_USI & (1<<PIN_USI_SCL)) &&	!((PIN_USI & (1<<PIN_USI_SDA))));// SCL his high and SDA is low
 
-																	   // pn 4sept11 leave on stop condition, but without starting a receiption of data, isnt it?????
-//	if (!(USISR & (1<<USIPF)) ) {										// therefor added an if condition
-
+	if ( !(PIN_USI & (1<<PIN_USI_SDA))) {	// A Stop Condition did not occur
 
 	    USICR   =   (1<<USISIE)|(1<<USIOIE)|                            // Enable Overflow and Start Condition Interrupt. (Keep StartCondInt to detect RESTART)
 	                (1<<USIWM1)|(1<<USIWM0)|                            // Set USI in Two-wire mode.
@@ -130,12 +144,11 @@ ISR(USI_START_VECTOR)
 	    USISR  =    (1<<USI_START_COND_INT)|(1<<USIOIF)|(1<<USIPF)|(1<<USIDC)|      // Clear flags
 	                (0x0<<USICNT0);                                     // Set USI to sample 8 bits i.e. count 16 external pin toggles.
 
-//	}  else {
-//		USISR |= (1<<USI_START_COND_INT);   // clear flag and release scl (wm 10)    
-//		SET_USI_TO_TWI_START_CONDITION_MODE();
+	}  else {
+		USISR |= (1<<USI_START_COND_INT);   // clear flag and release scl (wm 10)    
+		SET_USI_TO_TWI_START_CONDITION_MODE();
 
-
-//	}
+	}
 }
 
 
@@ -183,11 +196,12 @@ PORTA   &= ~0x01;
     case USI_SLAVE_CHECK_REPLY_FROM_SEND_DATA:
       if ( USIDR ) // If NACK, the master does not want more data.
       {
+PORTA |= 0x07;
         SET_USI_TO_TWI_START_CONDITION_MODE();
         return;
       }
       // From here we just drop straight into USI_SLAVE_SEND_DATA if the master sent an ACK
-
+PORTA &= ~0x04;
     // Copy data from buffer to USIDR and set USI to shift byte. Next USI_SLAVE_REQUEST_REPLY_FROM_SEND_DATA
     case USI_SLAVE_SEND_DATA:
 
@@ -204,6 +218,9 @@ PORTA   &= ~0x01;
 
     // Set USI to sample reply from master. Next USI_SLAVE_CHECK_REPLY_FROM_SEND_DATA
     case USI_SLAVE_REQUEST_REPLY_FROM_SEND_DATA:
+
+PORTA &= ~0x02;
+
       USI_TWI_Overflow_State = USI_SLAVE_CHECK_REPLY_FROM_SEND_DATA;
       SET_USI_TO_READ_ACK();
       break;
@@ -214,13 +231,14 @@ PORTA   &= ~0x01;
       USI_TWI_Overflow_State = USI_SLAVE_GET_DATA_AND_SEND_ACK;
 		if (i2c_wrlen >= 1) {        // pn 4.sept 11, in this app,  messages to slave contain olny 1 byte  
 
-
-PORTA &= ~0x02;	
+PORTA |= 0x07;	
 
 
 			SET_USI_TO_TWI_START_CONDITION_MODE();
 		} else {
       		SET_USI_TO_READ_DATA();
+
+PORTA &= ~0x02;
 	  	}
       break;
 
@@ -235,7 +253,7 @@ PORTA &= ~0x04;
 			i2c_wrbuf[i2c_wrlen++] = USIDR;
 		}
 
-		byteReceived(USIDR);  // PN 30. Aug 2011 do this synchronous while msg is still running
+		jobBuffer = USIDR;
 
       USI_TWI_Overflow_State = USI_SLAVE_REQUEST_DATA;
       SET_USI_TO_SEND_ACK();

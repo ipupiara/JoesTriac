@@ -85,14 +85,15 @@ static u8_t twi_data_counter;
 static u8_t twi_status;
 
 
+int16_t succeededTxAmt;
+int16_t failedTxAmt;
 
+int16_t succeededRxAmt;
+int16_t failedRxAmt;
 
-void appendDebugChar(char ch)
+void appendDebugChars(char* ch)
 {
-	int8_t pos;
-	if ((pos = strlen(debugBuffer)) < 8) {
-		debugBuffer[pos] = ch;
-	}
+	strlcat(debugBuffer,ch,sizeof(debugBuffer));
 }
 
 void checkDebugBuffer()
@@ -105,11 +106,7 @@ void checkDebugBuffer()
 	if (strlen(tmpBuf) > 0) {
 		printf("\n%s\n",tmpBuf);
 	}
-
 }
-
-
-
 
 /* _____PRIVATE FUNCTIONS____________________________________________________ */
 /// TWI state machine interrupt handler
@@ -122,7 +119,7 @@ ISR(TWI_vect)
 
     case TW_REP_START:
         // REPEATED START has been transmitted
-appendDebugChar('s');
+appendDebugChars("strt");
         // Load data register with TWI slave address
         TWDR = twi_adr;
         // TWI Interrupt enabled and clear flag to send next byte
@@ -134,9 +131,10 @@ appendDebugChar('s');
 
     case TW_MT_DATA_ACK:
         // Data byte has been tramsmitted and ACK received
-		appendDebugChar('d');
+appendDebugChars("mtAk ");
         if(twi_data_counter != 0)
         {
+appendDebugChars("cgz");
             // Decrement counter
             twi_data_counter--;
             // Load data register with next byte
@@ -157,7 +155,7 @@ appendDebugChar('s');
             twi_status = TWI_STATUS_DONE;
 
 			twiDataSent = 1;        // added by pn 30aug11 to send event to main loop
-
+appendDebugChars("cz");
         }
         break;
 
@@ -171,16 +169,18 @@ appendDebugChar('s');
     case TW_MR_SLA_ACK:
         // SLA+R has been transmitted and ACK received
         // See if last expected byte will be received ...
+appendDebugChars("mrak");
         if(twi_data_counter > 1)    
         {
             // Send ACK after reception
             TWCR = (1<<TWINT)|(1<<TWEA)|(0<<TWSTA)|(0<<TWSTO)|(0<<TWWC)|(1<<TWEN)|(1<<TWIE);
+appendDebugChars("cgz");
         }
         else
         {
 			// Send NACK after next reception
             TWCR = (1<<TWINT)|(0<<TWEA)|(0<<TWSTA)|(0<<TWSTO)|(0<<TWWC)|(1<<TWEN)|(1<<TWIE);
-						
+appendDebugChars("cz");						
         }
         break;
 
@@ -190,6 +190,8 @@ appendDebugChar('s');
         *twi_data++ = TWDR;
         // Decrement counter
         twi_data_counter--;
+
+appendDebugChars("mrnk");
 
 #if TWI_REPEATED_START_SUPPORT
         // Disable TWI Interrupt
@@ -206,12 +208,14 @@ appendDebugChar('s');
         break;
 
     case TW_MT_ARB_LOST:
+appendDebugChars("arbLst");
         // Arbitration lost...
         // Initiate a (REPEATED) START condition; Interrupt enabled and flag cleared
         TWCR = (1<<TWINT)|(0<<TWEA)|(1<<TWSTA)|(0<<TWSTO)|(0<<TWWC)|(1<<TWEN)|(1<<TWIE);
         break;
 
     default:
+appendDebugChars("errDef");
         // Error condition; save status
         twi_status = TWSR;
         // Reset TWI Interface; disable interrupt
@@ -228,8 +232,12 @@ void twi_init(void)
 
 
 	memset(debugBuffer,0,sizeof(debugBuffer));
+	succeededTxAmt = 0;
+	failedTxAmt  = 0;
+	succeededRxAmt = 0;
+	failedRxAmt = 0;
 
-	appendDebugChar('n');
+	printf("TWI init\n");
 
 
     // Initialise variable
@@ -246,18 +254,40 @@ void twi_init(void)
     TWCR = (0<<TWINT)|(0<<TWEA)|(0<<TWSTA)|(0<<TWSTO)|(0<<TWWC)|(1<<TWEN)|(0<<TWIE);
 }
 
+void twi_resetAfterCrash()
+{
+	printf("reset after crash");
+	//  TWI  disabled; 
+    TWCR = (0<<TWINT)|(0<<TWEA)|(0<<TWSTA)|(0<<TWSTO)|(0<<TWWC)|(0<<TWEN)|(0<<TWIE);
+
+	twiDataSent = 0;
+	twiDataReceived	= 0;  // both added by PN 30. Aug 2011 
+
+    // Initialise variable
+    twi_data_counter = 0;
+
+    // Initialise variable
+    twi_data_counter = 0;
+
+    // Load data register with default content; release SDA
+    TWDR = 0xff;
+
+    // Enable TWI peripheral with interrupt disabled
+    TWCR = (0<<TWINT)|(0<<TWEA)|(0<<TWSTA)|(0<<TWSTO)|(0<<TWWC)|(1<<TWEN)|(0<<TWIE);
+}
+
 
 
 void twi_start_tx(u8_t adr, u8_t *data, u8_t bytes_to_send)
 
 {
     // Wait for previous transaction to finish
-
+printf("start_tx bef while busy .. ");
     while(twi_busy())
     {
-        ;
+        checkDebugBuffer();
     }
-
+printf("aft while busy\n");
 	twiDataSent = 0;     // added by pn 30. aug 11
 
     // Copy address; clear R/~W bit in SLA+R/W address field
@@ -271,22 +301,38 @@ void twi_start_tx(u8_t adr, u8_t *data, u8_t bytes_to_send)
     TWCR = (1<<TWINT)|(0<<TWEA)|(1<<TWSTA)|(0<<TWSTO)|(0<<TWWC)|(1<<TWEN)|(1<<TWIE);
 }
 
-int twi_synchronous_tx(u8_t adr, u8_t *data, u8_t bytes_to_send)
+int8_t twi_synch_tx(u8_t adr, u8_t *data, u8_t bytes_to_send)
 {
-	twi_start_tx(adr, data, bytes_to_send);
-	while ((! twiDataSent ) &&  twi_busy()) {
-		checkDebugBuffer();
-	}
-	return ( twi_busy() == TRUE);
+	printf("twi_sync_tx entered\n");
+//	while (res != TWI_STATUS_DONE ) {
+		twi_start_tx(adr, data, bytes_to_send);
+		while ((! twiDataSent ) &&  twi_busy()) {
+			checkDebugBuffer();
+		}
+		if (twi_status != TWI_STATUS_DONE) {
+			checkDebugBuffer();
+			failedTxAmt ++;
+			printf("stat not ok: %x restart aft crash..\n",twi_status);
+			twi_resetAfterCrash();
+		} else {
+			succeededTxAmt ++;
+			checkDebugBuffer();
+			printf("SUCCESS: sent ok\n"); 
+		}
+//	}
+	printf("twi_sync_tx leave res %x s/f %i / %i\n",twi_status, succeededTxAmt,failedTxAmt);
+	return  twi_status;
 }
 
 void twi_start_rx(u8_t adr, u8_t *data, u8_t bytes_to_receive)
 {
+printf("start_rx bef while busy .. ");
     // Wait for previous transaction to finish
     while(twi_busy())
     {
-        ;
+        checkDebugBuffer();
     }
+printf("aft while busy\n");
 
 	twiDataReceived = 0;   // added by PN 30 aug 11
 
@@ -300,6 +346,31 @@ void twi_start_rx(u8_t adr, u8_t *data, u8_t bytes_to_receive)
 
     // Initiate a START condition; Interrupt enabled and flag cleared
     TWCR = (1<<TWINT)|(0<<TWEA)|(1<<TWSTA)|(0<<TWSTO)|(0<<TWWC)|(1<<TWEN)|(1<<TWIE);
+}
+
+
+int8_t twi_synch_rx(u8_t adr, u8_t *data, u8_t bytes_to_receive)
+{
+	printf("twi_sync_rx entered\n");
+//	while (res != TWI_STATUS_DONE ) {
+		twi_start_rx(adr, data, bytes_to_receive);
+		while ((! twiDataReceived ) &&  twi_busy()) {
+			checkDebugBuffer();
+		}
+		if (twi_status != TWI_STATUS_DONE) {
+			checkDebugBuffer();
+			failedRxAmt ++;
+			printf("stat not ok: %x restart aft crash..\n",twi_status);
+			twi_resetAfterCrash();
+		} else {
+			succeededRxAmt ++;
+			checkDebugBuffer();
+			printf("SUCCESS: sent ok\n"); 
+		}
+//	}
+	printf("twi_sync_rx leave res %x s/f %i / %i\n",twi_status, succeededRxAmt,failedRxAmt);
+	return  twi_status;
+
 }
 
 bool_t twi_busy(void)

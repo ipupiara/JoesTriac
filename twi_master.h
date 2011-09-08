@@ -78,7 +78,7 @@
 
 /* _____DEFINITIONS _________________________________________________________ */
 /// Select TWI clock frequency
-#define TWI_FREQUENCY_HZ 5000ul   // 100 kHz   PN 5 kHz for debugging
+#define TWI_FREQUENCY_HZ 10000ul   // 100 kHz   PN 5 kHz for debugging
 
 #define F_CPU 11095200
 
@@ -121,10 +121,13 @@ void checkDebugBuffer();
  */
 extern void twi_start_tx(u8_t adr, u8_t *data, u8_t bytes_to_send);
 
-extern int twi_synchronous_tx(u8_t adr, u8_t *data, u8_t bytes_to_send);
+extern int8_t twi_synch_tx(u8_t adr, u8_t *data, u8_t bytes_to_send);
 // PN 30. Aug. 2011 send and wait until send is completed
 // can be helpful to know that message was received at the other end by return of the method
 // mainly if other end handles event in application level synchronousely when message received
+
+
+int8_t twi_synch_rx(u8_t adr, u8_t *data, u8_t bytes_to_receive);
 
 /**
  *  Start TWI reception.
@@ -177,7 +180,7 @@ extern void twi_stop(void);
 
 
 
-char debugBuffer [8];
+char debugBuffer [20];
 
 
 int8_t  twiDataReceived;  // added by PN as an application event notification variable  30. Aug 2011

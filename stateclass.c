@@ -271,7 +271,10 @@ uStInt evCalibrateZeroSignalChecker(void)
 //			twi_reset();
 		}
 		if (tCnt == 7) {
+			int8_t res;
 			sendZeroAdjustMsg(persistentZeroAdjust);
+			res = getAndTestZeroAdjustState(persistentZeroAdjust);
+			printf("job test returned,%x\n", res);
 		}
 
 

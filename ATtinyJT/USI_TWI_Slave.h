@@ -173,7 +173,7 @@ typedef     unsigned char       uint8_t;
 
 #define SET_USI_TO_TWI_START_CONDITION_MODE()                                                                                     \
 {             																														\
-  stopTWITimer();                             										                   \
+  STOP_TWI_TIMER();                             										                   \
   DDR_USI &=  ~(1<<PORT_USI_SDA);                             /*Set SDA as intput  */                   \
   USICR    =  (1<<USISIE)|(0<<USIOIE)|                        /* Enable Start Condition Interrupt. Disable Overflow Interrupt.*/  \
               (1<<USIWM1)|(0<<USIWM0)|                        /* Set USI in Two-wire mode. No USI Counter overflow hold.      */  \
@@ -196,3 +196,8 @@ typedef     unsigned char       uint8_t;
     USISR    =  (0<<USI_START_COND_INT)|(1<<USIOIF)|(1<<USIPF)|(1<<USIDC)|      /* Clear all flags, except Start Cond */ \
                 (0x0<<USICNT0);                                     /* set USI to shift out 8 bits        */ \
 }
+
+int8_t t0Cnt;
+#define t0MaxCnt  50   // approx 30 per second
+
+

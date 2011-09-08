@@ -14,7 +14,7 @@ int8_t runningSecondsTick;
 int8_t adcTick;
 
 
-/*
+
 
 #define zeroPotiPosEEPROMpos                0   // unit8
 
@@ -29,6 +29,7 @@ int8_t  extraJob;
 int8_t* p_zeroPotiPos;
 float* p_voltage;
 int8_t* p_jobState;
+
 int8_t  prevJobState;
 //int8_t currentJobState;
 
@@ -49,7 +50,7 @@ enum zeroAdjustJobStates
 };
 
 
-
+/*
 
 
 int16_t ampsADCValue()
@@ -281,7 +282,6 @@ ISR(ADC_vect)
 	adcTick = 1; 
 }
 
-
 ISR(TIM1_COMPA_vect)
 {
 		runningSecondsTick = 1;
@@ -290,42 +290,59 @@ ISR(TIM1_COMPA_vect)
 
 void initHW()
 {
+	runningSecondsTick = 0;
+
 
 	cli();
 // Timer 1 as Duration Timer
 
-	runningSecondsTick = 0;
-
+	
 	TCCR1A = 0x00;  // normal mode , CTC dep.on TCCR1B
-	TCCR1B = (0x00 || (1<<WGM12));  //  CTC, timer still stopped
+	TCCR1B = (0x00 | (1<<WGM12));  //  CTC, timer still stopped
 	TCCR1C = 0x00; // no Force output compare
 	OCR1A = 0x7A12;  // counter top value  , this value at clk/256 will cause a delay of exact 1 sec
-	TCNT1 = 0x00 ;  
-	TIMSK1   =  (0x00 || (1<<OCIE1A));  //  Output Compare A Match Interrupt Enable 
-	TCCR1B = (TCCR1B || (1<<CS12)); // prescaler clk / 256, timer started
+	TCNT1 = 0x00 ;
+	 
+//	TIMSK1 = 0x00; 
+	TIMSK1   =  (0x00 | (1<<OCIE1A));  //  Output Compare A Match Interrupt Enable 
+
+	TCCR1B |= (1<<CS12); // prescaler clk / 256, timer started
 
 // adc settings
 
-	adcTick = 0;
-/*
+/*	
 	lastAmpsADCVal = 0;
-	ADCSRA = (0x0 ||(1<<ADPS2) || (1<< ADPS1) );  // prescaler / 64, gives approx. 125 kHz ADC clock freq.
-	ADMUX = (0x00 ||  (1<<REFS1) || (1<< MUX5) || (1<< MUX4)); // int ref 1.1V, ADC2 neg, ADC3 pos
-	ADCSRA |= ((1<< ADEN) || (1<< ADIE));
+	ADCSRA = (0x0 |(1<<ADPS2) | (1<< ADPS1) );  // prescaler / 64, gives approx. 125 kHz ADC clock freq.
+	ADMUX = (0x00 |  (1<<REFS1) | (1<< MUX5) | (1<< MUX4)); // int ref 1.1V, ADC2 neg, ADC3 pos
+	ADCSRA |= ((1<< ADEN) | (1<< ADIE));
 	ADCSRB = 0x00;
 */
+
+								
 	sei();
+									
+							
+	adcTick = 0;
+
+}
+
+
+
+void onSecondTick()
+{	
+
+	if (PORTA & 0x80) {
+		PORTA &= ~0x80;
+	}  else {
+		PORTA |= 0x80;
+	}
+
+//	ADCSRA |= (1<< ADSC);
+
 }
 
 
 /*
-void onSecondTick()
-{	
-	ADCSRA |= (1<< ADSC);
-}
-
-
-
 
 void onADCTick()
 {
@@ -343,7 +360,7 @@ void onADCTick()
 	
 }
 
-
+*/
 
 void initPID()
 {
@@ -351,7 +368,7 @@ void initPID()
 	p_voltage    =  (float*) (&i2c_rdbuf[1]);
 	p_jobState =(int8_t*) (&i2c_rdbuf[5]);
 
-	*p_zeroPotiPos = eeprom_read_byte((uint8_t*)zeroPotiPosEEPROMpos);	
+/*	*p_zeroPotiPos = eeprom_read_byte((uint8_t*)zeroPotiPosEEPROMpos);	
 	if ((*p_zeroPotiPos < 0x00) || (*p_zeroPotiPos > 100)) { storeZeroPotiPos(0x00);}   
 
 	*p_voltage = 0.0;
@@ -363,14 +380,15 @@ void initPID()
 	firstPersistentStepDone = 0;
 	setPotiCS(0);
 	setPotiINC(0);
-	setPotiUp(0);
+	setPotiUp(0);  */
 }
-*/
 
-void byteReceived(int8_t jS)
+
+
+void jobReceived(int8_t jS)
 {
 
-/*
+
 	if ((jS == up1)  ||  (jS == up10)||  (jS == down1)||  (jS == down10)) {
 		extraJob = jS;
 	} else {	
@@ -384,8 +402,14 @@ void byteReceived(int8_t jS)
 		}
 	
 	}
-	*/
+	
 }
+
+
+
+
+int8_t jobB;
+
 
 
 int main(void)
@@ -393,22 +417,39 @@ int main(void)
 //	initPID();
 
 	DDRB &= ~(1<< DDB0);
-	DDRA |= 0x04;
-	PORTA &= ~0x04;
+
+	DDRA |= 0x08;
+	PORTA &= ~0x08;
 
 	while (PINB & (1<< PINB0)) {}
 
-	PORTA |= 0x04; 
+	PORTA |= 0x08; 
+
+	initPID();
 
 	initHW();
 	USI_TWI_Slave_Initialise(0x10);
 
 	while(1) {
+		cli();
+		if (jobBuffer) {
+			jobB = jobBuffer;
+			jobBuffer = 0;
+		}
+		sei();
+		if (jobBuffer) {
+			jobReceived(jobB);
+			jobB = 0;
+		}
+
+
+
+//		asm volatile ( "wdr"  );
 
 
 		if (runningSecondsTick == 1) {
 			runningSecondsTick = 0;
-//				onSecondTick();	
+				onSecondTick();	
 		}
 
 

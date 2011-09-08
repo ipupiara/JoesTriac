@@ -228,11 +228,30 @@ uint8_t  receiveMessageBuffer[8];
 
 void sendZeroAdjustMsg(int8_t jobS)
 {
+	int res;
+	printf("send synch zero Adj Msg\n");
 jobS = 0xA5;
 
 	memset(sendMessageBuffer,0,sizeof(sendMessageBuffer));
 	sendMessageBuffer[0] = jobS;
-	twi_synchronous_tx(zeroAdjustATtinyID, (uint8_t *) &sendMessageBuffer, 1);
+	res = twi_synch_tx(zeroAdjustATtinyID, (uint8_t *) &sendMessageBuffer, 1);
+	printf("synch tx returned %x\n",res);
+}
+
+int8_t getAndTestZeroAdjustState(int8_t jobS)
+{  
+	int8_t res;
+	int8_t js;
+	res = 0;
+	
+	memset(receiveMessageBuffer,0,sizeof(receiveMessageBuffer));
+	res  = twi_synch_rx(zeroAdjustATtinyID, (uint8_t *) &receiveMessageBuffer, 6);
+	printf("synch rx returned %x\n",res);
+	js = receiveMessageBuffer[5];
+	res = (jobS == js);
+	printf("to test was %i received was %i with result %i\n",jobS,js,res);
+
+	return res;
 }
 
 void persistentZeroAdjStep()
