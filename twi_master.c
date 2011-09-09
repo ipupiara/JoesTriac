@@ -91,16 +91,25 @@ int16_t failedTxAmt;
 int16_t succeededRxAmt;
 int16_t failedRxAmt;
 
+char tmpBuf [debugBuffLen];
+
 void appendDebugChars(char* ch)
 {
 	strlcat(debugBuffer,ch,sizeof(debugBuffer));
 }
 
+void appendDebugSmallNum(char num1)
+{
+	debugBuffer[strlen(debugBuffer)] = (num1 + 0x30);
+	strlcat(debugBuffer,ch,sizeof(debugBuffer));
+}
+
 void checkDebugBuffer()
-{	char tmpBuf [8];
+{
 	
 	cli();
-	memcpy(tmpBuf,debugBuffer,8);
+	memset(tmpBuf,0,sizeof(tmpBuf));
+	memcpy(tmpBuf,debugBuffer,sizeof(tmpBuf));
 	memset(debugBuffer,0,sizeof(debugBuffer));
 	sei();
 	if (strlen(tmpBuf) > 0) {
@@ -163,14 +172,18 @@ appendDebugChars("cz");
         // Data byte has been received and ACK tramsmitted
         // Buffer received byte
         *twi_data++ = TWDR;
+appendDebugSmallNum(twi_data_counter);
         // Decrement counter
         twi_data_counter--;
+
+appendDebugChars("DR ");
 
     case TW_MR_SLA_ACK:
         // SLA+R has been transmitted and ACK received
         // See if last expected byte will be received ...
-appendDebugChars("mrak");
-        if(twi_data_counter > 1)    
+appendDebugChars("mrak ");
+appendDebugSmallNum(twi_data_counter);
+        if(twi_data_counter > 0)    
         {
             // Send ACK after reception
             TWCR = (1<<TWINT)|(1<<TWEA)|(0<<TWSTA)|(0<<TWSTO)|(0<<TWWC)|(1<<TWEN)|(1<<TWIE);
@@ -180,7 +193,7 @@ appendDebugChars("cgz");
         {
 			// Send NACK after next reception
             TWCR = (1<<TWINT)|(0<<TWEA)|(0<<TWSTA)|(0<<TWSTO)|(0<<TWWC)|(1<<TWEN)|(1<<TWIE);
-appendDebugChars("cz");						
+appendDebugChars("cz ");						
         }
         break;
 
@@ -189,9 +202,10 @@ appendDebugChars("cz");
         // Buffer received byte
         *twi_data++ = TWDR;
         // Decrement counter
+appendDebugSmallNum(twi_data_counter);
         twi_data_counter--;
 
-appendDebugChars("mrnk");
+appendDebugChars("mrnkDR ");
 
 #if TWI_REPEATED_START_SUPPORT
         // Disable TWI Interrupt
@@ -262,9 +276,6 @@ void twi_resetAfterCrash()
 
 	twiDataSent = 0;
 	twiDataReceived	= 0;  // both added by PN 30. Aug 2011 
-
-    // Initialise variable
-    twi_data_counter = 0;
 
     // Initialise variable
     twi_data_counter = 0;

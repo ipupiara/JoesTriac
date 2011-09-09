@@ -68,11 +68,11 @@ int main(void)
 	USART_Init (11 );   // baud 57.6k  at 11.0592 mhz, single uart speed
 	stdout = &mystdout;
 	printf("\nSTARTUP\n");
-	restorePersistentData();
-	lcd_init();
+//	restorePersistentData();
+//	lcd_init();
 //	initKeyPad();
 
-	initInterrupts();
+//	initInterrupts();
 	twi_init();
 
 /*	dummyI = 0;
@@ -86,7 +86,9 @@ int main(void)
 	}   */
 
 	InitPID();
-	initUI();
+//	initUI();
+
+	getAndTestZeroAdjustState(0xa5);
 	
 	startStateCharts();	
 

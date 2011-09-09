@@ -230,7 +230,6 @@ void sendZeroAdjustMsg(int8_t jobS)
 {
 	int res;
 	printf("send synch zero Adj Msg\n");
-jobS = 0xA5;
 
 	memset(sendMessageBuffer,0,sizeof(sendMessageBuffer));
 	sendMessageBuffer[0] = jobS;
@@ -266,7 +265,7 @@ void checkTWIZeroAdjustMsg()
 
 	zeroPotiPos = receiveMessageBuffer[0];
 	zeroAdjustDiffVoltage = (float) receiveMessageBuffer[1];
-	jobS =  receiveMessageBuffer[6];
+	jobS =  receiveMessageBuffer[5];
 	if (jobS == jobIdle) {
 		stableZeroAdjReached = 1;
 	}

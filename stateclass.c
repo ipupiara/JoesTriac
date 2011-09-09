@@ -200,7 +200,7 @@ void exitCalibrateZeroSignalState(void)
 {
 
 	sendZeroAdjustMsg(jobIdle);
-//	printf("exit I\n");
+	printf("exit exitCalibrateZeroSignalState\n");
 //	closeDiffADC();
 }
 
@@ -222,22 +222,22 @@ uStInt checkCalibZeroInner(uStInt res)
 
 	if (currentEvent->evType == evTWIDataReceived) 
 	{				
-		checkTWIZeroAdjustMsg();
+//		checkTWIZeroAdjustMsg();
 	}
 
 	if (currentEvent->evType == evCharEntered) {
 		switch (currentEvent->evData.keyCode) {
 			case kp1 : 
-				sendZeroAdjustMsg(up1);
+//				sendZeroAdjustMsg(up1);
 				break;
 			case kp2 :
-				sendZeroAdjustMsg(up10);
+//				sendZeroAdjustMsg(up10);
 				break ;			
 			case kp7 : 
-				sendZeroAdjustMsg(down1);	
+//				sendZeroAdjustMsg(down1);	
 				break;
 			case kp8 :
-				sendZeroAdjustMsg(down10);
+//				sendZeroAdjustMsg(down10);
 				break ;									
 		}
 	}
@@ -272,7 +272,9 @@ uStInt evCalibrateZeroSignalChecker(void)
 		}
 		if (tCnt == 7) {
 			int8_t res;
-			sendZeroAdjustMsg(persistentZeroAdjust);
+//			sendZeroAdjustMsg(persistentZeroAdjust);
+//			sendZeroAdjustMsg(0xA5);
+			printf("stateclass.c calling getAndTestZero...");
 			res = getAndTestZeroAdjustState(persistentZeroAdjust);
 			printf("job test returned,%x\n", res);
 		}

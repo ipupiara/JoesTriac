@@ -109,6 +109,11 @@
  */
 extern void twi_init(void);
 
+
+#define debugBuffLen 20
+
+char debugBuffer [debugBuffLen];
+
 void checkDebugBuffer();
 
 /**
@@ -179,8 +184,6 @@ extern void twi_stop(void);
 #endif
 
 
-
-char debugBuffer [20];
 
 
 int8_t  twiDataReceived;  // added by PN as an application event notification variable  30. Aug 2011
