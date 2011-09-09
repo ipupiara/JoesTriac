@@ -200,7 +200,7 @@ void exitCalibrateZeroSignalState(void)
 {
 
 	sendZeroAdjustMsg(jobIdle);
-	printf("exit exitCalibrateZeroSignalState\n");
+//	printf("exit exitCalibrateZeroSignalState\n");
 //	closeDiffADC();
 }
 
@@ -273,9 +273,9 @@ uStInt evCalibrateZeroSignalChecker(void)
 		if (tCnt == 7) {
 			int8_t res;
 //			sendZeroAdjustMsg(persistentZeroAdjust);
-//			sendZeroAdjustMsg(0xA5);
-			printf("stateclass.c calling getAndTestZero...");
-			res = getAndTestZeroAdjustState(persistentZeroAdjust);
+			sendZeroAdjustMsg(0xA5);
+//			res = getAndTestZeroAdjustState(persistentZeroAdjust);
+			res = getAndTestZeroAdjustState(0xA5);
 			printf("job test returned,%x\n", res);
 		}
 

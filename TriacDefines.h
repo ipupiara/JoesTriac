@@ -113,7 +113,7 @@ void restorePersistentData();
 
 enum zeroAdjustJobStates 
 {
-	jobIdle,
+	jobIdle = 1,
 	persistentZeroAdjust,
 	volatileZeroAdjust,
 	up10,

@@ -109,13 +109,13 @@
  */
 extern void twi_init(void);
 
-
-#define debugBuffLen 20
+/*
+#define debugBuffLen 30
 
 char debugBuffer [debugBuffLen];
 
 void checkDebugBuffer();
-
+*/
 /**
  *  Start TWI transmission.
  * 

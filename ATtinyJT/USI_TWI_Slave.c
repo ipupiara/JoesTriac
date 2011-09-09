@@ -65,13 +65,13 @@ void initTWITimer()
 
 ISR(TIM0_OVF_vect)
 {
-PINA |= 0x08;
+//PINA |= 0x08;
 	++t0Cnt;
 	if (t0Cnt == t0MaxCnt) {
 		STOP_TWI_TIMER();
 		USISR |= (1<<USI_START_COND_INT);   // clear flag 
 		SET_USI_TO_TWI_START_CONDITION_MODE();
-PORTA &= ~0x08;
+//PORTA &= ~0x08;
 	}
 }
 
@@ -85,8 +85,8 @@ PORTA &= ~0x08;
 void USI_TWI_Slave_Initialise( unsigned char TWI_ownAddress )
 {
 	
-	DDRA |= 0x8f;
-	PORTA |= 0x8f;  // pn debug lines a0..a3 switched to leds
+//	DDRA |= 0x8f;
+//	PORTA |= 0x8f;  // pn debug lines a0..a3 switched to leds
 
 
 	 initTWITimer();   
@@ -121,7 +121,7 @@ void USI_TWI_Slave_Initialise( unsigned char TWI_ownAddress )
 ISR(USI_START_VECTOR)
 {
 //	START_TWI_TIMER();
-	PORTA |= 0x0f;
+//	PORTA |= 0x0f;
                                               // Not necessary, but prevents warnings
 // Set default starting conditions for new TWI package
     USI_TWI_Overflow_State = USI_SLAVE_CHECK_ADDRESS;
@@ -170,7 +170,7 @@ ISR(USI_OVERFLOW_VECTOR)
       if ((USIDR == 0) || (( USIDR & ~1 ) == TWI_slaveAddress))
       {
 
-PORTA   &= ~0x01;
+//PORTA   &= ~0x01;
 
         if ( USIDR & 0x01 )  {
           	USI_TWI_Overflow_State = USI_SLAVE_SEND_DATA;
@@ -196,12 +196,12 @@ PORTA   &= ~0x01;
     case USI_SLAVE_CHECK_REPLY_FROM_SEND_DATA:
       if ( USIDR ) // If NACK, the master does not want more data.
       {
-PORTA |= 0x07;
+//PORTA |= 0x07;
         SET_USI_TO_TWI_START_CONDITION_MODE();
         return;
       }
       // From here we just drop straight into USI_SLAVE_SEND_DATA if the master sent an ACK
-PORTA &= ~0x04;
+//PORTA &= ~0x04;
     // Copy data from buffer to USIDR and set USI to shift byte. Next USI_SLAVE_REQUEST_REPLY_FROM_SEND_DATA
     case USI_SLAVE_SEND_DATA:
 
@@ -219,7 +219,7 @@ PORTA &= ~0x04;
     // Set USI to sample reply from master. Next USI_SLAVE_CHECK_REPLY_FROM_SEND_DATA
     case USI_SLAVE_REQUEST_REPLY_FROM_SEND_DATA:
 
-PORTA &= ~0x02;
+//PORTA &= ~0x02;
 
       USI_TWI_Overflow_State = USI_SLAVE_CHECK_REPLY_FROM_SEND_DATA;
       SET_USI_TO_READ_ACK();
@@ -231,14 +231,14 @@ PORTA &= ~0x02;
       USI_TWI_Overflow_State = USI_SLAVE_GET_DATA_AND_SEND_ACK;
 		if (i2c_wrlen >= 1) {        // pn 4.sept 11, in this app,  messages to slave contain olny 1 byte  
 
-PORTA |= 0x07;	
+//PORTA |= 0x07;	
 
 
 			SET_USI_TO_TWI_START_CONDITION_MODE();
 		} else {
       		SET_USI_TO_READ_DATA();
 
-PORTA &= ~0x02;
+//PORTA &= ~0x02;
 	  	}
       break;
 
@@ -246,7 +246,7 @@ PORTA &= ~0x02;
     case USI_SLAVE_GET_DATA_AND_SEND_ACK:
       // Put data into Buffer
 
-PORTA &= ~0x04;
+//PORTA &= ~0x04;
 
 		// PN 4.sept11 changed buffer code
 		if (i2c_wrlen < I2C_WRSIZE)	{		

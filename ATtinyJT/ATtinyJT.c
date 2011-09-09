@@ -39,7 +39,7 @@ int8_t  prevJobState;
 
 enum zeroAdjustJobStates 
 {
-	jobIdle,
+	jobIdle = 1,
 	persistentZeroAdjust,
 	volatileZeroAdjust,
 	up10,
@@ -331,11 +331,12 @@ void initHW()
 void onSecondTick()
 {	
 
-	if (PORTA & 0x80) {
+/*	if (PORTA & 0x80) {
 		PORTA &= ~0x80;
 	}  else {
 		PORTA |= 0x80;
 	}
+	*/
 
 //	ADCSRA |= (1<< ADSC);
 
@@ -368,6 +369,7 @@ void initPID()
 	p_voltage    =  (float*) (&i2c_rdbuf[1]);
 	p_jobState =(int8_t*) (&i2c_rdbuf[5]);
 
+
 /*	*p_zeroPotiPos = eeprom_read_byte((uint8_t*)zeroPotiPosEEPROMpos);	
 	if ((*p_zeroPotiPos < 0x00) || (*p_zeroPotiPos > 100)) { storeZeroPotiPos(0x00);}   
 
@@ -387,8 +389,6 @@ void initPID()
 
 void jobReceived(int8_t jS)
 {
-
-
 	if ((jS == up1)  ||  (jS == up10)||  (jS == down1)||  (jS == down10)) {
 		extraJob = jS;
 	} else {	
@@ -400,9 +400,7 @@ void jobReceived(int8_t jS)
 			prevJobState = *p_jobState;
 			* p_jobState = jS;
 		}
-	
-	}
-	
+	}	
 }
 
 
@@ -416,7 +414,7 @@ int main(void)
 {
 //	initPID();
 
-	DDRB &= ~(1<< DDB0);
+/*	DDRB &= ~(1<< DDB0);
 
 	DDRA |= 0x08;
 	PORTA &= ~0x08;
@@ -424,7 +422,7 @@ int main(void)
 	while (PINB & (1<< PINB0)) {}
 
 	PORTA |= 0x08; 
-
+*/
 	initPID();
 
 	initHW();
@@ -437,7 +435,7 @@ int main(void)
 			jobBuffer = 0;
 		}
 		sei();
-		if (jobBuffer) {
+		if (jobB) {
 			jobReceived(jobB);
 			jobB = 0;
 		}

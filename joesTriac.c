@@ -61,18 +61,17 @@ int main(void)
 	int8_t ky;
 //	int16_t dummyI;
 
-//	zeroAdjTest();
 
 //	USART_Init( 143 );   // baud 4800 at 11.0592 mhz, single uart speed
 //	USART_Init( 71 );   // baud 9600 at 11.0592 mhz, single uart speed
 	USART_Init (11 );   // baud 57.6k  at 11.0592 mhz, single uart speed
 	stdout = &mystdout;
 	printf("\nSTARTUP\n");
-//	restorePersistentData();
-//	lcd_init();
+	restorePersistentData();
+	lcd_init();
 //	initKeyPad();
 
-//	initInterrupts();
+	initInterrupts();
 	twi_init();
 
 /*	dummyI = 0;
@@ -85,11 +84,22 @@ int main(void)
 		}
 	}   */
 
-	InitPID();
-//	initUI();
 
-	getAndTestZeroAdjustState(0xa5);
+	InitPID();
+	initUI();
+
+//	int8_t res;
+/*
+	while (1) {
+//			sendZeroAdjustMsg(persistentZeroAdjust);
+			sendZeroAdjustMsg(0xA5);
+//			res = getAndTestZeroAdjustState(persistentZeroAdjust);
+			res = getAndTestZeroAdjustState(0xA5);
+			printf("job test returned,%x\n", res);
 	
+	
+	}
+*/	
 	startStateCharts();	
 
 
@@ -98,7 +108,7 @@ int main(void)
 
 	while (1)
 	{
-		checkDebugBuffer();
+//		checkDebugBuffer();
 
 		if (fatalErrorOccurred) {     // do this with highest priority (at the beginning)
 			fatalErrorOccurred = 0;
