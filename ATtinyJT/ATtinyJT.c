@@ -101,6 +101,7 @@ float adcVoltage()
 	return VFl;
 
 }
+*/
 
 void setPotiCS(int8_t on)
 {
@@ -138,7 +139,7 @@ void storeZeroPotiPos(int8_t val)
 	*p_zeroPotiPos = val;
 	eeprom_write_byte((uint8_t *) zeroPotiPosEEPROMpos, *p_zeroPotiPos);
 }
-
+/*
 
 void zeroPotiPosUpPersistent(int8_t up, int8_t persistent)
 {
@@ -310,13 +311,13 @@ void initHW()
 
 // adc settings
 
-/*	
+	
 	lastAmpsADCVal = 0;
 	ADCSRA = (0x0 |(1<<ADPS2) | (1<< ADPS1) );  // prescaler / 64, gives approx. 125 kHz ADC clock freq.
 	ADMUX = (0x00 |  (1<<REFS1) | (1<< MUX5) | (1<< MUX4)); // int ref 1.1V, ADC2 neg, ADC3 pos
 	ADCSRA |= ((1<< ADEN) | (1<< ADIE));
-	ADCSRB = 0x00;
-*/
+	ADCSRB = 0x00 | (1<<BIN);
+
 
 								
 	sei();
@@ -370,19 +371,19 @@ void initPID()
 	p_jobState =(int8_t*) (&i2c_rdbuf[5]);
 
 
-/*	*p_zeroPotiPos = eeprom_read_byte((uint8_t*)zeroPotiPosEEPROMpos);	
+	*p_zeroPotiPos = eeprom_read_byte((uint8_t*)zeroPotiPosEEPROMpos);	
 	if ((*p_zeroPotiPos < 0x00) || (*p_zeroPotiPos > 100)) { storeZeroPotiPos(0x00);}   
-
 	*p_voltage = 0.0;
 	*p_jobState = jobIdle;
 	prevJobState = jobIdle;
 	extraJob = jobIdle;
+	jobBuffer = 0;
 	 
 	stableStepsCnt = 0;
 	firstPersistentStepDone = 0;
 	setPotiCS(0);
 	setPotiINC(0);
-	setPotiUp(0);  */
+	setPotiUp(0);  
 }
 
 

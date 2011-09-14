@@ -229,7 +229,7 @@ uint8_t  receiveMessageBuffer[8];
 void sendZeroAdjustMsg(int8_t jobS)
 {
 	int res;
-	printf("send synch zero Adj Msg\n");
+//	printf("send synch zero Adj Msg\n");
 
 	memset(sendMessageBuffer,0,sizeof(sendMessageBuffer));
 	sendMessageBuffer[0] = jobS;
@@ -248,7 +248,7 @@ int8_t getAndTestZeroAdjustState(int8_t jobS)
 	printf("synch rx returned %x\n",res);
 	js = receiveMessageBuffer[5];
 	res = (jobS == js);
-	printf("to test was %i received was %i with result %i\n",jobS,js,res);
+//	printf("to test was %i received was %i with result %i\n",jobS,js,res);
 
 	return res;
 }

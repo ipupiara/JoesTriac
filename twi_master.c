@@ -388,14 +388,8 @@ int8_t twi_synch_rx(u8_t adr, u8_t *data, u8_t bytes_to_receive)
 bool_t twi_busy(void)
 {
     // IF TWI Interrupt is enabled then the peripheral is busy
-    if(BIT_IS_HI(TWCR,TWIE))
-    {
-        return TRUE;
-    }
-    else
-    {
-        return FALSE;
-    }
+	return ( TWCR & (1<<TWIE) );  
+
 }
 
 bool_t twi_success(void)

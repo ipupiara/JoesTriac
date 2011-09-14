@@ -71,6 +71,7 @@ ISR(TIM0_OVF_vect)
 		STOP_TWI_TIMER();
 		USISR |= (1<<USI_START_COND_INT);   // clear flag 
 		SET_USI_TO_TWI_START_CONDITION_MODE();
+		
 //PORTA &= ~0x08;
 	}
 }
@@ -120,7 +121,7 @@ void USI_TWI_Slave_Initialise( unsigned char TWI_ownAddress )
 
 ISR(USI_START_VECTOR)
 {
-//	START_TWI_TIMER();
+	START_TWI_TIMER();
 //	PORTA |= 0x0f;
                                               // Not necessary, but prevents warnings
 // Set default starting conditions for new TWI package
