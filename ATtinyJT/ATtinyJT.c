@@ -50,7 +50,7 @@ enum zeroAdjustJobStates
 };
 
 
-/*
+
 
 
 int16_t ampsADCValue()
@@ -91,8 +91,13 @@ float adcVoltage()
 	VHex = diffADCValue();
 	VFl =  (VHex * 1.1) / (1.0 * 0x200);
 
-	cli();  // dont change voltage while interrupt happens (4 byte variable)
+	while (messageOnGoing) {}		// wait until no more message will be processed, not to change values
+									// during message transaction
 
+	cli();  // dont change voltage while interrupt happens (4 byte variable), 
+			// with above while () should be rather threadsafe, worst case message initalization might
+			// happen between while() and cli, still no risk for correct value transmission
+			
 	*p_voltage = VFl;
 
 	sei();
@@ -101,7 +106,7 @@ float adcVoltage()
 	return VFl;
 
 }
-*/
+
 
 void setPotiCS(int8_t on)
 {
@@ -139,7 +144,7 @@ void storeZeroPotiPos(int8_t val)
 	*p_zeroPotiPos = val;
 	eeprom_write_byte((uint8_t *) zeroPotiPosEEPROMpos, *p_zeroPotiPos);
 }
-/*
+
 
 void zeroPotiPosUpPersistent(int8_t up, int8_t persistent)
 {
@@ -253,6 +258,8 @@ void persistentZeroAdjStep()
 		}
 	}
 	if ( stableStepsCnt > 30) {
+		storePotiPos();
+		prevJobState = *p_jobState;
 		*p_jobState = jobIdle;
 	}	
 }
@@ -275,7 +282,7 @@ void resetZeroAdj()
 //	storeZeroPotiPos(0x00);    //down on zero, debug stop
 }
 
-*/
+
 
 ISR(ADC_vect)
 {
@@ -338,13 +345,14 @@ void onSecondTick()
 		PORTA |= 0x80;
 	}
 	*/
-
-//	ADCSRA |= (1<< ADSC);
+	if ((*p_jobState == volatileZeroAdjust) || (*p_jobState == persistentZeroAdjust)   ) {
+		ADCSRA |= (1<< ADSC);
+	}
 
 }
 
 
-/*
+
 
 void onADCTick()
 {
@@ -362,7 +370,7 @@ void onADCTick()
 	
 }
 
-*/
+
 
 void initPID()
 {
@@ -452,7 +460,7 @@ int main(void)
 		}
 
 
-/*
+
 		if (extraJob == up1)  {
 			volatilePotiUpAmt(1,1);
 		}
@@ -466,17 +474,12 @@ int main(void)
 			volatilePotiUpAmt(0,10);
 		}
 		extraJob = jobIdle;
-		if (prevJobState == persistentZeroAdjust)  {
-			storePotiPos();
-			prevJobState =jobIdle;
-		}
-
 		
 		if (adcTick == 1)  {
 			adcTick = 0;
 		  	onADCTick();
 		}
-	*/
+	
 	}
 
 }

@@ -35,6 +35,7 @@ static volatile unsigned char USI_TWI_Overflow_State;
 
 #define START_TWI_TIMER()                    \
 {											\
+	messageOnGoing = 1;  					\
 	t0Cnt = 0x00;							\
 	TCNT0 = 0x00;									\
 	TCCR0B = 0x00 | (1<<CS02) | (1<<CS00);     /* prescaler 1024 and started   */  \
@@ -43,6 +44,7 @@ static volatile unsigned char USI_TWI_Overflow_State;
 
 #define STOP_TWI_TIMER()			\
 {									\
+	messageOnGoing = 0;				\
 	TCCR0B = 0x00;					\
 	t0Cnt = 0;						\
 }
@@ -53,6 +55,7 @@ static volatile unsigned char USI_TWI_Overflow_State;
 
 void initTWITimer()
 {
+		messageOnGoing = 0;
 	      TCCR0A = 0x00;  //  Normal mode
 
 	      TCNT0 = 0x00 ;  

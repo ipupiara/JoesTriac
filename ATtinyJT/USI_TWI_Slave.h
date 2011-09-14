@@ -104,7 +104,7 @@ typedef     unsigned char       uint8_t;
 #endif
 
 
-#if defined(__AVR_ATtiny44A__)
+#if ( defined(__AVR_ATtiny44A__) |  defined(__AVR_ATtiny84__))
     #define DDR_USI             DDRA
     #define PORT_USI            PORTA
     #define PIN_USI             PINA
@@ -195,5 +195,6 @@ typedef     unsigned char       uint8_t;
 
 int8_t t0Cnt;
 #define t0MaxCnt  50   // approx 30 per second
+int8_t messageOnGoing;   
 
 

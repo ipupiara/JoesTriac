@@ -4,7 +4,7 @@
 
 ## General Flags
 PROJECT = ATtinyJT
-MCU = attiny44a
+MCU = attiny84
 TARGET = ATtinyJT.elf
 CC = avr-gcc
 
