@@ -27,7 +27,8 @@ int8_t firstPersistentStepDone;
 int8_t  extraJob;
 
 int8_t* p_zeroPotiPos;
-float* p_voltage;
+int16_t* p_ADCvoltage;
+int16_t* p_dummy1;
 int8_t* p_jobState;
 
 int8_t  prevJobState;
@@ -84,12 +85,12 @@ int16_t diffADCValue()
 float adcVoltage()
 {
 	int16_t VHex;
-	float   VFl;
+//	float   VFl;
 
-	VFl = 0.0;
+//	VHex = 0x0000;
 
 	VHex = diffADCValue();
-	VFl =  (VHex * 1.1) / (1.0 * 0x200);
+//	VFl =  (VHex * 1.1) / (1.0 * 0x200);
 
 	while (messageOnGoing) {}		// wait until no more message will be processed, not to change values
 									// during message transaction
@@ -98,12 +99,12 @@ float adcVoltage()
 			// with above while () should be rather threadsafe, worst case message initalization might
 			// happen between while() and cli, still no risk for correct value transmission
 			
-	*p_voltage = VFl;
+	*p_ADCvoltage = VHex;
 
 	sei();
 	
 
-	return VFl;
+	return VHex;
 
 }
 
@@ -214,16 +215,16 @@ void errorPotiPosExceeded()
 void volatileZeroAdjStep()
 {
 
-	float volts;
+	int16_t volts;
 	volts = adcVoltage();
-   	if (volts > 3E-3) {		
+   	if (volts > 1) {		
 		if (*p_zeroPotiPos > 0)  {
 			zeroPotiPosUpPersistent(1, 0);
 		} else {
 			errorPotiPosExceeded();
 		}
 	} else { 
-		if (volts < -3E-3) {
+		if (volts < -1) {
 			if (*p_zeroPotiPos < 100) {
 				zeroPotiPosUpPersistent(0, 0);
 			} else {
@@ -236,9 +237,9 @@ void volatileZeroAdjStep()
 
 void persistentZeroAdjStep()
 {	
-	float volts;
+	int16_t volts;
 	volts = adcVoltage();
-   	if (volts > 3E-3) {	
+   	if (volts > 1) {	
 		stableStepsCnt = 0;	
 		if (*p_zeroPotiPos >= 0)  { 
 			if (*p_jobState == persistentZeroAdjust) // job might have changed meanwhile
@@ -248,7 +249,7 @@ void persistentZeroAdjStep()
 			errorPotiPosExceeded();
 		}
 	} else { 
-		if (volts < -3E-3) {
+		if (volts < -1) {
 			stableStepsCnt = 0;
 			if (*p_zeroPotiPos < 100 ) {
 			if (*p_jobState == persistentZeroAdjust) // job might have changed meanwhile
@@ -273,10 +274,11 @@ void resetZeroAdj()
 {
 	int i1;
 
+
 	setPotiCS(1);
-//	setPotiUp(0);
-	setPotiUp(1);
-	for (i1 = 0; i1 < 100; ++ i1) 
+	setPotiUp(0);
+//	setPotiUp(1);
+	for (i1 = 0; i1 < 110; ++ i1) 
 	{
 		setPotiINC(1);
 		setPotiINC(0);
@@ -284,6 +286,23 @@ void resetZeroAdj()
 	setPotiINC(1);	// do not store
 	setPotiCS(0);
 	setPotiINC(0);	
+	setPotiUp(0);
+	*p_zeroPotiPos = 0;
+
+/*
+	setPotiCS(1);
+//	setPotiUp(0);
+	setPotiUp(1);
+	for (i1 = 0; i1 < 110; ++ i1) 
+	{
+		setPotiINC(1);
+		setPotiINC(0);
+	}
+	setPotiINC(1);	// do not store
+	setPotiCS(0);
+	setPotiINC(0);	
+	setPotiUp(0);
+*/
 //	storeZeroPotiPos(0x00);    //down on zero, debug stop
 }
 
@@ -381,13 +400,13 @@ void onADCTick()
 void initPID()
 {
 	p_zeroPotiPos = (int8_t*) (&i2c_rdbuf[0]);
-	p_voltage    =  (float*) (&i2c_rdbuf[1]);
+	p_ADCvoltage    =  (int16_t*) (&i2c_rdbuf[1]);
 	p_jobState =(int8_t*) (&i2c_rdbuf[5]);
 
 
 	*p_zeroPotiPos = eeprom_read_byte((uint8_t*)zeroPotiPosEEPROMpos);	
 	if ((*p_zeroPotiPos < 0x00) || (*p_zeroPotiPos > 100)) { storeZeroPotiPos(0x00);}   
-	*p_voltage = 0.0;
+	*p_ADCvoltage = 0x0000;
 	*p_jobState = jobIdle;
 	prevJobState = jobIdle;
 	extraJob = jobIdle;
