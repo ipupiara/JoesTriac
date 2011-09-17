@@ -148,14 +148,18 @@ void storeZeroPotiPos(int8_t val)
 
 void zeroPotiPosUpPersistent(int8_t up, int8_t persistent)
 {
-	if ((*p_zeroPotiPos > 0) && (*p_zeroPotiPos < 100) ) { 
+	if ((*p_zeroPotiPos >= 0) && (*p_zeroPotiPos < 100) ) { 
 		setPotiCS(1);
 		if (up) {
-			setPotiUp(1);
-			++ *p_zeroPotiPos;
+			if (*p_zeroPotiPos >= 0)  {
+				setPotiUp(1);
+				++ *p_zeroPotiPos;
+			}
 		} else {
-			setPotiUp(0);
-			-- *p_zeroPotiPos;
+			if (*p_zeroPotiPos < 100)   {
+				setPotiUp(0);
+				-- *p_zeroPotiPos;
+			}
 		}
 		setPotiINC(1);
 		if (persistent) {
@@ -214,14 +218,14 @@ void volatileZeroAdjStep()
 	volts = adcVoltage();
    	if (volts > 3E-3) {		
 		if (*p_zeroPotiPos > 0)  {
-			zeroPotiPosUpPersistent(0, 0);
+			zeroPotiPosUpPersistent(1, 0);
 		} else {
 			errorPotiPosExceeded();
 		}
 	} else { 
 		if (volts < -3E-3) {
 			if (*p_zeroPotiPos < 100) {
-				zeroPotiPosUpPersistent(1, 0);
+				zeroPotiPosUpPersistent(0, 0);
 			} else {
 				errorPotiPosExceeded();
 			}
@@ -236,7 +240,7 @@ void persistentZeroAdjStep()
 	volts = adcVoltage();
    	if (volts > 3E-3) {	
 		stableStepsCnt = 0;	
-		if (*p_zeroPotiPos > 0)  { 
+		if (*p_zeroPotiPos >= 0)  { 
 			if (*p_jobState == persistentZeroAdjust) // job might have changed meanwhile
 //			zeroPotiPosUpPersistent(0,1);
 			zeroPotiPosUpPersistent(0,0);
@@ -270,7 +274,8 @@ void resetZeroAdj()
 	int i1;
 
 	setPotiCS(1);
-	setPotiUp(0);
+//	setPotiUp(0);
+	setPotiUp(1);
 	for (i1 = 0; i1 < 100; ++ i1) 
 	{
 		setPotiINC(1);
@@ -345,6 +350,7 @@ void onSecondTick()
 		PORTA |= 0x80;
 	}
 	*/
+	*p_jobState = 0x02;
 	if ((*p_jobState == volatileZeroAdjust) || (*p_jobState == persistentZeroAdjust)   ) {
 		ADCSRA |= (1<< ADSC);
 	}
@@ -389,6 +395,8 @@ void initPID()
 	 
 	stableStepsCnt = 0;
 	firstPersistentStepDone = 0;
+	DDRB |= 0x07;
+	PORTB |= 0x07;
 	setPotiCS(0);
 	setPotiINC(0);
 	setPotiUp(0);  
