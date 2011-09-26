@@ -1,5 +1,7 @@
 #include <avr/io.h>
 #include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
 #include <avr/interrupt.h>
 #include <util/atomic.h>
 #include <avr/eeprom.h>
@@ -7,13 +9,14 @@
 #include "USI_TWI_Slave.h"
 
 
-
 int16_t lastAmpsADCVal;
 
 int8_t runningSecondsTick;
 int8_t adcTick;
-
-
+int32_t adcSum;
+int8_t adcCnt;
+int8_t outside;
+int8_t tcnt;
 
 
 #define zeroPotiPosEEPROMpos                0   // unit8
@@ -28,7 +31,8 @@ int8_t  extraJob;
 
 int8_t* p_zeroPotiPos;
 int16_t* p_ADCvoltage;
-int16_t* p_dummy1;
+int8_t* p_adcScope;
+int8_t* p_dummy1;
 int8_t* p_jobState;
 
 int8_t  prevJobState;
@@ -36,6 +40,7 @@ int8_t  prevJobState;
 
 
 
+#define adcThreshold 5
 
 
 enum zeroAdjustJobStates 
@@ -50,9 +55,11 @@ enum zeroAdjustJobStates
 	fatalError	
 };
 
-
-
-
+enum adcScopeEnum
+{
+	nearScope,
+	farScope
+};
 
 int16_t ampsADCValue()
 {
@@ -78,7 +85,7 @@ int16_t diffADCValue()
 {  
 	int16_t res;
 	res = ampsADCValue();
-	res = valueFrom6Bit2Complement(res);
+//	res = valueFrom6Bit2Complement(res);      done during interrupt
 	return res;
 }
 
@@ -103,9 +110,7 @@ float adcVoltage()
 
 	sei();
 	
-
 	return VHex;
-
 }
 
 
@@ -136,8 +141,6 @@ void setPotiUp(int8_t up)
 		PORTB |= 0x01;
 	}
 }
-
-
 
 
 void storeZeroPotiPos(int8_t val)
@@ -178,7 +181,6 @@ void zeroPotiPosUpPersistent(int8_t up, int8_t persistent)
 
 void storePotiPos()  // one should not make too much (only 50000 possible) EEPROM storages
 {
-
 		setPotiINC(1);		  // to be tested which oone
 
 		setPotiCS(1);
@@ -209,29 +211,31 @@ void volatilePotiUpAmt(int8_t  up, int8_t amt)
 void errorPotiPosExceeded()
 {
 	*p_jobState = fatalError ;
-
 }
 
 void volatileZeroAdjStep()
 {
-
 	int16_t volts;
 	volts = adcVoltage();
-   	if (volts > 1) {		
+   	if (volts > adcThreshold) {		
 		if (*p_zeroPotiPos > 0)  {
 			zeroPotiPosUpPersistent(1, 0);
+			outside = 1;
 		} else {
 			errorPotiPosExceeded();
 		}
 	} else { 
-		if (volts < -1) {
+		if (volts < - adcThreshold) {
 			if (*p_zeroPotiPos < 100) {
 				zeroPotiPosUpPersistent(0, 0);
+				outside = 1;
 			} else {
 				errorPotiPosExceeded();
 			}
+		}else {
+			outside = 0;
 		}
-	}
+	} 
 	
 }
 
@@ -239,7 +243,7 @@ void persistentZeroAdjStep()
 {	
 	int16_t volts;
 	volts = adcVoltage();
-   	if (volts > 1) {	
+   	if (volts > adcThreshold) {	
 		stableStepsCnt = 0;	
 		if (*p_zeroPotiPos >= 0)  { 
 			if (*p_jobState == persistentZeroAdjust) // job might have changed meanwhile
@@ -249,7 +253,7 @@ void persistentZeroAdjStep()
 			errorPotiPosExceeded();
 		}
 	} else { 
-		if (volts < -1) {
+		if (volts < - adcThreshold) {
 			stableStepsCnt = 0;
 			if (*p_zeroPotiPos < 100 ) {
 			if (*p_jobState == persistentZeroAdjust) // job might have changed meanwhile
@@ -273,7 +277,6 @@ void persistentZeroAdjStep()
 void resetZeroAdj()
 {
 	int i1;
-
 
 	setPotiCS(1);
 	setPotiUp(0);
@@ -310,8 +313,13 @@ void resetZeroAdj()
 
 ISR(ADC_vect)
 {
-	lastAmpsADCVal = ADC;
-	adcTick = 1; 
+	adcSum += valueFrom6Bit2Complement(ADC);
+	++ adcCnt;
+	if (adcCnt < 100){
+		ADCSRA |= (1<< ADSC);
+	} else {
+		adcTick = 1;
+	}	 
 }
 
 ISR(TIM1_COMPA_vect)
@@ -319,11 +327,26 @@ ISR(TIM1_COMPA_vect)
 		runningSecondsTick = 1;
 }
 
+void switchToFarScope()
+{
+	ADCSRA &= ~(1<< ADEN);
+	ADMUX = (0x00 |  (1<<REFS1) | (1<< MUX5) | (1<< MUX4)); // int ref 1.1V, ADC2 neg, ADC3 pos 
+	*p_adcScope = farScope;
+	ADCSRA |= (1<< ADEN);
+}
+
+void switchToNearScope()
+{
+	ADCSRA &= ~(1<< ADEN);
+	ADMUX = (0x00 |  (1<<REFS1) | (1<< MUX5) | (1<< MUX4)| (1>>MUX0)); // int ref 1.1V, ADC2 neg, ADC3 pos, 20x
+	*p_adcScope = nearScope;
+	ADCSRA |= (1<< ADEN);
+}
+
 
 void initHW()
 {
 	runningSecondsTick = 0;
-
 
 	cli();
 // Timer 1 as Duration Timer
@@ -341,21 +364,17 @@ void initHW()
 	TCCR1B |= (1<<CS12); // prescaler clk / 256, timer started
 
 // adc settings
-
 	
 	lastAmpsADCVal = 0;
 	ADCSRA = (0x0 |(1<<ADPS2) | (1<< ADPS1) );  // prescaler / 64, gives approx. 125 kHz ADC clock freq.
 	ADMUX = (0x00 |  (1<<REFS1) | (1<< MUX5) | (1<< MUX4)); // int ref 1.1V, ADC2 neg, ADC3 pos
 	ADCSRA |= ((1<< ADEN) | (1<< ADIE));
 	ADCSRB = 0x00 | (1<<BIN);
+				
+	*p_adcScope = farScope;													
+	adcTick = 0;	
 
-
-								
 	sei();
-									
-							
-	adcTick = 0;
-
 }
 
 
@@ -370,10 +389,23 @@ void onSecondTick()
 	}
 	*/
 	*p_jobState = 0x02;
-	if ((*p_jobState == volatileZeroAdjust) || (*p_jobState == persistentZeroAdjust)   ) {
-		ADCSRA |= (1<< ADSC);
-	}
-
+	if (*p_jobState == persistentZeroAdjust   ) {
+		if (adcCnt == 0) {				// avoid trigger during run, anyhow should not happen, since 
+										// collecting 100 values will need 100 * 13 * 64 = 83200 cpu cycles
+										// + some few interrupt time, means approx 1 ms + interrupt time
+			ADCSRA |= (1<< ADSC);
+		}
+	} else if (*p_jobState == volatileZeroAdjust) {
+		if ((outside) || (tcnt > 10 ) ){
+			if (adcCnt == 0) {				// avoid trigger during run, anyhow should not happen, since 
+											// collecting 100 values will need 100 * 13 * 64 = 83200 cpu cycles
+											// + some few interrupt time, means approx 1 ms + interrupt time
+				ADCSRA |= (1<< ADSC);
+				tcnt = 0;
+			}
+			++ tcnt;
+		}
+	}	
 }
 
 
@@ -381,6 +413,7 @@ void onSecondTick()
 
 void onADCTick()
 {
+	lastAmpsADCVal = adcSum / adcCnt;
 	if (*p_jobState == volatileZeroAdjust) {
 		volatileZeroAdjStep();
 	}
@@ -392,7 +425,15 @@ void onADCTick()
 			persistentZeroAdjStep();
 		}		
 	}  
-	
+	if ((*p_adcScope == farScope) && (  abs(lastAmpsADCVal) < 15 )) {
+		switchToNearScope();
+	}
+	if ((*p_adcScope == nearScope) && (abs(lastAmpsADCVal) > 500)) {
+		switchToFarScope();
+	}
+
+	adcSum  = 0;
+	adcCnt = 0;	
 }
 
 
@@ -401,6 +442,7 @@ void initPID()
 {
 	p_zeroPotiPos = (int8_t*) (&i2c_rdbuf[0]);
 	p_ADCvoltage    =  (int16_t*) (&i2c_rdbuf[1]);
+	p_adcScope = (int8_t *) (&i2c_rdbuf[3]);
 	p_jobState =(int8_t*) (&i2c_rdbuf[5]);
 
 
@@ -411,6 +453,8 @@ void initPID()
 	prevJobState = jobIdle;
 	extraJob = jobIdle;
 	jobBuffer = 0;
+	outside = 0;
+	tcnt = 0;
 	 
 	stableStepsCnt = 0;
 	firstPersistentStepDone = 0;
@@ -440,10 +484,7 @@ void jobReceived(int8_t jS)
 }
 
 
-
-
 int8_t jobB;
-
 
 
 int main(void)
@@ -459,7 +500,7 @@ int main(void)
 
 	PORTA |= 0x08; 
 */
-	initPID();
+	initPID();   // needs to be called before initHW();
 
 	initHW();
 	USI_TWI_Slave_Initialise(0x10);
@@ -476,17 +517,12 @@ int main(void)
 			jobB = 0;
 		}
 
-
-
 //		asm volatile ( "wdr"  );
-
 
 		if (runningSecondsTick == 1) {
 			runningSecondsTick = 0;
 				onSecondTick();	
 		}
-
-
 
 		if (extraJob == up1)  {
 			volatilePotiUpAmt(1,1);
@@ -506,7 +542,5 @@ int main(void)
 			adcTick = 0;
 		  	onADCTick();
 		}
-	
 	}
-
 }
