@@ -358,7 +358,7 @@ void twi_start_rx(u8_t adr, u8_t *data, u8_t bytes_to_receive)
 }
 
 
-int8_t twi_synch_rx(u8_t adr, u8_t *data, u8_t bytes_to_receive)
+uint8_t twi_synch_rx(u8_t adr, u8_t *data, u8_t bytes_to_receive)
 {
 //	printf("twi_sync_rx entered\n");
 //	while (res != TWI_STATUS_DONE ) {

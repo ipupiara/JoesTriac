@@ -132,7 +132,7 @@ extern int8_t twi_synch_tx(u8_t adr, u8_t *data, u8_t bytes_to_send);
 // mainly if other end handles event in application level synchronousely when message received
 
 
-int8_t twi_synch_rx(u8_t adr, u8_t *data, u8_t bytes_to_receive);
+uint8_t twi_synch_rx(u8_t adr, u8_t *data, u8_t bytes_to_receive);
 
 /**
  *  Start TWI reception.

@@ -60,7 +60,7 @@ void storeCalibHighAdc(uint16_t ch);
 
 void persistentZeroAdjStep();
 
-int setAdjustJob(int8_t jobS);
+int8_t setAdjustJob(int8_t jobS);
 
 
 void calcNextTriacDelay();

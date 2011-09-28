@@ -40,7 +40,7 @@ int8_t  prevJobState;
 
 
 
-#define adcThreshold 5
+#define adcThreshold 6
 
 
 enum zeroAdjustJobStates 
@@ -256,9 +256,10 @@ void persistentZeroAdjStep()
 		if (volts < - adcThreshold) {
 			stableStepsCnt = 0;
 			if (*p_zeroPotiPos < 100 ) {
-			if (*p_jobState == persistentZeroAdjust) // job might have changed meanwhile
-//				zeroPotiPosUpPersistent(1,1);
-				zeroPotiPosUpPersistent(1,0);
+				if (*p_jobState == persistentZeroAdjust) {// job might have changed meanwhile
+//					zeroPotiPosUpPersistent(1,1);
+					zeroPotiPosUpPersistent(1,0);
+				}
 			} else {
 				errorPotiPosExceeded();
 			}
@@ -390,7 +391,7 @@ void onSecondTick()
 	*/
 //	*p_jobState = 0x02;
 
-/*
+
 	if (*p_jobState == persistentZeroAdjust   ) {
 		if (adcCnt == 0) {				// avoid trigger during run, anyhow should not happen, since 
 										// collecting 100 values will need 100 * 13 * 64 = 83200 cpu cycles
@@ -408,7 +409,7 @@ void onSecondTick()
 			++ tcnt;
 		}
 	}
-	*/	
+		
 }
 
 

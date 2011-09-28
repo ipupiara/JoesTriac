@@ -69,7 +69,7 @@ int main(void)
 	printf("\nSTARTUP\n");
 	restorePersistentData();
 	lcd_init();
-//	initKeyPad();
+	initKeyPad();
 
 	initInterrupts();
 	twi_init();

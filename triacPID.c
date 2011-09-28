@@ -261,7 +261,7 @@ int8_t getAndTestZeroAdjustState(int8_t jobS)
 	return res;
 }
 
-int setAdjustJob(int8_t jobS)
+int8_t setAdjustJob(int8_t jobS)
 {  int8_t res;
 	int8_t cnt1;
 	res = 0;
@@ -278,22 +278,26 @@ void persistentZeroAdjStep()
 {	int8_t  jobS;
 	int16_t adcVal;
 	int8_t adcScope;
-	int8_t res;
+	uint8_t res;
+	double debugV;
 
 	memset(receiveMessageBuffer,0,sizeof(receiveMessageBuffer));
 	res  = twi_synch_rx(zeroAdjustATtinyID, (uint8_t *) &receiveMessageBuffer, 6);
 	printf("synch rx returned %x\n",res);
 	if (res == TWI_STATUS_DONE) {
 		jobS =  receiveMessageBuffer[5];
-		zeroPotiPos = receiveMessageBuffer[0];
+		zeroPotiPos = (int8_t) receiveMessageBuffer[0];
 		adcVal  = (int16_t) receiveMessageBuffer[1];
 		adcScope = (int8_t) receiveMessageBuffer[3];
+		printf("  zPP %i adcV %i adcSc %i\n",zeroPotiPos,adcVal,adcScope);
 
 		if (adcScope == nearScope) {
 			zeroAdjustDiffVoltage =  (adcVal * 1.1) / (20.0 * 0x200);
 		} else {
 			zeroAdjustDiffVoltage =  (adcVal * 1.1) / ( 0x200);
 		}
+		debugV = zeroAdjustDiffVoltage;
+		printf("jb %i, V %f\n\n",jobS,debugV);
 
 
 		if (jobS == jobIdle) {
