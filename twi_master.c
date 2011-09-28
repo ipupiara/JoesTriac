@@ -75,9 +75,6 @@
 #endif
 #endif
 
-/// TWI State machine value when finished
-#define TWI_STATUS_DONE 0xff
-
 /* _____LOCAL VARIABLES______________________________________________________ */
 static u8_t twi_adr;
 static u8_t *twi_data;
@@ -271,7 +268,7 @@ void twi_init(void)
 
 void twi_resetAfterCrash()
 {
-	printf("twi reset after crash");
+	printf("twi reset after crash\n");
 	//  TWI  disabled; 
     TWCR = (0<<TWINT)|(0<<TWEA)|(0<<TWSTA)|(0<<TWSTO)|(0<<TWWC)|(0<<TWEN)|(0<<TWIE);
 
@@ -377,12 +374,11 @@ int8_t twi_synch_rx(u8_t adr, u8_t *data, u8_t bytes_to_receive)
 		} else {
 //			succeededRxAmt ++;
 //			checkDebugBuffer();
-			printf("SUCCESS: received ok\n"); 
+			printf("SUCCESS: synch_rx ok\n"); 
 		}
 //	}
 //	printf("twi_sync_rx leave res %x s/f %i / %i\n",twi_status, succeededRxAmt,failedRxAmt);
 	return  twi_status;
-
 }
 
 bool_t twi_busy(void)

@@ -52,13 +52,16 @@ void storeCalibHighAdc(uint16_t ch);
 
 //void onIdleAdcTick();
 
-void checkTWIZeroAdjustMsg();
+//void checkTWIZeroAdjustMsg();
 
-void sendZeroAdjustMsg(int8_t jobS);
+//int sendZeroAdjustMsg(int8_t jobS);
 
-int8_t getAndTestZeroAdjustState(int8_t jobS);
+//int8_t getAndTestZeroAdjustState(int8_t jobS);
 
 void persistentZeroAdjStep();
+
+int setAdjustJob(int8_t jobS);
+
 
 void calcNextTriacDelay();
 

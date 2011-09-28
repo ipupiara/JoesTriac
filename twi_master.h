@@ -183,8 +183,8 @@ extern void twi_stop(void);
 
 #endif
 
-
-
+/// TWI State machine value when finished
+#define TWI_STATUS_DONE 0xff
 
 int8_t  twiDataReceived;  // added by PN as an application event notification variable  30. Aug 2011
 int8_t  twiDataSent;	// added by PN as an application event notification variable  30. Aug 2011

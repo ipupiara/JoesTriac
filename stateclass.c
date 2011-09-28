@@ -190,18 +190,18 @@ void entryCalibrateZeroSignalState(void)
 {
 //	printf("entry I\n");
 	displayCalibrateZeroPotiPos();
+
 	stableZeroAdjReached = 0;
-//	sendZeroAdjustMsg(persistentZeroAdjust);
-//	resetZeroAdj();
-//	setDiffADC();
+    if (!setAdjustJob(persistentZeroAdjust)) {
+		sprintf((char *) &lastFatalErrorString,"i2c comms err");
+		fatalErrorOccurred = 1;
+	}
+
 }
 
 void exitCalibrateZeroSignalState(void)
 {
-
-	sendZeroAdjustMsg(jobIdle);
 //	printf("exit exitCalibrateZeroSignalState\n");
-//	closeDiffADC();
 }
 
 uStInt checkCalibZeroInner(uStInt res)
@@ -216,14 +216,14 @@ uStInt checkCalibZeroInner(uStInt res)
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateScale);
 		// No event action.
 		END_EVENT_HANDLER(PJoesTriacStateChart);
-		res =  uStIntHandlingDone;
-		
+		res =  uStIntHandlingDone;	
 	}
-
+/*
 	if (currentEvent->evType == evTWIDataReceived) 
 	{				
 //		checkTWIZeroAdjustMsg();
 	}
+	*/
 
 	if (currentEvent->evType == evCharEntered) {
 		switch (currentEvent->evData.keyCode) {
@@ -246,7 +246,7 @@ uStInt checkCalibZeroInner(uStInt res)
 	return res;
 }
 
-int8_t tCnt;
+//int8_t tCnt;
 
 uStInt evCalibrateZeroSignalChecker(void)
 {
@@ -263,14 +263,12 @@ uStInt evCalibrateZeroSignalChecker(void)
 	
 	if (currentEvent->evType == evSecondsTick) 
 	{	
-//		startSingleADC();
-
-		++tCnt;
-		if (tCnt > 7) {
+/*		++tCnt;
+		if (tCnt > 2) {
 			tCnt = 0;
 //			twi_reset();
 		}
-		if (tCnt == 7) {
+		if (tCnt == 2) {
 			int8_t res;
 //			sendZeroAdjustMsg(persistentZeroAdjust);
 			sendZeroAdjustMsg(0xA5);
@@ -278,9 +276,9 @@ uStInt evCalibrateZeroSignalChecker(void)
 			res = getAndTestZeroAdjustState(0xA5);
 			printf("job test returned,%x\n", res);
 		}
+		*/
 
-
-//		persistentZeroAdjStep();
+		persistentZeroAdjStep();
 		displayPotiPos();
 	
 		res =  uStIntHandlingDone;

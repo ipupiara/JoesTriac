@@ -164,7 +164,7 @@ int main(void)
 			ev.evType = evZeroSignalOK;
 			processTriacEvent(&SJoesTriacStateChart,&ev);	
 		}	
- 		
+/* 		
 	if (debugEvent1Triggered) {
 			debugEvent1Triggered = 0;
 //			ev.evType = evStartPressed;
@@ -172,6 +172,6 @@ int main(void)
 			ev.evType = evAstPressed;
 			processTriacEvent(&SJoesTriacStateChart,&ev);
 		}  
-		
+		*/
     }
 }

@@ -388,7 +388,9 @@ void onSecondTick()
 		PORTA |= 0x80;
 	}
 	*/
-	*p_jobState = 0x02;
+//	*p_jobState = 0x02;
+
+/*
 	if (*p_jobState == persistentZeroAdjust   ) {
 		if (adcCnt == 0) {				// avoid trigger during run, anyhow should not happen, since 
 										// collecting 100 values will need 100 * 13 * 64 = 83200 cpu cycles
@@ -405,7 +407,8 @@ void onSecondTick()
 			}
 			++ tcnt;
 		}
-	}	
+	}
+	*/	
 }
 
 
