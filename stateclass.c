@@ -263,21 +263,6 @@ uStInt evCalibrateZeroSignalChecker(void)
 	
 	if (currentEvent->evType == evSecondsTick) 
 	{	
-/*		++tCnt;
-		if (tCnt > 2) {
-			tCnt = 0;
-//			twi_reset();
-		}
-		if (tCnt == 2) {
-			int8_t res;
-//			sendZeroAdjustMsg(persistentZeroAdjust);
-			sendZeroAdjustMsg(0xA5);
-//			res = getAndTestZeroAdjustState(persistentZeroAdjust);
-			res = getAndTestZeroAdjustState(0xA5);
-			printf("job test returned,%x\n", res);
-		}
-		*/
-
 		persistentZeroAdjStep();
 		displayPotiPos();
 	
@@ -438,17 +423,22 @@ void entryTriacIdleState(void)
 {
 //	printf("entry I\n");
 //	debugEvent1Triggered = 1;
+	onEntryIdlePID();
 	startDurationTimer(maxSecsPossible);   // enable secondsTick
-	onEntryIdle();
-//	setDiffADC();
+    if (!setAdjustJob(volatileZeroAdjust)) {
+		sprintf((char *) &lastFatalErrorString,"i2c comms err");
+		fatalErrorOccurred = 1;
+	}
 }
 
 void exitTriacIdleState(void)
 {
 //	printf("exit I\n");
 	stopDurationTimer();
-//	closeDiffADC();
-
+    if (!setAdjustJob(jobIdle)) {
+		sprintf((char *) &lastFatalErrorString,"i2c comms err");
+		fatalErrorOccurred = 1;
+	}
 	clr_scr();
 }
 
@@ -471,9 +461,7 @@ uStInt evTriacIdleChecker(void)
 	}
 	if (currentEvent->evType == evSecondsTick) 
 	{	
-//		startSingleADC();
-	
-		onIdleSecondTick();
+		onIdleSecondTickPID();
 		res =  uStIntHandlingDone;
 	}
 	return res;

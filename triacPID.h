@@ -20,15 +20,11 @@ void InitPID();
 
 void resetPID();
 
-//void resetZeroAdj();
+void onEntryIdlePID();
 
-void onEntryIdle();
-
-void onIdleSecondTick();
+void onIdleSecondTickPID();
 
 real Update(real error);
-
-// void zeroAdjTest();
 
 double currentAmpsValue;
 

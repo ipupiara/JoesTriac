@@ -344,13 +344,13 @@ before a first offsetadjust can be done due to ammeter fall - down time
 else start whenever count reaches max, even though the count is not set on reentering
 idle state and will then have just any value
 */
-void onEntryIdle()
+void onEntryIdlePID()
 {
 	idleTickCnt = 1;
 }
 
 
-void onIdleSecondTick()
+void onIdleSecondTickPID()
 {
 /*	if (idleTickCnt == 0) {
 //		adjust sensor offset
@@ -358,6 +358,7 @@ void onIdleSecondTick()
 	}
 	++ idleTickCnt;
 	if (idleTickCnt > maxIdleTickCnt) idleTickCnt = 0;  */
+ 	checkTWIZeroAdjustMsg();
 }
 
 void InitializePID(real kpTot, real ki, real kd, real error_thresh, real step_time)
