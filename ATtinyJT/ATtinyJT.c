@@ -20,7 +20,8 @@ int8_t tcnt;
 
 
 #define zeroPotiPosEEPROMpos                0   // unit8
-
+#define nearScopeOffsetCorrectionEEPROMpos       1    // uint8 processor dependent offset corrections
+#define farScopeOffsetCorrectionEEPROMpos      2      // uint8 nasty, but tests show necessity 
 
 int8_t stableStepsCnt;
 
@@ -89,7 +90,7 @@ int16_t diffADCValue()
 	return res;
 }
 
-float adcVoltage()
+int16_t adcVoltage()
 {
 	int16_t VHex;
 //	float   VFl;
@@ -181,14 +182,21 @@ void zeroPotiPosUpPersistent(int8_t up, int8_t persistent)
 
 void storePotiPos()  // one should not make too much (only 50000 possible) EEPROM storages
 {
-		setPotiINC(1);		  // to be tested which oone
+	int i1;
+//		setPotiINC(1);		  // to be tested which oone
 
 		setPotiCS(1);
 
-//		setPotiINC(1);   // to be tested which oone
-
+		setPotiINC(1);   // to be tested which oone
 		setPotiINC(0);
+		for (i1 = 0; i1 < 20;++ i1) {}  // respect Tcyc min., and..
+		setPotiUp(1);
+
+		setPotiINC(1); 
+		setPotiINC(0);
+		for (i1 = 0; i1 <10;++ i1) {}  // respect Tic min. and.. hope persistency will work now, tobe tested
 		setPotiCS(0);
+		setPotiUp(0);
 		storeZeroPotiPos(*p_zeroPotiPos);
 }
 
@@ -459,7 +467,6 @@ void initPID()
 	jobBuffer = 0;
 	outside = 0;
 	tcnt = 0;
-	 
 	stableStepsCnt = 0;
 	firstPersistentStepDone = 0;
 	DDRB |= 0x07;

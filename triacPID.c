@@ -277,6 +277,7 @@ int8_t setAdjustJob(int8_t jobS)
 void persistentZeroAdjStep()
 {	int8_t  jobS;
 	int16_t adcVal;
+	int16_t* adcVP;
 	int8_t adcScope;
 	uint8_t res;
 	double debugV;
@@ -287,7 +288,9 @@ void persistentZeroAdjStep()
 	if (res == TWI_STATUS_DONE) {
 		jobS =  receiveMessageBuffer[5];
 		zeroPotiPos = (int8_t) receiveMessageBuffer[0];
-		adcVal  = (int16_t) receiveMessageBuffer[1];
+		adcVP = (int16_t*) (&receiveMessageBuffer[1]);	
+		adcVal = *adcVP;
+//		adcVal  = (int16_t) receiveMessageBuffer[1];
 		adcScope = (int8_t) receiveMessageBuffer[3];
 		printf("  zPP %i adcV %i adcSc %i\n",zeroPotiPos,adcVal,adcScope);
 
