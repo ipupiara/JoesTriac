@@ -352,14 +352,14 @@ void onEntryIdlePID()
 
 void onIdleSecondTickPID()
 {
-/*	if (idleTickCnt == 0) {
-//		adjust sensor offset
-		volatileZeroAdjStep();
+	if (idleTickCnt < maxIdleTickCnt) {
+		++ idleTickCnt;
+	} else {
+	 	checkTWIZeroAdjustMsg();
 	}
-	++ idleTickCnt;
-	if (idleTickCnt > maxIdleTickCnt) idleTickCnt = 0;  */
- 	checkTWIZeroAdjustMsg();
 }
+
+
 
 void InitializePID(real kpTot, real ki, real kd, real error_thresh, real step_time)
 {
