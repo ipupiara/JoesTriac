@@ -50,7 +50,7 @@ void storeCalibHighAdc(uint16_t ch);
 
 //void checkTWIZeroAdjustMsg();
 
-//int sendZeroAdjustMsg(int8_t jobS);
+int sendZeroAdjustMsg(int8_t jobS);
 
 //int8_t getAndTestZeroAdjustState(int8_t jobS);
 

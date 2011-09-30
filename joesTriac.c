@@ -74,17 +74,6 @@ int main(void)
 	initInterrupts();
 	twi_init();
 
-/*	dummyI = 0;
-	while(1) {
-		++ dummyI;
-		if (dummyI == 0) {
-			if ((ky = keyEntered())){
-					printf("\nmain() ky %c %X",ky,ky);
-			}
-		}
-	}   */
-
-
 	InitPID();
 	initUI();
 
@@ -101,6 +90,18 @@ int main(void)
 	}
 */	
 	startStateCharts();	
+
+	int dummyI;
+	dummyI = 0;
+	while(1) {
+		++ dummyI;
+		if (dummyI == 0) {
+			if ((ky = keyEntered())){
+					printf("\nmain() ky %c %X",ky,ky);
+			}
+		}
+	}   
+
 
 
 /*	 ev.evType = evAstPressed;
@@ -146,7 +147,7 @@ int main(void)
 		}
 
 		if ((ky = keyEntered())){
-//			printf("\nky %c %X",ky,ky);
+			printf("\nky %c %X",ky,ky);
 			if (ky == kpFunction1) ev.evType = evFunction1Pressed;
 //			if (ky == kpFunction2) ev.evType = eFunction2Pressed;   // not yet in use
 			if (ky == kpStart) ev.evType = evStartPressed;
@@ -156,7 +157,8 @@ int main(void)
 			if (ky >= kp0){
 				ev.evType = evCharEntered;
 				ev.evData.keyCode = ky;			
-			}	
+			}
+			printf("ev fired key : %x, startEv:%i, stopEv:%i\n",ky,(ev.evType==evStartPressed),(ev.evType==evStopPressed));	
 			processTriacEvent(&SJoesTriacStateChart,&ev);	
 		}
 		if (stableZeroAdjReached) {

@@ -50,7 +50,7 @@ void displayPotiPos()
 //	VFl = adcVoltage();
 	VFl = zeroAdjustDiffVoltage;	
 
-	sprintf((char*)&buffer,"%3i P %5.3f V",zeroPotiPos,VFl);
+	sprintf((char*)&buffer,"%3i P %6.3f V",zeroPotiPos,VFl);
 
 	lcd_Line2(LCD1);
 	lcd_write_str((char*)&buffer,LCD1);
@@ -182,14 +182,18 @@ void displayTriacRunning()
 	lcd_write_str("Running ",LCD1);
 //	lcd_Line2(LCD1);
 //	lcd_write_str("wait or H",LCD1);
+	lcd_goto(2,0,LCD1);
+	lcd_write_str("<R>=stop",LCD1);
 }
 
 void displayEditAmpsDuration()
 {
 	lcd_clrscr(LCD1);
-	lcd_write_str("A     T",LCD1);
+	lcd_write_str("A     T    ",LCD1);
 	lcd_Line2(LCD1);
 	lcd_write_str("*     #       ",LCD1);
+	lcd_goto(2,0,LCD1);
+	lcd_write_str("<G>=start",LCD1);
 }
 
 
@@ -197,7 +201,7 @@ void displayEditAmpsDuration()
 void displayEditAmps()
 {
 	lcd_goto(0,0,LCD1);
-	lcd_write_str("Amps  T",LCD1);
+	lcd_write_str("Amps  T   ",LCD1);
 }
 
 void displayEditDuration()

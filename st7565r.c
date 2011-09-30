@@ -87,8 +87,11 @@ void lcd_write_str(char* st1, int8_t Scr)
 void lcd_goto(int8_t line, int8_t pos,int8_t Scr)
 {
 	int8_t adrC;
-	if (line == 0) adrC = 0x00; else adrC = 0x40;  
-	adrC = adrC + pos + 0x80;
+	adrC = 0x80; // line 0  is default
+	if (line == 1) adrC = 0xC0;  
+	if (line == 2) adrC = 0x94;
+	if (line == 3) adrC = 0xD4;
+	adrC = adrC + pos;
 	lcd_write(adrC,0,Scr);
 }
 

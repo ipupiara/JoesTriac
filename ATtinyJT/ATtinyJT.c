@@ -41,7 +41,7 @@ int8_t  prevJobState;
 
 
 
-#define adcThreshold 6
+#define adcThreshold 12
 
 
 enum zeroAdjustJobStates 
