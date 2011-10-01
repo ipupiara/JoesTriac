@@ -9,7 +9,7 @@
 #include "TWI_master.h"
 
 //#define printfPid
-#define printfAmps
+//#define printfAmps
 
 enum adcScopeEnum
 {

@@ -41,8 +41,12 @@ int8_t getKeypadState()
 	int8_t chr;
 	ch = 0x00;
 	chr = 0x00;
-//	keyPort = 0b00000010;  
-	keyPortOut2  = 0b10000000;  
+//	keyPort = 0b00000010; 
+
+	keyPort &= ~0x0C;  
+	keyPortOut2	 &= ~0xC0;
+ 
+	keyPortOut2  |= 0b10000000;  
 	delay6pnt2d5us(keypadSignalDelayFaktor);
 	// delay6pnt2d5us(2);
 	if ((ch=keyPin & 0xF0)){
@@ -51,7 +55,8 @@ int8_t getKeypadState()
 		if (ch & 0b00100000) chr = kp8;  
 		if (ch & 0b00010000) chr = kp5;		
 	} else {
-		keyPort = 0b00000100;
+		keyPortOut2  &= ~0b10000000; 
+		keyPort |= 0b00000100;
 		delay6pnt2d5us(keypadSignalDelayFaktor);
 		if ((ch=keyPin & 0xF0)){
 			if (ch & 0b10000000) chr = kp1;
@@ -59,7 +64,8 @@ int8_t getKeypadState()
 			if (ch & 0b00100000) chr = kp7;
 			if (ch & 0b00010000) chr = kp4;		
 		}	else {
-				keyPort = 0b00001000;
+				keyPort &= ~0b00000100;
+				keyPort |= 0b00001000;
 				delay6pnt2d5us(keypadSignalDelayFaktor);
 				if ((ch=keyPin & 0xF0)){
 					if (ch & 0b10000000) chr = kp3;
@@ -67,8 +73,9 @@ int8_t getKeypadState()
 					if (ch & 0b00100000) chr = kp9;
 					if (ch & 0b00010000) chr = kp6;		
 				}  else {
-//					keyPort = 0b00000001; 
-					keyPortOut2 = 0b01000000; 
+//					keyPort = 0b00000001;
+					keyPort &= ~0b00001000; 
+					keyPortOut2 |= 0b01000000; 
 					delay6pnt2d5us(keypadSignalDelayFaktor);
 					if ((ch=keyPin & 0xF0)){
 						if (ch & 0b10000000) chr = kpStart;
@@ -91,12 +98,14 @@ void initKeyPad()
 	lastValueZero = 1;
 
 //	keyDDR = 0x0F;  // lower four pins as output, higher as Input , resp. Interrupt sources
-	keyDDR  = 0x0C;
-	keyDDROut2 = 0xC0;
+	keyDDR  |= 0x0C;
+	keyDDR  &= ~0xF0;
+	keyDDROut2 |= 0xC0;
 
 //	keyPort = 0x0F;  // set lower four pins high
-	keyPort = 0x0C;  // set upper2 of lower four pins high
-	keyPortOut2	 = 0xC0;
+	keyPort |= 0x0C;  // set upper2 of lower four pins high
+	keyPort &= ~0xF0;  // make sure no pullup resistors switched
+	keyPortOut2	 |= 0xC0;
 	
 	// init PCInt 1 on Port B, 2 on C 
 	IntrMsk = 0xF0;  // higher  4 pins will cause interrupt, upper 4 used as output for scanning keyPad
@@ -122,8 +131,8 @@ ISR(PCINTVECT)
 	
 //	keyPort = 0x0F;
 
-	keyPort = 0x0C;  // set upper2 of lower four pins high
-	keyPortOut2	 = 0xC0;
+	keyPort |= 0x0C;  // set upper2 of lower four pins high
+	keyPortOut2	 |= 0xC0;
 
 	delayEmptyProc ();
 	PCIFR = 0x00;
