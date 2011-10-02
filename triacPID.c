@@ -9,7 +9,7 @@
 #include "TWI_master.h"
 
 //#define printfPid
-#define printfAmps
+//#define printfAmps
 
 enum adcScopeEnum
 {
@@ -429,13 +429,17 @@ float currentAmps()
 {
 	int16_t adcAmps;
 	float res;
+
 	adcAmps = ampsADCValue();
-	res = calibLowAmps + (gradAmps * (adcAmps - calibLowADC  ));
+
+	res = calibLowAmps +  (gradAmps * ((int16_t) adcAmps - (int16_t) calibLowADC  ));
 
 #ifdef printfAmps
 	double grdA = gradAmps ;
 	double resD = res;
-	printf("adcA %i grad %f calow %i cahi %i res %f\n",adcAmps,grdA,calibLowADC, calibHighADC, resD);
+
+	printf("adcA %i grad %f calow %i cahi %i res %f  ",adcAmps,grdA,calibLowADC, calibHighADC, resD);
+	printf("calLowA %i calHighA %i\n",calibLowAmps,calibHighAmps);
 #endif
 
 	currentAmpsValue = res;   // set this for ui

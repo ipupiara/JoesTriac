@@ -226,7 +226,7 @@ uStInt checkCalibZeroInner(uStInt res)
 //		checkTWIZeroAdjustMsg();
 	}
 	*/
-
+/*
 	if (currentEvent->evType == evCharEntered) {
 		switch (currentEvent->evData.keyCode) {
 			case kp1 : 
@@ -243,8 +243,7 @@ uStInt checkCalibZeroInner(uStInt res)
 				break ;									
 		}
 	}
-
-	// check if abvove still crashes,  
+*/
 	return res;
 }
 
@@ -271,8 +270,8 @@ uStInt evCalibrateZeroSignalChecker(void)
 		res =  uStIntHandlingDone;
 	}
 
-	res = checkCalibZeroInner(res);
-	// check if it still crashes,  
+	res = checkCalibZeroInner(res);  // method only works if one part is placed out
+									// no idea why (lenght of code ? )
 
 	return (res);
 }
@@ -504,6 +503,7 @@ uStInt evEditIdleChecker(void)
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
 	}
+/*
 	if (currentEvent->evType == evCharEntered) {
 		switch (currentEvent->evData.keyCode) {
 			case kp1 : 
@@ -521,7 +521,7 @@ uStInt evEditIdleChecker(void)
 		}
 		res =  uStIntHandlingDone;
 	}
-
+*/
 	
 	return res;
 }
@@ -545,7 +545,6 @@ uStInt evEditAmpsChecker(void)
 	uStInt res = uStIntNoMatch;
 	//	printf("check for event in State evStateIdle\n");
 
-
 	if (currentEvent->evType == evNumPressed)  {	
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditDuration);
 			// No event action.
@@ -558,7 +557,6 @@ uStInt evEditAmpsChecker(void)
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
 	}
-
 
 	if (currentEvent->evType == evCharEntered) {
 

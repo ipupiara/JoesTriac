@@ -10,13 +10,13 @@
 void displayVoltage()
 {
 	double   VFl;
-	char buffer [8];
+	char buffer [13];
 	
 	VFl = adcVoltage();
 	
-	sprintf((char*)&buffer,"%5.2fV",VFl);
+	sprintf((char*)&buffer,"%5.2fV/%4iD",VFl,triacTriggerDelayCms);
 
-	lcd_goto(0, 9, LCD1);
+	lcd_goto(3, 6, LCD1);
 	lcd_write_str((char*)&buffer,LCD1);
 }
 
@@ -88,8 +88,8 @@ void displayCalibrate(int amps)
 	sprintf((char*)&buffer,"%2i",amps);
 	lcd_write_str((char*)&buffer,LCD1);
 	lcd_write_str("A #,* Skip",LCD1);  
-	lcd_goto(2,0,LCD1);
-	lcd_write_str("1,2,3 \x08 - 7,8,9 \09",LCD1);
+	lcd_goto(3,0,LCD1);
+	lcd_write_str("up 1,2,3 - dn 7,8,9",LCD1);
 } 
 
 void displayCalibrateLow()
@@ -184,8 +184,8 @@ void displayTriacRunning()
 	lcd_write_str("Running ",LCD1);
 //	lcd_Line2(LCD1);
 //	lcd_write_str("wait or H",LCD1);
-	lcd_goto(2,0,LCD1);
-	lcd_write_str("<R>=stop",LCD1);
+	lcd_goto(3,0,LCD1);
+	lcd_write_str("R=stop",LCD1);
 }
 
 void displayEditAmpsDuration()
@@ -194,8 +194,8 @@ void displayEditAmpsDuration()
 	lcd_write_str("A     T    ",LCD1);
 	lcd_Line2(LCD1);
 	lcd_write_str("*     #       ",LCD1);
-	lcd_goto(2,0,LCD1);
-	lcd_write_str("<G>=start",LCD1);
+	lcd_goto(3,0,LCD1);
+	lcd_write_str("G=start",LCD1);
 }
 
 
