@@ -317,7 +317,7 @@ void persistentZeroAdjStep()
 	}
 }
 
-/*
+
 void checkTWIZeroAdjustMsg()
 {   
 	int8_t  jobS;
@@ -325,15 +325,16 @@ void checkTWIZeroAdjustMsg()
 	zeroPotiPos = receiveMessageBuffer[0];
 	zeroAdjustDiffVoltage = (float) receiveMessageBuffer[1];
 	jobS =  receiveMessageBuffer[5];
-	if (jobS == jobIdle) {
-		stableZeroAdjReached = 1;
+	if (jobS != volatileZeroAdjust) {
+	 	sendZeroAdjustMsg(volatileZeroAdjust);  
+		// if ever a reset should happen on AtTiny (eg. brown out), send job again		
 	}
 	if (jobS == fatalError) {
 		sprintf((char *) &lastFatalErrorString,"tiny fatErr");
 		fatalErrorOccurred = 1;		
 	}
 }
-*/
+
 
 
 #define maxIdleTickCnt  5
@@ -357,7 +358,9 @@ void onIdleSecondTickPID()
 	if (idleTickCnt < maxIdleTickCnt) {
 		++ idleTickCnt;
 	} else {
-	 	sendZeroAdjustMsg(volatileZeroAdjust);  // if ever a reset should happen on AtTiny (eg. brown out), send job again
+		memset(receiveMessageBuffer,0,sizeof(receiveMessageBuffer));
+		twi_start_rx(zeroAdjustATtinyID, (uint8_t *) &receiveMessageBuffer, 6);
+
 		idleTickCnt = 1;
 	}
 }

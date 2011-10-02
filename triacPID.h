@@ -48,7 +48,7 @@ void storeCalibHighAdc(uint16_t ch);
 
 //void onIdleAdcTick();
 
-//void checkTWIZeroAdjustMsg();
+void checkTWIZeroAdjustMsg();
 
 int sendZeroAdjustMsg(int8_t jobS);
 

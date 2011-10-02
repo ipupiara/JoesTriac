@@ -220,12 +220,7 @@ uStInt checkCalibZeroInner(uStInt res)
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;	
 	}
-/*
-	if (currentEvent->evType == evTWIDataReceived) 
-	{				
-//		checkTWIZeroAdjustMsg();
-	}
-	*/
+
 /*
 	if (currentEvent->evType == evCharEntered) {
 		switch (currentEvent->evData.keyCode) {
@@ -265,7 +260,7 @@ uStInt evCalibrateZeroSignalChecker(void)
 	if (currentEvent->evType == evSecondsTick) 
 	{	
 		persistentZeroAdjStep();
-		displayPotiPos();
+		displayPotiPersistent();
 	
 		res =  uStIntHandlingDone;
 	}
@@ -464,6 +459,11 @@ uStInt evTriacIdleChecker(void)
 	{	
 		onIdleSecondTickPID();
 		res =  uStIntHandlingDone;
+	}
+	if (currentEvent->evType == evTWIDataReceived) 
+	{				
+		checkTWIZeroAdjustMsg();
+		displayPotiVolatile();
 	}
 	return res;
 }

@@ -39,7 +39,7 @@ void displayDebugVoltageNTriggerDelay()
 }
 
 
-void displayPotiPos()
+void displayPotiPersistent()
 {
 //	int16_t VHex;
 	double   VFl;
@@ -55,6 +55,14 @@ void displayPotiPos()
 	lcd_Line2(LCD1);
 	lcd_write_str((char*)&buffer,LCD1);
 
+}
+
+void displayPotiVolatile()
+{
+	char buffer[16];
+	sprintf((char*) &buffer,"%3iP (0-80)",zeroPotiPos);
+	lcd_goto(3,8,LCD1);
+	lcd_write_str((char*)&buffer,LCD1);
 }
 
 void displayCalibrateZeroPotiPos()

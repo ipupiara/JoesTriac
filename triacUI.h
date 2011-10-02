@@ -53,7 +53,9 @@ void initUI();
 
 void displayDebugVoltageNTriggerDelay();
 
-void displayPotiPos();
+void displayPotiPersistent();
+
+void displayPotiVolatile();
 
 void displayCalibrateZeroPotiPos();
 
