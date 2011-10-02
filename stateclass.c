@@ -230,16 +230,16 @@ uStInt checkCalibZeroInner(uStInt res)
 	if (currentEvent->evType == evCharEntered) {
 		switch (currentEvent->evData.keyCode) {
 			case kp1 : 
-//				sendZeroAdjustMsg(up1);
+				sendZeroAdjustMsg(up1);
 				break;
 			case kp2 :
-//				sendZeroAdjustMsg(up10);
+				sendZeroAdjustMsg(up10);
 				break ;			
 			case kp7 : 
-//				sendZeroAdjustMsg(down1);	
+				sendZeroAdjustMsg(down1);	
 				break;
 			case kp8 :
-//				sendZeroAdjustMsg(down10);
+				sendZeroAdjustMsg(down10);
 				break ;									
 		}
 	}

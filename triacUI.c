@@ -88,7 +88,9 @@ void displayCalibrate(int amps)
 	sprintf((char*)&buffer,"%2i",amps);
 	lcd_write_str((char*)&buffer,LCD1);
 	lcd_write_str("A #,* Skip",LCD1);  
-}
+	lcd_goto(2,0,LCD1);
+	lcd_write_str("1,2,3 \x08 - 7,8,9 \09",LCD1);
+} 
 
 void displayCalibrateLow()
 {

@@ -9,7 +9,7 @@
 #include "TWI_master.h"
 
 //#define printfPid
-//#define printfAmps
+#define printfAmps
 
 enum adcScopeEnum
 {
@@ -241,7 +241,7 @@ int sendZeroAdjustMsg(int8_t jobS)
 	memset(sendMessageBuffer,0,sizeof(sendMessageBuffer));
 	sendMessageBuffer[0] = jobS;
 	res = twi_synch_tx(zeroAdjustATtinyID, (uint8_t *) &sendMessageBuffer, 1);
-	printf("synch tx returned %x\n",res);
+//	printf("synch tx returned %x\n",res);
 	return res;
 }
 
@@ -251,12 +251,13 @@ int8_t getAndTestZeroAdjustState(int8_t jobS)
 	int8_t js;
 	res = 0;
 	
+	printf("start getAndTestZeroAdjustState\n");
 	memset(receiveMessageBuffer,0,sizeof(receiveMessageBuffer));
 	res  = twi_synch_rx(zeroAdjustATtinyID, (uint8_t *) &receiveMessageBuffer, 6);
-	printf("synch rx returned %x\n",res);
+//	printf("synch rx returned %x\n",res);
 	js = receiveMessageBuffer[5];
 	res = (jobS == js);
-//	printf("to test was %i received was %i with result %i\n",jobS,js,res);
+	printf("getAndTestZeroAdjustState to test was %i received was %i with result %i\n",jobS,js,res);
 
 	return res;
 }
@@ -284,7 +285,7 @@ void persistentZeroAdjStep()
 
 	memset(receiveMessageBuffer,0,sizeof(receiveMessageBuffer));
 	res  = twi_synch_rx(zeroAdjustATtinyID, (uint8_t *) &receiveMessageBuffer, 6);
-	printf("synch rx returned %x\n",res);
+//	printf("synch rx returned %x\n",res);
 	if (res == TWI_STATUS_DONE) {
 		jobS =  receiveMessageBuffer[5];
 		zeroPotiPos = (int8_t) receiveMessageBuffer[0];
@@ -292,7 +293,7 @@ void persistentZeroAdjStep()
 		adcVal = *adcVP;
 //		adcVal  = (int16_t) receiveMessageBuffer[1];
 		adcScope = (int8_t) receiveMessageBuffer[3];
-		printf("  zPP %i adcV %i adcSc %i\n",zeroPotiPos,adcVal,adcScope);
+//		printf("  zPP %i adcV %i adcSc %i\n",zeroPotiPos,adcVal,adcScope);
 
 		if (adcScope == nearScope) {
 			zeroAdjustDiffVoltage =  (adcVal * 1.1) / (20.0 * 0x200);
@@ -300,7 +301,7 @@ void persistentZeroAdjStep()
 			zeroAdjustDiffVoltage =  (adcVal * 1.1) / ( 0x200);
 		}
 		debugV = zeroAdjustDiffVoltage;
-		printf("jb %i, V %f\n\n",jobS,debugV);
+//		printf("jb %i, V %f\n\n",jobS,debugV);
 
 
 		if (jobS == jobIdle) {
@@ -316,6 +317,7 @@ void persistentZeroAdjStep()
 	}
 }
 
+/*
 void checkTWIZeroAdjustMsg()
 {   
 	int8_t  jobS;
@@ -331,7 +333,7 @@ void checkTWIZeroAdjustMsg()
 		fatalErrorOccurred = 1;		
 	}
 }
-
+*/
 
 
 #define maxIdleTickCnt  5
@@ -355,7 +357,8 @@ void onIdleSecondTickPID()
 	if (idleTickCnt < maxIdleTickCnt) {
 		++ idleTickCnt;
 	} else {
-	 	checkTWIZeroAdjustMsg();
+	 	sendZeroAdjustMsg(volatileZeroAdjust);  // if ever a reset should happen on AtTiny (eg. brown out), send job again
+		idleTickCnt = 1;
 	}
 }
 

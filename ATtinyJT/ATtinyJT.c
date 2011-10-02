@@ -19,9 +19,15 @@ int8_t outside;
 int8_t tcnt;
 
 
-#define zeroPotiPosEEPROMpos                0   // unit8
-#define nearScopeOffsetCorrectionEEPROMpos       1    // uint8 processor dependent offset corrections
-#define farScopeOffsetCorrectionEEPROMpos      2      // uint8 nasty, but tests show necessity 
+#define zeroPotiPosEEPROMpos                0   // int8
+#define nearScopeOffsetCorrectionEEPROMpos       1    // int8 processor dependent offset corrections
+#define farScopeOffsetCorrectionEEPROMpos      2      // int8 nasty, but tests showed necessity 
+
+#define nearScopeOffsetCorrectionDefault    5  
+#define farScopeOffsetCorrectionDefault     10			
+
+int8_t nearScopeOffsetCorrection;
+int8_t farScopeOffsetCorrection;
 
 int8_t stableStepsCnt;
 
@@ -38,6 +44,25 @@ int8_t* p_jobState;
 
 int8_t  prevJobState;
 //int8_t currentJobState;
+
+void debugLightOn()
+{
+	PORTA |= 0x80;
+}
+
+void debugLightOff()
+{
+	PORTA &= ~0x80;
+}
+
+void debugLightToggle()
+{
+	if (PORTA & 0x80) {
+		PORTA &= ~0x80;
+	} else {
+		PORTA |= 0x80;
+	}
+}
 
 
 
@@ -81,7 +106,7 @@ int16_t  valueFrom6Bit2Complement(int16_t adcV)
 	}
 	return adcV;
 }
-
+/*
 int16_t diffADCValue()
 {  
 	int16_t res;
@@ -89,6 +114,7 @@ int16_t diffADCValue()
 //	res = valueFrom6Bit2Complement(res);      done during interrupt
 	return res;
 }
+*/
 
 int16_t adcVoltage()
 {
@@ -97,7 +123,8 @@ int16_t adcVoltage()
 
 //	VHex = 0x0000;
 
-	VHex = diffADCValue();
+	VHex = ampsADCValue();
+//	VHex = diffADCValue();
 //	VFl =  (VHex * 1.1) / (1.0 * 0x200);
 
 	while (messageOnGoing) {}		// wait until no more message will be processed, not to change values
@@ -148,6 +175,18 @@ void storeZeroPotiPos(int8_t val)
 {
 	*p_zeroPotiPos = val;
 	eeprom_write_byte((uint8_t *) zeroPotiPosEEPROMpos, *p_zeroPotiPos);
+}
+
+void storeNearOffsetCorrection(int8_t val)
+{
+	nearScopeOffsetCorrection = val;
+	eeprom_write_byte((uint8_t *) nearScopeOffsetCorrectionEEPROMpos, nearScopeOffsetCorrection);
+}
+
+void storeFarOffsetCorrection(int8_t val)
+{
+	farScopeOffsetCorrection = val;
+	eeprom_write_byte((uint8_t *) farScopeOffsetCorrectionEEPROMpos, farScopeOffsetCorrection);
 }
 
 
@@ -224,10 +263,13 @@ void errorPotiPosExceeded()
 void volatileZeroAdjStep()
 {
 	int16_t volts;
+
+	debugLightToggle();
+
 	volts = adcVoltage();
    	if (volts > adcThreshold) {		
 		if (*p_zeroPotiPos > 0)  {
-			zeroPotiPosUpPersistent(1, 0);
+			zeroPotiPosUpPersistent(0, 0);
 			outside = 1;
 		} else {
 			errorPotiPosExceeded();
@@ -235,7 +277,7 @@ void volatileZeroAdjStep()
 	} else { 
 		if (volts < - adcThreshold) {
 			if (*p_zeroPotiPos < 100) {
-				zeroPotiPosUpPersistent(0, 0);
+				zeroPotiPosUpPersistent(1, 0);
 				outside = 1;
 			} else {
 				errorPotiPosExceeded();
@@ -250,6 +292,9 @@ void volatileZeroAdjStep()
 void persistentZeroAdjStep()
 {	
 	int16_t volts;
+
+	debugLightToggle();
+
 	volts = adcVoltage();
    	if (volts > adcThreshold) {	
 		stableStepsCnt = 0;	
@@ -384,6 +429,9 @@ void initHW()
 	adcTick = 0;	
 
 	sei();
+
+	DDRA |= 0x80; // debuglight enable
+	PORTA &= ~0x80; // debuglight off
 }
 
 
@@ -399,6 +447,7 @@ void onSecondTick()
 	*/
 //	*p_jobState = 0x02;
 
+//	debugLightToggle();
 
 	if (*p_jobState == persistentZeroAdjust   ) {
 		if (adcCnt == 0) {				// avoid trigger during run, anyhow should not happen, since 
@@ -414,18 +463,27 @@ void onSecondTick()
 				ADCSRA |= (1<< ADSC);
 				tcnt = 0;
 			}
-			++ tcnt;
 		}
-	}
-		
+		++ tcnt;
+	} else if (*p_jobState == jobIdle) {
+		++tcnt;
+		if ((tcnt == 5) || (tcnt == 7) || (tcnt == 9) ) { debugLightOn(); } 
+		else { 
+			debugLightOff(); 
+			if (tcnt == 10) tcnt = 0;
+		}
+	}	
 }
-
-
-
 
 void onADCTick()
 {
 	lastAmpsADCVal = adcSum / adcCnt;
+	if (*p_adcScope == farScope) {
+		lastAmpsADCVal = lastAmpsADCVal + farScopeOffsetCorrection;
+	} else {
+		lastAmpsADCVal = lastAmpsADCVal + nearScopeOffsetCorrection;
+	}
+	
 	if (*p_jobState == volatileZeroAdjust) {
 		volatileZeroAdjStep();
 	}
@@ -440,7 +498,7 @@ void onADCTick()
 	if ((*p_adcScope == farScope) && (  abs(lastAmpsADCVal) < 15 )) {
 		switchToNearScope();
 	}
-	if ((*p_adcScope == nearScope) && (abs(lastAmpsADCVal) > 500)) {
+	if ((*p_adcScope == nearScope) && (abs(lastAmpsADCVal) > 490)) {
 		switchToFarScope();
 	}
 
@@ -457,9 +515,13 @@ void initPID()
 	p_adcScope = (int8_t *) (&i2c_rdbuf[3]);
 	p_jobState =(int8_t*) (&i2c_rdbuf[5]);
 
-
 	*p_zeroPotiPos = eeprom_read_byte((uint8_t*)zeroPotiPosEEPROMpos);	
 	if ((*p_zeroPotiPos < 0x00) || (*p_zeroPotiPos > 100)) { storeZeroPotiPos(0x00);}   
+	nearScopeOffsetCorrection = eeprom_read_byte((uint8_t*)nearScopeOffsetCorrectionEEPROMpos);
+	if (nearScopeOffsetCorrection == -1) {storeNearOffsetCorrection(nearScopeOffsetCorrectionDefault);}
+	farScopeOffsetCorrection = eeprom_read_byte((uint8_t*)farScopeOffsetCorrectionEEPROMpos);
+	if (farScopeOffsetCorrection == -1) {storeFarOffsetCorrection(farScopeOffsetCorrectionDefault);}
+
 	*p_ADCvoltage = 0x0000;
 	*p_jobState = jobIdle;
 	prevJobState = jobIdle;

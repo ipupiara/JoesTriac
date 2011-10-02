@@ -57,11 +57,11 @@ int16_t desiredTimeS;
 //  if application should grow over certain limits
 
 
-int16_t  calibLowADC;
-int16_t  calibHighADC;  
+uint16_t  calibLowADC;
+uint16_t  calibHighADC;  
 
-int16_t  calibLowTriggerDelay;
-int16_t  calibHighTriggerDelay;
+uint16_t  calibLowTriggerDelay;
+uint16_t  calibHighTriggerDelay;
 
 int8_t amps100, amps10, amps, min10, min, sec10, sec;
 
