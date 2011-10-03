@@ -308,7 +308,7 @@ void persistentZeroAdjStep()
 			stableZeroAdjReached = 1;
 		}
 		if (jobS == fatalError) {
-			sprintf((char *) &lastFatalErrorString,"tiny fatErr");
+			sprintf((char *) &lastFatalErrorString,"ammeter out of poti");
 			fatalErrorOccurred = 1;		
 		}
 	} else {
@@ -325,13 +325,13 @@ void checkTWIZeroAdjustMsg()
 	zeroPotiPos = receiveMessageBuffer[0];
 	zeroAdjustDiffVoltage = (float) receiveMessageBuffer[1];
 	jobS =  receiveMessageBuffer[5];
-	if (jobS != volatileZeroAdjust) {
+	if (jobS == fatalError) {
+		printf("checkTWI... fatal Error occurred\n");
+		sprintf((char *) &lastFatalErrorString,"out of ammeter poti");
+		fatalErrorOccurred = 1;		
+	} else if (jobS != volatileZeroAdjust) {
 	 	sendZeroAdjustMsg(volatileZeroAdjust);  
 		// if ever a reset should happen on AtTiny (eg. brown out), send job again		
-	}
-	if (jobS == fatalError) {
-		sprintf((char *) &lastFatalErrorString,"tiny fatErr");
-		fatalErrorOccurred = 1;		
 	}
 }
 

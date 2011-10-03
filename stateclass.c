@@ -54,7 +54,7 @@ uStInt evTriacOperatingChecker(void)
 	uStInt res = uStIntNoMatch;
 //	printf("check for event in State evTriacOperating\n");
 
-	if (currentEvent->evType == eStateFatalError) 
+	if (currentEvent->evType == evFatalError) 
 	{	
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateFatalError);
 				// No event action.
@@ -431,9 +431,11 @@ void exitTriacIdleState(void)
 {
 //	printf("exit I\n");
 	stopDurationTimer();
-    if (!setAdjustJob(jobIdle)) {
-		sprintf((char *) &lastFatalErrorString,"i2c comms err");
-		fatalErrorOccurred = 1;
+    if (!fatalErrorOccurred) {
+		if (!setAdjustJob(jobIdle)) {
+			sprintf((char *) &lastFatalErrorString,"i2c comms err");
+			fatalErrorOccurred = 1;
+		}
 	}
 	clr_scr();
 }
@@ -459,11 +461,6 @@ uStInt evTriacIdleChecker(void)
 	{	
 		onIdleSecondTickPID();
 		res =  uStIntHandlingDone;
-	}
-	if (currentEvent->evType == evTWIDataReceived) 
-	{				
-		checkTWIZeroAdjustMsg();
-		displayPotiVolatile();
 	}
 	return res;
 }
@@ -502,6 +499,14 @@ uStInt evEditIdleChecker(void)
 			// No event action.
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
+	}
+	if (currentEvent->evType == evTWIDataReceived) 
+	// do writing  only in edit idle, not to interfere with the edit-cursor position
+	// could be done also by laying edit-cursor pos "on stack" and set again after write, 
+	 //  but lets first try with this simpler version ... should be ok as well
+	{				
+		checkTWIZeroAdjustMsg();
+		displayPotiVolatile();
 	}
 /*
 	if (currentEvent->evType == evCharEntered) {

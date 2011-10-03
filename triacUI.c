@@ -60,7 +60,7 @@ void displayPotiPersistent()
 void displayPotiVolatile()
 {
 	char buffer[16];
-	sprintf((char*) &buffer,"%3iP (0-80)",zeroPotiPos);
+	sprintf((char*) &buffer,"%3iP (20-80)",zeroPotiPos);
 	lcd_goto(3,8,LCD1);
 	lcd_write_str((char*)&buffer,LCD1);
 }
@@ -83,7 +83,7 @@ void displayRmsAvrQuery()
 void displayFatalError()
 {
 	lcd_clrscr(LCD1);
-	lcd_write_str("Error",LCD1);
+	lcd_write_str("fatal error",LCD1);
 	lcd_Line2(LCD1);
 	lcd_write_str(lastFatalErrorString,LCD1);
 }
@@ -255,7 +255,7 @@ void displayJobOk()
 {
 	lcd_clrscr(LCD1);
 	lcd_write_str("Job OK",LCD1);
-	lcd_Line2(LCD1);
-	lcd_write_str("*",LCD1);
+	lcd_goto(3,0,LCD1);
+	lcd_write_str("press * to continue",LCD1);
 }
 

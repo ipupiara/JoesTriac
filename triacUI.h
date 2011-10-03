@@ -61,7 +61,7 @@ void displayCalibrateZeroPotiPos();
 
 void displayVoltage();
 
-char lastFatalErrorString [17];
+char lastFatalErrorString [20];
 
 void displayFatalError();
 

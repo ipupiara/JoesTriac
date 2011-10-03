@@ -112,7 +112,7 @@ int main(void)
 //		checkDebugBuffer();
 
 		if (fatalErrorOccurred) {     // do this with highest priority (at the beginning)
-			fatalErrorOccurred = 0;
+//			fatalErrorOccurred = 0;	  // once occurred state stays until restart/reset
 			ev.evType = evFatalError;
 			processTriacEvent(&SJoesTriacStateChart,&ev);	
 		}
@@ -147,7 +147,7 @@ int main(void)
 		}
 
 		if ((ky = keyEntered())){
-			printf("\nky %c %X",ky,ky);
+//			printf("\nky %c %X",ky,ky);
 			if (ky == kpFunction1) ev.evType = evFunction1Pressed;
 //			if (ky == kpFunction2) ev.evType = eFunction2Pressed;   // not yet in use
 			if (ky == kpStart) ev.evType = evStartPressed;
@@ -158,7 +158,7 @@ int main(void)
 				ev.evType = evCharEntered;
 				ev.evData.keyCode = ky;			
 			}
-			printf("ev fired key : %x, startEv:%i, stopEv:%i\n",ky,(ev.evType==evStartPressed),(ev.evType==evStopPressed));	
+//			printf("ev fired key : %x, startEv:%i, stopEv:%i\n",ky,(ev.evType==evStartPressed),(ev.evType==evStopPressed));	
 			processTriacEvent(&SJoesTriacStateChart,&ev);	
 		}
 		if (stableZeroAdjReached) {
