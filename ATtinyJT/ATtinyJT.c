@@ -465,14 +465,21 @@ void onSecondTick()
 			}
 		}
 		++ tcnt;
-	} else if (*p_jobState == jobIdle) {
+	} else if (*p_jobState == jobIdle) {  // send o (morse)
 		++tcnt;
 		if ((tcnt == 5) || (tcnt == 7) || (tcnt == 9) ) { debugLightOn(); } 
 		else { 
 			debugLightOff(); 
 			if (tcnt == 10) tcnt = 0;
 		}
-	}	
+	} else if (*p_jobState == jobIdle) {  // send f
+		++tcnt;
+		if ((tcnt == 5) || (tcnt == 7) || (tcnt == 9) || (tcnt == 10)|| (tcnt == 12)) { debugLightOn(); } 
+		else { 
+			debugLightOff(); 
+			if (tcnt == 14) tcnt = 0;
+		}
+	}
 }
 
 void onADCTick()
