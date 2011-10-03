@@ -256,7 +256,7 @@ void setAmpsADC()
 	if (ampsInputPin == 0x01) {
 		ADMUX = 0b01000001;
 	} else {
-		ADMUX = 0b01000000;      // AVCC as ref,  right adjust, mux to adc0
+		ADMUX = 0b01000010;      // AVCC as ref,  right adjust, mux to adc2/adc1
 	}
 	ADCSRA = 0b10101111;  
 							// int ena, prescale /128

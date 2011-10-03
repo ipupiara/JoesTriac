@@ -465,7 +465,7 @@ void onSecondTick()
 			}
 		}
 		++ tcnt;
-	} else if (*p_jobState == jobIdle) {  // send o (morse)
+	} else if (*p_jobState == jobIdle) {  // send s (morse)
 		++tcnt;
 		if ((tcnt == 5) || (tcnt == 7) || (tcnt == 9) ) { debugLightOn(); } 
 		else { 

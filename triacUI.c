@@ -6,6 +6,8 @@
 #include "TriacDefines.h"
 #include "triacPID.h"
 
+char ARBuffer [4];
+
 
 void displayVoltage()
 {
@@ -77,7 +79,7 @@ void displayRmsAvrQuery()
 	lcd_clrscr(LCD1);
 	lcd_write_str("select",LCD1);
 	lcd_Line2(LCD1);
-	lcd_write_str("RMS *, AVR #",LCD1);
+	lcd_write_str("RMS *, AVG #",LCD1);
 }
 
 void displayFatalError()
@@ -190,6 +192,8 @@ void displayTriacRunning()
 {
 	lcd_clrscr(LCD1);
 	lcd_write_str("Running ",LCD1);
+	lcd_goto(0,17,LCD1);
+	lcd_write_str(ARBuffer,LCD1);
 //	lcd_Line2(LCD1);
 //	lcd_write_str("wait or H",LCD1);
 	lcd_goto(3,0,LCD1);
@@ -202,6 +206,8 @@ void displayEditAmpsDuration()
 	lcd_write_str("A     T    ",LCD1);
 	lcd_Line2(LCD1);
 	lcd_write_str("*     #       ",LCD1);
+	lcd_goto(0,17,LCD1);
+	lcd_write_str(ARBuffer,LCD1);
 	lcd_goto(3,0,LCD1);
 	lcd_write_str("G=start",LCD1);
 }
@@ -249,6 +255,11 @@ void displayTime(int8_t kInd)
 
 void initUI()
 {
+	if (ampsInputPin == 0x00) {
+		sprintf((char*) &ARBuffer[8],"RMS");
+	} else {
+		sprintf((char*) &ARBuffer[8],"AVG");
+	}
 }
 
 void displayJobOk()
