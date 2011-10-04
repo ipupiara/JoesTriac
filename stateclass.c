@@ -29,7 +29,7 @@ enum eStates
 	eStateTriacOperating,
 	eStateAskForCalibration,
 	eStateCalibrating,
-	eStateAskingRmsAvr,
+	eStateAskingRmsAvg,
 	eStateCalibrateZeroSignal,
 	eStateCalibrateScale,
 	eStateCalibrateLow,
@@ -143,18 +143,18 @@ uStInt evCalibratingChecker(void)
 	return res;
 }
 
-void entryAskingRmsAvrState(void)
+void entryAskingRmsAvgState(void)
 {
 //	printf("entry I\n");
-	displayRmsAvrQuery();
+	displayRmsAvgQuery();
 }
 
-void exitAskingRmsAvrState(void)
+void exitAskingRmsAvgState(void)
 {
 //	printf("exit I\n");
 }
 
-uStInt evAskingRmsAvrChecker(void)
+uStInt evAskingRmsAvgChecker(void)
 {
 //	printf("check for event in State evStateIdle\n");
 	uStInt res = uStIntNoMatch;
@@ -798,21 +798,21 @@ xStateType xaStates[eNumberOfStates] = {
 
  	{eStateCalibrating,
  	eStateTriacOperating,
- 	eStateAskingRmsAvr,
+ 	eStateAskingRmsAvg,
  	0,
  	evCalibratingChecker,
  	tfNull,
  	entryCalibratingState,
  	exitCalibratingState},
 
- 	{eStateAskingRmsAvr,
+ 	{eStateAskingRmsAvg,
  	eStateCalibrating,
  	-1,
  	0,
- 	evAskingRmsAvrChecker,
+ 	evAskingRmsAvgChecker,
  	tfNull,
- 	entryAskingRmsAvrState,
- 	exitAskingRmsAvrState},
+ 	entryAskingRmsAvgState,
+ 	exitAskingRmsAvgState},
 
 	{eStateCalibrateZeroSignal,
  	eStateCalibrating,
@@ -832,7 +832,6 @@ xStateType xaStates[eNumberOfStates] = {
  	entryCalibrateScaleState,
  	exitCalibrateScaleState},
 
-	 
 	 {eStateCalibrateLow,
  	eStateCalibrateScale,
  	-1,

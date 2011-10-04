@@ -30,7 +30,7 @@ void displayEditDuration();
 
 void displayJobOk();
 
-void displayRmsAvrQuery();
+void displayRmsAvgQuery();
 
 
 

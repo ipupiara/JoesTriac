@@ -70,11 +70,13 @@ void displayPotiVolatile()
 void displayCalibrateZeroPotiPos()
 {
 	lcd_clrscr(LCD1);
-	lcd_write_str("calib Zero  ,#",LCD1);
+	lcd_write_str("calib Zero  ,# skip",LCD1);
+	lcd_goto(3,0,LCD1);
+	lcd_write_str("wait to stable + 30s",LCD1);
 }
 
 
-void displayRmsAvrQuery()
+void displayRmsAvgQuery()
 {
 	lcd_clrscr(LCD1);
 	lcd_write_str("select",LCD1);
@@ -256,10 +258,11 @@ void displayTime(int8_t kInd)
 void initUI()
 {
 	if (ampsInputPin == 0x00) {
-		sprintf((char*) &ARBuffer[8],"RMS");
+		sprintf((char*) &ARBuffer[0],"RMS");
 	} else {
-		sprintf((char*) &ARBuffer[8],"AVG");
+		sprintf((char*) &ARBuffer[0],"AVG");
 	}
+//	printf("initUI ARBuffer: %s\n",ARBuffer);
 }
 
 void displayJobOk()
