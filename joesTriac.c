@@ -77,18 +77,6 @@ int main(void)
 	InitPID();
 	initUI();
 
-//	int8_t res;
-/*
-	while (1) {
-//			sendZeroAdjustMsg(persistentZeroAdjust);
-			sendZeroAdjustMsg(0xA5);
-//			res = getAndTestZeroAdjustState(persistentZeroAdjust);
-			res = getAndTestZeroAdjustState(0xA5);
-			printf("job test returned,%x\n", res);
-	
-	
-	}
-*/	
 	startStateCharts();	
 /*
 	int dummyI;

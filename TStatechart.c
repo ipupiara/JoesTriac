@@ -337,8 +337,6 @@ bool ProcessEvent(TStatechart* t)
 void beginEventAction(TStatechart* t, uStInt u32DestState,
 	uStInt* u32LastStateExited)
 {
-
-
 	int i1;
 
 	uStInt	u32StateBeingLeft = 0xff; //= 0xffffffff;

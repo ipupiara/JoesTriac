@@ -19,7 +19,7 @@ enum adcScopeEnum
 
 
 int8_t m_started;
-real m_kPTot, m_kI, m_kD, m_stepTime, m_inv_stepTime, m_prev_error, m_error_thresh, m_integral;
+real m_kPTot, m_kP, m_kI, m_kD, m_stepTime, m_inv_stepTime, m_prev_error, m_error_thresh, m_integral;
 
 float gradAmps; // amperes ....
 
@@ -38,8 +38,6 @@ void updateGradAmps()
 
 
 uint8_t idleTickCnt;
-
-
 
 uint8_t  sendMessageBuffer [4];
 uint8_t  receiveMessageBuffer[8];
@@ -102,7 +100,6 @@ void persistentZeroAdjStep()
 		zeroPotiPos = (int8_t) receiveMessageBuffer[0];
 		adcVP = (int16_t*) (&receiveMessageBuffer[1]);	
 		adcVal = *adcVP;
-//		adcVal  = (int16_t) receiveMessageBuffer[1];
 		adcScope = (int8_t) receiveMessageBuffer[3];
 //		printf("  zPP %i adcV %i adcSc %i\n",zeroPotiPos,adcVal,adcScope);
 
@@ -113,7 +110,6 @@ void persistentZeroAdjStep()
 		}
 		debugV = zeroAdjustDiffVoltage;
 //		printf("jb %i, V %f\n\n",jobS,debugV);
-
 
 		if (jobS == jobIdle) {
 			stableZeroAdjReached = 1;
@@ -178,9 +174,12 @@ void onIdleSecondTickPID()
 
 
 
-void InitializePID(real kpTot, real ki, real kd, real error_thresh, real step_time)
+void InitializePID(real kpTot,real kpP, real ki, real kd, real error_thresh, real step_time)
 {
     // Initialize controller parameters
+	// PN 3.Oct 2011, added m_kP for better setting of proportional factor only
+	// though these 4 factors will be linearly dependent
+	m_kP   = kpP;
     m_kPTot = kpTot;
     m_kI = ki;
     m_kD = kd;
@@ -228,7 +227,7 @@ real nextCorrection(real error)
     m_prev_error = error;
 
     // Return the PID controller actuator command
-	res = m_kPTot*(error + m_kI*m_integral + m_kD*deriv);
+	res = m_kPTot*(m_kP*error + m_kI*m_integral + m_kD*deriv);
 
 #ifdef printfPID
 	double errD = error;
@@ -271,13 +270,6 @@ void calcNextTriacDelay()
 	err = currentAmps()  - desiredAmps ;
 	corr = nextCorrection(err) + corrCarryOver;
 	corrInt = corr;     
-/*	if (corrInt == 0) {
-		corrCarryOver += corr;
-	} else  {
-		corrCarryOver = 0;  // forget rounding errors, if any correction took place, 
-						// but dont forget, if no correction at all took place
-	}
-	*/
 	corrCarryOver = corr - corrInt;
 	newDelay = triacTriggerDelayCms + corrInt;
 	setTriacTriggerDelay(newDelay);
@@ -292,12 +284,9 @@ void calcNextTriacDelay()
 void InitPID()
 {
 //	InitializePID(real kpTot, real ki, real kd, real error_thresh, real step_time);   
-	InitializePID(-0.5, 0.2, 0.13, 5, (pidStepDelays/42.18));
-//	stableStepsCnt = 0;
+	InitializePID( -0.5, 1.3, 0.2, 0.13, 5, (pidStepDelays/42.18));
+
 	stableZeroAdjReached = 0;
-//	setPotiCS(0);
-//	setPotiINC(0);
-//	setPotiUp(0);
 }
 
 

@@ -131,16 +131,10 @@ ISR(ADC_vect)
 	lastAmpsADCVal = ADC;
 	++ adcCnt;
 
-
-//	if (ADMUX == 0b11001101) {         //  diff Voltage
-//		adcTick = 1; 
-//	} else {
-		if (adcCnt == pidStepDelays)  {     
-			adcCnt = 0;
-			adcTick = 1;
-		}
-	
-//	}
+	if (adcCnt == pidStepDelays)  {     
+		adcCnt = 0;
+		adcTick = 1;
+	}
 }
 
 ISR(INT0_vect)
@@ -167,10 +161,7 @@ ISR(TIMER1_COMPA_vect)
 	} else {
 		runningSecondsTick = 1;
 	}
-	
 }
-
-
 
 void initInterrupts()
 {
@@ -182,66 +173,68 @@ void initInterrupts()
 
 		DDRD |= 0x10;			// set Portd pin 04 be Triac output
 		PORTD &= ~0x10; 		// and initialize with 0-value
-		
+
 		DDRD &= ~0x04;		// set PortD pin 2 as input for trigger Ext Int 0
 		PORTD &=  ~0x04;   // without pullup 
 
-	  EICRA = 0x01;   // both, fall/rise edge trigger    
-      EIMSK = 0x00;   
-	  
+		EICRA = 0x01;   // both, fall/rise edge trigger    
+		EIMSK = 0x00;   
+
 // Timer 1 as Duration Timer
 	  
 			runningSecondsTick = 0;
 	  
-	      TCCR1A = 0x00;  // normal mode or CTC dep.on TCCR1B
+		TCCR1A = 0x00;  // normal mode or CTC dep.on TCCR1B
 		//TCCR1B = 0b00001101  ; // CTC on CC1A , set clk / 1024, timer started
-	  
-		  TCCR1B = 0b00001000  ;  // CTC, timer stopped
-	
-		  TCCR1C = 0x00; // no Force output compare
-	  
-		  OCR1A = 0x2A30;  // counter top value  , this value at clk/1024 will cause a delay of exact 1 sec
-	      TCNT1 = 0x00 ;  
-	  
+
+		TCCR1B = 0b00001000  ;  // CTC, timer stopped
+
+		TCCR1C = 0x00; // no Force output compare
+
+		OCR1A = 0x2A30;  // counter top value  , this value at clk/1024 will cause a delay of exact 1 sec
+		TCNT1 = 0x00 ;  
+
 		TIMSK1  = 0x00; // disa  Interrupt 
-	//		TIMSK1   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
+		//		TIMSK1   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
 
 // Timer 0    used for ADC triggering  in TriaRunning mode
 	  
-	      TCCR0A = 0b00000010;  //  CTC 
+		TCCR0A = 0b00000010;  //  CTC 
 
-		  OCR0A = 0xFF;  // counter top value, 0xFF means approx 42.18 ADC measures and write to mem per sec
-						// far too much for our needs, but runs parallel except 
-						//  the very short ADC-complete interrrupt
-	      TCNT0 = 0x00 ;  
-	  	  
+		OCR0A = 0xFF;  // counter top value, 0xFF means approx 42.18 ADC measures and write to mem per sec
+					// far too much for our needs, but runs parallel except 
+					//  the very short ADC-complete interrrupt
+		TCNT0 = 0x00 ;  
+  
 //		TCCR0B = 0b00000101  ; // CTC on CC0A , set clk / 1024, timer started	  
 //		TIMSK0  = 0b00000010;  // ena  interrupts, and let run ADC
-// 	not yet start Timer0 and ADC, to be tested
+// 		not yet start Timer0 and ADC, to be tested
 		TCCR0B = 0b00000000  ; // CTC on CC0A , not yet started	  
 		TIMSK0  = 0b00000000;
 
 
 // Timer 2 as Triac Trigger Delay Timer
 
-			t2Running = 0;
+		t2Running = 0;
 	  
-	      TCCR2A = 0b00000010;  //  CTC 
-		  
+		TCCR2A = 0b00000010;  //  CTC 
+
 		//TCCR2B = 0b00000101  ; // CTC on CC0A , set clk / 128, timer started
-	  
-		  TCCR2B = 0b00000000  ;  // CTC, timer stopped
-		  ASSR = 0x00;
-	  
-		  OCR2A = ocra2aValue;  // counter top value  , just anything for start, will later be set by PID
-	      TCNT2 = 0x00 ;  
-	  
+
+		TCCR2B = 0b00000000  ;  // CTC, timer stopped
+		ASSR = 0x00;
+
+		OCR2A = ocra2aValue;  // counter top value  , just anything for start, will later be set by PID
+		TCNT2 = 0x00 ;  
+
 		TIMSK2  = 0x00; // disa  Interrupt 
-//		TIMSK2   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
+		//		TIMSK2   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
 
 //  init ADC
 
-//		setAmpsADC();
+		ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE	
+		adcTick = 0;
+		adcCnt = 0;
 
 		sei();  // start interrupts if not yet started
 		
@@ -277,53 +270,13 @@ void closeAmpsADC()
 
 	TCCR0B = 0b00000000  ; // stop timer 0	  
 	TIMSK0  = 0b00000000;  // 
-
 }
-
-/*
-
-void setDiffADC()
-{
-		PORTA  |= 0x10;        //  open signal relais, signal need to be within protection diode range 
-
-		ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE	
-		adcTick = 0;
-		adcCnt = 0;
-
-		ADMUX = 0b11001101;      // 2.56V as ref,  right adjust, mux to diff adc3, adc2
-//		ADCSRA = 0b10101111;  
-								// int ena, prescale /128
-								// ADC clock will run at 86400 hz, or max 6646. read per sec,what is ok
-								// for our settings of 42. read per sec	
-//		ADCSRB = 0x03;  // no ACME, trigger ADC on Timer0 compare match
-
-		ADCSRA = 0b10001111;    // adc ena, no auto trigger, prescale 128
-		ADCSRB = 0x00;
-}
-
-
-void closeDiffADC()
-{
-	PORTA &= ~0x10;  // close signal relais to prevent signal cut off by protection diode
-
-	ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE	
-
-}
-
-void startSingleADC()
-{
-	ADCSRA |=  0b01000000;
-}
-
-*/
 
 void startTriacRun()
 {
 	resetPID();
 	EIFR = 0x00;
 	EIMSK = 0x01;  				// start external interrupt (zero pass detection)
-
-
 }
 
 void stopTriacRun()
@@ -332,7 +285,6 @@ void stopTriacRun()
 	cli();
 	stopTriacTriggerDelay();
 	sei();
-
 }
 
 int16_t ampsADCValue()
@@ -344,6 +296,7 @@ int16_t ampsADCValue()
 //	printf("ampsADC %i ",lastAmpsADCVal);
 	return res;
 }
+
 /*
 int16_t  valueFrom6Bit2Complement(int16_t adcV)
 {
@@ -363,6 +316,7 @@ int16_t diffADCValue()
 	return res;
 }
 */
+
 double adcVoltage()
 {
 	int16_t VHex;
@@ -370,16 +324,10 @@ double adcVoltage()
 
 	VFl = 0.0;
 
-/*	if (ADMUX == 0b11001101) {
-		VHex = diffADCValue();
-		VFl =  (VHex * 2.56) / (10.0 * 0x200);
-	} else { */
-		VHex = ampsADCValue();
-		VFl = (VHex * 5.0) / 0x03FF;
-//	}
+	VHex = ampsADCValue();
+	VFl = (VHex * 5.0) / 0x03FF;
 	
 	return VFl;
-
 }
 
 void startDurationTimer(int16_t secs)
@@ -390,8 +338,6 @@ void startDurationTimer(int16_t secs)
 	TIMSK1   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
 	TCCR1B = 0b00001101  ; // CTC on CC1A , set clk / 24, timer started 
 }
-
-
 
 void stopDurationTimer()
 {

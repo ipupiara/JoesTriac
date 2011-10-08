@@ -65,10 +65,6 @@ uStInt evTriacOperatingChecker(void)
 	return (res); 
 }
 
-
-
-
-
 void entryAskForCalibrationState(void)
 {
 	printf("entry AskForCalibration\n");
@@ -123,7 +119,6 @@ void exitCalibratingState(void)
 {
 //	printf("exit calib\n");
 	stopDurationTimer();
-
 }
 
 uStInt evCalibratingChecker(void)
@@ -198,7 +193,6 @@ void entryCalibrateZeroSignalState(void)
 		sprintf((char *) &lastFatalErrorString,"i2c comms err");
 		fatalErrorOccurred = 1;
 	}
-
 }
 
 void exitCalibrateZeroSignalState(void)
@@ -242,8 +236,6 @@ uStInt checkCalibZeroInner(uStInt res)
 	return res;
 }
 
-//int8_t tCnt;
-
 uStInt evCalibrateZeroSignalChecker(void)
 {
 //	printf("check for event in State evStateIdle\n");
@@ -267,7 +259,6 @@ uStInt evCalibrateZeroSignalChecker(void)
 
 	res = checkCalibZeroInner(res);  // method only works if one part is placed out
 									// no idea why (lenght of code ? )
-
 	return (res);
 }
 
@@ -284,7 +275,6 @@ void exitCalibrateScaleState(void)
 //	printf("exit calib\n");
 	stopTriacRun();
 	closeAmpsADC();
-
 }
 
 uStInt evCalibrateScaleChecker(void)
@@ -334,9 +324,6 @@ void entryCalibrateLowState(void)
 {
 //	printf("entry calib Low\n");
 	displayCalibrateLow();
-//	setTriacTriggerDelay(calibLowTriggerDelay);  // approximate somewhat, depending on used load
-								// no more.. leads to fuse ejects on 220V that 
-								// urges eeprom erase or somewhat like that, so set to 0
 	setTriacTriggerDelay(0);
 }
 
@@ -376,10 +363,6 @@ void entryCalibrateHighState(void)
 {
 //	printf("entry I\n");
 	displayCalibrateHigh();
-//	setTriacTriggerDelay(calibHighTriggerDelay);  // approximate somewhat, depending on used load
-								// no more.. leads to fuse ejects on 220V that 
-								// urges eeprom erase or somewhat like that, 
-								//  so this value let at delay from calib low
 }
 
 void exitCalibrateHighState(void)
@@ -527,7 +510,6 @@ uStInt evEditIdleChecker(void)
 		res =  uStIntHandlingDone;
 	}
 */
-	
 	return res;
 }
 

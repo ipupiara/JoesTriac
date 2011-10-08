@@ -106,26 +106,12 @@ int16_t  valueFrom6Bit2Complement(int16_t adcV)
 	}
 	return adcV;
 }
-/*
-int16_t diffADCValue()
-{  
-	int16_t res;
-	res = ampsADCValue();
-//	res = valueFrom6Bit2Complement(res);      done during interrupt
-	return res;
-}
-*/
 
 int16_t adcVoltage()
 {
 	int16_t VHex;
-//	float   VFl;
-
-//	VHex = 0x0000;
 
 	VHex = ampsADCValue();
-//	VHex = diffADCValue();
-//	VFl =  (VHex * 1.1) / (1.0 * 0x200);
 
 	while (messageOnGoing) {}		// wait until no more message will be processed, not to change values
 									// during message transaction
@@ -252,9 +238,6 @@ void volatilePotiUpAmt(int8_t  up, int8_t amt)
 	}
 }
 
-
-
-
 void errorPotiPosExceeded()
 {
 	*p_jobState = fatalError ;
@@ -300,7 +283,6 @@ void persistentZeroAdjStep()
 		stableStepsCnt = 0;	
 		if (*p_zeroPotiPos >= 0)  { 
 			if (*p_jobState == persistentZeroAdjust) // job might have changed meanwhile
-//			zeroPotiPosUpPersistent(0,1);
 			zeroPotiPosUpPersistent(0,0);
 		} else {
 			errorPotiPosExceeded();
@@ -310,7 +292,6 @@ void persistentZeroAdjStep()
 			stableStepsCnt = 0;
 			if (*p_zeroPotiPos < 100 ) {
 				if (*p_jobState == persistentZeroAdjust) {// job might have changed meanwhile
-//					zeroPotiPosUpPersistent(1,1);
 					zeroPotiPosUpPersistent(1,0);
 				}
 			} else {
@@ -345,25 +326,7 @@ void resetZeroAdj()
 	setPotiINC(0);	
 	setPotiUp(0);
 	*p_zeroPotiPos = 0;
-
-/*
-	setPotiCS(1);
-//	setPotiUp(0);
-	setPotiUp(1);
-	for (i1 = 0; i1 < 110; ++ i1) 
-	{
-		setPotiINC(1);
-		setPotiINC(0);
-	}
-	setPotiINC(1);	// do not store
-	setPotiCS(0);
-	setPotiINC(0);	
-	setPotiUp(0);
-*/
-//	storeZeroPotiPos(0x00);    //down on zero, debug stop
 }
-
-
 
 ISR(ADC_vect)
 {
@@ -446,8 +409,6 @@ void onSecondTick()
 	}
 	*/
 //	*p_jobState = 0x02;
-
-//	debugLightToggle();
 
 	if (*p_jobState == persistentZeroAdjust   ) {
 		if (adcCnt == 0) {				// avoid trigger during run, anyhow should not happen, since 
@@ -546,8 +507,6 @@ void initPID()
 	setPotiUp(0);  
 }
 
-
-
 void jobReceived(int8_t jS)
 {
 	if ((jS == up1)  ||  (jS == up10)||  (jS == down1)||  (jS == down10)) {
@@ -570,17 +529,6 @@ int8_t jobB;
 
 int main(void)
 {
-//	initPID();
-
-/*	DDRB &= ~(1<< DDB0);
-
-	DDRA |= 0x08;
-	PORTA &= ~0x08;
-
-	while (PINB & (1<< PINB0)) {}
-
-	PORTA |= 0x08; 
-*/
 	initPID();   // needs to be called before initHW();
 
 	initHW();
@@ -598,7 +546,7 @@ int main(void)
 			jobB = 0;
 		}
 
-//		asm volatile ( "wdr"  );
+//		asm volatile ( "wdr"  );       // some watchdog code, maybe used later somewhen
 
 		if (runningSecondsTick == 1) {
 			runningSecondsTick = 0;

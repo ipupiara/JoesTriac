@@ -24,14 +24,10 @@ void displayVoltage()
 
 void displayDebugVoltageNTriggerDelay()
 {
-//	int16_t VHex;
 	double   VFl;
 	char buffer [16];
-//	VHex = ampsADCValue();
-//	VFl = (VHex * 5.0) / 0x03FF;
 
 	VFl = adcVoltage();
-	
 
 	sprintf((char*)&buffer,"%5.2fV %5i D",VFl,triacTriggerDelayCms);
 
@@ -43,13 +39,9 @@ void displayDebugVoltageNTriggerDelay()
 
 void displayPotiPersistent()
 {
-//	int16_t VHex;
 	double   VFl;
 	char buffer [16];
-//	VHex = ampsADCValue();
-//	VFl = (VHex * 5.0) / 0x03FF;
 
-//	VFl = adcVoltage();
 	VFl = zeroAdjustDiffVoltage;	
 
 	sprintf((char*)&buffer,"%3i P %6.3f V",zeroPotiPos,VFl);
@@ -196,8 +188,6 @@ void displayTriacRunning()
 	lcd_write_str("Running ",LCD1);
 	lcd_goto(0,17,LCD1);
 	lcd_write_str(ARBuffer,LCD1);
-//	lcd_Line2(LCD1);
-//	lcd_write_str("wait or H",LCD1);
 	lcd_goto(3,0,LCD1);
 	lcd_write_str("R=stop",LCD1);
 }
@@ -213,8 +203,6 @@ void displayEditAmpsDuration()
 	lcd_goto(3,0,LCD1);
 	lcd_write_str("G=start",LCD1);
 }
-
-
 
 void displayEditAmps()
 {

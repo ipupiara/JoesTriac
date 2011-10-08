@@ -8,29 +8,15 @@
 
 int8_t lastCharPressed;
 
-//#define KeyPortB
+#define keyPort PORTC
+#define keyPortOut2  PORTA
+#define keyPin PINC
+#define keyDDR  DDRC
+#define keyDDROut2   DDRA
+#define IntrMsk  PCMSK2
+#define PCICRPos  2
+#define PCINTVECT  PCINT2_vect   
 
-#ifdef KeyPortB
-
-	#define keyPort PORTB
-	#define keyPin  PINB
-	#define keyDDR  DDRB
-	#define IntrMsk  PCMSK1
-	#define PCICRPos  1
-	#define PCINTVECT  PCINT1_vect
-
-#else
-
-	#define keyPort PORTC
-	#define keyPortOut2  PORTA
-	#define keyPin PINC
-	#define keyDDR  DDRC
-	#define keyDDROut2   DDRA
-	#define IntrMsk  PCMSK2
-	#define PCICRPos  2
-	#define PCINTVECT  PCINT2_vect   
-
-#endif
 
 
 #define keypadSignalDelayFaktor  8
