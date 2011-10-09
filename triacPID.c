@@ -284,7 +284,7 @@ void calcNextTriacDelay()
 void InitPID()
 {
 //	InitializePID(real kpTot, real ki, real kd, real error_thresh, real step_time);   
-	InitializePID( -0.5, 1.3, 0.2, 0.13, 5, (pidStepDelays/42.18));
+	InitializePID( -0.5, 1.1, 0.2, 0.13, 5, (pidStepDelays/42.18));
 
 	stableZeroAdjReached = 0;
 }

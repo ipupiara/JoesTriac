@@ -49,10 +49,6 @@ static volatile unsigned char USI_TWI_Overflow_State;
 	t0Cnt = 0;						\
 }
 
-
-
-
-
 void initTWITimer()
 {
 		messageOnGoing = 0;
@@ -62,7 +58,6 @@ void initTWITimer()
 	  	  
 		TCCR0B = 0x00  ; // Normal mode , not yet started	  
 		TIMSK0  = 0x00 | (1<< TOIE0);
-
 }
 
 
@@ -93,7 +88,7 @@ void USI_TWI_Slave_Initialise( unsigned char TWI_ownAddress )
 //	PORTA |= 0x8f;  // pn debug lines a0..a3 switched to leds
 
 
-	 initTWITimer();   
+	initTWITimer();   
 
 
   TWI_slaveAddress = TWI_ownAddress;
@@ -162,9 +157,7 @@ ISR(USI_START_VECTOR)
  */
 
 ISR(USI_OVERFLOW_VECTOR)
-{
-
-	
+{	
   switch (USI_TWI_Overflow_State)
   {
 
