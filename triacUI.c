@@ -245,7 +245,7 @@ void displayTime(int8_t kInd)
 
 void initUI()
 {
-	if (ampsInputPin == 0x00) {
+	if (ampsInputPin == rms) {
 		sprintf((char*) &ARBuffer[0],"RMS");
 	} else {
 		sprintf((char*) &ARBuffer[0],"AVG");

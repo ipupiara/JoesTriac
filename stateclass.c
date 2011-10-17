@@ -159,7 +159,7 @@ uStInt evAskingRmsAvgChecker(void)
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateZeroSignal);
 		// No event action.
 		
-		storeAmpsInputPin(0x01);
+		storeAmpsInputPin(avg);
 
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;		
@@ -170,7 +170,7 @@ uStInt evAskingRmsAvgChecker(void)
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateZeroSignal);
 		// No event action.
 
-		storeAmpsInputPin(0x00);
+		storeAmpsInputPin(rms);
 
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;		

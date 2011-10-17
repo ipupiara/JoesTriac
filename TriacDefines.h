@@ -123,4 +123,11 @@ enum zeroAdjustJobStates
 	fatalError	
 };
 
+
+enum ampsLine
+{  rms = 0,
+	avg
+};
+
+
 #endif

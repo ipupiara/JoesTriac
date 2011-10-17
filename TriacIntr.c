@@ -246,7 +246,7 @@ void setAmpsADC()
 	adcTick = 0;
 	adcCnt = 0;
 
-	if (ampsInputPin == 0x01) {
+	if (ampsInputPin == avg) {
 		ADMUX = 0b01000001;
 	} else {
 		ADMUX = 0b01000010;      // AVCC as ref,  right adjust, mux to adc2/adc1
