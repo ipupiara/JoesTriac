@@ -320,7 +320,7 @@ UsedLibrary="C:/Program Files (x86)/EAGLE-5.8.0/lbr/elektro/e-motoren.lbr"
 
 [Win_1]
 Type="Control Panel"
-Loc="57 44 912 565"
+Loc="0 0 801 409"
 State=2
 Number=0
 
