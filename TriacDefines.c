@@ -2,7 +2,87 @@
 #include <stdio.h>
 #include "TriacDefines.h"
 #include "TriacIntr.h"
+#define ownEepromMethods 
+
+#ifndef ownEepromMethods
 #include <avr/eeprom.h>
+#else
+
+void EEPROM_write(unsigned int uiAddress, unsigned char ucData)
+{
+	// Wait for completion of previous write 
+	while(EECR & (1<<EEPE));
+	// Set up address and Data Registers 
+	EEAR = uiAddress;
+	EEDR = ucData;
+	cli();
+	/*
+	// Write logical one to EEMPE 
+	EECR |= (1<<EEMPE);
+	// Start eeprom write by setting EEPE 
+	EECR |= (1<<EEPE);
+	*/
+
+     asm volatile (
+     "sbi 0x1f,0x02" "\r\n"
+     "sbi 0x1f,0x01" "\r\n"
+       );
+	sei();
+}
+
+unsigned char EEPROM_read(unsigned int uiAddress)
+{
+	// Wait for completion of previous write 
+	while(EECR & (1<<EEPE))
+	;
+	// Set up address register 
+	EEAR = uiAddress;
+	// Start eeprom read by writing EERE 
+	EECR |= (1<<EERE);
+	// Return data from Data Register 
+	return EEDR;
+}
+
+void eeprom_write_byte (uint8_t *adr, uint8_t val)
+{
+	uint16_t adre = (uint16_t) adr;
+	EEPROM_write(adre,*(&val));
+}
+
+uint8_t eeprom_read_byte (const uint8_t *adr)
+{
+	unsigned char bu;
+	uint16_t adre = (uint16_t) adr;
+	bu =  EEPROM_read(adre); 
+	return bu;
+}
+
+uint16_t eeprom_read_word (uint16_t* adr)
+{	
+	uint16_t res;
+	unsigned char bu;
+	uint16_t adre;
+	adre = (uint16_t) adr; 
+
+	res = 0;
+	bu = EEPROM_read(adre); 
+	*(&res) = bu;
+	bu = EEPROM_read(adre + 1); 
+	*((unsigned char*)&res+1) = bu;
+
+	return res;
+}
+
+void eeprom_write_word(uint16_t* adr, uint16_t val)
+{
+	uint16_t adre;
+	adre = (uint16_t) adr; 
+	EEPROM_write(adre,*(&val));
+	EEPROM_write(adre + 1,*((unsigned char*)&val + 1));
+}
+
+
+#endif
 
 void delayEmptyProc ()
 {

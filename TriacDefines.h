@@ -16,8 +16,8 @@
 
 	#define JT_F_CPU 11095200	
 	
-	#define calibLowCmsEEPROMpos   0
-	#define calibHighCmsEEPROMpos  2   // both int16
+//	#define calibLowCmsEEPROMpos   0
+//	#define calibHighCmsEEPROMpos  2   // both int16
 	#define amps100EEPROMpos    4   // 8-bit
 	#define amps10EEPROMpos    5   // 8-bit
 	#define ampsEEPROMpos    6   // 8-bit
@@ -32,8 +32,8 @@
 //	#define zeroPotiPosEEPROMpos                19   // unit8  (obsolete, leaf place free )
 	#define ampsInputPinEEPROMpos         20     // uint8
 
-	#define calibLowAmps        20
-	#define calibHighAmps       50
+	#define calibLowAmps        15
+	#define calibHighAmps       40
 
 	#define triggerDelayMax 810     // works properly with 50 Hz Ac 
 
@@ -57,8 +57,8 @@ int16_t desiredTimeS;
 //  if application should grow over certain limits
 
 
-uint16_t  calibLowADC;
-uint16_t  calibHighADC;  
+int16_t  calibLowADC;
+int16_t  calibHighADC;  
 
 uint16_t  calibLowTriggerDelay;
 uint16_t  calibHighTriggerDelay;

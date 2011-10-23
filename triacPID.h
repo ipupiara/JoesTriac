@@ -20,6 +20,8 @@ void InitPID();
 
 void resetPID();
 
+void printPIDState();
+
 void onEntryIdlePID();
 
 void onIdleSecondTickPID();
@@ -30,21 +32,6 @@ double currentAmpsValue;
 
 int8_t stableZeroAdjReached;
 
-/*
-
-uint16_t calibLowCms, calibHighCms;
-
-uint16_t calibLowAdc, calibHighAdc;
-
-void storeCalibLowCms(uint16_t cl);
-
-void storeCalibHighCms(uint16_t ch);
-
-void storeCalibLowAdc(uint16_t cl);
-
-void storeCalibHighAdc(uint16_t ch);
-
-*/
 
 //void onIdleAdcTick();
 

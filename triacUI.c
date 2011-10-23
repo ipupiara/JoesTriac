@@ -26,10 +26,11 @@ void displayDebugVoltageNTriggerDelay()
 {
 	double   VFl;
 	char buffer [16];
+	int16_t adc =  ampsADCValue();
 
 	VFl = adcVoltage();
 
-	sprintf((char*)&buffer,"%5.2fV %5i D",VFl,triacTriggerDelayCms);
+	sprintf((char*)&buffer,"%5.2fV %4iA %3iD",VFl,adc, triacTriggerDelayCms);
 
 	lcd_Line2(LCD1);
 	lcd_write_str((char*)&buffer,LCD1);

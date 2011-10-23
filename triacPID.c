@@ -162,6 +162,7 @@ void onEntryIdlePID()
 
 void onIdleSecondTickPID()
 {
+	int16_t secs;
 	if (idleTickCnt < maxIdleTickCnt) {
 		++ idleTickCnt;
 	} else {
@@ -170,6 +171,10 @@ void onIdleSecondTickPID()
 
 		idleTickCnt = 1;
 	}
+	secs = getSecondsRemaining();
+	if ((secs & 0x001f) == 0) {
+		printPIDState();
+	} 
 }
 
 
@@ -295,4 +300,22 @@ void resetPID()
 	corrCarryOver = 0;
  	m_integral =0;
 	m_prev_error = 0;
+}
+
+void printPIDState()
+{
+	int16_t adcAmps;
+	float res;
+	double resD;
+	double gradD = gradAmps;
+
+	adcAmps = 0;
+
+	res = calibLowAmps +  (gradAmps * ((int16_t) adcAmps - (int16_t) calibLowADC  ));
+	resD = res;
+
+	printf("\nPID State\n");
+	printf("calLowA %i calHighA %i\n",calibLowAmps,calibHighAmps);
+	printf("calowAdc %i cahiAdc %i \n",calibLowADC, calibHighADC);
+	printf("shows at 0 ADC : %f A  grad %f\n",resD, gradD);
 }

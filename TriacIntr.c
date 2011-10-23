@@ -171,11 +171,12 @@ void initInterrupts()
 		PORTA = 0b11100000;
 		DIDR0 = 0x0F;			// disa digital input on a0..a3
 
-		DDRD |= 0x10;			// set Portd pin 04 be Triac output
-		PORTD &= ~0x10; 		// and initialize with 0-value
-
 		DDRD &= ~0x04;		// set PortD pin 2 as input for trigger Ext Int 0
 		PORTD &=  ~0x04;   // without pullup 
+
+		PORTD &= ~0x10; 		// done also before setting DDR to avoid eventual accidental triac trigger
+		DDRD |= 0x10;			// set Portd pin 04 be Triac output
+		PORTD &= ~0x10; 		// and initialize with 0-value
 
 		EICRA = 0x01;   // both, fall/rise edge trigger    
 		EIMSK = 0x00;   
@@ -235,6 +236,7 @@ void initInterrupts()
 		ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE	
 		adcTick = 0;
 		adcCnt = 0;
+		lastAmpsADCVal = 0;
 
 		sei();  // start interrupts if not yet started
 		

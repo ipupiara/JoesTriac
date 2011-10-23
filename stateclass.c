@@ -127,9 +127,8 @@ uStInt evCalibratingChecker(void)
 	
 	res = uStIntNoMatch;
 
-	printf("inside evCalibratingChecker\n");
-	if (currentEvent->evType == evStopPressed)  {
-	printf("stopPressed\n");	
+//	printf("inside evCalibratingChecker\n");
+	if (currentEvent->evType == evStopPressed)  {	
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
 				// No event action.
 			END_EVENT_HANDLER(PJoesTriacStateChart);
@@ -684,6 +683,7 @@ uStInt evTriacRunningChecker(void)
 	if (currentEvent->evType == evAdcTick)
 	{
 		calcNextTriacDelay();
+		res =  uStIntHandlingDone;
 	}		
 	return res;
 }
