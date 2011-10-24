@@ -32,6 +32,7 @@ double currentAmpsValue;
 
 int8_t stableZeroAdjReached;
 
+void updateGradAmps();
 
 //void onIdleAdcTick();
 

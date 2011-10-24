@@ -203,6 +203,8 @@ void InitializePID(real kpTot,real kpP, real ki, real kd, real error_thresh, rea
 	 corrCarryOver = 0;
 }
 
+#define correctionThreshold  30
+
 real nextCorrection(real error)
 {
     // Set q_fact to 1 if the error magnitude is below
@@ -233,6 +235,11 @@ real nextCorrection(real error)
 
     // Return the PID controller actuator command
 	res = m_kPTot*(m_kP*error + m_kI*m_integral + m_kD*deriv);
+	if (res > correctionThreshold) {
+		res = correctionThreshold;
+	} else if (res < -1*correctionThreshold) {
+		res = -1* correctionThreshold;
+	}
 
 #ifdef printfPID
 	double errD = error;
@@ -288,8 +295,8 @@ void calcNextTriacDelay()
 
 void InitPID()
 {
-//	InitializePID(real kpTot, real ki, real kd, real error_thresh, real step_time);   
-	InitializePID( -0.5, 1.1, 0.2, 0.13, 5, (pidStepDelays/42.18));
+//	InitializePID(real kpTot, real kpP, real ki, real kd, real error_thresh, real step_time);   
+	InitializePID( -0.5, 1.0, 0.2, 0.13, 5, (pidStepDelays/42.18));
 
 	stableZeroAdjReached = 0;
 }
@@ -315,7 +322,7 @@ void printPIDState()
 	resD = res;
 
 	printf("\nPID State\n");
-	printf("calLowA %i calHighA %i\n",calibLowAmps,calibHighAmps);
+	printf("calLowA %i calHighA %i caLowDelay %i caHiDelay %i\n",calibLowAmps,calibHighAmps, calibLowTriggerDelay, calibHighTriggerDelay);
 	printf("calowAdc %i cahiAdc %i \n",calibLowADC, calibHighADC);
-	printf("shows at 0 ADC : %f A  grad %f\n",resD, gradD);
+	printf("shows at 0 ADC : %f A  grad %f zeroPotiPos %i\n",resD, gradD,zeroPotiPos);
 }

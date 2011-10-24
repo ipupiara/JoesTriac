@@ -386,7 +386,8 @@ uStInt evCalibrateHighChecker(void)
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
 
 		storeCalibHighTriggerDelay();
-		storeCalibHighADC();			
+		storeCalibHighADC();
+		updateGradAmps();			
 
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
