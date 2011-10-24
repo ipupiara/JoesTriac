@@ -3,6 +3,8 @@
 // TriacDefines.h contains global and some local defines, but not all of the local defines
 // also it contains many of the global data definition and their persistent storage on eeprom
 
+// Yoar Attention please, yoar attention: set Brown out level on 2.7V at least
+// otherwise errors on the eeprom could be observed at startup
 
 #ifndef TriacDefines_H
 	#define TriacDefines_H
@@ -78,6 +80,8 @@ int8_t fatalErrorOccurred;
 void calcDesiredAmps();
 
 void storeAmps100(int8_t val);
+
+void checkEEPOROM();
 
 
 void storeAmps10(int8_t val);

@@ -45,8 +45,15 @@ unsigned char EEPROM_read(unsigned int uiAddress)
 
 void eeprom_write_byte (uint8_t *adr, uint8_t val)
 {
+	uint8_t checkRes = 0;
 	uint16_t adre = (uint16_t) adr;
 	EEPROM_write(adre,*(&val));
+	checkRes = EEPROM_read(adre); 
+	if (val != checkRes) {
+		printf("eeprom stored %X, but check returned %X\n",val,checkRes);
+	} else {
+		printf("reread ok returned %X\n",checkRes);
+	}
 }
 
 uint8_t eeprom_read_byte (const uint8_t *adr)
@@ -113,6 +120,17 @@ uint8_t x;
   }
 } 
 
+void checkEEPOROM()
+{
+	int8_t by1, by2, by3;
+	by1 = eeprom_read_byte((uint8_t*)amps100EEPROMpos);	
+	printf("restore check amps100 %X\n",by1);
+	by2 = eeprom_read_byte((uint8_t*)amps10EEPROMpos);
+	printf("restore check amps10 %X\n",by2);
+	by3 = eeprom_read_byte((uint8_t*)ampsEEPROMpos);
+	printf("restore che k amps %X\n",by3);
+}
+
 
 
 
@@ -123,6 +141,7 @@ void calcDesiredAmps()
 
 void storeAmps100(int8_t val)
 {
+	printf("storeAmps100 %X\n",val);
 	eeprom_write_byte((uint8_t*)amps100EEPROMpos,val);
 	amps100 = val;
 	calcDesiredAmps();
@@ -130,6 +149,7 @@ void storeAmps100(int8_t val)
 
 void storeAmps10(int8_t val)
 {
+	printf("storeAmps10 %X\n",val);
 	eeprom_write_byte((uint8_t*)amps10EEPROMpos,val);
 	amps10 = val;	
 	calcDesiredAmps();
@@ -137,6 +157,7 @@ void storeAmps10(int8_t val)
 
 void storeAmps(int8_t val)
 {
+	printf("storeAmps %X\n",val);
 	eeprom_write_byte((uint8_t*)ampsEEPROMpos,val);
 	amps = val;	
 	calcDesiredAmps();
@@ -216,11 +237,24 @@ void storeAmpsInputPin(int8_t val)
 void restorePersistentData()
 {
 	amps100 = eeprom_read_byte((uint8_t*)amps100EEPROMpos);	
-	if ((amps100 < 0x30) || (amps100 > 0x39)) { storeAmps100(0x30);}   // use lazy initialization
+	printf("restore amps100 %X\n",amps100);
+	if ((amps100 < 0x30) || (amps100 > 0x39)) { 
+		printf("amps100 not valid restored %X\n", amps100);
+		storeAmps100(0x30);
+	}   // use lazy initialization
 	amps10 = eeprom_read_byte((uint8_t*)amps10EEPROMpos);
-	if ((amps10 < 0x30) || (amps10 > 0x39)) { storeAmps10(0x30);}
+	printf("restore amps10 %X\n",amps10);
+	if ((amps10 < 0x30) || (amps10 > 0x39)) { 
+		printf("amps10 not valid restored %X\n", amps10);
+		storeAmps10(0x30);
+	}
 	amps = eeprom_read_byte((uint8_t*)ampsEEPROMpos);
-	if ((amps < 0x30) || (amps > 0x39)) { storeAmps(0x30);}
+	printf("restore amps %X\n",amps);
+	if ((amps < 0x30) || (amps > 0x39)) { 
+		printf("amps not valid restored %X\n", amps);
+		storeAmps(0x30);
+	}
+	printf("amps done\n");
 	min10 = eeprom_read_byte((uint8_t*)min10EEPROMpos);
 	if ((min10 < 0x30) || (min10 > 0x39)) { storeMin10(0x30);}
 	min = eeprom_read_byte((uint8_t*)minEEPROMpos);

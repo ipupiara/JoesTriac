@@ -296,7 +296,7 @@ void calcNextTriacDelay()
 void InitPID()
 {
 //	InitializePID(real kpTot, real kpP, real ki, real kd, real error_thresh, real step_time);   
-	InitializePID( -0.5, 1.0, 0.2, 0.13, 5, (pidStepDelays/42.18));
+	InitializePID( -0.45, 1.1, 0.2, 0.2, 5, (pidStepDelays/42.18));
 
 	stableZeroAdjReached = 0;
 }
@@ -325,4 +325,5 @@ void printPIDState()
 	printf("calLowA %i calHighA %i caLowDelay %i caHiDelay %i\n",calibLowAmps,calibHighAmps, calibLowTriggerDelay, calibHighTriggerDelay);
 	printf("calowAdc %i cahiAdc %i \n",calibLowADC, calibHighADC);
 	printf("shows at 0 ADC : %f A  grad %f zeroPotiPos %i\n",resD, gradD,zeroPotiPos);
+//	checkEEPOROM();
 }
