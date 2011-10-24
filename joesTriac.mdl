@@ -2020,8 +2020,19 @@
 	    (object Class "TriacTriggerTimer"
 		quid       	"4DB16CA30130"
 		language   	"C++")
-	    (object Class "TriacDurationTimer"
+	    (object Class "DurationTimer"
 		quid       	"4DB16CC50360"
+		operations 	(list Operations
+		    (object Operation "secondTick"
+			quid       	"4EA5F2F4015E"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
+			uid        	0)
+		    (object Operation "durationTimerReached"
+			quid       	"4EA5F3A2010B"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
+			uid        	0))
 		language   	"C++")
 	    (object Class "NumKeypad"
 		quid       	"4DB16CE20130"
@@ -2055,13 +2066,8 @@
 			concurrency 	"Sequential"
 			opExportControl 	"Public"
 			uid        	0)
-		    (object Operation "updateDisplayMemory"
+		    (object Operation "........"
 			quid       	"4DB19167018C"
-			concurrency 	"Sequential"
-			opExportControl 	"Public"
-			uid        	0)
-		    (object Operation "editComplete"
-			quid       	"4DB191DC01F5"
 			concurrency 	"Sequential"
 			opExportControl 	"Public"
 			uid        	0))
@@ -2112,6 +2118,21 @@
 		    (object ClassAttribute "int currentAmpADCVal"
 			quid       	"4DB1712C01CB"))
 		language   	"C++")
+	    (object Class "zeroCrossDetector"
+		quid       	"4EA5F3C7020D")
+	    (object Class "SensorCalibrator"
+		quid       	"4EA5F3EE030A")
+	    (object Class "Communication Interfaces"
+		quid       	"4EA5F4350241"
+		class_attributes 	(list class_attribute_list
+		    (object ClassAttribute "I2C"
+			quid       	"4EA5F44102D3")
+		    (object ClassAttribute "RS232(serial)"
+			quid       	"4EA5F44C0202")
+		    (object ClassAttribute "jtag"
+			quid       	"4EA5F4580062")
+		    (object ClassAttribute "isp"
+			quid       	"4EA5F45B01D9")))
 	    (object Mechanism @67
 		logical_models 	(list unit_reference_list
 		    (object Object "$UNNAMED$5"
@@ -2338,7 +2359,7 @@
 				supplier   	"$UNNAMED$6"
 				quidu      	"4DB173F902BE"
 				messages   	(list Messages
-				    (object Message "updateDisplayMemory( )"
+				    (object Message "........( )"
 					quid       	"4DB191A800B5"
 					frequency  	"Aperiodic"
 					synchronization 	"Simple"
@@ -2373,7 +2394,7 @@
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
-			location   	(976, 464)
+			location   	(1424, 960)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2385,7 +2406,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@68
-			    location   	(732, 308)
+			    location   	(1180, 804)
 			    fill_color 	13434879
 			    nlines     	1
 			    max_width  	488
@@ -2397,7 +2418,7 @@
 			quidu      	"4DB16C7C0040"
 			compartment 	(object Compartment
 			    Parent_View 	@68
-			    location   	(732, 369)
+			    location   	(1180, 865)
 			    font       	(object Font
 				size       	10
 				face       	"Arial"
@@ -2421,7 +2442,7 @@
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
-			location   	(2704, 368)
+			location   	(2848, 560)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2433,7 +2454,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@69
-			    location   	(2504, 287)
+			    location   	(2648, 479)
 			    fill_color 	13434879
 			    nlines     	1
 			    max_width  	400
@@ -2445,7 +2466,7 @@
 			quidu      	"4DB16C900360"
 			compartment 	(object Compartment
 			    Parent_View 	@69
-			    location   	(2504, 348)
+			    location   	(2648, 540)
 			    font       	(object Font
 				size       	10
 				face       	"Arial"
@@ -2469,7 +2490,7 @@
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
-			location   	(1808, 1056)
+			location   	(2224, 1472)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2481,7 +2502,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@70
-			    location   	(1639, 1005)
+			    location   	(2055, 1421)
 			    fill_color 	13434879
 			    nlines     	1
 			    max_width  	338
@@ -2495,11 +2516,11 @@
 			height     	126
 			annotation 	8
 			autoResize 	TRUE)
-		    (object ClassView "Class" "Logical View::TriacDurationTimer" @71
+		    (object ClassView "Class" "Logical View::DurationTimer" @71
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
-			location   	(1792, 1232)
+			location   	(1600, 1632)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2511,18 +2532,36 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@71
-			    location   	(1604, 1181)
+			    location   	(1358, 1526)
 			    fill_color 	13434879
 			    nlines     	1
-			    max_width  	376
+			    max_width  	484
 			    justify    	0
-			    label      	"TriacDurationTimer")
+			    label      	"DurationTimer")
 			icon_style 	"Icon"
 			line_color 	3342489
 			fill_color 	13434879
 			quidu      	"4DB16CC50360"
-			width      	394
-			height     	126
+			compartment 	(object Compartment
+			    Parent_View 	@71
+			    location   	(1358, 1587)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    icon_style 	"Icon"
+			    fill_color 	16777215
+			    anchor     	2
+			    nlines     	3
+			    max_width  	481
+			    justify    	1)
+			width      	502
+			height     	236
 			annotation 	8
 			autoResize 	TRUE)
 		    (object ClassView "Class" "Logical View::NumKeypad" @72
@@ -2589,10 +2628,10 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@73
-			    location   	(91, 347)
+			    location   	(89, 372)
 			    fill_color 	13434879
 			    nlines     	1
-			    max_width  	490
+			    max_width  	494
 			    justify    	0
 			    label      	"LCD_Display")
 			icon_style 	"Icon"
@@ -2601,7 +2640,7 @@
 			quidu      	"4DB16CEF0207"
 			compartment 	(object Compartment
 			    Parent_View 	@73
-			    location   	(91, 408)
+			    location   	(89, 433)
 			    font       	(object Font
 				size       	10
 				face       	"Arial"
@@ -2614,18 +2653,18 @@
 			    icon_style 	"Icon"
 			    fill_color 	16777215
 			    anchor     	2
-			    nlines     	6
-			    max_width  	500
+			    nlines     	5
+			    max_width  	491
 			    justify    	1)
-			width      	508
-			height     	386
+			width      	512
+			height     	336
 			annotation 	8
 			autoResize 	TRUE)
 		    (object ClassView "Class" "Logical View::PID_Controller" @74
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
-			location   	(928, 1296)
+			location   	(832, 1568)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2637,7 +2676,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@74
-			    location   	(779, 1245)
+			    location   	(683, 1517)
 			    fill_color 	13434879
 			    nlines     	1
 			    max_width  	298
@@ -2655,7 +2694,7 @@
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
-			location   	(1712, 592)
+			location   	(2128, 368)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2667,7 +2706,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@75
-			    location   	(1400, 286)
+			    location   	(1816, 62)
 			    fill_color 	13434879
 			    nlines     	1
 			    max_width  	624
@@ -2679,7 +2718,7 @@
 			quidu      	"4DB16D8E004F"
 			compartment 	(object Compartment
 			    Parent_View 	@75
-			    location   	(1400, 347)
+			    location   	(1816, 123)
 			    font       	(object Font
 				size       	10
 				face       	"Arial"
@@ -2698,6 +2737,114 @@
 			width      	642
 			height     	636
 			annotation 	8
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::zeroCrossDetector" @76
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(2624, 1232)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@76
+			    location   	(2438, 1181)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	372
+			    justify    	0
+			    label      	"zeroCrossDetector")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"4EA5F3C7020D"
+			width      	390
+			height     	126
+			annotation 	8
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::SensorCalibrator" @77
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(2848, 896)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@77
+			    location   	(2677, 845)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	342
+			    justify    	0
+			    label      	"SensorCalibrator")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"4EA5F3EE030A"
+			width      	360
+			height     	126
+			annotation 	8
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::Communication Interfaces" @78
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(336, 1136)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@78
+			    location   	(80, 980)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	512
+			    justify    	0
+			    label      	"Communication Interfaces")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"4EA5F4350241"
+			compartment 	(object Compartment
+			    Parent_View 	@78
+			    location   	(80, 1041)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    icon_style 	"Icon"
+			    fill_color 	13434879
+			    anchor     	2
+			    nlines     	5
+			    max_width  	303
+			    justify    	1)
+			width      	530
+			height     	336
+			annotation 	8
 			autoResize 	TRUE)))
 	    (object InteractionDiagram "StartupCalibration"
 		mechanism_ref 	@67
@@ -2709,7 +2856,7 @@
 		origin_x   	0
 		origin_y   	759
 		items      	(list diagram_item_list
-		    (object InterObjView "$UNNAMED$5" @76
+		    (object InterObjView "$UNNAMED$5" @79
 			location   	(512, 225)
 			font       	(object Font
 			    size       	10
@@ -2721,7 +2868,7 @@
 			    color      	0
 			    default_color 	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@76
+			    Parent_View 	@79
 			    location   	(512, 224)
 			    fill_color 	13434879
 			    anchor_loc 	1
@@ -2739,34 +2886,34 @@
 			icon_width 	0
 			icon_y_offset 	0
 			annotation 	1
-			Focus_Of_Control 	(object Focus_Of_Control "" @77
+			Focus_Of_Control 	(object Focus_Of_Control "" @80
 			    location   	(512, 400)
 			    line_color 	3342489
-			    InterObjView 	@76
+			    InterObjView 	@79
 			    height     	312
 			    y_coord    	222
 			    Nested     	FALSE)
-			Focus_Of_Control 	(object Focus_Of_Control "" @78
+			Focus_Of_Control 	(object Focus_Of_Control "" @81
 			    location   	(512, 457)
-			    InterObjView 	@76
+			    InterObjView 	@79
 			    height     	90
 			    y_coord    	0
 			    Nested     	TRUE)
-			Focus_Of_Control 	(object Focus_Of_Control "" @79
+			Focus_Of_Control 	(object Focus_Of_Control "" @82
 			    location   	(512, 2560)
 			    line_color 	3342489
-			    InterObjView 	@76
+			    InterObjView 	@79
 			    height     	60
 			    y_coord    	-30
 			    Nested     	FALSE)
-			Focus_Of_Control 	(object Focus_Of_Control "" @80
+			Focus_Of_Control 	(object Focus_Of_Control "" @83
 			    location   	(512, 3344)
 			    line_color 	3342489
-			    InterObjView 	@76
+			    InterObjView 	@79
 			    height     	60
 			    y_coord    	-30
 			    Nested     	FALSE))
-		    (object InterObjView "$UNNAMED$7" @81
+		    (object InterObjView "$UNNAMED$7" @84
 			location   	(3072, 225)
 			font       	(object Font
 			    size       	10
@@ -2778,7 +2925,7 @@
 			    color      	0
 			    default_color 	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@81
+			    Parent_View 	@84
 			    location   	(3072, 224)
 			    fill_color 	13434879
 			    anchor_loc 	1
@@ -2796,21 +2943,21 @@
 			icon_width 	0
 			icon_y_offset 	0
 			annotation 	1
-			Focus_Of_Control 	(object Focus_Of_Control "" @82
+			Focus_Of_Control 	(object Focus_Of_Control "" @85
 			    location   	(3072, 1616)
 			    line_color 	3342489
-			    InterObjView 	@81
+			    InterObjView 	@84
 			    height     	60
 			    y_coord    	-30
 			    Nested     	FALSE)
-			Focus_Of_Control 	(object Focus_Of_Control "" @83
+			Focus_Of_Control 	(object Focus_Of_Control "" @86
 			    location   	(3072, 2368)
 			    line_color 	3342489
-			    InterObjView 	@81
+			    InterObjView 	@84
 			    height     	60
 			    y_coord    	-30
 			    Nested     	FALSE))
-		    (object InterObjView "$UNNAMED$9" @84
+		    (object InterObjView "$UNNAMED$9" @87
 			location   	(2160, 225)
 			font       	(object Font
 			    size       	10
@@ -2822,7 +2969,7 @@
 			    color      	0
 			    default_color 	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@84
+			    Parent_View 	@87
 			    location   	(2160, 224)
 			    fill_color 	13434879
 			    anchor_loc 	1
@@ -2840,42 +2987,42 @@
 			icon_width 	0
 			icon_y_offset 	0
 			annotation 	1
-			Focus_Of_Control 	(object Focus_Of_Control "" @85
+			Focus_Of_Control 	(object Focus_Of_Control "" @88
 			    location   	(2160, 704)
 			    line_color 	3342489
-			    InterObjView 	@84
+			    InterObjView 	@87
 			    height     	260
 			    y_coord    	170
 			    Nested     	FALSE)
-			Focus_Of_Control 	(object Focus_Of_Control "" @86
+			Focus_Of_Control 	(object Focus_Of_Control "" @89
 			    location   	(2160, 1024)
 			    line_color 	3342489
-			    InterObjView 	@84
+			    InterObjView 	@87
 			    height     	772
 			    y_coord    	682
 			    Nested     	FALSE)
-			Focus_Of_Control 	(object Focus_Of_Control "" @87
+			Focus_Of_Control 	(object Focus_Of_Control "" @90
 			    location   	(2160, 1216)
 			    line_color 	3342489
-			    InterObjView 	@84
+			    InterObjView 	@87
 			    height     	60
 			    y_coord    	-30
 			    Nested     	TRUE)
-			Focus_Of_Control 	(object Focus_Of_Control "" @88
+			Focus_Of_Control 	(object Focus_Of_Control "" @91
 			    location   	(2160, 2032)
 			    line_color 	3342489
-			    InterObjView 	@84
+			    InterObjView 	@87
 			    height     	516
 			    y_coord    	426
 			    Nested     	FALSE)
-			Focus_Of_Control 	(object Focus_Of_Control "" @89
+			Focus_Of_Control 	(object Focus_Of_Control "" @92
 			    location   	(2160, 29344)
 			    line_color 	3342489
-			    InterObjView 	@84
+			    InterObjView 	@87
 			    height     	60
 			    y_coord    	-30
 			    Nested     	FALSE))
-		    (object InterObjView "$UNNAMED$6" @90
+		    (object InterObjView "$UNNAMED$6" @93
 			location   	(1824, 225)
 			font       	(object Font
 			    size       	10
@@ -2887,7 +3034,7 @@
 			    color      	0
 			    default_color 	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@90
+			    Parent_View 	@93
 			    location   	(1824, 224)
 			    fill_color 	13434879
 			    anchor_loc 	1
@@ -2905,62 +3052,62 @@
 			icon_width 	0
 			icon_y_offset 	0
 			annotation 	1
-			Focus_Of_Control 	(object Focus_Of_Control "" @91
+			Focus_Of_Control 	(object Focus_Of_Control "" @94
 			    location   	(1824, 592)
 			    line_color 	3342489
-			    InterObjView 	@90
+			    InterObjView 	@93
 			    height     	60
 			    y_coord    	-30
 			    Nested     	FALSE)
-			Focus_Of_Control 	(object Focus_Of_Control "" @92
+			Focus_Of_Control 	(object Focus_Of_Control "" @95
 			    location   	(1824, 1056)
 			    line_color 	3342489
-			    InterObjView 	@90
-			    height     	60
-			    y_coord    	-30
-			    Nested     	FALSE)
-			Focus_Of_Control 	(object Focus_Of_Control "" @93
-			    location   	(1824, 1152)
-			    line_color 	3342489
-			    InterObjView 	@90
-			    height     	312
-			    y_coord    	222
-			    Nested     	FALSE)
-			Focus_Of_Control 	(object Focus_Of_Control "" @94
-			    location   	(1824, 1369)
-			    InterObjView 	@90
-			    height     	90
-			    y_coord    	0
-			    Nested     	TRUE)
-			Focus_Of_Control 	(object Focus_Of_Control "" @95
-			    location   	(1824, 1808)
-			    line_color 	3342489
-			    InterObjView 	@90
+			    InterObjView 	@93
 			    height     	60
 			    y_coord    	-30
 			    Nested     	FALSE)
 			Focus_Of_Control 	(object Focus_Of_Control "" @96
+			    location   	(1824, 1152)
+			    line_color 	3342489
+			    InterObjView 	@93
+			    height     	312
+			    y_coord    	222
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @97
+			    location   	(1824, 1369)
+			    InterObjView 	@93
+			    height     	90
+			    y_coord    	0
+			    Nested     	TRUE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @98
+			    location   	(1824, 1808)
+			    line_color 	3342489
+			    InterObjView 	@93
+			    height     	60
+			    y_coord    	-30
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @99
 			    location   	(1824, 3344)
 			    line_color 	3342489
-			    InterObjView 	@90
+			    InterObjView 	@93
 			    height     	120
 			    y_coord    	30
 			    Nested     	FALSE)
-			Focus_Of_Control 	(object Focus_Of_Control "" @97
+			Focus_Of_Control 	(object Focus_Of_Control "" @100
 			    location   	(1824, 29456)
 			    line_color 	3342489
-			    InterObjView 	@90
+			    InterObjView 	@93
 			    height     	276
 			    y_coord    	186
 			    Nested     	FALSE)
-			Focus_Of_Control 	(object Focus_Of_Control "" @98
+			Focus_Of_Control 	(object Focus_Of_Control "" @101
 			    location   	(1824, 29552)
 			    line_color 	3342489
-			    InterObjView 	@90
+			    InterObjView 	@93
 			    height     	60
 			    y_coord    	-30
 			    Nested     	TRUE))
-		    (object InterObjView "$UNNAMED$8" @99
+		    (object InterObjView "$UNNAMED$8" @102
 			location   	(1200, 225)
 			font       	(object Font
 			    size       	10
@@ -2972,7 +3119,7 @@
 			    color      	0
 			    default_color 	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@99
+			    Parent_View 	@102
 			    location   	(1200, 224)
 			    fill_color 	13434879
 			    anchor_loc 	1
@@ -2990,82 +3137,82 @@
 			icon_width 	0
 			icon_y_offset 	0
 			annotation 	1
-			Focus_Of_Control 	(object Focus_Of_Control "" @100
+			Focus_Of_Control 	(object Focus_Of_Control "" @103
 			    location   	(1200, 704)
 			    line_color 	3342489
-			    InterObjView 	@99
-			    height     	200
-			    y_coord    	110
-			    Nested     	FALSE)
-			Focus_Of_Control 	(object Focus_Of_Control "" @101
-			    location   	(1200, 809)
-			    InterObjView 	@99
-			    height     	90
-			    y_coord    	0
-			    Nested     	TRUE)
-			Focus_Of_Control 	(object Focus_Of_Control "" @102
-			    location   	(1200, 1056)
-			    line_color 	3342489
-			    InterObjView 	@99
-			    height     	120
-			    y_coord    	30
-			    Nested     	FALSE)
-			Focus_Of_Control 	(object Focus_Of_Control "" @103
-			    location   	(1200, 1536)
-			    line_color 	3342489
-			    InterObjView 	@99
+			    InterObjView 	@102
 			    height     	200
 			    y_coord    	110
 			    Nested     	FALSE)
 			Focus_Of_Control 	(object Focus_Of_Control "" @104
-			    location   	(1200, 1808)
+			    location   	(1200, 809)
+			    InterObjView 	@102
+			    height     	90
+			    y_coord    	0
+			    Nested     	TRUE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @105
+			    location   	(1200, 1056)
 			    line_color 	3342489
-			    InterObjView 	@99
+			    InterObjView 	@102
 			    height     	120
 			    y_coord    	30
-			    Nested     	FALSE)
-			Focus_Of_Control 	(object Focus_Of_Control "" @105
-			    location   	(1200, 2272)
-			    line_color 	3342489
-			    InterObjView 	@99
-			    height     	216
-			    y_coord    	126
 			    Nested     	FALSE)
 			Focus_Of_Control 	(object Focus_Of_Control "" @106
-			    location   	(1200, 2560)
+			    location   	(1200, 1536)
 			    line_color 	3342489
-			    InterObjView 	@99
-			    height     	120
-			    y_coord    	30
+			    InterObjView 	@102
+			    height     	200
+			    y_coord    	110
 			    Nested     	FALSE)
 			Focus_Of_Control 	(object Focus_Of_Control "" @107
-			    location   	(1200, 24912)
+			    location   	(1200, 1808)
 			    line_color 	3342489
-			    InterObjView 	@99
+			    InterObjView 	@102
 			    height     	120
 			    y_coord    	30
 			    Nested     	FALSE)
 			Focus_Of_Control 	(object Focus_Of_Control "" @108
-			    location   	(1200, 24937)
-			    InterObjView 	@99
-			    height     	90
-			    y_coord    	0
-			    Nested     	TRUE)
-			Focus_Of_Control 	(object Focus_Of_Control "" @109
-			    location   	(1200, 29344)
+			    location   	(1200, 2272)
 			    line_color 	3342489
-			    InterObjView 	@99
+			    InterObjView 	@102
+			    height     	216
+			    y_coord    	126
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @109
+			    location   	(1200, 2560)
+			    line_color 	3342489
+			    InterObjView 	@102
 			    height     	120
 			    y_coord    	30
 			    Nested     	FALSE)
 			Focus_Of_Control 	(object Focus_Of_Control "" @110
+			    location   	(1200, 24912)
+			    line_color 	3342489
+			    InterObjView 	@102
+			    height     	120
+			    y_coord    	30
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @111
+			    location   	(1200, 24937)
+			    InterObjView 	@102
+			    height     	90
+			    y_coord    	0
+			    Nested     	TRUE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @112
+			    location   	(1200, 29344)
+			    line_color 	3342489
+			    InterObjView 	@102
+			    height     	120
+			    y_coord    	30
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @113
 			    location   	(1200, 29456)
 			    line_color 	3342489
-			    InterObjView 	@99
+			    InterObjView 	@102
 			    height     	216
 			    y_coord    	126
 			    Nested     	TRUE))
-		    (object SelfMessView "main( )" @111
+		    (object SelfMessView "main( )" @114
 			location   	(0, 432)
 			font       	(object Font
 			    size       	10
@@ -3076,8 +3223,8 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			label      	(object SegLabel @112
-			    Parent_View 	@111
+			label      	(object SegLabel @115
+			    Parent_View 	@114
 			    location   	(603, 388)
 			    font       	(object Font
 				size       	10
@@ -3098,14 +3245,14 @@
 			    height     	45
 			    orientation 	0)
 			line_color 	3342489
-			client     	@76
-			supplier   	@76
-			Focus_Src  	@77
-			Focus_Entry 	@78
+			client     	@79
+			supplier   	@79
+			Focus_Src  	@80
+			Focus_Entry 	@81
 			origin     	(528, 432)
 			terminus   	(678, 432)
 			ordinal    	0)
-		    (object InterMessView "promptcalibration( )" @113
+		    (object InterMessView "promptcalibration( )" @116
 			location   	(0, 592)
 			font       	(object Font
 			    size       	10
@@ -3116,8 +3263,8 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			label      	(object SegLabel @114
-			    Parent_View 	@113
+			label      	(object SegLabel @117
+			    Parent_View 	@116
 			    location   	(1168, 548)
 			    font       	(object Font
 				size       	10
@@ -3138,14 +3285,14 @@
 			    height     	45
 			    orientation 	0)
 			line_color 	3342489
-			client     	@76
-			supplier   	@90
-			Focus_Src  	@77
-			Focus_Entry 	@91
+			client     	@79
+			supplier   	@93
+			Focus_Src  	@80
+			Focus_Entry 	@94
 			origin     	(527, 592)
 			terminus   	(1808, 592)
 			ordinal    	1)
-		    (object InterMessView "calibrate( )" @115
+		    (object InterMessView "calibrate( )" @118
 			location   	(0, 29456)
 			font       	(object Font
 			    size       	10
@@ -3156,8 +3303,8 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			label      	(object SegLabel @116
-			    Parent_View 	@115
+			label      	(object SegLabel @119
+			    Parent_View 	@118
 			    location   	(1512, 29412)
 			    font       	(object Font
 				size       	10
@@ -3178,14 +3325,14 @@
 			    height     	45
 			    orientation 	1)
 			line_color 	3342489
-			client     	@90
-			supplier   	@99
-			Focus_Src  	@97
-			Focus_Entry 	@110
+			client     	@93
+			supplier   	@102
+			Focus_Src  	@100
+			Focus_Entry 	@113
 			origin     	(1808, 29456)
 			terminus   	(1216, 29456)
 			ordinal    	16)
-		    (object InterMessView "timeOutAskCalibration( )" @117
+		    (object InterMessView "timeOutAskCalibration( )" @120
 			location   	(0, 3344)
 			font       	(object Font
 			    size       	10
@@ -3196,8 +3343,8 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			label      	(object SegLabel @118
-			    Parent_View 	@117
+			label      	(object SegLabel @121
+			    Parent_View 	@120
 			    location   	(1168, 3300)
 			    font       	(object Font
 				size       	10
@@ -3218,14 +3365,14 @@
 			    height     	45
 			    orientation 	1)
 			line_color 	3342489
-			client     	@90
-			supplier   	@76
-			Focus_Src  	@96
-			Focus_Entry 	@80
+			client     	@93
+			supplier   	@79
+			Focus_Src  	@99
+			Focus_Entry 	@83
 			origin     	(1808, 3344)
 			terminus   	(528, 3344)
 			ordinal    	13)
-		    (object NoteView @119
+		    (object NoteView @122
 			location   	(592, 1152)
 			font       	(object Font
 			    size       	10
@@ -3237,7 +3384,7 @@
 			    color      	0
 			    default_color 	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@119
+			    Parent_View 	@122
 			    location   	(79, 871)
 			    fill_color 	13434879
 			    nlines     	11
@@ -3252,7 +3399,7 @@
 			fill_color 	13434879
 			width      	1050
 			height     	575)
-		    (object InterMessView "deletethis" @120
+		    (object InterMessView "deletethis" @123
 			location   	(0, 29344)
 			font       	(object Font
 			    size       	10
@@ -3263,8 +3410,8 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			label      	(object SegLabel @121
-			    Parent_View 	@120
+			label      	(object SegLabel @124
+			    Parent_View 	@123
 			    location   	(1680, 29300)
 			    font       	(object Font
 				size       	10
@@ -3285,14 +3432,14 @@
 			    height     	45
 			    orientation 	0)
 			line_color 	3342489
-			client     	@99
-			supplier   	@84
-			Focus_Src  	@109
-			Focus_Entry 	@89
+			client     	@102
+			supplier   	@87
+			Focus_Src  	@112
+			Focus_Entry 	@92
 			origin     	(1215, 29344)
 			terminus   	(2144, 29344)
 			ordinal    	15)
-		    (object InterMessView "promptLowcalibValSet( )" @122
+		    (object InterMessView "promptLowcalibValSet( )" @125
 			location   	(0, 29552)
 			font       	(object Font
 			    size       	10
@@ -3303,8 +3450,8 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			label      	(object SegLabel @123
-			    Parent_View 	@122
+			label      	(object SegLabel @126
+			    Parent_View 	@125
 			    location   	(1512, 29508)
 			    font       	(object Font
 				size       	10
@@ -3325,14 +3472,14 @@
 			    height     	45
 			    orientation 	0)
 			line_color 	3342489
-			client     	@99
-			supplier   	@90
-			Focus_Src  	@110
-			Focus_Entry 	@98
+			client     	@102
+			supplier   	@93
+			Focus_Src  	@113
+			Focus_Entry 	@101
 			origin     	(1215, 29552)
 			terminus   	(1808, 29552)
 			ordinal    	17)
-		    (object InterMessView "storeCalibValLow( )" @124
+		    (object InterMessView "storeCalibValLow( )" @127
 			location   	(0, 1536)
 			font       	(object Font
 			    size       	10
@@ -3343,8 +3490,8 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			label      	(object SegLabel @125
-			    Parent_View 	@124
+			label      	(object SegLabel @128
+			    Parent_View 	@127
 			    location   	(1680, 1492)
 			    font       	(object Font
 				size       	10
@@ -3365,14 +3512,14 @@
 			    height     	45
 			    orientation 	1)
 			line_color 	3342489
-			client     	@84
-			supplier   	@99
-			Focus_Src  	@86
-			Focus_Entry 	@103
+			client     	@87
+			supplier   	@102
+			Focus_Src  	@89
+			Focus_Entry 	@106
 			origin     	(2144, 1536)
 			terminus   	(1216, 1536)
 			ordinal    	7)
-		    (object SelfMessView "storeCalibValLow( )" @126
+		    (object SelfMessView "storeCalibValLow( )" @129
 			location   	(0, 24912)
 			font       	(object Font
 			    size       	10
@@ -3383,8 +3530,8 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			label      	(object SegLabel @127
-			    Parent_View 	@126
+			label      	(object SegLabel @130
+			    Parent_View 	@129
 			    location   	(1291, 24868)
 			    font       	(object Font
 				size       	10
@@ -3405,14 +3552,14 @@
 			    height     	45
 			    orientation 	0)
 			line_color 	3342489
-			client     	@99
-			supplier   	@99
-			Focus_Src  	@107
-			Focus_Entry 	@108
+			client     	@102
+			supplier   	@102
+			Focus_Src  	@110
+			Focus_Entry 	@111
 			origin     	(1216, 24912)
 			terminus   	(1366, 24912)
 			ordinal    	14)
-		    (object InterMessView "promptHighCalibValSet( )" @128
+		    (object InterMessView "promptHighCalibValSet( )" @131
 			location   	(0, 1808)
 			font       	(object Font
 			    size       	10
@@ -3423,8 +3570,8 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			label      	(object SegLabel @129
-			    Parent_View 	@128
+			label      	(object SegLabel @132
+			    Parent_View 	@131
 			    location   	(1512, 1764)
 			    font       	(object Font
 				size       	10
@@ -3445,14 +3592,14 @@
 			    height     	45
 			    orientation 	0)
 			line_color 	3342489
-			client     	@99
-			supplier   	@90
-			Focus_Src  	@104
-			Focus_Entry 	@95
+			client     	@102
+			supplier   	@93
+			Focus_Src  	@107
+			Focus_Entry 	@98
 			origin     	(1215, 1808)
 			terminus   	(1808, 1808)
 			ordinal    	9)
-		    (object InterMessView "storeCalibValHigh( )" @130
+		    (object InterMessView "storeCalibValHigh( )" @133
 			location   	(0, 2272)
 			font       	(object Font
 			    size       	10
@@ -3463,8 +3610,8 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			label      	(object SegLabel @131
-			    Parent_View 	@130
+			label      	(object SegLabel @134
+			    Parent_View 	@133
 			    location   	(1680, 2228)
 			    font       	(object Font
 				size       	10
@@ -3485,14 +3632,14 @@
 			    height     	45
 			    orientation 	1)
 			line_color 	3342489
-			client     	@84
-			supplier   	@99
-			Focus_Src  	@88
-			Focus_Entry 	@105
+			client     	@87
+			supplier   	@102
+			Focus_Src  	@91
+			Focus_Entry 	@108
 			origin     	(2144, 2272)
 			terminus   	(1216, 2272)
 			ordinal    	10)
-		    (object InterMessView "calibFinish( )" @132
+		    (object InterMessView "calibFinish( )" @135
 			location   	(0, 2560)
 			font       	(object Font
 			    size       	10
@@ -3503,8 +3650,8 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			label      	(object SegLabel @133
-			    Parent_View 	@132
+			label      	(object SegLabel @136
+			    Parent_View 	@135
 			    location   	(856, 2516)
 			    font       	(object Font
 				size       	10
@@ -3525,14 +3672,14 @@
 			    height     	45
 			    orientation 	1)
 			line_color 	3342489
-			client     	@99
-			supplier   	@76
-			Focus_Src  	@106
-			Focus_Entry 	@79
+			client     	@102
+			supplier   	@79
+			Focus_Src  	@109
+			Focus_Entry 	@82
 			origin     	(1184, 2560)
 			terminus   	(528, 2560)
 			ordinal    	12)
-		    (object InterMessView "calibrate( )" @134
+		    (object InterMessView "calibrate( )" @137
 			location   	(0, 704)
 			font       	(object Font
 			    size       	10
@@ -3543,8 +3690,8 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			label      	(object SegLabel @135
-			    Parent_View 	@134
+			label      	(object SegLabel @138
+			    Parent_View 	@137
 			    location   	(1680, 660)
 			    font       	(object Font
 				size       	10
@@ -3565,14 +3712,14 @@
 			    height     	45
 			    orientation 	1)
 			line_color 	3342489
-			client     	@84
-			supplier   	@99
-			Focus_Src  	@85
-			Focus_Entry 	@100
+			client     	@87
+			supplier   	@102
+			Focus_Src  	@88
+			Focus_Entry 	@103
 			origin     	(2144, 704)
 			terminus   	(1216, 704)
 			ordinal    	2)
-		    (object SelfMessView "stopCalibTimer( )" @136
+		    (object SelfMessView "stopCalibTimer( )" @139
 			location   	(0, 784)
 			font       	(object Font
 			    size       	10
@@ -3583,8 +3730,8 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			label      	(object SegLabel @137
-			    Parent_View 	@136
+			label      	(object SegLabel @140
+			    Parent_View 	@139
 			    location   	(1387, 757)
 			    font       	(object Font
 				size       	10
@@ -3605,14 +3752,14 @@
 			    height     	27
 			    orientation 	0)
 			line_color 	3342489
-			client     	@99
-			supplier   	@99
-			Focus_Src  	@100
-			Focus_Entry 	@101
+			client     	@102
+			supplier   	@102
+			Focus_Src  	@103
+			Focus_Entry 	@104
 			origin     	(1216, 784)
 			terminus   	(1366, 784)
 			ordinal    	3)
-		    (object InterMessView "promptLowcalibValSet( )" @138
+		    (object InterMessView "promptLowcalibValSet( )" @141
 			location   	(0, 1056)
 			font       	(object Font
 			    size       	10
@@ -3623,8 +3770,8 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			label      	(object SegLabel @139
-			    Parent_View 	@138
+			label      	(object SegLabel @142
+			    Parent_View 	@141
 			    location   	(1512, 1012)
 			    font       	(object Font
 				size       	10
@@ -3645,14 +3792,14 @@
 			    height     	45
 			    orientation 	0)
 			line_color 	3342489
-			client     	@99
-			supplier   	@90
-			Focus_Src  	@102
-			Focus_Entry 	@92
+			client     	@102
+			supplier   	@93
+			Focus_Src  	@105
+			Focus_Entry 	@95
 			origin     	(1215, 1056)
 			terminus   	(1808, 1056)
 			ordinal    	4)
-		    (object InterMessView "getAmpADCValue( )" @140
+		    (object InterMessView "getAmpADCValue( )" @143
 			location   	(0, 1616)
 			font       	(object Font
 			    size       	10
@@ -3663,8 +3810,8 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			label      	(object SegLabel @141
-			    Parent_View 	@140
+			label      	(object SegLabel @144
+			    Parent_View 	@143
 			    location   	(2439, 1557)
 			    font       	(object Font
 				size       	10
@@ -3685,14 +3832,14 @@
 			    height     	60
 			    orientation 	0)
 			line_color 	3342489
-			client     	@99
-			supplier   	@81
-			Focus_Src  	@103
-			Focus_Entry 	@82
+			client     	@102
+			supplier   	@84
+			Focus_Src  	@106
+			Focus_Entry 	@85
 			origin     	(1215, 1616)
 			terminus   	(3056, 1616)
 			ordinal    	8)
-		    (object InterMessView "getAmpADCValue( )" @142
+		    (object InterMessView "getAmpADCValue( )" @145
 			location   	(0, 2368)
 			font       	(object Font
 			    size       	10
@@ -3703,8 +3850,8 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			label      	(object SegLabel @143
-			    Parent_View 	@142
+			label      	(object SegLabel @146
+			    Parent_View 	@145
 			    location   	(2504, 2327)
 			    font       	(object Font
 				size       	10
@@ -3725,14 +3872,14 @@
 			    height     	42
 			    orientation 	0)
 			line_color 	3342489
-			client     	@99
-			supplier   	@81
-			Focus_Src  	@105
-			Focus_Entry 	@83
+			client     	@102
+			supplier   	@84
+			Focus_Src  	@108
+			Focus_Entry 	@86
 			origin     	(1215, 2368)
 			terminus   	(3056, 2368)
 			ordinal    	11)
-		    (object InterMessView "checkForChar( )" @144
+		    (object InterMessView "checkForChar( )" @147
 			location   	(0, 1216)
 			font       	(object Font
 			    size       	10
@@ -3743,8 +3890,8 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			label      	(object SegLabel @145
-			    Parent_View 	@144
+			label      	(object SegLabel @148
+			    Parent_View 	@147
 			    location   	(1992, 1172)
 			    font       	(object Font
 				size       	10
@@ -3765,14 +3912,14 @@
 			    height     	45
 			    orientation 	0)
 			line_color 	3342489
-			client     	@90
-			supplier   	@84
-			Focus_Src  	@93
-			Focus_Entry 	@87
+			client     	@93
+			supplier   	@87
+			Focus_Src  	@96
+			Focus_Entry 	@90
 			origin     	(1839, 1216)
 			terminus   	(2144, 1216)
 			ordinal    	5)
-		    (object SelfMessView "updateDisplayMemory( )" @146
+		    (object SelfMessView "........( )" @149
 			location   	(0, 1344)
 			font       	(object Font
 			    size       	10
@@ -3783,8 +3930,8 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			label      	(object SegLabel @147
-			    Parent_View 	@146
+			label      	(object SegLabel @150
+			    Parent_View 	@149
 			    location   	(1915, 1300)
 			    font       	(object Font
 				size       	10
@@ -3798,21 +3945,21 @@
 			    quidu      	"4DB191A800B5"
 			    anchor_loc 	1
 			    nlines     	1
-			    max_width  	444
+			    max_width  	10
 			    justify    	0
-			    label      	"updateDisplayMemory( )"
+			    label      	"........( )"
 			    pctDist    	0.500000
 			    height     	45
 			    orientation 	0)
 			line_color 	3342489
-			client     	@90
-			supplier   	@90
-			Focus_Src  	@93
-			Focus_Entry 	@94
+			client     	@93
+			supplier   	@93
+			Focus_Src  	@96
+			Focus_Entry 	@97
 			origin     	(1840, 1344)
 			terminus   	(1990, 1344)
 			ordinal    	6)
-		    (object NoteView @148
+		    (object NoteView @151
 			location   	(1520, 1264)
 			font       	(object Font
 			    size       	10
@@ -3824,7 +3971,7 @@
 			    color      	0
 			    default_color 	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@148
+			    Parent_View 	@151
 			    location   	(1314, 1151)
 			    fill_color 	13434879
 			    nlines     	4
@@ -3835,7 +3982,7 @@
 			fill_color 	13434879
 			width      	437
 			height     	238)
-		    (object NoteView @149
+		    (object NoteView @152
 			location   	(1504, 2048)
 			font       	(object Font
 			    size       	10
@@ -3850,7 +3997,7 @@
 			fill_color 	13434879
 			width      	300
 			height     	132)
-		    (object NoteView @150
+		    (object NoteView @153
 			location   	(2784, 1184)
 			font       	(object Font
 			    size       	10
@@ -3862,7 +4009,7 @@
 			    color      	0
 			    default_color 	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@150
+			    Parent_View 	@153
 			    location   	(2337, 1018)
 			    fill_color 	13434879
 			    nlines     	6
