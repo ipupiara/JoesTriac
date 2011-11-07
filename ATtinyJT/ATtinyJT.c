@@ -446,6 +446,7 @@ void onSecondTick()
 
 void onADCTick()
 {
+	// div by zero almost impossible due to timing reasons, therefor not handled in this case
 	lastAmpsADCVal = adcSum / adcCnt;
 	if (*p_adcScope == farScope) {
 		lastAmpsADCVal = lastAmpsADCVal + farScopeOffsetCorrection;

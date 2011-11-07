@@ -81,7 +81,7 @@ void calcDesiredAmps();
 
 void storeAmps100(int8_t val);
 
-void checkEEPOROM();
+//void checkEEPOROM();
 
 
 void storeAmps10(int8_t val);

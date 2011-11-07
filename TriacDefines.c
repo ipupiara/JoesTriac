@@ -8,6 +8,9 @@
 #include <avr/eeprom.h>
 #else
 
+// ATTENTION: use of EEPROM needs BOD Level of at least 2.7 V, otherwise EEPROM memory
+// is likely to crash on restore when done at mcu startup
+
 void EEPROM_write(unsigned int uiAddress, unsigned char ucData)
 {
 	// Wait for completion of previous write 
@@ -23,7 +26,9 @@ void EEPROM_write(unsigned int uiAddress, unsigned char ucData)
 	EECR |= (1<<EEPE);
 	*/
 
-     asm volatile (
+	// standard EEPROM code does not work under all optimization levels (-o directive of compiler)
+    // for timing reasons (max. 4 cpu cycles between the two sbi commands for safety reasons)
+	 asm volatile (
      "sbi 0x1f,0x02" "\r\n"
      "sbi 0x1f,0x01" "\r\n"
        );
@@ -120,6 +125,7 @@ uint8_t x;
   }
 } 
 
+/*
 void checkEEPOROM()
 {
 	int8_t by1, by2, by3;
@@ -130,7 +136,7 @@ void checkEEPOROM()
 	by3 = eeprom_read_byte((uint8_t*)ampsEEPROMpos);
 	printf("restore che k amps %X\n",by3);
 }
-
+*/
 
 
 

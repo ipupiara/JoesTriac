@@ -130,7 +130,6 @@ void checkTWIZeroAdjustMsg()
 	int8_t  jobS;
 
 	zeroPotiPos = receiveMessageBuffer[0];
-	zeroAdjustDiffVoltage = (float) receiveMessageBuffer[1];
 	jobS =  receiveMessageBuffer[5];
 	if (jobS == fatalError) {
 		printf("checkTWI... fatal Error occurred\n");
