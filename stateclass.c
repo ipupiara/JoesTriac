@@ -104,7 +104,7 @@ uStInt evAskForCalibrationChecker(void)
 	{	
 		displayCountDown();		
 		res =  uStIntHandlingDone;
-		debugEvent1Triggered = 1;
+//		debugEvent1Triggered = 1;
 	}
 	return (res); 
 }
@@ -176,7 +176,7 @@ uStInt evAskingRmsAvgChecker(void)
 	}
 	if (currentEvent->evType == evSecondsTick) 
 	{	
-		debugEvent1Triggered = 1;	
+//		debugEvent1Triggered = 1;	
 		res =  uStIntHandlingDone;		
 	}
 	return (res);
@@ -694,11 +694,13 @@ void entryJobOkDisplayState(void)
 {
 //	printf("entry I\n");
 	displayJobOk();
+	startDurationTimer(maxSecsPossible);
 }
 
 void exitJobOkDisplayState(void)
 {
 //	printf("exit I\n");
+	stopDurationTimer();
 }
 
 uStInt evJobOkDisplayChecker(void)
@@ -706,11 +708,16 @@ uStInt evJobOkDisplayChecker(void)
 	uStInt res = uStIntNoMatch;
 	//	printf("check for event in State evStateIdle\n");
 
-	if (currentEvent->evType == evAstPressed)  {	
+	if ((currentEvent->evType == evAstPressed) || (currentEvent->evType == evTimeOutDurationTimer))  {	
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
 				// No event action.
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
+	}
+	if (currentEvent->evType == evSecondsTick) 
+	{	
+		displayInDurationTimerSince();		
+		res =  uStIntHandlingDone;
 	}
 	return (res);
 }

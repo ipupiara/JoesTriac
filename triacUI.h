@@ -16,6 +16,8 @@ void displayCurrentAmps();
 
 void displayCountDown();
 
+void displayInDurationTimerSince();
+
 void displayTriacRunning();
 
 void displayEditAmpsDuration();

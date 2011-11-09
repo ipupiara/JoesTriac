@@ -183,6 +183,21 @@ void displayCountDown()
 	lcd_write_str((char*)&buffer,LCD1);
 }
 
+void displayInDurationTimerSince()
+{
+	int16_t secondsRel = getSecondsInDurationTimer();
+	int32_t minRel  = secondsRel / 60; ;        //(250 us on 1Mhz Simulator)
+	int16_t mRel = minRel;
+	int8_t secsRel	= secondsRel - (minRel * 60);  // subtraction + multiply by 60 faster than division
+													// 25 us on 1 Mhz Sim 2 
+	char buffer [8];
+	sprintf((char*)&buffer,"%3im%02i",mRel,secsRel);
+
+	lcd_goto(1,7,LCD1);
+	lcd_write_str((char*)&buffer,LCD1);
+}
+
+
 void displayTriacRunning()
 {
 	lcd_clrscr(LCD1);
@@ -258,6 +273,8 @@ void displayJobOk()
 {
 	lcd_clrscr(LCD1);
 	lcd_write_str("Job OK",LCD1);
+	lcd_goto(1,0,LCD1);
+	lcd_write_str("since",LCD1);
 	lcd_goto(3,0,LCD1);
 	lcd_write_str("press * to continue",LCD1);
 }

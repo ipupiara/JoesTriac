@@ -16,6 +16,8 @@ int16_t remainingTriacTriggerDelayCounts;
 
 int16_t secondsRemaining;
 
+int16_t secondsInDurationTimer;
+
 int8_t adcCnt;
 
 int16_t getSecondsRemaining()
@@ -27,7 +29,14 @@ int16_t getSecondsRemaining()
 	return res;
 }
 
-
+int16_t getSecondsInDurationTimer()
+{
+	int16_t res;
+	cli();
+	res = secondsInDurationTimer;
+	sei();
+	return res;
+}
 
 #define ocra2aValue 0XFC  // still to be defined
 
@@ -155,6 +164,7 @@ ISR(TIMER0_COMPA_vect)
 ISR(TIMER1_COMPA_vect)
 {
 	secondsRemaining --;
+	secondsInDurationTimer ++;
 	if (secondsRemaining <= 0) {
 		stopDurationTimer();
 		durationTimerReachead = 1;
@@ -336,6 +346,7 @@ void startDurationTimer(int16_t secs)
 {
 	durationTimerReachead = 0;
 	secondsRemaining = secs;
+	secondsInDurationTimer = 0;
 	
 	TIMSK1   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
 	TCCR1B = 0b00001101  ; // CTC on CC1A , set clk / 24, timer started 

@@ -25,6 +25,7 @@ int16_t triacTriggerDelayCms;   // centi-millis-secs, not exactly but approximat
 
 void startDurationTimer(int16_t secs);
 int16_t getSecondsRemaining();
+int16_t getSecondsInDurationTimer();
 
 void stopDurationTimer();
 
