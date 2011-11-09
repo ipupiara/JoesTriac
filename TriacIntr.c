@@ -105,7 +105,11 @@ void stopTriacTriggerDelay()   // must run protected between cli and sei
 void setTriacTriggerDelay(int16_t cmsecs)
 {
 	cli();
-	triacTriggerDelayCms = cmsecs;
+	if (cmsecs < triggerDelayMax) {
+		triacTriggerDelayCms = cmsecs;
+	} else {
+		triacTriggerDelayCms = triggerDelayMax;
+	}
 	sei();
 }
 
