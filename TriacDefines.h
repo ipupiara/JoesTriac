@@ -35,7 +35,7 @@
 	#define ampsInputPinEEPROMpos         20     // uint8
 
 	#define calibLowAmps        15
-	#define calibHighAmps       40
+	#define calibHighAmps       60
 
 	#define triggerDelayMax 810     // works properly with 50 Hz Ac 
 
