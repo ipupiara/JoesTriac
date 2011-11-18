@@ -120,6 +120,8 @@ int16_t adcVoltage()
 			// with above while () should be rather threadsafe, worst case message initalization might
 			// happen between while() and cli, still no risk for correct value transmission
 			
+			// tobe reviewd !!!!
+
 	*p_ADCvoltage = VHex;
 
 	sei();

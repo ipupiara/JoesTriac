@@ -1,1 +1,1 @@
-<AVRWorkspace><IOSettings><CurrentRegisters/></IOSettings><part name="ATMEGA644A"/><Files><File00000 Name="C:\projects\jt\joesTriac\TriacDefines.h" Position="206 96 862 407" LineCol="37 31"/></Files></AVRWorkspace>
+<AVRWorkspace><IOSettings><CurrentRegisters/></IOSettings><part name="ATMEGA644A"/><Files><File00000 Name="C:\projects\jt\joesTriac\twi_master.h" Position="204 94 860 405" LineCol="0 0" State="Maximized"/><File00001 Name="C:\projects\jt\joesTriac\twi_master.c" Position="200 71 1014 537" LineCol="163 14" State="Maximized"/></Files></AVRWorkspace>
