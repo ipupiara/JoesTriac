@@ -33,6 +33,10 @@
 	#define calibHighTriggerDelayEEPROMpos   17   // both uint16
 //	#define zeroPotiPosEEPROMpos                19   // unit8  (obsolete, leaf place free )
 	#define ampsInputPinEEPROMpos         20     // uint8
+	#define completionAlarmOnEEPROMpos    21     // uint8
+	#define completionAlarmMinsEEPROMpos  22
+	#define completionAlarmMins10EEPROMpos  23
+
 
 	#define calibLowAmps        15
 	#define calibHighAmps       60
@@ -64,6 +68,11 @@ int16_t  calibHighADC;
 
 uint16_t  calibLowTriggerDelay;
 uint16_t  calibHighTriggerDelay;
+
+uint8_t   completionAlarmOn;
+uint8_t   completionAlarmMins;
+uint8_t   completionAlarmMins10;
+uint8_t   completionAlarmMinutes;
 
 int8_t amps100, amps10, amps, min10, min, sec10, sec;
 
@@ -110,6 +119,12 @@ void storeCalibHighTriggerDelay();
 //void storeZeroPotiPos(int8_t val);
 
 void storeAmpsInputPin(int8_t val);
+
+void storeCompletionAlarmOn(int8_t val);
+
+void storeCompletionAlarmMins(int8_t val);
+
+void storeCompletionAlarmMins10(int8_t val);
 
 void restorePersistentData();
 

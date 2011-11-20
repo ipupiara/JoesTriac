@@ -240,6 +240,32 @@ void storeAmpsInputPin(int8_t val)
 	eeprom_write_byte((uint8_t *) ampsInputPinEEPROMpos, ampsInputPin);
 }
 
+void calcCompletionAlarmMinutes()
+{
+	completionAlarmMinutes = ((completionAlarmMins10 -0x30) *10) + (completionAlarmMins - 0x30);
+}
+
+void storeCompletionAlarmOn(int8_t val)
+{
+	completionAlarmOn = val;
+	eeprom_write_byte((uint8_t *) completionAlarmOnEEPROMpos, val);
+}
+
+void storeCompletionAlarmMins(int8_t val)
+{
+	completionAlarmMins = val;
+	eeprom_write_byte((uint8_t *) completionAlarmMinsEEPROMpos, val);
+	calcCompletionAlarmMinutes();
+}
+
+void storeCompletionAlarmMins10(int8_t val)
+{
+	completionAlarmMins10 = val;
+	eeprom_write_byte((uint8_t *) completionAlarmMins10EEPROMpos, val);
+	calcCompletionAlarmMinutes();
+}
+
+
 void restorePersistentData()
 {
 	amps100 = eeprom_read_byte((uint8_t*)amps100EEPROMpos);	
@@ -271,6 +297,13 @@ void restorePersistentData()
 	if ((sec < 0x30) || (sec > 0x39)) { storeSec(0x30);}
 	calcDesiredTime();
 	calcDesiredAmps();
+
+	completionAlarmMins = eeprom_read_byte((uint8_t*)completionAlarmMinsEEPROMpos);
+	if ((completionAlarmMins < 0x30) || (completionAlarmMins > 0x39)) { storeCompletionAlarmMins(0x30);}
+	completionAlarmMins10 = eeprom_read_byte((uint8_t*)completionAlarmMins10EEPROMpos);
+	if ((completionAlarmMins10 < 0x30) || (completionAlarmMins10 > 0x39)) { storeCompletionAlarmMins10(0x30);}
+	calcCompletionAlarmMinutes();
+
 	calibLowADC = eeprom_read_word((uint16_t*) calibLowAdcEEPROMpos);
 	if (calibLowADC == 0xFFFF) calibLowADC = 0x0000;
 	calibHighADC = eeprom_read_word((uint16_t*) calibHighAdcEEPROMpos);
