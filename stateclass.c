@@ -38,6 +38,10 @@ enum eStates
 	eStateEditIdle,
 	eStateEditAmps,
 	eStateEditDuration,
+	eStateSetup,
+	eStateSetupIdle,
+	eStateSetupAlarmYesNo,
+	eStateSetupAlarmMinutes,
 	eStateTriacRunning,
 	eStateJobOkDisplay,
 	eStateFatalError,
@@ -636,6 +640,68 @@ uStInt evEditDurationChecker(void)
 	return res;
 }
 
+
+
+uStInt evSetupChecker(void)
+{
+	return (uStIntNoMatch);
+}
+
+void entrySetupState(void)
+{
+//	printf("entry I\n");
+}
+
+void exitSetupState(void)
+{
+//	printf("exit I\n");
+}
+
+uStInt evSetupIdleChecker(void)
+{
+	return (uStIntNoMatch);
+}
+
+void entrySetupIdleState(void)
+{
+//	printf("entry I\n");
+}
+
+void exitSetupIdleState(void)
+{
+//	printf("exit I\n");
+}
+
+uStInt evSetupAlarmYesNoChecker(void)
+{
+	return (uStIntNoMatch);
+}
+
+void entrySetupAlarmYesNoState(void)
+{
+//	printf("entry I\n");
+}
+
+void exitSetupAlarmYesNoState(void)
+{
+//	printf("exit I\n");
+}
+
+uStInt evSetupAlarmMinutesChecker(void)
+{
+	return (uStIntNoMatch);
+}
+
+void entrySetupAlarmMinutesState(void)
+{
+//	printf("entry I\n");
+}
+
+void exitSetupAlarmMinutesState(void)
+{
+//	printf("exit I\n");
+}
+
 void entryTriacRunningState(void)
 {
 	printf("entry Running\n");
@@ -875,7 +941,43 @@ xStateType xaStates[eNumberOfStates] = {
  	tfNull,
  	entryEditDurationState,
  	exitEditDurationState},
+
+ 	{eStateSetup,
+ 	eStateTriacOperating,
+ 	eStateSetupIdle,
+ 	0,
+ 	evSetupChecker,
+ 	tfNull,
+ 	entrySetupState,
+ 	exitSetupState},
+
+ 	{eStateSetupIdle,
+ 	eStateSetup,
+ 	-1,
+ 	0,
+ 	evSetupIdleChecker,
+ 	tfNull,
+ 	entrySetupIdleState,
+ 	exitSetupIdleState},
+
+ 	{eStateSetupAlarmYesNo,
+ 	eStateSetup,
+ 	-1,
+ 	0,
+ 	evSetupAlarmYesNoChecker,
+ 	tfNull,
+ 	entrySetupAlarmYesNoState,
+ 	exitSetupAlarmYesNoState},
 	 
+	{eStateSetupAlarmMinutes,
+ 	eStateSetup,
+ 	-1,
+ 	0,
+ 	evSetupAlarmMinutesChecker,
+ 	tfNull,
+ 	entrySetupAlarmMinutesState,
+ 	exitSetupAlarmMinutesState},
+
 	{eStateTriacRunning,
  	eStateTriacOperating,
  	-1,
