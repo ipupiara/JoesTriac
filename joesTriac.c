@@ -136,8 +136,8 @@ int main(void)
 
 		if ((ky = keyEntered())){
 			printf("\nky %c %X",ky,ky);
-			if (ky == kpFunction1) ev.evType = evFunction1Pressed;
-//			if (ky == kpFunction2) ev.evType = eFunction2Pressed;   // not yet in use
+			if (ky == kpF1) ev.evType = evF1Pressed;
+			if (ky == kpF2) ev.evType = evF2Pressed;   
 			if (ky == kpStart) ev.evType = evStartPressed;
 			if (ky == kpStop) ev.evType = evStopPressed;
 			if (ky == kpAst) ev.evType = evAstPressed;

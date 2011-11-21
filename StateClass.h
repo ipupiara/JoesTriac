@@ -12,8 +12,8 @@ TStatechart* PJoesTriacStateChart;
 enum eEventTypes
 {
 	evCharEntered,
-	evFunction1Pressed,
-	evFunction2Pressed,
+	evF1Pressed,
+	evF2Pressed,
 	evAstPressed,
 	evNumPressed,
 	evTimeOutDurationTimer,

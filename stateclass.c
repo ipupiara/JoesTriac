@@ -439,6 +439,13 @@ uStInt evTriacIdleChecker(void)
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 	}
+	if (currentEvent->evType == evF1Pressed) 
+	{	
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetup);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+	}
 	if (currentEvent->evType == evTimeOutDurationTimer) 
 	{	
 		startDurationTimer(maxSecsPossible);   // enable secondsTick
@@ -644,7 +651,16 @@ uStInt evEditDurationChecker(void)
 
 uStInt evSetupChecker(void)
 {
-	return (uStIntNoMatch);
+	uStInt res;
+	res = uStIntNoMatch;
+	if (currentEvent->evType == evF2Pressed) 
+	{	
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+	}
+	return (res);
 }
 
 void entrySetupState(void)
@@ -659,7 +675,25 @@ void exitSetupState(void)
 
 uStInt evSetupIdleChecker(void)
 {
-	return (uStIntNoMatch);
+	uStInt res;
+	res = uStIntNoMatch;
+	if (currentEvent->evType==evAstPressed) {
+//		printf("\ncheck for event in State evStateIdle amps");
+	
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupAlarmMinutes);
+			// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
+	if (currentEvent->evType==evNumPressed) {	
+//		printf("\ncheck for event in State evStateIdle dur");
+
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupAlarmYesNo);
+			// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
+	return (res);
 }
 
 void entrySetupIdleState(void)
@@ -674,7 +708,24 @@ void exitSetupIdleState(void)
 
 uStInt evSetupAlarmYesNoChecker(void)
 {
-	return (uStIntNoMatch);
+	uStInt res;
+	res = uStIntNoMatch;
+
+	if (currentEvent->evType == evAstPressed)  {	
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupAlarmMinutes);
+			// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
+	if (currentEvent->evType == evNumPressed)  {	
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupIdle);
+			// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
+
+
+	return (res);
 }
 
 void entrySetupAlarmYesNoState(void)
@@ -689,7 +740,24 @@ void exitSetupAlarmYesNoState(void)
 
 uStInt evSetupAlarmMinutesChecker(void)
 {
-	return (uStIntNoMatch);
+	uStInt res;
+	res = uStIntNoMatch;
+
+	if (currentEvent->evType == evAstPressed)  {	
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupIdle);
+			// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
+	if (currentEvent->evType == evNumPressed)  {	
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupAlarmYesNo);
+			// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
+
+
+	return (res);
 }
 
 void entrySetupAlarmMinutesState(void)

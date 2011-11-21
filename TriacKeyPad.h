@@ -9,8 +9,8 @@
 enum  kpKey {
 	kpStart = 1,
 	kpStop,
-	kpFunction1,
-	kpFunction2,   // not yet in use
+	kpF1,
+	kpF2,   
 	kpAst,
 	kpNum,
 	kp0 = 0x30 ,

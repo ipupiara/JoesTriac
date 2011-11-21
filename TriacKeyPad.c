@@ -66,8 +66,8 @@ int8_t getKeypadState()
 					if ((ch=keyPin & 0xF0)){
 						if (ch & 0b10000000) chr = kpStart;
 						if (ch & 0b01000000) chr = kpStop;
-						if (ch & 0b00100000) chr = kpFunction1;
-						if (ch & 0b00010000) chr = kpFunction2;		
+						if (ch & 0b00100000) chr = kpF1;
+						if (ch & 0b00010000) chr = kpF2;		
 					}	
 				}
 			}														
