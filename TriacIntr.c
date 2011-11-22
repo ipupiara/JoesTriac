@@ -192,6 +192,12 @@ void initInterrupts()
 		DDRD |= 0x10;			// set Portd pin 04 be Triac output
 		PORTD &= ~0x10; 		// and initialize with 0-value
 
+		PORTD &= ~0x08; 		
+		DDRD |= 0x08;			// set Portd pin 03 to be completionAlarm
+		PORTD &= ~0x08; 		// and initialize with 0-value
+
+
+
 		EICRA = 0x01;   // both, fall/rise edge trigger    
 		EIMSK = 0x00;   
 
@@ -361,6 +367,16 @@ void stopDurationTimer()
 	TCCR1B = 0b00001000 ;  // CTC, timer stopped
 	TIMSK1 = 0x00;
 	
+}
+
+void setCompletionAlarmOn()
+{
+	PORTD &= ~0x08; 		
+}
+
+void setCompletionAlarmOff()
+{
+	PORTD |= 0x08; 	
 }
 
 

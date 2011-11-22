@@ -871,6 +871,7 @@ void entryJobOkDisplayState(void)
 void exitJobOkDisplayState(void)
 {
 //	printf("exit I\n");
+	setCompletionAlarmOff();
 	stopDurationTimer();
 }
 
@@ -887,7 +888,13 @@ uStInt evJobOkDisplayChecker(void)
 	}
 	if (currentEvent->evType == evSecondsTick) 
 	{	
-		displayInDurationTimerSince();		
+		displayInDurationTimerSince();
+		if (completionAlarmOn) {
+			int16_t secondsRel = getSecondsInDurationTimer();
+			if (secondsRel > completionAlarmMinutes * 60) {
+				setCompletionAlarmOn();
+			}
+		}		
 		res =  uStIntHandlingDone;
 	}
 	return (res);

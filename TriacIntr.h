@@ -34,4 +34,8 @@ void setTriacTriggerDelay(int16_t cmsecs);
 void startTriacRun();
 void stopTriacRun();
 
+void setCompletionAlarmOn();
+
+void setCompletionAlarmOff();
+
 #endif
