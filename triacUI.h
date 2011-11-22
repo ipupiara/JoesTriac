@@ -34,22 +34,17 @@ void displayJobOk();
 
 void displayRmsAvgQuery();
 
+void displaySetup();
 
+void displayAlarmMinutes(int8_t kInd);
 
+void displayAlarmYesNo(int8_t kInd);
 
-void setAmps100(int8_t val);
+void clearSetupInputHint();
 
-void setAmps10(int8_t val);
+void toggleSetupInputHint();
 
-void setAmps(int8_t val);
-
-void setMin10(int8_t val);
-
-void setMin(int8_t val);
-
-void setSec10(int8_t val);
-
-void setSec(int8_t val);
+void numericSetupInputHint();
 
 void initUI();
 

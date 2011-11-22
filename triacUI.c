@@ -18,8 +18,8 @@ void displayVoltage()
 	
 	sprintf((char*)&buffer,"%5.2fV/%4iD",VFl,triacTriggerDelayCms);
 
-	lcd_goto(3, 6, LCD1);
-	lcd_write_str((char*)&buffer,LCD1);
+	lcd_goto(3, 6);
+	lcd_write_str((char*)&buffer);
 }
 
 void displayDebugVoltageNTriggerDelay()
@@ -32,8 +32,8 @@ void displayDebugVoltageNTriggerDelay()
 
 	sprintf((char*)&buffer,"%5.2fV %4iA %3iD",VFl,adc, triacTriggerDelayCms);
 
-	lcd_Line2(LCD1);
-	lcd_write_str((char*)&buffer,LCD1);
+	lcd_Line2();
+	lcd_write_str((char*)&buffer);
 
 }
 
@@ -47,8 +47,8 @@ void displayPotiPersistent()
 
 	sprintf((char*)&buffer,"%3i P %6.3f V",zeroPotiPos,VFl);
 
-	lcd_Line2(LCD1);
-	lcd_write_str((char*)&buffer,LCD1);
+	lcd_Line2();
+	lcd_write_str((char*)&buffer);
 
 }
 
@@ -56,45 +56,45 @@ void displayPotiVolatile()
 {
 	char buffer[16];
 	sprintf((char*) &buffer,"%3iP (20-80)",zeroPotiPos);
-	lcd_goto(3,8,LCD1);
-	lcd_write_str((char*)&buffer,LCD1);
+	lcd_goto(3,8);
+	lcd_write_str((char*)&buffer);
 }
 
 void displayCalibrateZeroPotiPos()
 {
-	lcd_clrscr(LCD1);
-	lcd_write_str("calib Zero  ,# skip",LCD1);
-	lcd_goto(3,0,LCD1);
-	lcd_write_str("wait to stable + 30s",LCD1);
+	lcd_clrscr();
+	lcd_write_str("calib Zero  ,# skip");
+	lcd_goto(3,0);
+	lcd_write_str("wait to stable + 30s");
 }
 
 
 void displayRmsAvgQuery()
 {
-	lcd_clrscr(LCD1);
-	lcd_write_str("select",LCD1);
-	lcd_Line2(LCD1);
-	lcd_write_str("RMS *, AVG #",LCD1);
+	lcd_clrscr();
+	lcd_write_str("select");
+	lcd_Line2();
+	lcd_write_str("RMS *, AVG #");
 }
 
 void displayFatalError()
 {
-	lcd_clrscr(LCD1);
-	lcd_write_str("fatal error",LCD1);
-	lcd_Line2(LCD1);
-	lcd_write_str(lastFatalErrorString,LCD1);
+	lcd_clrscr();
+	lcd_write_str("fatal error");
+	lcd_Line2();
+	lcd_write_str(lastFatalErrorString);
 }
 
 void displayCalibrate(int amps)
 {
 	char buffer [2];
-	lcd_clrscr(LCD1);
-	lcd_write_str("Set ",LCD1);
+	lcd_clrscr();
+	lcd_write_str("Set ");
 	sprintf((char*)&buffer,"%2i",amps);
-	lcd_write_str((char*)&buffer,LCD1);
-	lcd_write_str("A #,* Skip",LCD1);  
-	lcd_goto(3,0,LCD1);
-	lcd_write_str("up 1,2,3 - dn 7,8,9",LCD1);
+	lcd_write_str((char*)&buffer);
+	lcd_write_str("A #,* Skip");  
+	lcd_goto(3,0);
+	lcd_write_str("up 1,2,3 - dn 7,8,9");
 } 
 
 void displayCalibrateLow()
@@ -109,54 +109,15 @@ void displayCalibrateHigh()
 
 void clr_scr()
 {
-	lcd_clrscr(LCD1);
+	lcd_clrscr();
 }
-
 
 void displayCalibrationPrompt()
 {
-	lcd_clrscr(LCD1);
-	lcd_write_str("Calibrate? *=Yes",LCD1);
-	lcd_Line2(LCD1);
-	lcd_write_str("or wait",LCD1);
-}
-
-void setAmps100(int8_t val)
-{
-	storeAmps100(val);
-	// set cursor to amps 10
-}
-
-void setAmps10(int8_t val)
-{
-	storeAmps10(val);
-	// as method before
-}
-
-void setAmps(int8_t val)
-{
-	storeAmps(val);
-	// amps is the last of this entry, so set cursor off, no abortEntry will be sent
-}
-
-void setMin10(int8_t val)
-{
-	storeMin10(val);
-}
-
-void setMin(int8_t val)
-{
-	storeMin(val);
-}
-
-void setSec10(int8_t val)
-{
-	storeSec10(val);
-}
-
-void setSec(int8_t val)
-{
-	storeSec(val);
+	lcd_clrscr();
+	lcd_write_str("Calibrate? *=Yes");
+	lcd_Line2();
+	lcd_write_str("or wait");
 }
 
 void displayCurrentAmps()
@@ -165,8 +126,8 @@ void displayCurrentAmps()
 	double amps;
 	amps = currentAmpsValue;
 	sprintf((char *)&buffer,"%5.1fA",amps);
-	lcd_goto(1,0,LCD1);
-	lcd_write_str((char *)&buffer, LCD1);
+	lcd_goto(1,0);
+	lcd_write_str((char *)&buffer);
 }
 
 void displayCountDown()
@@ -179,8 +140,8 @@ void displayCountDown()
 	char buffer [8];
 	sprintf((char*)&buffer,"%3im%02i",mRem,secsRem);
 
-	lcd_goto(1,9,LCD1);
-	lcd_write_str((char*)&buffer,LCD1);
+	lcd_goto(1,9);
+	lcd_write_str((char*)&buffer);
 }
 
 void displayInDurationTimerSince()
@@ -193,55 +154,54 @@ void displayInDurationTimerSince()
 	char buffer [8];
 	sprintf((char*)&buffer,"%3im%02i",mRel,secsRel);
 
-	lcd_goto(1,7,LCD1);
-	lcd_write_str((char*)&buffer,LCD1);
+	lcd_goto(1,7);
+	lcd_write_str((char*)&buffer);
 }
 
 
 void displayTriacRunning()
 {
-	lcd_clrscr(LCD1);
-	lcd_write_str("Running ",LCD1);
-	lcd_goto(0,17,LCD1);
-	lcd_write_str(ARBuffer,LCD1);
-	lcd_goto(3,0,LCD1);
-	lcd_write_str("R=stop",LCD1);
+	lcd_clrscr();
+	lcd_write_str("Running ");
+	lcd_goto(0,17);
+	lcd_write_str(ARBuffer);
+	lcd_goto(3,0);
+	lcd_write_str("R=stop");
 }
 
 void displayEditAmpsDuration()
 {
-	lcd_clrscr(LCD1);
-	lcd_write_str("A     T    ",LCD1);
-	lcd_Line2(LCD1);
-	lcd_write_str("*     #       ",LCD1);
-	lcd_goto(0,17,LCD1);
-	lcd_write_str(ARBuffer,LCD1);
-	lcd_goto(3,0,LCD1);
-	lcd_write_str("G=start",LCD1);
+	lcd_clrscr();
+	lcd_write_str("A     T    ");
+	lcd_Line2();
+	lcd_write_str("*     #       ");
+	lcd_goto(0,17);
+	lcd_write_str(ARBuffer);
+	lcd_goto(3,0);
+	lcd_write_str("G=start");
 }
 
 void displayEditAmps()
 {
-	lcd_goto(0,0,LCD1);
-	lcd_write_str("Amps  T   ",LCD1);
+	lcd_goto(0,0);
+	lcd_write_str("Amps  T   ");
 }
 
 void displayEditDuration()
 {
-	lcd_goto(0,0,LCD1);
-	lcd_write_str("A     Time",LCD1);
+	lcd_goto(0,0);
+	lcd_write_str("A     Time");
 }
-
 
 #define ampsTab  2
 
 void displayAmps(int8_t kInd)
 {  
-	lcd_goto(1,ampsTab,LCD1);
-	lcd_write_char(amps100,LCD1);
-	lcd_write_char(amps10,LCD1);
-	lcd_write_char(amps,LCD1);
-	if ((kInd >= 0) &&(kInd <= 2)) lcd_set_cursor(1, ampsTab + kInd, LCD1);
+	lcd_goto(1,ampsTab);
+	lcd_write_char(amps100);
+	lcd_write_char(amps10);
+	lcd_write_char(amps);
+	if ((kInd >= 0) &&(kInd <= 2)) lcd_set_cursor(1, ampsTab + kInd);
 		else lcd_hide_cursor();	
 }
 
@@ -249,14 +209,71 @@ void displayAmps(int8_t kInd)
 
 void displayTime(int8_t kInd)
 {  
-	lcd_goto(1,timeTab,LCD1);
-	lcd_write_char(min10,LCD1);
-	lcd_write_char(min,LCD1);
-	lcd_write_char(0x6D,LCD1);
-	lcd_write_char(sec10,LCD1);
-	lcd_write_char(sec,LCD1);
-	if ((kInd >= 0) &&(kInd <= 4)) lcd_set_cursor(1, timeTab + kInd, LCD1);
+	lcd_goto(1,timeTab);
+	lcd_write_char(min10);
+	lcd_write_char(min);
+	lcd_write_char(0x6D);
+	lcd_write_char(sec10);
+	lcd_write_char(sec);
+	if ((kInd >= 0) &&(kInd <= 4)) lcd_set_cursor(1, timeTab + kInd);
 		else lcd_hide_cursor();	
+}
+
+#define setupTab  13
+
+void displaySetup()
+{
+	lcd_clrscr();
+	lcd_write_str("Setup ");
+	lcd_Line2();
+	lcd_write_str("Alarm Y/N #");
+	lcd_goto(2,0);
+	lcd_write_str("Alarm T   *");
+	lcd_goto(2,17);
+	lcd_write_str("min");
+	lcd_goto(3,0);
+	lcd_write_str("F2 return");
+}
+
+void displayAlarmMinutes(int8_t kInd)
+{  
+	lcd_goto(1,setupTab);
+	lcd_write_char(completionAlarmMins10);
+	lcd_write_char(completionAlarmMins);
+	if ((kInd >= 0) &&(kInd <= 1)) lcd_set_cursor(1, ampsTab + kInd);
+		else lcd_hide_cursor();	
+}
+
+void displayAlarmYesNo(int8_t kInd)
+{
+	lcd_goto(2,setupTab);
+	if (completionAlarmOn) {
+		lcd_write_str("On ");
+	} else {
+		lcd_write_str("Off");
+	}
+	if ((kInd >= 0) &&(kInd <= 0)) lcd_set_cursor(2, ampsTab + kInd);
+		else lcd_hide_cursor();	
+}
+
+#define hintTab 8
+
+void clearSetupInputHint()
+{
+	lcd_goto(3,hintTab);
+	lcd_write_str("          ");
+}
+
+void toggleSetupInputHint()
+{
+	lcd_goto(3,hintTab);
+	lcd_write_str(", 1 toggle");
+}
+
+void numericSetupInputHint()
+{
+	lcd_goto(3,hintTab);
+	lcd_write_str(", 0..9    ");
 }
 
 void initUI()
@@ -271,11 +288,11 @@ void initUI()
 
 void displayJobOk()
 {
-	lcd_clrscr(LCD1);
-	lcd_write_str("Job OK",LCD1);
-	lcd_goto(1,0,LCD1);
-	lcd_write_str("since",LCD1);
-	lcd_goto(3,0,LCD1);
-	lcd_write_str("press * to continue",LCD1);
+	lcd_clrscr();
+	lcd_write_str("Job OK");
+	lcd_goto(1,0);
+	lcd_write_str("since");
+	lcd_goto(3,0);
+	lcd_write_str("press * to continue");
 }
 

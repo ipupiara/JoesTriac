@@ -562,13 +562,13 @@ uStInt evEditAmpsChecker(void)
 			switch (keyInd)
 			{
 				case 0: 
-					setAmps100(currentEvent->evData.keyCode);
+					storeAmps100(currentEvent->evData.keyCode);
 					break;
 				case 1:
-					setAmps10(currentEvent->evData.keyCode);
+					storeAmps10(currentEvent->evData.keyCode);
 					break;
 				case 2:
-					setAmps(currentEvent->evData.keyCode);
+					storeAmps(currentEvent->evData.keyCode);
 					BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
 				
 					END_EVENT_HANDLER(PJoesTriacStateChart);				
@@ -621,19 +621,19 @@ uStInt evEditDurationChecker(void)
 			switch (keyInd)
 			{
 				case 0: 
-					setMin10(currentEvent->evData.keyCode);
+					storeMin10(currentEvent->evData.keyCode);
 					break;
 				case 1:
-					setMin(currentEvent->evData.keyCode);
+					storeMin(currentEvent->evData.keyCode);
 					keyInd++;
 					break;
 				case 3:	
 					if (currentEvent->evData.keyCode <= kp5) {
-						setSec10(currentEvent->evData.keyCode);
+						storeSec10(currentEvent->evData.keyCode);
 					} else keyInd --;
 					break;
 				case 4:
-					setSec(currentEvent->evData.keyCode);
+					storeSec(currentEvent->evData.keyCode);
 					BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
 				
 					END_EVENT_HANDLER(PJoesTriacStateChart);				
@@ -666,6 +666,7 @@ uStInt evSetupChecker(void)
 void entrySetupState(void)
 {
 //	printf("entry I\n");
+	displaySetup();
 }
 
 void exitSetupState(void)
@@ -699,6 +700,9 @@ uStInt evSetupIdleChecker(void)
 void entrySetupIdleState(void)
 {
 //	printf("entry I\n");
+	displayAlarmMinutes(-1);
+	displayAlarmYesNo(-1);
+	clearSetupInputHint();
 }
 
 void exitSetupIdleState(void)
@@ -723,6 +727,14 @@ uStInt evSetupAlarmYesNoChecker(void)
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
 	}
+	if (currentEvent->evType == evCharEntered) {
+
+		if (currentEvent->evData.keyCode == kp1) {
+			storeCompletionAlarmOn(!completionAlarmOn);
+			displayAlarmYesNo(keyInd);
+			res =  uStIntHandlingDone;
+		}
+	}
 
 
 	return (res);
@@ -731,6 +743,9 @@ uStInt evSetupAlarmYesNoChecker(void)
 void entrySetupAlarmYesNoState(void)
 {
 //	printf("entry I\n");
+	keyInd = 0;
+	displayAlarmYesNo(keyInd);
+	toggleSetupInputHint();
 }
 
 void exitSetupAlarmYesNoState(void)
@@ -755,19 +770,41 @@ uStInt evSetupAlarmMinutesChecker(void)
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
 	}
+	if (currentEvent->evType == evCharEntered) {
 
+		if ((currentEvent->evData.keyCode <= kp9) && (currentEvent->evData.keyCode >= kp0)) {
+			switch (keyInd)
+			{
+				case 0: 
+					storeCompletionAlarmMins10(currentEvent->evData.keyCode);
+					break;
+				case 1:
+					storeCompletionAlarmMins(currentEvent->evData.keyCode);
+					BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
+				
+					END_EVENT_HANDLER(PJoesTriacStateChart);				
+			}
+			keyInd ++;
+			displayAlarmMinutes(keyInd);  // if keyInd = 3, dispAmps can be done again in next State, no matter
+			
+			res =  uStIntHandlingDone;
+		}
+	}
 
 	return (res);
 }
 
 void entrySetupAlarmMinutesState(void)
 {
-//	printf("entry I\n");
+	keyInd = 0;
+	displayAlarmMinutes(keyInd);
+	numericSetupInputHint();
 }
 
 void exitSetupAlarmMinutesState(void)
 {
 //	printf("exit I\n");
+	displayAlarmMinutes(-1);
 }
 
 void entryTriacRunningState(void)

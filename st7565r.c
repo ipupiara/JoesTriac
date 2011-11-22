@@ -16,7 +16,7 @@
 
 
 
-void lcd_write(uint8_t dataW, uint8_t toDataIR, uint8_t Scr) 
+void lcd_write(uint8_t dataW, uint8_t toDataIR) 
 {
 	int8_t busy;
 
@@ -57,34 +57,34 @@ void lcd_init()
 	LCD_DATA_IODIR  = 0x00;  
 	LCD_DATA   = 0x00;
 
-	lcd_write (0b00000001, 0, LCD1);   // clear display
-	lcd_write( 0b00111000,0, LCD1);   // 8-bit operation, 5x8Font, 2 lines
-	lcd_write( 0b00001100, 0, LCD1);   // disp on, curs off
-	lcd_write (0b00000110, 0, LCD1 );  // inc adr, shift curs, no char shift
+	lcd_write (0b00000001, 0);   // clear display
+	lcd_write( 0b00111000,0);   // 8-bit operation, 5x8Font, 2 lines
+	lcd_write( 0b00001100, 0);   // disp on, curs off
+	lcd_write (0b00000110, 0 );  // inc adr, shift curs, no char shift
 }
 
-void lcd_clrscr(int8_t Scr)
+void lcd_clrscr()
 {
-	lcd_write (0b00000001, 0, Scr); // clr scr and move home
+	lcd_write (0b00000001, 0); // clr scr and move home
 }
 
-void lcd_Line2(int8_t Scr)
+void lcd_Line2()
 {
-	lcd_write (0b11000000, 0, Scr);
+	lcd_write (0b11000000, 0);
 }
 
-void lcd_write_str(char* st1, int8_t Scr)
+void lcd_write_str(char* st1)
 {
 	int8_t ch1;
 
 	while ((ch1= *st1))
 	{
-		lcd_write(ch1,1, Scr);
+		lcd_write(ch1,1);
 		st1++;
 	}
 }
 
-void lcd_goto(int8_t line, int8_t pos,int8_t Scr)
+void lcd_goto(int8_t line, int8_t pos)
 {
 	int8_t adrC;
 	adrC = 0x80; // line 0  is default
@@ -92,21 +92,21 @@ void lcd_goto(int8_t line, int8_t pos,int8_t Scr)
 	if (line == 2) adrC = 0x94;
 	if (line == 3) adrC = 0xD4;
 	adrC = adrC + pos;
-	lcd_write(adrC,0,Scr);
+	lcd_write(adrC,0);
 }
 
-void lcd_set_cursor(int8_t line, int8_t pos,int8_t Scr)
+void lcd_set_cursor(int8_t line, int8_t pos)
 {
-	lcd_goto(line,pos,Scr);
-	lcd_write( 0b00001111, 0, LCD1);   // disp on, curs on blinking
+	lcd_goto(line,pos);
+	lcd_write( 0b00001111, 0);   // disp on, curs on blinking
 }
 
 void lcd_hide_cursor()
 {
-	lcd_write( 0b00001100, 0, LCD1);   // disp on, curs off
+	lcd_write( 0b00001100, 0);   // disp on, curs off
 }
 
-void lcd_write_char(int8_t ch1, int8_t Scr)
+void lcd_write_char(int8_t ch1)
 {
-	lcd_write(ch1,1, Scr);
+	lcd_write(ch1,1);
 }
