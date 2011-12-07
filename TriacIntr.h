@@ -35,7 +35,7 @@ void startTriacRun();
 void stopTriacRun();
 
 void setCompletionAlarmOn();
-
 void setCompletionAlarmOff();
+void toggleCompletionAlarm();
 
 #endif

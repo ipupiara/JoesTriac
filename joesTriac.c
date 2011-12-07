@@ -78,8 +78,8 @@ int main(void)
 	initUI();
 
 	startStateCharts();	
-/*
-	int dummyI;
+
+/*	int dummyI;
 	dummyI = 0;
 	while(1) {
 		++ dummyI;
@@ -89,8 +89,8 @@ int main(void)
 			}
 		}
 	}   
-
 */
+
 
 /*	 ev.evType = evAstPressed;
 	processTriacEvent(&SJoesTriacStateChart,&ev);  */

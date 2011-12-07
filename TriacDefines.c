@@ -303,6 +303,9 @@ void restorePersistentData()
 	completionAlarmMins10 = eeprom_read_byte((uint8_t*)completionAlarmMins10EEPROMpos);
 	if ((completionAlarmMins10 < 0x30) || (completionAlarmMins10 > 0x39)) { storeCompletionAlarmMins10(0x30);}
 	calcCompletionAlarmMinutes();
+	completionAlarmOn = eeprom_read_byte((uint8_t*)completionAlarmOnEEPROMpos);
+	if ((completionAlarmOn < 0x00) || (completionAlarmOn > 0x01)) { storeCompletionAlarmOn(0x00);}
+
 
 	calibLowADC = eeprom_read_word((uint16_t*) calibLowAdcEEPROMpos);
 	if (calibLowADC == 0xFFFF) calibLowADC = 0x0000;

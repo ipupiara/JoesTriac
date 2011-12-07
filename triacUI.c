@@ -54,9 +54,9 @@ void displayPotiPersistent()
 
 void displayPotiVolatile()
 {
-	char buffer[16];
-	sprintf((char*) &buffer,"%3iP (20-80)",zeroPotiPos);
-	lcd_goto(3,8);
+	char buffer[10];
+	sprintf((char*) &buffer,"%3iP",zeroPotiPos);
+	lcd_goto(3,16);
 	lcd_write_str((char*)&buffer);
 }
 
@@ -154,7 +154,7 @@ void displayInDurationTimerSince()
 	char buffer [8];
 	sprintf((char*)&buffer,"%3im%02i",mRel,secsRel);
 
-	lcd_goto(1,7);
+	lcd_goto(1,6);
 	lcd_write_str((char*)&buffer);
 }
 
@@ -166,7 +166,7 @@ void displayTriacRunning()
 	lcd_goto(0,17);
 	lcd_write_str(ARBuffer);
 	lcd_goto(3,0);
-	lcd_write_str("R=stop");
+	lcd_write_str("R stop");
 }
 
 void displayEditAmpsDuration()
@@ -178,7 +178,7 @@ void displayEditAmpsDuration()
 	lcd_goto(0,17);
 	lcd_write_str(ARBuffer);
 	lcd_goto(3,0);
-	lcd_write_str("G=start");
+	lcd_write_str("G start,A Setup");
 }
 
 void displayEditAmps()
@@ -232,27 +232,27 @@ void displaySetup()
 	lcd_goto(2,17);
 	lcd_write_str("min");
 	lcd_goto(3,0);
-	lcd_write_str("F2 return");
+	lcd_write_str("B return");
 }
 
 void displayAlarmMinutes(int8_t kInd)
 {  
-	lcd_goto(1,setupTab);
+	lcd_goto(2,setupTab);
 	lcd_write_char(completionAlarmMins10);
 	lcd_write_char(completionAlarmMins);
-	if ((kInd >= 0) &&(kInd <= 1)) lcd_set_cursor(1, ampsTab + kInd);
+	if ((kInd >= 0) &&(kInd <= 1)) lcd_set_cursor(2, setupTab + kInd);
 		else lcd_hide_cursor();	
 }
 
 void displayAlarmYesNo(int8_t kInd)
 {
-	lcd_goto(2,setupTab);
+	lcd_goto(1,setupTab);
 	if (completionAlarmOn) {
 		lcd_write_str("On ");
 	} else {
 		lcd_write_str("Off");
 	}
-	if ((kInd >= 0) &&(kInd <= 0)) lcd_set_cursor(2, ampsTab + kInd);
+	if ((kInd >= 0) &&(kInd <= 0)) lcd_set_cursor(1, setupTab + kInd);
 		else lcd_hide_cursor();	
 }
 
@@ -267,13 +267,13 @@ void clearSetupInputHint()
 void toggleSetupInputHint()
 {
 	lcd_goto(3,hintTab);
-	lcd_write_str(", 1 toggle");
+	lcd_write_str(", 0..1");
 }
 
 void numericSetupInputHint()
 {
 	lcd_goto(3,hintTab);
-	lcd_write_str(", 0..9    ");
+	lcd_write_str(", 0..9");
 }
 
 void initUI()
@@ -290,6 +290,13 @@ void displayJobOk()
 {
 	lcd_clrscr();
 	lcd_write_str("Job OK");
+	if (completionAlarmOn) {
+		lcd_goto(0,14);
+		lcd_write_str("al ");
+		lcd_write_char(completionAlarmMins10);
+		lcd_write_char(completionAlarmMins);
+		lcd_write_str("m");
+	}
 	lcd_goto(1,0);
 	lcd_write_str("since");
 	lcd_goto(3,0);

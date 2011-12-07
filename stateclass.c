@@ -730,7 +730,12 @@ uStInt evSetupAlarmYesNoChecker(void)
 	if (currentEvent->evType == evCharEntered) {
 
 		if (currentEvent->evData.keyCode == kp1) {
-			storeCompletionAlarmOn(!completionAlarmOn);
+			storeCompletionAlarmOn(1);
+			displayAlarmYesNo(keyInd);
+			res =  uStIntHandlingDone;
+		}
+		if (currentEvent->evData.keyCode == kp0) {
+			storeCompletionAlarmOn(0);
 			displayAlarmYesNo(keyInd);
 			res =  uStIntHandlingDone;
 		}
@@ -744,8 +749,8 @@ void entrySetupAlarmYesNoState(void)
 {
 //	printf("entry I\n");
 	keyInd = 0;
-	displayAlarmYesNo(keyInd);
 	toggleSetupInputHint();
+	displayAlarmYesNo(keyInd);
 }
 
 void exitSetupAlarmYesNoState(void)
@@ -780,7 +785,7 @@ uStInt evSetupAlarmMinutesChecker(void)
 					break;
 				case 1:
 					storeCompletionAlarmMins(currentEvent->evData.keyCode);
-					BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
+					BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupIdle);
 				
 					END_EVENT_HANDLER(PJoesTriacStateChart);				
 			}
@@ -797,8 +802,8 @@ uStInt evSetupAlarmMinutesChecker(void)
 void entrySetupAlarmMinutesState(void)
 {
 	keyInd = 0;
-	displayAlarmMinutes(keyInd);
 	numericSetupInputHint();
+	displayAlarmMinutes(keyInd);
 }
 
 void exitSetupAlarmMinutesState(void)
@@ -892,7 +897,7 @@ uStInt evJobOkDisplayChecker(void)
 		if (completionAlarmOn) {
 			int16_t secondsRel = getSecondsInDurationTimer();
 			if (secondsRel > completionAlarmMinutes * 60) {
-				setCompletionAlarmOn();
+				toggleCompletionAlarm();
 			}
 		}		
 		res =  uStIntHandlingDone;

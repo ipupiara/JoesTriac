@@ -106,7 +106,11 @@ void setTriacTriggerDelay(int16_t cmsecs)
 {
 	cli();
 	if (cmsecs < triggerDelayMax) {
-		triacTriggerDelayCms = cmsecs;
+		if (cmsecs > 0) {
+			triacTriggerDelayCms = cmsecs;}
+		else {
+			triacTriggerDelayCms = 0;
+		}
 	} else {
 		triacTriggerDelayCms = triggerDelayMax;
 	}
@@ -369,14 +373,24 @@ void stopDurationTimer()
 	
 }
 
-void setCompletionAlarmOn()
+void setCompletionAlarmOff()
 {
 	PORTD &= ~0x08; 		
 }
 
-void setCompletionAlarmOff()
+void setCompletionAlarmOn()
 {
 	PORTD |= 0x08; 	
 }
+
+void toggleCompletionAlarm()
+{  
+	if (PORTD & 0x08) {
+		setCompletionAlarmOff();
+	} else {
+		setCompletionAlarmOn();
+	}
+}
+
 
 
