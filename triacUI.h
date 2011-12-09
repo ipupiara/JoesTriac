@@ -62,4 +62,10 @@ char lastFatalErrorString [20];
 
 void displayFatalError();
 
+int16_t currentVarVal;
+char*   currentTitle;
+
+void displayCurrentVar();
+void currentVarChanged();
+
 #endif

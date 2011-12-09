@@ -112,6 +112,10 @@ void storeCalibLowADC();
 
 void storeCalibHighADC();   
 
+void saveCalibLowADC();
+
+void saveCalibHighADC();
+
 void storeCalibLowTriggerDelay();
 
 void storeCalibHighTriggerDelay();

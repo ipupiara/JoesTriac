@@ -87,7 +87,7 @@ void displayFatalError()
 
 void displayCalibrate(int amps)
 {
-	char buffer [2];
+	char buffer [5];
 	lcd_clrscr();
 	lcd_write_str("Set ");
 	sprintf((char*)&buffer,"%2i",amps);
@@ -118,6 +118,8 @@ void displayCalibrationPrompt()
 	lcd_write_str("Calibrate? *=Yes");
 	lcd_Line2();
 	lcd_write_str("or wait");
+	lcd_goto(3,0);
+	lcd_write_str("A calib vars");
 }
 
 void displayCurrentAmps()
@@ -302,4 +304,25 @@ void displayJobOk()
 	lcd_goto(3,0);
 	lcd_write_str("press * to continue");
 }
+
+void currentVarChanged()
+{
+	char buffer [6];
+	lcd_goto(1,0);
+	sprintf((char*)&buffer,"%4i",currentVarVal);
+	lcd_write_str((char*)&buffer);
+}
+
+void displayCurrentVar()
+{	
+	lcd_clrscr();
+	lcd_write_str(currentTitle);
+	lcd_goto(2,0);
+	lcd_write_str(" #save,* skip"); 	 
+	lcd_goto(3,0);
+	lcd_write_str("up 1,2,3 - dn 7,8,9");
+	currentVarChanged();
+}
+
+
 

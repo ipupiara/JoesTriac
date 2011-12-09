@@ -215,6 +215,17 @@ void storeCalibHighADC()
 	eeprom_write_word((uint16_t *) calibHighAdcEEPROMpos, calibHighADC);
 }    
 
+void saveCalibLowADC()
+{
+	eeprom_write_word((uint16_t *) calibLowAdcEEPROMpos, calibLowADC);
+}
+
+void saveCalibHighADC()
+{
+	eeprom_write_word((uint16_t *) calibHighAdcEEPROMpos, calibHighADC);
+}    
+
+
 void storeCalibLowTriggerDelay()
 {
 	calibLowTriggerDelay = triacTriggerDelayCms;

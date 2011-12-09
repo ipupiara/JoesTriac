@@ -28,6 +28,7 @@ enum eStates
 	eStartState = eStateJoesTriac,
 	eStateTriacOperating,
 	eStateAskForCalibration,
+	eStateChangeCalibVars,
 	eStateCalibrating,
 	eStateAskingRmsAvg,
 	eStateCalibrateZeroSignal,
@@ -104,6 +105,13 @@ uStInt evAskForCalibrationChecker(void)
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 	}
+	if (currentEvent->evType == evF1Pressed) 
+	{	
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateChangeCalibVars);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+	}
 	if (currentEvent->evType == evSecondsTick) 
 	{	
 		displayCountDown();		
@@ -112,6 +120,91 @@ uStInt evAskForCalibrationChecker(void)
 	}
 	return (res); 
 }
+
+int8_t  calibVarInd;
+
+
+void entryChangeCalibVarsState(void)
+{
+//	printf("entry AskForCalibration\n");
+	calibVarInd = 0;
+	currentVarVal = calibLowADC;
+	currentTitle = "calibLowADC";
+	displayCurrentVar();
+}
+
+
+
+void exitChangeCalibVarsState(void)
+{
+//	printf("exit ask calib\n");
+
+}
+
+uStInt evChangeCalibVarsChecker(void)
+{
+	uStInt res = uStIntNoMatch;
+//	printf("check for event in State evStateIdle\n");
+
+
+	if ((currentEvent->evType == evAstPressed) || (currentEvent->evType == evNumPressed)){
+		if (currentEvent->evType == evNumPressed)  {
+			if (calibVarInd == 0) {
+				calibLowADC = currentVarVal;
+				saveCalibLowADC();
+			}
+			if (calibVarInd == 1) {
+				calibHighADC = currentVarVal;
+				saveCalibHighADC();
+			} 
+		}
+
+		if (calibVarInd == 1)   {	
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+		}
+		if (calibVarInd == 0) {
+			currentVarVal = calibHighADC;
+			currentTitle = "calibHighADC";
+			calibVarInd = 1;
+			displayCurrentVar();
+		}
+		res =  uStIntHandlingDone;
+	}
+
+	if (currentEvent->evType == evCharEntered) {
+		switch (currentEvent->evData.keyCode) {
+			case kp1 : 
+				currentVarVal++;
+				break;
+			case kp2 :
+				currentVarVal += 10;
+				break ;	
+			case kp3 :
+				currentVarVal += 100;
+				break ;		
+			case kp7 : 
+				currentVarVal--;
+				break;
+			case kp8 :
+				currentVarVal -= 10;
+				break ;	
+			case kp9 :
+				currentVarVal -= 100;
+				break ;									
+		}
+		if (currentVarVal < 0) currentVarVal = 0;
+		if (currentVarVal > 1024) currentVarVal = 1024;
+		currentVarChanged();
+		res =  uStIntHandlingDone;
+	}
+	return (res); 
+}
+
+
+
 
 void entryCalibratingState(void)
 {
@@ -968,6 +1061,15 @@ xStateType xaStates[eNumberOfStates] = {
  	tfNull,
  	entryAskForCalibrationState,
  	exitAskForCalibrationState},
+
+ 	{eStateChangeCalibVars,
+ 	eStateTriacOperating,
+ 	-1,
+ 	0,									
+ 	evChangeCalibVarsChecker,
+ 	tfNull,
+ 	entryChangeCalibVarsState,
+ 	exitChangeCalibVarsState},
 
  	{eStateCalibrating,
  	eStateTriacOperating,
