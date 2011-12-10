@@ -196,15 +196,12 @@ uStInt evChangeCalibVarsChecker(void)
 				break ;									
 		}
 		if (currentVarVal < 0) currentVarVal = 0;
-		if (currentVarVal > 1024) currentVarVal = 1024;
+		if (currentVarVal > 1023) currentVarVal = 1023;
 		currentVarChanged();
 		res =  uStIntHandlingDone;
 	}
 	return (res); 
 }
-
-
-
 
 void entryCalibratingState(void)
 {
