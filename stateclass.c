@@ -138,7 +138,7 @@ void entryChangeCalibVarsState(void)
 void exitChangeCalibVarsState(void)
 {
 //	printf("exit ask calib\n");
-
+	updateGradAmps();
 }
 
 uStInt evChangeCalibVarsChecker(void)
@@ -986,7 +986,7 @@ uStInt evJobOkDisplayChecker(void)
 		displayInDurationTimerSince();
 		if (completionAlarmOn) {
 			int16_t secondsRel = getSecondsInDurationTimer();
-			if (secondsRel > completionAlarmMinutes * 60) {
+			if (secondsRel >= completionAlarmMinutes * 60) {
 				toggleCompletionAlarm();
 			}
 		}		
