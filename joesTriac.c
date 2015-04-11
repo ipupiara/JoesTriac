@@ -135,7 +135,7 @@ int main(void)
 		}
 
 		if ((ky = keyEntered())){
-			printf("\nky %c %X",ky,ky);
+			printf("ky %c %X\n",ky,ky);
 			if (ky == kpF1) ev.evType = evF1Pressed;
 			if (ky == kpF2) ev.evType = evF2Pressed;   
 			if (ky == kpStart) ev.evType = evStartPressed;

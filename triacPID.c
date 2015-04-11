@@ -244,7 +244,7 @@ real nextCorrection(real error)
 	double errD = error;
 	double intD = m_integral;
 	double derivD = deriv;
-	printf("err %f int %f deriv %f ",errD, intD, derivD);
+	printf("err %f int %f deriv %f \n",errD, intD, derivD);
 #endif
     return res;
 }
@@ -262,8 +262,8 @@ float currentAmps()
 	double grdA = gradAmps ;
 	double resD = res;
 
-	printf("adcA %i grad %f calowAdc %i cahiAdc %i res %f  ",adcAmps,grdA,calibLowADC, calibHighADC, resD);
-	printf("calLowA %i calHighA %i\n",calibLowAmps,calibHighAmps);
+	printf("adcA %i grad %f res %f A, triacDelay %i \n",adcAmps,grdA, resD, triacTriggerDelayCms);
+	printf(" calowAdc %i cahiAdc %i calLowA %i calHighA %i\n",calibLowADC, calibHighADC, calibLowAmps,calibHighAmps);
 #endif
 
 	currentAmpsValue = res;   // set this for ui
