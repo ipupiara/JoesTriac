@@ -19,6 +19,8 @@ int8_t outside;
 int8_t tcnt;
 
 
+#define maxAmtPersistentAdjustSteps  500    // = approx 5 minutes, then save current pos and get idle
+
 #define zeroPotiPosEEPROMpos                0   // int8
 #define nearScopeOffsetCorrectionEEPROMpos       1    // int8 processor dependent offset corrections
 #define farScopeOffsetCorrectionEEPROMpos      2      // int8 nasty, but tests showed necessity 
@@ -30,6 +32,7 @@ int8_t nearScopeOffsetCorrection;
 int8_t farScopeOffsetCorrection;
 
 int8_t stableStepsCnt;
+int8_t amtPersistentStepsCnt;
 
 int8_t firstPersistentStepDone;
 
@@ -278,6 +281,7 @@ void persistentZeroAdjStep()
 {	
 	int16_t volts;
 
+	++ amtPersistentStepsCnt;
 	debugLightToggle();
 
 	volts = adcVoltage();
@@ -303,7 +307,7 @@ void persistentZeroAdjStep()
 			stableStepsCnt ++;
 		}
 	}
-	if ( stableStepsCnt > 30) {
+	if (( stableStepsCnt > 30) || (amtPersistentStepsCnt > maxAmtPersistentAdjustSteps)) {
 		storePotiPos();
 		prevJobState = *p_jobState;
 		*p_jobState = jobIdle;
@@ -519,6 +523,7 @@ void jobReceived(int8_t jS)
 			if (jS == persistentZeroAdjust) {
 				firstPersistentStepDone = 0;
 				stableStepsCnt = 0;
+				amtPersistentStepsCnt = 0;
 			}
 			prevJobState = *p_jobState;
 			* p_jobState = jS;

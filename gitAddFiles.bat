@@ -4,4 +4,7 @@ git add *.h
 git add *.c
 git add gitAddFiles.bat
 git add default/joesTriac.hex
+git add ATtinyJT/ATtinyJT.aps
+git add   ATtinyJT/ATtinyJT.c
+git add   joesTriac.c
 git status
