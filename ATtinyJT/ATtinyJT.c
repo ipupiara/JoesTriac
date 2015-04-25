@@ -16,7 +16,7 @@ int8_t adcTick;
 int32_t adcSum;
 int8_t adcCnt;
 int8_t outside;
-int8_t tcnt;
+int8_t morseCnt;
 
 
 #define maxAmtPersistentAdjustSteps  500    // = approx 5 minutes, then save current pos and get idle
@@ -32,7 +32,7 @@ int8_t nearScopeOffsetCorrection;
 int8_t farScopeOffsetCorrection;
 
 int8_t stableStepsCnt;
-int8_t amtPersistentStepsCnt;
+int8_t amtPersistentZeroAdjustSecondes;
 
 int8_t firstPersistentStepDone;
 
@@ -58,6 +58,7 @@ void debugLightOff()
 	PORTA &= ~0x80;
 }
 
+/*
 void debugLightToggle()
 {
 	if (PORTA & 0x80) {
@@ -66,6 +67,7 @@ void debugLightToggle()
 		PORTA |= 0x80;
 	}
 }
+*/
 
 
 
@@ -252,8 +254,6 @@ void volatileZeroAdjStep()
 {
 	int16_t volts;
 
-	debugLightToggle();
-
 	volts = adcVoltage();
    	if (volts > adcThreshold) {		
 		if (*p_zeroPotiPos > 0)  {
@@ -281,9 +281,6 @@ void persistentZeroAdjStep()
 {	
 	int16_t volts;
 
-	++ amtPersistentStepsCnt;
-	debugLightToggle();
-
 	volts = adcVoltage();
    	if (volts > adcThreshold) {	
 		stableStepsCnt = 0;	
@@ -307,7 +304,7 @@ void persistentZeroAdjStep()
 			stableStepsCnt ++;
 		}
 	}
-	if (( stableStepsCnt > 30) || (amtPersistentStepsCnt > maxAmtPersistentAdjustSteps)) {
+	if (( stableStepsCnt > 30) || (amtPersistentZeroAdjustSecondes > maxAmtPersistentAdjustSteps)) {
 		storePotiPos();
 		prevJobState = *p_jobState;
 		*p_jobState = jobIdle;
@@ -403,6 +400,37 @@ void initHW()
 	PORTA &= ~0x80; // debuglight off
 }
 
+void morseState()
+{
+	++ morseCnt;
+	if (*p_jobState == jobIdle) {  // send i (morse)
+		if ((morseCnt == 5) || (morseCnt == 7)  )
+		{ debugLightOn(); }
+		else {
+			debugLightOff();
+		}
+	} else if (*p_jobState == fatalError) {  // send f
+		if ((morseCnt == 5) || (morseCnt == 7) || (morseCnt == 9) || (morseCnt == 10)|| (morseCnt == 11) || (morseCnt == 13)) {
+			debugLightOn();
+			} else {
+			debugLightOff();
+		}
+	}   else if (*p_jobState == persistentZeroAdjust) {  // send p
+		if ((morseCnt == 5) || (morseCnt == 7) || (morseCnt == 8) || (morseCnt == 9)|| (morseCnt == 11) || (morseCnt == 12)  || (morseCnt == 13) || (morseCnt == 15))   {
+			debugLightOn();
+			} else {
+			debugLightOff();
+		}
+	}   else if (*p_jobState == volatileZeroAdjust ) {  // send v
+		if ((morseCnt == 5) || (morseCnt == 7) || (morseCnt == 9)|| (morseCnt ==11) || (morseCnt == 12)  || (morseCnt == 13) )   {
+			debugLightOn();
+			} else {
+			debugLightOff();
+		}
+	}
+	if (morseCnt > 20) morseCnt = 0;
+}
+
 
 
 void onSecondTick()
@@ -417,37 +445,23 @@ void onSecondTick()
 //	*p_jobState = 0x02;
 
 	if (*p_jobState == persistentZeroAdjust   ) {
+		++ amtPersistentZeroAdjustSecondes;
 		if (adcCnt == 0) {				// avoid trigger during run, anyhow should not happen, since 
 										// collecting 100 values will need 100 * 13 * 64 = 83200 cpu cycles
 										// + some few interrupt time, means approx 1 ms + interrupt time
 			ADCSRA |= (1<< ADSC);
 		}
 	} else if (*p_jobState == volatileZeroAdjust) {
-		if ((outside) || (tcnt > 10 ) ){
+		if ((outside) || (morseCnt > 10 ) ){
 			if (adcCnt == 0) {				// avoid trigger during run, anyhow should not happen, since 
 											// collecting 100 values will need 100 * 13 * 64 = 83200 cpu cycles
 											// + some few interrupt time, means approx 1 ms + interrupt time
 				ADCSRA |= (1<< ADSC);
-				tcnt = 0;
+				morseCnt = 0;
 			}
 		}
-		++ tcnt;
-	} else if (*p_jobState == jobIdle) {  // send s (morse)
-		++tcnt;
-		if ((tcnt == 5) || (tcnt == 7) || (tcnt == 9) ) { debugLightOn(); } 
-		else { 
-			debugLightOff(); 
-			if (tcnt == 10) tcnt = 0;
-		}
-	} else if (*p_jobState == fatalError) {  // send f
-		++tcnt;
-		if ((tcnt == 5) || (tcnt == 7) || (tcnt == 9) || (tcnt == 10)|| (tcnt == 11) || (tcnt == 13)) { 
-			debugLightOn(); 
-		} else { 
-			debugLightOff(); 
-			if (tcnt == 15) tcnt = 0;
-		}
 	}
+	morseState(); 
 }
 
 void onADCTick()
@@ -504,7 +518,7 @@ void initPID()
 	extraJob = jobIdle;
 	jobBuffer = 0;
 	outside = 0;
-	tcnt = 0;
+	morseCnt = 0;
 	stableStepsCnt = 0;
 	firstPersistentStepDone = 0;
 	DDRB |= 0x07;
@@ -519,20 +533,19 @@ void jobReceived(int8_t jS)
 	if ((jS == up1)  ||  (jS == up10)||  (jS == down1)||  (jS == down10)) {
 		extraJob = jS;
 	} else {	
-		if ((jS !=  *p_jobState) && (* p_jobState != fatalError)) {
+		if ((jS !=  *p_jobState) && ( *p_jobState != fatalError)) {
 			if (jS == persistentZeroAdjust) {
 				firstPersistentStepDone = 0;
 				stableStepsCnt = 0;
-				amtPersistentStepsCnt = 0;
+				amtPersistentZeroAdjustSecondes = 0;
 			}
 			prevJobState = *p_jobState;
 			* p_jobState = jS;
+			morseCnt = 0;
 		}
 	}	
 }
 
-
-int8_t jobB;
 
 
 int main(void)
@@ -543,6 +556,7 @@ int main(void)
 	USI_TWI_Slave_Initialise(0x10);
 
 	while(1) {
+		int8_t jobB;
 		cli();
 		if (jobBuffer) {
 			jobB = jobBuffer;

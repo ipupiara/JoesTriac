@@ -167,7 +167,7 @@ ISR(USI_OVERFLOW_VECTOR)
       if ((USIDR == 0) || (( USIDR & ~1 ) == TWI_slaveAddress))
       {
 
-//PORTA   &= ~0x01;
+		//PORTA   &= ~0x01;
 
         if ( USIDR & 0x01 )  {
           	USI_TWI_Overflow_State = USI_SLAVE_SEND_DATA;

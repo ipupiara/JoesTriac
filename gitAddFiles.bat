@@ -7,4 +7,7 @@ git add default/joesTriac.hex
 git add ATtinyJT/ATtinyJT.aps
 git add   ATtinyJT/ATtinyJT.c
 git add   joesTriac.c
+git add ATtinyJT/USI_TWI_Slave.c
+git add ATtinyJT/attinyjt.aws
+git add 
 git status

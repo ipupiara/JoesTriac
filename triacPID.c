@@ -42,7 +42,7 @@ uint8_t idleTickCnt;
 uint8_t  sendMessageBuffer [4];
 uint8_t  receiveMessageBuffer[8];
 
-int sendZeroAdjustMsg(int8_t jobS)
+int sendZeroAdjustMsg(int8_t jobS)   // local use in this file only
 {
 	int res;
 //	printf("send synch zero Adj Msg\n");
@@ -54,7 +54,7 @@ int sendZeroAdjustMsg(int8_t jobS)
 	return res;
 }
 
-int8_t getAndTestZeroAdjustState(int8_t jobS)
+int8_t getAndTestZeroAdjustState(int8_t jobS)    // called so far only in setAdjustJob
 {  
 	int8_t res;
 	int8_t js;
@@ -71,7 +71,7 @@ int8_t getAndTestZeroAdjustState(int8_t jobS)
 	return res;
 }
 
-int8_t setAdjustJob(int8_t jobS)
+int8_t setAdjustJob(int8_t jobS)    // interface stateclass.c  
 {  int8_t res;
 	int8_t cnt1;
 	res = 0;
@@ -90,7 +90,7 @@ void persistentZeroAdjStep()
 	int16_t* adcVP;
 	int8_t adcScope;
 	uint8_t res;
-	double debugV;
+//	double debugV;
 
 	memset(receiveMessageBuffer,0,sizeof(receiveMessageBuffer));
 	res  = twi_synch_rx(zeroAdjustATtinyID, (uint8_t *) &receiveMessageBuffer, 6);
@@ -108,7 +108,7 @@ void persistentZeroAdjStep()
 		} else {
 			zeroAdjustDiffVoltage =  (adcVal * 1.1) / ( 0x200);
 		}
-		debugV = zeroAdjustDiffVoltage;
+//		debugV = zeroAdjustDiffVoltage;
 //		printf("jb %i, V %f\n\n",jobS,debugV);
 
 		if (jobS == jobIdle) {
@@ -125,7 +125,7 @@ void persistentZeroAdjStep()
 }
 
 
-void checkTWIZeroAdjustMsg()
+void checkTWIZeroAdjustMsg()     // interface , called in stateclass.c -> efEditIdleChecker
 {   
 	int8_t  jobS;
 

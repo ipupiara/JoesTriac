@@ -129,7 +129,7 @@ ISR(TIMER2_COMPA_vect)
 
 		// Trigger Triac
 		PORTD |= 0x10;
-		delay6pnt2d5us(10);   // approx 30 us of triac trigger
+		delay6pnt2d5us(4);   // approx 10 us of triac trigger
 		PORTD &= ~0x10;			// handled synchronous
 		t2Running = 0;
 	} else {

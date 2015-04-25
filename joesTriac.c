@@ -153,7 +153,7 @@ int main(void)
 			stableZeroAdjReached = 0;
 			ev.evType = evZeroSignalOK;
 			processTriacEvent(&SJoesTriacStateChart,&ev);	
-		}	evZeroSignalTimeout
+		}
 	
 
 /* 		

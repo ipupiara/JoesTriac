@@ -291,6 +291,12 @@ void entryCalibrateZeroSignalState(void)
 void exitCalibrateZeroSignalState(void)
 {
 //	printf("exit exitCalibrateZeroSignalState\n");
+   if (!fatalErrorOccurred) {
+	   if (!setAdjustJob(jobIdle)) {
+		   sprintf((char *) &lastFatalErrorString,"i2c comms err");
+		   fatalErrorOccurred = 1;
+	   }
+   }
 }
 
 uStInt checkCalibZeroInner(uStInt res)
