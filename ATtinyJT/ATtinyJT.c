@@ -498,7 +498,7 @@ void onADCTick()
 
 
 
-void initPID()
+void initPotiJob()
 {
 	p_zeroPotiPos = (int8_t*) (&i2c_rdbuf[0]);
 	p_ADCvoltage    =  (int16_t*) (&i2c_rdbuf[1]);
@@ -550,7 +550,7 @@ void jobReceived(int8_t jS)
 
 int main(void)
 {
-	initPID();   // needs to be called before initHW();
+	initPotiJob();   // needs to be called before initHW();
 
 	initHW();
 	USI_TWI_Slave_Initialise(0x10);

@@ -156,8 +156,16 @@ ISR(USI_START_VECTOR)
  * for new Start Condition.
  */
 
+uint8_t	i2c_wrbuf[I2C_WRSIZE];
+uint8_t	i2c_rdlen ;
+uint8_t	i2c_wrptr ;
+uint8_t	i2c_rdptr ;
+
+
+
 ISR(USI_OVERFLOW_VECTOR)
-{	
+{	 
+
   switch (USI_TWI_Overflow_State)
   {
 
@@ -178,7 +186,7 @@ ISR(USI_OVERFLOW_VECTOR)
 
           	USI_TWI_Overflow_State = USI_SLAVE_REQUEST_DATA;
 
-			i2c_wrlen = 0;  //PN. 30aug11 it is always the same message received 
+			i2c_wrptr = 0;  //PN. 30aug11 it is always the same message received 
 		}
           SET_USI_TO_SEND_ACK();
       }
@@ -226,7 +234,7 @@ ISR(USI_OVERFLOW_VECTOR)
     // Set USI to sample data from master. Next USI_SLAVE_GET_DATA_AND_SEND_ACK.
     case USI_SLAVE_REQUEST_DATA:
       USI_TWI_Overflow_State = USI_SLAVE_GET_DATA_AND_SEND_ACK;
-		if (i2c_wrlen >= 1) {        // pn 4.sept 11, in this app,  messages to slave contain olny 1 byte  
+		if (i2c_wrptr >= 1) {        // pn 4.sept 11, in this app,  messages to slave contain olny 1 byte  
 
 //PORTA |= 0x07;	
 
@@ -246,8 +254,8 @@ ISR(USI_OVERFLOW_VECTOR)
 //PORTA &= ~0x04;
 
 		// PN 4.sept11 changed buffer code
-		if (i2c_wrlen < I2C_WRSIZE)	{		
-			i2c_wrbuf[i2c_wrlen++] = USIDR;
+		if (i2c_wrptr < I2C_WRSIZE)	{		
+			i2c_wrbuf[i2c_wrptr++] = USIDR;
 		}
 
 		jobBuffer = USIDR;

@@ -42,7 +42,7 @@ void checkTWIZeroAdjustMsg();
 
 //int8_t getAndTestZeroAdjustState(int8_t jobS);
 
-void persistentZeroAdjStep();
+void persistentZeroAdjustSecondTickJob();
 
 int8_t setAdjustJob(int8_t jobS);
 

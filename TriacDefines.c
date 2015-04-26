@@ -226,16 +226,16 @@ void saveCalibHighADC()
 }    
 
 
-void storeCalibLowTriggerDelay()
+void storeCalibLowTriacFireDuration()
 {
-	calibLowTriggerDelay = triacTriggerDelayCms;
-	eeprom_write_word((uint16_t *) calibLowTriggerDelayEEPROMpos, calibLowTriggerDelay);
+	calibLowTriacFireDuration = triacFireDurationCms;
+	eeprom_write_word((uint16_t *) calibLowTriacFireDurationEEPROMpos, calibLowTriacFireDuration);
 }
 
-void storeCalibHighTriggerDelay()
+void storeCalibHighFireDuration()
 {
-	calibHighTriggerDelay = triacTriggerDelayCms;
-	eeprom_write_word((uint16_t *) calibHighTriggerDelayEEPROMpos, calibHighTriggerDelay);
+	calibHighTriacFireDuration = triacFireDurationCms;
+	eeprom_write_word((uint16_t *) calibHighTriacFireDurationEEPROMpos, calibHighTriacFireDuration);
 }
 /*
 void storeZeroPotiPos(int8_t val)
@@ -322,11 +322,11 @@ void restorePersistentData()
 	if (calibLowADC == 0xFFFF) calibLowADC = 0x0000;
 	calibHighADC = eeprom_read_word((uint16_t*) calibHighAdcEEPROMpos);
 	if (calibHighADC == 0xFFFF) calibHighADC = 0x0000;   
-	calibLowTriggerDelay = eeprom_read_word((uint16_t*) calibLowTriggerDelayEEPROMpos);
+	calibLowTriacFireDuration = eeprom_read_word((uint16_t*) calibLowTriacFireDurationEEPROMpos);
 //	printf("\nrestore calibLowTD %x \n",calibLowTriggerDelay);
-	if (calibLowTriggerDelay == 0xFFFF) calibLowTriggerDelay = 0x0000;
-	calibHighTriggerDelay = eeprom_read_word((uint16_t*) calibHighTriggerDelayEEPROMpos);
-	if (calibHighTriggerDelay == 0xFFFF) calibHighTriggerDelay = 0x0000;
+	if (calibLowTriacFireDuration == 0xFFFF) calibLowTriacFireDuration = 0x0000;
+	calibHighTriacFireDuration = eeprom_read_word((uint16_t*) calibHighTriacFireDurationEEPROMpos);
+	if (calibHighTriacFireDuration == 0xFFFF) calibHighTriacFireDuration = 0x0000;
 //	zeroPotiPos = eeprom_read_byte((uint8_t*)zeroPotiPosEEPROMpos);	
 //	if ((zeroPotiPos < 0x00) || (zeroPotiPos > 100)) { storeZeroPotiPos(0x00);}   
 	ampsInputPin = eeprom_read_byte((uint8_t*)ampsInputPinEEPROMpos);	

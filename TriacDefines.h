@@ -29,8 +29,8 @@
 	#define secEEPROMpos    10   // 8-bit
 	#define calibLowAdcEEPROMpos   11
 	#define calibHighAdcEEPROMpos  13   // both uint16
-	#define calibLowTriggerDelayEEPROMpos   15
-	#define calibHighTriggerDelayEEPROMpos   17   // both uint16
+	#define calibLowTriacFireDurationEEPROMpos   15
+	#define calibHighTriacFireDurationEEPROMpos   17   // both uint16
 //	#define zeroPotiPosEEPROMpos                19   // unit8  (obsolete, leaf place free )
 	#define ampsInputPinEEPROMpos         20     // uint8
 	#define completionAlarmOnEEPROMpos    21     // uint8
@@ -66,8 +66,8 @@ int16_t desiredTimeS;
 int16_t  calibLowADC;
 int16_t  calibHighADC;  
 
-uint16_t  calibLowTriggerDelay;
-uint16_t  calibHighTriggerDelay;
+uint16_t  calibLowTriacFireDuration;
+uint16_t  calibHighTriacFireDuration;
 
 uint8_t   completionAlarmOn;
 uint8_t   completionAlarmMins;
@@ -116,9 +116,9 @@ void saveCalibLowADC();
 
 void saveCalibHighADC();
 
-void storeCalibLowTriggerDelay();
+void storeCalibLowTriacFireDuration();
 
-void storeCalibHighTriggerDelay();
+void storeCalibHighFireDuration();
 
 //void storeZeroPotiPos(int8_t val);
 

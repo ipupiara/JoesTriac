@@ -9,5 +9,5 @@ git add   ATtinyJT/ATtinyJT.c
 git add   joesTriac.c
 git add ATtinyJT/USI_TWI_Slave.c
 git add ATtinyJT/attinyjt.aws
-git add 
+git add ATtinyJT/USI_TWI_Slave.h
 git status

@@ -350,7 +350,7 @@ uStInt evCalibrateZeroSignalChecker(void)
 	
 	if (currentEvent->evType == evSecondsTick) 
 	{	
-		persistentZeroAdjStep();
+		persistentZeroAdjustSecondTickJob();
 		displayPotiPersistent();
 	
 		res =  uStIntHandlingDone;
@@ -383,7 +383,7 @@ uStInt evCalibrateScaleChecker(void)
 	
 	res = uStIntNoMatch;
 	if (currentEvent->evType == evCharEntered) {
-		triggerDelay = triacTriggerDelayCms;
+		triggerDelay = triacFireDurationCms;
 		switch (currentEvent->evData.keyCode) {
 			case kp1 : 
 				triggerDelay++;
@@ -406,7 +406,7 @@ uStInt evCalibrateScaleChecker(void)
 		}
 		if (triggerDelay < 0) triggerDelay = 0;
 		if (triggerDelay > triggerDelayMax) triggerDelay = triggerDelayMax;
-		setTriacTriggerDelay(triggerDelay);
+		setTriacFireDuration(triggerDelay);
 		displayDebugVoltageNTriggerDelay();
 		res =  uStIntHandlingDone;
 	}
@@ -423,7 +423,7 @@ void entryCalibrateLowState(void)
 {
 //	printf("entry calib Low\n");
 	displayCalibrateLow();
-	setTriacTriggerDelay(0);
+	setTriacFireDuration(0);
 }
 
 void exitCalibrateLowState(void)
@@ -448,7 +448,7 @@ uStInt evCalibrateLowChecker(void)
 	{	
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateHigh);
 			
-			storeCalibLowTriggerDelay();
+			storeCalibLowTriacFireDuration();
 			storeCalibLowADC();			
 
 			END_EVENT_HANDLER(PJoesTriacStateChart);
@@ -485,7 +485,7 @@ uStInt evCalibrateHighChecker(void)
 	{	
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
 
-		storeCalibHighTriggerDelay();
+		storeCalibHighFireDuration();
 		storeCalibHighADC();
 		updateGradAmps();			
 
@@ -914,7 +914,7 @@ void entryTriacRunningState(void)
 	displayTriacRunning();
 	startDurationTimer(desiredTimeS);
 //	startDurationTimer(maxSecsPossible);   // sometimes used for debugging	
-	setTriacTriggerDelay(calibLowTriggerDelay);  // start defined,  not just somewhere
+	setTriacFireDuration(calibLowTriacFireDuration);  // start defined,  not just somewhere
 												// because of 220 V fuse ejects
 												// lowCalib seems better joice than 0
 	setAmpsADC();

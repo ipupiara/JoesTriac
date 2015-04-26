@@ -46,10 +46,7 @@ typedef     unsigned char       uint8_t;
 #define I2C_WRSIZE	4	// master => slave buffer size
 
  uint8_t	i2c_rdbuf[I2C_RDSIZE];
- uint8_t	i2c_rdlen;
- uint8_t	i2c_wrbuf[I2C_WRSIZE];
- uint8_t	i2c_wrlen;
- uint8_t	i2c_rdptr;
+// uint8_t	i2c_wrbuf[I2C_WRSIZE];
 
 
 // end changes PN

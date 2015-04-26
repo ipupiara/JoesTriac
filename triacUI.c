@@ -16,7 +16,7 @@ void displayVoltage()
 	
 	VFl = adcVoltage();
 	
-	sprintf((char*)&buffer,"%5.2fV/%4iD",VFl,triacTriggerDelayCms);
+	sprintf((char*)&buffer,"%5.2fV/%4iD",VFl,triacFireDurationCms);
 
 	lcd_goto(3, 6);
 	lcd_write_str((char*)&buffer);
@@ -30,7 +30,7 @@ void displayDebugVoltageNTriggerDelay()
 
 	VFl = adcVoltage();
 
-	sprintf((char*)&buffer,"%5.2fV %4iA %3iD",VFl,adc, triacTriggerDelayCms);
+	sprintf((char*)&buffer,"%5.2fV %4iA %3iD",VFl,adc, triacFireDurationCms);
 
 	lcd_Line2();
 	lcd_write_str((char*)&buffer);
@@ -134,7 +134,7 @@ void displayCurrentAmps()
 
 void displayCountDown()
 {
-	int16_t secondsRem = getSecondsRemaining();
+	int16_t secondsRem = getSecondsDurationTimerRemaining();
 	int32_t minRem  = secondsRem / 60; ;        //(250 us on 1Mhz Simulator)
 	int16_t mRem = minRem;
 	int8_t secsRem	= secondsRem - (minRem * 60);  // subtraction + multiply by 60 faster than division

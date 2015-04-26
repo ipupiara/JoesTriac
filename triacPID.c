@@ -84,7 +84,7 @@ int8_t setAdjustJob(int8_t jobS)    // interface stateclass.c
 	return res;
 }
 
-void persistentZeroAdjStep()
+void persistentZeroAdjustSecondTickJob()
 {	int8_t  jobS;
 	int16_t adcVal;
 	int16_t* adcVP;
@@ -170,7 +170,7 @@ void onIdleSecondTickPID()
 
 		idleTickCnt = 1;
 	}
-	secs = getSecondsRemaining();
+	secs = getSecondsDurationTimerRemaining();
 	if ((secs & 0x001f) == 0) {
 		printPIDState();
 	} 
@@ -262,7 +262,7 @@ float currentAmps()
 	double grdA = gradAmps ;
 	double resD = res;
 
-	printf("adcA %i grad %f res %f A, triacDelay %i \n",adcAmps,grdA, resD, triacTriggerDelayCms);
+	printf("adcA %i grad %f res %f A, triacDelay %i \n",adcAmps,grdA, resD, triacFireDurationCms);
 	printf(" calowAdc %i cahiAdc %i calLowA %i calHighA %i\n",calibLowADC, calibHighADC, calibLowAmps,calibHighAmps);
 #endif
 
@@ -282,8 +282,8 @@ void calcNextTriacDelay()
 	corr = nextCorrection(err) + corrCarryOver;
 	corrInt = corr;     
 	corrCarryOver = corr - corrInt;
-	newDelay = triacTriggerDelayCms + corrInt;
-	setTriacTriggerDelay(newDelay);
+	newDelay = triacFireDurationCms + corrInt;
+	setTriacFireDuration(newDelay);
 #ifdef printfPID
 	double corrD = corr;
 	double carryCorrD = corrCarryOver;
@@ -321,7 +321,7 @@ void printPIDState()
 	resD = res;
 
 	printf("\nPID State\n");
-	printf("calLowA %i calHighA %i caLowDelay %i caHiDelay %i\n",calibLowAmps,calibHighAmps, calibLowTriggerDelay, calibHighTriggerDelay);
+	printf("calLowA %i calHighA %i caLowDelay %i caHiDelay %i\n",calibLowAmps,calibHighAmps, calibLowTriacFireDuration, calibHighTriacFireDuration);
 	printf("calowAdc %i cahiAdc %i \n",calibLowADC, calibHighADC);
 	printf("shows at 0 ADC : %f A  grad %f zeroPotiPos %i\n",resD, gradD,zeroPotiPos);
 //	checkEEPOROM();

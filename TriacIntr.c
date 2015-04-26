@@ -23,17 +23,19 @@ int16_t lastAmpsADCVal;
 
 int16_t remainingTriacTriggerDelayCounts;
 
-int16_t secondsRemaining;
+int16_t triacTriggerDelayTime;
+
+int16_t secondsDurationTimerRemaining;
 
 int16_t secondsInDurationTimer;
 
 int8_t adcCnt;
 
-int16_t getSecondsRemaining()
+int16_t getSecondsDurationTimerRemaining()
 {
 	int16_t res;
 	cli();
-	res = secondsRemaining;
+	res = secondsDurationTimerRemaining;
 	sei();
 	return res;
 }
@@ -49,39 +51,43 @@ int16_t getSecondsInDurationTimer()
 
 #define ocra2aValue 0XFC  // still to be defined
 
+void setTriacTriggerDelayValues()
+{
+	if (remainingTriacTriggerDelayCounts < ocra2aValue) {
+		TCNT2 = ocra2aValue - remainingTriacTriggerDelayCounts;
+		triacTriggerDelayTime = triacTriggerDelayTime + remainingTriacTriggerDelayCounts;
+		remainingTriacTriggerDelayCounts = 0;
+	} else {
+		remainingTriacTriggerDelayCounts -= ocra2aValue;
+		TCNT2 = 0;
+		triacTriggerDelayTime = triacTriggerDelayTime + ocra2aValue;
+	}
+}
+
 void startTimer2()
 {
+	TIFR2 = 0x00;
 	TIMSK2   = 0b00000010;  //  Output Compare A Match Interrupt Enable
 	TCCR2B = 0b00000101  ; // CTC on CC2A , set clk / 128, timer 2 started
 }
 
+void stopTimer2()
+{
+	TCCR2B = 0b00000000  ;  // CTC, timer stopped
+	TIMSK2  = 0x00;
+}
+
 int8_t t2Running;
 
-void startTriacTriggerDelay(int8_t newState, int16_t fireDuration)  // must run protected between cli and sei
+void startTriacTriggerDelay(int8_t newState, int16_t delayDuration)  // must run protected between cli and sei
 {
-
-		TIFR2 = 0x00;
-		
-		if (fireDuration > 0) {   
-			remainingTriacTriggerDelayCounts = triggerDelayMax - fireDuration;
-			if (remainingTriacTriggerDelayCounts <= 14) {
-				remainingTriacTriggerDelayCounts = 15;  // dont set to 0  (means below tcnt2 to ocra2aValue)
-														// cause timer will run once more
-
-														// further on values below 11 cant be used by
-														// 230 V 50Hz AC because trigger comes too early
-														// and cant set on current
-			}
-			if (remainingTriacTriggerDelayCounts < ocra2aValue) {    
-				TCNT2 = ocra2aValue - remainingTriacTriggerDelayCounts; 
-				remainingTriacTriggerDelayCounts = 0;
-			} else {
-				remainingTriacTriggerDelayCounts -= ocra2aValue;
-				TCNT2 = 0;
-			}
-			triacTriggerState = newState;
-			startTimer2();
-		}
+	if (delayDuration <= 0) { 
+		delayDuration = 1;   // just a very short duration, but one that will happen in future
+	}
+	remainingTriacTriggerDelayCounts = delayDuration;
+	setTriacTriggerDelayValues();
+	triacTriggerState = newState;
+	startTimer2();		
 }
 
 void stopTriacTriggerDelay()   // must run protected between cli and sei
@@ -108,17 +114,17 @@ void stopTriacTriggerDelay()   // must run protected between cli and sei
 				*/  
 }	  
 
-void setTriacTriggerDelay(int16_t cmsecs)
+void setTriacFireDuration(int16_t cmsecs)
 {
 	cli();
 	if (cmsecs < triggerDelayMax) {
 		if (cmsecs > 0) {
-			triacTriggerDelayCms = cmsecs;}
+			triacFireDurationCms = cmsecs;}
 		else {
-			triacTriggerDelayCms = 0;
+			triacFireDurationCms = 0;
 		}
 	} else {
-		triacTriggerDelayCms = triggerDelayMax;
+		triacFireDurationCms = triggerDelayMax;
 	}
 	sei();
 }
@@ -127,24 +133,22 @@ void setTriacTriggerDelay(int16_t cmsecs)
 ISR(TIMER2_COMPA_vect)
 {
 	cli();
-
-	if (remainingTriacTriggerDelayCounts == 0) {
-
-		TCCR2B = 0b00000000  ;  // CTC, timer stopped
-		TIMSK2  = 0x00;
-
-		// Trigger Triac
-		PORTD |= 0x10;
-		delay6pnt2d5us(4);   // approx 10 us of triac trigger
-		PORTD &= ~0x10;			// handled synchronous
-		t2Running = 0;
+	if (remainingTriacTriggerDelayCounts <= 0) {
+		if ((triacTriggerState == triacTriggerDelay) || (triacTriggerState == triacTriggerFireOff) ) {
+			// Trigger Triac
+			PORTD |= 0x10;	
+			startTriacTriggerDelay(triacTriggerFireOn,1);
+		} else if (triacTriggerState == triacTriggerFireOn) {
+			PORTD &= ~0x10;	
+			if (triacTriggerDelayTime >= triggerDelayMax) {
+				stopTimer2();
+				triacTriggerState = triacTriggerIdle;
+			} else {
+				startTriacTriggerDelay(triacTriggerFireOff,2);
+			}
+		} 
 	} else {
-		if (remainingTriacTriggerDelayCounts < ocra2aValue) { 
-			TCNT2 =    ocra2aValue - remainingTriacTriggerDelayCounts;
-			remainingTriacTriggerDelayCounts = 0;
-		} else {
-			remainingTriacTriggerDelayCounts -= ocra2aValue;  // TCNT2 is already zero due to interrupt
-		}
+		setTriacTriggerDelayValues();
 	}
 	sei();
 }
@@ -166,7 +170,8 @@ ISR(INT0_vect)
 	if ((PIND & 0x04) != 0) {
 		stopTriacTriggerDelay();
 	} else {
-		startTriacTriggerDelay(triacTriggerDelay);
+		triacTriggerDelayTime = 0;
+		startTriacTriggerDelay(triacTriggerDelay,  triggerDelayMax - triacFireDurationCms);
 	}
 	sei();		  
 }   
@@ -177,9 +182,9 @@ ISR(TIMER0_COMPA_vect)
 
 ISR(TIMER1_COMPA_vect)
 {
-	secondsRemaining --;
+	secondsDurationTimerRemaining --;
 	secondsInDurationTimer ++;
-	if (secondsRemaining <= 0) {
+	if (secondsDurationTimerRemaining <= 0) {
 		stopDurationTimer();
 		durationTimerReachead = 1;
 	} else {
@@ -367,7 +372,7 @@ double adcVoltage()
 void startDurationTimer(int16_t secs)
 {
 	durationTimerReachead = 0;
-	secondsRemaining = secs;
+	secondsDurationTimerRemaining = secs;
 	secondsInDurationTimer = 0;
 	
 	TIMSK1   = 0b00000010;  //  Output Compare A Match Interrupt Enable 

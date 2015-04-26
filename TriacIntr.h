@@ -21,16 +21,16 @@ int16_t ampsADCValue();
 int16_t diffADCValue();
 double adcVoltage();
 
-int16_t triacTriggerDelayCms;   // centi-millis-secs, not exactly but approximate, PID will handle the rest
+int16_t triacFireDurationCms;   // centi-millis-secs, not exactly but approximate, PID will handle the rest
 
 void startDurationTimer(int16_t secs);
-int16_t getSecondsRemaining();
+int16_t getSecondsDurationTimerRemaining();
 int16_t getSecondsInDurationTimer();
 
 void stopDurationTimer();
 
 void initInterrupts();
-void setTriacTriggerDelay(int16_t cmsecs);
+void setTriacFireDuration(int16_t cmsecs);
 void startTriacRun();
 void stopTriacRun();
 
