@@ -9,6 +9,15 @@
 #include "TriacDefines.h"
 #include "triacPID.h"
 
+enum triacTriggerStates
+{
+	triacTriggerIdle,
+	triacTriggerDelay,
+	triacTriggerFireOn,
+	triacTriggerFireOff
+};
+
+int8_t triacTriggerState;
 
 int16_t lastAmpsADCVal;
 
@@ -40,22 +49,21 @@ int16_t getSecondsInDurationTimer()
 
 #define ocra2aValue 0XFC  // still to be defined
 
-//int phaseCount;
+void startTimer2()
+{
+	TIMSK2   = 0b00000010;  //  Output Compare A Match Interrupt Enable
+	TCCR2B = 0b00000101  ; // CTC on CC2A , set clk / 128, timer 2 started
+}
 
 int8_t t2Running;
 
-void startTriacTriggerDelay()  // must run protected between cli and sei
+void startTriacTriggerDelay(int8_t newState, int16_t fireDuration)  // must run protected between cli and sei
 {
-	if (!t2Running) {
-		TIFR2 = 0x00;
-//		phaseCount = 0;
 
-//		++phaseCount;
-//		PORTA &= ~0x3C;
-//		PORTA |= (1 << (1 + phaseCount));
+		TIFR2 = 0x00;
 		
-		if (triacTriggerDelayCms > 0) {   
-			remainingTriacTriggerDelayCounts = triggerDelayMax - triacTriggerDelayCms;
+		if (fireDuration > 0) {   
+			remainingTriacTriggerDelayCounts = triggerDelayMax - fireDuration;
 			if (remainingTriacTriggerDelayCounts <= 14) {
 				remainingTriacTriggerDelayCounts = 15;  // dont set to 0  (means below tcnt2 to ocra2aValue)
 														// cause timer will run once more
@@ -71,11 +79,9 @@ void startTriacTriggerDelay()  // must run protected between cli and sei
 				remainingTriacTriggerDelayCounts -= ocra2aValue;
 				TCNT2 = 0;
 			}
-			TIMSK2   = 0b00000010;  //  Output Compare A Match Interrupt Enable 
-			TCCR2B = 0b00000101  ; // CTC on CC2A , set clk / 128, timer 2 started
-			t2Running = 1;
+			triacTriggerState = newState;
+			startTimer2();
 		}
-	}
 }
 
 void stopTriacTriggerDelay()   // must run protected between cli and sei
@@ -160,7 +166,7 @@ ISR(INT0_vect)
 	if ((PIND & 0x04) != 0) {
 		stopTriacTriggerDelay();
 	} else {
-		startTriacTriggerDelay();
+		startTriacTriggerDelay(triacTriggerDelay);
 	}
 	sei();		  
 }   
@@ -240,7 +246,9 @@ void initInterrupts()
 
 // Timer 2 as Triac Trigger Delay Timer
 
-		t2Running = 0;
+		triacTriggerState = triacTriggerIdle;
+
+		
 	  
 		TCCR2A = 0b00000010;  //  CTC 
 
