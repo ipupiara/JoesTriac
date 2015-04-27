@@ -77,7 +77,6 @@ void stopTimer2()
 	TIMSK2  = 0x00;
 }
 
-int8_t t2Running;
 
 void startTriacTriggerDelay(int8_t newState, int16_t delayDuration)  // must run protected between cli and sei
 {
@@ -136,15 +135,15 @@ ISR(TIMER2_COMPA_vect)
 	if (remainingTriacTriggerDelayCounts <= 0) {
 		if ((triacTriggerState == triacTriggerDelay) || (triacTriggerState == triacTriggerFireOff) ) {
 			// Trigger Triac
-			PORTD |= 0x10;	
 			startTriacTriggerDelay(triacTriggerFireOn,1);
+			PORTD |= 0x10;	
 		} else if (triacTriggerState == triacTriggerFireOn) {
 			PORTD &= ~0x10;	
 			if (triacTriggerDelayTime >= triggerDelayMax) {
 				stopTimer2();
 				triacTriggerState = triacTriggerIdle;
 			} else {
-				startTriacTriggerDelay(triacTriggerFireOff,2);
+				startTriacTriggerDelay(triacTriggerFireOff,1);
 			}
 		} 
 	} else {

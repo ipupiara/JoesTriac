@@ -9,7 +9,7 @@
 #include "TWI_master.h"
 
 //#define printfPid
-#define printfAmps
+//#define printfAmps
 
 enum adcScopeEnum
 {
@@ -159,7 +159,7 @@ void onEntryIdlePID()
 }
 
 
-void onIdleSecondTickPID()
+void onTriacIdleSecondTick_PID()
 {
 	int16_t secs;
 	if (idleTickCnt < maxIdleTickCnt) {

@@ -24,7 +24,7 @@ void printPIDState();
 
 void onEntryIdlePID();
 
-void onIdleSecondTickPID();
+void onTriacIdleSecondTick_PID();
 
 real Update(real error);
 

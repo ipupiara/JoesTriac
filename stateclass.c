@@ -549,7 +549,7 @@ uStInt evTriacIdleChecker(void)
 	}
 	if (currentEvent->evType == evSecondsTick) 
 	{	
-		onIdleSecondTickPID();
+		onTriacIdleSecondTick_PID();
 		res =  uStIntHandlingDone;
 	}
 	return res;
@@ -916,7 +916,7 @@ void entryTriacRunningState(void)
 //	startDurationTimer(maxSecsPossible);   // sometimes used for debugging	
 	setTriacFireDuration(calibLowTriacFireDuration);  // start defined,  not just somewhere
 												// because of 220 V fuse ejects
-												// lowCalib seems better joice than 0
+												// lowCalib seems better choice than 0
 	setAmpsADC();
 	startTriacRun();
 }
