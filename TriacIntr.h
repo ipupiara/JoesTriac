@@ -12,8 +12,8 @@ int8_t durationTimerReachead;
 int8_t runningSecondsTick;
 
 int8_t adcTick;
-void setAmpsADC();
-void closeAmpsADC();
+void startAmpsADC();
+void stopAmpsADC();
 //void setDiffADC();
 //void closeDiffADC();
 void startSingleADC();

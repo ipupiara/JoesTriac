@@ -365,7 +365,6 @@ uStInt evCalibrateZeroSignalChecker(void)
 void entryCalibrateScaleState(void)
 {
 //	printf("\nentry Calib");
-	setAmpsADC();
 	startTriacRun();
 }
 
@@ -373,7 +372,6 @@ void exitCalibrateScaleState(void)
 {
 //	printf("exit calib\n");
 	stopTriacRun();
-	closeAmpsADC();
 }
 
 uStInt evCalibrateScaleChecker(void)
@@ -917,7 +915,6 @@ void entryTriacRunningState(void)
 	setTriacFireDuration(calibLowTriacFireDuration);  // start defined,  not just somewhere
 												// because of 220 V fuse ejects
 												// lowCalib seems better choice than 0
-	setAmpsADC();
 	startTriacRun();
 }
 
@@ -926,7 +923,6 @@ void exitTriacRunningState(void)
 	printf("exit Running\n");
 	stopDurationTimer();
 	stopTriacRun();
-	closeAmpsADC();
 	clr_scr();
 }
 

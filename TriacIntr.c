@@ -51,15 +51,25 @@ int16_t getSecondsInDurationTimer()
 
 #define ocra2aValue 0XFC  // still to be defined
 
+void setTcnt2(int16_t newVal)
+{
+	// timer must be stopped to set tcnt, because else, on an 
+	// unprotected set, the timer itself could interfere with the *non double buffered feature" write access.
+	// resulting in a more or less random set value.
+	TCCR2B = 0b00000000  ;  // CTC, timer stopped		
+	TCNT2 = newVal;			
+	TCCR2B = 0b00000101  ; // CTC on CC2A , set clk / 128, timer 2 started
+}
+
 void setTriacTriggerDelayValues()
 {
 	if (remainingTriacTriggerDelayCounts < ocra2aValue) {
-		TCNT2 = ocra2aValue - remainingTriacTriggerDelayCounts;
+		setTcnt2 (ocra2aValue - remainingTriacTriggerDelayCounts);
 		triacTriggerDelayTime = triacTriggerDelayTime + remainingTriacTriggerDelayCounts;
 		remainingTriacTriggerDelayCounts = 0;
 	} else {
 		remainingTriacTriggerDelayCounts -= ocra2aValue;
-		TCNT2 = 0;
+		setTcnt2(0);
 		triacTriggerDelayTime = triacTriggerDelayTime + ocra2aValue;
 	}
 }
@@ -91,6 +101,8 @@ void startTriacTriggerDelay(int8_t newState, int16_t delayDuration)  // must run
 
 void stopTriacTriggerDelay()   // must run protected between cli and sei
 {
+	stopTimer2();
+	triacTriggerState = triacTriggerIdle;
 /*	if (t2Running) {
 		TCCR2B = 0b00000000  ;  // CTC, timer 2 stopped
 		TIMSK2  = 0x00;
@@ -139,7 +151,7 @@ ISR(TIMER2_COMPA_vect)
 			PORTD |= 0x10;	
 		} else if (triacTriggerState == triacTriggerFireOn) {
 			PORTD &= ~0x10;	
-			if (triacTriggerDelayTime >= triggerDelayMax) {
+			if (triacTriggerDelayTime >= triggerPulseTrainMax) {
 				stopTimer2();
 				triacTriggerState = triacTriggerIdle;
 			} else {
@@ -170,7 +182,9 @@ ISR(INT0_vect)
 		stopTriacTriggerDelay();
 	} else {
 		triacTriggerDelayTime = 0;
-		startTriacTriggerDelay(triacTriggerDelay,  triggerDelayMax - triacFireDurationCms);
+		if (triacFireDurationCms > 0)  {
+			startTriacTriggerDelay(triacTriggerDelay,  triggerDelayMax - triacFireDurationCms);
+		}
 	}
 	sei();		  
 }   
@@ -278,7 +292,7 @@ void initInterrupts()
 		
 }
 
-void setAmpsADC()
+void startAmpsADC()
 {
 	ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE	
 	adcTick = 0;
@@ -302,7 +316,7 @@ void setAmpsADC()
 	TIMSK0  = 0b00000010;  // ena  interrupts, and let run ADC	
 }
 
-void closeAmpsADC()
+void stopAmpsADC()
 {
 	ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE	
 
@@ -312,6 +326,7 @@ void closeAmpsADC()
 
 void startTriacRun()
 {
+	startAmpsADC();
 	resetPID();
 	EIFR = 0x00;
 	EIMSK = 0x01;  				// start external interrupt (zero pass detection)
@@ -323,6 +338,7 @@ void stopTriacRun()
 	cli();
 	stopTriacTriggerDelay();
 	sei();
+	stopAmpsADC();
 }
 
 int16_t ampsADCValue()
