@@ -64,6 +64,10 @@ void setTcnt2(int16_t newVal)
 void setTriacTriggerDelayValues()
 {
 	if (remainingTriacTriggerDelayCounts < ocra2aValue) {
+		if (remainingTriacTriggerDelayCounts <=1 ) {
+			remainingTriacTriggerDelayCounts = 2;    // writing to tcnt2 blocks the compare on the next timer clock 
+													// see register description of tcnt2 in datasheet
+		}
 		setTcnt2 (ocra2aValue - remainingTriacTriggerDelayCounts);
 		triacTriggerDelayTime = triacTriggerDelayTime + remainingTriacTriggerDelayCounts;
 		remainingTriacTriggerDelayCounts = 0;
@@ -99,30 +103,11 @@ void startTriacTriggerDelay(int8_t newState, int16_t delayDuration)  // must run
 	startTimer2();		
 }
 
-void stopTriacTriggerDelay()   // must run protected between cli and sei
+void immediateStopTriacTriggerDelay()   // must run protected between cli and sei
 {
+	PORTD &= ~0x10;	
 	stopTimer2();
 	triacTriggerState = triacTriggerIdle;
-/*	if (t2Running) {
-		TCCR2B = 0b00000000  ;  // CTC, timer 2 stopped
-		TIMSK2  = 0x00;
-		t2Running = 0; 
-	//	TCNT2 = 0;
-	}
-				does not work, no idea so far what goes wrong.
-				Gives problems when t2 interrupt intersects with 
-				external interrupt, trying to stop t2 timer. 
-				Maybe not possible to synchronize properly ?????
-				Suddenly t2-trigger-interrupt happens ocra2aValue-times earlier 
-				(approx 2.8 ms, approx 1 phase in above debbuging code)  
-				on oscilloscope if it intersects.....
-				Left this problem for later for "time to market" reasons.
-				Triac application runs like that at 50 Hz AC without any problems.
-				t2-interrupt will stop early enough by itself with delay max value of 810 (TriacDefines.h).
-				But would be more state of the art when stopping the trigger from 
-				the ext-interrupt would  work
- 
-				*/  
 }	  
 
 void setTriacFireDuration(int16_t cmsecs)
@@ -147,7 +132,7 @@ ISR(TIMER2_COMPA_vect)
 	if (remainingTriacTriggerDelayCounts <= 0) {
 		if ((triacTriggerState == triacTriggerDelay) || (triacTriggerState == triacTriggerFireOff) ) {
 			// Trigger Triac
-			startTriacTriggerDelay(triacTriggerFireOn,1);
+			startTriacTriggerDelay(triacTriggerFireOn,2);
 			PORTD |= 0x10;	
 		} else if (triacTriggerState == triacTriggerFireOn) {
 			PORTD &= ~0x10;	
@@ -155,12 +140,12 @@ ISR(TIMER2_COMPA_vect)
 				stopTimer2();
 				triacTriggerState = triacTriggerIdle;
 			} else {
-				startTriacTriggerDelay(triacTriggerFireOff,1);
+				startTriacTriggerDelay(triacTriggerFireOff,2);
 			}
 		} 
 	} else {
 		setTriacTriggerDelayValues();
-	}
+	}	
 	sei();
 }
 
@@ -179,7 +164,7 @@ ISR(INT0_vect)
 {
 	cli();
 	if ((PIND & 0x04) != 0) {
-		stopTriacTriggerDelay();
+		immediateStopTriacTriggerDelay();			
 	} else {
 		triacTriggerDelayTime = 0;
 		if (triacFireDurationCms > 0)  {
@@ -265,8 +250,6 @@ void initInterrupts()
 // Timer 2 as Triac Trigger Delay Timer
 
 		triacTriggerState = triacTriggerIdle;
-
-		
 	  
 		TCCR2A = 0b00000010;  //  CTC 
 

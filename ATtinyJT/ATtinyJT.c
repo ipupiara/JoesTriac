@@ -32,7 +32,7 @@ int8_t nearScopeOffsetCorrection;
 int8_t farScopeOffsetCorrection;
 
 int8_t stableStepsCnt;
-int8_t amtPersistentZeroAdjustSecondes;
+int16_t amtPersistentZeroAdjustSecondes;
 
 int8_t firstPersistentStepDone;
 
@@ -558,12 +558,12 @@ int main(void)
 	while(1) {
 		int8_t jobB;
 		cli();
-		if (jobBuffer) {
+		if (jobBuffer != 0) {
 			jobB = jobBuffer;
 			jobBuffer = 0;
 		}
 		sei();
-		if (jobB) {
+		if (jobB != 0) {
 			jobReceived(jobB);
 			jobB = 0;
 		}
