@@ -12,6 +12,8 @@
 
 #include <inttypes.h>
 
+	#define jtagDebugKeyboardMode	// tobe set if jtag debug is used, it will divert the serial input (terminal)
+									//  to the keyboard and leave the keyboard port (port C) free for jtag
 
 	#define maxSecsPossible  0x7FFF
 

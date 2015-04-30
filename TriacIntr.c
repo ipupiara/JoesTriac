@@ -319,7 +319,7 @@ void stopTriacRun()
 {
 	EIMSK = 0x00;				// stop external interrupt
 	cli();
-	stopTriacTriggerDelay();
+	immediateStopTriacTriggerDelay();
 	sei();
 	stopAmpsADC();
 }
