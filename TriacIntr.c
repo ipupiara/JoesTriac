@@ -130,10 +130,13 @@ ISR(TIMER2_COMPA_vect)
 {
 	cli();
 	if (remainingTriacTriggerDelayCounts <= 0) {
-		if ((triacTriggerState == triacTriggerDelay) || (triacTriggerState == triacTriggerFireOff) ) {
+		if ((triacTriggerState == triacTriggerDelay) || (triacTriggerState == triacTriggerFireOff) 
+					|| (triacTriggerState == triacTriggerFireOn) ) {     // just repeat since delay handled synchronous (async was too long triggered)
 			// Trigger Triac
 			startTriacTriggerDelay(triacTriggerFireOn,2);
 			PORTD |= 0x10;	
+			delay6pnt2d5us(2);   // approx 5 us of triac trigger , try later half or even less
+			PORTD &= ~0x10;			// handled synchronous
 		} else if (triacTriggerState == triacTriggerFireOn) {
 			PORTD &= ~0x10;	
 			if (triacTriggerDelayTime >= triggerPulseTrainMax) {

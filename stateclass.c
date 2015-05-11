@@ -1002,6 +1002,7 @@ uStInt evJobOkDisplayChecker(void)
 void entryFatalErrorState(void)
 {
 //	printf("entry FatalError\n");
+	printf("**************fatal Error: %s *************************\n",lastFatalErrorString);
 	displayFatalError();
 }
 

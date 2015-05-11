@@ -122,7 +122,7 @@ void initKeyPad()
 ISR(PCINTVECT)
 {
 	PCICR = 0b0000000;  
-	IntrMsk = 0x00;
+	IntrMsk = 0x00;  
 	
 	if ((keyPin & 0xF0))  {  // any key pressed (toggle down)
 		if (lastValueZero) {
