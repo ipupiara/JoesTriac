@@ -102,7 +102,7 @@ void delayEmptyProc ()
 
 
 
-void delay6pnt2d5us(unsigned int n)
+void delay6pnt2d5us(unsigned int enn)
 {
 //delay approx ( n * 2.5 us ) + 6    at 11.0592  mhz  
 //    6 Plus N Times  2 Dot 5  (  "6pnt2d5"  )
@@ -118,10 +118,10 @@ void delay6pnt2d5us(unsigned int n)
 
 //  accurate enough for our keyboard delays
 
-uint8_t x;  
-	x= 0;
+uint8_t ix;  
+	ix= 0;
 
-  while(n--){
+  while(enn--){
   }
 } 
 

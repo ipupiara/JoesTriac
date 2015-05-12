@@ -44,14 +44,12 @@ static FILE mystdout = FDEV_SETUP_STREAM(uart_putchar, NULL, _FDEV_SETUP_WRITE);
 
 static int uart_putchar(char c, FILE *stream)
 {
-#ifndef jtagDebugKeyboardMode
    while (!(UCSR0A & (1<<UDRE0)));                    
    if (c == '\n')
    {
       uart_putchar('\r',&mystdout);
    }
-   UDR0 = c;
-#endif   
+   UDR0 = c; 
    return 0;
 }
 

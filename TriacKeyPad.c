@@ -1,5 +1,6 @@
 
 #include <avr/io.h>
+#include <stdio.h>
 #include <avr/interrupt.h>
 #include "TriacDefines.h"
 #include "TriacKeyPad.h"
@@ -109,8 +110,10 @@ void initKeyPad()
 	lastValueZero = 1;
 	
 #ifdef jtagDebugKeyboardMode
+	printf("jtagDebugKeyboardMode\n");
 	initUsartInput();
 #else
+	printf("not jtagDebugKeyboardMode\n");
 	initKeyboardPins();
 #endif
 
