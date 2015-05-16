@@ -9,16 +9,6 @@
 #include "TriacDefines.h"
 #include "triacPID.h"
 
-enum triacTriggerStates
-{
-	triacTriggerIdle,
-	triacTriggerDelay,
-	triacTriggerFireOn,
-	triacTriggerFireOff
-};
-
-int8_t triacTriggerState;
-
 int16_t lastAmpsADCVal;
 
 int16_t remainingTriacTriggerDelayCounts;
@@ -49,32 +39,34 @@ int16_t getSecondsInDurationTimer()
 	return res;
 }
 
-#define ocra2aValue 0XFC  // still to be defined
+#define ocra2aValueMax 0XFC  // still to be defined
 
-void setTcnt2(int16_t newVal)
+void setTcnt2AndOcra2a(int16_t newTcnt2Val,int16_t newOcra2a)
 {
 	// timer must be stopped to set tcnt, because else, on an 
 	// unprotected set, the timer itself could interfere with the *non double buffered feature" write access.
 	// resulting in a more or less random set value.
+	int8_t tccr2bStack;
+	tccr2bStack = TCCR2B;
 	TCCR2B = 0b00000000  ;  // CTC, timer stopped		
-	TCNT2 = newVal;			
-	TCCR2B = 0b00000101  ; // CTC on CC2A , set clk / 128, timer 2 started
+	if (TCNT2 != newTcnt2Val) {  // dont set if not needed , because  .....
+		TCNT2 = newTcnt2Val;	
+		if (newOcra2a == (TCNT2 + 1)) {++ newOcra2a; }  // .... updating avoids triggering of next clock cycle, but needs overnext.
+	}
+	OCR2A = newOcra2a;  
+	TCCR2B = tccr2bStack  ; // set previous value
 }
 
 void setTriacTriggerDelayValues()
 {
-	if (remainingTriacTriggerDelayCounts < ocra2aValue) {
-		if (remainingTriacTriggerDelayCounts <=1 ) {
-			remainingTriacTriggerDelayCounts = 2;    // writing to tcnt2 blocks the compare on the next timer clock 
-													// see register description of tcnt2 in datasheet
-		}
-		setTcnt2 (ocra2aValue - remainingTriacTriggerDelayCounts);
+	if (remainingTriacTriggerDelayCounts < ocra2aValueMax) {		
+		setTcnt2AndOcra2a (0, remainingTriacTriggerDelayCounts);
 		triacTriggerDelayTime = triacTriggerDelayTime + remainingTriacTriggerDelayCounts;
 		remainingTriacTriggerDelayCounts = 0;
 	} else {
-		remainingTriacTriggerDelayCounts -= ocra2aValue;
-		setTcnt2(0);
-		triacTriggerDelayTime = triacTriggerDelayTime + ocra2aValue;
+		remainingTriacTriggerDelayCounts -= ocra2aValueMax;
+		setTcnt2AndOcra2a(0, ocra2aValueMax);
+		triacTriggerDelayTime = triacTriggerDelayTime + ocra2aValueMax;
 	}
 }
 
@@ -89,63 +81,63 @@ void stopTimer2()
 {
 	TCCR2B = 0b00000000  ;  // CTC, timer stopped
 	TIMSK2  = 0x00;
+	TIFR2 = (1<< OCF2A);    // cleared by writing a "**@@!! logic ??@@**" one to the flag
 }
 
 
-void startTriacTriggerDelay(int8_t newState, int16_t delayDuration)  // must run protected between cli and sei
+void startTriacTriggerDelay( int16_t delayDuration)  // must run protected between cli and sei
 {
 	if (delayDuration <= 0) { 
 		delayDuration = 1;   // just a very short duration, but one that will happen in future
 	}
 	remainingTriacTriggerDelayCounts = delayDuration;
 	setTriacTriggerDelayValues();
-	triacTriggerState = newState;
 	startTimer2();		
 }
 
 void immediateStopTriacTriggerDelay()   // must run protected between cli and sei
 {
+	cli();
 	PORTD &= ~0x10;	
 	stopTimer2();
-	triacTriggerState = triacTriggerIdle;
+	sei();
 }	  
 
 void setTriacFireDuration(int16_t cmsecs)
 {
 	cli();
-	if (cmsecs < triggerDelayMax) {
+	if (cmsecs < triacFireDurationMax) {
 		if (cmsecs > 0) {
 			triacFireDurationCms = cmsecs;}
 		else {
 			triacFireDurationCms = 0;
 		}
 	} else {
-		triacFireDurationCms = triggerDelayMax;
+		triacFireDurationCms = triacFireDurationMax;
 	}
 	sei();
 }
 
 
+/*
+
+		tobe tested
+		just leave triac on for the "rest of the time"
+
+*/
+
 ISR(TIMER2_COMPA_vect)
 {
 	cli();
 	if (remainingTriacTriggerDelayCounts <= 0) {
-		if ((triacTriggerState == triacTriggerDelay) || (triacTriggerState == triacTriggerFireOff) 
-					|| (triacTriggerState == triacTriggerFireOn) ) {     // just repeat since delay handled synchronous (async was too long triggered)
-			// Trigger Triac
-			startTriacTriggerDelay(triacTriggerFireOn,2);
-			PORTD |= 0x10;	
-			delay6pnt2d5us(2);   // approx 5 us of triac trigger , try later half or even less
-			PORTD &= ~0x10;			// handled synchronous
-		} else if (triacTriggerState == triacTriggerFireOn) {
-			PORTD &= ~0x10;	
-			if (triacTriggerDelayTime >= triggerPulseTrainMax) {
-				stopTimer2();
-				triacTriggerState = triacTriggerIdle;
-			} else {
-				startTriacTriggerDelay(triacTriggerFireOff,2);
-			}
-		} 
+		PORTD |= 0x10;	
+		delay6pnt2d5us(1);   // approx 5 us of triac trigger , try later half or even less
+		PORTD &= ~0x10;			// handled synchronous
+		if (triacTriggerDelayTime >= triggerPulseTrainMax) {
+			stopTimer2();
+		} else {
+			startTriacTriggerDelay(1);
+		}
 	} else {
 		setTriacTriggerDelayValues();
 	}	
@@ -171,7 +163,7 @@ ISR(INT0_vect)
 	} else {
 		triacTriggerDelayTime = 0;
 		if (triacFireDurationCms > 0)  {
-			startTriacTriggerDelay(triacTriggerDelay,  triggerDelayMax - triacFireDurationCms);
+			startTriacTriggerDelay(  triggerDelayMax - triacFireDurationCms);
 		}
 	}
 	sei();		  
@@ -251,8 +243,6 @@ void initInterrupts()
 
 
 // Timer 2 as Triac Trigger Delay Timer
-
-		triacTriggerState = triacTriggerIdle;
 	  
 		TCCR2A = 0b00000010;  //  CTC 
 
@@ -261,7 +251,7 @@ void initInterrupts()
 		TCCR2B = 0b00000000  ;  // CTC, timer stopped
 		ASSR = 0x00;
 
-		OCR2A = ocra2aValue;  // counter top value  , just anything for start, will later be set by PID
+		OCR2A = ocra2aValueMax;  // counter top value  , just anything for start, will later be set by PID
 		TCNT2 = 0x00 ;  
 
 		TIMSK2  = 0x00; // disa  Interrupt 
@@ -312,8 +302,8 @@ void stopAmpsADC()
 
 void startTriacRun()
 {
-	startAmpsADC();
 	resetPID();
+	startAmpsADC();
 	EIFR = 0x00;
 	EIMSK = 0x01;  				// start external interrupt (zero pass detection)
 }
