@@ -278,7 +278,7 @@ uStInt evAskingRmsAvgChecker(void)
 
 void entryCalibrateZeroSignalState(void)
 {
-//	printf("entry I\n");
+	printf("entryCalibrateZeroSignalState\n");
 	displayCalibrateZeroPotiPos();
 
 	stableZeroAdjReached = 0;
@@ -290,7 +290,7 @@ void entryCalibrateZeroSignalState(void)
 
 void exitCalibrateZeroSignalState(void)
 {
-//	printf("exit exitCalibrateZeroSignalState\n");
+	printf("exitCalibrateZeroSignalState\n");
    if (!fatalErrorOccurred) {
 	   if (!setAdjustJob(jobIdle)) {
 		   sprintf((char *) &lastFatalErrorString,"i2c comms err");
@@ -498,7 +498,7 @@ int8_t keyInd;
 
 void entryTriacIdleState(void)
 {
-//	printf("entry I\n");
+	printf("entryTriacIdleState\n");
 //	debugEvent1Triggered = 1;
 	onEntryIdlePID();
 	startDurationTimer(maxSecsPossible);   // enable secondsTick
@@ -510,7 +510,7 @@ void entryTriacIdleState(void)
 
 void exitTriacIdleState(void)
 {
-//	printf("exit I\n");
+	printf("exitTriacIdleState\n");
 	stopDurationTimer();
     if (!fatalErrorOccurred) {
 		if (!setAdjustJob(jobIdle)) {

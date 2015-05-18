@@ -167,7 +167,6 @@ void onTriacIdleSecondTick_PID()
 	} else {
 		memset(receiveMessageBuffer,0,sizeof(receiveMessageBuffer));
 		twi_start_rx(zeroAdjustATtinyID, (uint8_t *) &receiveMessageBuffer, 6);
-
 		idleTickCnt = 1;
 	}
 	secs = getSecondsDurationTimerRemaining();

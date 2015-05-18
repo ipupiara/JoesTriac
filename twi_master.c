@@ -374,7 +374,7 @@ uint8_t twi_synch_rx(u8_t adr, u8_t *data, u8_t bytes_to_receive)
 		} else {
 //			succeededRxAmt ++;
 //			checkDebugBuffer();
-			printf("SUCCESS: synch_rx ok\n"); 
+//			printf("SUCCESS: synch_rx ok\n"); 
 		}
 //	}
 //	printf("twi_sync_rx leave res %x s/f %i / %i\n",twi_status, succeededRxAmt,failedRxAmt);
