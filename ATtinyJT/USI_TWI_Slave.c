@@ -196,7 +196,7 @@ ISR(USI_OVERFLOW_VECTOR)
       }
       break;
 
-    // ----- Master write data mode ------
+    // ----- to Master write data mode ------   //  pn 18. may 2015  changed comment by adding "to"
     // Check reply and goto USI_SLAVE_SEND_DATA if OK, else reset USI.
     case USI_SLAVE_CHECK_REPLY_FROM_SEND_DATA:
       if ( USIDR ) // If NACK, the master does not want more data.
@@ -230,7 +230,7 @@ ISR(USI_OVERFLOW_VECTOR)
       SET_USI_TO_READ_ACK();
       break;
 
-    // ----- Master read data mode ------
+    // ----- from Master read data mode ------   //  pn 18. may 2015  changed comment by adding "fron"
     // Set USI to sample data from master. Next USI_SLAVE_GET_DATA_AND_SEND_ACK.
     case USI_SLAVE_REQUEST_DATA:
       USI_TWI_Overflow_State = USI_SLAVE_GET_DATA_AND_SEND_ACK;

@@ -21,6 +21,8 @@ int16_t secondsInDurationTimer;
 
 int8_t adcCnt;
 
+int16_t amtInductiveRepetitions;
+
 int16_t getSecondsDurationTimerRemaining()
 {
 	int16_t res;
@@ -81,7 +83,7 @@ void stopTimer2()
 {
 	TCCR2B = 0b00000000  ;  // CTC, timer stopped
 	TIMSK2  = 0x00;
-	TIFR2 = (1<< OCF2A);    // cleared by writing a "**@@!! logic ??@@**" one to the flag
+	TIFR2 = (1<< OCF2A);    // cleared by writing a "logic" one to the flag
 }
 
 
@@ -98,23 +100,24 @@ void startTriacTriggerDelay( int16_t delayDuration)  // must run protected betwe
 void immediateStopTriacTriggerDelay()   // must run protected between cli and sei
 {
 	cli();
-	PORTD &= ~0x10;	
+//	PORTD &= ~0x10;	  anyhow is done between cli and sei...
 	stopTimer2();
 	sei();
 }	  
 
-void setTriacFireDuration(int16_t cmsecs)
+void setTriacFireDuration(int16_t durationTcnt2)
 {
 	cli();
-	if (cmsecs < triacFireDurationMax) {
-		if (cmsecs > 0) {
-			triacFireDurationCms = cmsecs;}
+	if (durationTcnt2 < triggerDelayMaxTcnt2) {
+		if (durationTcnt2 > 0) {
+			triacFireDurationTcnt2 = durationTcnt2;}
 		else {
-			triacFireDurationCms = 0;
+			triacFireDurationTcnt2 = 0;
 		}
 	} else {
-		triacFireDurationCms = triacFireDurationMax;
+		triacFireDurationTcnt2 = triggerDelayMaxTcnt2;
 	}
+	calcAmtInductiveRepetitions(triacFireDurationTcnt2);
 	sei();
 }
 
@@ -126,22 +129,32 @@ void setTriacFireDuration(int16_t cmsecs)
 
 */
 
+void calcAmtInductiveRepetitions(int16_t triacFireDurationTcnt2)
+{
+	if ( inductiveLoad)  {
+		amtInductiveRepetitions = (triacFireDurationTcnt2 * 10)  /  measuredRepetitionIntervalus; 
+	} else {
+		amtInductiveRepetitions = 1;
+	}
+}
+
 ISR(TIMER2_COMPA_vect)
 {
 	cli();
 	if (remainingTriacTriggerDelayCounts <= 0) {
-		PORTD |= 0x10;	
-		delay6pnt2d5us(1);   // approx 5 us of triac trigger , try later half or even less
+		PORTD |= 0x10;
+		delay6pnt2d5us(triacTriggerLength);   // approx 5 us of triac trigger , try later half or even less, measured 7 with oscilloscope
 		PORTD &= ~0x10;			// handled synchronous
-		if (triacTriggerDelayTime >= triggerPulseTrainMax) {
+		if ((triacTriggerDelayTime >= triggerDelayMaxTcnt2) || (amtInductiveRepetitions <= 0)  ) {
 			stopTimer2();
-		} else {
-			startTriacTriggerDelay(1);
+			} else {
+			startTriacTriggerDelay(delayBetweenTriacTriggers);
+			--amtInductiveRepetitions;
 		}
-	} else {
+		} else {
 		setTriacTriggerDelayValues();
-	}	
-	sei();
+	}
+	sei();	
 }
 
 ISR(ADC_vect)
@@ -162,8 +175,8 @@ ISR(INT0_vect)
 		immediateStopTriacTriggerDelay();			
 	} else {
 		triacTriggerDelayTime = 0;
-		if (triacFireDurationCms > 0)  {
-			startTriacTriggerDelay(  triggerDelayMax - triacFireDurationCms);
+		if (triacFireDurationTcnt2 > 0)  {
+			startTriacTriggerDelay(  triggerDelayMaxTcnt2 - triacFireDurationTcnt2);
 		}
 	}
 	sei();		  

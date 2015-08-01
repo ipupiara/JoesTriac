@@ -228,13 +228,13 @@ void saveCalibHighADC()
 
 void storeCalibLowTriacFireDuration()
 {
-	calibLowTriacFireDuration = triacFireDurationCms;
+	calibLowTriacFireDuration = triacFireDurationTcnt2;
 	eeprom_write_word((uint16_t *) calibLowTriacFireDurationEEPROMpos, calibLowTriacFireDuration);
 }
 
 void storeCalibHighFireDuration()
 {
-	calibHighTriacFireDuration = triacFireDurationCms;
+	calibHighTriacFireDuration = triacFireDurationTcnt2;
 	eeprom_write_word((uint16_t *) calibHighTriacFireDurationEEPROMpos, calibHighTriacFireDuration);
 }
 /*

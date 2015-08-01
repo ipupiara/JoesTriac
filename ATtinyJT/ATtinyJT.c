@@ -452,12 +452,11 @@ void onSecondTick()
 			ADCSRA |= (1<< ADSC);
 		}
 	} else if (*p_jobState == volatileZeroAdjust) {
-		if ((outside) || (morseCnt > 10 ) ){
+		if (outside ){
 			if (adcCnt == 0) {				// avoid trigger during run, anyhow should not happen, since 
 											// collecting 100 values will need 100 * 13 * 64 = 83200 cpu cycles
 											// + some few interrupt time, means approx 1 ms + interrupt time
 				ADCSRA |= (1<< ADSC);
-				morseCnt = 0;
 			}
 		}
 	}

@@ -133,7 +133,7 @@ void checkTWIZeroAdjustMsg()     // interface , called in stateclass.c -> efEdit
 	jobS =  receiveMessageBuffer[5];
 	if (jobS == fatalError) {
 		printf("checkTWI... fatal Error occurred\n");
-		sprintf((char *) &lastFatalErrorString,"out of ammeter poti");
+		sprintf((char *) &lastFatalErrorString," out of ammeter poti");
 		fatalErrorOccurred = 1;		
 	} else if (jobS != volatileZeroAdjust) {
 	 	sendZeroAdjustMsg(volatileZeroAdjust);  
@@ -167,6 +167,7 @@ void onTriacIdleSecondTick_PID()
 	} else {
 		memset(receiveMessageBuffer,0,sizeof(receiveMessageBuffer));
 		twi_start_rx(zeroAdjustATtinyID, (uint8_t *) &receiveMessageBuffer, 6);
+		
 		idleTickCnt = 1;
 	}
 	secs = getSecondsDurationTimerRemaining();
@@ -261,7 +262,7 @@ float currentAmps()
 	double grdA = gradAmps ;
 	double resD = res;
 
-	printf("adcA %i grad %f res %f A, triacDelay %i \n",adcAmps,grdA, resD, triacFireDurationCms);
+	printf("adcA %i grad %f res %f A, triacDelay %i \n",adcAmps,grdA, resD, triacFireDurationTcnt2);
 	printf(" calowAdc %i cahiAdc %i calLowA %i calHighA %i\n",calibLowADC, calibHighADC, calibLowAmps,calibHighAmps);
 #endif
 
@@ -281,7 +282,7 @@ void calcNextTriacDelay()
 	corr = nextCorrection(err) + corrCarryOver;
 	corrInt = corr;     
 	corrCarryOver = corr - corrInt;
-	newDelay = triacFireDurationCms + corrInt;
+	newDelay = triacFireDurationTcnt2 + corrInt;
 	setTriacFireDuration(newDelay);
 #ifdef printfPID
 	double corrD = corr;

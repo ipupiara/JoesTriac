@@ -21,7 +21,7 @@ int16_t ampsADCValue();
 int16_t diffADCValue();
 double adcVoltage();
 
-int16_t triacFireDurationCms;   // centi-millis-secs, not exactly but approximate, PID will handle the rest
+int16_t triacFireDurationTcnt2;   // centi-millis-secs, not exactly but approximate, PID will handle the rest
 
 void startDurationTimer(int16_t secs);
 int16_t getSecondsDurationTimerRemaining();
@@ -37,5 +37,10 @@ void stopTriacRun();
 void setCompletionAlarmOn();
 void setCompletionAlarmOff();
 void toggleCompletionAlarm();
+
+
+/*
+opto coupler based 0x (zerocross) handling. optocoupler based diode opens at 
+*/
 
 #endif

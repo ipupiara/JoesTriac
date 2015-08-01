@@ -381,7 +381,7 @@ uStInt evCalibrateScaleChecker(void)
 	
 	res = uStIntNoMatch;
 	if (currentEvent->evType == evCharEntered) {
-		triggerDelay = triacFireDurationCms;
+		triggerDelay = triacFireDurationTcnt2;
 		switch (currentEvent->evData.keyCode) {
 			case kp1 : 
 				triggerDelay++;
@@ -403,7 +403,7 @@ uStInt evCalibrateScaleChecker(void)
 				break ;									
 		}
 		if (triggerDelay < 0) triggerDelay = 0;
-		if (triggerDelay > triggerDelayMax) triggerDelay = triggerDelayMax;
+		if (triggerDelay > triggerDelayMaxTcnt2) triggerDelay = triggerDelayMaxTcnt2;
 		setTriacFireDuration(triggerDelay);
 		displayDebugVoltageNTriggerDelay();
 		res =  uStIntHandlingDone;
