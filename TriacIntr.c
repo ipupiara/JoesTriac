@@ -117,7 +117,6 @@ void setTriacFireDuration(int16_t durationTcnt2)
 	} else {
 		triacFireDurationTcnt2 = triggerDelayMaxTcnt2;
 	}
-	calcAmtInductiveRepetitions(triacFireDurationTcnt2);
 	sei();
 }
 
@@ -177,6 +176,7 @@ ISR(INT0_vect)
 		triacTriggerDelayTime = 0;
 		if (triacFireDurationTcnt2 > 0)  {
 			startTriacTriggerDelay(  triggerDelayMaxTcnt2 - triacFireDurationTcnt2);
+			calcAmtInductiveRepetitions(triacFireDurationTcnt2);
 		}
 	}
 	sei();		  
