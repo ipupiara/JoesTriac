@@ -117,7 +117,7 @@ void initKeyPad()
 	initKeyboardPins();
 #endif
 
-	sei(); //  enable all interrupts
+	sei(); //  enable all interrupts if not yet done so
 }
 
 #ifndef jtagDebugKeyboardMode

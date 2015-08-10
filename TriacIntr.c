@@ -13,7 +13,7 @@ int16_t lastAmpsADCVal;
 
 int16_t remainingTriacTriggerDelayCounts;
 
-int16_t triacTriggerDelayTime;
+int16_t triacTriggerTimeTcnt2;
 
 int16_t secondsDurationTimerRemaining;
 
@@ -63,12 +63,12 @@ void setTriacTriggerDelayValues()
 {
 	if (remainingTriacTriggerDelayCounts < ocra2aValueMax) {		
 		setTcnt2AndOcra2a (0, remainingTriacTriggerDelayCounts);
-		triacTriggerDelayTime = triacTriggerDelayTime + remainingTriacTriggerDelayCounts;
+		triacTriggerTimeTcnt2 += remainingTriacTriggerDelayCounts;
 		remainingTriacTriggerDelayCounts = 0;
 	} else {
 		remainingTriacTriggerDelayCounts -= ocra2aValueMax;
 		setTcnt2AndOcra2a(0, ocra2aValueMax);
-		triacTriggerDelayTime = triacTriggerDelayTime + ocra2aValueMax;
+		triacTriggerTimeTcnt2 +=  ocra2aValueMax;
 	}
 }
 
@@ -97,14 +97,6 @@ void startTriacTriggerDelay( int16_t delayDuration)  // must run protected betwe
 	startTimer2();		
 }
 
-void immediateStopTriacTriggerDelay()   // must run protected between cli and sei
-{
-	cli();
-//	PORTD &= ~0x10;	  anyhow is done between cli and sei...
-	stopTimer2();
-	sei();
-}	  
-
 void setTriacFireDuration(int16_t durationTcnt2)
 {
 	cli();
@@ -120,14 +112,6 @@ void setTriacFireDuration(int16_t durationTcnt2)
 	sei();
 }
 
-
-/*
-
-		tobe tested
-		just leave triac on for the "rest of the time"
-
-*/
-
 void calcAmtInductiveRepetitions(int16_t triacFireDurationTcnt2)
 {
 	if ( inductiveLoad)  {
@@ -135,6 +119,7 @@ void calcAmtInductiveRepetitions(int16_t triacFireDurationTcnt2)
 		float triacFireDurationTcnt2F = triacFireDurationTcnt2;
 //		amtInductiveRepetitions = ((triacFireDurationTcnt2 * ( 1  /(11.0592e+6  /128) )) * 1.0e+6  ) /  measuredRepetitionIntervalus; 
 		amtInductiveRepetitionsF = (triacFireDurationTcnt2F * 11.63  )  /  measuredRepetitionIntervalus; 
+		// always cut off modulo part when converting to int
 		amtInductiveRepetitions = amtInductiveRepetitionsF;   // tobe  debugged
 	} else {
 		amtInductiveRepetitions = 1;
@@ -148,13 +133,13 @@ ISR(TIMER2_COMPA_vect)
 		PORTD |= 0x10;
 		delay6pnt2d5us(triacTriggerLength);   // approx 5 us of triac trigger , try later half or even less, measured 7 with oscilloscope
 		PORTD &= ~0x10;			// handled synchronous
-		if ((triacTriggerDelayTime >= triggerDelayMaxTcnt2) || (amtInductiveRepetitions <= 0)  ) {
+		if ((triacTriggerTimeTcnt2 >= triggerDelayMaxTcnt2) || (amtInductiveRepetitions <= 0)  ) {
 			stopTimer2();
-			} else {
+		} else {
 			startTriacTriggerDelay(delayBetweenTriacTriggers);
 			--amtInductiveRepetitions;
 		}
-		} else {
+	} else {
 		setTriacTriggerDelayValues();
 	}
 	sei();	
@@ -175,9 +160,9 @@ ISR(INT0_vect)
 {
 	cli();
 	if ((PIND & 0x04) != 0) {
-		immediateStopTriacTriggerDelay();			
+		stopTimer2();		
 	} else {
-		triacTriggerDelayTime = 0;
+		triacTriggerTimeTcnt2 = 0;
 		if (triacFireDurationTcnt2 > 0)  {
 			startTriacTriggerDelay(  triggerDelayMaxTcnt2 - triacFireDurationTcnt2);
 			calcAmtInductiveRepetitions(triacFireDurationTcnt2);
@@ -205,7 +190,6 @@ ISR(TIMER1_COMPA_vect)
 void initInterrupts()
 {
 // Ext. Interrupt
-
 		DDRA = 0b11110000;    // set pin 7 to 4 of port A as output for digital poti (zero adj)
 		PORTA = 0b11100000;
 		DIDR0 = 0x0F;			// disa digital input on a0..a3
@@ -282,7 +266,6 @@ void initInterrupts()
 		lastAmpsADCVal = 0;
 
 		sei();  // start interrupts if not yet started
-		
 }
 
 void startAmpsADC()
@@ -329,7 +312,7 @@ void stopTriacRun()
 {
 	EIMSK = 0x00;				// stop external interrupt
 	cli();
-	immediateStopTriacTriggerDelay();
+	stopTimer2();
 	sei();
 	stopAmpsADC();
 }
