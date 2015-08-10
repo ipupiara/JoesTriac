@@ -322,7 +322,7 @@ void printPIDState()
 
 	printf("\nPID State\n");
 	printf("calLowA %i calHighA %i caLowDelay %i caHiDelay %i\n",calibLowAmps,calibHighAmps, calibLowTriacFireDuration, calibHighTriacFireDuration);
-	printf("calowAdc %i cahiAdc %i \n",calibLowADC, calibHighADC);
+	printf("calLowAdc %i caHiAdc %i \n",calibLowADC, calibHighADC);
 	printf("shows at 0 ADC : %f A  grad %f zeroPotiPos %i\n",resD, gradD,zeroPotiPos);
 //	checkEEPOROM();
 }

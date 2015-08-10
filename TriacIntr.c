@@ -131,7 +131,11 @@ void setTriacFireDuration(int16_t durationTcnt2)
 void calcAmtInductiveRepetitions(int16_t triacFireDurationTcnt2)
 {
 	if ( inductiveLoad)  {
-		amtInductiveRepetitions = (triacFireDurationTcnt2 * 10)  /  measuredRepetitionIntervalus; 
+		float amtInductiveRepetitionsF = 0.0;
+		float triacFireDurationTcnt2F = triacFireDurationTcnt2;
+//		amtInductiveRepetitions = ((triacFireDurationTcnt2 * ( 1  /(11.0592e+6  /128) )) * 1.0e+6  ) /  measuredRepetitionIntervalus; 
+		amtInductiveRepetitionsF = (triacFireDurationTcnt2F * 11.63  )  /  measuredRepetitionIntervalus; 
+		amtInductiveRepetitions = amtInductiveRepetitionsF;   // tobe  debugged
 	} else {
 		amtInductiveRepetitions = 1;
 	}

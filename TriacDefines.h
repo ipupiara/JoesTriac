@@ -48,7 +48,7 @@
 	#define inductiveLoad   1      // to be set to 0 or 1
 	#define triacTriggerLength   0      // delay approx ( n * 2.5 us ) + 5.5    at 11.0592  mhz
 	#define delayBetweenTriacTriggers  16  //  in timer 2 tcnt values , prescaler at   128
-	#define measuredRepetitionIntervalus  40;
+	#define measuredRepetitionIntervalus  200;      //  approx   ( 1s  /(11.0592 E+6  /128) ) * delayBetweenTriacTriggers    [us]
 
 // takes approx  2 us at 10 Mhz with -o0 (no opts. !) ,with all  call/ret, push N Pop
 void delayEmptyProc (); 
