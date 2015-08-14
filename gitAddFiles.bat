@@ -2,6 +2,8 @@ git add joesTriac.aps
 git add joestriac.aws
 git add *.h
 git add *.c
+git add *.atsln
+git add *.cproj
 git add gitAddFiles.bat
 git add default/joesTriac.hex
 git add ATtinyJT/ATtinyJT.aps

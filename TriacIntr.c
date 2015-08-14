@@ -124,6 +124,7 @@ void calcAmtInductiveRepetitions(int16_t triacFireDurationTcnt2)
 	} else {
 		amtInductiveRepetitions = 1;
 	}
+	
 }
 
 ISR(TIMER2_COMPA_vect)
