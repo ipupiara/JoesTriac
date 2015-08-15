@@ -64,7 +64,10 @@ int main(void)
 
 //	USART_Init( 143 );   // baud 4800 at 11.0592 mhz, single uart speed
 //	USART_Init( 71 );   // baud 9600 at 11.0592 mhz, single uart speed
-	USART_Init (11 );   // baud 57.6k  at 11.0592 mhz, single uart speed
+//	USART_Init (11 );   // baud 57.6k  at 11.0592 mhz, single uart speed
+	USART_Init (5 );   // baud 115.2k  at 11.0592 mhz, single uart speed
+	
+	
 	stdout = &mystdout;
 	printf("\nSTARTUP\n");
 	restorePersistentData();
