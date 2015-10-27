@@ -12,8 +12,10 @@
 
 #include <inttypes.h>
 
+//	#define noScreen				// for debugging without screen
 //	#define jtagDebugKeyboardMode	// tobe set if jtag debug is used, it will divert the serial input (terminal)
 									//  to the keyboard and leave the keyboard port (port C) free for jtag
+									
 
 	#define maxSecsPossible  0x7FFF
 
@@ -41,13 +43,13 @@
 
 
 	#define calibLowAmps        15
-	#define calibHighAmps       60
+	#define calibHighAmps       53
 
 	#define triggerDelayMaxTcnt2 810     // works properly with 50 Hz Ac and 11 Mhz
 	
 	#define inductiveLoad   1      // to be set to 0 or 1
 	#define triacTriggerLength   0      // delay approx ( n * 2.5 us ) + 5.5    at 11.0592  mhz
-	#define delayBetweenTriacTriggers  16  //  in timer 2 tcnt values , prescaler at   128
+	#define delayBetweenTriacTriggers  12  //  in timer 2 tcnt values , prescaler at   128
 	#define measuredRepetitionIntervalus  200;      //  approx   ( 1s  /(11.0592 E+6  /128) ) * delayBetweenTriacTriggers    [us]
 
 // takes approx  2 us at 10 Mhz with -o0 (no opts. !) ,with all  call/ret, push N Pop

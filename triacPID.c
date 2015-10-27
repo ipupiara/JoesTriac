@@ -8,7 +8,7 @@
 #include "TriacIntr.h"
 #include "TWI_master.h"
 
-//#define printfPid
+#define printfPid
 //#define printfAmps
 
 enum adcScopeEnum
@@ -161,7 +161,6 @@ void onEntryIdlePID()
 
 void onTriacIdleSecondTick_PID()
 {
-	int16_t secs;
 	if (idleTickCnt < maxIdleTickCnt) {
 		++ idleTickCnt;
 	} else {
@@ -170,10 +169,13 @@ void onTriacIdleSecondTick_PID()
 		
 		idleTickCnt = 1;
 	}
+#ifdef printfPid
+	int16_t secs;
 	secs = getSecondsDurationTimerRemaining();
 	if ((secs & 0x001f) == 0) {
 		printPIDState();
 	} 
+#endif	
 }
 
 

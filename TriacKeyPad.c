@@ -2,6 +2,7 @@
 #include <avr/io.h>
 #include <stdio.h>
 #include <avr/interrupt.h>
+#include "TriacIntr.h"
 #include "TriacDefines.h"
 #include "TriacKeyPad.h"
 
@@ -15,10 +16,10 @@ int8_t lastCharPressed;
 #define keyDDR  DDRC
 #define keyDDROut2   DDRA
 #define IntrMsk  PCMSK2
-#define PCICRPos  2
+#define PCICRPos  PCIE2
 #define PCINTVECT  PCINT2_vect   
 
-
+//#define printKeybState
 
 #define keypadSignalDelayFaktor  8
 
@@ -77,6 +78,28 @@ int8_t getKeypadState()
 }
 
 int8_t lastValueZero; 
+int16_t pcintCnt;
+
+int16_t  getKeybIntCnt()
+{
+	int16_t res;
+	cli();
+	res = pcintCnt;
+	sei();
+	return res;
+}
+
+void onTriacIdleSecondTick_Keyb()
+{
+#ifdef printKeybState
+	int16_t secs;
+	secs = getSecondsDurationTimerRemaining();
+	if ((secs & 0x001f) == 0x0000) {
+		int16_t res = getKeybIntCnt();
+		printf("kybIntCnt: %i lastCh: %X lastV0: %X\n",res , lastCharPressed, lastValueZero);
+	}
+#endif
+}
 
 void initKeyboardPins()
 {
@@ -108,6 +131,7 @@ void initKeyPad()
 {
 	lastCharPressed = 0;
 	lastValueZero = 1;
+	pcintCnt = 0;
 	
 #ifdef jtagDebugKeyboardMode
 	printf("jtagDebugKeyboardMode\n");
@@ -124,8 +148,11 @@ void initKeyPad()
 
 ISR(PCINTVECT)
 {
+	cli();
 	PCICR = 0b0000000;  
-	IntrMsk = 0x00;  
+	IntrMsk = 0x00; 
+	++ pcintCnt;
+	sei(); 
 	
 	if ((keyPin & 0xF0))  {  // any key pressed (toggle down)
 		if (lastValueZero) {
@@ -218,7 +245,7 @@ ISR(USART0_RX_vect)
 			break;
 		}
 		case 'G' : {
-			lastCharPressed = kpStop;
+			lastCharPressed = kpStart;
 			break;
 		}
 		default : {

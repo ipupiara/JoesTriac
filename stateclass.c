@@ -171,6 +171,12 @@ uStInt evChangeCalibVarsChecker(void)
 			calibVarInd = 1;
 			displayCurrentVar();
 		}
+/*		if (calibVarInd == 1) {
+			currentVarVal = zeroPotiPos;
+			currentTitle = "zeroPotiPos";
+			calibVarInd = 2;
+			displayCurrentVar();
+		}    // stored on assistant cpu atTiny.  needs message to tiny (i2c) and changes on tiny as well  */
 		res =  uStIntHandlingDone;
 	}
 
@@ -446,7 +452,6 @@ uStInt evCalibrateLowChecker(void)
 	{	
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateHigh);
 			
-			storeCalibLowTriacFireDuration();
 			storeCalibLowADC();			
 
 			END_EVENT_HANDLER(PJoesTriacStateChart);
@@ -483,7 +488,6 @@ uStInt evCalibrateHighChecker(void)
 	{	
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
 
-		storeCalibHighFireDuration();
 		storeCalibHighADC();
 		updateGradAmps();			
 
@@ -548,6 +552,7 @@ uStInt evTriacIdleChecker(void)
 	if (currentEvent->evType == evSecondsTick) 
 	{	
 		onTriacIdleSecondTick_PID();
+		onTriacIdleSecondTick_Keyb();
 		res =  uStIntHandlingDone;
 	}
 	return res;
@@ -1001,14 +1006,14 @@ uStInt evJobOkDisplayChecker(void)
 
 void entryFatalErrorState(void)
 {
-//	printf("entry FatalError\n");
+	printf("entry FatalError\n");
 	printf("**************fatal Error: %s *************************\n",lastFatalErrorString);
 	displayFatalError();
 }
 
 void exitFatalErrorState(void)
 {
-//	printf("exit FatalErro\n");
+	printf("exit FatalError\n");
 }
 
 uStInt evFatalErrorChecker(void)

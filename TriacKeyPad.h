@@ -31,10 +31,8 @@ int8_t keyEntered();
 
 void initKeyPad();
 
+int16_t  getKeybIntCnt();
 
-int getKeybIntCnt();
-
-
-int getKeybIntRes();
+void onTriacIdleSecondTick_Keyb();
 
 #endif

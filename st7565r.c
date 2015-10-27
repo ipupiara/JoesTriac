@@ -1,5 +1,8 @@
 
 #include <avr/io.h>
+#include <stdio.h>
+#include <string.h>
+
 #include "TriacDefines.h"
 #include "st7565r.h"
 
@@ -18,8 +21,11 @@
 
 void lcd_write(uint8_t dataW, uint8_t toDataIR) 
 {
-	int8_t busy;
+#ifdef noScreen
 
+#else	
+	int8_t busy;
+	
 	LCD_DATA_IODIR = 0x00; // configure LCD_DATA IOs as input for read Busy Flag
 	LCD_DATA    = 0x00;
 
@@ -44,7 +50,8 @@ void lcd_write(uint8_t dataW, uint8_t toDataIR)
 	LCD_CMD = LCD_CMD | En; 	// E = 1
 	delayEmptyProc();
 	LCD_CMD	= LCD_CMD & ~En;	// E = 0
-	busy = busy + 1;
+
+#endif	
 }
 
 
@@ -52,6 +59,10 @@ void lcd_write(uint8_t dataW, uint8_t toDataIR)
 
 void lcd_init() 
 {
+#ifdef noScreen
+	printf(">>> noScreen defined  <<<\n");
+#else
+	printf(">>> lcd_init screen\n");
 	LCD_CMD_IODIR |= 0b11100000;  // highest 3 Pins as output, leave rest as is
 	LCD_CMD  = LCD_CMD & 0b00011111 ;
 	LCD_DATA_IODIR  = 0x00;  
@@ -61,6 +72,7 @@ void lcd_init()
 	lcd_write( 0b00111000,0);   // 8-bit operation, 5x8Font, 2 lines
 	lcd_write( 0b00001100, 0);   // disp on, curs off
 	lcd_write (0b00000110, 0 );  // inc adr, shift curs, no char shift
+#endif
 }
 
 void lcd_clrscr()
