@@ -1,0 +1,126 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="de-ch">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Current Sensor Calibration</title>
+</head>
+
+<body bgcolor="#00FFFF">
+
+<p><b><u><font size="5">Current Sensor Calibration</font></u></b></p>
+<p>&nbsp;</p>
+<div style="position: absolute; width: 545px; height: 503px; z-index: 1; left: 12px; top: 101px" id="layer1">
+	<font size="4">The equipment can be used with a wide variety of current 
+	sensors. Any current sensor that needs five voltages input (-2.5 to 2.5 in 
+	our case) and which outputs the measured current as a voltage around 
+	reference of half the neded input voltage (usually 2.5V, but 0V in our case) 
+	should fit.</font><p><font size="4">In a first step, the expected range of 
+	ampere usage and it's variation has to be estimated and defined. In our case 
+	that was quite easy. Jo will use the equipment at 50 to 70 amperes and 
+	hardly any time beyond this. </font></p>
+	<p><font size="4">A current sensor that works within this range has to be 
+	found. It should not be much oversized, so that it works in its ordinary, 
+	appropriate range.</font></p>
+	<p><font size="4">Then, whenever possible, a size of transformer should be 
+	found which will need at least half of the sine-wave under triac regulation. 
+	This is to keep the crest factor low and hence the precision as high as 
+	possible. In our case we just had a transformer which will produce 120 amps 
+	as maximum and the curve on the oscilloscope showed us, that a bit more than</font></p>
+	<div style="position: absolute; width: 661px; height: 480px; z-index: 1; left: 597px; top: 2px" id="layer2">
+		<img border="0" src="DSCF4224crop-1.jpg" width="661" height="426"><p>
+		<span style="font-size: 13pt">sine wave on secondary side of transformer 
+		(12 V) at 59 amperes</span></p>
+		<p>&nbsp;</div>
+	<p><font size="4">&nbsp;half of 
+	the sine wave is used under normal production (crest factor approx. 3. to 
+	4). A somewhat smaller transformer would be better, but we had no other one.</font></p>
+	<p><font size="4">On the ammeter board, the current sensor value is beeing 
+	transformed to RMS (IC1 AD536) and AVG (IC2 and IC4 , each TLC251) values. 
+	These two values then are amplified by IC5 and IC6. Now the amplification 
+	has to be&nbsp; chosen by potentiometer R8 and R16 so that the average range 
+	of usage sets the amplified values to about 3 to 4 volts, depending on the 
+	possible variation of the range. This leads to optimal results in the analog 
+	to digital conversion (ADC) within the ATmega CPU. </font></p>
+	<div style="position: absolute; width: 706px; height: 595px; z-index: 2; left: 597px; top: 514px" id="layer3">
+		<img border="0" src="DSCF4232cro-1.jpg" width="661" height="493"><p>
+		<span style="font-size: 13pt">sine wave on output of current sensor and 
+		below the triac trigger signal sent by the processor to triac</span></div>
+	<p>&nbsp;</p>
+	<p><font size="4">The zero value of the current sensor (the value during 
+	idle time) has to be set on GND for maximaum precision. This is done 
+	automatically during idle time of the triac controller by the assisting 
+	processor (ATtiny84) via the digital potentiometer (IC8 on ammeterboard) in 
+	a scale of 0 to 100 which is shown on the display during idle time (P 
+	value). At the beginning, or if needed also from time to time, the value has 
+	to be set to the value of 50 as close as possible via potentiometer R23. If 
+	duing usage of the triac controller, this value ever should change 
+	drastically this means that anything on the hardware changed drastically, 
+	which in any case should be clarified.</font></p>
+	<p>&nbsp;</p>
+	<p><font size="4">The internal ampere calculator which calculates the 
+	effective current value out of the rms value (or evtl. avg value) has to be 
+	calibrated using an external ampere meter at the values of calibLowAmps and 
+	calibHighAmps which currently still are hardcoded in jtdefines.h (but later 
+	might be transferred to eeprom for better flexibility). The calibLowAmps 
+	value is the first value from which onwards the scale is at greater 
+	linearity than at zero. Anything like 10 amperes should be right. But 
+	concerning calibHighAmps, it is 
+	a good idea to set the calibHighAmps value to the value which is most often 
+	needed by end-user. In Jo's case this was 60 amperes. This will ensure 
+	maximal precision for the enduser, resp. a minimal interpolating error. So 
+	if needed, it is worth to set these values in jtdefines.h, recompile, and 
+	reload the application on the triac controller.</font></p>
+	<p><font size="4">At startup of the application, the user is asked if he 
+	wishes to calibrate during 5 seconds, before the application changes to idle 
+	mode. If he presses yes, he first will be asked if he wishes rms or avg. In 
+	normal case, rms should be used as long as an rms ampere-meter is available. 
+	As next, the triac controller will calibrate ampere sensor so that the idle 
+	value will become equal to GND. This will normally take approximately 1 or 2 
+	minutes, but can lead to an endless loop in faulty hardware cases. Now, 
+	using an external ampere meter, the 
+	user will have to set the ampere-values produced to the values of 
+	calibLowAmps and calibHighAmps by changeing the triac turn on time using the keypad (1,2,3 for 
+	more current, 7,8,9 for 
+	less current). Allways wait until the setting has become almost time-stable. This 
+	will get the best calibration-values for production and will reduce 
+	the error due to crest factor. Please be aware: Any two tested rms ampere 
+	meters will probable show different values to the same current (as during 
+	Dec 2011, maybe there will follow better ammeters once later). Just use 
+	always the same ammeter and find out the welding-values which makes you 
+	happy (which give the best results in production). </font></p>
+	<div style="position: absolute; width: 713px; height: 566px; z-index: 3; left: 570px; top: 1544px" id="layer4">
+		<img border="0" src="DSCF4206cro-1.jpg" width="670" height="506"><p>
+		<span style="font-size: 13pt">positive and negative input to LM311 for 
+		zerocross-detection with small hysteresis on constant signal</span></div>
+	<p><font size="4">The calibration-values can be looked at and can be changed 
+	under setup menu at idle mode. It is a good habit to write the two values 
+	down, so that they can be entered manually later to prevent calibration 
+	effort (what needs to be done 
+	eg. after a next software download). Check the triac controller during 
+	production from time to time by comparing the ampere-values shown on 
+	display against the external values of the ammeter you used for calibration 
+	(and do not be worried if they differ from the values shown by another 
+	ammeter, as stated above).</font></p>
+	<p>&nbsp;</p>
+	<p><font size="4">Zerocross-detection: Calibrating the zerocross-detection 
+	is rather easy. IC1 on the powerboard (LM311-comparator) compairs a constant 
+	voltage (on pos. entry), which can be configured on poti R2, with the since 
+	curve of the 12 V output of the trafo (on neg. entry). The ouput of LM311 is 
+	a rectangular curve which shows accurately the zero cross position. Any 
+	phase delay due to the power consumption on the secondary side of the trafo 
+	is of no further impact, as could be checked with the oscilloscope. The 
+	constant voltage has to be set so that the rectangular curve on the output 
+	is formed cleary and shows a small part between the end of a cycle and the 
+	start of the next one, but the gap should be too large, so that the earliest 
+	possible triac triggering still is more or less possible.</font></p>
+	<p>&nbsp;</p>
+	<p>
+	<font size="4"><a href="../index.html">home</a></font></div>
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+</body>
+
+</html>

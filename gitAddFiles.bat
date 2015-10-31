@@ -12,4 +12,5 @@ git add   joesTriac.c
 git add ATtinyJT/USI_TWI_Slave.c
 git add ATtinyJT/attinyjt.aws
 git add ATtinyJT/USI_TWI_Slave.h
+git add JTWebPages
 git status
