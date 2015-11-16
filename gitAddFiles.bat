@@ -14,4 +14,5 @@ git add ATtinyJT/attinyjt.aws
 git add ATtinyJT/USI_TWI_Slave.h
 git add JTWebPages
 git add JTWebPages/rustlight/
+git add JTWebPages/apply/DSCF5661-c3.jpg
 git status
