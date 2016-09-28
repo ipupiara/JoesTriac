@@ -237,6 +237,20 @@ void displaySetup()
 	lcd_write_str("B return");
 }
 
+void displaySetupShortCircuitAlarm()
+{
+	lcd_clrscr();
+	lcd_write_str("Setup Short Circuit Alarm");
+	lcd_Line2();
+	lcd_write_str("secs limit #");
+	lcd_goto(2,0);
+	lcd_write_str("Amps limit *");
+	lcd_goto(2,17);
+	lcd_write_str("A");
+	lcd_goto(3,0);
+	lcd_write_str("B return");
+}
+
 void displayAlarmMinutes(int8_t kInd)
 {  
 	lcd_goto(2,setupTab);
@@ -256,6 +270,24 @@ void displayAlarmYesNo(int8_t kInd)
 	}
 	if ((kInd >= 0) &&(kInd <= 0)) lcd_set_cursor(1, setupTab + kInd);
 		else lcd_hide_cursor();	
+}
+
+void displayAlarmShortCircuitSecs(int8_t kInd)
+{
+	lcd_goto(2,setupTab);
+	lcd_write_char(shortCircuitAlarmSecs100)
+	lcd_write_char(shortCircuitAlarmSecs10);
+	lcd_write_char(shortCircuitAlarmSecs);
+	if ((kInd >= 0) &&(kInd <= 2)) lcd_set_cursor(2, setupTab + kInd);
+	else lcd_hide_cursor();
+}
+
+void displayAlarmShortCircuitSecondsBarrier()
+{
+	lcd_goto(1,setupTab);
+	lcd_write_char(shortCircuitAlarmSecondBarrier);
+	if ((kInd >= 0) &&(kInd <= 0)) lcd_set_cursor(1, setupTab + kInd);
+	else lcd_hide_cursor();
 }
 
 #define hintTab 8

@@ -40,7 +40,11 @@
 	#define completionAlarmOnEEPROMpos    21     // uint8
 	#define completionAlarmMinsEEPROMpos  22
 	#define completionAlarmMins10EEPROMpos  23
-
+	
+	#define shortCircuitAlarmSecondBarrierEEPROMpos    25     // uint8
+	#define shortCircuitAlarmSecsEEPROMpos  26
+	#define shortCircuitAlarmSecs10EEPROMpos  27
+	#define shortCircuitAlarmSecs100EEPROMpos  28
 
 	#define calibLowAmps        15
 	#define calibHighAmps       53
@@ -82,6 +86,12 @@ uint8_t   completionAlarmOn;
 uint8_t   completionAlarmMins;
 uint8_t   completionAlarmMins10;
 uint8_t   completionAlarmMinutes;
+
+uint8_t   shortCircuitAlarmSecondBarrier;
+uint8_t   shortCircuitAlarmSecs;
+uint8_t   shortCircuitAlarmSecs10;
+uint8_t   shortCircuitAlarmSecs100;
+uint8_t   shortCircuitAlarmSeconds;
 
 int8_t amps100, amps10, amps, min10, min, sec10, sec;
 
@@ -138,6 +148,14 @@ void storeCompletionAlarmOn(int8_t val);
 void storeCompletionAlarmMins(int8_t val);
 
 void storeCompletionAlarmMins10(int8_t val);
+
+void storeShortCiruitAlarmSecondsBarrier(int8_t val);
+
+void storeShortCircuitAlarmSecs(int8_t val);
+
+void storeShortCircuitAlarmSecs10(int8_t val);
+
+void storeShortCircuitAlarmSecs100(int8_t val);
 
 void restorePersistentData();
 

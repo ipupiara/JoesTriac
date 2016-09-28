@@ -37,6 +37,7 @@ void stopTriacRun();
 void setCompletionAlarmOn();
 void setCompletionAlarmOff();
 void toggleCompletionAlarm();
+void checkShortCircuitCondition();
 
 
 /*

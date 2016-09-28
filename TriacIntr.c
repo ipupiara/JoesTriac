@@ -398,4 +398,9 @@ void toggleCompletionAlarm()
 }
 
 
-
+void checkShortCircuitCondition()
+{
+	
+	sprintf((char *) &lastFatalErrorString,"i2c com/Err");
+	fatalErrorOccurred = 1;
+}

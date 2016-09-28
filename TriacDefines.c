@@ -11,6 +11,12 @@
 // ATTENTION: use of EEPROM needs BOD Level of at least 2.7 V, otherwise EEPROM memory
 // is likely to crash on restore when done at mcu startup
 
+/*	TODO:
+*	PN 28. SEPT 2016: actually with some more framework and some more  configuration values
+"                     the amount of methods could be drastically reduced. Work for the future refactoring :-)
+*
+*/
+
 void EEPROM_write(unsigned int uiAddress, unsigned char ucData)
 {
 	// Wait for completion of previous write 
@@ -265,6 +271,39 @@ void storeCompletionAlarmMins10(int8_t val)
 	calcCompletionAlarmMinutes();
 }
 
+void storeShortCiruitAlarmSecondsBarrier(int8_t val)
+{
+   	shortCircuitAlarmSecondBarrier = val;
+   	eeprom_write_byte((uint8_t *) shortCircuitAlarmSecondBarrierEEPROMpos, val);
+}
+
+void calcShortCircuitAlarmSeconds()
+{
+	shortCircuitAlarmSecs = ((shortCircuitAlarmSecs100 -0x30) *100) + ((storeShortCircuitAlarmSecs10() - 0x30) * 10)
+								+ shortCircuitAlarmSecs;
+}
+
+void storeShortCircuitAlarmSecs(int8_t val)
+{
+	shortCircuitAlarmSecs = val;
+	eeprom_write_byte((uint8_t *) shortCircuitAlarmSecsEEPROMpos, val);
+	calcShortCircuitAlarmSeconds();
+}
+
+void storeShortCircuitAlarmSecs10(int8_t val)
+{
+	shortCircuitAlarmSecs10 = val;
+	eeprom_write_byte((uint8_t *) shortCircuitAlarmSecs10EEPROMpos, val);
+	calcShortCircuitAlarmSeconds();
+}
+
+void storeShortCircuitAlarmSecs100(int8_t val);
+{
+	shortCircuitAlarmSecs100 = val;
+	eeprom_write_byte((uint8_t *) shortCircuitAlarmSecs100EEPROMpos, val);
+	calcShortCircuitAlarmSeconds();
+}
+
 
 void restorePersistentData()
 {
@@ -305,7 +344,16 @@ void restorePersistentData()
 	calcCompletionAlarmMinutes();
 	completionAlarmOn = eeprom_read_byte((uint8_t*)completionAlarmOnEEPROMpos);
 	if ((completionAlarmOn < 0x00) || (completionAlarmOn > 0x01)) { storeCompletionAlarmOn(0x00);}
-
+		
+	shortCircuitAlarmSecs =  eeprom_read_byte((uint8_t) shortCircuitAlarmSecsEEPROMpos);
+	if ((shortCircuitAlarmSecs < 0x30) || (shortCircuitAlarmSecs > 0x39)) { storeShortCircuitAlarmSecs(0x30);}
+	shortCircuitAlarmSecs10 =  eeprom_read_byte((uint8_t) shortCircuitAlarmSecs10EEPROMpos);
+	if ((shortCircuitAlarmSecs10 < 0x30) || (shortCircuitAlarmSecs10 > 0x39)) { storeShortCircuitAlarmSecs10(0x30);}
+	shortCircuitAlarmSecs100 =  eeprom_read_byte((uint8_t) shortCircuitAlarmSecs100EEPROMpos);
+	if ((shortCircuitAlarmSecs100 < 0x30) || (shortCircuitAlarmSecs100 > 0x39)) { storeShortCircuitAlarmSecs100(0x30);}
+	calcShortCircuitAlarmSeconds();
+	shortCircuitAlarmSecondBarrier =  eeprom_read_byte((uint8_t) shortCircuitAlarmSecondBarrierEEPROMpos);
+	if ((shortCircuitAlarmSecondBarrier < 0x30) || (shortCircuitAlarmSecondBarrier > 0x39)) { storeShortCiruitAlarmSecondsBarrier(0x30);}
 
 	calibLowADC = eeprom_read_word((uint16_t*) calibLowAdcEEPROMpos);
 	if (calibLowADC == 0xFFFF) calibLowADC = 0x0000;

@@ -43,6 +43,7 @@ enum eStates
 	eStateSetupIdle,
 	eStateSetupAlarmYesNo,
 	eStateSetupAlarmMinutes,
+	eStateSetupShortCuircuitAmps,
 	eStateTriacRunning,
 	eStateJobOkDisplay,
 	eStateFatalError,
@@ -911,6 +912,61 @@ void exitSetupAlarmMinutesState(void)
 	displayAlarmMinutes(-1);
 }
 
+uStInt evSetupShortCuircuitAmpsChecker(void)
+{
+	uStInt res;
+	res = uStIntNoMatch;
+
+	if (currentEvent->evType == evAstPressed)  {
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupIdle);
+		// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
+	if (currentEvent->evType == evNumPressed)  {
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupAlarmYesNo);
+		// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
+	if (currentEvent->evType == evCharEntered) {
+
+		if ((currentEvent->evData.keyCode <= kp9) && (currentEvent->evData.keyCode >= kp0)) {
+			switch (keyInd)
+			{
+				case 0:
+				storeCompletionAlarmMins10(currentEvent->evData.keyCode);
+				break;
+				case 1:
+				storeCompletionAlarmMins(currentEvent->evData.keyCode);
+				BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupIdle);
+				
+				END_EVENT_HANDLER(PJoesTriacStateChart);
+			}
+			keyInd ++;
+			displayAlarmMinutes(keyInd);  // if keyInd = 3, dispAmps can be done again in next State, no matter
+			
+			res =  uStIntHandlingDone;
+		}
+	}
+
+	return (res);
+}
+
+void entrySetupShortCuircuitAmpsState(void)
+{
+	keyInd = 0;
+	numericSetupInputHint();
+	displayAlarmShortCircuitSecs(keyInd);
+}
+
+void exitSetupShortCuircuitAmpsState(void)
+{
+	//	printf("exit I\n");
+	displayAlarmShortCircuitSecs(-1);
+}
+
+
 void entryTriacRunningState(void)
 {
 	printf("entry Running\n");
@@ -952,6 +1008,7 @@ uStInt evTriacRunningChecker(void)
 		displayCurrentAmps();
 		displayCountDown();
 		displayVoltage();	
+		checkShortCircuitCondition();
 		res =  uStIntHandlingDone;
 	}	
 	if (currentEvent->evType == evAdcTick)
@@ -1201,6 +1258,43 @@ xStateType xaStates[eNumberOfStates] = {
  	tfNull,
  	entrySetupAlarmMinutesState,
  	exitSetupAlarmMinutesState},
+	 
+	 	{eStateSetupShortCircuit,
+		 	eStateTriacOperating,
+		 	eStateSetupShortCircuitIdle,
+		 	0,
+		 	evSetupShortCircuitChecker,
+		 	tfNull,
+		 	entrySetupShortCircuitState,
+	 	exitSetupState},
+
+	 	{eStateSetupShortCircuitIdle,
+		 	eStateSetupShortCircuit,
+		 	-1,
+		 	0,
+		 	evSetupShortCircuitIdleChecker,
+		 	tfNull,
+		 	entrySetupShortCircuitIdleState,
+	 	exitSetupShortCircuitIdleState},
+
+	 	{eStateSetupShortCircuitBarrier,
+		 	eStateSetup,
+		 	-1,
+		 	0,
+		 	evSetupShortCircuitAlarmBarrierChecker,
+		 	tfNull,
+		 	entrySetupShortCircuitAlarmBarrierState,
+	 	exitSetupShortCircuitAlarmBarrierState},
+
+ 
+	{eStateSetupShortCuircuitAmps,
+	 eStateSetup,
+	 -1,
+	 0,
+	 evSetupShortCuircuitAmpsChecker,
+	 tfNull,
+	 entrySetupShortCuircuitAmpsState,
+	 exitSetupShortCuircuitAmpsState},
 
 	{eStateTriacRunning,
  	eStateTriacOperating,
