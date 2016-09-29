@@ -23,6 +23,8 @@ int8_t adcCnt;
 
 int16_t amtInductiveRepetitions;
 
+int8_t shortCircuitCounter;
+
 int16_t getSecondsDurationTimerRemaining()
 {
 	int16_t res;
@@ -265,6 +267,7 @@ void initInterrupts()
 		adcTick = 0;
 		adcCnt = 0;
 		lastAmpsADCVal = 0;
+		shortCircuitCounter = 0;
 
 		sei();  // start interrupts if not yet started
 }
@@ -400,7 +403,15 @@ void toggleCompletionAlarm()
 
 void checkShortCircuitCondition()
 {
+	if (ampsADCValue() > shortCircuitAlarmAmps) {
+		++shortCircuitCounter;	
+		if (shortCircuitCounter > shortCircuitAlarmSecondBarrier) {	
+			sprintf((char *) &lastFatalErrorString,"i2c com/Err");
+			fatalErrorOccurred = 1;
+		}
 	
-	sprintf((char *) &lastFatalErrorString,"i2c com/Err");
-	fatalErrorOccurred = 1;
+	} else {
+		shortCircuitCounter = 0;
+	}
+	
 }

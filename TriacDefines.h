@@ -42,7 +42,7 @@
 	#define completionAlarmMins10EEPROMpos  23
 	
 	#define shortCircuitAlarmSecondBarrierEEPROMpos    25     // uint8
-	#define shortCircuitAlarmSecsEEPROMpos  26
+	#define shortCircuitAlarm1SecsEEPROMpos  26
 	#define shortCircuitAlarmSecs10EEPROMpos  27
 	#define shortCircuitAlarmSecs100EEPROMpos  28
 
@@ -87,11 +87,11 @@ uint8_t   completionAlarmMins;
 uint8_t   completionAlarmMins10;
 uint8_t   completionAlarmMinutes;
 
+uint16_t  shortCircuitAlarmAmps;
 uint8_t   shortCircuitAlarmSecondBarrier;
-uint8_t   shortCircuitAlarmSecs;
-uint8_t   shortCircuitAlarmSecs10;
-uint8_t   shortCircuitAlarmSecs100;
-uint8_t   shortCircuitAlarmSeconds;
+uint8_t   shortCircuitAlarmAmps1;
+uint8_t   shortCircuitAlarmAmps10;
+uint8_t   shortCircuitAlarmAmps100;
 
 int8_t amps100, amps10, amps, min10, min, sec10, sec;
 
@@ -149,13 +149,13 @@ void storeCompletionAlarmMins(int8_t val);
 
 void storeCompletionAlarmMins10(int8_t val);
 
-void storeShortCiruitAlarmSecondsBarrier(int8_t val);
+void storeShortCiruitAlarmSecondBarrier(int8_t val);
 
-void storeShortCircuitAlarmSecs(int8_t val);
+void storeShortCircuitAlarmAmps1(int8_t val);
 
-void storeShortCircuitAlarmSecs10(int8_t val);
+void storeShortCircuitAlarmAmps10(int8_t val);
 
-void storeShortCircuitAlarmSecs100(int8_t val);
+void storeShortCircuitAlarmAmps100(int8_t val);
 
 void restorePersistentData();
 
