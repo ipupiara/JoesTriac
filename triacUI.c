@@ -285,8 +285,9 @@ void displaySetupAlarmShortCircuitAmps(int8_t kInd)
 void displaySetupAlarmShortCircuitSecondsBarrier(int8_t kInd)
 {
 	lcd_goto(1,setupTab);
-	lcd_write_char(shortCircuitAlarmSecondBarrier);
-	if ((kInd >= 0) &&(kInd <= 0)) lcd_set_cursor(1, setupTab + kInd);
+	lcd_write_char(shortCircuitAlarmSecond10Barrier);
+	lcd_write_char(shortCircuitAlarmSecond1Barrier);
+	if ((kInd >= 0) &&(kInd <= 1)) lcd_set_cursor(1, setupTab + kInd);
 	else lcd_hide_cursor();
 }
 

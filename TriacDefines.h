@@ -6,6 +6,9 @@
 // Yoar Attention please, yoar attention: set Brown out level on 2.7V at least
 // otherwise errors on the eeprom could be observed at startup
 
+// PN, oct 2016, todo: the whole defines component should be refactored and all the data access on eeprom should be simplified 
+// by definitions of the data in a table and generalized methods what would drastically reduce the amount of methods.
+
 #ifndef TriacDefines_H
 	#define TriacDefines_H
 
@@ -41,10 +44,11 @@
 	#define completionAlarmMinsEEPROMpos  22
 	#define completionAlarmMins10EEPROMpos  23
 	
-	#define shortCircuitAlarmSecondBarrierEEPROMpos    25     // uint8
-	#define shortCircuitAlarm1SecsEEPROMpos  26
-	#define shortCircuitAlarmSecs10EEPROMpos  27
-	#define shortCircuitAlarmSecs100EEPROMpos  28
+	#define shortCircuitAlarmSecond1BarrierEEPROMpos    25     // uint8
+	#define shortCircuitAlarmSecond10BarrierEEPROMpos    26     // uint8
+	#define shortCircuitAlarmAmps1EEPROMpos  27
+	#define shortCircuitAlarmAmps10EEPROMpos  28
+	#define shortCircuitAlarmAmps100EEPROMpos  29
 
 	#define calibLowAmps        15
 	#define calibHighAmps       53
@@ -70,10 +74,6 @@ void delay6pnt2d5us(unsigned int n);   // description in TriacDefines.c
 float desiredAmps;
 int16_t desiredTimeS;
 
-// for right now, for simplicity reasons
-// some of the data model stuff is left in the Defines component, 
-//  later refactoring into model component should be considered
-//  if application should grow over certain limits
 
 
 int16_t  calibLowADC;
@@ -87,8 +87,10 @@ uint8_t   completionAlarmMins;
 uint8_t   completionAlarmMins10;
 uint8_t   completionAlarmMinutes;
 
+uint8_t	  shortCircuitAlarmSecondBarrier;
+uint8_t   shortCircuitAlarmSecond1Barrier;
+uint8_t   shortCircuitAlarmSecond10Barrier;
 uint16_t  shortCircuitAlarmAmps;
-uint8_t   shortCircuitAlarmSecondBarrier;
 uint8_t   shortCircuitAlarmAmps1;
 uint8_t   shortCircuitAlarmAmps10;
 uint8_t   shortCircuitAlarmAmps100;
@@ -149,7 +151,9 @@ void storeCompletionAlarmMins(int8_t val);
 
 void storeCompletionAlarmMins10(int8_t val);
 
-void storeShortCiruitAlarmSecondBarrier(int8_t val);
+void storeShortCiruitAlarmSecond1Barrier(int8_t val);
+
+void storeShortCiruitAlarmSecond10Barrier(int8_t val);
 
 void storeShortCircuitAlarmAmps1(int8_t val);
 

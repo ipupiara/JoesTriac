@@ -14,7 +14,7 @@
 #warning "TODO: Work for the future refactoring :-)"
 /*	TODO:
 *	PN 28. SEPT 2016: actually with some more framework and some more  configuration values
-"                     the amount of methods could be drastically reduced. Work for the future refactoring :-)
+"                     the amount of methods could be drastically reduced. Work for future refactoring :-)
 *
 */
 
@@ -272,36 +272,51 @@ void storeCompletionAlarmMins10(int8_t val)
 	calcCompletionAlarmMinutes();
 }
 
-void storeShortCiruitAlarmSecondBarrier(int8_t val)
+
+void calcShortCircuitAlarmSecondBarrier()
 {
-   	shortCircuitAlarmSecondBarrier = val;
-   	eeprom_write_byte((uint8_t *) shortCircuitAlarmSecondBarrierEEPROMpos, val);
+	shortCircuitAlarmSecondBarrier = ((shortCircuitAlarmSecond10Barrier -0x30) *10) 
+	+ (shortCircuitAlarmSecond1Barrier - 0x30);
 }
+
+void storeShortCiruitAlarmSecond1Barrier(int8_t val)
+{
+   	shortCircuitAlarmSecond1Barrier = val;
+   	eeprom_write_byte((uint8_t *) shortCircuitAlarmSecond1BarrierEEPROMpos, val);
+}
+
+void storeShortCiruitAlarmSecond10Barrier(int8_t val)
+{
+	shortCircuitAlarmSecond10Barrier = val;
+	eeprom_write_byte((uint8_t *) shortCircuitAlarmSecond10BarrierEEPROMpos, val);
+}
+
 
 void calcShortCircuitAlarmAmps()
 {
 	shortCircuitAlarmAmps = ((shortCircuitAlarmAmps100 -0x30) *100) + ((shortCircuitAlarmAmps10 - 0x30) * 10)
-								+ shortCircuitAlarmAmps1;
+	+ (shortCircuitAlarmAmps1 - 0x30)  ;
 }
+
 
 void storeShortCircuitAlarmAmps1(int8_t val)
 {
 	shortCircuitAlarmAmps1 = val;
-	eeprom_write_byte((uint8_t *) shortCircuitAlarm1SecsEEPROMpos, val);
+	eeprom_write_byte((uint8_t *) shortCircuitAlarmAmps1EEPROMpos, val);
 	calcShortCircuitAlarmAmps();
 }
 
 void storeShortCircuitAlarmAmps10(int8_t val)
 {
 	shortCircuitAlarmAmps10 = val;
-	eeprom_write_byte((uint8_t *) shortCircuitAlarmSecs10EEPROMpos, val);
+	eeprom_write_byte((uint8_t *) shortCircuitAlarmAmps10EEPROMpos, val);
 	calcShortCircuitAlarmAmps();
 }
 
 void storeShortCircuitAlarmAmps100(int8_t val)
 {
 	shortCircuitAlarmAmps100 = val;
-	eeprom_write_byte((uint8_t *) shortCircuitAlarmSecs100EEPROMpos, val);
+	eeprom_write_byte((uint8_t *) shortCircuitAlarmAmps100EEPROMpos, val);
 	calcShortCircuitAlarmAmps();
 }
 
@@ -346,16 +361,19 @@ void restorePersistentData()
 	completionAlarmOn = eeprom_read_byte((uint8_t*)completionAlarmOnEEPROMpos);
 	if ((completionAlarmOn < 0x00) || (completionAlarmOn > 0x01)) { storeCompletionAlarmOn(0x00);}
 		
-	shortCircuitAlarmAmps1 =  eeprom_read_byte((uint8_t*) shortCircuitAlarm1SecsEEPROMpos);
+	shortCircuitAlarmAmps1 =  eeprom_read_byte((uint8_t*) shortCircuitAlarmAmps1EEPROMpos);
 	if ((shortCircuitAlarmAmps1 < 0x30) || (shortCircuitAlarmAmps1 > 0x39)) { storeShortCircuitAlarmAmps1(0x30);}
-	shortCircuitAlarmAmps10 =  eeprom_read_byte((uint8_t*) shortCircuitAlarmSecs10EEPROMpos);
+	shortCircuitAlarmAmps10 =  eeprom_read_byte((uint8_t*) shortCircuitAlarmAmps10EEPROMpos);
 	if ((shortCircuitAlarmAmps10 < 0x30) || (shortCircuitAlarmAmps10 > 0x39)) { storeShortCircuitAlarmAmps10(0x30);}
-	shortCircuitAlarmAmps100 =  eeprom_read_byte((uint8_t*) shortCircuitAlarmSecs100EEPROMpos);
+	shortCircuitAlarmAmps100 =  eeprom_read_byte((uint8_t*) shortCircuitAlarmAmps100EEPROMpos);
 	if ((shortCircuitAlarmAmps100 < 0x30) || (shortCircuitAlarmAmps100 > 0x39)) { storeShortCircuitAlarmAmps100(0x30);}
 	calcShortCircuitAlarmAmps();
-	shortCircuitAlarmSecondBarrier =  eeprom_read_byte((uint8_t*) shortCircuitAlarmSecondBarrierEEPROMpos);
-	if ((shortCircuitAlarmSecondBarrier < 0x30) || (shortCircuitAlarmSecondBarrier > 0x39)) { storeShortCiruitAlarmSecondBarrier(0x30);}
-
+	shortCircuitAlarmSecond1Barrier =  eeprom_read_byte((uint8_t*) shortCircuitAlarmSecond1BarrierEEPROMpos);
+	if ((shortCircuitAlarmSecond1Barrier < 0x30) || (shortCircuitAlarmSecond1Barrier > 0x39)) { storeShortCiruitAlarmSecond1Barrier(0x30);}
+	shortCircuitAlarmSecond10Barrier =  eeprom_read_byte((uint8_t*) shortCircuitAlarmSecond10BarrierEEPROMpos);
+	if ((shortCircuitAlarmSecond10Barrier < 0x30) || (shortCircuitAlarmSecond10Barrier > 0x39)) { storeShortCiruitAlarmSecond10Barrier(0x30);}
+	calcShortCircuitAlarmSecondBarrier();
+	
 	calibLowADC = eeprom_read_word((uint16_t*) calibLowAdcEEPROMpos);
 	if (calibLowADC == 0xFFFF) calibLowADC = 0x0000;
 	calibHighADC = eeprom_read_word((uint16_t*) calibHighAdcEEPROMpos);
