@@ -45,6 +45,8 @@
 #include <compat/twi.h>
 #include <avr/interrupt.h>
 
+#include "TriacDefines.h"
+
 /* _____PROJECT INCLUDES_____________________________________________________ */
 #include "twi_master.h"
 
@@ -251,7 +253,7 @@ void twi_init(void)
 */
 	printf("TWI init\n");
 
-
+#ifndef noI2C
     // Initialise variable
     twi_data_counter = 0;
 
@@ -264,6 +266,10 @@ void twi_init(void)
 
     // Enable TWI peripheral with interrupt disabled
     TWCR = (0<<TWINT)|(0<<TWEA)|(0<<TWSTA)|(0<<TWSTO)|(0<<TWWC)|(1<<TWEN)|(0<<TWIE);
+#else
+	twi_status = TWI_STATUS_DONE;
+	printf("twi_init  no I2C started\n");
+#endif		
 }
 
 void twi_resetAfterCrash()
@@ -297,6 +303,7 @@ void twi_start_tx(u8_t adr, u8_t *data, u8_t bytes_to_send)
 //        checkDebugBuffer();
     }
 //printf("aft while busy\n");
+#ifndef noI2C
 	twiDataSent = 0;     // added by pn 30. aug 11
 
     // Copy address; clear R/~W bit in SLA+R/W address field
@@ -308,6 +315,10 @@ void twi_start_tx(u8_t adr, u8_t *data, u8_t bytes_to_send)
 
     // Initiate a START condition; Interrupt enabled and flag cleared
     TWCR = (1<<TWINT)|(0<<TWEA)|(1<<TWSTA)|(0<<TWSTO)|(0<<TWWC)|(1<<TWEN)|(1<<TWIE);
+#else
+	twiDataSent = 1;	
+	twi_status = TWI_STATUS_DONE;
+#endif	
 }
 
 int8_t twi_synch_tx(u8_t adr, u8_t *data, u8_t bytes_to_send)
@@ -345,7 +356,7 @@ void twi_start_rx(u8_t adr, u8_t *data, u8_t bytes_to_receive)
 
 	twiDataReceived = 0;   // added by PN 30 aug 11
 
-
+#ifndef noI2C
     // Copy address; set R/~W bit in SLA+R/W address field
     twi_adr = adr | TW_READ;
 
@@ -355,6 +366,14 @@ void twi_start_rx(u8_t adr, u8_t *data, u8_t bytes_to_receive)
 
     // Initiate a START condition; Interrupt enabled and flag cleared
     TWCR = (1<<TWINT)|(0<<TWEA)|(1<<TWSTA)|(0<<TWSTO)|(0<<TWWC)|(1<<TWEN)|(1<<TWIE);
+#else
+	twiDataReceived = 1;
+	twi_status = TWI_STATUS_DONE;
+	for (int8_t i1= 0; i1 < bytes_to_receive; ++ i1)
+	{
+		twi_data[i1] = i1;   // pn, 16. oct 2016 ok for our purpose
+	}
+#endif		
 }
 
 
@@ -374,7 +393,7 @@ uint8_t twi_synch_rx(u8_t adr, u8_t *data, u8_t bytes_to_receive)
 		} else {
 //			succeededRxAmt ++;
 //			checkDebugBuffer();
-//			printf("SUCCESS: synch_rx ok\n"); 
+//		+	printf("SUCCESS: synch_rx ok\n"); 
 		}
 //	}
 //	printf("twi_sync_rx leave res %x s/f %i / %i\n",twi_status, succeededRxAmt,failedRxAmt);
@@ -383,9 +402,12 @@ uint8_t twi_synch_rx(u8_t adr, u8_t *data, u8_t bytes_to_receive)
 
 bool_t twi_busy(void)
 {
+#ifndef noI2C	
     // IF TWI Interrupt is enabled then the peripheral is busy
 	return ( TWCR & (1<<TWIE) );  
-
+#else
+	return 0;
+#endif
 }
 
 bool_t twi_success(void)
@@ -419,12 +441,13 @@ void twi_stop(void)
     {
         return;
     }
-
+#ifndef noI2C
     // Initiate a STOP condition
     TWCR = (1<<TWINT)|(0<<TWEA)|(0<<TWSTA)|(1<<TWSTO)|(0<<TWWC)|(1<<TWEN)|(0<<TWIE);
 
     // Wait until STOP has finished
     LOOP_UNTIL_BIT_IS_LO(TWCR, TWSTO);
+#endif
 }
 #endif
 

@@ -385,6 +385,7 @@ void restorePersistentData()
 
 	debugEvent1Triggered = 0;
     fatalErrorOccurred = 0;
+	printf("restorePersistentData done\n");
 }
 
 

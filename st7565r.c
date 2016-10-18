@@ -17,8 +17,6 @@
 #define LCD_DATA_IODIR DDRB	//io direction for data port
 #define LCD_DATA_PIN PINB    // pins for data port
 
-
-
 void lcd_write(uint8_t dataW, uint8_t toDataIR) 
 {
 #ifdef noScreen

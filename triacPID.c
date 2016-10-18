@@ -8,7 +8,7 @@
 #include "TriacIntr.h"
 #include "TWI_master.h"
 
-#define printfPid
+//#define printfPid
 //#define printfAmps
 
 enum adcScopeEnum
@@ -73,6 +73,7 @@ int8_t getAndTestZeroAdjustState(int8_t jobS)    // called so far only in setAdj
 
 int8_t setAdjustJob(int8_t jobS)    // interface stateclass.c  
 {  int8_t res;
+#ifndef noI2C	
 	int8_t cnt1;
 	res = 0;
 	cnt1= 0;
@@ -81,6 +82,10 @@ int8_t setAdjustJob(int8_t jobS)    // interface stateclass.c
 		res = getAndTestZeroAdjustState(jobS);
 		++cnt1;
 	}
+#else
+	printf("setAdjustJob noI2C is set\n");
+	res = 1;
+#endif	
 	return res;
 }
 
@@ -126,9 +131,9 @@ void persistentZeroAdjustSecondTickJob()
 
 
 void checkTWIZeroAdjustMsg()     // interface , called in stateclass.c -> efEditIdleChecker
-{   
+{
+#ifndef noI2C   
 	int8_t  jobS;
-
 	zeroPotiPos = receiveMessageBuffer[0];
 	jobS =  receiveMessageBuffer[5];
 	if (jobS == fatalError) {
@@ -139,6 +144,9 @@ void checkTWIZeroAdjustMsg()     // interface , called in stateclass.c -> efEdit
 	 	sendZeroAdjustMsg(volatileZeroAdjust);  
 		// if ever a reset should happen on AtTiny (eg. brown out), send job again		
 	}
+#else
+	printf("checkTWIZeroAdjustMsg  noI2C is defined\n");
+#endif	
 }
 
 

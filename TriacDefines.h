@@ -15,9 +15,13 @@
 
 #include <inttypes.h>
 
-//	#define noScreen				// for debugging without screen
-//	#define jtagDebugKeyboardMode	// tobe set if jtag debug is used, it will divert the serial input (terminal)
-									//  to the keyboard and leave the keyboard port (port C) free for jtag
+#define jtDebugMode 
+
+#ifdef jtDebugMode
+	#define noI2C					// for debugging without I2C
+	#define noScreen				// for debugging without screen
+	#define jtagDebugKeyboardMode	// tobe set if jtag debug is used, it will divert the serial input (terminal)									//  to the keyboard and leave the keyboard port (port C) free for jtag
+#endif									
 									
 
 	#define maxSecsPossible  0x7FFF
