@@ -64,8 +64,6 @@ void displayCalibrateZeroPotiPos();
 
 void displayVoltage();
 
-char lastFatalErrorString [20];
-
 void displayFatalError();
 
 int16_t currentVarVal;

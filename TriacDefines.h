@@ -15,7 +15,7 @@
 
 #include <inttypes.h>
 
-#define jtDebugMode 
+//#define jtDebugMode 
 
 #ifdef jtDebugMode
 	#define noI2C					// for debugging without I2C
@@ -110,6 +110,9 @@ int8_t debugEvent1Triggered;    // signals that a debug event was triggered some
 								// debugging without keypad (JTAG) to go into a specific state automatically.
 
 int8_t fatalErrorOccurred;
+
+char lastFatalErrorString [20];
+
 
 void calcDesiredAmps();
 

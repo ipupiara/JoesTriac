@@ -23,6 +23,11 @@ int8_t lastCharPressed;
 
 #define keypadSignalDelayFaktor  8
 
+// #define counting
+
+#ifdef counting
+  int64_t pcintCnt;
+#endif
 int8_t getKeypadState()
 {
 	int8_t ch;
@@ -78,14 +83,28 @@ int8_t getKeypadState()
 }
 
 int8_t lastValueZero; 
-int16_t pcintCnt;
+
+
+#ifdef counting
+	void testIncCnt()
+	{
+		pcintCnt++;
+		if (pcintCnt == INT64_MAX)  {
+			sprintf((char *) &lastFatalErrorString,"pcintCnt overflow\n");
+			fatalErrorOccurred = 1;
+		}
+	}
+#endif
+
 
 int16_t  getKeybIntCnt()
 {
-	int16_t res;
-	cli();
+	int16_t res= 0;
+#ifdef counting
+	cli();	
 	res = pcintCnt;
 	sei();
+#endif	
 	return res;
 }
 
@@ -131,7 +150,9 @@ void initKeyPad()
 {
 	lastCharPressed = 0;
 	lastValueZero = 1;
+#ifdef counting	
 	pcintCnt = 0;
+#endif	
 	
 #ifdef jtagDebugKeyboardMode
 	printf("jtagDebugKeyboardMode\n");
@@ -151,7 +172,11 @@ ISR(PCINTVECT)
 	cli();
 	PCICR = 0b0000000;  
 	IntrMsk = 0x00; 
-	++ pcintCnt;
+
+#ifdef counting
+	testIncCnt();
+#endif
+	
 	sei(); 
 	
 	if ((keyPin & 0xF0))  {  // any key pressed (toggle down)
@@ -182,6 +207,11 @@ ISR(USART0_RX_vect)
 {
 	int8_t rxCh;
 	rxCh = UDR0;
+	
+#ifdef counting
+testIncCnt();
+#endif	
+
 	switch (rxCh)
 	{
 		case '1' :	{
