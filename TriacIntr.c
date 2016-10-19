@@ -268,7 +268,6 @@ void initInterrupts()
 		adcCnt = 0;
 		lastAmpsADCVal = 0;
 		shortCircuitCounter = 0;
-
 		sei();  // start interrupts if not yet started
 }
 
@@ -406,7 +405,7 @@ void checkShortCircuitCondition()
 	if (ampsADCValue() > shortCircuitAlarmAmps) {
 		++shortCircuitCounter;	
 		if (shortCircuitCounter > shortCircuitAlarmSecondBarrier) {	
-			sprintf((char *) &lastFatalErrorString,"i2c com/Err");
+			sprintf((char *) &lastFatalErrorString,"short circuit");
 			fatalErrorOccurred = 1;
 		}
 	

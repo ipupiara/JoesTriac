@@ -153,7 +153,9 @@ int main(void)
 //				int8_t startp =(ev.evType==evStartPressed);
 //				int8_t stopp = (ev.evType==evStopPressed);
 //				printf("ev fired key : %c, startEv:%i, stopEv:%i\n",ky,startp,stopp);
-				printf("ev fired key : %c\n",ky);
+				int8_t ch1 = ky;
+				printf("ev keypressed: %i\n",ch1);
+
 			#endif 
 //			printf("ev fired key : %x, startEv:%i, stopEv:%i\n",ky,(ev.evType==evStartPressed),(ev.evType==evStopPressed));	
 			processTriacEvent(&SJoesTriacStateChart,&ev);	

@@ -660,6 +660,9 @@ uStInt evEditAmpsChecker(void)
 	}
 
 	if (currentEvent->evType == evCharEntered) {
+		
+	//  TODO:	editChar(currentEvent,storeAmps100,keyInd,3,Amps);  //( , , amps)  struct editLine (char,amtChar,zeroPos,storeMethod[])
+	//
 
 		if ((currentEvent->evData.keyCode <= kp9) && (currentEvent->evData.keyCode >= kp0)) {
 			switch (keyInd)

@@ -197,6 +197,8 @@ void displayEditDuration()
 
 #define ampsTab  2
 
+// TODO   diplayChar(1,ampsTap,kInd,amtchar, char[]+
+
 void displayAmps(int8_t kInd)
 {  
 	lcd_goto(1,ampsTab);
@@ -216,6 +218,8 @@ void displayTime(int8_t kInd)
 	lcd_write_char(min);
 	lcd_write_char(0x6D);
 	lcd_write_char(sec10);
+	
+		
 	lcd_write_char(sec);
 	if ((kInd >= 0) &&(kInd <= 4)) lcd_set_cursor(1, timeTab + kInd);
 		else lcd_hide_cursor();	

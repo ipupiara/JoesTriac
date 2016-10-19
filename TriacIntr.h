@@ -11,6 +11,8 @@
 int8_t durationTimerReachead;
 int8_t runningSecondsTick;
 
+int64_t  secondCount;
+
 int8_t adcTick;
 void startAmpsADC();
 void stopAmpsADC();
