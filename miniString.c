@@ -5,18 +5,24 @@
  *  Author: mira
  */ 
 
+/*
+
 #include <avr/io.h>
 #include <stdio.h>
+#include "StateClass.h"
+#include "miniString.h"
+
 //#include <iostream.h>
 #include "TriacDefines.h"
 #include "miniString.h"
+
 
 
 calcMenthodType  calcMethod;
 displayMethodType  displayMethod;
 int8_t       keyInd;
 int16_t		miniStringArrPos;
-int8_t       busy;
+int8_t       miniStringBusy;
 
 
 
@@ -32,6 +38,7 @@ void eepromWriteByte (uint16_t adr, uint8_t val)
 //		printf("eepromWriteByte ok returned %X\n",checkRes);
 	}
 }
+
 
 int16_t calcMiniString(int16_t miniStringArrPos)
 {
@@ -59,16 +66,54 @@ void editMiniString(int16_t miniStrArrPos, calcMenthodType calcMeth, displayMeth
 	miniStringArrPos =	miniStrArrPos;
 	calcMethod = calcMeth;
 	displayMethod = dispMeth;
-	busy = 1;
-	displayMethod(-1);
+	miniStringBusy = 1;
+	keyInd = 0;
+	displayMethod(keyInd);
 }
 
 void endEditMiniString()
 {
-	busy = 0;
+	displayMethod(-1);
+	miniStringBusy = 0;
 }
 
 void initMiniStringComponent()
 {
-	busy = 0;
+	miniStringBusy = 0;
 }
+
+bool processMiniStringTriacEvent(CJoesTriacEvent* ev)
+{
+	bool res;
+	res = uStIntNoMatch;
+	if (miniStringBusy){
+		if (currentEvent->evType == evCharEntered) {
+			if ((currentEvent->evData.keyCode <= kp9) && (currentEvent->evData.keyCode >= kp0)) {
+				if ((keyInd >= 0) && (keyInd < miniStringArray[miniStringArrPos].length) )  {
+					EEPROM_write(miniStringArray[miniStringArrPos].eepromPos + keyInd, currentEvent->evData.keyCode);
+					calcMethod();
+				}
+				keyInd ++;
+			}
+			displayMethod(keyInd);
+			res =  uStIntHandlingDone;
+		}
+		
+	}
+	return (res);
+}
+
+
+
+int16_t calcMiniStringUIntValue(int16_t miniSArrPos)
+{
+	int16_t res = 0;
+	
+	for (int8_t i1 = 0; i1 < miniStringArray[miniStringArrPos].length) {
+		res =  (res * 10) +   EEPROM_read( miniStringArray[miniStringArrPos].eepromPos );
+	}
+	
+	return res;
+}
+
+*/

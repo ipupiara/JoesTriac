@@ -173,11 +173,21 @@ void storeCompletionAlarmMins(int8_t val);
 
 void storeCompletionAlarmMins10(int8_t val);
 
+int16_t calcShortCircuitAlarmSecondBarrier();
+
 void storeShortCiruitAlarmSecond1Barrier(int8_t val);
 
 void storeShortCiruitAlarmSecond10Barrier(int8_t val);
 
+// void calcShortCircuitAlarmAmps();
+
+
+
+int16_t calcShortCircuitAlarmAmps()
+
 void storeShortCircuitAlarmAmps1(int8_t val);
+
+int16_t calcShortCircuitAlarmSecondBarrier()
 
 void storeShortCircuitAlarmAmps10(int8_t val);
 

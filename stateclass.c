@@ -7,7 +7,8 @@
 #include "TStatechart.h"
 #include "StateClass.h"
 #include "TriacDefines.h"
-
+#include "miniString.h"
+#include "StateClass.h"
 
 extern const uStInt uStIntHandlingDone;
 extern const uStInt uStIntNoMatch;
@@ -1023,22 +1024,23 @@ uStInt evSetupShortCircuitAlarmSecondBarrierChecker(void)
 	return (res);
 }
 
-void entrySetupShortCircuitAlarmBarrierState(void)
+void entrySetupShortCircuitAlarmSecondBarrierState(void)
 {
 	//	printf("entry I\n");
 	keyInd = 0;
 	numericSetupInputHint();
+	editMiniString(shortCircuitAlarmAmpsArrPos
 	displaySetupAlarmShortCircuitSecondsBarrier(keyInd);
 }
 
-void exitSetupShortCircuitAlarmBarrierState(void)
+void exitSetupShortCircuitAlamSecondBarrierState(void)
 {
 	//	printf("exit I\n");
 	displaySetupAlarmShortCircuitSecondsBarrier(-1);
 }
 
 
-uStInt evSetupShortCuircuitAmpsChecker(void)
+uStInt evSetupShortCuircuitAlarmSecondBarrierChecker(void)
 {
 	uStInt res;
 	res = uStIntNoMatch;
@@ -1059,7 +1061,7 @@ uStInt evSetupShortCuircuitAmpsChecker(void)
 		res =  uStIntHandlingDone;
 	}
 
-	if (currentEvent->evType == evCharEntered) {
+/*	if (currentEvent->evType == evCharEntered) {
 		if ((currentEvent->evData.keyCode <= kp9) && (currentEvent->evData.keyCode >= kp0)) {
 			switch (keyInd)
 			{
@@ -1082,7 +1084,7 @@ uStInt evSetupShortCuircuitAmpsChecker(void)
 			res =  uStIntHandlingDone;
 		}
 	}
-
+	*/
 	return (res);
 }
 
@@ -1416,14 +1418,14 @@ xStateType xaStates[eNumberOfStates] = {
 		0,
 		evSetupShortCircuitAlarmSecondBarrierChecker,
 		tfNull,
-		entrySetupShortCircuitAlarmBarrierState,
-	exitSetupShortCircuitAlarmBarrierState},
+		entrySetupShortCircuitAlarmSecondBarrierState,
+	exitSetupShortCircuitAlamSecondBarrierState},
  
 	{eStateSetupShortCircuitAmps,
 		 eStateSetupShortCircuit,
 		 -1,
 		 0,
-		 evSetupShortCuircuitAmpsChecker,
+		 evSetupShortCuircuitAlarmSecondBarrierChecker,
 		 tfNull,
 		 entrySetupShortCuircuitAmpsState,
 	 exitSetupShortCuircuitAmpsState},

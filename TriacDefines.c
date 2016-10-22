@@ -270,10 +270,10 @@ void storeCompletionAlarmMins10(int8_t val)
 }
 
 
-void calcShortCircuitAlarmSecondBarrier()
+int16_t calcShortCircuitAlarmSecondBarrier()
 {
-	shortCircuitAlarmSecondBarrier = ((shortCircuitAlarmSecond10Barrier -0x30) *10) 
-	+ (shortCircuitAlarmSecond1Barrier - 0x30);
+//	shortCircuitAlarmSecondBarrier = calcMiniStringUIntValue(shortCircuitAlarmSecondBarrierArrPos);
+	return shortCircuitAlarmSecondBarrier;
 }
 
 void storeShortCiruitAlarmSecond1Barrier(int8_t val)
@@ -288,13 +288,19 @@ void storeShortCiruitAlarmSecond10Barrier(int8_t val)
 	eeprom_write_byte( shortCircuitAlarmSecond10BarrierEEPROMpos, val);
 }
 
+int16_t calcShortCircuitAlarmAmps()
+{
+//	shortCircuitAlarmAmps = calcMiniStringUIntValue(shortCircuitAlarmAmpsArrPos);
+	return shortCircuitAlarmAmps;
+}
 
+/*
 void calcShortCircuitAlarmAmps()
 {
 	shortCircuitAlarmAmps = ((shortCircuitAlarmAmps100 -0x30) *100) + ((shortCircuitAlarmAmps10 - 0x30) * 10)
 	+ (shortCircuitAlarmAmps1 - 0x30)  ;
 }
-
+*/
 
 void storeShortCircuitAlarmAmps1(int8_t val)
 {

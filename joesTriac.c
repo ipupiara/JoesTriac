@@ -10,6 +10,7 @@
 #include <avr/io.h>
 #include <stdio.h>
 #include <string.h>
+/*
 #include "st7565r.h"
 #include "TriacDefines.h"
 #include "triacPID.h"
@@ -18,6 +19,8 @@
 #include "TriacIntr.h"
 #include "TriacKeyPad.h"
 #include "twi_master.h"
+
+*/
 
 
 void USART_Init( unsigned int baud )
@@ -57,7 +60,8 @@ static int uart_putchar(char c, FILE *stream)
 
 int main(void)
 {
-	CJoesTriacEvent ev;
+	int res = 0;
+/*	CJoesTriacEvent ev;
 	int8_t ky;
 //	int16_t dummyI;
 
@@ -81,7 +85,7 @@ int main(void)
 	initUI();
 
 	startStateCharts();	
-
+*/
 /*	int dummyI;
 	dummyI = 0;
 	while(1) {
@@ -94,9 +98,9 @@ int main(void)
 	}   
 */
 
-
-/*	 ev.evType = evAstPressed;
-	processTriacEvent(&SJoesTriacStateChart,&ev);  */
+/*
+//	 ev.evType = evAstPressed;
+//	processTriacEvent(&SJoesTriacStateChart,&ev);  
 
 	while (1)
 	{
@@ -158,6 +162,7 @@ int main(void)
 
 			#endif 
 //			printf("ev fired key : %x, startEv:%i, stopEv:%i\n",ky,(ev.evType==evStartPressed),(ev.evType==evStopPressed));	
+			processMiniStringTriacEvent(&ev);
 			processTriacEvent(&SJoesTriacStateChart,&ev);	
 		}
 		if (stableZeroAdjReached) {
@@ -165,7 +170,7 @@ int main(void)
 			ev.evType = evZeroSignalOK;
 			processTriacEvent(&SJoesTriacStateChart,&ev);	
 		}
-	
+	*/
 
 /* 		
 	if (debugEvent1Triggered) {
@@ -175,6 +180,8 @@ int main(void)
 			ev.evType = evAstPressed;
 			processTriacEvent(&SJoesTriacStateChart,&ev);
 		}  
-		*/
+		
     }
+	*/
+	return res;
 }
