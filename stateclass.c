@@ -930,22 +930,6 @@ uStInt evSetupShortCircuitChecker(void)
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
 	}
-	if (currentEvent->evType==evAstPressed) {
-		//		printf("\ncheck for event in State evStateIdle amps");
-			
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupShortCircuitAmps);
-		// No event action.
-		END_EVENT_HANDLER(PJoesTriacStateChart);
-		res =  uStIntHandlingDone;
-	}
-	if (currentEvent->evType==evNumPressed) {
-		//		printf("\ncheck for event in State evStateIdle dur");
-
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupShortCircuitBarrier);
-		// No event action.
-		END_EVENT_HANDLER(PJoesTriacStateChart);
-		res =  uStIntHandlingDone;
-	}
 	return (res);
 }
 
@@ -965,6 +949,22 @@ uStInt evSetupShortCircuitIdleChecker(void)
 {
 	uStInt res;
 	res = uStIntNoMatch;
+	if (currentEvent->evType==evAstPressed) {
+		//		printf("\ncheck for event in State evStateIdle amps");
+			
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupShortCircuitAmps);
+		// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
+	if (currentEvent->evType==evNumPressed) {
+		//		printf("\ncheck for event in State evStateIdle dur");
+
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupShortCircuitBarrier);
+		// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
 	return (res);
 }
 
@@ -986,9 +986,24 @@ uStInt evSetupShortCircuitAlarmSecondBarrierChecker(void)
 {
 	uStInt res;
 	res = uStIntNoMatch; 
+	if (currentEvent->evType==evAstPressed) {
+		//		printf("\ncheck for event in State evStateIdle amps");
+				
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupShortCircuitAmps);
+		// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
+	if (currentEvent->evType==evNumPressed) {
+		//		printf("\ncheck for event in State evStateIdle dur");
+
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupShortCircuitIdle);
+		// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
 
 	if (currentEvent->evType == evCharEntered) {
-
 		if ((currentEvent->evData.keyCode <= kp9) && (currentEvent->evData.keyCode >= kp0)) {
 			switch (keyInd)
 			{
@@ -1027,9 +1042,24 @@ uStInt evSetupShortCuircuitAmpsChecker(void)
 {
 	uStInt res;
 	res = uStIntNoMatch;
+	if (currentEvent->evType==evAstPressed) {
+		//		printf("\ncheck for event in State evStateIdle amps");
+					
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupShortCircuitIdle);
+		// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
+	if (currentEvent->evType==evNumPressed) {
+		//		printf("\ncheck for event in State evStateIdle dur");
+
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupShortCircuitBarrier);
+		// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
 
 	if (currentEvent->evType == evCharEntered) {
-
 		if ((currentEvent->evData.keyCode <= kp9) && (currentEvent->evData.keyCode >= kp0)) {
 			switch (keyInd)
 			{
@@ -1381,7 +1411,7 @@ xStateType xaStates[eNumberOfStates] = {
 	exitSetupShortCircuitIdleState},
 
 	{eStateSetupShortCircuitBarrier,
-		eStateSetup,
+		eStateSetupShortCircuit,
 		-1,
 		0,
 		evSetupShortCircuitAlarmSecondBarrierChecker,
@@ -1390,12 +1420,12 @@ xStateType xaStates[eNumberOfStates] = {
 	exitSetupShortCircuitAlarmBarrierState},
  
 	{eStateSetupShortCircuitAmps,
-	 eStateSetup,
-	 -1,
-	 0,
-	 evSetupShortCuircuitAmpsChecker,
-	 tfNull,
-	 entrySetupShortCuircuitAmpsState,
+		 eStateSetupShortCircuit,
+		 -1,
+		 0,
+		 evSetupShortCuircuitAmpsChecker,
+		 tfNull,
+		 entrySetupShortCuircuitAmpsState,
 	 exitSetupShortCuircuitAmpsState},
 
 	{eStateTriacRunning,

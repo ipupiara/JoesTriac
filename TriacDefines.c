@@ -366,10 +366,10 @@ void restorePersistentData()
 	shortCircuitAlarmAmps10 =  eeprom_read_byte((uint8_t*) shortCircuitAlarmAmps10EEPROMpos);
 	if ((shortCircuitAlarmAmps10 < 0x30) || (shortCircuitAlarmAmps10 > 0x39)) { storeShortCircuitAlarmAmps10(0x30);}
 	shortCircuitAlarmAmps100 =  eeprom_read_byte((uint8_t*) shortCircuitAlarmAmps100EEPROMpos);
-	if ((shortCircuitAlarmAmps100 < 0x30) || (shortCircuitAlarmAmps100 > 0x39)) { storeShortCircuitAlarmAmps100(0x30);}
+	if ((shortCircuitAlarmAmps100 < 0x30) || (shortCircuitAlarmAmps100 > 0x39)) { storeShortCircuitAlarmAmps100(0x31);}
 	calcShortCircuitAlarmAmps();
 	shortCircuitAlarmSecond1Barrier =  eeprom_read_byte((uint8_t*) shortCircuitAlarmSecond1BarrierEEPROMpos);
-	if ((shortCircuitAlarmSecond1Barrier < 0x30) || (shortCircuitAlarmSecond1Barrier > 0x39)) { storeShortCiruitAlarmSecond1Barrier(0x30);}
+	if ((shortCircuitAlarmSecond1Barrier < 0x30) || (shortCircuitAlarmSecond1Barrier > 0x39)) { storeShortCiruitAlarmSecond1Barrier(0x33);}
 	shortCircuitAlarmSecond10Barrier =  eeprom_read_byte((uint8_t*) shortCircuitAlarmSecond10BarrierEEPROMpos);
 	if ((shortCircuitAlarmSecond10Barrier < 0x30) || (shortCircuitAlarmSecond10Barrier > 0x39)) { storeShortCiruitAlarmSecond10Barrier(0x30);}
 	calcShortCircuitAlarmSecondBarrier();
