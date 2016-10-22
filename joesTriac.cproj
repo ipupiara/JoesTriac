@@ -104,39 +104,6 @@
   </PropertyGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
   <ItemGroup>
-    <Compile Include="miniString.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="miniString.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="st7565r.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="StateClass.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="TriacDefines.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="TriacIntr.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="TriacKeyPad.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="triacPID.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="triacUI.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="tstatechart.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="twi_master.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="common.h">
       <SubType>compile</SubType>
     </Compile>
@@ -145,50 +112,65 @@
       <CustomCompilationSetting Condition="'$(Configuration)' == 'default'">
       </CustomCompilationSetting>
     </Compile>
+    <Compile Include="miniString.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="miniString.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="st7565r.c">
       <SubType>compile</SubType>
-      <CustomCompilationSetting Condition="'$(Configuration)' == 'default'">
-      </CustomCompilationSetting>
+    </Compile>
+    <Compile Include="st7565r.h">
+      <SubType>compile</SubType>
     </Compile>
     <Compile Include="stateclass.c">
       <SubType>compile</SubType>
-      <CustomCompilationSetting Condition="'$(Configuration)' == 'default'">
-      </CustomCompilationSetting>
     </Compile>
-    <Compile Include="TriacIntr.c">
+    <Compile Include="StateClass.h">
       <SubType>compile</SubType>
-      <CustomCompilationSetting Condition="'$(Configuration)' == 'default'">
-      </CustomCompilationSetting>
-    </Compile>
-    <Compile Include="TriacKeyPad.c">
-      <SubType>compile</SubType>
-      <CustomCompilationSetting Condition="'$(Configuration)' == 'default'">
-      </CustomCompilationSetting>
-    </Compile>
-    <Compile Include="triacPID.c">
-      <SubType>compile</SubType>
-      <CustomCompilationSetting Condition="'$(Configuration)' == 'default'">
-      </CustomCompilationSetting>
-    </Compile>
-    <Compile Include="triacUI.c">
-      <SubType>compile</SubType>
-      <CustomCompilationSetting Condition="'$(Configuration)' == 'default'">
-      </CustomCompilationSetting>
-    </Compile>
-    <Compile Include="TStatechart.c">
-      <SubType>compile</SubType>
-      <CustomCompilationSetting Condition="'$(Configuration)' == 'default'">
-      </CustomCompilationSetting>
     </Compile>
     <Compile Include="TriacDefines.c">
       <SubType>compile</SubType>
-      <CustomCompilationSetting Condition="'$(Configuration)' == 'default'">
-      </CustomCompilationSetting>
+    </Compile>
+    <Compile Include="TriacDefines.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TriacIntr.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TriacIntr.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TriacKeyPad.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TriacKeyPad.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="triacPID.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="triacPID.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="triacUI.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="triacUI.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TStatechart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tstatechart.h">
+      <SubType>compile</SubType>
     </Compile>
     <Compile Include="twi_master.c">
       <SubType>compile</SubType>
-      <CustomCompilationSetting Condition="'$(Configuration)' == 'default'">
-      </CustomCompilationSetting>
+    </Compile>
+    <Compile Include="twi_master.h">
+      <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
 </Project>

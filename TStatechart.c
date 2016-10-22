@@ -4,7 +4,9 @@
 #include "TStatechart.h"
 
 const uStInt	uStIntNoMatch = 0x80,
-				uStIntHandlingDone = 0x40;
+uStIntHandlingDone = 0x40;
+
+
 
 /*
 void verifyStateNames(TStatechart* t)

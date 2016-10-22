@@ -36,7 +36,6 @@ typedef  int8_t  stInt;
 #define maxDepth 12
 
 
-
 typedef struct
 {
 	stInt	m_vi32Ancestry[maxDepth];

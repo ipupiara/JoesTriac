@@ -1029,14 +1029,12 @@ void entrySetupShortCircuitAlarmSecondBarrierState(void)
 	//	printf("entry I\n");
 	keyInd = 0;
 	numericSetupInputHint();
-	editMiniString(shortCircuitAlarmAmpsArrPos
-	displaySetupAlarmShortCircuitSecondsBarrier(keyInd);
+	editMiniString(shortCircuitAlarmAmpsArrPos,calcShortCircuitAlarmAmps,displaySetupAlarmShortCircuitSecondsBarrier);
 }
 
 void exitSetupShortCircuitAlamSecondBarrierState(void)
 {
-	//	printf("exit I\n");
-	displaySetupAlarmShortCircuitSecondsBarrier(-1);
+	endEditMiniString();
 }
 
 
@@ -1061,30 +1059,6 @@ uStInt evSetupShortCuircuitAlarmSecondBarrierChecker(void)
 		res =  uStIntHandlingDone;
 	}
 
-/*	if (currentEvent->evType == evCharEntered) {
-		if ((currentEvent->evData.keyCode <= kp9) && (currentEvent->evData.keyCode >= kp0)) {
-			switch (keyInd)
-			{
-				case 0:
-				storeShortCircuitAlarmAmps100(currentEvent->evData.keyCode);
-				break;
-				case 1:
-				storeShortCircuitAlarmAmps10(currentEvent->evData.keyCode);
-				break;
-				case 2:
-				storeShortCircuitAlarmAmps1(currentEvent->evData.keyCode);
-		
-				BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupShortCircuitIdle);
-				
-				END_EVENT_HANDLER(PJoesTriacStateChart);
-			}
-			keyInd ++;
-			displaySetupAlarmShortCircuitAmps(keyInd);  // if keyInd = 3, dispAmps can be done again in next State, no matter
-			
-			res =  uStIntHandlingDone;
-		}
-	}
-	*/
 	return (res);
 }
 

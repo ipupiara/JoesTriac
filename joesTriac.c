@@ -10,7 +10,7 @@
 #include <avr/io.h>
 #include <stdio.h>
 #include <string.h>
-/*
+
 #include "st7565r.h"
 #include "TriacDefines.h"
 #include "triacPID.h"
@@ -19,8 +19,8 @@
 #include "TriacIntr.h"
 #include "TriacKeyPad.h"
 #include "twi_master.h"
+#include "miniString.h"
 
-*/
 
 
 void USART_Init( unsigned int baud )
@@ -61,7 +61,7 @@ static int uart_putchar(char c, FILE *stream)
 int main(void)
 {
 	int res = 0;
-/*	CJoesTriacEvent ev;
+	CJoesTriacEvent ev;
 	int8_t ky;
 //	int16_t dummyI;
 
@@ -74,8 +74,10 @@ int main(void)
 	
 	stdout = &mystdout;
 	printf("\nSTARTUP\n");
+	
 	restorePersistentData();
 	lcd_init();
+  initMiniStringComponent();
 	initKeyPad();   
 
 	initInterrupts();
@@ -85,7 +87,7 @@ int main(void)
 	initUI();
 
 	startStateCharts();	
-*/
+
 /*	int dummyI;
 	dummyI = 0;
 	while(1) {
@@ -98,7 +100,7 @@ int main(void)
 	}   
 */
 
-/*
+
 //	 ev.evType = evAstPressed;
 //	processTriacEvent(&SJoesTriacStateChart,&ev);  
 
@@ -170,7 +172,7 @@ int main(void)
 			ev.evType = evZeroSignalOK;
 			processTriacEvent(&SJoesTriacStateChart,&ev);	
 		}
-	*/
+	
 
 /* 		
 	if (debugEvent1Triggered) {
@@ -180,8 +182,8 @@ int main(void)
 			ev.evType = evAstPressed;
 			processTriacEvent(&SJoesTriacStateChart,&ev);
 		}  
-		
+	*/	
     }
-	*/
+	
 	return res;
 }

@@ -9,12 +9,14 @@
 #ifndef MINISTRING_H_
 #define MINISTRING_H_
 
+#include "StateClass.h"
+
 typedef struct  {
 	int16_t   eepromPos;
 	int8_t    length;
 } miniString ;
 
-/*
+
 typedef int16_t (*calcMenthodType)(void);
 
 typedef void(*displayMethodType)(int8_t);
@@ -26,11 +28,10 @@ void endEditMiniString();
 
 void initMiniStringComponent();
 
-// int16_t calcMiniString(int16_t miniStringArrPos);
+int16_t calcMiniString(int16_t miniStringArrPos);
 
 bool processMiniStringTriacEvent(CJoesTriacEvent* ev);
 
-int16_t calcMiniStringUIntValue(int16_t miniSArrPos);
 
-*/
+
 #endif /* MINISTRING_H_ */
