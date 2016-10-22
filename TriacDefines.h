@@ -8,12 +8,15 @@
 
 // PN, oct 2016, todo: the whole defines component should be refactored and all the data access on eeprom should be simplified 
 // by definitions of the data in a table and generalized methods what would drastically reduce the amount of methods.
+// also the edit methods should be refactored to string edit methods instead of the current character by character mode,
+// which was grown out of the beginning, where just desiredAmps and deriredDuration had to be edited on the running screen.
 
 #ifndef TriacDefines_H
 	#define TriacDefines_H
 
 
 #include <inttypes.h>
+#include "miniString.h"
 
 //#define jtDebugMode 
 
@@ -29,8 +32,6 @@
 
 	#define JT_F_CPU 11095200	
 	
-//	#define calibLowCmsEEPROMpos   0
-//	#define calibHighCmsEEPROMpos  2   // both int16
 	#define amps100EEPROMpos    4   // 8-bit
 	#define amps10EEPROMpos    5   // 8-bit
 	#define ampsEEPROMpos    6   // 8-bit
@@ -56,6 +57,17 @@
 
 	#define calibLowAmps        15
 	#define calibHighAmps       53
+
+
+
+
+miniString  miniStringArray [2];
+	
+	#define shortCircuitAlarmSecondBarrierArrPos   1
+	#define shortCircuitAlarmAmpsArrPos  2
+
+
+
 
 	#define triggerDelayMaxTcnt2 810     // works properly with 50 Hz Ac and 11 Mhz
 	
@@ -113,6 +125,9 @@ int8_t fatalErrorOccurred;
 
 char lastFatalErrorString [20];
 
+void EEPROM_write(unsigned int uiAddress, unsigned char ucData);
+
+unsigned char EEPROM_read(unsigned int uiAddress);
 
 void calcDesiredAmps();
 

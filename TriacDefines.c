@@ -8,6 +8,11 @@
 #include <avr/eeprom.h>
 #else
 
+
+miniString  miniStringArray [2]  = {{25,2},{27 ,3}};
+
+
+
 // ATTENTION: use of EEPROM needs BOD Level of at least 2.7 V, otherwise EEPROM memory
 // is likely to crash on restore when done at mcu startup
 

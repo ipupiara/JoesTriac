@@ -104,6 +104,12 @@
   </PropertyGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
   <ItemGroup>
+    <Compile Include="miniString.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="miniString.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="st7565r.h">
       <SubType>compile</SubType>
     </Compile>
