@@ -14,8 +14,18 @@ typedef struct  {
 	int8_t    length;
 } miniString ;
 
+typedef void(*calcMenthodType)(void);
 
-int16_t calcMiniString(int16_t eepromPos);
+typedef void(*displayMethodType)(int8_t);
+
+
+void editMiniString(int16_t miniStringArrayPos, calcMenthodType calcMeth, displayMethodType dispMeth);
+
+void endEditMiniString();
+
+void initMiniStringComponent();
+
+// int16_t calcMiniString(int16_t miniStringArrPos);
 
 
 

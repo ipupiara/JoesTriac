@@ -2,12 +2,6 @@
 #include <stdio.h>
 #include "TriacDefines.h"
 #include "TriacIntr.h"
-#define ownEepromMethods 
-
-#ifndef ownEepromMethods
-#include <avr/eeprom.h>
-#else
-
 
 miniString  miniStringArray [2]  = {{25,2},{27 ,3}};
 
@@ -60,7 +54,7 @@ unsigned char EEPROM_read(unsigned int uiAddress)
 	return EEDR;
 }
 
-void eeprom_write_byte (uint8_t *adr, uint8_t val)
+void eeprom_write_byte (uint16_t adr, uint8_t val)
 {
 	uint8_t checkRes = 0;
 	uint16_t adre = (uint16_t) adr;
@@ -105,8 +99,6 @@ void eeprom_write_word(uint16_t* adr, uint16_t val)
 	EEPROM_write(adre + 1,*((unsigned char*)&val + 1));
 }
 
-
-#endif
 
 void delayEmptyProc ()
 {
@@ -160,7 +152,7 @@ void calcDesiredAmps()
 void storeAmps100(int8_t val)
 {
 	printf("storeAmps100 %X\n",val);
-	eeprom_write_byte((uint8_t*)amps100EEPROMpos,val);
+	eeprom_write_byte(amps100EEPROMpos,val);
 	amps100 = val;
 	calcDesiredAmps();
 }
@@ -168,7 +160,7 @@ void storeAmps100(int8_t val)
 void storeAmps10(int8_t val)
 {
 	printf("storeAmps10 %X\n",val);
-	eeprom_write_byte((uint8_t*)amps10EEPROMpos,val);
+	eeprom_write_byte(amps10EEPROMpos,val);
 	amps10 = val;	
 	calcDesiredAmps();
 }
@@ -176,7 +168,7 @@ void storeAmps10(int8_t val)
 void storeAmps(int8_t val)
 {
 	printf("storeAmps %X\n",val);
-	eeprom_write_byte((uint8_t*)ampsEEPROMpos,val);
+	eeprom_write_byte(ampsEEPROMpos,val);
 	amps = val;	
 	calcDesiredAmps();
 }
@@ -188,28 +180,28 @@ void calcDesiredTime()
 
 void storeMin10(int8_t val)
 {
-	eeprom_write_byte((uint8_t*)min10EEPROMpos,val);
+	eeprom_write_byte(min10EEPROMpos,val);
 	min10 = val;	
 	calcDesiredTime();
 }
 
 void storeMin(int8_t val)
 {
-	eeprom_write_byte((uint8_t*)minEEPROMpos,val);
+	eeprom_write_byte(minEEPROMpos,val);
 	min = val;	
 	calcDesiredTime();
 }
 
 void storeSec10(int8_t val)
 {
-	eeprom_write_byte((uint8_t*)sec10EEPROMpos,val);
+	eeprom_write_byte(sec10EEPROMpos,val);
 	sec10 = val;	
 	calcDesiredTime();
 }
 
 void storeSec(int8_t val)
 {
-	eeprom_write_byte((uint8_t*)secEEPROMpos,val);
+	eeprom_write_byte(secEEPROMpos,val);
 	sec = val;
 	calcDesiredTime();		
 }
@@ -249,7 +241,7 @@ void storeZeroPotiPos(int8_t val)
 void storeAmpsInputPin(int8_t val)
 {
 	ampsInputPin = val;
-	eeprom_write_byte((uint8_t *) ampsInputPinEEPROMpos, ampsInputPin);
+	eeprom_write_byte( ampsInputPinEEPROMpos, ampsInputPin);
 }
 
 void calcCompletionAlarmMinutes()
@@ -260,20 +252,20 @@ void calcCompletionAlarmMinutes()
 void storeCompletionAlarmOn(int8_t val)
 {
 	completionAlarmOn = val;
-	eeprom_write_byte((uint8_t *) completionAlarmOnEEPROMpos, val);
+	eeprom_write_byte( completionAlarmOnEEPROMpos, val);
 }
 
 void storeCompletionAlarmMins(int8_t val)
 {
 	completionAlarmMins = val;
-	eeprom_write_byte((uint8_t *) completionAlarmMinsEEPROMpos, val);
+	eeprom_write_byte( completionAlarmMinsEEPROMpos, val);
 	calcCompletionAlarmMinutes();
 }
 
 void storeCompletionAlarmMins10(int8_t val)
 {
 	completionAlarmMins10 = val;
-	eeprom_write_byte((uint8_t *) completionAlarmMins10EEPROMpos, val);
+	eeprom_write_byte( completionAlarmMins10EEPROMpos, val);
 	calcCompletionAlarmMinutes();
 }
 
@@ -287,13 +279,13 @@ void calcShortCircuitAlarmSecondBarrier()
 void storeShortCiruitAlarmSecond1Barrier(int8_t val)
 {
    	shortCircuitAlarmSecond1Barrier = val;
-   	eeprom_write_byte((uint8_t *) shortCircuitAlarmSecond1BarrierEEPROMpos, val);
+   	eeprom_write_byte( shortCircuitAlarmSecond1BarrierEEPROMpos, val);
 }
 
 void storeShortCiruitAlarmSecond10Barrier(int8_t val)
 {
 	shortCircuitAlarmSecond10Barrier = val;
-	eeprom_write_byte((uint8_t *) shortCircuitAlarmSecond10BarrierEEPROMpos, val);
+	eeprom_write_byte( shortCircuitAlarmSecond10BarrierEEPROMpos, val);
 }
 
 
@@ -307,21 +299,21 @@ void calcShortCircuitAlarmAmps()
 void storeShortCircuitAlarmAmps1(int8_t val)
 {
 	shortCircuitAlarmAmps1 = val;
-	eeprom_write_byte((uint8_t *) shortCircuitAlarmAmps1EEPROMpos, val);
+	eeprom_write_byte( shortCircuitAlarmAmps1EEPROMpos, val);
 	calcShortCircuitAlarmAmps();
 }
 
 void storeShortCircuitAlarmAmps10(int8_t val)
 {
 	shortCircuitAlarmAmps10 = val;
-	eeprom_write_byte((uint8_t *) shortCircuitAlarmAmps10EEPROMpos, val);
+	eeprom_write_byte( shortCircuitAlarmAmps10EEPROMpos, val);
 	calcShortCircuitAlarmAmps();
 }
 
 void storeShortCircuitAlarmAmps100(int8_t val)
 {
 	shortCircuitAlarmAmps100 = val;
-	eeprom_write_byte((uint8_t *) shortCircuitAlarmAmps100EEPROMpos, val);
+	eeprom_write_byte( shortCircuitAlarmAmps100EEPROMpos, val);
 	calcShortCircuitAlarmAmps();
 }
 

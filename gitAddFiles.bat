@@ -16,4 +16,6 @@ git add JTWebPages
 git add JTWebPages/rustlight/
 git add JTWebPages/apply/DSCF5661-c3.jpg
 git add  joesTriac.mdl
+git add	ATtinyJT/ATtinyJT.atsln
+git add ATtinyJT/ATtinyJT.cproj
 git status

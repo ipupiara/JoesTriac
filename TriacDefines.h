@@ -125,9 +125,9 @@ int8_t fatalErrorOccurred;
 
 char lastFatalErrorString [20];
 
-void EEPROM_write(unsigned int uiAddress, unsigned char ucData);
+void EEPROM_write(uint16_t uiAddress, unsigned char ucData);
 
-unsigned char EEPROM_read(unsigned int uiAddress);
+unsigned char EEPROM_read(uint16_t uiAddress);
 
 void calcDesiredAmps();
 

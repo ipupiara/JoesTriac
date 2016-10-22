@@ -11,6 +11,16 @@
 #include "TriacDefines.h"
 #include "miniString.h"
 
+
+calcMenthodType  calcMethod;
+displayMethodType  displayMethod;
+int8_t       keyInd;
+int16_t		miniStringArrPos;
+int8_t       busy;
+
+
+
+
 void eepromWriteByte (uint16_t adr, uint8_t val)
 {
 	uint8_t checkRes = 0;
@@ -23,27 +33,42 @@ void eepromWriteByte (uint16_t adr, uint8_t val)
 	}
 }
 
-int16_t calcMiniString(int16_t eepromPos)
+int16_t calcMiniString(int16_t miniStringArrPos)
 {
 	int16_t res = 0;
 	int8_t bt;
-	int8_t len = miniStringArray[eepromPos].length;
-	int16_t pos = miniStringArray[eepromPos].eepromPos;
-	int8_t valid = 1;
+	int8_t len = miniStringArray[miniStringArrPos].length;
+	int16_t pos = miniStringArray[miniStringArrPos].eepromPos;
 	int16_t ps ;
 	for (int i1 = 0; i1 < len; ++ i1) {
 		ps = pos + i1;
 		bt = EEPROM_read(ps);
 		if ((bt < 0x30) || (bt > 0x39)) { 	
 			printf("calcMiniString byte found as %i on eeprom\n", bt);
-			eepromWriteByte (ps, 0);
-			valid = 0;
+			eepromWriteByte (ps, 0x30);
+			bt = 0x30;
 		}
-		if (valid) {
-			res = res * 10 + bt;
-		} else {
-			res = 0;
-		}
+		res = res * 10 + (bt - 0x30);
 	}
 	return res;
+}
+
+
+void editMiniString(int16_t miniStrArrPos, calcMenthodType calcMeth, displayMethodType dispMeth)
+{
+	miniStringArrPos =	miniStrArrPos;
+	calcMethod = calcMeth;
+	displayMethod = dispMeth;
+	busy = 1;
+	displayMethod(-1);
+}
+
+void endEditMiniString()
+{
+	busy = 0;
+}
+
+void initMiniStringComponent()
+{
+	busy = 0;
 }

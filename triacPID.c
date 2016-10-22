@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
-#include <avr/eeprom.h>
 #include "triacPID.h"
 #include "TriacDefines.h"
 #include "TriacIntr.h"
