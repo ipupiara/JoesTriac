@@ -293,13 +293,13 @@ void lcdWriteMiniString(int16_t miniStringArrPos, int8_t kInd)
 
 void displaySetupAlarmShortCircuitAmps(int8_t kInd)
 {
-	lcd_goto(2,setupTab);
+	lcd_goto(2,setupTab );
 	lcdWriteMiniString( shortCircuitAlarmAmpsArrPos , kInd);
 }
 
 void displaySetupAlarmShortCircuitSecondsBarrier(int8_t kInd)
 {
-	lcd_goto(1,setupTab);
+	lcd_goto(1,setupTab + 1);
 	lcdWriteMiniString( shortCircuitAlarmSecondBarrierArrPos , kInd);
 }
 

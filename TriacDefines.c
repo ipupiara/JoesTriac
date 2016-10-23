@@ -63,7 +63,7 @@ void eeprom_write_byte (uint16_t adr, uint8_t val)
 	if (val != checkRes) {
 		printf("eeprom stored %X, but check returned %X\n",val,checkRes);
 	} else {
-		printf("reread ok returned %X\n",checkRes);
+//		printf("reread ok returned %X\n",checkRes);
 	}
 }
 

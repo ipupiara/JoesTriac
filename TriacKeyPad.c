@@ -11,9 +11,9 @@
 int8_t lastCharPressed;
 
 #define keyPort PORTC
-#define keyPortOut2  PORTA
 #define keyPin PINC
 #define keyDDR  DDRC
+#define keyPortOut2  PORTA
 #define keyDDROut2   DDRA
 #define IntrMsk  PCMSK2
 #define PCICRPos  PCIE2

@@ -155,15 +155,15 @@ int main(void)
 				ev.evType = evCharEntered;
 				ev.evData.keyCode = ky;			
 			}
-			#ifdef noI2C
+			#ifdef jtagDebugKeyboardMode
 //				int8_t startp =(ev.evType==evStartPressed);
 //				int8_t stopp = (ev.evType==evStopPressed);
 //				printf("ev fired key : %c, startEv:%i, stopEv:%i\n",ky,startp,stopp);
-				int8_t ch1 = ky;
-				printf("ev keypressed: %i\n",ch1);
+//				int8_t ch1 = ky;
+//				printf("ev keypressed: %i\n",ch1);
 
 			#endif 
-//			printf("ev fired key : %x, startEv:%i, stopEv:%i\n",ky,(ev.evType==evStartPressed),(ev.evType==evStopPressed));	
+			printf("ev key : %x, 1=sta sto f1 f2 *#, \n",ky);	
 			processMiniStringTriacEvent(&ev);
 			processTriacEvent(&SJoesTriacStateChart,&ev);	
 		}
