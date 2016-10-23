@@ -21,6 +21,7 @@ typedef int16_t (*calcMenthodType)(void);
 
 typedef void(*displayMethodType)(int8_t);
 
+int8_t editFinished;
 
 void editMiniString(int16_t miniStringArrayPos, calcMenthodType calcMeth, displayMethodType dispMeth);
 

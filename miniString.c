@@ -60,8 +60,6 @@ int16_t calcMiniString(int16_t miniStringArrPos)
 	return res;
 }
 
-
-
 void editMiniString(int16_t miniStrArrPos, calcMenthodType calcMeth, displayMethodType dispMeth)
 {
 	miniStringArrPos =	miniStrArrPos;
@@ -81,6 +79,7 @@ void endEditMiniString()
 void initMiniStringComponent()
 {
 	miniStringBusy = 0;
+	editFinished = 0;
 }
 
 
@@ -96,14 +95,17 @@ bool processMiniStringTriacEvent(CJoesTriacEvent* ev)
 					calcMethod();
 				}
 				keyInd ++;
+				
 			}
 			displayMethod(keyInd);
+			if (keyInd >= miniStringArray[miniStringArrPos].length) {
+				endEditMiniString();
+				editFinished = 1;
+			}
 			res =  uStIntHandlingDone;
 		}
-		
 	} 
 	return (res);
-	
 }
 
 

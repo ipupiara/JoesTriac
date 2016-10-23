@@ -167,6 +167,11 @@ int main(void)
 			processMiniStringTriacEvent(&ev);
 			processTriacEvent(&SJoesTriacStateChart,&ev);	
 		}
+		if (editFinished == 1)  {
+			editFinished = 0;
+			ev.evType = evEditFinished;
+			processTriacEvent(&SJoesTriacStateChart,&ev);
+		}
 		if (stableZeroAdjReached) {
 			stableZeroAdjReached = 0;
 			ev.evType = evZeroSignalOK;

@@ -276,23 +276,31 @@ void displayAlarmYesNo(int8_t kInd)
 		else lcd_hide_cursor();	
 }
 
+void lcdWriteMiniString(int16_t miniStringArrPos, int8_t kInd)
+{
+	int8_t bt;
+	int8_t len = miniStringArray[miniStringArrPos].length;
+	int16_t pos = miniStringArray[miniStringArrPos].eepromPos;
+	int16_t ps ;
+	for (int i1 = 0; i1 < len; ++ i1) {
+		ps = pos + i1;
+		bt = EEPROM_read(ps);
+		lcd_write_char(bt);		
+	}
+	if ((kInd >= 0) &&(kInd < len)) lcd_set_cursor(2, setupTab + kInd);
+	else lcd_hide_cursor();
+}
+
 void displaySetupAlarmShortCircuitAmps(int8_t kInd)
 {
 	lcd_goto(2,setupTab);
-	lcd_write_char(shortCircuitAlarmAmps100);
-	lcd_write_char(shortCircuitAlarmAmps10);
-	lcd_write_char(shortCircuitAlarmAmps1);
-	if ((kInd >= 0) &&(kInd <= 2)) lcd_set_cursor(2, setupTab + kInd);
-	else lcd_hide_cursor();
+	lcdWriteMiniString( shortCircuitAlarmAmpsArrPos , kInd);
 }
 
 void displaySetupAlarmShortCircuitSecondsBarrier(int8_t kInd)
 {
 	lcd_goto(1,setupTab);
-	lcd_write_char(shortCircuitAlarmSecond10Barrier);
-	lcd_write_char(shortCircuitAlarmSecond1Barrier);
-	if ((kInd >= 0) &&(kInd <= 1)) lcd_set_cursor(1, setupTab + kInd);
-	else lcd_hide_cursor();
+	lcdWriteMiniString( shortCircuitAlarmSecondBarrierArrPos , kInd);
 }
 
 #define hintTab 8

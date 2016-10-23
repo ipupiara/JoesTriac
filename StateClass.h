@@ -23,6 +23,7 @@ enum eEventTypes
 	evZeroSignalOK,
 	evAdcTick,
 	evTWIDataReceived,
+	evEditFinished,
 	evFatalError
 };
 
