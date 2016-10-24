@@ -828,7 +828,7 @@ uStInt evSetupCompletionAlarmOnChecker(void)
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
 	}
-	if (currentEvent->evType == evNumPressed)  {	
+	if ((currentEvent->evType == evNumPressed)  || (currentEvent->evType == evEditFinished))  {	
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupCompletionAlarmIdle);
 			// No event action.
 		END_EVENT_HANDLER(PJoesTriacStateChart);
@@ -855,7 +855,7 @@ uStInt evSetupCompletionAlarmMinutesChecker(void)
 	uStInt res;
 	res = uStIntNoMatch;
 
-	if (currentEvent->evType == evAstPressed)  {	
+	if ((currentEvent->evType == evAstPressed)  || (currentEvent->evType == evEditFinished))  {	
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupCompletionAlarmIdle);
 			// No event action.
 		END_EVENT_HANDLER(PJoesTriacStateChart);
