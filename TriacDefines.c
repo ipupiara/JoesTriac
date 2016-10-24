@@ -3,7 +3,7 @@
 #include "TriacDefines.h"
 #include "TriacIntr.h"
 
-miniString  miniStringArray [2]  = {{25,2},{27 ,3},{22,2},{21,1}};
+miniString  miniStringArray [4]  = {{25,2},{27 ,3},{22,2},{21,1}};
 
 
 
@@ -229,6 +229,11 @@ void saveCalibHighADC()
 	eeprom_write_word((uint16_t *) calibHighAdcEEPROMpos, calibHighADC);
 }    
 
+void storeAmpsInputPin(int8_t val)
+{
+	ampsInputPin = val;
+	eeprom_write_byte( ampsInputPinEEPROMpos, ampsInputPin);
+}
 
 /*
 void storeZeroPotiPos(int8_t val)
@@ -238,38 +243,17 @@ void storeZeroPotiPos(int8_t val)
 }
 */
 
-void storeAmpsInputPin(int8_t val)
+int16_t calcCompletionAlarmOn()
 {
-	ampsInputPin = val;
-	eeprom_write_byte( ampsInputPinEEPROMpos, ampsInputPin);
+	completionAlarmOn = calcMiniString(completionAlarmOnArrPos);
+	return completionAlarmOn;
 }
 
-void calcCompletionAlarmMinutes()
+int16_t calcCompletionAlarmMinutes()
 {
-	completionAlarmMinutes = ((completionAlarmMins10 -0x30) *10) + (completionAlarmMins - 0x30);
+	completionAlarmMinutes = calcMiniString(completionAlarmMinsArrPos);  
+	return completionAlarmMinutes;
 }
-
-void storeCompletionAlarmOn(int8_t val)
-{
-	completionAlarmOn = val;
-	eeprom_write_byte( completionAlarmOnEEPROMpos, val);
-}
-
-void storeCompletionAlarmMins(int8_t val)
-{
-	completionAlarmMins = val;
-	eeprom_write_byte( completionAlarmMinsEEPROMpos, val);
-	calcCompletionAlarmMinutes();
-}
-
-void storeCompletionAlarmMins10(int8_t val)
-{
-	completionAlarmMins10 = val;
-	eeprom_write_byte( completionAlarmMins10EEPROMpos, val);
-	calcCompletionAlarmMinutes();
-}
-
-
 
 int16_t calcShortCircuitAlarmSecs()
 {
@@ -315,14 +299,8 @@ void restorePersistentData()
 	calcDesiredTime();
 	calcDesiredAmps();
 
-	completionAlarmMins = eeprom_read_byte((uint8_t*)completionAlarmMinsEEPROMpos);
-	if ((completionAlarmMins < 0x30) || (completionAlarmMins > 0x39)) { storeCompletionAlarmMins(0x30);}
-	completionAlarmMins10 = eeprom_read_byte((uint8_t*)completionAlarmMins10EEPROMpos);
-	if ((completionAlarmMins10 < 0x30) || (completionAlarmMins10 > 0x39)) { storeCompletionAlarmMins10(0x30);}
-	calcCompletionAlarmMinutes();
-	completionAlarmOn = eeprom_read_byte((uint8_t*)completionAlarmOnEEPROMpos);
-	if ((completionAlarmOn < 0x00) || (completionAlarmOn > 0x01)) { storeCompletionAlarmOn(0x00);}
-		
+	calcCompletionAlarmMinutes();	
+	calcCompletionAlarmOn();	
 	calcShortCircuitAlarmAmps();
 	calcShortCircuitAlarmSecs();
 	

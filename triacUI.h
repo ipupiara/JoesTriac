@@ -36,9 +36,9 @@ void displayRmsAvgQuery();
 
 void displaySetup();
 
-void displayAlarmMinutes(int8_t kInd);
+void displayCompletionAlarmMinutes(int8_t kInd);
 
-void displayAlarmYesNo(int8_t kInd);
+void displayCompletionAlarmOn(int8_t kInd);
 
 void displaySetupAlarmShortCircuit();
 

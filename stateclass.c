@@ -807,8 +807,8 @@ uStInt evSetupIdleChecker(void)
 void entrySetupIdleState(void)
 {
 //	printf("entry I\n");
-	displayAlarmMinutes(-1);
-	displayAlarmYesNo(-1);
+	displayCompletionAlarmMinutes(-1);
+	displayCompletionAlarmOn(-1);
 	clearSetupInputHint();
 }
 
@@ -817,7 +817,7 @@ void exitSetupIdleState(void)
 //	printf("exit I\n");
 }
 
-uStInt evSetupAlarmYesNoChecker(void)
+uStInt evSetupAlarmOnChecker(void)
 {
 	uStInt res;
 	res = uStIntNoMatch;
@@ -834,35 +834,20 @@ uStInt evSetupAlarmYesNoChecker(void)
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
 	}
-	if (currentEvent->evType == evCharEntered) {
-
-		if (currentEvent->evData.keyCode == kp1) {
-			storeCompletionAlarmOn(1);
-			displayAlarmYesNo(keyInd);
-			res =  uStIntHandlingDone;
-		}
-		if (currentEvent->evData.keyCode == kp0) {
-			storeCompletionAlarmOn(0);
-			displayAlarmYesNo(keyInd);
-			res =  uStIntHandlingDone;
-		}
-	}
-
-
 	return (res);
 }
 
-void entrySetupAlarmYesNoState(void)
+void entrySetupAlarmOnState(void)
 {
 //	printf("entry I\n");
-	keyInd = 0;
 	toggleSetupInputHint();
-	displayAlarmYesNo(keyInd);
+	editMiniString(completionAlarmOnArrPos,calcCompletionAlarmOn,displayCompletionAlarmOn);
 }
 
-void exitSetupAlarmYesNoState(void)
+void exitSetupAlarmOnState(void)
 {
 //	printf("exit I\n");
+	endEditMiniString();
 }
 
 uStInt evSetupAlarmMinutesChecker(void)
@@ -882,27 +867,6 @@ uStInt evSetupAlarmMinutesChecker(void)
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
 	}
-	if (currentEvent->evType == evCharEntered) {
-
-		if ((currentEvent->evData.keyCode <= kp9) && (currentEvent->evData.keyCode >= kp0)) {
-			switch (keyInd)
-			{
-				case 0: 
-					storeCompletionAlarmMins10(currentEvent->evData.keyCode);
-					break;
-				case 1:
-					storeCompletionAlarmMins(currentEvent->evData.keyCode);
-					BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupIdle);
-				
-					END_EVENT_HANDLER(PJoesTriacStateChart);				
-			}
-			keyInd ++;
-			displayAlarmMinutes(keyInd);  
-			
-			res =  uStIntHandlingDone;
-		}
-	}
-
 	return (res);
 }
 
@@ -910,13 +874,13 @@ void entrySetupAlarmMinutesState(void)
 {
 	keyInd = 0;
 	numericSetupInputHint();
-	displayAlarmMinutes(keyInd);
+	editMiniString(completionAlarmMinsArrPos,calcCompletionAlarmMinutes,displayCompletionAlarmMinutes);
 }
 
 void exitSetupAlarmMinutesState(void)
 {
 //	printf("exit I\n");
-	displayAlarmMinutes(-1);
+	endEditMiniString();
 }
 
 
@@ -1334,10 +1298,10 @@ xStateType xaStates[eNumberOfStates] = {
  	eStateSetup,
  	-1,
  	0,
- 	evSetupAlarmYesNoChecker,
+ 	evSetupAlarmOnChecker,
  	tfNull,
- 	entrySetupAlarmYesNoState,
- 	exitSetupAlarmYesNoState},
+ 	entrySetupAlarmOnState,
+ 	exitSetupAlarmOnState},
 	 
 	{eStateSetupAlarmMinutes,
  	eStateSetup,

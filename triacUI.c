@@ -284,7 +284,7 @@ void lcdWriteMiniString(int16_t miniStringArrPos, int8_t kInd)
 	int8_t len = miniStringArray[miniStringArrPos].length;
 	int16_t pos = miniStringArray[miniStringArrPos].eepromPos;
 	int16_t ps ;
-	lcd_goto(actualLine,setupTab + actualSpaceAftTab );
+	lcd_goto(actualLine,actualTab + actualSpaceAftTab );
 	for (int i1 = 0; i1 < len; ++ i1) {
 		ps = pos + i1;
 		bt = EEPROM_read(ps);
@@ -318,7 +318,6 @@ void displaySetupAlarmShortCircuitAmps(int8_t kInd)
 	actualLine = 2;
 	actualTab = setupTab;
 	actualSpaceAftTab = 0;
-	lcd_goto(actualLine,setupTab + actualSpaceAftTab );
 	lcdWriteMiniString( shortCircuitAlarmAmpsArrPos , kInd);
 }
 
@@ -327,7 +326,6 @@ void displaySetupAlarmShortCircuitSecs(int8_t kInd)
 	actualLine = 1;
 	actualTab = setupTab;
 	actualSpaceAftTab = 1;
-	lcd_goto(actualLine,setupTab + actualSpaceAftTab );
 	lcdWriteMiniString( shortCircuitAlarmSecsArrPos , kInd);
 }
 
@@ -366,23 +364,18 @@ void displaySetup()
 }
 
 
-void displayAlarmMinutes(int8_t kInd)
+void displayCompletionAlarmMinutes(int8_t kInd)
 {
-	lcd_goto(2,setupTab);
-	lcd_write_char(completionAlarmMins10);
-	lcd_write_char(completionAlarmMins);
-	if ((kInd >= 0) &&(kInd <= 1)) lcd_set_cursor(2, setupTab + kInd);
-	else lcd_hide_cursor();
+	actualLine = 2;
+	actualTab = setupTab;
+	actualSpaceAftTab = 0;
+	lcdWriteMiniString(completionAlarmMinsArrPos,kInd);
 }
 
-void displayAlarmYesNo(int8_t kInd)
+void displayCompletionAlarmOn(int8_t kInd)
 {
-	lcd_goto(1,setupTab);
-	if (completionAlarmOn) {
-		lcd_write_str("On ");
-		} else {
-		lcd_write_str("Off");
-	}
-	if ((kInd >= 0) &&(kInd <= 0)) lcd_set_cursor(1, setupTab + kInd);
-	else lcd_hide_cursor();
+	actualLine = 1;
+	actualTab = setupTab;
+	actualSpaceAftTab = 0;
+	lcdWriteMiniString(completionAlarmOnArrPos,kInd);
 }
