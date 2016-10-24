@@ -5,6 +5,11 @@
 
 miniString  miniStringArray [4]  = {{25,2},{27 ,3},{22,2},{21,1}};
 
+//  TriacDefines.h:
+//	#define triacWeldingAmpsArrPos		4
+//	#define triacWeldingMinsArrPos    5
+//	#define triacWeldingSecsArrPos   6
+#warning "TODO: pn, 24oct16 need enhancement on miniString. currently no time for this  :-)"
 
 
 // ATTENTION: use of EEPROM needs BOD Level of at least 2.7 V, otherwise EEPROM memory

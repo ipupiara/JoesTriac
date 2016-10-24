@@ -41,7 +41,7 @@ enum eStates
 	eStateEditAmps,
 	eStateEditDuration,
 	eStateSetup,
-	eStateSetupIdle,
+	eStateSetupCompletionAlarmIdle,
 	eStateSetupAlarmYesNo,
 	eStateSetupAlarmMinutes,
  	eStateSetupShortCircuit,
@@ -781,7 +781,7 @@ void exitSetupState(void)
 //	printf("exit I\n");
 }
 
-uStInt evSetupIdleChecker(void)
+uStInt evCompletionAlarmSetupIdleChecker(void)
 {
 	uStInt res;
 	res = uStIntNoMatch;
@@ -804,7 +804,7 @@ uStInt evSetupIdleChecker(void)
 	return (res);
 }
 
-void entrySetupIdleState(void)
+void entrySetupCompletionAlarmIdleState(void)
 {
 //	printf("entry I\n");
 	displayCompletionAlarmMinutes(-1);
@@ -817,7 +817,7 @@ void exitSetupIdleState(void)
 //	printf("exit I\n");
 }
 
-uStInt evSetupAlarmOnChecker(void)
+uStInt evSetupCompletionAlarmOnChecker(void)
 {
 	uStInt res;
 	res = uStIntNoMatch;
@@ -829,7 +829,7 @@ uStInt evSetupAlarmOnChecker(void)
 		res =  uStIntHandlingDone;
 	}
 	if (currentEvent->evType == evNumPressed)  {	
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupIdle);
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupCompletionAlarmIdle);
 			// No event action.
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
@@ -837,26 +837,26 @@ uStInt evSetupAlarmOnChecker(void)
 	return (res);
 }
 
-void entrySetupAlarmOnState(void)
+void entrySetupCompletionAlarmOnState(void)
 {
 //	printf("entry I\n");
 	toggleSetupInputHint();
 	editMiniString(completionAlarmOnArrPos,calcCompletionAlarmOn,displayCompletionAlarmOn);
 }
 
-void exitSetupAlarmOnState(void)
+void exitSetupCompletionAlarmOnState(void)
 {
 //	printf("exit I\n");
 	endEditMiniString();
 }
 
-uStInt evSetupAlarmMinutesChecker(void)
+uStInt evSetupCompletionAlarmMinutesChecker(void)
 {
 	uStInt res;
 	res = uStIntNoMatch;
 
 	if (currentEvent->evType == evAstPressed)  {	
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupIdle);
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupCompletionAlarmIdle);
 			// No event action.
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
@@ -870,7 +870,7 @@ uStInt evSetupAlarmMinutesChecker(void)
 	return (res);
 }
 
-void entrySetupAlarmMinutesState(void)
+void entrySetupCompletionAlarmMinutesState(void)
 {
 	keyInd = 0;
 	numericSetupInputHint();
@@ -1278,38 +1278,38 @@ xStateType xaStates[eNumberOfStates] = {
 
  	{eStateSetup,
  	eStateTriacOperating,
- 	eStateSetupIdle,
+ 	eStateSetupCompletionAlarmIdle,
  	0,
  	evSetupChecker,
  	tfNull,
  	entrySetupState,
  	exitSetupState},
 
- 	{eStateSetupIdle,
+ 	{eStateSetupCompletionAlarmIdle,
  	eStateSetup,
  	-1,
  	0,
- 	evSetupIdleChecker,
+ 	evCompletionAlarmSetupIdleChecker,
  	tfNull,
- 	entrySetupIdleState,
+ 	entrySetupCompletionAlarmIdleState,
  	exitSetupIdleState},
 
  	{eStateSetupAlarmYesNo,
  	eStateSetup,
  	-1,
  	0,
- 	evSetupAlarmOnChecker,
+ 	evSetupCompletionAlarmOnChecker,
  	tfNull,
- 	entrySetupAlarmOnState,
- 	exitSetupAlarmOnState},
+ 	entrySetupCompletionAlarmOnState,
+ 	exitSetupCompletionAlarmOnState},
 	 
 	{eStateSetupAlarmMinutes,
  	eStateSetup,
  	-1,
  	0,
- 	evSetupAlarmMinutesChecker,
+ 	evSetupCompletionAlarmMinutesChecker,
  	tfNull,
- 	entrySetupAlarmMinutesState,
+ 	entrySetupCompletionAlarmMinutesState,
  	exitSetupAlarmMinutesState},
 	 
 	{eStateSetupShortCircuit,

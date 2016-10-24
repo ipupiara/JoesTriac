@@ -43,11 +43,8 @@
 	#define secEEPROMpos    10   // 8-bit
 	#define calibLowAdcEEPROMpos   11
 	#define calibHighAdcEEPROMpos  13   // both uint16
-	#define calibLowTriacFireDurationEEPROMpos   15
-	#define calibHighTriacFireDurationEEPROMpos   17   // both uint16
-//	#define zeroPotiPosEEPROMpos                19   // unit8  (obsolete, leaf place free )
-	#define ampsInputPinEEPROMpos         20     // uint8
-		
+	
+	#define ampsInputPinEEPROMpos         20     // uint8	
 
 	#define calibLowAmps        15
 	#define calibHighAmps       60
@@ -57,7 +54,7 @@
 	#define shortCircuitAlarmSecsArrPos   0
 	#define shortCircuitAlarmAmpsArrPos  1
 	#define completionAlarmMinsArrPos     2
-	#define completionAlarmOnArrPos    3
+	#define completionAlarmOnArrPos    3	
 
 
 	#define triggerDelayMaxTcnt2 810     // works properly with 50 Hz Ac and 11 Mhz

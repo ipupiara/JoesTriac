@@ -174,59 +174,6 @@ void displayTriacRunning()
 	lcd_write_str("R stop");
 }
 
-void displayEditAmpsDuration()
-{
-	lcd_clrscr();
-	lcd_write_str("A     T    ");
-	lcd_Line2();
-	lcd_write_str("*     #       ");
-	lcd_goto(0,17);
-	lcd_write_str(ARBuffer);
-	lcd_goto(3,0);
-	lcd_write_str("G start,A Setup");
-}
-
-void displayEditAmps()
-{
-	lcd_goto(0,0);
-	lcd_write_str("Amps  T   ");
-}
-
-void displayEditDuration()
-{
-	lcd_goto(0,0);
-	lcd_write_str("A     Time");
-}
-
-#define ampsTab  2
-
-// TODO   diplayChar(1,ampsTap,kInd,amtchar, char[]+
-
-void displayAmps(int8_t kInd)
-{  
-	lcd_goto(1,ampsTab);
-	lcd_write_char(amps100);
-	lcd_write_char(amps10);
-	lcd_write_char(amps);
-	if ((kInd >= 0) &&(kInd <= 2)) lcd_set_cursor(1, ampsTab + kInd);
-		else lcd_hide_cursor();	
-}
-
-#define timeTab  8
-
-void displayTime(int8_t kInd)
-{  
-	lcd_goto(1,timeTab);
-	lcd_write_char(min10);
-	lcd_write_char(min);
-	lcd_write_char(0x6D);
-	lcd_write_char(sec10);
-	
-		
-	lcd_write_char(sec);
-	if ((kInd >= 0) &&(kInd <= 4)) lcd_set_cursor(1, timeTab + kInd);
-		else lcd_hide_cursor();	
-}
 
 void initUI()
 {
@@ -272,6 +219,65 @@ void displayCurrentVar()
 	lcd_goto(3,0);
 	lcd_write_str("up 1,2,3 - dn 7,8,9");
 	currentVarChanged();
+}
+
+
+
+void displayEditAmpsDuration()
+{
+	lcd_clrscr();
+	lcd_write_str("A     T    ");
+	lcd_Line2();
+	lcd_write_str("*     #       ");
+	lcd_goto(0,17);
+	lcd_write_str(ARBuffer);
+	lcd_goto(3,0);
+	lcd_write_str("G start,A Setup");
+}
+
+void displayEditAmps()
+{
+	lcd_goto(0,0);
+	lcd_write_str("Amps  T   ");
+}
+
+void displayEditDuration()
+{
+	lcd_goto(0,0);
+	lcd_write_str("A     Time");
+}
+
+#define ampsTab  2
+
+// TODO   diplayChar(1,ampsTap,kInd,amtchar, char[]+
+
+void displayAmps(int8_t kInd)
+{
+	actualLine = 1;
+	actualTab = ampsTab;
+	actualSpaceAftTab = 0;	
+	lcd_goto(1,ampsTab);
+	lcd_write_char(amps100);
+	lcd_write_char(amps10);
+	lcd_write_char(amps);
+	if ((kInd >= 0) &&(kInd <= 2)) lcd_set_cursor(1, ampsTab + kInd);
+	else lcd_hide_cursor();
+}
+
+#define timeTab  8
+
+void displayTime(int8_t kInd)
+{
+	lcd_goto(1,timeTab);
+	lcd_write_char(min10);
+	lcd_write_char(min);
+	lcd_write_char(0x6D);
+	lcd_write_char(sec10);
+	
+	
+	lcd_write_char(sec);
+	if ((kInd >= 0) &&(kInd <= 4)) lcd_set_cursor(1, timeTab + kInd);
+	else lcd_hide_cursor();
 }
 
 
@@ -379,3 +385,4 @@ void displayCompletionAlarmOn(int8_t kInd)
 	actualSpaceAftTab = 0;
 	lcdWriteMiniString(completionAlarmOnArrPos,kInd);
 }
+
