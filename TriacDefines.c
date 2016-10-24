@@ -3,7 +3,7 @@
 #include "TriacDefines.h"
 #include "TriacIntr.h"
 
-miniString  miniStringArray [2]  = {{25,2},{27 ,3}};
+miniString  miniStringArray [2]  = {{25,2},{27 ,3},{22,2},{21,1}};
 
 
 
@@ -271,22 +271,10 @@ void storeCompletionAlarmMins10(int8_t val)
 
 
 
-int16_t calcShortCircuitAlarmSecondBarrier()
+int16_t calcShortCircuitAlarmSecs()
 {
-	shortCircuitAlarmSecondBarrier = calcMiniString(shortCircuitAlarmSecondBarrierArrPos);
+	shortCircuitAlarmSecondBarrier = calcMiniString(shortCircuitAlarmSecsArrPos);
 	return shortCircuitAlarmSecondBarrier;
-}
-
-void storeShortCiruitAlarmSecond1Barrier(int8_t val)
-{
-   	shortCircuitAlarmSecond1Barrier = val;
-   	eeprom_write_byte( shortCircuitAlarmSecond1BarrierEEPROMpos, val);
-}
-
-void storeShortCiruitAlarmSecond10Barrier(int8_t val)
-{
-	shortCircuitAlarmSecond10Barrier = val;
-	eeprom_write_byte( shortCircuitAlarmSecond10BarrierEEPROMpos, val);
 }
 
 int16_t calcShortCircuitAlarmAmps()
@@ -336,7 +324,7 @@ void restorePersistentData()
 	if ((completionAlarmOn < 0x00) || (completionAlarmOn > 0x01)) { storeCompletionAlarmOn(0x00);}
 		
 	calcShortCircuitAlarmAmps();
-	calcShortCircuitAlarmSecondBarrier();
+	calcShortCircuitAlarmSecs();
 	
 	calibLowADC = eeprom_read_word((uint16_t*) calibLowAdcEEPROMpos);
 	if (calibLowADC == 0xFFFF) calibLowADC = 0x0000;

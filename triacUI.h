@@ -44,7 +44,7 @@ void displaySetupAlarmShortCircuit();
 
 void displaySetupAlarmShortCircuitAmps(int8_t kInd);
 
-void displaySetupAlarmShortCircuitSecondsBarrier(int8_t kInd);
+void displaySetupAlarmShortCircuitSecs(int8_t kInd);
 
 void clearSetupInputHint();
 

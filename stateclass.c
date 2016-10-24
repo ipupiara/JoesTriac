@@ -46,7 +46,7 @@ enum eStates
 	eStateSetupAlarmMinutes,
  	eStateSetupShortCircuit,
  	eStateSetupShortCircuitIdle,
- 	eStateSetupShortCircuitBarrier,
+ 	eStateSetupShortCircuitSecs,
 	eStateSetupShortCircuitAmps,
 	eStateTriacRunning,
 	eStateJobOkDisplay,
@@ -961,7 +961,7 @@ uStInt evSetupShortCircuitIdleChecker(void)
 	if (currentEvent->evType==evNumPressed) {
 		//		printf("\ncheck for event in State evStateIdle dur");
 
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupShortCircuitBarrier);
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupShortCircuitSecs);
 		// No event action.
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
@@ -973,7 +973,7 @@ void entrySetupShortCircuitIdleState(void)
 {
 	//	printf("entry I\n");
 	displaySetupAlarmShortCircuitAmps(-1);
-	displaySetupAlarmShortCircuitSecondsBarrier(-1);
+	displaySetupAlarmShortCircuitSecs(-1);
 	clearSetupInputHint();
 }
 
@@ -983,7 +983,7 @@ void exitSetupShortCircuitIdleState(void)
 }
 
 
-uStInt evSetupShortCircuitAlarmSecondBarrierChecker(void)
+uStInt evSetupShortCircuitSecsChecker(void)
 {
 	uStInt res;
 	res = uStIntNoMatch; 
@@ -1006,15 +1006,15 @@ uStInt evSetupShortCircuitAlarmSecondBarrierChecker(void)
 	return (res);
 }
 
-void entrySetupShortCircuitAlarmSecondBarrierState(void)
+void entrySetupShortCircuitSecsState(void)
 {
 	//	printf("entry I\n");
 	keyInd = 0;
 	numericSetupInputHint();
-	editMiniString(shortCircuitAlarmSecondBarrierArrPos,calcShortCircuitAlarmSecondBarrier,displaySetupAlarmShortCircuitSecondsBarrier);
+	editMiniString(shortCircuitAlarmSecsArrPos,calcShortCircuitAlarmSecs,displaySetupAlarmShortCircuitSecs);
 }
 
-void exitSetupShortCircuitAlamSecondBarrierState(void)
+void exitSetupShortCircuitSecsState(void)
 {
 	endEditMiniString();
 }
@@ -1034,7 +1034,7 @@ uStInt evSetupShortCuircuitAlarmAmpsChecker(void)
 	if (currentEvent->evType==evNumPressed) {
 		//		printf("\ncheck for event in State evStateIdle dur");
 
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupShortCircuitBarrier);
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupShortCircuitSecs);
 		// No event action.
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
@@ -1366,14 +1366,14 @@ xStateType xaStates[eNumberOfStates] = {
 		entrySetupShortCircuitIdleState,
 	exitSetupShortCircuitIdleState},
 
-	{eStateSetupShortCircuitBarrier,
+	{eStateSetupShortCircuitSecs,
 		eStateSetupShortCircuit,
 		-1,
 		0,
-		evSetupShortCircuitAlarmSecondBarrierChecker,
+		evSetupShortCircuitSecsChecker,
 		tfNull,
-		entrySetupShortCircuitAlarmSecondBarrierState,
-	exitSetupShortCircuitAlamSecondBarrierState},
+		entrySetupShortCircuitSecsState,
+	exitSetupShortCircuitSecsState},
  
 	{eStateSetupShortCircuitAmps,
 		 eStateSetupShortCircuit,

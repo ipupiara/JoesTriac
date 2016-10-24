@@ -7,6 +7,9 @@
 #include "triacPID.h"
 
 char ARBuffer [4];
+int8_t actualLine;
+int8_t actualTab;
+int8_t actualSpaceAftTab;
 
 
 void displayVoltage()
@@ -225,104 +228,6 @@ void displayTime(int8_t kInd)
 		else lcd_hide_cursor();	
 }
 
-#define setupTab  13
-
-void displaySetup()
-{
-	lcd_clrscr();
-	lcd_write_str("Setup ");
-	lcd_Line2();
-	lcd_write_str("Alarm Y/N #");
-	lcd_goto(2,0);
-	lcd_write_str("Alarm T   *");
-	lcd_goto(2,17);
-	lcd_write_str("min");
-	lcd_goto(3,0);
-	lcd_write_str("B continue");
-}
-
-void displaySetupAlarmShortCircuit()
-{
-	lcd_clrscr();
-	lcd_write_str("Short Circuit Alarm");
-	lcd_Line2();
-	lcd_write_str("secs limit #");
-	lcd_goto(2,0);
-	lcd_write_str("Amps limit *");
-	lcd_goto(2,17);
-	lcd_write_str("A");
-	lcd_goto(3,0);
-	lcd_write_str("B return");
-}
-
-void displayAlarmMinutes(int8_t kInd)
-{  
-	lcd_goto(2,setupTab);
-	lcd_write_char(completionAlarmMins10);
-	lcd_write_char(completionAlarmMins);
-	if ((kInd >= 0) &&(kInd <= 1)) lcd_set_cursor(2, setupTab + kInd);
-		else lcd_hide_cursor();	
-}
-
-void displayAlarmYesNo(int8_t kInd)
-{
-	lcd_goto(1,setupTab);
-	if (completionAlarmOn) {
-		lcd_write_str("On ");
-	} else {
-		lcd_write_str("Off");
-	}
-	if ((kInd >= 0) &&(kInd <= 0)) lcd_set_cursor(1, setupTab + kInd);
-		else lcd_hide_cursor();	
-}
-
-void lcdWriteMiniString(int16_t miniStringArrPos, int8_t kInd)
-{
-	int8_t bt;
-	int8_t len = miniStringArray[miniStringArrPos].length;
-	int16_t pos = miniStringArray[miniStringArrPos].eepromPos;
-	int16_t ps ;
-	for (int i1 = 0; i1 < len; ++ i1) {
-		ps = pos + i1;
-		bt = EEPROM_read(ps);
-		lcd_write_char(bt);		
-	}
-	if ((kInd >= 0) &&(kInd < len)) lcd_set_cursor(2, setupTab + kInd);
-	else lcd_hide_cursor();
-}
-
-void displaySetupAlarmShortCircuitAmps(int8_t kInd)
-{
-	lcd_goto(2,setupTab );
-	lcdWriteMiniString( shortCircuitAlarmAmpsArrPos , kInd);
-}
-
-void displaySetupAlarmShortCircuitSecondsBarrier(int8_t kInd)
-{
-	lcd_goto(1,setupTab + 1);
-	lcdWriteMiniString( shortCircuitAlarmSecondBarrierArrPos , kInd);
-}
-
-#define hintTab 8
-
-void clearSetupInputHint()
-{
-	lcd_goto(3,hintTab);
-	lcd_write_str("          ");
-}
-
-void toggleSetupInputHint()
-{
-	lcd_goto(3,hintTab);
-	lcd_write_str(", 0..1");
-}
-
-void numericSetupInputHint()
-{
-	lcd_goto(3,hintTab);
-	lcd_write_str(", 0..9");
-}
-
 void initUI()
 {
 	if (ampsInputPin == rms) {
@@ -370,4 +275,114 @@ void displayCurrentVar()
 }
 
 
+/****************   mini string UI Component *****************/
 
+
+void lcdWriteMiniString(int16_t miniStringArrPos, int8_t kInd)
+{
+	int8_t bt;
+	int8_t len = miniStringArray[miniStringArrPos].length;
+	int16_t pos = miniStringArray[miniStringArrPos].eepromPos;
+	int16_t ps ;
+	lcd_goto(actualLine,setupTab + actualSpaceAftTab );
+	for (int i1 = 0; i1 < len; ++ i1) {
+		ps = pos + i1;
+		bt = EEPROM_read(ps);
+		lcd_write_char(bt);
+	}
+	if ((kInd >= 0) &&(kInd < len)) lcd_set_cursor(actualLine, actualTab + actualSpaceAftTab + kInd);
+	else lcd_hide_cursor();
+}
+
+
+void displaySetupAlarmShortCircuit()
+{
+	lcd_clrscr();
+	lcd_write_str("Short Circuit Alarm");
+	lcd_Line2();
+	lcd_write_str("secs limit #");
+	lcd_goto(2,0);
+	lcd_write_str("Amps limit *");
+	lcd_goto(2,17);
+	lcd_write_str("A");
+	lcd_goto(3,0);
+	lcd_write_str("B return");
+}
+
+
+#define setupTab  13
+
+
+void displaySetupAlarmShortCircuitAmps(int8_t kInd)
+{
+	actualLine = 2;
+	actualTab = setupTab;
+	actualSpaceAftTab = 0;
+	lcd_goto(actualLine,setupTab + actualSpaceAftTab );
+	lcdWriteMiniString( shortCircuitAlarmAmpsArrPos , kInd);
+}
+
+void displaySetupAlarmShortCircuitSecs(int8_t kInd)
+{
+	actualLine = 1;
+	actualTab = setupTab;
+	actualSpaceAftTab = 1;
+	lcd_goto(actualLine,setupTab + actualSpaceAftTab );
+	lcdWriteMiniString( shortCircuitAlarmSecsArrPos , kInd);
+}
+
+#define hintTab 8
+
+void clearSetupInputHint()
+{
+	lcd_goto(3,hintTab);
+	lcd_write_str("          ");
+}
+
+void toggleSetupInputHint()
+{
+	lcd_goto(3,hintTab);
+	lcd_write_str(", 0..1");
+}
+
+void numericSetupInputHint()
+{
+	lcd_goto(3,hintTab);
+	lcd_write_str(", 0..9");
+}
+
+void displaySetup()
+{
+	lcd_clrscr();
+	lcd_write_str("Setup ");
+	lcd_Line2();
+	lcd_write_str("Alarm Y/N #");
+	lcd_goto(2,0);
+	lcd_write_str("Alarm T   *");
+	lcd_goto(2,17);
+	lcd_write_str("min");
+	lcd_goto(3,0);
+	lcd_write_str("B continue");
+}
+
+
+void displayAlarmMinutes(int8_t kInd)
+{
+	lcd_goto(2,setupTab);
+	lcd_write_char(completionAlarmMins10);
+	lcd_write_char(completionAlarmMins);
+	if ((kInd >= 0) &&(kInd <= 1)) lcd_set_cursor(2, setupTab + kInd);
+	else lcd_hide_cursor();
+}
+
+void displayAlarmYesNo(int8_t kInd)
+{
+	lcd_goto(1,setupTab);
+	if (completionAlarmOn) {
+		lcd_write_str("On ");
+		} else {
+		lcd_write_str("Off");
+	}
+	if ((kInd >= 0) &&(kInd <= 0)) lcd_set_cursor(1, setupTab + kInd);
+	else lcd_hide_cursor();
+}

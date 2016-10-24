@@ -51,24 +51,16 @@
 	#define completionAlarmMinsEEPROMpos  22
 	#define completionAlarmMins10EEPROMpos  23
 	
-	#define shortCircuitAlarmSecond1BarrierEEPROMpos    25     // uint8
-	#define shortCircuitAlarmSecond10BarrierEEPROMpos    26     // uint8
-	#define shortCircuitAlarmAmps1EEPROMpos  27
-	#define shortCircuitAlarmAmps10EEPROMpos  28
-	#define shortCircuitAlarmAmps100EEPROMpos  29
 
 	#define calibLowAmps        15
-	#define calibHighAmps       53
+	#define calibHighAmps       60
 
-
-
-
-	miniString  miniStringArray [2];
+	miniString  miniStringArray [4];
 	
-	#define shortCircuitAlarmSecondBarrierArrPos   0
+	#define shortCircuitAlarmSecsArrPos   0
 	#define shortCircuitAlarmAmpsArrPos  1
-
-
+	#define completionAlarmMinsArrPos     2
+	#define completionAlarmYesNoArrPos    3
 
 
 	#define triggerDelayMaxTcnt2 810     // works properly with 50 Hz Ac and 11 Mhz
@@ -175,7 +167,7 @@ void storeCompletionAlarmMins(int8_t val);
 
 void storeCompletionAlarmMins10(int8_t val);
 
-int16_t calcShortCircuitAlarmSecondBarrier();
+int16_t calcShortCircuitAlarmSecs();
 
 int16_t calcShortCircuitAlarmAmps();
 
