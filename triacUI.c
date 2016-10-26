@@ -290,7 +290,7 @@ void displaySetupAlarmShortCircuit()
 	lcd_write_str("secs limit #");
 	lcd_goto(2,0);
 	lcd_write_str("Amps limit *");
-	lcd_goto(2,17);
+	lcd_goto(2,19);
 	lcd_write_str("A");
 	lcd_goto(3,0);
 	lcd_write_str("B return");
