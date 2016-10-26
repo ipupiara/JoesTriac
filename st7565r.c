@@ -116,6 +116,11 @@ void lcd_hide_cursor()
 	lcd_write( 0b00001100, 0);   // disp on, curs off
 }
 
+void lcd_move_cursor_right()
+{
+	lcd_write(0b00010100,0);
+}
+
 void lcd_write_char(int8_t ch1)
 {
 	lcd_write(ch1,1);

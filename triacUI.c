@@ -192,8 +192,7 @@ void displayJobOk()
 	if (completionAlarmOn) {
 		lcd_goto(0,14);
 		lcd_write_str("al ");
-		lcd_write_char(completionAlarmMins10);
-		lcd_write_char(completionAlarmMins);
+		lcdWriteMiniString(completionAlarmMinsArrPos, 0, 17, -1);
 		lcd_write_str("m");
 	}
 	lcd_goto(1,0);
@@ -281,25 +280,7 @@ void displayTime(int8_t kInd)
 }
 
 
-/****************   mini string UI Component *****************/
-
-
-void lcdWriteMiniString(int16_t miniStringArrPos, int8_t kInd)
-{
-	int8_t bt;
-	int8_t len = miniStringArray[miniStringArrPos].length;
-	int16_t pos = miniStringArray[miniStringArrPos].eepromPos;
-	int16_t ps ;
-	lcd_goto(actualLine,actualTab + actualSpaceAftTab );
-	for (int i1 = 0; i1 < len; ++ i1) {
-		ps = pos + i1;
-		bt = EEPROM_read(ps);
-		lcd_write_char(bt);
-	}
-	if ((kInd >= 0) &&(kInd < len)) lcd_set_cursor(actualLine, actualTab + actualSpaceAftTab + kInd);
-	else lcd_hide_cursor();
-}
-
+/****************  using  mini string  *****************/
 
 void displaySetupAlarmShortCircuit()
 {
@@ -323,16 +304,18 @@ void displaySetupAlarmShortCircuitAmps(int8_t kInd)
 {
 	actualLine = 2;
 	actualTab = setupTab;
-	actualSpaceAftTab = 0;
-	lcdWriteMiniString( shortCircuitAlarmAmpsArrPos , kInd);
+	actualSpaceAftTab = 1;
+	lcdWriteMiniString( shortCircuitAlarmAmpsArrPos ,actualLine, actualTab + actualSpaceAftTab,  kInd);
 }
 
 void displaySetupAlarmShortCircuitSecs(int8_t kInd)
 {
 	actualLine = 1;
 	actualTab = setupTab;
-	actualSpaceAftTab = 1;
-	lcdWriteMiniString( shortCircuitAlarmSecsArrPos , kInd);
+	actualSpaceAftTab = 0;
+	lcdWriteMiniStringWithGap( shortCircuitAlarmSecsArrPos ,actualLine, actualTab + actualSpaceAftTab, kInd,1,1);
+	lcd_goto(actualLine, actualTab + actualSpaceAftTab + 2);
+	lcd_write_str(".");
 }
 
 #define hintTab 8
@@ -375,7 +358,7 @@ void displayCompletionAlarmMinutes(int8_t kInd)
 	actualLine = 2;
 	actualTab = setupTab;
 	actualSpaceAftTab = 0;
-	lcdWriteMiniString(completionAlarmMinsArrPos,kInd);
+	lcdWriteMiniString(completionAlarmMinsArrPos,actualLine, actualTab + actualSpaceAftTab,kInd);
 }
 
 void displayCompletionAlarmOn(int8_t kInd)
@@ -383,6 +366,6 @@ void displayCompletionAlarmOn(int8_t kInd)
 	actualLine = 1;
 	actualTab = setupTab;
 	actualSpaceAftTab = 0;
-	lcdWriteMiniString(completionAlarmOnArrPos,kInd);
+	lcdWriteMiniString(completionAlarmOnArrPos,actualLine, actualTab + actualSpaceAftTab,kInd);
 }
 

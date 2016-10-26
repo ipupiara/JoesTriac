@@ -32,6 +32,8 @@ double currentAmpsValue;
 
 int8_t stableZeroAdjReached;
 
+uint16_t  adcValueForAmps (float amps);
+
 void updateGradAmps();
 
 //void onIdleAdcTick();

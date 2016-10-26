@@ -14,6 +14,7 @@
 //#include <iostream.h>
 #include "TriacDefines.h"
 #include "TriacKeyPad.h"
+#include "st7565r.h"
 
 extern const uStInt uStIntHandlingDone;
 extern const uStInt uStIntNoMatch;
@@ -23,7 +24,8 @@ displayMethodType  displayMethod;
 int8_t       keyInd;
 int16_t		miniStringArrPos;
 int8_t       miniStringBusy;
-
+int8_t      numUpperLimit;
+int8_t      numUpperKeyInd;
 
 
 
@@ -67,6 +69,8 @@ void editMiniString(int16_t miniStrArrPos, calcMenthodType calcMeth, displayMeth
 	displayMethod = dispMeth;
 	miniStringBusy = 1;
 	keyInd = 0;
+	numUpperKeyInd = -1;
+	numUpperLimit  = 0x39;
 	displayMethod(keyInd);
 }
 
@@ -74,6 +78,7 @@ void endEditMiniString()
 {
 	displayMethod(-1);
 	miniStringBusy = 0;
+	resetNumUpperLimit();
 }
 
 void initMiniStringComponent()
@@ -89,7 +94,8 @@ bool processMiniStringTriacEvent(CJoesTriacEvent* ev)
 	res = uStIntNoMatch;	
 	if (miniStringBusy){
 		if (ev->evType == evCharEntered) {
-			if ((ev->evData.keyCode <= kp9) && (ev->evData.keyCode >= kp0)) {
+			if ((ev->evData.keyCode <= kp9) && (ev->evData.keyCode >= kp0)  &&
+				    (!((keyInd == numUpperKeyInd) && (ev->evData.keyCode > numUpperLimit ) ))) {
 				if ((keyInd >= 0) && (keyInd < miniStringArray[miniStringArrPos].length) )  {
 					EEPROM_write(miniStringArray[miniStringArrPos].eepromPos + keyInd, ev->evData.keyCode);
 					calcMethod();
@@ -109,17 +115,68 @@ bool processMiniStringTriacEvent(CJoesTriacEvent* ev)
 }
 
 
-/*
 
-int16_t calcMiniStringUIntValue(int16_t miniSArrPos)
+void setNumUpperLimit(int8_t numUpper, int8_t atKey)
 {
-	int16_t res = 0;
-	
-	for (int8_t i1 = 0; i1 < miniStringArray[miniStringArrPos].length; ++i1) {
-		res =  (res * 10) +   EEPROM_read( miniStringArray[miniStringArrPos].eepromPos );
-	}
-	
-	return res;
+	numUpperKeyInd = atKey ;
+	numUpperLimit = numUpper;
 }
 
-*/
+void resetNumUpperLimit()
+{
+	numUpperKeyInd = -1 ;
+	numUpperLimit = 0x39;
+}
+
+
+
+/****************   mini string UI Component *****************/
+
+
+void lcdWriteMiniStringWithGap(int16_t miniStringArrPos,  int8_t lineNr, int8_t rowNr, int8_t kInd, int8_t gapPos, int8_t gapLen)
+{
+	int8_t bt;
+	int8_t len = miniStringArray[miniStringArrPos].length;
+	int16_t pos = miniStringArray[miniStringArrPos].eepromPos;
+	int16_t ps ;
+	int8_t  gapJumped = 0;
+	lcd_goto(lineNr,rowNr );
+	for (int i1 = 0; i1 < len; ++ i1) {
+		ps = pos + i1;
+		bt = EEPROM_read(ps);
+		lcd_write_char(bt);
+		if (i1 == gapPos) {
+			for (int i2 = 0; i2 < gapLen;++i2)  {
+				lcd_move_cursor_right();
+				++ gapJumped;
+			}
+		}
+	}
+	if ((kInd >= 0) &&(kInd < len)) lcd_set_cursor(lineNr, rowNr +  gapJumped + kInd);
+	else lcd_hide_cursor();
+}
+
+
+void lcdWriteMiniString(int16_t miniStringArrPos, int8_t lineNr, int8_t rowNr, int8_t kInd)
+{
+	lcdWriteMiniStringWithGap(miniStringArrPos,lineNr,rowNr,kInd,-1,0);
+}
+
+char* miniStringNToString(int16_t miniStringArrPos, uint8_t maxSize, char* buffer)
+{
+	uint8_t bt;
+	uint8_t i1;
+	int8_t len = miniStringArray[miniStringArrPos].length;
+	int16_t pos = miniStringArray[miniStringArrPos].eepromPos;
+	for (i1 = 0; ((i1 < len) && (i1 < maxSize )); ++ i1)  {
+		bt = EEPROM_read(pos + i1);
+		buffer [i1] = bt;
+	}
+	++ i1;
+	buffer [i1] = 0;
+	return buffer;
+}
+
+
+
+

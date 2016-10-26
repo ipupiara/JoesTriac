@@ -21,6 +21,7 @@ int8_t m_started;
 real m_kPTot, m_kP, m_kI, m_kD, m_stepTime, m_inv_stepTime, m_prev_error, m_error_thresh, m_integral;
 
 float gradAmps; // amperes ....
+float gradAdc;  
 
 real corrCarryOver;     // carry amount if correction in float gives zero correction in int
 
@@ -33,6 +34,9 @@ void updateGradAmps()
 	if ( fabs(dADC) > 1) {  
 		gradAmps = dAmps / dADC;
 	} else gradAmps = 0;
+	if (fabs (dAmps) > 1)  {
+		gradAdc = dADC / dAmps;
+	} else gradAdc = 0;
 }
 
 
@@ -279,7 +283,13 @@ float currentAmps()
 	return res;
 }
 
-
+uint16_t  adcValueForAmps (float amps) 
+{
+	uint16_t res = 0;
+	uint16_t dAdc = gradAdc * (amps - calibLowAmps);
+	res = calibLowADC + dAdc;
+	return res;
+}
 
 void calcNextTriacDelay()
 {  

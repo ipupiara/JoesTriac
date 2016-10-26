@@ -842,6 +842,7 @@ void entrySetupCompletionAlarmOnState(void)
 //	printf("entry I\n");
 	toggleSetupInputHint();
 	editMiniString(completionAlarmOnArrPos,calcCompletionAlarmOn,displayCompletionAlarmOn);
+	setNumUpperLimit(0x31,0);
 }
 
 void exitSetupCompletionAlarmOnState(void)
@@ -975,7 +976,7 @@ void entrySetupShortCircuitSecsState(void)
 	//	printf("entry I\n");
 	keyInd = 0;
 	numericSetupInputHint();
-	editMiniString(shortCircuitAlarmSecsArrPos,calcShortCircuitAlarmSecs,displaySetupAlarmShortCircuitSecs);
+	editMiniString(shortCircuitAlarmSecsArrPos,calcShortCircuitAlarmSecs10,displaySetupAlarmShortCircuitSecs);
 }
 
 void exitSetupShortCircuitSecsState(void)
@@ -1061,7 +1062,6 @@ uStInt evTriacRunningChecker(void)
 		displayCurrentAmps();
 		displayCountDown();
 		displayVoltage();	
-		checkShortCircuitCondition();
 		res =  uStIntHandlingDone;
 	}	
 	if (currentEvent->evType == evAdcTick)

@@ -163,7 +163,7 @@ int main(void)
 //				printf("ev keypressed: %i\n",ch1);
 
 			#endif 
-			printf("ev key : %x, 1=sta sto f1 f2 *#, \n",ky);	
+			printf("ev key : %x, 1=sta sto f1 f2 *#\n",ky);	
 			processMiniStringTriacEvent(&ev);
 			processTriacEvent(&SJoesTriacStateChart,&ev);	
 		}

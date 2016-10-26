@@ -3,7 +3,7 @@
 #include "TriacDefines.h"
 #include "TriacIntr.h"
 
-miniString  miniStringArray [4]  = {{25,2},{27 ,3},{22,2},{21,1}};
+miniString  miniStringArray [4]  = {{32,3},{27 ,3},{22,2},{21,1}};
 
 //  TriacDefines.h:
 //	#define triacWeldingAmpsArrPos		4
@@ -260,10 +260,10 @@ int16_t calcCompletionAlarmMinutes()
 	return completionAlarmMinutes;
 }
 
-int16_t calcShortCircuitAlarmSecs()
+int16_t calcShortCircuitAlarmSecs10()
 {
-	shortCircuitAlarmSecondBarrier = calcMiniString(shortCircuitAlarmSecsArrPos);
-	return shortCircuitAlarmSecondBarrier;
+	shortCircuitAlarmSecond10Barrier = calcMiniString(shortCircuitAlarmSecsArrPos);
+	return shortCircuitAlarmSecond10Barrier;
 }
 
 int16_t calcShortCircuitAlarmAmps()
@@ -307,7 +307,7 @@ void restorePersistentData()
 	calcCompletionAlarmMinutes();	
 	calcCompletionAlarmOn();	
 	calcShortCircuitAlarmAmps();
-	calcShortCircuitAlarmSecs();
+	calcShortCircuitAlarmSecs10();
 	
 	calibLowADC = eeprom_read_word((uint16_t*) calibLowAdcEEPROMpos);
 	if (calibLowADC == 0xFFFF) calibLowADC = 0x0000;

@@ -33,6 +33,14 @@ int16_t calcMiniString(int16_t miniStringArrPos);
 
 bool processMiniStringTriacEvent(CJoesTriacEvent* ev);
 
+void setNumUpperLimit(int8_t numUpper, int8_t atKey);
 
+void resetNumUpperLimit();
+
+void lcdWriteMiniString(int16_t miniStringArrPos, int8_t lineNr, int8_t rowNr, int8_t kInd);
+
+void lcdWriteMiniStringWithGap(int16_t miniStringArrPos,  int8_t lineNr, int8_t rowNr, int8_t kInd, int8_t gapPos, int8_t gapLen);
+
+char* miniStringNToString(int16_t miniStringArrPos, uint8_t maxSize, char* buffer);
 
 #endif /* MINISTRING_H_ */

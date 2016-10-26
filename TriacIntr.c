@@ -11,6 +11,8 @@
 
 int16_t lastAmpsADCVal;
 
+uint16_t  shortCircuitAlarmAmpsADCValue;
+
 int16_t remainingTriacTriggerDelayCounts;
 
 int16_t triacTriggerTimeTcnt2;
@@ -22,8 +24,6 @@ int16_t secondsInDurationTimer;
 int8_t adcCnt;
 
 int16_t amtInductiveRepetitions;
-
-int8_t shortCircuitCounter;
 
 int16_t getSecondsDurationTimerRemaining()
 {
@@ -152,7 +152,7 @@ ISR(ADC_vect)
 {
 	lastAmpsADCVal = ADC;
 	++ adcCnt;
-
+	checkShortCircuitCondition();
 	if (adcCnt == pidStepDelays)  {     
 		adcCnt = 0;
 		adcTick = 1;
@@ -178,15 +178,30 @@ ISR(TIMER0_COMPA_vect)
 {    // needed for ADC so far..
 }
 
+int8_t sec10Counter;
+int8_t shortCircuitSec10Counter;
+
 ISR(TIMER1_COMPA_vect)
 {
-	secondsDurationTimerRemaining --;
-	secondsInDurationTimer ++;
-	if (secondsDurationTimerRemaining <= 0) {
-		stopDurationTimer();
-		durationTimerReachead = 1;
-	} else {
-		runningSecondsTick = 1;
+	if (shortCircuitSec10Counter > 0)  {
+		-- shortCircuitSec10Counter;
+		if (shortCircuitSec10Counter == 0)  {
+			sprintf((char *) &lastFatalErrorString,"short circuit");
+			fatalErrorOccurred = 1;
+		}
+	}
+	if ( sec10Counter >= 10)  {
+		sec10Counter = 0;
+		secondsDurationTimerRemaining --;
+		secondsInDurationTimer ++;
+		if (secondsDurationTimerRemaining <= 0) {
+			stopDurationTimer();
+			durationTimerReachead = 1;
+		} else {
+			runningSecondsTick = 1;
+		}
+	}  else {
+		++ sec10Counter;
 	}
 }
 
@@ -216,6 +231,8 @@ void initInterrupts()
 // Timer 1 as Duration Timer
 	  
 			runningSecondsTick = 0;
+			sec10Counter = 0;
+			shortCircuitSec10Counter = 0;
 	  
 		TCCR1A = 0x00;  // normal mode or CTC dep.on TCCR1B
 		//TCCR1B = 0b00001101  ; // CTC on CC1A , set clk / 1024, timer started
@@ -224,7 +241,8 @@ void initInterrupts()
 
 		TCCR1C = 0x00; // no Force output compare
 
-		OCR1A = 0x2A30;  // counter top value  , this value at clk/1024 will cause a delay of exact 1 sec
+//		OCR1A = 0x2A30;  // counter top value  , this value at clk/1024 will cause a delay of exact 1 sec
+		OCR1A = 0x0438;  // counter top value  , this value at clk/1024 will cause a delay of exact 1/10 sec
 		TCNT1 = 0x00 ;  
 
 		TIMSK1  = 0x00; // disa  Interrupt 
@@ -267,7 +285,6 @@ void initInterrupts()
 		adcTick = 0;
 		adcCnt = 0;
 		lastAmpsADCVal = 0;
-		shortCircuitCounter = 0;
 		sei();  // start interrupts if not yet started
 }
 
@@ -306,6 +323,7 @@ void stopAmpsADC()
 void startTriacRun()
 {
 	resetPID();
+	shortCircuitAlarmAmpsADCValue = adcValueForAmps(shortCircuitAlarmAmps);
 	startAmpsADC();
 	EIFR = 0x00;
 	EIMSK = 0x01;  				// start external interrupt (zero pass detection)
@@ -402,15 +420,15 @@ void toggleCompletionAlarm()
 
 void checkShortCircuitCondition()
 {
-	if (ampsADCValue() > shortCircuitAlarmAmps) {
-		++shortCircuitCounter;	
-		if (shortCircuitCounter > shortCircuitAlarmSecondBarrier) {	
-			sprintf((char *) &lastFatalErrorString,"short circuit");
-			fatalErrorOccurred = 1;
-		}
+	if (lastAmpsADCVal > shortCircuitAlarmAmpsADCValue) {
+		if (shortCircuitSec10Counter == 0)  {
+			shortCircuitSec10Counter = shortCircuitAlarmSecond10Barrier;
+		} 
 	
 	} else {
-		shortCircuitCounter = 0;
+		shortCircuitSec10Counter = 0;
 	}
 	
 }
+
+

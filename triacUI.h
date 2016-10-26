@@ -72,4 +72,5 @@ char*   currentTitle;
 void displayCurrentVar();
 void currentVarChanged();
 
+
 #endif

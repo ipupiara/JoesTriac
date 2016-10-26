@@ -26,8 +26,8 @@
 	#define jtagDebugKeyboardMode	// tobe set if jtag debug is used, it will divert the serial input (terminal)									//  to the keyboard and leave the keyboard port (port C) free for jtag
 #endif					
 				
-#define jtagDebugKeyboardMode   // for debugging using the jtag interface which needs the same port as keyboard
-								//  keyboard input can then be done via the pc keyboard in the terminal connectet to uart0						
+//#define jtagDebugKeyboardMode   // for debugging using the jtag interface which needs the same port as keyboard.
+								//  keyboard input can then be done via the pc keyboard in the terminal connected to uart0						
 
 	#define maxSecsPossible  0x7FFF
 
@@ -91,13 +91,9 @@ uint8_t   completionAlarmMins;
 uint8_t   completionAlarmMins10;
 uint8_t   completionAlarmMinutes;
 
-uint8_t	  shortCircuitAlarmSecondBarrier;
-uint8_t   shortCircuitAlarmSecond1Barrier;
-uint8_t   shortCircuitAlarmSecond10Barrier;
-uint16_t  shortCircuitAlarmAmps;
-uint8_t   shortCircuitAlarmAmps1;
-uint8_t   shortCircuitAlarmAmps10;
-uint8_t   shortCircuitAlarmAmps100;
+int16_t  shortCircuitAlarmSecond10Barrier;
+
+uint8_t  shortCircuitAlarmAmps;
 
 int8_t amps100, amps10, amps, min10, min, sec10, sec;
 
@@ -165,7 +161,7 @@ int16_t calcCompletionAlarmOn();
 
 int16_t calcCompletionAlarmMinutes();
 
-int16_t calcShortCircuitAlarmSecs();
+int16_t calcShortCircuitAlarmSecs10();
 
 int16_t calcShortCircuitAlarmAmps();
 
