@@ -6,7 +6,7 @@
 #include "TriacDefines.h"
 #include "triacPID.h"
 
-char ARBuffer [4];
+char avgRmsStringBuffer [4];
 int8_t actualLine;
 int8_t actualTab;
 int8_t actualSpaceAftTab;
@@ -169,7 +169,7 @@ void displayTriacRunning()
 	lcd_clrscr();
 	lcd_write_str("Running ");
 	lcd_goto(0,17);
-	lcd_write_str(ARBuffer);
+	lcd_write_str(avgRmsStringBuffer);
 	lcd_goto(3,0);
 	lcd_write_str("R stop");
 }
@@ -178,9 +178,9 @@ void displayTriacRunning()
 void initUI()
 {
 	if (ampsInputPin == rms) {
-		sprintf((char*) &ARBuffer[0],"RMS");
+		sprintf((char*) &avgRmsStringBuffer[0],"RMS");
 	} else {
-		sprintf((char*) &ARBuffer[0],"AVG");
+		sprintf((char*) &avgRmsStringBuffer[0],"AVG");
 	}
 //	printf("initUI ARBuffer: %s\n",ARBuffer);
 }
@@ -229,7 +229,7 @@ void displayEditAmpsDuration()
 	lcd_Line2();
 	lcd_write_str("*     #       ");
 	lcd_goto(0,17);
-	lcd_write_str(ARBuffer);
+	lcd_write_str(avgRmsStringBuffer);
 	lcd_goto(3,0);
 	lcd_write_str("G start,A Setup");
 }
