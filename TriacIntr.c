@@ -419,16 +419,17 @@ void toggleCompletionAlarm()
 
 
 
-//  checkShort CircuitCondition, pn 27oct2016
+//  checkShortCircuitCondition, pn 27oct2016
 //  due to recent events in jo's production, we created
 //  this method which should be able to detect a behaviour that indicates a "short circuit" abnormality 
-//  on the load side of the triac. compared to a not regulated power source it is more difficult
-//  to find such an abnormality because our triac application immediately starts regulating the 
+//  on the load side of the triac. compared to a not regulated power source it is much more difficult
+//  to find such an abnormality on a regulated one, because our triac application immediately starts regulating the 
 //  current down as soon as a short circuit takes place, ie. a drastically reduction of the 
 //  load resistance. Anyhow some indicator might show such a situation, but there will be always
 //  some uncertainty in the determination of such situation and wrong alerts have to be minimized
 //  as far as anyhow possible, because each interrupt of the welding process due to wrong alert 
 //  means a high risk of material loss.
+//  indicators might be:
 //  - low triac delay value  - rapid increase of current to high level for short time before regulation down
 //  - hardware problems on triac regulation resulting in regulation loss
 
