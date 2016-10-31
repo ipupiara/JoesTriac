@@ -10,20 +10,39 @@
 #define MINISTRING_H_
 
 #include "StateClass.h"
+#include "triacUI.h"
 
-typedef struct  {
+typedef struct miniString {
 	int16_t   eepromPos;
 	int8_t    length;
 } miniString ;
 
+typedef int16_t (*miniStringCalcMenthodType)(void);
 
-typedef int16_t (*calcMenthodType)(void);
+typedef void(*miniStringDisplayMethodType)(int8_t);
 
-typedef void(*displayMethodType)(int8_t);
+typedef void(*inputHintDisplayMethodType)(void);
+
+#define amtMiniStringEditPages  2
+
+typedef struct miniStringSetupConfigurationStruct {
+	uint16_t     miniStringArrayPos;
+	miniStringCalcMenthodType calcMethod, 
+	miniStringDisplayMethodType dispMethod,
+	inputHintDisplayMethodType   inputHintMethod
+} miniStringSetupConfigurationStruct ;
+
+
+typedef struct SetupConfigurationStruct {
+	setupPageDisplayMethodType	pageDisplayMethod;
+	miniStringSetupConfigurationStruct		miniStringSetupAstConfiguration;
+	miniStringSetupConfigurationStruct		miniStringSetupNumConfiguration;
+} SetupConfigurationStruct ;
+
 
 int8_t editFinished;
 
-void editMiniString(int16_t miniStringArrayPos, calcMenthodType calcMeth, displayMethodType dispMeth);
+void editMiniString(int16_t miniStringArrayPos, miniStringCalcMenthodType calcMeth, miniStringDisplayMethodType dispMeth);
 
 void endEditMiniString();
 

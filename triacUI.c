@@ -338,7 +338,7 @@ void numericSetupInputHint()
 	lcd_write_str(", 0..9");
 }
 
-void displaySetup()
+void displayCompletionAlarmSetup()
 {
 	lcd_clrscr();
 	lcd_write_str("Setup ");

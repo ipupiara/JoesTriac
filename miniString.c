@@ -19,8 +19,8 @@
 extern const uStInt uStIntHandlingDone;
 extern const uStInt uStIntNoMatch;
 
-calcMenthodType  calcMethod;
-displayMethodType  displayMethod;
+miniStringCalcMenthodType  calcMethod;
+miniStringDisplayMethodType  displayMethod;
 int8_t       keyInd;
 int16_t		miniStringArrPos;
 int8_t       miniStringBusy;
@@ -62,7 +62,7 @@ int16_t calcMiniString(int16_t miniStringArrPos)
 	return res;
 }
 
-void editMiniString(int16_t miniStrArrPos, calcMenthodType calcMeth, displayMethodType dispMeth)
+void editMiniString(int16_t miniStrArrPos, miniStringCalcMenthodType calcMeth, miniStringDisplayMethodType dispMeth)
 {
 	miniStringArrPos =	miniStrArrPos;
 	calcMethod = calcMeth;
@@ -179,4 +179,10 @@ char* miniStringNToString(int16_t miniStringArrPos, uint8_t maxSize, char* buffe
 
 
 
-
+miniStringSetupConfigurationStruct   miniStringSetupConfiguration[amtMiniStringEditPages] =
+	{
+		{
+			displayCompletionAlarmSetup,
+			13, 2, {{completionAlarmOnArrPos, }  }
+		}
+	}

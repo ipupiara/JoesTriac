@@ -3,6 +3,8 @@
 
 #include <inttypes.h>
 
+typedef void(*setupPageDisplayMethodType)();
+
 void clr_scr();
 
 void displayCalibrationPrompt();
@@ -34,7 +36,7 @@ void displayJobOk();
 
 void displayRmsAvgQuery();
 
-void displaySetup();
+void displayCompletionAlarmSetup();
 
 void displayCompletionAlarmMinutes(int8_t kInd);
 

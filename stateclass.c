@@ -773,7 +773,7 @@ uStInt evSetupChecker(void)
 void entrySetupState(void)
 {
 //	printf("entry I\n");
-	displaySetup();
+	displayCompletionAlarmSetup();
 }
 
 void exitSetupState(void)
