@@ -1,3 +1,4 @@
+//#pragma GCC diagnostic ignored "-Wunused-but-set-variable"
 
 #include <stdio.h>
 #include "TriacDefines.h"
@@ -5,22 +6,10 @@
 
 miniString  miniStringArray [4]  = {{32,3},{27 ,3},{22,2},{21,1}};
 
-//  TriacDefines.h:
-//	#define triacWeldingAmpsArrPos		4
-//	#define triacWeldingMinsArrPos    5
-//	#define triacWeldingSecsArrPos   6
-#warning "TODO: pn, 24oct16 need enhancement on miniString. currently no time for this  :-)"
-
 
 // ATTENTION: use of EEPROM needs BOD Level of at least 2.7 V, otherwise EEPROM memory
 // is likely to crash on restore when done at mcu startup
 
-#warning "TODO: Work for the future refactoring :-)"
-/*	TODO:
-*	PN 28. SEPT 2016: actually with some more framework and some more  configuration values
-"                     the amount of methods could be drastically reduced. Work for future refactoring :-)
-*
-*/
 
 void EEPROM_write(unsigned int uiAddress, unsigned char ucData)
 {
@@ -127,12 +116,14 @@ void delay6pnt2d5us(unsigned int enn)
 
 //  accurate enough for our keyboard delays
 
-uint8_t ix;  
+
+uint8_t __attribute__((unused)) ix;  
 	ix= 0;
 
   while(enn--){
   }
 } 
+
 
 /*
 void checkEEPOROM()

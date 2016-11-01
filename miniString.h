@@ -12,6 +12,11 @@
 #include "StateClass.h"
 #include "triacUI.h"
 
+enum {
+		astPos = 0,
+		numPos
+	};
+
 typedef struct miniString {
 	int16_t   eepromPos;
 	int8_t    length;
@@ -27,16 +32,21 @@ typedef void(*inputHintDisplayMethodType)(void);
 
 typedef struct miniStringSetupConfigurationStruct {
 	uint16_t     miniStringArrayPos;
-	miniStringCalcMenthodType calcMethod, 
-	miniStringDisplayMethodType dispMethod,
-	inputHintDisplayMethodType   inputHintMethod
+	miniStringCalcMenthodType calcMethod;
+	miniStringDisplayMethodType dispMethod;
+	inputHintDisplayMethodType   inputHintMethodd;
 } miniStringSetupConfigurationStruct ;
 
 
 typedef struct SetupConfigurationStruct {
 	setupPageDisplayMethodType	pageDisplayMethod;
-	miniStringSetupConfigurationStruct		miniStringSetupAstConfiguration;
-	miniStringSetupConfigurationStruct		miniStringSetupNumConfiguration;
+	union {
+		miniStringSetupConfigurationStruct      miniStringSetupConfiguration [2];
+		struct {
+			miniStringSetupConfigurationStruct		miniStringSetupAstConfiguration;
+			miniStringSetupConfigurationStruct		miniStringSetupNumConfiguration;
+		} select; 
+	}  config;
 } SetupConfigurationStruct ;
 
 

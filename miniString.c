@@ -177,7 +177,7 @@ char* miniStringNToString(int16_t miniStringArrPos, uint8_t maxSize, char* buffe
 	return buffer;
 }
 
-
+/*
 
 miniStringSetupConfigurationStruct   miniStringSetupConfiguration[amtMiniStringEditPages] =
 	{
@@ -186,3 +186,5 @@ miniStringSetupConfigurationStruct   miniStringSetupConfiguration[amtMiniStringE
 			13, 2, {{completionAlarmOnArrPos, }  }
 		}
 	}
+	
+	*/

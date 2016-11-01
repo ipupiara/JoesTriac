@@ -22,7 +22,7 @@ CJoesTriacEvent* currentEvent;
 #include "twi_master.h"
 
 // This defines and names the states the class has.
-// attention: sequence must be the same as in xaStates (below)  !!!
+#warning  attention: sequence must be the same as in xaStates (below)  !!!
 enum eStates
 {
 	eStateJoesTriac,
@@ -48,6 +48,9 @@ enum eStates
  	eStateSetupShortCircuitIdle,
  	eStateSetupShortCircuitSecs,
 	eStateSetupShortCircuitAmps,
+	eStateSetupMiniString,
+	eStateSetupMiniStringIdle,
+	eStateSetupMiniStringActive,
 	eStateTriacRunning,
 	eStateJobOkDisplay,
 	eStateFatalError,
@@ -1021,6 +1024,107 @@ void exitSetupShortCuircuitAmpsState(void)
 }
 
 
+
+uStInt evSetupMiniStringChecker(void)
+{
+	uStInt res;
+	res = uStIntNoMatch;
+	if (currentEvent->evType == evF2Pressed)
+	{
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+		// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
+	return (res);
+}
+
+void entrySetupMiniStringState(void)
+{
+	//	printf("entry I\n");
+	displaySetupAlarmShortCircuit();
+}
+
+void exitSetupMiniStringState(void)
+{
+	//	printf("exit I\n");
+}
+
+
+uStInt evSetupMiniStringIdleChecker(void)
+{
+	uStInt res;
+	res = uStIntNoMatch;
+	if (currentEvent->evType==evAstPressed) {
+		//		printf("\ncheck for event in State evStateIdle amps");
+		
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupShortCircuitAmps);
+		// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
+	if (currentEvent->evType==evNumPressed) {
+		//		printf("\ncheck for event in State evStateIdle dur");
+
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupShortCircuitSecs);
+		// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
+	return (res);
+}
+
+void entrySetupMiniStringIdleState(void)
+{
+	//	printf("entry I\n");
+	displaySetupAlarmShortCircuitAmps(-1);
+	displaySetupAlarmShortCircuitSecs(-1);
+	clearSetupInputHint();
+}
+
+void exitSetupMiniStringIdleState(void)
+{
+	//	printf("exit I\n");
+}
+
+
+uStInt evSetupMiniStringActiveChecker(void)
+{
+	uStInt res;
+	res = uStIntNoMatch;
+	if (currentEvent->evType==evAstPressed) {
+		//		printf("\ncheck for event in State evStateIdle amps");
+		
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupShortCircuitAmps);
+		// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
+	if ((currentEvent->evType==evNumPressed) || (currentEvent->evType == evEditFinished)) {
+		//		printf("\ncheck for event in State evStateIdle dur");
+
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupShortCircuitIdle);
+		// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
+	return (res);
+}
+
+void entrySetupMiniStringActiveState(void)
+{
+	//	printf("entry I\n");
+	keyInd = 0;
+	numericSetupInputHint();
+	editMiniString(shortCircuitAlarmSecsArrPos,calcShortCircuitAlarmSecs10,displaySetupAlarmShortCircuitSecs);
+}
+
+void exitSetupMiniStringActiveState(void)
+{
+	endEditMiniString();
+}
+
+
 void entryTriacRunningState(void)
 {
 	printf("entry Running\n");
@@ -1347,6 +1451,33 @@ xStateType xaStates[eNumberOfStates] = {
 		 tfNull,
 		 entrySetupShortCuircuitAmpsState,
 	 exitSetupShortCuircuitAmpsState},
+	 
+	{eStateSetupMiniString,
+		eStateTriacOperating,
+		eStateSetupMiniStringIdle,
+		0,
+		evSetupMiniStringChecker,
+		tfNull,
+		entrySetupMiniStringState,
+	exitSetupMiniStringState},
+
+	{eStateSetupMiniStringIdle,
+		eStateSetupMiniString,
+		-1,
+		0,
+		evSetupMiniStringIdleChecker,
+		tfNull,
+		entrySetupMiniStringIdleState,
+	exitSetupMiniStringIdleState},
+
+	{eStateSetupMiniStringActive,
+		eStateSetupMiniString,
+		-1,
+		0,
+		evSetupMiniStringActiveChecker,
+		tfNull,
+		entrySetupMiniStringActiveState,
+	exitSetupMiniStringActiveState},
 
 	{eStateTriacRunning,
  	eStateTriacOperating,
