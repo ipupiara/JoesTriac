@@ -36,23 +36,21 @@ void displayJobOk();
 
 void displayRmsAvgQuery();
 
-void displayCompletionAlarmSetup();
+void showCompletionAlarmSetup();
 
-void displayCompletionAlarmMinutes(int8_t kInd);
+void writeCompletionAlarmMinutes(int8_t kInd);
 
-void displayCompletionAlarmOn(int8_t kInd);
+void writeCompletionAlarmOn(int8_t kInd);
 
-void displaySetupAlarmShortCircuit();
+void showShortCircuitAlarmSetup();
 
-void displaySetupAlarmShortCircuitAmps(int8_t kInd);
+void writeShortCircuitAlarmAmps(int8_t kInd);
 
-void displaySetupAlarmShortCircuitSecs(int8_t kInd);
+void writeShortCircuitAlarmSec(int8_t kInd);
 
 void clearSetupInputHint();
 
-void toggleSetupInputHint();
-
-void numericSetupInputHint();
+void inputHintNumericSetup(int8_t upperLimit);
 
 void initUI();
 

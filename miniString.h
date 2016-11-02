@@ -22,34 +22,39 @@ typedef struct miniString {
 	int8_t    length;
 } miniString ;
 
+typedef miniString*  pMiniString;
+
 typedef int16_t (*miniStringCalcMenthodType)(void);
 
 typedef void(*miniStringDisplayMethodType)(int8_t);
 
-typedef void(*inputHintDisplayMethodType)(void);
-
 #define amtMiniStringEditPages  2
 
-typedef struct miniStringSetupConfigurationStruct {
+// contains every information needed to edit the miniString
+typedef struct SetupMiniStringConfigurationStruct {
 	uint16_t     miniStringArrayPos;
 	miniStringCalcMenthodType calcMethod;
 	miniStringDisplayMethodType dispMethod;
-	inputHintDisplayMethodType   inputHintMethodd;
-} miniStringSetupConfigurationStruct ;
+} SetupMiniStringConfigurationStruct  ;
 
+typedef SetupMiniStringConfigurationStruct* pMiniStringSetupConfigurationStruct;
 
-typedef struct SetupConfigurationStruct {
+// contains every info for editing a setup page
+typedef struct SetupPageConfigurationStruct {
 	setupPageDisplayMethodType	pageDisplayMethod;
 	union {
-		miniStringSetupConfigurationStruct      miniStringSetupConfiguration [2];
-		struct {
-			miniStringSetupConfigurationStruct		miniStringSetupAstConfiguration;
-			miniStringSetupConfigurationStruct		miniStringSetupNumConfiguration;
-		} select; 
+		SetupMiniStringConfigurationStruct      miniStringSetupConfiguration [2];
+//		struct {
+			SetupMiniStringConfigurationStruct		miniStringSetupAstConfiguration;
+//			SetupMiniStringConfigurationStruct		miniStringSetupNumConfiguration;
+//		} select; 
 	}  config;
-} SetupConfigurationStruct ;
+	SetupMiniStringConfigurationStruct		miniStringSetupNumConfiguration;
+} SetupPageConfigurationStruct ;
 
+typedef SetupPageConfigurationStruct* pSetupPageConfigurationStruct;
 
+// needed for the event when editing of a miniString ended (especially if the last character has been entered)
 int8_t editFinished;
 
 void editMiniString(int16_t miniStringArrayPos, miniStringCalcMenthodType calcMeth, miniStringDisplayMethodType dispMeth);
@@ -62,14 +67,14 @@ int16_t calcMiniString(int16_t miniStringArrPos);
 
 bool processMiniStringTriacEvent(CJoesTriacEvent* ev);
 
-void setNumUpperLimit(int8_t numUpper, int8_t atKey);
-
-void resetNumUpperLimit();
+void setNumUpperLimit(int8_t numUpper);  // can be called by the write...... method for a specific miniStringEditPos value
 
 void lcdWriteMiniString(int16_t miniStringArrPos, int8_t lineNr, int8_t rowNr, int8_t kInd);
 
 void lcdWriteMiniStringWithGap(int16_t miniStringArrPos,  int8_t lineNr, int8_t rowNr, int8_t kInd, int8_t gapPos, int8_t gapLen);
 
 char* miniStringNToString(int16_t miniStringArrPos, uint8_t maxSize, char* buffer);
+
+void resetMiniStringComponent();
 
 #endif /* MINISTRING_H_ */

@@ -21,7 +21,7 @@ extern const uStInt uStIntNoMatch;
 
 miniStringCalcMenthodType  calcMethod;
 miniStringDisplayMethodType  displayMethod;
-int8_t       keyInd;
+int8_t       miniStringEditPos;
 int16_t		miniStringArrPos;
 int8_t       miniStringBusy;
 int8_t      numUpperLimit;
@@ -62,23 +62,33 @@ int16_t calcMiniString(int16_t miniStringArrPos)
 	return res;
 }
 
+void displayMiniString(int8_t pos)
+{
+	displayMethod(pos);
+	inputHintNumericSetup(numUpperLimit);
+}
+
+
+void resetEditPosLimit()
+{
+	numUpperLimit = 0x39;
+}
+
 void editMiniString(int16_t miniStrArrPos, miniStringCalcMenthodType calcMeth, miniStringDisplayMethodType dispMeth)
 {
 	miniStringArrPos =	miniStrArrPos;
 	calcMethod = calcMeth;
 	displayMethod = dispMeth;
 	miniStringBusy = 1;
-	keyInd = 0;
-	numUpperKeyInd = -1;
-	numUpperLimit  = 0x39;
-	displayMethod(keyInd);
+	miniStringEditPos = 0;
+	resetEditPosLimit();
+	displayMiniString(miniStringEditPos);
 }
 
 void endEditMiniString()
 {
 	displayMethod(-1);
 	miniStringBusy = 0;
-	resetNumUpperLimit();
 }
 
 void initMiniStringComponent()
@@ -88,23 +98,35 @@ void initMiniStringComponent()
 }
 
 
+void setNumUpperLimit(int8_t numUpper)
+{
+	numUpperLimit = numUpper;
+}
+
+void incMiniStringEditPos()
+{
+	miniStringEditPos ++;
+	resetEditPosLimit();
+}
+
+
+
 bool processMiniStringTriacEvent(CJoesTriacEvent* ev)
 {
 	bool res;
 	res = uStIntNoMatch;	
 	if (miniStringBusy){
 		if (ev->evType == evCharEntered) {
-			if ((ev->evData.keyCode <= kp9) && (ev->evData.keyCode >= kp0)  &&
-				    (!((keyInd == numUpperKeyInd) && (ev->evData.keyCode > numUpperLimit ) ))) {
-				if ((keyInd >= 0) && (keyInd < miniStringArray[miniStringArrPos].length) )  {
-					EEPROM_write(miniStringArray[miniStringArrPos].eepromPos + keyInd, ev->evData.keyCode);
+			if (((ev->evData.keyCode <= kp9) && (ev->evData.keyCode >= kp0))  &&
+				    (!(ev->evData.keyCode > numUpperLimit  ))) {
+				if ((miniStringEditPos >= 0) && (miniStringEditPos < miniStringArray[miniStringArrPos].length) )  {
+					EEPROM_write(miniStringArray[miniStringArrPos].eepromPos + miniStringEditPos, ev->evData.keyCode);
 					calcMethod();
 				}
-				keyInd ++;
-				
+				incMiniStringEditPos();
 			}
-			displayMethod(keyInd);
-			if (keyInd >= miniStringArray[miniStringArrPos].length) {
+			displayMiniString(miniStringEditPos);
+			if (miniStringEditPos >= miniStringArray[miniStringArrPos].length) {
 				endEditMiniString();
 				editFinished = 1;
 			}
@@ -112,20 +134,6 @@ bool processMiniStringTriacEvent(CJoesTriacEvent* ev)
 		}
 	} 
 	return (res);
-}
-
-
-
-void setNumUpperLimit(int8_t numUpper, int8_t atKey)
-{
-	numUpperKeyInd = atKey ;
-	numUpperLimit = numUpper;
-}
-
-void resetNumUpperLimit()
-{
-	numUpperKeyInd = -1 ;
-	numUpperLimit = 0x39;
 }
 
 
@@ -177,14 +185,24 @@ char* miniStringNToString(int16_t miniStringArrPos, uint8_t maxSize, char* buffe
 	return buffer;
 }
 
-/*
 
-miniStringSetupConfigurationStruct   miniStringSetupConfiguration[amtMiniStringEditPages] =
+
+SetupPageConfigurationStruct   setupPageConfiguration[amtMiniStringEditPages] =
 	{
 		{
-			displayCompletionAlarmSetup,
-			13, 2, {{completionAlarmOnArrPos, }  }
+			showCompletionAlarmSetup,
+			{completionAlarmOnArrPos, calcCompletionAlarmMinutes, writeCompletionAlarmMinutes  },
+			{completionAlarmOnArrPos, calcCompletionAlarmOn, writeCompletionAlarmOn }
+		},
+		{	showShortCircuitAlarmSetup,
+			{shortCircuitAlarmAmpsArrPos, calcShortCircuitAlarmAmps, writeShortCircuitAlarmAmps },
+			{shortCircuitAlarmSecsArrPos, calcShortCircuitAlarmSecs10, writeShortCircuitAlarmSec }	
 		}
 	}
 	
-	*/
+	
+
+void resetMiniStringComponent()
+{
+	
+}

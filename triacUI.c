@@ -282,8 +282,10 @@ void displayTime(int8_t kInd)
 
 /****************  using  mini string  *****************/
 
-void displaySetupAlarmShortCircuit()
+
+void showShortCircuitAlarmSetup()
 {
+	actualTab = 13;
 	lcd_clrscr();
 	lcd_write_str("Short Circuit Alarm");
 	lcd_Line2();
@@ -297,21 +299,16 @@ void displaySetupAlarmShortCircuit()
 }
 
 
-#define setupTab  13
-
-
-void displaySetupAlarmShortCircuitAmps(int8_t kInd)
+void writeShortCircuitAlarmAmps(int8_t kInd)
 {
 	actualLine = 2;
-	actualTab = setupTab;
 	actualSpaceAftTab = 1;
 	lcdWriteMiniString( shortCircuitAlarmAmpsArrPos ,actualLine, actualTab + actualSpaceAftTab,  kInd);
 }
 
-void displaySetupAlarmShortCircuitSecs(int8_t kInd)
+void writeShortCircuitAlarmSec(int8_t kInd)
 {
 	actualLine = 1;
-	actualTab = setupTab;
 	actualSpaceAftTab = 0;
 	lcdWriteMiniStringWithGap( shortCircuitAlarmSecsArrPos ,actualLine, actualTab + actualSpaceAftTab, kInd,1,1);
 	lcd_goto(actualLine, actualTab + actualSpaceAftTab + 2);
@@ -326,20 +323,16 @@ void clearSetupInputHint()
 	lcd_write_str("          ");
 }
 
-void toggleSetupInputHint()
+
+void inputHintNumericSetup(int8_t upperLimit)
 {
 	lcd_goto(3,hintTab);
-	lcd_write_str(", 0..1");
+	lcd_write_str(", 0..%c",upperLimit);
 }
 
-void numericSetupInputHint()
+void showCompletionAlarmSetup()
 {
-	lcd_goto(3,hintTab);
-	lcd_write_str(", 0..9");
-}
-
-void displayCompletionAlarmSetup()
-{
+	actualTab = 13;
 	lcd_clrscr();
 	lcd_write_str("Setup ");
 	lcd_Line2();
@@ -353,18 +346,19 @@ void displayCompletionAlarmSetup()
 }
 
 
-void displayCompletionAlarmMinutes(int8_t kInd)
+void writeCompletionAlarmMinutes(int8_t kInd)
 {
 	actualLine = 2;
-	actualTab = setupTab;
 	actualSpaceAftTab = 0;
+	if (kInd == 1)  {
+		setNumUpperLimit(0x31);
+	}
 	lcdWriteMiniString(completionAlarmMinsArrPos,actualLine, actualTab + actualSpaceAftTab,kInd);
 }
 
-void displayCompletionAlarmOn(int8_t kInd)
+void writeCompletionAlarmOn(int8_t kInd)
 {
 	actualLine = 1;
-	actualTab = setupTab;
 	actualSpaceAftTab = 0;
 	lcdWriteMiniString(completionAlarmOnArrPos,actualLine, actualTab + actualSpaceAftTab,kInd);
 }

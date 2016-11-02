@@ -77,7 +77,6 @@ int main(void)
 	
 	restorePersistentData();
 	lcd_init();
-  initMiniStringComponent();
 	initKeyPad();   
 
 	initInterrupts();
@@ -85,6 +84,7 @@ int main(void)
 
 	InitPID();
 	initUI();
+	initMiniStringComponent();
 
 	startStateCharts();	
 

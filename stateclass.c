@@ -776,7 +776,7 @@ uStInt evSetupChecker(void)
 void entrySetupState(void)
 {
 //	printf("entry I\n");
-	displayCompletionAlarmSetup();
+	showCompletionAlarmSetup();
 }
 
 void exitSetupState(void)
@@ -810,8 +810,8 @@ uStInt evCompletionAlarmSetupIdleChecker(void)
 void entrySetupCompletionAlarmIdleState(void)
 {
 //	printf("entry I\n");
-	displayCompletionAlarmMinutes(-1);
-	displayCompletionAlarmOn(-1);
+	writeCompletionAlarmMinutes(-1);
+	writeCompletionAlarmOn(-1);
 	clearSetupInputHint();
 }
 
@@ -843,8 +843,8 @@ uStInt evSetupCompletionAlarmOnChecker(void)
 void entrySetupCompletionAlarmOnState(void)
 {
 //	printf("entry I\n");
-	toggleSetupInputHint();
-	editMiniString(completionAlarmOnArrPos,calcCompletionAlarmOn,displayCompletionAlarmOn);
+	inputHintToggleSetup();
+	editMiniString(completionAlarmOnArrPos,calcCompletionAlarmOn,writeCompletionAlarmOn);
 	setNumUpperLimit(0x31,0);
 }
 
@@ -877,8 +877,8 @@ uStInt evSetupCompletionAlarmMinutesChecker(void)
 void entrySetupCompletionAlarmMinutesState(void)
 {
 	keyInd = 0;
-	numericSetupInputHint();
-	editMiniString(completionAlarmMinsArrPos,calcCompletionAlarmMinutes,displayCompletionAlarmMinutes);
+	inputHintNumericSetup();
+	editMiniString(completionAlarmMinsArrPos,calcCompletionAlarmMinutes,writeCompletionAlarmMinutes);
 }
 
 void exitSetupAlarmMinutesState(void)
@@ -905,7 +905,7 @@ uStInt evSetupShortCircuitChecker(void)
 void entrySetupShortCircuitState(void)
 {
 	//	printf("entry I\n");
-	displaySetupAlarmShortCircuit();  
+	showShortCircuitAlarmSetup();  
 }
 
 void exitSetupShortCircuitState(void)
@@ -940,8 +940,8 @@ uStInt evSetupShortCircuitIdleChecker(void)
 void entrySetupShortCircuitIdleState(void)
 {
 	//	printf("entry I\n");
-	displaySetupAlarmShortCircuitAmps(-1);
-	displaySetupAlarmShortCircuitSecs(-1);
+	writeShortCircuitAlarmAmps(-1);
+	writeShortCircuitAlarmSec(-1);
 	clearSetupInputHint();
 }
 
@@ -978,8 +978,8 @@ void entrySetupShortCircuitSecsState(void)
 {
 	//	printf("entry I\n");
 	keyInd = 0;
-	numericSetupInputHint();
-	editMiniString(shortCircuitAlarmSecsArrPos,calcShortCircuitAlarmSecs10,displaySetupAlarmShortCircuitSecs);
+	inputHintNumericSetup();
+	editMiniString(shortCircuitAlarmSecsArrPos,calcShortCircuitAlarmSecs10,writeShortCircuitAlarmSec);
 }
 
 void exitSetupShortCircuitSecsState(void)
@@ -1013,8 +1013,8 @@ uStInt evSetupShortCuircuitAlarmAmpsChecker(void)
 void entrySetupShortCuircuitAmpsState(void)
 {
 	keyInd = 0;
-	numericSetupInputHint();
-	editMiniString(shortCircuitAlarmAmpsArrPos,calcShortCircuitAlarmAmps,displaySetupAlarmShortCircuitAmps);
+	inputHintNumericSetup();
+	editMiniString(shortCircuitAlarmAmpsArrPos,calcShortCircuitAlarmAmps,writeShortCircuitAlarmAmps);
 }
 
 void exitSetupShortCuircuitAmpsState(void)
@@ -1042,7 +1042,7 @@ uStInt evSetupMiniStringChecker(void)
 void entrySetupMiniStringState(void)
 {
 	//	printf("entry I\n");
-	displaySetupAlarmShortCircuit();
+	resetMiniStringComponent();
 }
 
 void exitSetupMiniStringState(void)
@@ -1077,8 +1077,8 @@ uStInt evSetupMiniStringIdleChecker(void)
 void entrySetupMiniStringIdleState(void)
 {
 	//	printf("entry I\n");
-	displaySetupAlarmShortCircuitAmps(-1);
-	displaySetupAlarmShortCircuitSecs(-1);
+	writeShortCircuitAlarmAmps(-1);
+	writeShortCircuitAlarmSec(-1);
 	clearSetupInputHint();
 }
 
@@ -1115,8 +1115,8 @@ void entrySetupMiniStringActiveState(void)
 {
 	//	printf("entry I\n");
 	keyInd = 0;
-	numericSetupInputHint();
-	editMiniString(shortCircuitAlarmSecsArrPos,calcShortCircuitAlarmSecs10,displaySetupAlarmShortCircuitSecs);
+	inputHintNumericSetup();
+	editMiniString(shortCircuitAlarmSecsArrPos,calcShortCircuitAlarmSecs10,writeShortCircuitAlarmSec);
 }
 
 void exitSetupMiniStringActiveState(void)
