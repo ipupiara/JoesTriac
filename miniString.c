@@ -27,7 +27,7 @@ int8_t       miniStringBusy;
 int8_t      numUpperLimit;
 
 int8_t currentMiniStringPageNumber;
-pSetupPageConfigurationStruct  currentMiniStringPage;
+
 
 
 
@@ -87,6 +87,11 @@ void editMiniString(int16_t miniStrArrPos, miniStringCalcMenthodType calcMeth, m
 	displayMiniString(miniStringEditPos);
 }
 
+void triggerGotoIdle()
+{
+	editFinished = 1;
+}
+
 void endEditMiniString()
 {
 	displayMethod(-1);
@@ -129,8 +134,8 @@ bool processMiniStringTriacEvent(CJoesTriacEvent* ev)
 			}
 			displayMiniString(miniStringEditPos);
 			if (miniStringEditPos >= miniStringArray[miniStringArrPos].length) {
-				endEditMiniString();
-				editFinished = 1;
+//				endEditMiniString();
+				triggerGotoIdle();
 			}
 			res =  uStIntHandlingDone;
 		}
@@ -193,12 +198,12 @@ SetupPageConfigurationStruct   setupPageConfiguration[amtMiniStringEditPages] =
 	{
 		{
 			showCompletionAlarmSetup,
-			{completionAlarmOnArrPos, calcCompletionAlarmMinutes, writeCompletionAlarmMinutes  },
-			{completionAlarmOnArrPos, calcCompletionAlarmOn, writeCompletionAlarmOn }
+			{1,completionAlarmOnArrPos, calcCompletionAlarmMinutes, writeCompletionAlarmMinutes  },
+			{1,completionAlarmOnArrPos, calcCompletionAlarmOn, writeCompletionAlarmOn }
 		},
 		{	showShortCircuitAlarmSetup,
-			{shortCircuitAlarmAmpsArrPos, calcShortCircuitAlarmAmps, writeShortCircuitAlarmAmps },
-			{shortCircuitAlarmSecsArrPos, calcShortCircuitAlarmSecs10, writeShortCircuitAlarmSec }	
+			{1,shortCircuitAlarmAmpsArrPos, calcShortCircuitAlarmAmps, writeShortCircuitAlarmAmps },
+			{1,shortCircuitAlarmSecsArrPos, calcShortCircuitAlarmSecs10, writeShortCircuitAlarmSec }	
 		}
 	};
 	
@@ -207,7 +212,7 @@ int8_t nextMiniStringPage()
 	int8_t   res = 0;
 	++ currentMiniStringPageNumber;
 	if (currentMiniStringPageNumber < amtMiniStringEditPages){
-		currentMiniStringPage = &setupPageConfiguration[currentMiniStringPageNumber];
+		pCurrentMiniStringPage = &setupPageConfiguration[currentMiniStringPageNumber];
 	} else
 	{
 		res = 0;

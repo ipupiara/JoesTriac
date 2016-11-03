@@ -352,9 +352,6 @@ void writeCompletionAlarmMinutes(int8_t kInd)
 {
 	actualLine = 2;
 	actualSpaceAftTab = 0;
-	if (kInd == 1)  {
-		setNumUpperLimit(0x31);
-	}
 	lcdWriteMiniString(completionAlarmMinsArrPos,actualLine, actualTab + actualSpaceAftTab,kInd);
 }
 
@@ -362,6 +359,7 @@ void writeCompletionAlarmOn(int8_t kInd)
 {
 	actualLine = 1;
 	actualSpaceAftTab = 0;
+	setNumUpperLimit(0x31);
 	lcdWriteMiniString(completionAlarmOnArrPos,actualLine, actualTab + actualSpaceAftTab,kInd);
 }
 

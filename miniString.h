@@ -32,6 +32,7 @@ typedef void(*miniStringDisplayMethodType)(int8_t);
 
 // contains every information needed to edit the miniString
 typedef struct SetupMiniStringConfigurationStruct {
+	uint8_t      inUse;
 	uint16_t     miniStringArrayPos;
 	miniStringCalcMenthodType calcMethod;
 	miniStringDisplayMethodType dispMethod;
@@ -48,6 +49,8 @@ typedef struct SetupPageConfigurationStruct {
 } SetupPageConfigurationStruct ;
 
 typedef SetupPageConfigurationStruct* pSetupPageConfigurationStruct;
+
+pSetupPageConfigurationStruct  pCurrentMiniStringPage;
 
 // needed for the event when editing of a miniString ended (especially if the last character has been entered)
 int8_t editFinished;
@@ -73,5 +76,7 @@ char* miniStringNToString(int16_t miniStringArrPos, uint8_t maxSize, char* buffe
 void resetMiniStringComponent();
 
 int8_t nextMiniStringPage();
+
+void triggerGotoIdle();
 
 #endif /* MINISTRING_H_ */
