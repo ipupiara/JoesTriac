@@ -198,7 +198,7 @@ SetupPageConfigurationStruct   setupPageConfiguration[amtMiniStringEditPages] =
 			{shortCircuitAlarmAmpsArrPos, calcShortCircuitAlarmAmps, writeShortCircuitAlarmAmps },
 			{shortCircuitAlarmSecsArrPos, calcShortCircuitAlarmSecs10, writeShortCircuitAlarmSec }	
 		}
-	}
+	};
 	
 	
 

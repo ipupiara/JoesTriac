@@ -39,16 +39,11 @@ typedef struct SetupMiniStringConfigurationStruct {
 
 typedef SetupMiniStringConfigurationStruct* pMiniStringSetupConfigurationStruct;
 
+
 // contains every info for editing a setup page
 typedef struct SetupPageConfigurationStruct {
 	setupPageDisplayMethodType	pageDisplayMethod;
-	union {
-		SetupMiniStringConfigurationStruct      miniStringSetupConfiguration [2];
-//		struct {
-			SetupMiniStringConfigurationStruct		miniStringSetupAstConfiguration;
-//			SetupMiniStringConfigurationStruct		miniStringSetupNumConfiguration;
-//		} select; 
-	}  config;
+	SetupMiniStringConfigurationStruct		miniStringSetupAstConfiguration;
 	SetupMiniStringConfigurationStruct		miniStringSetupNumConfiguration;
 } SetupPageConfigurationStruct ;
 

@@ -327,7 +327,9 @@ void clearSetupInputHint()
 void inputHintNumericSetup(int8_t upperLimit)
 {
 	lcd_goto(3,hintTab);
-	lcd_write_str(", 0..%c",upperLimit);
+	char  str [10];
+	snprintf(str,19,", 0..%c",upperLimit );
+	lcd_write_str(str);
 }
 
 void showCompletionAlarmSetup()
