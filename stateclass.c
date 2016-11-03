@@ -552,6 +552,13 @@ uStInt evTriacIdleChecker(void)
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 	}
+		if (currentEvent->evType == evF2Pressed)
+		{
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupMiniString);
+			resetMiniStringComponent();
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+		}
 	if (currentEvent->evType == evTimeOutDurationTimer) 
 	{	
 		startDurationTimer(maxSecsPossible);   // enable secondsTick
@@ -1031,9 +1038,18 @@ uStInt evSetupMiniStringChecker(void)
 	res = uStIntNoMatch;
 	if (currentEvent->evType == evF2Pressed)
 	{
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
-		// No event action.
-		END_EVENT_HANDLER(PJoesTriacStateChart);
+		if (nextMiniStringPage()) {
+			printf("start debug Transition from \n");
+			printf("setupMiniStringPage into itself\n");
+			printf("may not be equal to local transition!\n");
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+			// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+		} else {
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+			// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+		}
 		res =  uStIntHandlingDone;
 	}
 	return (res);
@@ -1041,13 +1057,12 @@ uStInt evSetupMiniStringChecker(void)
 
 void entrySetupMiniStringState(void)
 {
-	//	printf("entry I\n");
-	resetMiniStringComponent();
+	printf("entry entrySetupMiniStringState\n");
 }
 
 void exitSetupMiniStringState(void)
 {
-	//	printf("exit I\n");
+	printf("exit exitSetupMiniStringState\n");
 }
 
 

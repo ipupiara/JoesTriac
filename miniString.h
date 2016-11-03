@@ -72,4 +72,6 @@ char* miniStringNToString(int16_t miniStringArrPos, uint8_t maxSize, char* buffe
 
 void resetMiniStringComponent();
 
+int8_t nextMiniStringPage();
+
 #endif /* MINISTRING_H_ */

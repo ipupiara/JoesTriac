@@ -25,7 +25,9 @@ int8_t       miniStringEditPos;
 int16_t		miniStringArrPos;
 int8_t       miniStringBusy;
 int8_t      numUpperLimit;
-int8_t      numUpperKeyInd;
+
+int8_t currentMiniStringPageNumber;
+pSetupPageConfigurationStruct  currentMiniStringPage;
 
 
 
@@ -200,9 +202,20 @@ SetupPageConfigurationStruct   setupPageConfiguration[amtMiniStringEditPages] =
 		}
 	};
 	
-	
+int8_t nextMiniStringPage()
+{
+	int8_t   res = 0;
+	++ currentMiniStringPageNumber;
+	if (currentMiniStringPageNumber < amtMiniStringEditPages){
+		currentMiniStringPage = &setupPageConfiguration[currentMiniStringPageNumber];
+	} else
+	{
+		res = 0;
+	}
+	return res;
+}	
 
 void resetMiniStringComponent()
 {
-	
+	currentMiniStringPageNumber = -1;
 }
