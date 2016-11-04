@@ -73,7 +73,7 @@ void lcdWriteMiniStringWithGap(int16_t miniStringArrPos,  int8_t lineNr, int8_t 
 
 char* miniStringNToString(int16_t miniStringArrPos, uint8_t maxSize, char* buffer);
 
-void resetMiniStringComponent();
+int8_t resetMiniStringComponent();
 
 int8_t nextMiniStringPage();
 

@@ -294,6 +294,8 @@ void showShortCircuitAlarmSetup()
 	lcd_write_str("Amps limit *");
 	lcd_goto(2,19);
 	lcd_write_str("A");
+	lcd_goto(1,19);
+	lcd_write_str("S");
 	lcd_goto(3,0);
 	lcd_write_str("B return");
 }
@@ -310,9 +312,9 @@ void writeShortCircuitAlarmSec(int8_t kInd)
 {
 	actualLine = 1;
 	actualSpaceAftTab = 0;
-	lcdWriteMiniStringWithGap( shortCircuitAlarmSecsArrPos ,actualLine, actualTab + actualSpaceAftTab, kInd,1,1);
 	lcd_goto(actualLine, actualTab + actualSpaceAftTab + 2);
-	lcd_write_str(".");
+	lcd_write_str(".");     // gap characters need to be written before lcdWriteMiniStringWithGap
+	lcdWriteMiniStringWithGap( shortCircuitAlarmSecsArrPos ,actualLine, actualTab + actualSpaceAftTab, kInd,1,1);
 }
 
 #define hintTab 8

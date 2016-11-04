@@ -68,6 +68,7 @@ void displayMiniString(int8_t pos)
 {
 	displayMethod(pos);
 	inputHintNumericSetup(numUpperLimit);
+	displayMethod(pos); // just a temporary hack to find out if now cursor is ok
 }
 
 
@@ -154,7 +155,6 @@ void lcdWriteMiniStringWithGap(int16_t miniStringArrPos,  int8_t lineNr, int8_t 
 	int8_t len = miniStringArray[miniStringArrPos].length;
 	int16_t pos = miniStringArray[miniStringArrPos].eepromPos;
 	int16_t ps ;
-	int8_t  gapJumped = 0;
 	lcd_goto(lineNr,rowNr );
 	for (int i1 = 0; i1 < len; ++ i1) {
 		ps = pos + i1;
@@ -163,11 +163,14 @@ void lcdWriteMiniStringWithGap(int16_t miniStringArrPos,  int8_t lineNr, int8_t 
 		if (i1 == gapPos) {
 			for (int i2 = 0; i2 < gapLen;++i2)  {
 				lcd_move_cursor_right();
-				++ gapJumped;
 			}
 		}
 	}
-	if ((kInd >= 0) &&(kInd < len)) lcd_set_cursor(lineNr, rowNr +  gapJumped + kInd);
+	int cursorPos = rowNr + kInd;
+	if (kInd > gapPos) {
+		cursorPos += gapLen;
+	}
+	if ((kInd >= 0) &&(kInd < len)) lcd_set_cursor(lineNr, cursorPos);
 	else lcd_hide_cursor();
 }
 
@@ -193,12 +196,13 @@ char* miniStringNToString(int16_t miniStringArrPos, uint8_t maxSize, char* buffe
 }
 
 
-
+// needs at least one entry or else the ministring component should not be used,
+// what would be worthless anyhow
 SetupPageConfigurationStruct   setupPageConfiguration[amtMiniStringEditPages] =
 	{
 		{
 			showCompletionAlarmSetup,
-			{1,completionAlarmOnArrPos, calcCompletionAlarmMinutes, writeCompletionAlarmMinutes  },
+			{1,completionAlarmMinsArrPos, calcCompletionAlarmMinutes, writeCompletionAlarmMinutes  },
 			{1,completionAlarmOnArrPos, calcCompletionAlarmOn, writeCompletionAlarmOn }
 		},
 		{	showShortCircuitAlarmSetup,
@@ -211,16 +215,19 @@ int8_t nextMiniStringPage()
 {
 	int8_t   res = 0;
 	++ currentMiniStringPageNumber;
-	if (currentMiniStringPageNumber < amtMiniStringEditPages){
+	if (currentMiniStringPageNumber < amtMiniStringEditPages) {
 		pCurrentMiniStringPage = &setupPageConfiguration[currentMiniStringPageNumber];
-	} else
-	{
+		res = 1;
+	} else  {
 		res = 0;
 	}
 	return res;
 }	
 
-void resetMiniStringComponent()
+int8_t resetMiniStringComponent()
 {
+	int8_t res;
 	currentMiniStringPageNumber = -1;
+	res = (nextMiniStringPage());
+	return res;
 }
