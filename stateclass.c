@@ -47,7 +47,7 @@ enum eStates
  	eStateSetupShortCircuit,
  	eStateSetupShortCircuitIdle,
  	eStateSetupShortCircuitSecs,
-	eStateSetupShortCircuitAmps,
+	eStateSetupShortCircuitAmps,   
 	eStateSetupMiniString,
 	eStateSetupMiniStringIdle,
 	eStateSetupMiniStringAstEdit,
@@ -1096,7 +1096,7 @@ uStInt evSetupMiniStringIdleChecker(void)
 
 void entrySetupMiniStringIdleState(void)
 {
-	printf("entry entrySetupMiniStringIdleState\n");
+	printf("entry SetupMiniStringIdleState\n");
 	pCurrentMiniStringPage->miniStringSetupAstConfiguration.dispMethod(-1);
 	pCurrentMiniStringPage->miniStringSetupNumConfiguration.dispMethod(-1);
 	clearSetupInputHint();

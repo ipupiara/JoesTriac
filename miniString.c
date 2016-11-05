@@ -99,11 +99,6 @@ void endEditMiniString()
 	miniStringBusy = 0;
 }
 
-void initMiniStringComponent()
-{
-	miniStringBusy = 0;
-	editFinished = 0;
-}
 
 
 void setNumUpperLimit(int8_t numUpper)
@@ -135,7 +130,6 @@ bool processMiniStringTriacEvent(CJoesTriacEvent* ev)
 			}
 			displayMiniString(miniStringEditPos);
 			if (miniStringEditPos >= miniStringArray[miniStringArrPos].length) {
-//				endEditMiniString();
 				triggerGotoIdle();
 			}
 			res =  uStIntHandlingDone;
@@ -230,4 +224,11 @@ int8_t resetMiniStringComponent()
 	currentMiniStringPageNumber = -1;
 	res = (nextMiniStringPage());
 	return res;
+}
+
+
+void initMiniStringComponent()
+{
+	miniStringBusy = 0;
+	editFinished = 0;
 }

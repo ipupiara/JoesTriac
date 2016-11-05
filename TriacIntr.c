@@ -180,14 +180,27 @@ ISR(TIMER0_COMPA_vect)
 
 int8_t sec10Counter;
 int8_t shortCircuitSec10Counter;
+uint8_t  shortCircuitAlarmOn;
 
 ISR(TIMER1_COMPA_vect)
 {
+	cli();
 	if (shortCircuitSec10Counter > 0)  {
 		-- shortCircuitSec10Counter;
 		if (shortCircuitSec10Counter == 0)  {
-			sprintf((char *) &lastFatalErrorString,"short circuit");
-			fatalErrorOccurred = 1;
+			shortCircuitSec10Counter = -1;
+			sei();
+			shortCircuitAlarmOn = 1;
+//			sprintf((char *) &lastFatalErrorString,"short circuit");
+//			fatalErrorOccurred = 1;
+		}
+	}
+	sei();
+	if ((sec10Counter == 5) || (sec10Counter ==  10 )) {
+		if (shortCircuitAlarmOn > 0) {
+			toggleCompletionAlarm();
+		} else {
+			setCompletionAlarmOff();
 		}
 	}
 	if ( sec10Counter >= 10)  {
@@ -324,6 +337,7 @@ void startTriacRun()
 {
 	resetPID();
 	shortCircuitAlarmAmpsADCValue = adcValueForAmps(shortCircuitAlarmAmps);
+	shortCircuitAlarmOn = 0;
 	startAmpsADC();
 	EIFR = 0x00;
 	EIMSK = 0x01;  				// start external interrupt (zero pass detection)
@@ -435,6 +449,7 @@ void toggleCompletionAlarm()
 
 void checkShortCircuitCondition()
 {
+	cli();
 	if (lastAmpsADCVal > shortCircuitAlarmAmpsADCValue) {
 		if (shortCircuitSec10Counter == 0)  {
 			shortCircuitSec10Counter = shortCircuitAlarmSecond10Barrier;
@@ -442,8 +457,9 @@ void checkShortCircuitCondition()
 	
 	} else {
 		shortCircuitSec10Counter = 0;
+		shortCircuitAlarmOn = 0;
 	}
-	
+	sei();
 }
 
 
