@@ -189,10 +189,9 @@ ISR(TIMER1_COMPA_vect)
 		-- shortCircuitSec10Counter;
 		if (shortCircuitSec10Counter == 0)  {
 			shortCircuitSec10Counter = -1;
-			sei();
-			shortCircuitAlarmOn = 1;
-//			sprintf((char *) &lastFatalErrorString,"short circuit");
-//			fatalErrorOccurred = 1;
+//			shortCircuitAlarmOn = 1;
+			sprintf((char *) &lastFatalErrorString,"short circuit");
+			fatalErrorOccurred = 1;
 		}
 	}
 	sei();

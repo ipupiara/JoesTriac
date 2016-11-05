@@ -47,7 +47,7 @@ enum eStates
  	eStateSetupShortCircuit,
  	eStateSetupShortCircuitIdle,
  	eStateSetupShortCircuitSecs,
-	eStateSetupShortCircuitAmps,   
+	eStateSetupShortCircuitAmps,
 	eStateSetupMiniString,
 	eStateSetupMiniStringIdle,
 	eStateSetupMiniStringAstEdit,
