@@ -26,7 +26,7 @@
 	#define jtagDebugKeyboardMode	// tobe set if jtag debug is used, it will divert the serial input (terminal)									//  to the keyboard and leave the keyboard port (port C) free for jtag
 #endif					
 				
-#define jtagDebugKeyboardMode   // for debugging using the jtag interface which needs the same port as keyboard.
+//#define jtagDebugKeyboardMode   // for debugging using the jtag interface which needs the same port as keyboard.
 								//  keyboard input can then be done via the pc keyboard in the terminal connected to uart0						
 
 	#define maxSecsPossible  0x7FFF

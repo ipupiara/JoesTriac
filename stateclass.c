@@ -546,22 +546,15 @@ uStInt evTriacIdleChecker(void)
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 	}
-	if (currentEvent->evType == evF1Pressed) 
-	{	
+	if (currentEvent->evType == evF1Pressed)
+	{
+		if (resetMiniStringComponent()) {
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupMiniString);
-				// No event action.
+			
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
-	}
-/*		if (currentEvent->evType == evF2Pressed)
-		{
-			if (resetMiniStringComponent()) {
-				BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupMiniString);
-			
-				END_EVENT_HANDLER(PJoesTriacStateChart);
-				res =  uStIntHandlingDone;
-			}
-		} */
+		}
+	} 
 	if (currentEvent->evType == evTimeOutDurationTimer) 
 	{	
 		startDurationTimer(maxSecsPossible);   // enable secondsTick
