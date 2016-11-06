@@ -152,7 +152,9 @@ ISR(ADC_vect)
 {
 	lastAmpsADCVal = ADC;
 	++ adcCnt;
+#ifdef shortCircuitAlarmSupported	
 	checkShortCircuitCondition();
+#endif	
 	if (adcCnt == pidStepDelays)  {     
 		adcCnt = 0;
 		adcTick = 1;
@@ -181,27 +183,43 @@ ISR(TIMER0_COMPA_vect)
 int8_t sec10Counter;
 int8_t shortCircuitSec10Counter;
 uint8_t  shortCircuitAlarmOn;
+int8_t  dValueSec10Counter;
+uint8_t  dValueAlarmOn;
 
 ISR(TIMER1_COMPA_vect)
 {
+#ifdef shortCircuitAlarmSupported
 	cli();
 	if (shortCircuitSec10Counter > 0)  {
 		-- shortCircuitSec10Counter;
 		if (shortCircuitSec10Counter == 0)  {
 			shortCircuitSec10Counter = -1;
-//			shortCircuitAlarmOn = 1;
+			shortCircuitAlarmOn = 1;
 			sprintf((char *) &lastFatalErrorString,"short circuit");
 			fatalErrorOccurred = 1;
 		}
 	}
+	if (dValueSec10Counter > 0)  {
+		-- dValueSec10Counter;
+		if (dValueSec10Counter == 0)  {
+			dValueSec10Counter = -1;
+			if (dValueAlarmFatal > 0) {
+				sprintf((char *) &lastFatalErrorString,"short circuit");
+				fatalErrorOccurred = 1;
+			} else {
+				dValueAlarmOn = 1;
+			}
+		}
+	}
 	sei();
-	if ((sec10Counter == 5) || (sec10Counter ==  10 )) {
-		if (shortCircuitAlarmOn > 0) {
+	if ((shortCircuitAlarmOn > 0) || (dValueAlarmOn > 0)) {
+		if ((sec10Counter == 5) || (sec10Counter ==  10 )) {
 			toggleCompletionAlarm();
 		} else {
 			setCompletionAlarmOff();
 		}
 	}
+#endif	
 	if ( sec10Counter >= 10)  {
 		sec10Counter = 0;
 		secondsDurationTimerRemaining --;
@@ -245,6 +263,7 @@ void initInterrupts()
 			runningSecondsTick = 0;
 			sec10Counter = 0;
 			shortCircuitSec10Counter = 0;
+			dValueSec10Counter = 0;
 	  
 		TCCR1A = 0x00;  // normal mode or CTC dep.on TCCR1B
 		//TCCR1B = 0b00001101  ; // CTC on CC1A , set clk / 1024, timer started
@@ -337,6 +356,9 @@ void startTriacRun()
 	resetPID();
 	shortCircuitAlarmAmpsADCValue = adcValueForAmps(shortCircuitAlarmAmps);
 	shortCircuitAlarmOn = 0;
+	shortCircuitSec10Counter = 0;
+	dValueAlarmOn = 0;
+	dValueSec10Counter = 0;
 	startAmpsADC();
 	EIFR = 0x00;
 	EIMSK = 0x01;  				// start external interrupt (zero pass detection)
@@ -457,6 +479,15 @@ void checkShortCircuitCondition()
 	} else {
 		shortCircuitSec10Counter = 0;
 		shortCircuitAlarmOn = 0;
+	}
+	if ((triacFireDurationTcnt2 > dValueAlarmHigh) || (triacFireDurationTcnt2 < dValueAlarmLow)) {
+		if (dValueSec10Counter == 0)  {
+			dValueSec10Counter = dValueAlarmSec10;
+	}
+			
+	} else {
+		dValueSec10Counter = 0;
+		dValueAlarmOn = 0;
 	}
 	sei();
 }

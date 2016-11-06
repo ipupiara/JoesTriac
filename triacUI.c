@@ -35,7 +35,7 @@ void displayDebugVoltageNTriggerDelay()
 
 	sprintf((char*)&buffer,"%5.2fV %4iA %3iD",VFl,adc, triacFireDurationTcnt2);
 
-	lcd_Line2();
+	lcd_Line1();
 	lcd_write_str((char*)&buffer);
 
 }
@@ -50,7 +50,7 @@ void displayPotiPersistent()
 
 	sprintf((char*)&buffer,"%3i P %6.3f V",zeroPotiPos,VFl);
 
-	lcd_Line2();
+	lcd_Line1();
 	lcd_write_str((char*)&buffer);
 
 }
@@ -76,7 +76,7 @@ void displayRmsAvgQuery()
 {
 	lcd_clrscr();
 	lcd_write_str("select");
-	lcd_Line2();
+	lcd_Line1();
 	lcd_write_str("RMS *, AVG #");
 }
 
@@ -84,7 +84,7 @@ void displayFatalError()
 {
 	lcd_clrscr();
 	lcd_write_str("fatal error");
-	lcd_Line2();
+	lcd_Line1();
 	lcd_write_str(lastFatalErrorString);
 }
 
@@ -119,7 +119,7 @@ void displayCalibrationPrompt()
 {
 	lcd_clrscr();
 	lcd_write_str("Calibrate? *=Yes");
-	lcd_Line2();
+	lcd_Line1();
 	lcd_write_str("or wait");
 	lcd_goto(3,0);
 	lcd_write_str("A calib vars");
@@ -226,7 +226,7 @@ void displayEditAmpsDuration()
 {
 	lcd_clrscr();
 	lcd_write_str("A     T    ");
-	lcd_Line2();
+	lcd_Line1();
 	lcd_write_str("*     #       ");
 	lcd_goto(0,17);
 	lcd_write_str(avgRmsStringBuffer);
@@ -288,7 +288,7 @@ void showShortCircuitAlarmSetup()
 	actualTab = 13;
 	lcd_clrscr();
 	lcd_write_str("Short Circuit Alarm");
-	lcd_Line2();
+	lcd_Line1();
 	lcd_write_str("secs limit #");
 	lcd_goto(2,0);
 	lcd_write_str("Amps limit *");
@@ -296,8 +296,6 @@ void showShortCircuitAlarmSetup()
 	lcd_write_str("A");
 	lcd_goto(1,19);
 	lcd_write_str("S");
-	lcd_goto(3,0);
-	lcd_write_str("B return");
 }
 
 
@@ -314,23 +312,24 @@ void writeShortCircuitAlarmSec(int8_t kInd)
 	actualSpaceAftTab = 0;
 	lcd_goto(actualLine, actualTab + actualSpaceAftTab + 2);
 	lcd_write_str(".");     // gap characters need to be written before lcdWriteMiniStringWithGap
-	lcdWriteMiniStringWithGap( shortCircuitAlarmSecsArrPos ,actualLine, actualTab + actualSpaceAftTab, kInd,1,1);
+	lcdWriteMiniStringWithGap( shortCircuitAlarmSecs10ArrPos ,actualLine, actualTab + actualSpaceAftTab, kInd,1,1);
 }
 
-#define hintTab 8
+#define hintTab 14
 
 void clearSetupInputHint()
-{
+{	lcd_goto(3,0);
+	lcd_write_str("A next, B esc,");
 	lcd_goto(3,hintTab);
-	lcd_write_str("          ");
+	lcd_write_str("      ");
 }
 
 
-void inputHintNumericSetup(int8_t upperLimit)
+void inputHintNumeric(int8_t upperLimit)
 {
 	lcd_goto(3,hintTab);
 	char  str [10];
-	snprintf(str,19,", 0..%c",upperLimit );
+	snprintf(str,9,", 0..%c",upperLimit );
 	lcd_write_str(str);
 }
 
@@ -339,14 +338,12 @@ void showCompletionAlarmSetup()
 	actualTab = 13;
 	lcd_clrscr();
 	lcd_write_str("Setup ");
-	lcd_Line2();
+	lcd_Line1();
 	lcd_write_str("Alarm Y/N #");
 	lcd_goto(2,0);
 	lcd_write_str("Alarm T   *");
 	lcd_goto(2,17);
 	lcd_write_str("min");
-	lcd_goto(3,0);
-	lcd_write_str("B continue");
 }
 
 
@@ -365,3 +362,65 @@ void writeCompletionAlarmOn(int8_t kInd)
 	lcdWriteMiniString(completionAlarmOnArrPos,actualLine, actualTab + actualSpaceAftTab,kInd);
 }
 
+
+void showDValueSec10FatalAlarmSetup()
+{
+	actualTab = 13;
+	lcd_clrscr();
+	lcd_write_str("D Value Setup");
+	lcd_Line1();
+	lcd_write_str("Fatal Y/N #");
+	lcd_goto(2,0);
+	lcd_write_str("Alarm T   *");
+	lcd_goto(2,17);
+	lcd_write_str("s10");
+}
+
+void writeDValueFatal(int8_t kInd)
+{
+	actualLine = 1;
+	actualSpaceAftTab = 3;
+	setNumUpperLimit(0x31);
+	lcdWriteMiniString(dValueAlarmFatalArrPos,actualLine, actualTab + actualSpaceAftTab,kInd);
+}
+
+void writeDValueSec10(int8_t kInd)
+{
+	actualLine = 1;
+	actualSpaceAftTab = 0;
+	lcd_goto(actualLine, actualTab + actualSpaceAftTab + 2);
+	lcd_write_str(".");     // gap characters need to be written before lcdWriteMiniStringWithGap
+	lcdWriteMiniStringWithGap( shortCircuitAlarmSecs10ArrPos ,actualLine, actualTab + actualSpaceAftTab, kInd,1,1);
+}
+
+
+
+void showDValueLowHighAlarmSetup()
+{
+	actualTab = 13;
+	lcd_clrscr();
+	lcd_write_str("D Value Alarm");
+	lcd_Line1();
+	lcd_write_str("low limit #");
+	lcd_goto(2,0);
+	lcd_write_str("hi  limit *");
+	lcd_goto(2,19);
+	lcd_write_str("D");
+	lcd_goto(1,19);
+	lcd_write_str("D");
+}
+
+
+void writeDValueHigh(int8_t kInd)
+{
+	actualLine = 2;
+	actualSpaceAftTab = 0;
+	lcdWriteMiniString( dValueAlarmHighArrPos ,actualLine, actualTab + actualSpaceAftTab,  kInd);
+}
+
+void writeDValueLow(int8_t kInd)
+{
+	actualLine = 1;
+	actualSpaceAftTab = 0;
+	lcdWriteMiniString( dValueAlarmLowArrPos ,actualLine, actualTab + actualSpaceAftTab, kInd);
+}

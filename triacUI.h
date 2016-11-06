@@ -3,6 +3,8 @@
 
 #include <inttypes.h>
 
+#define shortCircuitAlarmSupported  1
+
 typedef void(*setupPageDisplayMethodType)();
 
 void clr_scr();
@@ -48,9 +50,21 @@ void writeShortCircuitAlarmAmps(int8_t kInd);
 
 void writeShortCircuitAlarmSec(int8_t kInd);
 
+void showDValueLowHighAlarmSetup();
+
+void writeDValueLow(int8_t kInd);
+
+void writeDValueHigh(int8_t kInd);
+
+void showDValueSec10FatalAlarmSetup();
+
+void writeDValueSec10(int8_t kInd);
+
+void writeDValueFatal(int8_t kInd);
+
 void clearSetupInputHint();
 
-void inputHintNumericSetup(int8_t upperLimit);
+void inputHintNumeric(int8_t upperLimit);
 
 void initUI();
 

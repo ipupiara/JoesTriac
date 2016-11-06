@@ -49,15 +49,20 @@
 	#define calibLowAmps        15
 	#define calibHighAmps       60
 
-	miniString  miniStringArray [4];
+	#define   amtMiniStrings  8
+	miniString  miniStringArray [amtMiniStrings];
 	
-	#define shortCircuitAlarmSecsArrPos   0
+	#define shortCircuitAlarmSecs10ArrPos   0
 	#define shortCircuitAlarmAmpsArrPos  1
 	#define completionAlarmMinsArrPos     2
 	#define completionAlarmOnArrPos    3	
+	#define dValueAlarmLowArrPos       4
+	#define dValueAlarmHighArrPos      5
+	#define dValueAlarmSec10ArrPos     6
+	#define dValueAlarmFatalArrPos     7
+	
 
-
-	#define triggerDelayMaxTcnt2 810     // works properly with 50 Hz Ac and 11 Mhz
+	#define triggerDelayMaxTcnt2 810     // works properly with 50 Hz Ac and 11.0592 Mhz
 	
 	#define inductiveLoad   1      // to be set to 0 or 1
 	#define triacTriggerLength   0      // delay approx ( n * 2.5 us ) + 5.5    at 11.0592  mhz
@@ -86,14 +91,16 @@ int16_t  calibHighADC;
 uint16_t  calibLowTriacFireDuration;
 uint16_t  calibHighTriacFireDuration;
 
-uint8_t   completionAlarmOn;
-uint8_t   completionAlarmMins;
-uint8_t   completionAlarmMins10;
-uint8_t   completionAlarmMinutes;
+int8_t   completionAlarmOn;
+int8_t   completionAlarmMinutes;
 
 int16_t  shortCircuitAlarmSecond10Barrier;
+int16_t  shortCircuitAlarmAmps;
 
-uint8_t  shortCircuitAlarmAmps;
+int16_t dValueAlarmHigh;
+int16_t dValueAlarmLow;
+int16_t  dValueAlarmSec10;
+int8_t  dValueAlarmFatal;
 
 int8_t amps100, amps10, amps, min10, min, sec10, sec;
 
@@ -151,19 +158,12 @@ void storeCalibHighFireDuration();
 
 void storeAmpsInputPin(int8_t val);
 
-void storeCompletionAlarmOn(int8_t val);
 
-void storeCompletionAlarmMins(int8_t val);
+int16_t dValueAlarmHigh;
+int16_t dValueAlarmLow;
+int16_t  dValueAlarmSec10;
+int8_t  dValueAlarmFatal;
 
-void storeCompletionAlarmMins10(int8_t val);
-
-int16_t calcCompletionAlarmOn();
-
-int16_t calcCompletionAlarmMinutes();
-
-int16_t calcShortCircuitAlarmSecs10();
-
-int16_t calcShortCircuitAlarmAmps();
 
 void restorePersistentData();
 

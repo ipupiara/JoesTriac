@@ -4,8 +4,10 @@
 #include "TriacDefines.h"
 #include "TriacIntr.h"
 
-miniString  miniStringArray [4]  = {{32,3},{27 ,3},{22,2},{21,1}};
-
+miniString  miniStringArray [amtMiniStrings]  = {{32,3,&shortCircuitAlarmSecond10Barrier},{27 ,3,&shortCircuitAlarmAmps},
+													{22,2,(int16_t*)(&completionAlarmMinutes)},{21,1,(int16_t*)&completionAlarmOn},
+													{35,3,&dValueAlarmLow},{38,3,&dValueAlarmHigh},
+													{41,3,&dValueAlarmSec10},{44,1,(int16_t*)&dValueAlarmFatal} };
 
 // ATTENTION: use of EEPROM needs BOD Level of at least 2.7 V, otherwise EEPROM memory
 // is likely to crash on restore when done at mcu startup
@@ -239,30 +241,6 @@ void storeZeroPotiPos(int8_t val)
 }
 */
 
-int16_t calcCompletionAlarmOn()
-{
-	completionAlarmOn = calcMiniString(completionAlarmOnArrPos);
-	return completionAlarmOn;
-}
-
-int16_t calcCompletionAlarmMinutes()
-{
-	completionAlarmMinutes = calcMiniString(completionAlarmMinsArrPos);  
-	return completionAlarmMinutes;
-}
-
-int16_t calcShortCircuitAlarmSecs10()
-{
-	shortCircuitAlarmSecond10Barrier = calcMiniString(shortCircuitAlarmSecsArrPos);
-	return shortCircuitAlarmSecond10Barrier;
-}
-
-int16_t calcShortCircuitAlarmAmps()
-{
-	shortCircuitAlarmAmps = calcMiniString(shortCircuitAlarmAmpsArrPos);
-	return shortCircuitAlarmAmps;
-}
-
 void restorePersistentData()
 {
 	amps100 = eeprom_read_byte((uint8_t*)amps100EEPROMpos);	
@@ -295,11 +273,8 @@ void restorePersistentData()
 	calcDesiredTime();
 	calcDesiredAmps();
 
-	calcCompletionAlarmMinutes();	
-	calcCompletionAlarmOn();	
-	calcShortCircuitAlarmAmps();
-	calcShortCircuitAlarmSecs10();
-	
+	calcAllMiniStrings();
+
 	calibLowADC = eeprom_read_word((uint16_t*) calibLowAdcEEPROMpos);
 	if (calibLowADC == 0xFFFF) calibLowADC = 0x0000;
 	calibHighADC = eeprom_read_word((uint16_t*) calibHighAdcEEPROMpos);

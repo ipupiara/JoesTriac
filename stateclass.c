@@ -757,7 +757,7 @@ uStInt evSetupMiniStringChecker(void)
 {
 	uStInt res;
 	res = uStIntNoMatch;
-	if (currentEvent->evType == evF2Pressed)
+	if (currentEvent->evType == evF1Pressed)
 	{
 		if (nextMiniStringPage()) {
 			printf("start debug Transition from \n");
@@ -774,6 +774,15 @@ uStInt evSetupMiniStringChecker(void)
 		}
 		res =  uStIntHandlingDone;
 	}
+		if (currentEvent->evType == evF2Pressed)
+		{
+			printf("f1 pressed goto idle\n");
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+			// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			
+			res =  uStIntHandlingDone;
+		}
 	return (res);
 }
 
@@ -854,7 +863,6 @@ void entrySetupMiniStringAstEditState(void)
 	printf("entry SetupMiniStringAstEditState\n");
 	if (pCurrentMiniStringPage->miniStringSetupAstConfiguration.inUse)  {
 		editMiniString(pCurrentMiniStringPage->miniStringSetupAstConfiguration.miniStringArrayPos,
-						pCurrentMiniStringPage->miniStringSetupAstConfiguration.calcMethod,
 						pCurrentMiniStringPage->miniStringSetupAstConfiguration.dispMethod);	
 	} else {
 		triggerGotoIdle();	
@@ -896,7 +904,6 @@ void entrySetupMiniStringNumEditState(void)
 	printf("entry SetupMiniStringNumEditState\n");
 	if (pCurrentMiniStringPage->miniStringSetupNumConfiguration.inUse)  {
 		editMiniString(pCurrentMiniStringPage->miniStringSetupNumConfiguration.miniStringArrayPos,
-						pCurrentMiniStringPage->miniStringSetupNumConfiguration.calcMethod,
 						pCurrentMiniStringPage->miniStringSetupNumConfiguration.dispMethod);
 	} else {
 		triggerGotoIdle();

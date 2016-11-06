@@ -78,7 +78,7 @@ void lcd_clrscr()
 	lcd_write (0b00000001, 0); // clr scr and move home
 }
 
-void lcd_Line2()
+void lcd_Line1()
 {
 	lcd_write (0b11000000, 0);
 }

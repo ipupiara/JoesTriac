@@ -61,13 +61,24 @@ int16_t calcMiniString(int16_t miniStringArrPos)
 		}
 		res = res * 10 + (bt - 0x30);
 	}
+	* miniStringArray[miniStringArrPos].pIntVar = res;
 	return res;
 }
+
+
+void calcAllMiniStrings()
+{
+	int16_t msCnt;
+	for (msCnt = 0; msCnt < amtMiniStrings; ++msCnt) {
+		calcMiniString(msCnt);
+	}
+}
+
 
 void displayMiniString(int8_t pos)
 {
 	displayMethod(pos);
-	inputHintNumericSetup(numUpperLimit);
+	inputHintNumeric(numUpperLimit);
 	displayMethod(pos); // just a temporary hack to find out if now cursor is ok
 }
 
@@ -77,10 +88,9 @@ void resetEditPosLimit()
 	numUpperLimit = 0x39;
 }
 
-void editMiniString(int16_t miniStrArrPos, miniStringCalcMenthodType calcMeth, miniStringDisplayMethodType dispMeth)
+void editMiniString(int16_t miniStrArrPos, miniStringDisplayMethodType dispMeth)
 {
 	miniStringArrPos =	miniStrArrPos;
-	calcMethod = calcMeth;
 	displayMethod = dispMeth;
 	miniStringBusy = 1;
 	miniStringEditPos = 0;
@@ -124,7 +134,7 @@ bool processMiniStringTriacEvent(CJoesTriacEvent* ev)
 				    (!(ev->evData.keyCode > numUpperLimit  ))) {
 				if ((miniStringEditPos >= 0) && (miniStringEditPos < miniStringArray[miniStringArrPos].length) )  {
 					EEPROM_write(miniStringArray[miniStringArrPos].eepromPos + miniStringEditPos, ev->evData.keyCode);
-					calcMethod();
+					calcMiniString(miniStringArrPos);
 				}
 				incMiniStringEditPos();
 			}
@@ -196,12 +206,22 @@ SetupPageConfigurationStruct   setupPageConfiguration[amtMiniStringEditPages] =
 	{
 		{
 			showCompletionAlarmSetup,
-			{1,completionAlarmMinsArrPos, calcCompletionAlarmMinutes, writeCompletionAlarmMinutes  },
-			{1,completionAlarmOnArrPos, calcCompletionAlarmOn, writeCompletionAlarmOn }
+			{1,completionAlarmMinsArrPos, writeCompletionAlarmMinutes  },
+			{1,completionAlarmOnArrPos, writeCompletionAlarmOn }
 		},
 		{	showShortCircuitAlarmSetup,
-			{1,shortCircuitAlarmAmpsArrPos, calcShortCircuitAlarmAmps, writeShortCircuitAlarmAmps },
-			{1,shortCircuitAlarmSecsArrPos, calcShortCircuitAlarmSecs10, writeShortCircuitAlarmSec }	
+			{1,shortCircuitAlarmAmpsArrPos, writeShortCircuitAlarmAmps },
+			{1,shortCircuitAlarmSecs10ArrPos, writeShortCircuitAlarmSec }	
+		},
+		{
+			showDValueLowHighAlarmSetup,
+			{1,dValueAlarmLowArrPos,writeDValueLow},
+			{1,dValueAlarmHighArrPos,writeDValueHigh}
+		},
+		{
+			showDValueSec10FatalAlarmSetup,
+			{1,dValueAlarmSec10ArrPos,writeDValueSec10},
+			{1,dValueAlarmFatalArrPos,writeDValueFatal}	
 		}
 	};
 	
