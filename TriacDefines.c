@@ -261,7 +261,6 @@ void restorePersistentData()
 		printf("amps not valid restored %X\n", amps);
 		storeAmps(0x30);
 	}
-	printf("amps done\n");
 	min10 = eeprom_read_byte((uint8_t*)min10EEPROMpos);
 	if ((min10 < 0x30) || (min10 > 0x39)) { storeMin10(0x30);}
 	min = eeprom_read_byte((uint8_t*)minEEPROMpos);
@@ -270,6 +269,7 @@ void restorePersistentData()
 	if ((sec10 < 0x30) || (sec10 > 0x35)) { storeSec10(0x30);}
 	sec = eeprom_read_byte((uint8_t*)secEEPROMpos);
 	if ((sec < 0x30) || (sec > 0x39)) { storeSec(0x30);}
+//	printf("amps + min restore done\n");	
 	calcDesiredTime();
 	calcDesiredAmps();
 

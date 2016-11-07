@@ -150,7 +150,9 @@ ISR(TIMER2_COMPA_vect)
 
 ISR(ADC_vect)
 {
+	cli();
 	lastAmpsADCVal = ADC;
+	sei();
 	++ adcCnt;
 #ifdef shortCircuitAlarmSupported	
 	checkShortCircuitCondition();
@@ -215,9 +217,9 @@ ISR(TIMER1_COMPA_vect)
 	if ((shortCircuitAlarmOn > 0) || (dValueAlarmOn > 0)) {
 		if ((sec10Counter == 5) || (sec10Counter ==  10 )) {
 			toggleCompletionAlarm();
-		} else {
-			setCompletionAlarmOff();
 		}
+	}  else {
+		setCompletionAlarmOff();
 	}
 #endif	
 	if ( sec10Counter >= 10)  {

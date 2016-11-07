@@ -199,9 +199,6 @@ char* miniStringNToString(int16_t miniStringArrPos, uint8_t maxSize, char* buffe
 	return buffer;
 }
 
-
-// needs at least one entry or else the ministring component should not be used,
-// what would be worthless anyhow
 SetupPageConfigurationStruct   setupPageConfiguration[amtMiniStringEditPages] =
 	{
 		{
