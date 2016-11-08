@@ -457,7 +457,7 @@ void toggleCompletionAlarm()
 	}
 }
 
-void resetAlarms()
+void resetCircuitAlarms()
 {
 	shortCircuitAlarmOn = 0;
 	dValueAlarmOn = 0;
