@@ -760,9 +760,9 @@ uStInt evSetupMiniStringChecker(void)
 	if (currentEvent->evType == evF1Pressed)
 	{
 		if (nextMiniStringPage()) {
-			printf("start debug Transition from \n");
-			printf("setupMiniStringPage into itself\n");
-			printf("may not be equal to local transition!\n");
+			//printf("start debug Transition from \n");
+			//printf("setupMiniStringPage into itself\n");
+			//printf("may not be equal to local transition!\n");
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupMiniString);
 			// No event action.
 			END_EVENT_HANDLER(PJoesTriacStateChart);

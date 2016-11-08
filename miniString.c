@@ -61,7 +61,12 @@ int16_t calcMiniString(int16_t miniStringArrPos)
 		}
 		res = res * 10 + (bt - 0x30);
 	}
-	* miniStringArray[miniStringArrPos].pIntVar = res;
+	if (len > 2)  {
+		* miniStringArray[miniStringArrPos].pIntVar = res;
+	} else {
+		*((int8_t*)(miniStringArray[miniStringArrPos].pIntVar))  = (int8_t)  res;
+//		* miniStringArray[miniStringArrPos].pIntVar = (int8_t) res;
+	}
 	return res;
 }
 
@@ -199,6 +204,12 @@ char* miniStringNToString(int16_t miniStringArrPos, uint8_t maxSize, char* buffe
 	return buffer;
 }
 
+
+		//typedef struct SetupPageConfigurationStruct {
+			//setupPageDisplayMethodType	pageDisplayMethod;
+			//SetupMiniStringConfigurationStruct		miniStringSetupAstConfiguration;
+			//SetupMiniStringConfigurationStruct		miniStringSetupNumConfiguration;
+		//} SetupPageConfigurationStruct ;
 SetupPageConfigurationStruct   setupPageConfiguration[amtMiniStringEditPages] =
 	{
 		{
@@ -208,17 +219,17 @@ SetupPageConfigurationStruct   setupPageConfiguration[amtMiniStringEditPages] =
 		},
 		{	showShortCircuitAlarmSetup,
 			{1,shortCircuitAlarmAmpsArrPos, writeShortCircuitAlarmAmps },
-			{1,shortCircuitAlarmSecs10ArrPos, writeShortCircuitAlarmSec }	
+			{1,shortCircuitAlarmSecs10ArrPos, writeShortCircuitAlarmSec10 }	
 		},
 		{
-			showDValueLowHighAlarmSetup,
+			showDValueAlarmLowHighSetup,
 			{1,dValueAlarmLowArrPos,writeDValueLow},
 			{1,dValueAlarmHighArrPos,writeDValueHigh}
 		},
 		{
-			showDValueSec10FatalAlarmSetup,
-			{1,dValueAlarmSec10ArrPos,writeDValueSec10},
-			{1,dValueAlarmFatalArrPos,writeDValueFatal}	
+			showDValueAlarmSec10FatalSetup,
+			{1,dValueAlarmSec10ArrPos,writeDValueAlarmSec10},
+			{1,dValueAlarmFatalArrPos,writeDValueAlarmFatal}	
 		}
 	};
 	

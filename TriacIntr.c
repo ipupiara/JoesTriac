@@ -206,7 +206,7 @@ ISR(TIMER1_COMPA_vect)
 		if (dValueSec10Counter == 0)  {
 			dValueSec10Counter = -1;
 			if (dValueAlarmFatal > 0) {
-				sprintf((char *) &lastFatalErrorString,"short circuit");
+				sprintf((char *) &lastFatalErrorString,"DValue low/high");
 				fatalErrorOccurred = 1;
 			} else {
 				dValueAlarmOn = 1;
@@ -264,8 +264,7 @@ void initInterrupts()
 	  
 			runningSecondsTick = 0;
 			sec10Counter = 0;
-			shortCircuitSec10Counter = 0;
-			dValueSec10Counter = 0;
+			resetAlarms();
 	  
 		TCCR1A = 0x00;  // normal mode or CTC dep.on TCCR1B
 		//TCCR1B = 0b00001101  ; // CTC on CC1A , set clk / 1024, timer started
@@ -368,6 +367,7 @@ void startTriacRun()
 
 void stopTriacRun()
 {
+	resetAlarms();    // stops also circuit alarms (shortCircuit, DValue)
 	EIMSK = 0x00;				// stop external interrupt
 	cli();
 	stopTimer2();
@@ -454,7 +454,15 @@ void toggleCompletionAlarm()
 	}
 }
 
-
+void resetAlarms()
+{
+	shortCircuitAlarmOn = 0;
+	dValueAlarmOn = 0;
+	shortCircuitSec10Counter = 0;
+	dValueSec10Counter = 0;
+	setCompletionAlarmOff();
+	
+}
 
 //  checkShortCircuitCondition, pn 27oct2016
 //  due to recent events in jo's production, we created

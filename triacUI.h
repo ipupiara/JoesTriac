@@ -48,19 +48,19 @@ void showShortCircuitAlarmSetup();
 
 void writeShortCircuitAlarmAmps(int8_t kInd);
 
-void writeShortCircuitAlarmSec(int8_t kInd);
+void writeShortCircuitAlarmSec10(int8_t kInd);
 
-void showDValueLowHighAlarmSetup();
+void showDValueAlarmLowHighSetup();
 
 void writeDValueLow(int8_t kInd);
 
 void writeDValueHigh(int8_t kInd);
 
-void showDValueSec10FatalAlarmSetup();
+void showDValueAlarmSec10FatalSetup();
 
-void writeDValueSec10(int8_t kInd);
+void writeDValueAlarmSec10(int8_t kInd);
 
-void writeDValueFatal(int8_t kInd);
+void writeDValueAlarmFatal(int8_t kInd);
 
 void clearSetupInputHint();
 

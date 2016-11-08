@@ -159,12 +159,6 @@ void storeCalibHighFireDuration();
 void storeAmpsInputPin(int8_t val);
 
 
-int16_t dValueAlarmHigh;
-int16_t dValueAlarmLow;
-int16_t  dValueAlarmSec10;
-int8_t  dValueAlarmFatal;
-
-
 void restorePersistentData();
 
 #define zeroAdjustATtinyID  0x10
