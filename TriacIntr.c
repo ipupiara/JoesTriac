@@ -187,43 +187,46 @@ int8_t shortCircuitSec10Counter;
 uint8_t  shortCircuitAlarmOn;
 int8_t  dValueSec10Counter;
 uint8_t  dValueAlarmOn;
+uint8_t  circuitAlarmsEnabled;
 
 ISR(TIMER1_COMPA_vect)
 {
 #ifdef shortCircuitAlarmSupported
-	cli();
-	if (shortCircuitSec10Counter > 0)  {
-		-- shortCircuitSec10Counter;
-		if (shortCircuitSec10Counter == 0)  {
-			shortCircuitSec10Counter = -1;
-			shortCircuitAlarmOn = 1;
-			sprintf((char *) &lastFatalErrorString,"short circuit");
-			fatalErrorOccurred = 1;
-		}
-	}
-	if (dValueSec10Counter > 0)  {
-		-- dValueSec10Counter;
-		if (dValueSec10Counter == 0)  {
-			dValueSec10Counter = -1;
-			if (dValueAlarmFatal > 0) {
-				sprintf((char *) &lastFatalErrorString,"DValue low/high");
+	if (circuitAlarmsEnabled == 1 ) {
+		cli();
+		if (shortCircuitSec10Counter > 0)  {
+			-- shortCircuitSec10Counter;
+			if (shortCircuitSec10Counter == 0)  {
+				shortCircuitSec10Counter = -1;
+				shortCircuitAlarmOn = 1;
+				sprintf((char *) &lastFatalErrorString,"short circuit");
 				fatalErrorOccurred = 1;
-			} else {
-				dValueAlarmOn = 1;
 			}
 		}
-	}
-	sei();
-	if ((shortCircuitAlarmOn > 0) || (dValueAlarmOn > 0)) {
-		if ((sec10Counter == 5) || (sec10Counter ==  10 )) {
-			toggleCompletionAlarm();
+		if (dValueSec10Counter > 0)  {
+			-- dValueSec10Counter;
+			if (dValueSec10Counter == 0)  {
+				dValueSec10Counter = -1;
+				if (dValueAlarmFatal > 0) {
+					sprintf((char *) &lastFatalErrorString,"DValue low/high");
+					fatalErrorOccurred = 1;
+				} else {
+					dValueAlarmOn = 1;
+				}
+			}
 		}
-	}  else {
-		setCompletionAlarmOff();
+		sei();
+		if ((shortCircuitAlarmOn > 0) || (dValueAlarmOn > 0)) {
+			if ((sec10Counter == 5) || (sec10Counter ==  10 )) {
+				toggleCompletionAlarm();
+			}
+		}  else {
+			setCompletionAlarmOff();
+		}
 	}
 #endif	
 	if ( sec10Counter >= 10)  {
-		sec10Counter = 0;
+		sec10Counter = 1;
 		secondsDurationTimerRemaining --;
 		secondsInDurationTimer ++;
 		if (secondsDurationTimerRemaining <= 0) {
@@ -460,10 +463,20 @@ void resetAlarms()
 	dValueAlarmOn = 0;
 	shortCircuitSec10Counter = 0;
 	dValueSec10Counter = 0;
+	circuitAlarmsEnabled = 0;
+	disableCircuitAlarms();
 	setCompletionAlarmOff();
-	
 }
 
+void enableCircuitAlarms()
+{
+	circuitAlarmsEnabled = 1;
+}
+
+void disableCircuitAlarms()
+{
+	circuitAlarmsEnabled = 0;
+}
 //  checkShortCircuitCondition, pn 27oct2016
 //  due to recent events in jo's production, we created
 //  this method which should be able to detect a behaviour that indicates a "short circuit" abnormality 
