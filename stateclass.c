@@ -921,7 +921,6 @@ void entryTriacRunningState(void)
 {
 	printf("entry Running\n");
 	displayTriacRunning();
-	enableCircuitAlarms();
 	startDurationTimer(desiredTimeS);
 //	startDurationTimer(maxSecsPossible);   // sometimes used for debugging	
 	setTriacFireDuration(calibLowTriacFireDuration);  // start defined,  not just somewhere
@@ -935,7 +934,6 @@ void exitTriacRunningState(void)
 	printf("exit Running\n");
 	stopDurationTimer();
 	stopTriacRun();
-	disableCircuitAlarms();
 	clr_scr();
 }
 
@@ -960,6 +958,7 @@ uStInt evTriacRunningChecker(void)
 		displayCurrentAmps();
 		displayCountDown();
 		displayVoltage();	
+//		printDValueVars();
 		res =  uStIntHandlingDone;
 	}	
 	if (currentEvent->evType == evAdcTick)

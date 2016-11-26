@@ -4,7 +4,7 @@
 #include "TriacDefines.h"
 #include "TriacIntr.h"
 
-miniString  miniStringArray [amtMiniStrings]  = {{32,3,&shortCircuitAlarmSecond10Barrier},{27 ,3,&shortCircuitAlarmAmps},
+miniString  miniStringArray [amtMiniStrings]  = {{32,3,&shortCircuitAlarmSecond10},{27 ,3,&shortCircuitAlarmAmps},
 													{22,2,(int16_t*)(&completionAlarmMinutes)},{21,1,(int16_t*)&completionAlarmOn},
 													{35,3,&dValueAlarmLow},{38,3,&dValueAlarmHigh},
 													{41,3,&dValueAlarmSec10},{44,1,(int16_t*)&dValueAlarmFatal} };
@@ -274,6 +274,7 @@ void restorePersistentData()
 	calcDesiredAmps();
 
 	calcAllMiniStrings();
+	printf("dValueAlarmSec10 at:%i\n",dValueAlarmSec10);
 
 	calibLowADC = eeprom_read_word((uint16_t*) calibLowAdcEEPROMpos);
 	if (calibLowADC == 0xFFFF) calibLowADC = 0x0000;

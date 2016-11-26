@@ -94,7 +94,7 @@ uint16_t  calibHighTriacFireDuration;
 int8_t   completionAlarmOn;
 int8_t   completionAlarmMinutes;
 
-int16_t  shortCircuitAlarmSecond10Barrier;
+int16_t  shortCircuitAlarmSecond10;
 int16_t  shortCircuitAlarmAmps;
 
 int16_t dValueAlarmHigh;
