@@ -4195,6 +4195,63 @@ type RDH, grid 15 mm</description>
 </deviceset>
 </devicesets>
 </library>
+<library name="e-motoren">
+<description>&lt;b&gt;Motoren für Elektropläne&lt;/b&gt;&lt;p&gt;
+&lt;author&gt;Autor librarian@cadsoft.de&lt;/author&gt;</description>
+<packages>
+<package name="MOTOR_1-PHASEN">
+<description>Dummy</description>
+<circle x="0" y="0" radius="5.08" width="0.1524" layer="21"/>
+<pad name="V" x="0" y="3.175" drill="0.8" shape="square"/>
+<pad name="U" x="-2.54" y="3.175" drill="0.8" shape="square"/>
+<pad name="PE" x="2.54" y="3.175" drill="0.8" shape="square"/>
+<text x="-2.54" y="-0.635" size="1.778" layer="21">M 1~</text>
+</package>
+</packages>
+<symbols>
+<symbol name="MOTOR_1-PHASEN">
+<wire x1="6.477" y1="-1.27" x2="7.62" y2="-1.27" width="0.1524" layer="94"/>
+<wire x1="7.62" y1="-1.27" x2="7.62" y2="2.54" width="0.1524" layer="94"/>
+<wire x1="-2.54" y1="5.08" x2="-2.54" y2="4.572" width="0.1524" layer="94"/>
+<wire x1="2.54" y1="5.08" x2="2.54" y2="4.572" width="0.1524" layer="94"/>
+<circle x="0" y="-1.27" radius="6.35" width="0.2032" layer="94"/>
+<text x="-1.397" y="-1.27" size="2.54" layer="94">M</text>
+<text x="-2.159" y="-5.08" size="2.54" layer="94">1~</text>
+<text x="-3.81" y="-8.89" size="1.778" layer="95" rot="MR180">&gt;PART</text>
+<text x="-3.81" y="-11.43" size="1.778" layer="96" rot="MR180">&gt;VALUE</text>
+<text x="-3.81" y="-19.05" size="1.778" layer="96" rot="MR180">&gt;FUNKTION</text>
+<text x="-3.81" y="-13.97" size="1.778" layer="96" rot="MR180">&gt;TYPE</text>
+<text x="-3.81" y="-16.51" size="1.778" layer="96" rot="MR180">&gt;HERSTELLER</text>
+<pin name="V" x="2.54" y="7.62" visible="pad" length="short" direction="pas" rot="R270"/>
+<pin name="U" x="-2.54" y="7.62" visible="pad" length="short" direction="pas" rot="R270"/>
+<pin name="PE" x="7.62" y="7.62" visible="pad" length="middle" direction="pas" rot="R270"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="MOTOR_1-PHASEN" prefix="M" uservalue="yes">
+<description>1-Phasen-Wechselstrom-Motor</description>
+<gates>
+<gate name="1" symbol="MOTOR_1-PHASEN" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="MOTOR_1-PHASEN">
+<connects>
+<connect gate="1" pin="PE" pad="PE"/>
+<connect gate="1" pin="U" pad="U"/>
+<connect gate="1" pin="V" pad="V"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="FUNKTION" value="" constant="no"/>
+<attribute name="HERSTELLER" value="" constant="no"/>
+<attribute name="TYPE" value="" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -4232,6 +4289,8 @@ type RDH, grid 15 mm</description>
 <part name="R2" library="resistor" deviceset="R-EU_" device="0309/V"/>
 <part name="R3" library="resistor" deviceset="R-EU_" device="0309/V"/>
 <part name="R4" library="resistor" deviceset="R-EU_" device="0309/V"/>
+<part name="M1" library="e-motoren" deviceset="MOTOR_1-PHASEN" device=""/>
+<part name="SUPPLY12" library="supply2" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -4239,6 +4298,7 @@ type RDH, grid 15 mm</description>
 <text x="-53.34" y="38.1" size="1.778" layer="91">220V 50Hz AC</text>
 <text x="10.16" y="-5.08" size="1.778" layer="91">  +2.5V</text>
 <text x="5.08" y="-48.26" size="1.778" layer="91">  -2.5V</text>
+<text x="71.12" y="-38.1" size="2.54" layer="91">Ventilator</text>
 </plain>
 <instances>
 <instance part="TR1" gate="1" x="33.02" y="25.4"/>
@@ -4282,6 +4342,8 @@ type RDH, grid 15 mm</description>
 <instance part="R2" gate="G$1" x="-2.54" y="-20.32" rot="R90"/>
 <instance part="R3" gate="G$1" x="-7.62" y="-33.02" rot="R90"/>
 <instance part="R4" gate="G$1" x="5.08" y="-40.64" rot="R90"/>
+<instance part="M1" gate="1" x="68.58" y="-25.4"/>
+<instance part="SUPPLY12" gate="GND" x="88.9" y="-25.4"/>
 </instances>
 <busses>
 </busses>
@@ -4410,6 +4472,13 @@ type RDH, grid 15 mm</description>
 <pinref part="J2" gate="-5" pin="MS"/>
 <wire x1="-73.66" y1="-12.7" x2="-88.9" y2="-12.7" width="0.1524" layer="91"/>
 </segment>
+<segment>
+<pinref part="M1" gate="1" pin="V"/>
+<wire x1="71.12" y1="-17.78" x2="71.12" y2="-12.7" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="-12.7" x2="88.9" y2="-12.7" width="0.1524" layer="91"/>
+<wire x1="88.9" y1="-12.7" x2="88.9" y2="-22.86" width="0.1524" layer="91"/>
+<pinref part="SUPPLY12" gate="GND" pin="GND"/>
+</segment>
 </net>
 <net name="+12V" class="0">
 <segment>
@@ -4497,6 +4566,9 @@ type RDH, grid 15 mm</description>
 <wire x1="-76.2" y1="-58.42" x2="-76.2" y2="-15.24" width="0.1524" layer="91"/>
 <pinref part="J2" gate="-4" pin="MS"/>
 <wire x1="-76.2" y1="-15.24" x2="-88.9" y2="-15.24" width="0.1524" layer="91"/>
+<wire x1="50.8" y1="-7.62" x2="66.04" y2="-7.62" width="0.1524" layer="91"/>
+<pinref part="M1" gate="1" pin="U"/>
+<wire x1="66.04" y1="-7.62" x2="66.04" y2="-17.78" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$18" class="0">
@@ -4536,7 +4608,7 @@ type RDH, grid 15 mm</description>
 <segment>
 <pinref part="IC4" gate="G$1" pin="OUT"/>
 <wire x1="5.08" y1="-7.62" x2="7.62" y2="-7.62" width="0.1524" layer="91"/>
-<wire x1="7.62" y1="-7.62" x2="12.7" y2="-7.62" width="0.1524" layer="91"/>
+<wire x1="7.62" y1="-7.62" x2="10.16" y2="-7.62" width="0.1524" layer="91"/>
 <wire x1="7.62" y1="-7.62" x2="7.62" y2="2.54" width="0.1524" layer="91"/>
 <wire x1="7.62" y1="2.54" x2="-17.78" y2="2.54" width="0.1524" layer="91"/>
 <wire x1="-17.78" y1="2.54" x2="-17.78" y2="10.16" width="0.1524" layer="91"/>
