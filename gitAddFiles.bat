@@ -18,5 +18,7 @@ git add JTWebPages/apply/DSCF5661-c3.jpg
 git add  joesTriac.mdl
 git add	ATtinyJT/ATtinyJT.atsln
 git add ATtinyJT/ATtinyJT.cproj
+git add ATtinyJT/*
 git add eagle/*
+git add ATmega644p/*
 git status
