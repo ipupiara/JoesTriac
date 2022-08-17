@@ -11190,6 +11190,7 @@ Grid 2.54 mm&lt;p&gt;
 <part name="SUPPLY6" library="supply2" deviceset="+4.1V" device="" value="+2.5V"/>
 <part name="SUPPLY8" library="supply2" deviceset="-4.1V" device="" value="-2.5V"/>
 <part name="SUPPLY9" library="supply2" deviceset="GND" device=""/>
+<part name="SUPPLY18" library="supply2" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -11198,7 +11199,7 @@ Grid 2.54 mm&lt;p&gt;
 <text x="-27.94" y="104.14" size="1.778" layer="91" rot="R90">AC or DC high ampere current </text>
 <text x="-35.56" y="-33.02" size="1.778" layer="91">SENS+, SENS- are connected to sensor (see sheet 1)</text>
 <text x="106.68" y="33.02" size="1.778" layer="91">SENSSIG is connected to sensor</text>
-<text x="182.88" y="111.76" size="3.302" layer="91">to powerboard</text>
+<text x="182.88" y="116.84" size="3.302" layer="91">to powerboard</text>
 <text x="185.42" y="22.86" size="3.302" layer="91">to cpuboard</text>
 <text x="-12.7" y="101.6" size="1.778" layer="91">gnd_in/out</text>
 <text x="43.18" y="38.1" size="2.1844" layer="91">all jumpers 1-2 or 2-3</text>
@@ -11256,22 +11257,22 @@ Grid 2.54 mm&lt;p&gt;
 <instance part="SUPPLY30" gate="G$1" x="22.86" y="27.94" rot="MR0"/>
 <instance part="SUPPLY31" gate="G$1" x="17.78" y="-30.48" rot="MR0"/>
 <instance part="C11" gate="G$1" x="-27.94" y="-10.16"/>
-<instance part="X4" gate="-1" x="195.58" y="101.6"/>
-<instance part="X4" gate="-2" x="195.58" y="96.52"/>
-<instance part="X4" gate="-3" x="195.58" y="91.44"/>
-<instance part="X4" gate="-4" x="195.58" y="86.36"/>
-<instance part="X4" gate="-5" x="195.58" y="81.28"/>
-<instance part="X4" gate="-6" x="195.58" y="76.2"/>
+<instance part="X4" gate="-1" x="195.58" y="106.68"/>
+<instance part="X4" gate="-2" x="195.58" y="101.6"/>
+<instance part="X4" gate="-3" x="195.58" y="96.52"/>
+<instance part="X4" gate="-4" x="195.58" y="91.44"/>
+<instance part="X4" gate="-5" x="195.58" y="86.36"/>
+<instance part="X4" gate="-6" x="195.58" y="81.28"/>
 <instance part="X5" gate="-1" x="195.58" y="15.24"/>
 <instance part="X5" gate="-2" x="195.58" y="10.16"/>
 <instance part="X5" gate="-3" x="195.58" y="5.08"/>
 <instance part="X5" gate="-4" x="195.58" y="0"/>
 <instance part="X5" gate="-5" x="195.58" y="-5.08"/>
 <instance part="X5" gate="-6" x="195.58" y="-10.16"/>
-<instance part="SUPPLY1" gate="P" x="187.96" y="104.14" rot="MR0"/>
-<instance part="SUPPLY2" gate="P" x="165.1" y="101.6" rot="MR180"/>
-<instance part="SUPPLY3" gate="G$1" x="177.8" y="93.98"/>
-<instance part="SUPPLY4" gate="G$1" x="165.1" y="91.44"/>
+<instance part="SUPPLY1" gate="P" x="187.96" y="109.22" rot="MR0"/>
+<instance part="SUPPLY2" gate="P" x="165.1" y="106.68" rot="MR180"/>
+<instance part="SUPPLY3" gate="G$1" x="177.8" y="99.06"/>
+<instance part="SUPPLY4" gate="G$1" x="160.02" y="96.52"/>
 <instance part="SUPPLY5" gate="G$1" x="-15.24" y="-2.54"/>
 <instance part="X6" gate="-1" x="0" y="99.06"/>
 <instance part="X6" gate="-2" x="0" y="91.44"/>
@@ -11283,6 +11284,7 @@ Grid 2.54 mm&lt;p&gt;
 <instance part="SUPPLY6" gate="P" x="68.58" y="50.8" rot="MR0"/>
 <instance part="SUPPLY8" gate="P" x="12.7" y="45.72" rot="MR180"/>
 <instance part="SUPPLY9" gate="GND" x="33.02" y="45.72"/>
+<instance part="SUPPLY18" gate="GND" x="165.1" y="88.9"/>
 </instances>
 <busses>
 </busses>
@@ -11322,6 +11324,13 @@ Grid 2.54 mm&lt;p&gt;
 <segment>
 <pinref part="SUPPLY9" gate="GND" pin="GND"/>
 <wire x1="30.48" y1="48.26" x2="33.02" y2="48.26" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="X4" gate="-5" pin="1"/>
+<wire x1="193.04" y1="86.36" x2="172.72" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="172.72" y1="86.36" x2="172.72" y2="91.44" width="0.1524" layer="91"/>
+<pinref part="SUPPLY18" gate="GND" pin="GND"/>
+<wire x1="172.72" y1="91.44" x2="165.1" y2="91.44" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="SENS+" class="0">
@@ -11398,7 +11407,7 @@ Grid 2.54 mm&lt;p&gt;
 </segment>
 <segment>
 <pinref part="X4" gate="-3" pin="1"/>
-<wire x1="193.04" y1="91.44" x2="177.8" y2="91.44" width="0.1524" layer="91"/>
+<wire x1="193.04" y1="96.52" x2="177.8" y2="96.52" width="0.1524" layer="91"/>
 <pinref part="SUPPLY3" gate="G$1" pin="+9V"/>
 </segment>
 </net>
@@ -11422,9 +11431,9 @@ Grid 2.54 mm&lt;p&gt;
 </segment>
 <segment>
 <pinref part="X4" gate="-4" pin="1"/>
-<wire x1="193.04" y1="86.36" x2="175.26" y2="86.36" width="0.1524" layer="91"/>
-<wire x1="175.26" y1="86.36" x2="175.26" y2="93.98" width="0.1524" layer="91"/>
-<wire x1="175.26" y1="93.98" x2="165.1" y2="93.98" width="0.1524" layer="91"/>
+<wire x1="193.04" y1="91.44" x2="175.26" y2="91.44" width="0.1524" layer="91"/>
+<wire x1="175.26" y1="91.44" x2="175.26" y2="99.06" width="0.1524" layer="91"/>
+<wire x1="175.26" y1="99.06" x2="160.02" y2="99.06" width="0.1524" layer="91"/>
 <pinref part="SUPPLY4" gate="G$1" pin="-9V"/>
 </segment>
 </net>
@@ -11564,13 +11573,13 @@ Grid 2.54 mm&lt;p&gt;
 <junction x="127" y="0"/>
 </segment>
 <segment>
-<wire x1="195.58" y1="96.52" x2="193.04" y2="96.52" width="0.1524" layer="91"/>
-<wire x1="193.04" y1="96.52" x2="182.88" y2="96.52" width="0.1524" layer="91"/>
-<wire x1="182.88" y1="96.52" x2="182.88" y2="104.14" width="0.1524" layer="91"/>
+<wire x1="195.58" y1="101.6" x2="193.04" y2="101.6" width="0.1524" layer="91"/>
+<wire x1="193.04" y1="101.6" x2="182.88" y2="101.6" width="0.1524" layer="91"/>
+<wire x1="182.88" y1="101.6" x2="182.88" y2="109.22" width="0.1524" layer="91"/>
 <pinref part="SUPPLY2" gate="P" pin="-4.1V"/>
-<wire x1="182.88" y1="104.14" x2="165.1" y2="104.14" width="0.1524" layer="91"/>
+<wire x1="182.88" y1="109.22" x2="165.1" y2="109.22" width="0.1524" layer="91"/>
 <pinref part="X4" gate="-2" pin="1"/>
-<junction x="193.04" y="96.52"/>
+<junction x="193.04" y="101.6"/>
 </segment>
 <segment>
 <wire x1="10.16" y1="48.26" x2="12.7" y2="48.26" width="0.1524" layer="91"/>
@@ -11592,10 +11601,10 @@ Grid 2.54 mm&lt;p&gt;
 </segment>
 <segment>
 <pinref part="X4" gate="-1" pin="1"/>
-<wire x1="193.04" y1="101.6" x2="187.96" y2="101.6" width="0.1524" layer="91"/>
-<wire x1="187.96" y1="101.6" x2="187.96" y2="104.14" width="0.1524" layer="91"/>
+<wire x1="193.04" y1="106.68" x2="187.96" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="187.96" y1="106.68" x2="187.96" y2="109.22" width="0.1524" layer="91"/>
 <pinref part="SUPPLY1" gate="P" pin="+4.1V"/>
-<junction x="187.96" y="101.6"/>
+<junction x="187.96" y="106.68"/>
 </segment>
 <segment>
 <pinref part="SUPPLY6" gate="P" pin="+4.1V"/>
