@@ -21,4 +21,6 @@ git add ATtinyJT/ATtinyJT.cproj
 git add ATtinyJT/*
 git add eagle/*
 git add ATmega644p/*
+git add stm32/jt/
+git add stm32/.gitignore
 git status
