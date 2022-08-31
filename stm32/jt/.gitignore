@@ -1,4 +1,5 @@
 .metadata/
-.metadata/
-.metadata/*
-test/
+jt/TouchGFX/build
+EWARM/
+MDK-ARM/
+#/Middlewares

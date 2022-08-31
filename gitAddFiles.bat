@@ -1,3 +1,4 @@
+git rm -rf --cached .
 git add joesTriac.aps
 git add joestriac.aws
 git add *.h
@@ -5,6 +6,9 @@ git add *.c
 git add *.atsln
 git add *.cproj
 git add gitAddFiles.bat
+git add gitAddFiles.sh
+git add checkOriginMaster.sh
+git add checkOriginMaster.bat
 git add default/joesTriac.hex
 git add ATtinyJT/ATtinyJT.aps
 git add   ATtinyJT/ATtinyJT.c
@@ -15,7 +19,7 @@ git add ATtinyJT/USI_TWI_Slave.h
 git add JTWebPages
 git add JTWebPages/rustlight/
 git add JTWebPages/apply/DSCF5661-c3.jpg
-git add  joesTriac.mdl
+git add rational/
 git add	ATtinyJT/ATtinyJT.atsln
 git add ATtinyJT/ATtinyJT.cproj
 git add ATtinyJT/*

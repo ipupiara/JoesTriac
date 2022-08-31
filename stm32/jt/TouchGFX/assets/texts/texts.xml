@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextDatabase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="texts.xsd" Version="4.20.0">
+  <Languages>
+    <Language Id="GB" />
+  </Languages>
+  <Texts>
+    <TextGroup Id="Group1">
+      <Text Id="3" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">0-9</Translation>
+      </Text>
+    </TextGroup>
+    <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_WHB6" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">set</Translation>
+      </Text>
+      <Text Id="__SingleUse_I8T2" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">10-00</Translation>
+      </Text>
+      <Text Id="__SingleUse_0GV3" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">Ampere</Translation>
+      </Text>
+      <Text Id="__SingleUse_UCVP" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">calibrate</Translation>
+      </Text>
+      <Text Id="5" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">New Text</Translation>
+      </Text>
+      <Text Id="__SingleUse_GUJS" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">time m:s</Translation>
+      </Text>
+    </TextGroup>
+  </Texts>
+  <Typographies>
+    <Typography Id="Default" Font="verdana.ttf" Size="20" Bpp="4" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Large" Font="verdana.ttf" Size="40" Bpp="4" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Small" Font="verdana.ttf" Size="10" Bpp="4" Direction="LTR" FallbackCharacter="?" />
+  </Typographies>
+</TextDatabase>

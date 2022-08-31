@@ -1,3 +1,4 @@
+git rm -rf --cached .
 git add joesTriac.aps
 git add joestriac.aws
 git add *.h
