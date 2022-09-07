@@ -2,4 +2,4 @@
 jt/TouchGFX/build
 EWARM/
 MDK-ARM/
-#/Middlewares
+*.cache

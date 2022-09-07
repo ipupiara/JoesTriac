@@ -107,7 +107,8 @@
             "Width": 66,
             "Height": 24,
             "TextId": "__SingleUse_I8T2",
-            "TextRotation": "0"
+            "TextRotation": "0",
+            "Clickable": true
           },
           {
             "Type": "ButtonWithLabel",
