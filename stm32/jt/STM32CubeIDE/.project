@@ -687,7 +687,7 @@
 		<link>
 			<name>Application/User/generated/mainScreenViewBase.hpp</name>
 			<type>1</type>
-			<locationURI>WORKSPACE_LOC/jt/TouchGFX/generated/gui_generated/include/gui_generated/mainscreen_screen/mainScreenViewBase.hpp</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/include/gui_generated/mainscreen_screen/mainScreenViewBase.hpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/numericKeyPadBase.cpp</name>
