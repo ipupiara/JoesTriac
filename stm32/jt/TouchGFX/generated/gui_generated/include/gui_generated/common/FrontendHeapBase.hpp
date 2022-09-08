@@ -16,6 +16,8 @@
 #include <gui/mainscreen_screen/mainScreenPresenter.hpp>
 #include <gui/configscreen_screen/configScreenView.hpp>
 #include <gui/configscreen_screen/configScreenPresenter.hpp>
+#include <gui/settimescreen_screen/setTimeScreenView.hpp>
+#include <gui/settimescreen_screen/setTimeScreenPresenter.hpp>
 
 
 /**
@@ -40,7 +42,8 @@ public:
      */
     typedef touchgfx::meta::TypeList< mainScreenView,
             touchgfx::meta::TypeList< configScreenView,
-            touchgfx::meta::Nil >
+            touchgfx::meta::TypeList< setTimeScreenView,
+            touchgfx::meta::Nil > >
             > GeneratedViewTypes;
 
     /**
@@ -54,7 +57,8 @@ public:
      */
     typedef touchgfx::meta::TypeList< mainScreenPresenter,
             touchgfx::meta::TypeList< configScreenPresenter,
-            touchgfx::meta::Nil >
+            touchgfx::meta::TypeList< setTimeScreenPresenter,
+            touchgfx::meta::Nil > >
             > GeneratedPresenterTypes;
 
     /**
@@ -77,7 +81,7 @@ public:
 
     virtual void gotoStartScreen(FrontendApplication& app)
     {
-        app.gotomainScreenScreenNoTransition();
+        app.gotosetTimeScreenScreenNoTransition();
     }
 protected:
     FrontendHeapBase(touchgfx::AbstractPartition& presenters, touchgfx::AbstractPartition& views, touchgfx::AbstractPartition& transitions, FrontendApplication& app)

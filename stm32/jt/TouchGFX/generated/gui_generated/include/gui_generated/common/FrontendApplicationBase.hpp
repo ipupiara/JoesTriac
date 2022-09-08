@@ -17,7 +17,7 @@ public:
 
     virtual void changeToStartScreen()
     {
-        gotomainScreenScreenNoTransition();
+        gotosetTimeScreenScreenNoTransition();
     }
 
     // mainScreen
@@ -25,6 +25,9 @@ public:
 
     // configScreen
     void gotoconfigScreenScreenNoTransition();
+
+    // setTimeScreen
+    void gotosetTimeScreenScreenNoTransition();
 
 protected:
     touchgfx::Callback<FrontendApplicationBase> transitionCallback;
@@ -36,6 +39,9 @@ protected:
 
     // configScreen
     void gotoconfigScreenScreenNoTransitionImpl();
+
+    // setTimeScreen
+    void gotosetTimeScreenScreenNoTransitionImpl();
 };
 
 #endif // FRONTENDAPPLICATIONBASE_HPP

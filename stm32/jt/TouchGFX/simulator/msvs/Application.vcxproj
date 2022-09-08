@@ -17,6 +17,9 @@
     <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\hal\simulator\sdl2\OSWrappers.cpp"/>
     <ClCompile Include="$(ApplicationRoot)\simulator\main.cpp"/>
     <ClCompile Include="$(ApplicationRoot)\generated\simulator\src\mainBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\configscreen_screen\configScreenPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\configscreen_screen\configScreenView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\configscreen_screen\configScreenViewBase.cpp"/>
     <ClCompile Include="..\..\gui\src\common\FrontendApplication.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\common\FrontendApplicationBase.cpp"/>
     <ClCompile Include="..\..\gui\src\mainscreen_screen\mainScreenPresenter.cpp"/>
@@ -24,9 +27,11 @@
     <ClCompile Include="..\..\generated\gui_generated\src\mainscreen_screen\mainScreenViewBase.cpp"/>
     <ClCompile Include="..\..\gui\src\model\Model.cpp"/>
     <ClCompile Include="..\..\generated\simulator\src\video\SoftwareMJPEGDecoder.cpp"/>
-    <ClCompile Include="..\..\gui\src\configscreen_screen\configScreenPresenter.cpp"/>
-    <ClCompile Include="..\..\gui\src\configscreen_screen\configScreenView.cpp"/>
-    <ClCompile Include="..\..\generated\gui_generated\src\configscreen_screen\configScreenViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\containers\numericKeyPad.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\containers\numericKeyPadBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\settimescreen_screen\setTimeScreenPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\settimescreen_screen\setTimeScreenView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\settimescreen_screen\setTimeScreenViewBase.cpp"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xml"/>
@@ -167,6 +172,9 @@
     <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\TouchArea.hpp"/>
     <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\Widget.hpp"/>
     <ClInclude Include="$(ApplicationRoot)\generated\simulator\include\simulator\mainBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\configscreen_screen\configScreenPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\configscreen_screen\configScreenView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\configscreen_screen\configScreenViewBase.hpp"/>
     <ClInclude Include="..\..\generated\simulator\include\simulator\video\DirectFrameBufferVideoController.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\common\FrontendApplication.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\FrontendApplicationBase.hpp"/>
@@ -180,9 +188,11 @@
     <ClInclude Include="..\..\gui\include\gui\model\ModelListener.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\SimConstants.hpp"/>
     <ClInclude Include="..\..\generated\simulator\include\simulator\video\SoftwareMJPEGDecoder.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\configscreen_screen\configScreenPresenter.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\configscreen_screen\configScreenView.hpp"/>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\configscreen_screen\configScreenViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\containers\numericKeyPad.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\numericKeyPadBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\settimescreen_screen\setTimeScreenPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\settimescreen_screen\setTimeScreenView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\settimescreen_screen\setTimeScreenViewBase.hpp"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>

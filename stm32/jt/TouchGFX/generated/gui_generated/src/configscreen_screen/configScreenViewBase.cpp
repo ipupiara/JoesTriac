@@ -18,7 +18,7 @@ configScreenViewBase::configScreenViewBase() :
 
     calibrationButton.setXY(29, 55);
     calibrationButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
-    calibrationButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_UCVP));
+    calibrationButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_VXN9));
     calibrationButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     calibrationButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     calibrationButton.setAction(buttonCallback);

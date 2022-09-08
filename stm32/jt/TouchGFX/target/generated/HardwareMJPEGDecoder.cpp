@@ -655,7 +655,6 @@ extern "C"
     {
         HAL_JPEG_STATETypeDef  state = HAL_JPEG_GetState(hjpeg);
         uint32_t error = HAL_JPEG_GetError(hjpeg);
-        UNUSED(state); UNUSED(error);
         while (1) {}
     }
 

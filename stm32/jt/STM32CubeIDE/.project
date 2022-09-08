@@ -580,6 +580,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/configscreen_screen/configScreenView.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/gui/numericKeyPad.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/containers/numericKeyPad.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/gui/mainScreenPresenter.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/mainscreen_screen/mainScreenPresenter.cpp</locationURI>
@@ -593,6 +598,16 @@
 			<name>Application/User/gui/Model.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/model/Model.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/setTimeScreenPresenter.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/settimescreen_screen/setTimeScreenPresenter.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/setTimeScreenView.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/settimescreen_screen/setTimeScreenView.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/ApplicationFontProvider.cpp</name>
@@ -675,9 +690,19 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/configscreen_screen/configScreenViewBase.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/numericKeyPadBase.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/containers/numericKeyPadBase.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/mainScreenViewBase.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/mainscreen_screen/mainScreenViewBase.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/setTimeScreenViewBase.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/settimescreen_screen/setTimeScreenViewBase.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/BitmapDatabase.cpp</name>
@@ -713,6 +738,61 @@
 			<name>Application/User/generated/image_Blue_Needles_original_gauge_needle_style_01.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__designer/image_Blue_Needles_original_gauge_needle_style_01.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_blueNormal-0.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_blueNormal-0.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_blueNormal-1.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_blueNormal-1.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_blueNormal-2.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_blueNormal-2.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_blueNormal-3.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_blueNormal-3.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_blueNormal-4.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_blueNormal-4.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_blueNormal-5.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_blueNormal-5.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_blueNormal-6.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_blueNormal-6.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_blueNormal-7.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_blueNormal-7.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_blueNormal-8.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_blueNormal-8.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_blueNormal-9.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_blueNormal-9.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_bluePressed-x.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_bluePressed-x.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_configuration.cpp</name>

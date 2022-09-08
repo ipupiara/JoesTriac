@@ -13,6 +13,8 @@
 #include <gui/mainscreen_screen/mainScreenPresenter.hpp>
 #include <gui/configscreen_screen/configScreenView.hpp>
 #include <gui/configscreen_screen/configScreenPresenter.hpp>
+#include <gui/settimescreen_screen/setTimeScreenView.hpp>
+#include <gui/settimescreen_screen/setTimeScreenPresenter.hpp>
 
 using namespace touchgfx;
 
@@ -55,4 +57,17 @@ void FrontendApplicationBase::gotoconfigScreenScreenNoTransition()
 void FrontendApplicationBase::gotoconfigScreenScreenNoTransitionImpl()
 {
     touchgfx::makeTransition<configScreenView, configScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+// setTimeScreen
+
+void FrontendApplicationBase::gotosetTimeScreenScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplication::gotosetTimeScreenScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotosetTimeScreenScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<setTimeScreenView, setTimeScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }

@@ -33,7 +33,7 @@
             "Y": 27,
             "Width": 90,
             "Height": 24,
-            "TextId": "__SingleUse_GUJS",
+            "TextId": "__SingleUse_V8PF",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -92,12 +92,11 @@
             "Type": "TextArea",
             "Name": "textArea1",
             "X": 349,
-            "Y": 295,
-            "Width": 78,
-            "Height": 24,
-            "TextId": "__SingleUse_0GV3",
-            "TextRotation": "0",
-            "AutoSize": true
+            "Y": 299,
+            "Width": 83,
+            "Height": 26,
+            "TextId": "__SingleUse_I2PH",
+            "TextRotation": "0"
           },
           {
             "Type": "TextArea",
@@ -106,8 +105,13 @@
             "Y": 27,
             "Width": 66,
             "Height": 24,
-            "TextId": "__SingleUse_I8T2",
+            "TextId": "__SingleUse_TLLQ",
             "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_7HA7",
+              "UseBuffer": true,
+              "BufferSize": 10
+            },
             "Clickable": true
           },
           {
@@ -119,7 +123,7 @@
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
             "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "TextId": "__SingleUse_WHB6",
+            "TextId": "__SingleUse_LR0V",
             "ReleasedColor": {
               "Red": 255,
               "Green": 255,
@@ -182,7 +186,7 @@
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
             "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "TextId": "__SingleUse_UCVP",
+            "TextId": "__SingleUse_VXN9",
             "ReleasedColor": {
               "Red": 255,
               "Green": 255,
@@ -240,16 +244,266 @@
             }
           }
         ]
+      },
+      {
+        "Name": "setTimeScreen",
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "box1",
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 190,
+              "Green": 226,
+              "Blue": 247
+            },
+            "Draggable": true
+          }
+        ],
+        "Interactions": []
       }
     ],
-    "CustomContainerDefinitions": [],
+    "CustomContainerDefinitions": [
+      {
+        "Name": "numericKeyPad",
+        "Y": 22,
+        "Width": 346,
+        "Height": 457,
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "box1",
+            "Width": 346,
+            "Height": 457,
+            "Color": {
+              "Red": 85,
+              "Green": 135,
+              "Blue": 135
+            }
+          },
+          {
+            "Type": "Button",
+            "Name": "button1",
+            "X": 11,
+            "Y": 10,
+            "Width": 104,
+            "Height": 104,
+            "Pressed": "bluePressed-x.png",
+            "Released": "blueNormal-1.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "button2",
+            "X": 123,
+            "Y": 10,
+            "Width": 104,
+            "Height": 104,
+            "Pressed": "bluePressed-x.png",
+            "Released": "blueNormal-2.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "button3",
+            "X": 234,
+            "Y": 10,
+            "Width": 104,
+            "Height": 104,
+            "Pressed": "bluePressed-x.png",
+            "Released": "blueNormal-3.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "button4",
+            "X": 11,
+            "Y": 121,
+            "Width": 104,
+            "Height": 104,
+            "Pressed": "bluePressed-x.png",
+            "Released": "blueNormal-4.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "button5",
+            "X": 123,
+            "Y": 121,
+            "Width": 104,
+            "Height": 104,
+            "Pressed": "bluePressed-x.png",
+            "Released": "blueNormal-5.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "button6",
+            "X": 234,
+            "Y": 121,
+            "Width": 104,
+            "Height": 104,
+            "Pressed": "bluePressed-x.png",
+            "Released": "blueNormal-6.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "button7",
+            "X": 11,
+            "Y": 233,
+            "Width": 104,
+            "Height": 104,
+            "Pressed": "bluePressed-x.png",
+            "Released": "blueNormal-7.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "button8",
+            "X": 123,
+            "Y": 233,
+            "Width": 104,
+            "Height": 104,
+            "Pressed": "bluePressed-x.png",
+            "Released": "blueNormal-8.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "button9",
+            "X": 234,
+            "Y": 233,
+            "Width": 104,
+            "Height": 104,
+            "Pressed": "bluePressed-x.png",
+            "Released": "blueNormal-9.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "button10",
+            "X": 115,
+            "Y": 346,
+            "Width": 104,
+            "Height": 104,
+            "Pressed": "bluePressed-x.png",
+            "Released": "blueNormal-0.png"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "button0Pessed",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "button10"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "button0Pressed"
+            }
+          },
+          {
+            "InteractionName": "button1Pressed",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "button2"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "button1Pressed"
+            }
+          },
+          {
+            "InteractionName": "button2Pressed",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "button2"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "button2Pressed"
+            }
+          },
+          {
+            "InteractionName": "button3Pressed",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "button3"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "button3Pressed"
+            }
+          },
+          {
+            "InteractionName": "button4Pressed",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "button4"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "button4Pressed"
+            }
+          },
+          {
+            "InteractionName": "button5Pressed",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "button5"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "button5Pressed"
+            }
+          },
+          {
+            "InteractionName": "button6Pressed",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "button6"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "button6Pressed"
+            }
+          },
+          {
+            "InteractionName": "button7Pressed",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "button7"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "button7Pressed"
+            }
+          },
+          {
+            "InteractionName": "button8Pressed",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "button8"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "button8Pressed"
+            }
+          },
+          {
+            "InteractionName": "button9Pressed",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "button9"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "button9Pressed"
+            }
+          }
+        ]
+      }
+    ],
     "Name": "jt",
     "Resolution": {
       "Width": 800,
       "Height": 480
     },
     "SelectedColorDepth": 16,
-    "StartupScreenName": "mainScreen",
+    "StartupScreenName": "setTimeScreen",
     "SelectedStartupLanguage": "GB",
     "Skin": "Blue",
     "TouchGfxPath": "../Middlewares/ST/touchgfx",

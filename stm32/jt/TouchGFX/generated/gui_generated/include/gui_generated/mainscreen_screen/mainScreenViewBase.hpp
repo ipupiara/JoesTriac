@@ -12,7 +12,9 @@
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/Gauge.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB565Bitmap.hpp>
+#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
+#include <touchgfx/mixins/ClickListener.hpp>
 
 class mainScreenViewBase : public touchgfx::View<mainScreenPresenter>
 {
@@ -37,9 +39,15 @@ protected:
     touchgfx::PainterRGB565Bitmap ampGaugePainter;
     touchgfx::Box dirtyBox;
     touchgfx::TextArea textArea1;
-    touchgfx::TextArea timeValueText;
+    touchgfx::ClickListener< touchgfx::TextAreaWithOneWildcard > timeValueText;
     touchgfx::ButtonWithLabel setTimeButton;
     touchgfx::Button startButton;
+
+    /*
+     * Wildcard Buffers
+     */
+    static const uint16_t TIMEVALUETEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar timeValueTextBuffer[TIMEVALUETEXT_SIZE];
 
 private:
 
