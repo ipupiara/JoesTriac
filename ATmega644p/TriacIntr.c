@@ -478,6 +478,7 @@ void resetCircuitAlarms()
 //  - low triac delay value  - rapid increase of current to high level for short time before regulation down
 //  - hardware problems on triac regulation resulting in regulation loss
 
+#ifdef shortCircuitAlarmSupported
 void checkShortCircuitCondition()
 {
 	cli();
@@ -501,7 +502,7 @@ void checkShortCircuitCondition()
 	}
 	sei();
 }
-
+#endif
 
 void printDValueVars()
 {

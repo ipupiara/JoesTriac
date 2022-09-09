@@ -3,9 +3,16 @@
 /*********************************************************************************/
 #include <gui_generated/settimescreen_screen/setTimeScreenViewBase.hpp>
 #include <touchgfx/Color.hpp>
+#include <texts/TextKeysAndLanguages.hpp>
+#include <BitmapDatabase.hpp>
+#include <touchgfx/canvas_widget_renderer/CanvasWidgetRenderer.hpp>
 
-setTimeScreenViewBase::setTimeScreenViewBase()
+
+setTimeScreenViewBase::setTimeScreenViewBase() :
+    buttonCallback(this, &setTimeScreenViewBase::buttonCallbackHandler)
 {
+
+    touchgfx::CanvasWidgetRenderer::setupBuffer(canvasBuffer, CANVAS_BUFFER_SIZE);
 
     __background.setPosition(0, 0, 800, 480);
     __background.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
@@ -13,11 +20,71 @@ setTimeScreenViewBase::setTimeScreenViewBase()
     box1.setPosition(0, 0, 800, 480);
     box1.setColor(touchgfx::Color::getColorFromRGB(190, 226, 247));
 
+    timeLabel.setXY(12, 27);
+    timeLabel.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    timeLabel.setLinespacing(0);
+    timeLabel.setTypedText(touchgfx::TypedText(T___SINGLEUSE_A5I9));
+
+    timeValueText.setPosition(116, 27, 66, 24);
+    timeValueText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    timeValueText.setLinespacing(0);
+    Unicode::snprintf(timeValueTextBuffer, TIMEVALUETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_WI9H).getText());
+    timeValueText.setWildcard(timeValueTextBuffer);
+    timeValueText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_IJT3));
+
+    numericKeyPad1.setXY(454, 23);
+
+    saveButton.setXY(12, 269);
+    saveButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
+    saveButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_P94L));
+    saveButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    saveButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    saveButton.setAction(buttonCallback);
+
+    cancelButton.setXY(12, 371);
+    cancelButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
+    cancelButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_UF7D));
+    cancelButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    cancelButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    cancelButton.setAction(buttonCallback);
+
+    cursor.setPosition(119, 46, 15, 31);
+    cursorPainter.setColor(touchgfx::Color::getColorFromRGB(247, 212, 15));
+    cursor.setPainter(cursorPainter);
+    cursor.setStart(5, 5);
+    cursor.setEnd(5, 20);
+    cursor.setLineWidth(10);
+    cursor.setLineEndingStyle(touchgfx::Line::ROUND_CAP_ENDING);
+
     add(__background);
     add(box1);
+    add(timeLabel);
+    add(timeValueText);
+    add(numericKeyPad1);
+    add(saveButton);
+    add(cancelButton);
+    add(cursor);
 }
 
 void setTimeScreenViewBase::setupScreen()
 {
+    numericKeyPad1.initialize();
+}
 
+void setTimeScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
+{
+    if (&src == &saveButton)
+    {
+        //saveButtonPressed
+        //When saveButton clicked call virtual function
+        //Call saveButtonPressed
+        saveButtonPressed();
+    }
+    else if (&src == &cancelButton)
+    {
+        //cancelButtonPressed
+        //When cancelButton clicked call virtual function
+        //Call cancelButtonPressed
+        cancelButtonPressed();
+    }
 }

@@ -8,7 +8,14 @@
 #include <mvp/View.hpp>
 #include <gui/settimescreen_screen/setTimeScreenPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
+#include <touchgfx/widgets/TextArea.hpp>
+#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
+#include <gui/containers/numericKeyPad.hpp>
+#include <touchgfx/widgets/ButtonWithLabel.hpp>
+#include <touchgfx/widgets/canvas/Line.hpp>
+#include <touchgfx/widgets/canvas/PainterRGB565.hpp>
 #include <touchgfx/mixins/Draggable.hpp>
+#include <touchgfx/mixins/ClickListener.hpp>
 
 class setTimeScreenViewBase : public touchgfx::View<setTimeScreenPresenter>
 {
@@ -16,6 +23,19 @@ public:
     setTimeScreenViewBase();
     virtual ~setTimeScreenViewBase() {}
     virtual void setupScreen();
+
+    /*
+     * Virtual Action Handlers
+     */
+    virtual void saveButtonPressed()
+    {
+        // Override and implement this function in setTimeScreen
+    }
+
+    virtual void cancelButtonPressed()
+    {
+        // Override and implement this function in setTimeScreen
+    }
 
 protected:
     FrontendApplication& application() {
@@ -27,9 +47,37 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Draggable< touchgfx::Box > box1;
+    touchgfx::TextArea timeLabel;
+    touchgfx::ClickListener< touchgfx::TextAreaWithOneWildcard > timeValueText;
+    numericKeyPad numericKeyPad1;
+    touchgfx::ButtonWithLabel saveButton;
+    touchgfx::ButtonWithLabel cancelButton;
+    touchgfx::Line cursor;
+    touchgfx::PainterRGB565 cursorPainter;
+
+    /*
+     * Wildcard Buffers
+     */
+    static const uint16_t TIMEVALUETEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar timeValueTextBuffer[TIMEVALUETEXT_SIZE];
 
 private:
 
+    /*
+     * Callback Declarations
+     */
+    touchgfx::Callback<setTimeScreenViewBase, const touchgfx::AbstractButton&> buttonCallback;
+
+    /*
+     * Callback Handler Declarations
+     */
+    void buttonCallbackHandler(const touchgfx::AbstractButton& src);
+
+    /*
+     * Canvas Buffer Size
+     */
+    static const uint16_t CANVAS_BUFFER_SIZE = 12000;
+    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
 };
 
 #endif // SETTIMESCREENVIEWBASE_HPP

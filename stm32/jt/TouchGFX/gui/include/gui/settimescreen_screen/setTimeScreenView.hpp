@@ -11,6 +11,7 @@ public:
     virtual ~setTimeScreenView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
+    void numPressed(char ch);
 protected:
 };
 

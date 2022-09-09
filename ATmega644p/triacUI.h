@@ -3,7 +3,7 @@
 
 #include <inttypes.h>
 
-#define shortCircuitAlarmSupported  1
+//#define shortCircuitAlarmSupported  1
 
 typedef void(*setupPageDisplayMethodType)();
 

@@ -6,6 +6,18 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_UF7D" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">back/save</Translation>
+      </Text>
+      <Text Id="__SingleUse_WI9H" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">00:00</Translation>
+      </Text>
+      <Text Id="__SingleUse_IJT3" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">&lt;weldingTime&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_A5I9" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">time m:s</Translation>
+      </Text>
       <Text Id="__SingleUse_VXN9" Alignment="Center" TypographyId="Default">
         <Translation Language="GB">calibrate</Translation>
       </Text>
