@@ -27,12 +27,7 @@ public:
     /*
      * Virtual Action Handlers
      */
-    virtual void saveButtonPressed()
-    {
-        // Override and implement this function in setTimeScreen
-    }
-
-    virtual void cancelButtonPressed()
+    virtual void backSaveButtonPressed()
     {
         // Override and implement this function in setTimeScreen
     }
@@ -50,8 +45,7 @@ protected:
     touchgfx::TextArea timeLabel;
     touchgfx::ClickListener< touchgfx::TextAreaWithOneWildcard > timeValueText;
     numericKeyPad numericKeyPad1;
-    touchgfx::ButtonWithLabel saveButton;
-    touchgfx::ButtonWithLabel cancelButton;
+    touchgfx::ButtonWithLabel backSaveButton;
     touchgfx::Line cursor;
     touchgfx::PainterRGB565 cursorPainter;
 

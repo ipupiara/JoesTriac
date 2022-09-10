@@ -14,6 +14,7 @@ public:
     {
         model = m;
     }
+    virtual void tick(){}
 protected:
     Model* model;
 };

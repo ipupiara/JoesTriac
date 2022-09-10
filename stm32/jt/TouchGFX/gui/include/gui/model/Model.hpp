@@ -8,6 +8,7 @@ class Model
 public:
     Model();
 
+
     void bind(ModelListener* listener)
     {
         modelListener = listener;

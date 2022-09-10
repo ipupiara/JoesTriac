@@ -16,3 +16,12 @@ void setTimeScreenPresenter::deactivate()
 {
 
 }
+
+void setTimeScreenPresenter::tick()
+{
+	if (tickCnt > 30) {
+		tickCnt = 0;
+		view.toggleCursor();
+	}
+}
+

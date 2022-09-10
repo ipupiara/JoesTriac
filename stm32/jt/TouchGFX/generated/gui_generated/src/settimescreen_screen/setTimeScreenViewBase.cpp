@@ -34,35 +34,28 @@ setTimeScreenViewBase::setTimeScreenViewBase() :
 
     numericKeyPad1.setXY(454, 23);
 
-    saveButton.setXY(12, 269);
-    saveButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
-    saveButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_P94L));
-    saveButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    saveButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    saveButton.setAction(buttonCallback);
+    backSaveButton.setXY(12, 371);
+    backSaveButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
+    backSaveButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_UF7D));
+    backSaveButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    backSaveButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    backSaveButton.setAction(buttonCallback);
 
-    cancelButton.setXY(12, 371);
-    cancelButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
-    cancelButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_UF7D));
-    cancelButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    cancelButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    cancelButton.setAction(buttonCallback);
-
-    cursor.setPosition(119, 46, 15, 31);
+    cursor.setPosition(120, 23, 15, 31);
     cursorPainter.setColor(touchgfx::Color::getColorFromRGB(247, 212, 15));
     cursor.setPainter(cursorPainter);
     cursor.setStart(5, 5);
     cursor.setEnd(5, 20);
     cursor.setLineWidth(10);
     cursor.setLineEndingStyle(touchgfx::Line::ROUND_CAP_ENDING);
+    cursor.setAlpha(138);
 
     add(__background);
     add(box1);
     add(timeLabel);
     add(timeValueText);
     add(numericKeyPad1);
-    add(saveButton);
-    add(cancelButton);
+    add(backSaveButton);
     add(cursor);
 }
 
@@ -73,18 +66,11 @@ void setTimeScreenViewBase::setupScreen()
 
 void setTimeScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
 {
-    if (&src == &saveButton)
+    if (&src == &backSaveButton)
     {
-        //saveButtonPressed
-        //When saveButton clicked call virtual function
-        //Call saveButtonPressed
-        saveButtonPressed();
-    }
-    else if (&src == &cancelButton)
-    {
-        //cancelButtonPressed
-        //When cancelButton clicked call virtual function
-        //Call cancelButtonPressed
-        cancelButtonPressed();
+        //Interaction1backSaveButtonPressed
+        //When backSaveButton clicked call virtual function
+        //Call backSaveButtonPressed
+        backSaveButtonPressed();
     }
 }

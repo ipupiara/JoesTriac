@@ -3,10 +3,10 @@
 
 Model::Model() : modelListener(0)
 {
-	singleton = this;
+
 }
 
 void Model::tick()
 {
-
+	modelListener->tick();
 }

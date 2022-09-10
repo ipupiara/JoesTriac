@@ -12,6 +12,8 @@ public:
     virtual void setupScreen();
     virtual void tearDownScreen();
     void numPressed(char ch);
+    void toggleCursor();
+    virtual void backSaveButtonPressed();
 protected:
 };
 

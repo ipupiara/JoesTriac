@@ -27,8 +27,11 @@ public:
 
     virtual ~setTimeScreenPresenter() {};
 
+    virtual void tick();
+
 private:
     setTimeScreenPresenter();
+    uint8_t tickCnt;
 
     setTimeScreenView& view;
 };

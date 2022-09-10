@@ -15,12 +15,19 @@ void setTimeScreenView::tearDownScreen()
     setTimeScreenViewBase::tearDownScreen();
 }
 
-virtual void saveButtonPressed()
+void setTimeScreenView::backSaveButtonPressed()
 {
-    // Override and implement this function in setTimeScreen
+	Application::getInstance()->changeToStartScreen();
 }
 
-virtual void cancelButtonPressed()
+
+
+void setTimeScreenView::toggleCursor()
 {
-    // Override and implement this function in setTimeScreen
+	if (cursor.isVisible()) {
+		cursor.setVisible(false);
+	}  else {
+		cursor.setVisible(true);
+	}
+
 }

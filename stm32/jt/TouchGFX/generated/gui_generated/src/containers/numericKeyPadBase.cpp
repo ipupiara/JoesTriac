@@ -48,7 +48,7 @@ numericKeyPadBase::numericKeyPadBase() :
     button9.setBitmaps(touchgfx::Bitmap(BITMAP_BLUENORMAL_9_ID), touchgfx::Bitmap(BITMAP_BLUEPRESSED_X_ID));
     button9.setAction(buttonCallback);
 
-    button10.setXY(115, 346);
+    button10.setXY(123, 346);
     button10.setBitmaps(touchgfx::Bitmap(BITMAP_BLUENORMAL_0_ID), touchgfx::Bitmap(BITMAP_BLUEPRESSED_X_ID));
     button10.setAction(buttonCallback);
 
