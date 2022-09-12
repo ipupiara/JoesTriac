@@ -17,12 +17,13 @@ public:
     void buttonPressed(uint8_t val);
 protected:
     void goBack();
-    uint8_t   valPos = 0;
-    uint8_t   valArray[4];
+
     uint16_t  currentTimeValue;
-    void      setValArrayTime(uint16_t val);
-    void      charPressedRecalcDataTime(uint8_t val, uint8_t pos);
-    void      printCurrentValueTimeOn(touchgfx::TextAreaWithOneWildcard* textA);
+    void      setValArray(uint16_t val);
+    void      recalcTimeSec();
+    void      printCurrentValueTimeOnScreen();
+   uint8_t   valPos = 0;
+   uint8_t   valArray[4];
 };
 
 #endif // SETTIMESCREENVIEW_HPP

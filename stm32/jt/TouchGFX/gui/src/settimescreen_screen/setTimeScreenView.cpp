@@ -1,5 +1,10 @@
+#include <mvp/View.hpp>
 #include <gui/settimescreen_screen/setTimeScreenView.hpp>
-#include <stdint.h>
+#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
+#include <touchgfx/Unicode.hpp>
+
+
+
 
 setTimeScreenView::setTimeScreenView()
 {
@@ -94,7 +99,9 @@ void setTimeScreenView::toggleCursor()
 
 void setTimeScreenView::buttonPressed(uint8_t val)
 {
-//	valBuffer[valPos] = val;
+	valArray[valPos] = val;
+	recalcTimeSec();
+
 	++valPos;
 	if (valPos > 3)  {
 		goBack();
@@ -111,8 +118,27 @@ void setTimeScreenView::buttonPressed(uint8_t val)
 //
 //}
 
-void      setTimeScreenView::printCurrentValueTimeOn(touchgfx::TextAreaWithOneWildcard* textA)
+void setTimeScreenView::setValArray(uint16_t val)
 {
-
+	valArray[0] =  (uint8_t) (val/600);
+	valArray[1] =  (uint8_t) (val/60);
+	valArray[2] =  (uint8_t) (val/10);
+	valArray[3] =  (uint8_t) (val % 10);
 }
+ void setTimeScreenView::recalcTimeSec()
+ {
+	 currentTimeValue = (valArray[0] * 600) + (valArray[1] * 60) +
+			 	 	 	 (valArray[2] * 10) + valArray[0]  ;
+	 presenter->setWeldingTimeSec(currentTimeValue);
+
+ }
+ void setTimeScreenView::printCurrentValueTimeOnScreen()
+ {
+	 uint8_t  minVal = currentTimeValue % 60;
+	 uint8_t  secVal = (uint8_t) ( currentTimeValue / 60);
+	 Unicode::snprintf(timeValueTextBuffer, 5, "%2d:%2d", minVal, secVal);
+	 timeValueText.setWildcard(timeValueTextBuffer);
+	 timeValueText.invalidate();
+ }
+
 

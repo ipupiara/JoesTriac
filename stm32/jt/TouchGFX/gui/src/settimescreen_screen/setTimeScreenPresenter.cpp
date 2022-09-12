@@ -17,14 +17,14 @@ void setTimeScreenPresenter::deactivate()
 
 }
 
-uint16_t setTimeScreenPresenter::getWeldingTime()
+uint16_t setTimeScreenPresenter::getWeldingTimeSec()
 {
-	return model->getWeldingTime();
+	return model->getWeldingTimeSec();
 }
 
-void setTimeScreenPresenter::setWeldingTime(uint16_t  tm)
+void setTimeScreenPresenter::setWeldingTimeSec(uint16_t  tm)
 {
-	model->setWeldingTime(tm);
+	model->setWeldingTimeSec(tm);
 }
 
 void setTimeScreenPresenter::tick()

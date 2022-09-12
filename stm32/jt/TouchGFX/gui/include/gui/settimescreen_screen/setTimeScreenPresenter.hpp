@@ -29,8 +29,8 @@ public:
 
     virtual void tick();
 
-    uint16_t getWeldingTime();
-    void setWeldingTime(uint16_t  tm);
+    uint16_t getWeldingTimeSec();
+    void setWeldingTimeSec(uint16_t  tm);
 
 
 private:

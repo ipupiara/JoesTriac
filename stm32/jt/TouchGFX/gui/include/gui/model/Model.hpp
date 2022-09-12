@@ -20,12 +20,12 @@ public:
     void tick();
 
 ////   interface get/set values from Triac
-    uint16_t getWeldingTime()
+    uint16_t getWeldingTimeSec()
     {
     	return debugWeldingTime;
     }
 
-    void setWeldingTime(uint16_t  tm)
+    void setWeldingTimeSec(uint16_t  tm)
     {
     	debugWeldingTime = tm;
     }
