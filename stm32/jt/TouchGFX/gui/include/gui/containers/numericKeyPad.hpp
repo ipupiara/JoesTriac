@@ -62,7 +62,7 @@ public:
 
     virtual void initialize();
 protected:
-    void buttonPressed(uint8_t val);
+    void    buttonPressed(uint8_t val);
 };
 
 #endif // NUMERICKEYPAD_HPP

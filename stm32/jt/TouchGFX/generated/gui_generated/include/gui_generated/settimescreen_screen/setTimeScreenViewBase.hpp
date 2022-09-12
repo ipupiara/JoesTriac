@@ -15,7 +15,6 @@
 #include <touchgfx/widgets/canvas/Line.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB565.hpp>
 #include <touchgfx/mixins/Draggable.hpp>
-#include <touchgfx/mixins/ClickListener.hpp>
 
 class setTimeScreenViewBase : public touchgfx::View<setTimeScreenPresenter>
 {
@@ -43,7 +42,7 @@ protected:
     touchgfx::Box __background;
     touchgfx::Draggable< touchgfx::Box > box1;
     touchgfx::TextArea timeLabel;
-    touchgfx::ClickListener< touchgfx::TextAreaWithOneWildcard > timeValueText;
+    touchgfx::TextAreaWithOneWildcard timeValueText;
     numericKeyPad numericKeyPad1;
     touchgfx::ButtonWithLabel backSaveButton;
     touchgfx::Line cursor;

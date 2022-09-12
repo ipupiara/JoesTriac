@@ -17,11 +17,22 @@ void setTimeScreenPresenter::deactivate()
 
 }
 
+uint16_t setTimeScreenPresenter::getWeldingTime()
+{
+	return model->getWeldingTime();
+}
+
+void setTimeScreenPresenter::setWeldingTime(uint16_t  tm)
+{
+	model->setWeldingTime(tm);
+}
+
 void setTimeScreenPresenter::tick()
 {
 	if (tickCnt > 30) {
 		tickCnt = 0;
 		view.toggleCursor();
 	}
+	++tickCnt;
 }
 

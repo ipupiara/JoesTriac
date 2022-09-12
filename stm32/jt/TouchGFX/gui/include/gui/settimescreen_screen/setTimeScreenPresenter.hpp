@@ -29,9 +29,15 @@ public:
 
     virtual void tick();
 
+    uint16_t getWeldingTime();
+    void setWeldingTime(uint16_t  tm);
+
+
 private:
     setTimeScreenPresenter();
     uint8_t tickCnt;
+//    uint16_t sampleCnt;
+    uint16_t   debugWeldingTime = 742;
 
     setTimeScreenView& view;
 };

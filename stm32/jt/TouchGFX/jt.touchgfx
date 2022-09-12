@@ -103,16 +103,15 @@
             "Name": "timeValueText",
             "X": 116,
             "Y": 27,
-            "Width": 66,
-            "Height": 24,
+            "Width": 60,
+            "Height": 22,
             "TextId": "__SingleUse_TLLQ",
             "TextRotation": "0",
             "Wildcard1": {
               "TextId": "__SingleUse_7HA7",
               "UseBuffer": true,
               "BufferSize": 10
-            },
-            "Clickable": true
+            }
           },
           {
             "Type": "ButtonWithLabel",
@@ -159,6 +158,18 @@
               "Type": "ActionGotoScreen",
               "ScreenTransitionType": "ScreenTransitionNone",
               "ActionComponent": "configScreen"
+            }
+          },
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "setTimeButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "setTimeScreen"
             }
           }
         ]
@@ -286,8 +297,7 @@
               "TextId": "__SingleUse_WI9H",
               "UseBuffer": true,
               "BufferSize": 10
-            },
-            "Clickable": true
+            }
           },
           {
             "Type": "CustomContainerInstance",
@@ -596,7 +606,7 @@
       "Height": 480
     },
     "SelectedColorDepth": 16,
-    "StartupScreenName": "setTimeScreen",
+    "StartupScreenName": "mainScreen",
     "SelectedStartupLanguage": "GB",
     "Skin": "Blue",
     "TouchGfxPath": "../Middlewares/ST/touchgfx",

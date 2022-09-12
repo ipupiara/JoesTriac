@@ -14,7 +14,6 @@
 #include <touchgfx/widgets/canvas/PainterRGB565Bitmap.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
-#include <touchgfx/mixins/ClickListener.hpp>
 
 class mainScreenViewBase : public touchgfx::View<mainScreenPresenter>
 {
@@ -39,7 +38,7 @@ protected:
     touchgfx::PainterRGB565Bitmap ampGaugePainter;
     touchgfx::Box dirtyBox;
     touchgfx::TextArea textArea1;
-    touchgfx::ClickListener< touchgfx::TextAreaWithOneWildcard > timeValueText;
+    touchgfx::TextAreaWithOneWildcard timeValueText;
     touchgfx::ButtonWithLabel setTimeButton;
     touchgfx::Button startButton;
 

@@ -54,7 +54,7 @@ mainScreenViewBase::mainScreenViewBase() :
     textArea1.setLinespacing(0);
     textArea1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_I2PH));
 
-    timeValueText.setPosition(116, 27, 66, 24);
+    timeValueText.setPosition(116, 27, 60, 22);
     timeValueText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     timeValueText.setLinespacing(0);
     Unicode::snprintf(timeValueTextBuffer, TIMEVALUETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_7HA7).getText());
@@ -66,6 +66,7 @@ mainScreenViewBase::mainScreenViewBase() :
     setTimeButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_LR0V));
     setTimeButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     setTimeButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    setTimeButton.setAction(buttonCallback);
 
     startButton.setXY(131, 392);
     startButton.setBitmaps(touchgfx::Bitmap(BITMAP_STARTBTN_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
@@ -95,5 +96,12 @@ void mainScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& s
         //When configButton clicked change screen to configScreen
         //Go to configScreen with no screen transition
         application().gotoconfigScreenScreenNoTransition();
+    }
+    else if (&src == &setTimeButton)
+    {
+        //Interaction1
+        //When setTimeButton clicked change screen to setTimeScreen
+        //Go to setTimeScreen with no screen transition
+        application().gotosetTimeScreenScreenNoTransition();
     }
 }

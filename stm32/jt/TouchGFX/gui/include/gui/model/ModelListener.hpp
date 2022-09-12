@@ -15,8 +15,10 @@ public:
         model = m;
     }
     virtual void tick(){}
-protected:
+
     Model* model;
+protected:
+
 };
 
 #endif // MODELLISTENER_HPP
