@@ -29,9 +29,11 @@ void setTimeScreenPresenter::setWeldingTimeSec(uint16_t  tm)
 
 void setTimeScreenPresenter::tick()
 {
+	// -fno-inline-functions
 	if (tickCnt > 30) {
 		tickCnt = 0;
 		view.toggleCursor();
+//		view.toggleTouchable();
 	}
 	++tickCnt;
 }

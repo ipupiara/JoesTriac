@@ -85,17 +85,21 @@ void SomeView::updateTxt(int newValue)
   Unicode::snprintf(textCounterBuffer, TEXTCOUNTER_SIZE, "%d", counter);
   // Invalidate text area, which will result in it being redrawn in next tick.
   textCounter.invalidate();
-
+// -fno-inline-functions
 */
 
 void setTimeScreenView::toggleCursor()
 {
-	if (cursor.isVisible()) {
+	//-fno-inline-functions
+	bool vis = cursor.isVisible();
+	if (vis == true) {
 		cursor.setVisible(false);
 	}  else {
 		cursor.setVisible(true);
 	}
+	cursor.invalidate();
 }
+
 
 void setTimeScreenView::buttonPressed(uint8_t val)
 {
