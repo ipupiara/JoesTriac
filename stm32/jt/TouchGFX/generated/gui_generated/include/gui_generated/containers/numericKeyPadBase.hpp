@@ -17,6 +17,14 @@ public:
     virtual void initialize();
 
     /*
+     * Custom Trigger Callback Setters
+     */
+    void setNumPressedCallback(touchgfx::GenericCallback<uint8_t>& callback)
+    {
+        this->numPressedCallback = &callback;
+    }
+
+    /*
      * Virtual Action Handlers
      */
     virtual void button0Pressed()
@@ -75,6 +83,17 @@ protected:
     }
 
     /*
+     * Custom Trigger Emitters
+     */
+    virtual void emitNumPressedCallback(uint8_t value)
+    {
+        if (numPressedCallback && numPressedCallback->isValid())
+        {
+            this->numPressedCallback->execute(value);
+        }
+    }
+
+    /*
      * Member Declarations
      */
     touchgfx::Box box1;
@@ -95,6 +114,11 @@ private:
      * Callback Declarations
      */
     touchgfx::Callback<numericKeyPadBase, const touchgfx::AbstractButton&> buttonCallback;
+
+    /*
+     * Custom Trigger Callback Declarations
+     */
+    touchgfx::GenericCallback<uint8_t>* numPressedCallback;
 
     /*
      * Callback Handler Declarations

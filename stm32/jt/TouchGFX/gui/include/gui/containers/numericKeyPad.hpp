@@ -59,10 +59,12 @@ public:
     	buttonPressed(9);
     }
 
+    void buttonPressed(uint8_t  btn);
 
     virtual void initialize();
+
 protected:
-    void    buttonPressed(uint8_t val);
+
 };
 
 #endif // NUMERICKEYPAD_HPP

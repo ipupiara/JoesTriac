@@ -6,7 +6,8 @@
 #include <BitmapDatabase.hpp>
 
 numericKeyPadBase::numericKeyPadBase() :
-    buttonCallback(this, &numericKeyPadBase::buttonCallbackHandler)
+    buttonCallback(this, &numericKeyPadBase::buttonCallbackHandler),
+    numPressedCallback(0)
 {
     setWidth(346);
     setHeight(457);
@@ -15,6 +16,7 @@ numericKeyPadBase::numericKeyPadBase() :
 
     button1.setXY(11, 10);
     button1.setBitmaps(touchgfx::Bitmap(BITMAP_BLUENORMAL_1_ID), touchgfx::Bitmap(BITMAP_BLUEPRESSED_X_ID));
+    button1.setAction(buttonCallback);
 
     button2.setXY(123, 10);
     button2.setBitmaps(touchgfx::Bitmap(BITMAP_BLUENORMAL_2_ID), touchgfx::Bitmap(BITMAP_BLUEPRESSED_X_ID));
@@ -77,13 +79,15 @@ void numericKeyPadBase::initialize()
 
 void numericKeyPadBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
 {
-    if (&src == &button2)
+    if (&src == &button1)
     {
         //button1Pressed
-        //When button2 clicked call virtual function
+        //When button1 clicked call virtual function
         //Call button1Pressed
         button1Pressed();
-
+    }
+    else if (&src == &button2)
+    {
         //button2Pressed
         //When button2 clicked call virtual function
         //Call button2Pressed

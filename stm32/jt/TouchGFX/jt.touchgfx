@@ -363,6 +363,18 @@
               "Type": "ActionCustom",
               "FunctionName": "backSaveButtonPressed"
             }
+          },
+          {
+            "InteractionName": "buttonPressed",
+            "Trigger": {
+              "Type": "TriggerCustom",
+              "TriggerCustomTypeName": "numericKeyPad numPressed happens",
+              "TriggerComponent": "numericKeyPad1"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "numButtonPressed"
+            }
           }
         ]
       }
@@ -502,7 +514,7 @@
             "InteractionName": "button1Pressed",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "button2"
+              "TriggerComponent": "button1"
             },
             "Action": {
               "Type": "ActionCustom",
@@ -596,6 +608,13 @@
               "Type": "ActionCustom",
               "FunctionName": "button9Pressed"
             }
+          }
+        ],
+        "CustomTriggers": [
+          {
+            "Name": "numPressed",
+            "HasValue": true,
+            "ValueType": "uint8_t"
           }
         ]
       }

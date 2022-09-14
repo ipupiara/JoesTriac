@@ -15,10 +15,12 @@ public:
     void toggleCursor();
     virtual void backSaveButtonPressed();
     void buttonPressed(uint8_t val);
+    virtual void numButtonPressed(uint8_t value);
+
 protected:
     void goBack();
 
-    uint16_t  currentTimeValue;
+    uint16_t  timeValueSec;
     void      setValArray(uint16_t val);
     void      recalcTimeSec();
     void      printCurrentValueTimeOnScreen();

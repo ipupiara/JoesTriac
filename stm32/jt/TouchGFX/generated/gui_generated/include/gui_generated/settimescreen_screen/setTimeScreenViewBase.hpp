@@ -31,6 +31,11 @@ public:
         // Override and implement this function in setTimeScreen
     }
 
+    virtual void numButtonPressed(uint8_t value)
+    {
+        // Override and implement this function in setTimeScreen
+    }
+
 protected:
     FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(touchgfx::Application::getInstance());
@@ -60,11 +65,13 @@ private:
      * Callback Declarations
      */
     touchgfx::Callback<setTimeScreenViewBase, const touchgfx::AbstractButton&> buttonCallback;
+    touchgfx::Callback<setTimeScreenViewBase, uint8_t> numericKeyPad1NumPressedCallback;
 
     /*
      * Callback Handler Declarations
      */
     void buttonCallbackHandler(const touchgfx::AbstractButton& src);
+    void numericKeyPad1NumPressedCallbackHandler(uint8_t value);
 
     /*
      * Canvas Buffer Size

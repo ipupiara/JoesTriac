@@ -9,7 +9,8 @@
 
 
 setTimeScreenViewBase::setTimeScreenViewBase() :
-    buttonCallback(this, &setTimeScreenViewBase::buttonCallbackHandler)
+    buttonCallback(this, &setTimeScreenViewBase::buttonCallbackHandler),
+    numericKeyPad1NumPressedCallback(this, &setTimeScreenViewBase::numericKeyPad1NumPressedCallbackHandler)
 {
 
     touchgfx::CanvasWidgetRenderer::setupBuffer(canvasBuffer, CANVAS_BUFFER_SIZE);
@@ -33,6 +34,7 @@ setTimeScreenViewBase::setTimeScreenViewBase() :
     timeValueText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_IJT3));
 
     numericKeyPad1.setXY(454, 23);
+    numericKeyPad1.setNumPressedCallback(numericKeyPad1NumPressedCallback);
 
     backSaveButton.setXY(12, 371);
     backSaveButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
@@ -62,6 +64,14 @@ setTimeScreenViewBase::setTimeScreenViewBase() :
 void setTimeScreenViewBase::setupScreen()
 {
     numericKeyPad1.initialize();
+}
+
+void setTimeScreenViewBase::numericKeyPad1NumPressedCallbackHandler(uint8_t value)
+{
+    //buttonPressed
+    //When numericKeyPad1 numPressed call virtual function
+    //Call numButtonPressed
+    numButtonPressed(value);
 }
 
 void setTimeScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
