@@ -63,6 +63,8 @@ public:
 
     virtual void initialize();
 
+    void setEnable7to0forInput(bool ena);
+
 protected:
 
 };

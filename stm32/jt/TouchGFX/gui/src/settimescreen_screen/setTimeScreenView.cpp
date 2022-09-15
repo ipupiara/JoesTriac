@@ -14,6 +14,7 @@ setTimeScreenView::setTimeScreenView()
 void setTimeScreenView::setupScreen()
 {
     setTimeScreenViewBase::setupScreen();
+
     timeValueSec = presenter->getWeldingTimeSec();
     setValArray(timeValueSec);
     printCurrentValueTimeOnScreen();
@@ -24,15 +25,9 @@ void setTimeScreenView::tearDownScreen()
     setTimeScreenViewBase::tearDownScreen();
 }
 
-void  setTimeScreenView::goBack()
-{
-	// save value
-	Application::getInstance()->changeToStartScreen();
-}
-
 void setTimeScreenView::backSaveButtonPressed()
 {
-	goBack();
+	Application::getInstance()->changeToStartScreen();
 }
 
 void setTimeScreenView::toggleCursor()
@@ -54,8 +49,11 @@ void setTimeScreenView::buttonPressed(uint8_t val)
 	recalcTimeSec();
 
 	++valPos;
+
 	if (valPos > 3)  {
-		goBack();
+		Application::getInstance()->changeToStartScreen();
+	}  else {
+		cursor.moveRelative(12, 0);
 	}
 }
 
@@ -77,14 +75,14 @@ void setTimeScreenView::numButtonPressed(uint8_t value)
 void setTimeScreenView::setValArray(uint16_t val)
 {
 	valArray[0] =  (uint8_t) (val/600);
-	valArray[1] =  (uint8_t) (val/60);
-	valArray[2] =  (uint8_t) (val/10);
-	valArray[3] =  (uint8_t) (val % 10);
+	valArray[1] =  (uint8_t) ((val % 600)/60);
+	valArray[2] =  (uint8_t) ((val % 60)/10);
+	valArray[3] =  (uint8_t) (val  % 10);
 }
  void setTimeScreenView::recalcTimeSec()
  {
 	 timeValueSec = (valArray[0] * 600) + (valArray[1] * 60) +
-			 	 	 	 (valArray[2] * 10) + valArray[0]  ;
+			 	 	 	 (valArray[2] * 10) + valArray[3]  ;
 	 presenter->setWeldingTimeSec(timeValueSec);
 
  }
@@ -92,7 +90,7 @@ void setTimeScreenView::setValArray(uint16_t val)
  {
 	 uint8_t  minVal = timeValueSec % 60;
 	 uint8_t  secVal = (uint8_t) ( timeValueSec / 60);
-	 Unicode::snprintf(timeValueTextBuffer, 5, "%2d:%2d", minVal, secVal);
+	 Unicode::snprintf(timeValueTextBuffer, 5, "%02.2d:%02.2d", minVal, secVal);
 	 timeValueText.setWildcard(timeValueTextBuffer);
 	 timeValueText.invalidate();
  }

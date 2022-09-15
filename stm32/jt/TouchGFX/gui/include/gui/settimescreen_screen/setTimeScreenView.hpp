@@ -18,7 +18,6 @@ public:
     virtual void numButtonPressed(uint8_t value);
 
 protected:
-    void goBack();
 
     uint16_t  timeValueSec;
     void      setValArray(uint16_t val);

@@ -9,7 +9,7 @@ class Model
 public:
     Model();
 
-   uint16_t   debugWeldingTime = 742;
+
 
 
     void bind(ModelListener* listener)
@@ -37,6 +37,7 @@ public:
 
 protected:
     ModelListener* modelListener;
+    uint16_t   debugWeldingTime = 742;
 };
 
 #endif // MODEL_HPP

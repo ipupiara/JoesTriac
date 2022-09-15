@@ -29,7 +29,7 @@ void setTimeScreenPresenter::setWeldingTimeSec(uint16_t  tm)
 
 void setTimeScreenPresenter::tick()
 {
-	// -fno-inline-functions
+	// -fno-inline-functions  and no optimization -O0   ! if not set, sends the code to  booby hatch,  dancing wild on the stack :-)
 	if (tickCnt > 30) {
 		tickCnt = 0;
 		view.toggleCursor();
@@ -37,4 +37,5 @@ void setTimeScreenPresenter::tick()
 	}
 	++tickCnt;
 }
+
 

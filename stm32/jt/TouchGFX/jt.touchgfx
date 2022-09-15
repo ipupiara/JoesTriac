@@ -382,7 +382,8 @@
     "CustomContainerDefinitions": [
       {
         "Name": "numericKeyPad",
-        "Y": 22,
+        "X": 438,
+        "Y": 12,
         "Width": 346,
         "Height": 457,
         "Components": [
