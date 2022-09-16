@@ -31,6 +31,7 @@ public:
 
     uint16_t getWeldingTimeSec();
     void setWeldingTimeSec(uint16_t  tm);
+    void storeWeldingTimeSec(uint16_t  tm);
 
 
 private:

@@ -19,7 +19,7 @@ public:
 
     void tick();
 
-////   interface get/set values from Triac
+
     uint16_t getWeldingTimeSec()
     {
     	return debugWeldingTime;
@@ -30,6 +30,8 @@ public:
     	debugWeldingTime = tm;
     }
 
+    void storeWeldingTimeSec(uint16_t  tm);
+
 
     int16_t stringToSecValue();
 
@@ -37,7 +39,7 @@ public:
 
 protected:
     ModelListener* modelListener;
-    uint16_t   debugWeldingTime = 742;
+    uint16_t   debugWeldingTime = 754;
 };
 
 #endif // MODEL_HPP

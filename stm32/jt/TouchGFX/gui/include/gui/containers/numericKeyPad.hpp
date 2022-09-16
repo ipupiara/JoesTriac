@@ -59,14 +59,12 @@ public:
     	buttonPressed(9);
     }
 
-    void buttonPressed(uint8_t  btn);
-
     virtual void initialize();
 
-    void setEnable7to0forInput(bool ena);
+    void setEnable7to9forInput(bool ena);
 
 protected:
-
+    void buttonPressed(uint8_t  btn);
 };
 
 #endif // NUMERICKEYPAD_HPP

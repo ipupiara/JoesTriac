@@ -27,6 +27,8 @@ public:
 
     virtual ~mainScreenPresenter() {};
 
+    uint16_t getWeldingTimeSec();
+
 private:
     mainScreenPresenter();
 

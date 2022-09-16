@@ -16,3 +16,8 @@ void mainScreenPresenter::deactivate()
 {
 
 }
+
+uint16_t mainScreenPresenter::getWeldingTimeSec()
+{
+	return model->getWeldingTimeSec();
+}

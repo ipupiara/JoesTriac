@@ -3,8 +3,8 @@
 /*********************************************************************************/
 #include <gui_generated/settimescreen_screen/setTimeScreenViewBase.hpp>
 #include <touchgfx/Color.hpp>
-#include <texts/TextKeysAndLanguages.hpp>
 #include <BitmapDatabase.hpp>
+#include <texts/TextKeysAndLanguages.hpp>
 #include <touchgfx/canvas_widget_renderer/CanvasWidgetRenderer.hpp>
 
 
@@ -21,18 +21,6 @@ setTimeScreenViewBase::setTimeScreenViewBase() :
     box1.setPosition(0, 0, 800, 480);
     box1.setColor(touchgfx::Color::getColorFromRGB(190, 226, 247));
 
-    timeLabel.setXY(12, 27);
-    timeLabel.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    timeLabel.setLinespacing(0);
-    timeLabel.setTypedText(touchgfx::TypedText(T___SINGLEUSE_A5I9));
-
-    timeValueText.setPosition(116, 27, 66, 24);
-    timeValueText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    timeValueText.setLinespacing(0);
-    Unicode::snprintf(timeValueTextBuffer, TIMEVALUETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_WI9H).getText());
-    timeValueText.setWildcard(timeValueTextBuffer);
-    timeValueText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_IJT3));
-
     numericKeyPad1.setXY(454, 23);
     numericKeyPad1.setNumPressedCallback(numericKeyPad1NumPressedCallback);
 
@@ -43,22 +31,28 @@ setTimeScreenViewBase::setTimeScreenViewBase() :
     backSaveButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     backSaveButton.setAction(buttonCallback);
 
-    cursor.setPosition(120, 23, 15, 31);
+    cursor.setPosition(185, 24, 23, 39);
     cursorPainter.setColor(touchgfx::Color::getColorFromRGB(247, 212, 15));
     cursor.setPainter(cursorPainter);
     cursor.setStart(5, 5);
     cursor.setEnd(5, 20);
-    cursor.setLineWidth(10);
+    cursor.setLineWidth(20);
     cursor.setLineEndingStyle(touchgfx::Line::ROUND_CAP_ENDING);
     cursor.setAlpha(138);
 
+    timeValueText.setPosition(172, 11, 137, 55);
+    timeValueText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    timeValueText.setLinespacing(0);
+    Unicode::snprintf(timeValueTextBuffer, TIMEVALUETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_IBA0).getText());
+    timeValueText.setWildcard(timeValueTextBuffer);
+    timeValueText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_EUXQ));
+
     add(__background);
     add(box1);
-    add(timeLabel);
-    add(timeValueText);
     add(numericKeyPad1);
     add(backSaveButton);
     add(cursor);
+    add(timeValueText);
 }
 
 void setTimeScreenViewBase::setupScreen()

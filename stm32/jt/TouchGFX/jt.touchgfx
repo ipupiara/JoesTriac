@@ -27,17 +27,6 @@
             "Released": "configuration.png"
           },
           {
-            "Type": "TextArea",
-            "Name": "timeLabel",
-            "X": 12,
-            "Y": 27,
-            "Width": 96,
-            "Height": 22,
-            "TextId": "__SingleUse_V8PF",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
             "Type": "Gauge",
             "Name": "ampGauge",
             "X": 263,
@@ -101,23 +90,22 @@
           {
             "Type": "TextArea",
             "Name": "timeValueText",
-            "X": 116,
-            "Y": 27,
-            "Width": 60,
-            "Height": 22,
+            "X": 172,
+            "Y": 11,
+            "Width": 137,
+            "Height": 49,
             "TextId": "__SingleUse_TLLQ",
             "TextRotation": "0",
             "Wildcard1": {
               "TextId": "__SingleUse_7HA7",
               "UseBuffer": true,
-              "BufferSize": 10
+              "BufferSize": 20
             }
           },
           {
             "Type": "ButtonWithLabel",
             "Name": "setTimeButton",
-            "X": 193,
-            "Y": 9,
+            "Y": 6,
             "Width": 170,
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
@@ -273,33 +261,6 @@
             "Draggable": true
           },
           {
-            "Type": "TextArea",
-            "Name": "timeLabel",
-            "X": 12,
-            "Y": 27,
-            "Width": 96,
-            "Height": 22,
-            "LockPosition": true,
-            "TextId": "__SingleUse_A5I9",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "timeValueText",
-            "X": 116,
-            "Y": 27,
-            "Width": 66,
-            "Height": 24,
-            "TextId": "__SingleUse_IJT3",
-            "TextRotation": "0",
-            "Wildcard1": {
-              "TextId": "__SingleUse_WI9H",
-              "UseBuffer": true,
-              "BufferSize": 10
-            }
-          },
-          {
             "Type": "CustomContainerInstance",
             "Name": "numericKeyPad1",
             "X": 454,
@@ -334,10 +295,10 @@
           {
             "Type": "Line",
             "Name": "cursor",
-            "X": 120,
-            "Y": 23,
-            "Width": 15,
-            "Height": 31,
+            "X": 185,
+            "Y": 24,
+            "Width": 23,
+            "Height": 39,
             "Color": {
               "Red": 247,
               "Green": 212,
@@ -348,8 +309,24 @@
             "StartY": 5.0,
             "EndX": 5.0,
             "EndY": 20.0,
-            "LineWidth": 10.0,
+            "LineWidth": 20.0,
             "LineEndingStyle": "Round"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "timeValueText",
+            "X": 172,
+            "Y": 11,
+            "Width": 137,
+            "Height": 55,
+            "TextId": "__SingleUse_EUXQ",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_IBA0",
+              "UseBuffer": true,
+              "BufferSize": 10
+            },
+            "Clickable": true
           }
         ],
         "Interactions": [

@@ -24,11 +24,6 @@ mainScreenViewBase::mainScreenViewBase() :
     configButton.setBitmaps(touchgfx::Bitmap(BITMAP_CONFIGURATION_ID), touchgfx::Bitmap(BITMAP_CONFIGURATION_ID));
     configButton.setAction(buttonCallback);
 
-    timeLabel.setXY(12, 27);
-    timeLabel.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    timeLabel.setLinespacing(0);
-    timeLabel.setTypedText(touchgfx::TypedText(T___SINGLEUSE_V8PF));
-
     ampGauge.setBackground(touchgfx::Bitmap(BITMAP_BLUE_GAUGES_ORIGINAL_GAUGE_BACKGROUND_STYLE_01_ID));
     ampGauge.setPosition(263, 133, 251, 251);
     ampGauge.setCenter(125, 125);
@@ -54,14 +49,14 @@ mainScreenViewBase::mainScreenViewBase() :
     textArea1.setLinespacing(0);
     textArea1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_I2PH));
 
-    timeValueText.setPosition(116, 27, 60, 22);
+    timeValueText.setPosition(172, 11, 137, 49);
     timeValueText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     timeValueText.setLinespacing(0);
     Unicode::snprintf(timeValueTextBuffer, TIMEVALUETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_7HA7).getText());
     timeValueText.setWildcard(timeValueTextBuffer);
     timeValueText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_TLLQ));
 
-    setTimeButton.setXY(193, 9);
+    setTimeButton.setXY(0, 6);
     setTimeButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
     setTimeButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_LR0V));
     setTimeButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
@@ -74,7 +69,6 @@ mainScreenViewBase::mainScreenViewBase() :
     add(__background);
     add(box1);
     add(configButton);
-    add(timeLabel);
     add(ampGauge);
     add(dirtyBox);
     add(textArea1);

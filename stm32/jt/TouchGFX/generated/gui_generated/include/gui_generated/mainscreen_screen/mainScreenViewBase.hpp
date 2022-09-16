@@ -9,9 +9,9 @@
 #include <gui/mainscreen_screen/mainScreenPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
 #include <touchgfx/widgets/Button.hpp>
-#include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/Gauge.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB565Bitmap.hpp>
+#include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
 
@@ -33,7 +33,6 @@ protected:
     touchgfx::Box __background;
     touchgfx::Box box1;
     touchgfx::Button configButton;
-    touchgfx::TextArea timeLabel;
     touchgfx::Gauge ampGauge;
     touchgfx::PainterRGB565Bitmap ampGaugePainter;
     touchgfx::Box dirtyBox;
@@ -45,7 +44,7 @@ protected:
     /*
      * Wildcard Buffers
      */
-    static const uint16_t TIMEVALUETEXT_SIZE = 10;
+    static const uint16_t TIMEVALUETEXT_SIZE = 20;
     touchgfx::Unicode::UnicodeChar timeValueTextBuffer[TIMEVALUETEXT_SIZE];
 
 private:

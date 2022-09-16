@@ -8,13 +8,13 @@
 #include <mvp/View.hpp>
 #include <gui/settimescreen_screen/setTimeScreenPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
-#include <touchgfx/widgets/TextArea.hpp>
-#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <gui/containers/numericKeyPad.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
 #include <touchgfx/widgets/canvas/Line.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB565.hpp>
+#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/mixins/Draggable.hpp>
+#include <touchgfx/mixins/ClickListener.hpp>
 
 class setTimeScreenViewBase : public touchgfx::View<setTimeScreenPresenter>
 {
@@ -46,12 +46,11 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Draggable< touchgfx::Box > box1;
-    touchgfx::TextArea timeLabel;
-    touchgfx::TextAreaWithOneWildcard timeValueText;
     numericKeyPad numericKeyPad1;
     touchgfx::ButtonWithLabel backSaveButton;
     touchgfx::Line cursor;
     touchgfx::PainterRGB565 cursorPainter;
+    touchgfx::ClickListener< touchgfx::TextAreaWithOneWildcard > timeValueText;
 
     /*
      * Wildcard Buffers

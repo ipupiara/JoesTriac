@@ -15,10 +15,15 @@ void numericKeyPad::buttonPressed(uint8_t  btn)
 	emitNumPressedCallback(btn);
 }
 
-void numericKeyPad::setEnable7to0forInput(bool ena)
+void numericKeyPad::setEnable7to9forInput(bool ena)
 {
-	button7.setTouchable(ena);
-	button8.setTouchable(ena);
-	button9.setTouchable(ena);
-	button10.setTouchable(ena);
+	button6.setVisible(ena);
+	button6.invalidate();
+	button7.setVisible(ena);
+	button7.invalidate();
+	button8.setVisible(ena);
+	button8.invalidate();
+	button9.setVisible(ena);
+	button9.invalidate();
+
 }

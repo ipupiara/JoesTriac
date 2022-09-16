@@ -6,17 +6,14 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
-      <Text Id="__SingleUse_UF7D" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">back &amp; save</Translation>
-      </Text>
-      <Text Id="__SingleUse_WI9H" Alignment="Left" TypographyId="Default">
+      <Text Id="__SingleUse_IBA0" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">00:00</Translation>
       </Text>
-      <Text Id="__SingleUse_IJT3" Alignment="Center" TypographyId="Default">
+      <Text Id="__SingleUse_EUXQ" Alignment="Center" TypographyId="Large">
         <Translation Language="GB">&lt;weldingTime&gt;</Translation>
       </Text>
-      <Text Id="__SingleUse_A5I9" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">time m:s</Translation>
+      <Text Id="__SingleUse_UF7D" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">back &amp; save</Translation>
       </Text>
       <Text Id="__SingleUse_VXN9" Alignment="Center" TypographyId="Default">
         <Translation Language="GB">calibrate</Translation>
@@ -27,20 +24,17 @@
       <Text Id="__SingleUse_7HA7" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">00:00</Translation>
       </Text>
-      <Text Id="__SingleUse_TLLQ" Alignment="Center" TypographyId="Default">
+      <Text Id="__SingleUse_TLLQ" Alignment="Center" TypographyId="Large">
         <Translation Language="GB">&lt;weldingTime&gt;</Translation>
       </Text>
-      <Text Id="__SingleUse_V8PF" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">time m:s</Translation>
-      </Text>
       <Text Id="__SingleUse_LR0V" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">set</Translation>
+        <Translation Language="GB">set time m:s</Translation>
       </Text>
     </TextGroup>
   </Texts>
   <Typographies>
-    <Typography Id="Default" Font="cour.ttf" Size="20" Bpp="4" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9" />
-    <Typography Id="Large" Font="verdana.ttf" Size="40" Bpp="4" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Default" Font="cour.ttf" Size="20" Bpp="4" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Large" Font="cour.ttf" Size="40" Bpp="4" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0x30-0x39,0x3A" />
     <Typography Id="Small" Font="verdana.ttf" Size="10" Bpp="4" Direction="LTR" FallbackCharacter="?" />
   </Typographies>
 </TextDatabase>

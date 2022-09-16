@@ -16,3 +16,8 @@ void Model::tick()
 {
 	modelListener->tick();
 }
+
+void Model::storeWeldingTimeSec(uint16_t  tm)
+{
+
+}
