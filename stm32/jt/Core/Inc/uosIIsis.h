@@ -10,6 +10,8 @@
 
 #include <stdint.h>
 
+
+
 extern uint8_t*   perr;
 
 
@@ -17,18 +19,84 @@ extern uint8_t*   perr;
 #define OS_EVENT     uint32_t
 #define OS_DEL_ALWAYS  0
 
-OS_EVENT *OSMutexCreate(uint8_t  prio, uint8_t *perr);
-uint8_t OSMutexPost(OS_EVENT *pevent);
-void OSMutexPend(OS_EVENT *pevent, uint16_t    timeout, uint8_t    *perr);
 
-OS_EVENT *OSSemCreate(uint32_t value);
-uint8_t OSSemPost(OS_EVENT *pevent);
-void OSSemPend(OS_EVENT *pevent,uint16_t timeout, uint8_t* perr);
 
 #define SEM_TYPE  OS_EVENT
-OS_EVENT  SEM_CREATE();
-uint8_t SEM_POST(OS_EVENT pevent);
-uint8_t SEM_WAIT(OS_EVENT pevent);
+#define MUTEX_TYPE OS_EVENT
+
+/////////////   uosII debugging during development
+
+#define debuggingUosII
+
+#ifdef  debuggingUosII
+OS_EVENT *OSSemCreate(uint32_t value)
+{
+	OS_EVENT*  ev= (OS_EVENT*) value;
+	return ev;
+}
+
+void OSSemPend(OS_EVENT *pevent,uint16_t timeout, uint8_t* perr)
+{
+
+}
+
+uint8_t OSSemPost(OS_EVENT *pevent)
+{
+	return 1;
+}
+
+#endif
+
+////  user
+
+OS_EVENT  SEM_CREATE()
+{
+	OS_EVENT*  ev=  OSSemCreate(1);
+	OS_EVENT   evnt = *ev;
+	return evnt;
+}
+
+
+uint8_t SEM_POST(OS_EVENT pevent)
+{
+	OSSemPost(&pevent);
+	return 1;
+}
+
+uint8_t SEM_WAIT(OS_EVENT pevent)
+{
+	OSSemPend(&pevent,WaitForever, perr);
+	return 1;
+}
+
+
+
+OS_EVENT  MUTEX_CREATE()
+{
+	OS_EVENT*  ev=  OSSemCreate(1);
+	OS_EVENT   evnt = *ev;
+	return evnt;
+}
+
+uint8_t MUTEX_UNLOCK(OS_EVENT pevent)
+{
+	OSSemPost(&pevent);
+	return 1;
+}
+
+uint8_t MUTEX_LOCK(OS_EVENT pevent)
+{
+	OSSemPend(&pevent,WaitForever, perr);
+	return 1;
+}
+
+
+
+
+
+
+
+
 
 /*
 #define MUTEX_CREATE() OSMutexCreate(0, &perr)

@@ -20,17 +20,18 @@
 
 #include <MJPEGDecoder.hpp>
 
+#include "cmsis_os.h"
 #include <uosIIsis.h>
 
 
-#define MUTEX_CREATE() OSMutexCreate(0, &perr)
-#define MUTEX_LOCK(m) OSMutexPend(m, WaitForever, &perr)
-#define MUTEX_TYPE OS_EVENT
-#define MUTEX_UNLOCK(m)  OSMutexPost(m)
+//#define MUTEX_CREATE() OSMutexCreate(0, &perr)
+//#define MUTEX_LOCK(m) OSMutexPend(m, WaitForever, &perr)
+//#define MUTEX_TYPE OS_EVENT
+//#define MUTEX_UNLOCK(m)  OSMutexPost(m)
 
 //#define SEM_CREATE() OSSemCreate((uint32_t) 1)
 //#define SEM_POST(s) OSSemPost(s)
-
+//#define SEM_TYPE EVENT
 //#define SEM_WAIT(s)  OSSemPend(s,WaitForever, &perr)
 
 

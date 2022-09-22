@@ -4,8 +4,10 @@
  *  Created on: Sep 21, 2022
  *      Author: diego
  */
-
+#define debuggingUosII
 #include <uosIIsis.h>
+
+
 
 uint8_t*   perr;
 
@@ -19,59 +21,19 @@ uint8_t*   perr;
 
 */
 
-//////////////  interface  to touchgfx  //////////////////
-
-OS_EVENT  SEM_CREATE()
-{
-	OS_EVENT*  ev=  OSSemCreate(1);
-	OS_EVENT   evnt = *ev;
-	return evnt;
-}
-
-uint8_t SEM_POST(OS_EVENT pevent)
-{
-	OSSemPost(&pevent);
-	return 1;
-}
-
-uint8_t SEM_WAIT(OS_EVENT pevent)
-{
-	OSSemPend(&pevent,WaitForever, perr);
-	return 1;
-}
-
+#ifdef  debuggingUosII
 ////////////////////////  quick hack dummy methods for wrapper development ////////////
 
-void OSMutexPend(OS_EVENT *pevent, uint16_t    timeout, uint8_t    *perr)
-{
-
-}
-
-OS_EVENT *OSMutexCreate(uint8_t  prio, uint8_t *perr)
-{
-	OS_EVENT* res = 0;
-	return res;
-}
+//OS_EVENT *OSSemCreate(uint32_t value)
+//{
+//	OS_EVENT*  ev= (OS_EVENT*) value;
+//	return ev;
+//}
 
 
-uint8_t OSMutexPost(OS_EVENT *pevent)
-{
-	return 1;
-}
 
-OS_EVENT *OSSemCreate(uint32_t value)
-{
-	OS_EVENT*  ev= (OS_EVENT*) value;
-	return ev;
-}
+#endif
 
-void OSSemPend(OS_EVENT *pevent,uint16_t timeout, uint8_t* perr)
-{
+//////////////  interface  to touchgfx  ///////////////
 
-}
-
-uint8_t OSSemPost(OS_EVENT *pevent)
-{
-	return 1;
-}
 

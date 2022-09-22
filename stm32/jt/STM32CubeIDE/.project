@@ -795,26 +795,6 @@
 			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/TouchGFX/target/TouchGFXHAL.cpp</locationURI>
 		</link>
 		<link>
-			<name>Application/User/generated/osintegration/DedicatedBufferVideoController.hpp</name>
-			<type>1</type>
-			<locationURI>WORKSPACE_LOC/jt/TouchGFX/target/generated/DedicatedBufferVideoController.hpp</locationURI>
-		</link>
-		<link>
-			<name>Application/User/generated/osintegration/HardwareMJPEGDecoder.cpp</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/target/generated/HardwareMJPEGDecoder.cpp</locationURI>
-		</link>
-		<link>
-			<name>Application/User/generated/osintegration/TouchGFXGeneratedHAL.cpp</name>
-			<type>1</type>
-			<locationURI>WORKSPACE_LOC/jt/TouchGFX/target/generated/TouchGFXGeneratedHAL.cpp</locationURI>
-		</link>
-		<link>
-			<name>Application/User/TouchGFX/target/generated/HardwareMJPEGDecoder.cpp</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/target/generated/HardwareMJPEGDecoder.cpp</locationURI>
-		</link>
-		<link>
 			<name>Application/User/TouchGFX/target/generated/OSWrappers.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/target/generated/OSWrappers.cpp</locationURI>
