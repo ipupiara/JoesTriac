@@ -25,7 +25,6 @@
 #include <string.h>
 
 #include "cmsis_os.h"
-#include <uosIIsis.h>
 #if defined(osCMSIS) && (osCMSIS < 0x20000)
 #define MUTEX_CREATE() osMutexCreate(0)
 #define MUTEX_LOCK(m) osMutexWait(m, osWaitForever)
@@ -36,7 +35,6 @@
 #define SEM_TYPE osSemaphoreId
 #define SEM_WAIT(s) osSemaphoreWait(s, osWaitForever)
 #else
-/*
 #define MUTEX_CREATE() osMutexNew(0)
 #define MUTEX_LOCK(m) osMutexAcquire(m, osWaitForever)
 #define MUTEX_TYPE osMutexId_t
@@ -45,7 +43,6 @@
 #define SEM_POST(s) osSemaphoreRelease(s)
 #define SEM_TYPE osSemaphoreId_t
 #define SEM_WAIT(s) osSemaphoreAcquire(s, osWaitForever)
-*/
 #endif
 
 template <uint32_t no_streams, uint32_t width, uint32_t height, uint32_t stride, touchgfx::Bitmap::BitmapFormat output_format>

@@ -24,7 +24,6 @@ extern "C"
 #include <string.h>
 #include <jpeg_utils.h>
 #include <stm32f7xx_hal.h>
-#include <uosIIsis.h>
 
     uint32_t JPEG_Decode_DMA(JPEG_HandleTypeDef* hjpeg, uint8_t* input, uint32_t chunkSizeIn, uint8_t* output);
     uint32_t JPEG_OutputHandler(JPEG_HandleTypeDef* hjpeg);

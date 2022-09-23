@@ -20,13 +20,13 @@
 #include <touchgfx/hal/HAL.hpp>
 #include <touchgfx/hal/OSWrappers.hpp>
 
-//#include <cmsis_os2.h>
+#include <cmsis_os2.h>
 
-//static osSemaphoreId_t frame_buffer_sem = NULL;
-//static osMessageQueueId_t vsync_queue = NULL;
+static osSemaphoreId_t frame_buffer_sem = NULL;
+static osMessageQueueId_t vsync_queue = NULL;
 
 // Just a dummy value to insert in the VSYNC queue.
-//static uint32_t dummy = 0x5a;
+static uint32_t dummy = 0x5a;
 
 using namespace touchgfx;
 
@@ -36,12 +36,12 @@ using namespace touchgfx;
 void OSWrappers::initialize()
 {
     // Create a queue of length 1
-//    frame_buffer_sem = osSemaphoreNew(1, 1, NULL); // Binary semaphore
-//    assert((frame_buffer_sem != NULL) && "Creation of framebuffer semaphore failed");
+    frame_buffer_sem = osSemaphoreNew(1, 1, NULL); // Binary semaphore
+    assert((frame_buffer_sem != NULL) && "Creation of framebuffer semaphore failed");
 //
 //    // Create a queue of length 1
-//    vsync_queue = osMessageQueueNew(1, 4, NULL);
-//    assert((vsync_queue != NULL) && "Creation of vsync message queue failed");
+    vsync_queue = osMessageQueueNew(1, 4, NULL);
+    assert((vsync_queue != NULL) && "Creation of vsync message queue failed");
 }
 
 /*
@@ -49,7 +49,7 @@ void OSWrappers::initialize()
  */
 void OSWrappers::takeFrameBufferSemaphore()
 {
- //   osSemaphoreAcquire(frame_buffer_sem, osWaitForever);
+    osSemaphoreAcquire(frame_buffer_sem, osWaitForever);
 }
 
 /*
@@ -57,7 +57,7 @@ void OSWrappers::takeFrameBufferSemaphore()
  */
 void OSWrappers::giveFrameBufferSemaphore()
 {
- //   osSemaphoreRelease(frame_buffer_sem);
+    osSemaphoreRelease(frame_buffer_sem);
 }
 
 /*
@@ -69,7 +69,7 @@ void OSWrappers::giveFrameBufferSemaphore()
  */
 void OSWrappers::tryTakeFrameBufferSemaphore()
 {
- //   osSemaphoreAcquire(frame_buffer_sem, 0);
+    osSemaphoreAcquire(frame_buffer_sem, 0);
 }
 
 /*
@@ -81,7 +81,7 @@ void OSWrappers::tryTakeFrameBufferSemaphore()
  */
 void OSWrappers::giveFrameBufferSemaphoreFromISR()
 {
- //   osSemaphoreRelease(frame_buffer_sem);
+    osSemaphoreRelease(frame_buffer_sem);
 }
 
 /*
@@ -92,7 +92,7 @@ void OSWrappers::giveFrameBufferSemaphoreFromISR()
  */
 void OSWrappers::signalVSync()
 {
- //   osMessageQueuePut(vsync_queue, &dummy, 0, 0);
+    osMessageQueuePut(vsync_queue, &dummy, 0, 0);
 }
 
 /*
@@ -112,12 +112,12 @@ void OSWrappers::signalRenderingDone()
  */
 void OSWrappers::waitForVSync()
 {
-//    uint32_t dummyGet;
-    // First make sure the queue is empty, by trying to remove an element with 0 timeout.
-//    osMessageQueueGet(vsync_queue, &dummyGet, 0, 0);
-//
-//    // Then, wait for next VSYNC to occur.
-//    osMessageQueueGet(vsync_queue, &dummyGet, 0, osWaitForever);
+    uint32_t dummyGet;
+//     First make sure the queue is empty, by trying to remove an element with 0 timeout.
+    osMessageQueueGet(vsync_queue, &dummyGet, 0, 0);
+
+    // Then, wait for next VSYNC to occur.
+    osMessageQueueGet(vsync_queue, &dummyGet, 0, osWaitForever);
 }
 
 /*
@@ -135,7 +135,7 @@ void OSWrappers::waitForVSync()
  */
 void OSWrappers::taskDelay(uint16_t ms)
 {
-//    osDelay(static_cast<uint32_t>(ms));
+    osDelay(static_cast<uint32_t>(ms));
 }
 
 /**
@@ -150,7 +150,7 @@ void OSWrappers::taskDelay(uint16_t ms)
  */
 void OSWrappers::taskYield()
 {
- //   osThreadYield();
+    osThreadYield();
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
