@@ -10,9 +10,7 @@
 
 //////////////////  types and variables   //////////////////////////////7
 
-
-
-CJoesTriacEventT  jtMessageQBuffer  [amtMessageBuffers];
+void mainJt(void *argument);
 
 
 osThreadId_t mainJtTaskHandle;
@@ -35,56 +33,15 @@ void secondTickHandler()
 	errorHandler(0,goOn," status ","secondTick");  // just something for a breakpoint for first tests
 }
 
-void returnMessageBufferP(pJoesTriacEventT  mPtr)
-{
-	osStatus_t  status;
-	status = MUTEX_AQUIRE(jtQAccessMutex, osWaitForever);
-	if (status !=  osOK)  {
-		//  todo  log error since it is a fatal error and raise fatal error state
-		errorHandler(status,stop," MUTEX_AQUIRE ","returnMessageBufferP");
-	}
-	mPtr->evType= msgFree;
-	status = MUTEX_RELEASE(jtQAccessMutex);
-	if (status !=  osOK)  {
-		//  todo  log error since it is a fatal error and raise fatal error state
-		errorHandler(status,stop," MUTEX_RELEASE ","returnMessageBufferP");
-	}
-}
 
-pJoesTriacEventT getNextFreeMessageBufferP(messageType forMessage)
-{
-	uint8_t  found = 0;
-	uint8_t  cnt   = 0;
-	osStatus_t  status;
-	pJoesTriacEventT res =  NULL;
-
-	if ((status = MUTEX_AQUIRE(jtQAccessMutex, osWaitForever)) !=  osOK)  {
-		errorHandler(status,stop," MUTEX_AQUIRE ","getNextFreeMessageBufferP");
-	}
-	while ((found == 0) && (cnt < amtMessageBuffers) ) {
-		if (jtMessageQBuffer[cnt].evType == msgFree) {
-			found = 1;
-			jtMessageQBuffer[cnt].evType = forMessage;
-			res = & jtMessageQBuffer[cnt];
-		}
-	}
-	if ((status = MUTEX_RELEASE(jtQAccessMutex)) !=  osOK)  {
-		errorHandler(status,stop," MUTEX_RELEASE ","getNextFreeMessageBufferP");
-	}
-	if (cnt >= amtMessageBuffers) {
-		errorHandler(cnt,goOn," bufferFull ","getNextFreeMessageBufferP");
-	}
-	return res;
-}
-
-osStatus_t sendMainJtMessageQ(pJoesTriacEventT bufferAddr, uint8_t  fromIsr)
+osStatus_t sendMainJtMessageQ(pJoesTriacEventT pEv, uint8_t  fromIsr)
 {
 	osStatus_t  status = osError;
 
 	if (fromIsr == 1)  {
-		status = osMessageQueuePut (mainJtMessageQ, (void *) bufferAddr, 0, 0);
+		status = osMessageQueuePut (mainJtMessageQ, (void *) pEv, 0, 0);
 	}  else  {
-		status = osMessageQueuePut (mainJtMessageQ, (void *) bufferAddr, 0, 1000);
+		status = osMessageQueuePut (mainJtMessageQ, (void *) pEv, 0, 1000);
 	}
 	if (status != osOK) {
 		errorHandler(status,goOn," status ","sendMainJtMessageQ");
@@ -97,11 +54,11 @@ void mainJtSecondTickCallback(void *argument)
 {
 //   todo check argument  and timer duration of one tick
 
-	pJoesTriacEventT mPtr = getNextFreeMessageBufferP(secondTick);
-	osStatus_t status =  sendMainJtMessageQ(mPtr, 0);
-	if ((status != osOK) || (mPtr == 0)  ) {
+	CJoesTriacEventT  ev;
+	ev.evType = secondTick;
+	osStatus_t status =  sendMainJtMessageQ( &ev, 0);
+	if (status != osOK) {
 		errorHandler(status,goOn," status ","mainJtSecondTickCallback");
-		errorHandler((uint32_t)mPtr,stop," mptr ","mainJtSecondTickCallback");
 	}
 }
 
@@ -118,18 +75,14 @@ void osStarted()
 
 void mainJt(void *argument)
 {
-	pJoesTriacEventT mPtr = 0;
 	osStatus_t status;
 	osStarted();
-	uint32_t* msgPtr ;
-	uint32_t** mPPtr =  &msgPtr;
+	CJoesTriacEventT  ev;
 	do  {
-		if ((status = osMessageQueueGet(mainJtMessageQ,(void *) mPPtr, 0, osWaitForever)) == osOK )  {
-			mPtr = (pJoesTriacEventT) msgPtr;
-			if (mPtr->evType == secondTick) {
+		if ((status = osMessageQueueGet(mainJtMessageQ,(void *) & ev, 0, osWaitForever)) == osOK )  {
+			if (ev.evType == secondTick) {
 				secondTickHandler();
 			}
-			returnMessageBufferP(mPtr);
 		}  else {
 			errorHandler((uint32_t)status ,goOn," osMessageQueueGet "," mainJt ");
 		}

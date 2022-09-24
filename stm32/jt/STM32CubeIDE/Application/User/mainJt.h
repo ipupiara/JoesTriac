@@ -41,18 +41,14 @@ typedef struct  {
 			uint16_t  potiPos;
 		} zeroAdjustingNVoltageState;
 	}  evData;
-} CJoesTriacEvent ;
+} CJoesTriacEventT ;
 
-typedef CJoesTriacEvent CJoesTriacEventT;
 typedef CJoesTriacEventT*  pJoesTriacEventT;
 
-extern CJoesTriacEventT  jtMessageQBuffer  [amtMessageBuffers];
 
-void mainJt(void *argument);
+//void mainJt(void *argument);
 
 void initJt();
-
-pJoesTriacEventT getNextFreeMessageBufferP(messageType forMessage);
 
 osStatus_t sendMainJtMessageQ(pJoesTriacEventT bufferAddr, uint8_t  fromIsr);
 
