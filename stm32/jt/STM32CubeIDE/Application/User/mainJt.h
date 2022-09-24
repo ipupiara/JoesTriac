@@ -15,6 +15,7 @@ extern "C" {
 #include <stdint.h>
 #include "cmsis_os.h"
 #include <defines.h>
+#include <string.h>
 
 
 #define MUTEX_AQUIRE(HANDLE,TIMEOUT)  osMutexAcquire (HANDLE, TIMEOUT)
@@ -50,7 +51,7 @@ typedef CJoesTriacEventT*  pJoesTriacEventT;
 
 void initJt();
 
-osStatus_t sendMainJtMessageQ(pJoesTriacEventT bufferAddr, uint8_t  fromIsr);
+osStatus_t sendEventToMainJtMessageQ(pJoesTriacEventT bufferAddr, uint8_t  fromIsr);
 
 #ifdef __cplusplus
 }

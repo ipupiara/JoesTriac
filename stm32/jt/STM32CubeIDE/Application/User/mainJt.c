@@ -34,7 +34,7 @@ void secondTickHandler()
 }
 
 
-osStatus_t sendMainJtMessageQ(pJoesTriacEventT pEv, uint8_t  fromIsr)
+osStatus_t sendEventToMainJtMessageQ(pJoesTriacEventT pEv, uint8_t  fromIsr)
 {
 	osStatus_t  status = osError;
 
@@ -55,8 +55,12 @@ void mainJtSecondTickCallback(void *argument)
 //   todo check argument  and timer duration of one tick
 
 	CJoesTriacEventT  ev;
+	memset(&ev, 0x0A, sizeof(ev));
 	ev.evType = secondTick;
-	osStatus_t status =  sendMainJtMessageQ( &ev, 0);
+//	ev.evData.keyCode = 0x12345678;
+	ev.evData.zeroAdjustingNVoltageState.voltage = 3.1415926535897932384;
+	ev.evData.zeroAdjustingNVoltageState.potiPos = 0x1234;
+	osStatus_t status =  sendEventToMainJtMessageQ( &ev, 0);
 	if (status != osOK) {
 		errorHandler(status,goOn," status ","mainJtSecondTickCallback");
 	}
@@ -79,7 +83,8 @@ void mainJt(void *argument)
 	osStarted();
 	CJoesTriacEventT  ev;
 	do  {
-		if ((status = osMessageQueueGet(mainJtMessageQ,(void *) & ev, 0, osWaitForever)) == osOK )  {
+		memset(&ev, 0, sizeof(ev));
+		if ((status = osMessageQueueGet(mainJtMessageQ,(void *) &ev, 0, osWaitForever)) == osOK )  {
 			if (ev.evType == secondTick) {
 				secondTickHandler();
 			}
@@ -98,7 +103,7 @@ void initJt()
 		errorHandler((uint32_t)mainJtTaskHandle ,stop," mainJtTaskHandle ","initJt");
 	}
 
-	mainJtMessageQ =  osMessageQueueNew(1, 4, NULL);
+	mainJtMessageQ =  osMessageQueueNew(1,sizeof(pJoesTriacEventT)*4, NULL);
 	if (mainJtMessageQ  == NULL)   {
 		errorHandler((uint32_t)mainJtMessageQ ,stop," mainJtMessageQ ","initJt");
 	}
