@@ -13,17 +13,23 @@ extern "C" {
 #endif
 
 #include <stdint.h>
+#include "cmsis_os.h"
+#include <defines.h>
 
 
 #define MUTEX_AQUIRE(HANDLE,TIMEOUT)  osMutexAcquire (HANDLE, TIMEOUT)
 #define MUTEX_RELEASE(HANDLE) osMutexRelease (HANDLE)
+#define amtMessageBuffers 5
+#define bufferFull  0xFF
 
 typedef enum {
 	msgFree = 0,
 	key,
 	zeroAdjust,
-	voltage
+	voltage,
+	secondTick
 }  messageType;
+
 
 
 typedef struct  {
@@ -38,13 +44,17 @@ typedef struct  {
 } CJoesTriacEvent ;
 
 typedef CJoesTriacEvent CJoesTriacEventT;
-typedef CJoesTriacEventT*  pCJoesTriacEventT;
+typedef CJoesTriacEventT*  pJoesTriacEventT;
+
+extern CJoesTriacEventT  jtMessageQBuffer  [amtMessageBuffers];
 
 void mainJt(void *argument);
 
 void initJt();
 
-uint32_t getNextFreeMessageBufferP(messageType forMessage);
+pJoesTriacEventT getNextFreeMessageBufferP(messageType forMessage);
+
+osStatus_t sendMainJtMessageQ(pJoesTriacEventT bufferAddr, uint8_t  fromIsr);
 
 #ifdef __cplusplus
 }
