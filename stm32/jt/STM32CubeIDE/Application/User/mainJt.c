@@ -6,6 +6,7 @@
  */
 
 #include <mainJt.h>
+#include <StateClass.h>
 
 
 //////////////////  types and variables   //////////////////////////////7
@@ -55,7 +56,7 @@ void mainJtSecondTickCallback(void *argument)
 //   todo check argument  and timer duration of one tick
 
 	CJoesTriacEventT  ev;
-	memset(&ev, 0x0A, sizeof(ev));
+	memset(&ev, 0x0, sizeof(ev));
 	ev.evType = secondTick;
 //	ev.evData.keyCode = 0x12345678;
 	ev.evData.zeroAdjustingNVoltageState.voltage = 3.1415926535897932384;
@@ -98,6 +99,8 @@ void mainJt(void *argument)
 
 void initJt()
 {
+	startStateCharts();
+
 	mainJtTaskHandle = osThreadNew(mainJt, NULL, &mainJt_attributes);
 	if (mainJtTaskHandle  == NULL)   {
 		errorHandler((uint32_t)mainJtTaskHandle ,stop," mainJtTaskHandle ","initJt");

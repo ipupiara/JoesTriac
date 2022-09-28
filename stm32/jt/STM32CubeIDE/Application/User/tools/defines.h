@@ -18,10 +18,37 @@ typedef enum{
 	stop
 } errorSeverity;
 
+typedef enum  {
+	tOk,
+	tFailed,
+
+} tStatus ;
+
+typedef struct {
+	uint32_t weldingTime;
+	float    weldingAmps;
+	uint32_t  calibLow, calibHigh;
+	uint8_t  alarmNeeded;
+	uint32_t  alarmTime;
+} persistentData;
+
+tStatus saveWeldingTime(uint32_t wTime);
+
+tStatus saveWeldingAmps(float wAmps);
+
+tStatus saveCalibLow(uint32_t cHigh);
+
+tStatus saveCalibHigh(uint32_t cLow);
+
+tStatus saveAlarmNeeded(uint8_t aNeeded);
+
+tStatus saveWeldingTime(uint32_t aTime);
+
+
 
 void errorHandler(uint32_t  code, errorSeverity severity, char* errorString, char* method );
 
-
+tStatus initDefines();
 
 
 #endif /* APPLICATION_USER_TOOLS_DEFINES_H_ */
