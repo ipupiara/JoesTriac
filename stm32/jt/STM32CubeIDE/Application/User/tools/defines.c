@@ -58,7 +58,7 @@ tStatus saveWeldingAmps(float wAmps)
 	return success;
 }
 
-tStatus saveCalibLow(uint32_t cHigh)
+tStatus saveCalibHigh(uint32_t cHigh)
 {
 	tStatus success = tFailed;
 	success = restorePersistenData();
@@ -69,7 +69,7 @@ tStatus saveCalibLow(uint32_t cHigh)
 	return success;
 }
 
-tStatus saveCalibHigh(uint32_t cLow)
+tStatus saveCalibLow(uint32_t cLow)
 {
 	tStatus success = tFailed;
 	success = restorePersistenData();
