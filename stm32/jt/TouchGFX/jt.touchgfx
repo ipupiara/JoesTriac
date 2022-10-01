@@ -125,14 +125,34 @@
             "Style": "Style4"
           },
           {
-            "Type": "Button",
-            "Name": "startButton",
-            "X": 131,
-            "Y": 392,
+            "Type": "ButtonWithIcon",
+            "Name": "buttonWithIcon1",
+            "X": 139,
+            "Y": 384,
             "Width": 170,
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
-            "Released": "startBtn.png"
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "IconPressed": "stopBtnPressed.png",
+            "IconReleased": "startBtn.png",
+            "IconHeight": 60,
+            "IconWidth": 170,
+            "ButtonStyle": "Style4"
+          },
+          {
+            "Type": "ButtonWithIcon",
+            "Name": "stopButton",
+            "X": 482,
+            "Y": 384,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "IconPressed": "stopBtnPressed.png",
+            "IconReleased": "stopBtn.png",
+            "IconHeight": 60,
+            "IconWidth": 170,
+            "ButtonStyle": "Style4"
           }
         ],
         "Interactions": [
@@ -179,8 +199,8 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "calibrationButton",
-            "X": 29,
-            "Y": 55,
+            "X": 230,
+            "Y": 53,
             "Width": 170,
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
@@ -216,6 +236,85 @@
             "IconWidth": 17,
             "ButtonStyle": "Style4",
             "IconStyle": "Icon5"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "editCalibButton",
+            "X": 230,
+            "Y": 147,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "TextId": "__SingleUse_GX36",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Style": "Style4"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "alarmEditButton",
+            "X": 230,
+            "Y": 240,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "TextId": "__SingleUse_AOKD",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Style": "Style4"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 428,
+            "Y": 72,
+            "Width": 228,
+            "Height": 22,
+            "TextId": "__SingleUse_ON4B",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea2",
+            "X": 428,
+            "Y": 166,
+            "Width": 288,
+            "Height": 22,
+            "TextId": "__SingleUse_8CTH",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea3",
+            "X": 428,
+            "Y": 259,
+            "Width": 180,
+            "Height": 22,
+            "TextId": "__SingleUse_1T1P",
+            "TextRotation": "0",
+            "AutoSize": true
           }
         ],
         "Interactions": [
@@ -354,6 +453,316 @@
             }
           }
         ]
+      },
+      {
+        "Name": "calibrationScreen",
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "box1",
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 176,
+              "Green": 247,
+              "Blue": 191
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 26,
+            "Y": 50,
+            "Width": 168,
+            "Height": 22,
+            "TextId": "__SingleUse_JIYE",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ampereText",
+            "X": 225,
+            "Y": 50,
+            "Width": 36,
+            "Height": 22,
+            "TextId": "__SingleUse_8TPJ",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea3",
+            "X": 26,
+            "Y": 169,
+            "Width": 132,
+            "Height": 22,
+            "TextId": "__SingleUse_ASW4",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "delayText",
+            "X": 225,
+            "Y": 169,
+            "Width": 36,
+            "Height": 22,
+            "TextId": "__SingleUse_ZGP7",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 13,
+              "Green": 1,
+              "Blue": 1
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "plus100Button",
+            "X": 277,
+            "Y": 109,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "TextId": "__SingleUse_J3K9",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Style": "Style4"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "plus10Button",
+            "X": 453,
+            "Y": 109,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "TextId": "__SingleUse_E6CS",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Style": "Style4"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "plus1Button",
+            "X": 630,
+            "Y": 109,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "TextId": "__SingleUse_F55U",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Style": "Style4"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "minus100Button",
+            "X": 277,
+            "Y": 203,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "TextId": "__SingleUse_K3SN",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Style": "Style4"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "minus10Button",
+            "X": 453,
+            "Y": 203,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "TextId": "__SingleUse_NDG8",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Style": "Style4"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "minus1Button",
+            "X": 630,
+            "Y": 203,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "TextId": "__SingleUse_UKCC",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Style": "Style4"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea4",
+            "X": 35,
+            "Y": 357,
+            "Width": 204,
+            "Height": 22,
+            "TextId": "__SingleUse_VANS",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "processStateText",
+            "X": 277,
+            "Y": 357,
+            "Width": 96,
+            "Height": 22,
+            "TextId": "__SingleUse_JNJA",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "plus100Button"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "plus100ButtonPressed"
+            }
+          },
+          {
+            "InteractionName": "Interaction2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "plus10Button"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "plus10ButtonPressed"
+            }
+          },
+          {
+            "InteractionName": "Interaction3",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "plus1Button"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "plus1ButtonPressed"
+            }
+          },
+          {
+            "InteractionName": "Interaction4",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "minus100Button"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "minus100ButtonPressed"
+            }
+          },
+          {
+            "InteractionName": "Interaction5",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "minus10Button"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "minus10ButtonPressed"
+            }
+          },
+          {
+            "InteractionName": "minus1ButtonPressed",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "minus1Button"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "function1"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "alarmConfigScreen",
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "box1",
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 176,
+              "Green": 247,
+              "Blue": 191
+            }
+          }
+        ],
+        "Interactions": []
       }
     ],
     "CustomContainerDefinitions": [

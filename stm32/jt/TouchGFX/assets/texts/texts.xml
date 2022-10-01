@@ -6,6 +6,72 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_JNJA" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">New Text</Translation>
+      </Text>
+      <Text Id="__SingleUse_VANS" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">state of process:</Translation>
+      </Text>
+      <Text Id="__SingleUse_UKCC" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">minus 1</Translation>
+      </Text>
+      <Text Id="__SingleUse_NDG8" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">minus 10</Translation>
+      </Text>
+      <Text Id="__SingleUse_K3SN" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">minus 100</Translation>
+      </Text>
+      <Text Id="__SingleUse_F55U" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">plus 1</Translation>
+      </Text>
+      <Text Id="__SingleUse_E6CS" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">plus 10</Translation>
+      </Text>
+      <Text Id="__SingleUse_J3K9" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">plus 100</Translation>
+      </Text>
+      <Text Id="__SingleUse_ZGP7" Alignment="Right" TypographyId="Default">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_ASW4" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">triac delay</Translation>
+      </Text>
+      <Text Id="__SingleUse_8TPJ" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_JIYE" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">desired ampere</Translation>
+      </Text>
+      <Text Id="__SingleUse_1T1P" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">configure alarm</Translation>
+      </Text>
+      <Text Id="__SingleUse_8CTH" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">enter calibration values</Translation>
+      </Text>
+      <Text Id="__SingleUse_ON4B" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">calibration process</Translation>
+      </Text>
+      <Text Id="__SingleUse_AOKD" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">Alarm config</Translation>
+      </Text>
+      <Text Id="__SingleUse_GX36" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">edit calib</Translation>
+      </Text>
+      <Text Id="__SingleUse_ET61" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">edit Alarm Configuration</Translation>
+      </Text>
+      <Text Id="__SingleUse_RBBE" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">edit calibration values</Translation>
+      </Text>
+      <Text Id="__SingleUse_M81V" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">calibration procedure</Translation>
+      </Text>
+      <Text Id="__SingleUse_13RF" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">edit Alarm</Translation>
+      </Text>
+      <Text Id="__SingleUse_102R" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">edit calib</Translation>
+      </Text>
       <Text Id="__SingleUse_IBA0" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">00:00</Translation>
       </Text>

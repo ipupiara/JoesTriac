@@ -14,6 +14,7 @@
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
+#include <touchgfx/widgets/ButtonWithIcon.hpp>
 
 class mainScreenViewBase : public touchgfx::View<mainScreenPresenter>
 {
@@ -39,7 +40,8 @@ protected:
     touchgfx::TextArea textArea1;
     touchgfx::TextAreaWithOneWildcard timeValueText;
     touchgfx::ButtonWithLabel setTimeButton;
-    touchgfx::Button startButton;
+    touchgfx::ButtonWithIcon buttonWithIcon1;
+    touchgfx::ButtonWithIcon stopButton;
 
     /*
      * Wildcard Buffers

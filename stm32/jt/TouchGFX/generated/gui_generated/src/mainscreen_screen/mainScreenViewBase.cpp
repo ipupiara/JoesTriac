@@ -63,8 +63,13 @@ mainScreenViewBase::mainScreenViewBase() :
     setTimeButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     setTimeButton.setAction(buttonCallback);
 
-    startButton.setXY(131, 392);
-    startButton.setBitmaps(touchgfx::Bitmap(BITMAP_STARTBTN_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
+    buttonWithIcon1.setXY(139, 384);
+    buttonWithIcon1.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID), touchgfx::Bitmap(BITMAP_STARTBTN_ID), touchgfx::Bitmap(BITMAP_STOPBTNPRESSED_ID));
+    buttonWithIcon1.setIconXY(0, 0);
+
+    stopButton.setXY(482, 384);
+    stopButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID), touchgfx::Bitmap(BITMAP_STOPBTN_ID), touchgfx::Bitmap(BITMAP_STOPBTNPRESSED_ID));
+    stopButton.setIconXY(0, 0);
 
     add(__background);
     add(box1);
@@ -74,7 +79,8 @@ mainScreenViewBase::mainScreenViewBase() :
     add(textArea1);
     add(timeValueText);
     add(setTimeButton);
-    add(startButton);
+    add(buttonWithIcon1);
+    add(stopButton);
 }
 
 void mainScreenViewBase::setupScreen()

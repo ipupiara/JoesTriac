@@ -18,6 +18,8 @@
 #include <gui/configscreen_screen/configScreenPresenter.hpp>
 #include <gui/settimescreen_screen/setTimeScreenView.hpp>
 #include <gui/settimescreen_screen/setTimeScreenPresenter.hpp>
+#include <gui/calibrationscreen_screen/calibrationScreenView.hpp>
+#include <gui/calibrationscreen_screen/calibrationScreenPresenter.hpp>
 
 
 /**
@@ -43,7 +45,8 @@ public:
     typedef touchgfx::meta::TypeList< mainScreenView,
             touchgfx::meta::TypeList< configScreenView,
             touchgfx::meta::TypeList< setTimeScreenView,
-            touchgfx::meta::Nil > >
+            touchgfx::meta::TypeList< calibrationScreenView,
+            touchgfx::meta::Nil > > >
             > GeneratedViewTypes;
 
     /**
@@ -58,7 +61,8 @@ public:
     typedef touchgfx::meta::TypeList< mainScreenPresenter,
             touchgfx::meta::TypeList< configScreenPresenter,
             touchgfx::meta::TypeList< setTimeScreenPresenter,
-            touchgfx::meta::Nil > >
+            touchgfx::meta::TypeList< calibrationScreenPresenter,
+            touchgfx::meta::Nil > > >
             > GeneratedPresenterTypes;
 
     /**

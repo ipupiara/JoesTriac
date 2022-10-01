@@ -220,6 +220,18 @@
     <Filter Include="Header Files\generated\gui_generated\settimescreen_screen">
       <UniqueIdentifier>084830B8-FD40-F491-84E0-1622A01F64EC</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\gui\calibrationscreen_screen">
+      <UniqueIdentifier>D922F168-C47D-B8C9-2E4B-AD002746165A</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\calibrationscreen_screen">
+      <UniqueIdentifier>F708E10E-5F93-6014-A381-1F12AB6F7DB3</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\calibrationscreen_screen">
+      <UniqueIdentifier>49E558DB-A09E-1A6D-F686-CDA2060F280F</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\calibrationscreen_screen">
+      <UniqueIdentifier>1FD2C253-60CC-58C7-F6C5-944A41221BEC</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\driver\touch\SDL2TouchController.cpp">
@@ -284,6 +296,15 @@
     </ClCompile>
     <ClCompile Include="..\..\generated\gui_generated\src\settimescreen_screen\setTimeScreenViewBase.cpp">
       <Filter>Source Files\generated\gui_generated\settimescreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\calibrationscreen_screen\calibrationScreenPresenter.cpp">
+      <Filter>Source Files\gui\calibrationscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\calibrationscreen_screen\calibrationScreenView.cpp">
+      <Filter>Source Files\gui\calibrationscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\calibrationscreen_screen\calibrationScreenViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\calibrationscreen_screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -759,6 +780,15 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\settimescreen_screen\setTimeScreenViewBase.hpp">
       <Filter>Header Files\generated\gui_generated\settimescreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\calibrationscreen_screen\calibrationScreenPresenter.hpp">
+      <Filter>Header Files\gui\calibrationscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\calibrationscreen_screen\calibrationScreenView.hpp">
+      <Filter>Header Files\gui\calibrationscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\calibrationscreen_screen\calibrationScreenViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\calibrationscreen_screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

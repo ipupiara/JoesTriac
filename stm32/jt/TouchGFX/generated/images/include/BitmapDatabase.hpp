@@ -25,6 +25,9 @@ const uint16_t BITMAP_BLUENORMAL_9_ID = 15;
 const uint16_t BITMAP_BLUEPRESSED_X_ID = 16;
 const uint16_t BITMAP_CONFIGURATION_ID = 17;
 const uint16_t BITMAP_STARTBTN_ID = 18;
+const uint16_t BITMAP_STARTBTNPRESSED_ID = 19;
+const uint16_t BITMAP_STOPBTN_ID = 20;
+const uint16_t BITMAP_STOPBTNPRESSED_ID = 21;
 
 namespace BitmapDatabase
 {

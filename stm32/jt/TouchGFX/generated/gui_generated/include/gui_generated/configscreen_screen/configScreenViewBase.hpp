@@ -10,6 +10,7 @@
 #include <touchgfx/widgets/Box.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
 #include <touchgfx/widgets/ButtonWithIcon.hpp>
+#include <touchgfx/widgets/TextArea.hpp>
 
 class configScreenViewBase : public touchgfx::View<configScreenPresenter>
 {
@@ -38,6 +39,11 @@ protected:
     touchgfx::Box bgBox;
     touchgfx::ButtonWithLabel calibrationButton;
     touchgfx::ButtonWithIcon backButton;
+    touchgfx::ButtonWithLabel editCalibButton;
+    touchgfx::ButtonWithLabel alarmEditButton;
+    touchgfx::TextArea textArea1;
+    touchgfx::TextArea textArea2;
+    touchgfx::TextArea textArea3;
 
 private:
 

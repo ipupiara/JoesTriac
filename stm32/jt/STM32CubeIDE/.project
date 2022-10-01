@@ -585,6 +585,16 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/target/generated/tgfx_jpeg_utils.c</locationURI>
 		</link>
 		<link>
+			<name>Application/User/gui/calibrationScreenPresenter.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/calibrationscreen_screen/calibrationScreenPresenter.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/calibrationScreenView.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/calibrationscreen_screen/calibrationScreenView.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/gui/FrontendApplication.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/common/FrontendApplication.cpp</locationURI>
@@ -698,6 +708,11 @@
 			<name>Application/User/generated/UnmappedDataFont.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/fonts/src/UnmappedDataFont.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/calibrationScreenViewBase.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/calibrationscreen_screen/calibrationScreenViewBase.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/FrontendApplicationBase.cpp</name>
@@ -823,6 +838,21 @@
 			<name>Application/User/generated/image_startBtn.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_startBtn.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_startBtnPressed.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_startBtnPressed.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_stopBtn.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_stopBtn.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_stopBtnPressed.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_stopBtnPressed.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/LanguageGb.cpp</name>
