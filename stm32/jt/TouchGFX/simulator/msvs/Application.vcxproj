@@ -56,6 +56,9 @@
     <ClCompile Include="..\..\gui\src\editcaliblowscreen_screen\editCalibLowScreenPresenter.cpp"/>
     <ClCompile Include="..\..\gui\src\editcaliblowscreen_screen\editCalibLowScreenView.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\editcaliblowscreen_screen\editCalibLowScreenViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\requeststopscreen_screen\requestStopScreenPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\requeststopscreen_screen\requestStopScreenView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\requeststopscreen_screen\requestStopScreenViewBase.cpp"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xml"/>
@@ -241,6 +244,9 @@
     <ClInclude Include="..\..\gui\include\gui\editcaliblowscreen_screen\editCalibLowScreenPresenter.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\editcaliblowscreen_screen\editCalibLowScreenView.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\editcaliblowscreen_screen\editCalibLowScreenViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\requeststopscreen_screen\requestStopScreenPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\requeststopscreen_screen\requestStopScreenView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\requeststopscreen_screen\requestStopScreenViewBase.hpp"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>

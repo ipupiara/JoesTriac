@@ -8,6 +8,7 @@
 #include <mvp/View.hpp>
 #include <gui/fatalerrorscreen_screen/fatalErrorScreenPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
+#include <touchgfx/widgets/TextArea.hpp>
 
 class fatalErrorScreenViewBase : public touchgfx::View<fatalErrorScreenPresenter>
 {
@@ -20,7 +21,15 @@ protected:
     FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(touchgfx::Application::getInstance());
     }
+
+    /*
+     * Member Declarations
+     */
     touchgfx::Box __background;
+    touchgfx::Box box1;
+    touchgfx::TextArea textArea1;
+    touchgfx::TextArea textArea2;
+    touchgfx::TextArea reasonText;
 
 private:
 

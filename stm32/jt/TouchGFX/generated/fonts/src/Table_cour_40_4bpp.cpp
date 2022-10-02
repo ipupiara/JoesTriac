@@ -4,6 +4,7 @@
 
 FONT_TABLE_LOCATION_FLASH_PRAGMA
 KEEP extern const touchgfx::GlyphNode glyphs_cour_40_4bpp[] FONT_TABLE_LOCATION_FLASH_ATTRIBUTE = {
+    {     0, 0x0020,   0,   0,   0,   0,  24,   0,   0, 0x00 },
     {     0, 0x002E,   6,   6,   5,   9,  24,   0,   0, 0x00 },
     {    18, 0x0030,  16,  27,  26,   4,  24,   0,   0, 0x00 },
     {   234, 0x0031,  16,  26,  26,   4,  24,   0,   0, 0x00 },
@@ -16,7 +17,18 @@ KEEP extern const touchgfx::GlyphNode glyphs_cour_40_4bpp[] FONT_TABLE_LOCATION_
     {  1769, 0x0038,  16,  27,  26,   4,  24,   0,   0, 0x00 },
     {  1985, 0x0039,  16,  27,  26,   5,  24,   0,   0, 0x00 },
     {  2201, 0x003A,   6,  18,  17,   9,  24,   0,   0, 0x00 },
-    {  2255, 0x003F,  15,  26,  25,   5,  24,   0,   0, 0x00 }
+    {  2255, 0x003F,  15,  26,  25,   5,  24,   0,   0, 0x00 },
+    {  2463, 0x0054,  20,  24,  24,   2,  24,   0,   0, 0x00 },
+    {  2703, 0x0061,  20,  19,  18,   2,  24,   0,   0, 0x00 },
+    {  2893, 0x0065,  19,  19,  18,   2,  24,   0,   0, 0x00 },
+    {  3083, 0x0066,  18,  25,  25,   4,  24,   0,   0, 0x00 },
+    {  3308, 0x006C,  18,  25,  25,   3,  24,   0,   0, 0x00 },
+    {  3533, 0x006E,  20,  18,  18,   2,  24,   0,   0, 0x00 },
+    {  3713, 0x006F,  20,  19,  18,   2,  24,   0,   0, 0x00 },
+    {  3903, 0x0072,  19,  18,  18,   3,  24,   0,   0, 0x00 },
+    {  4083, 0x0073,  16,  19,  18,   4,  24,   0,   0, 0x00 },
+    {  4235, 0x0074,  20,  25,  24,   2,  24,   0,   0, 0x00 },
+    {  4485, 0x0078,  20,  17,  17,   2,  24,   0,   0, 0x00 }
 };
 
 // cour_40_4bpp
@@ -35,6 +47,6 @@ touchgfx::GeneratedFont& getFont_cour_40_4bpp();
 
 touchgfx::GeneratedFont& getFont_cour_40_4bpp()
 {
-    static touchgfx::GeneratedFont cour_40_4bpp(glyphs_cour_40_4bpp, 13, 40, 1, 4, 1, 0, 0, unicodes_cour_40_4bpp, kerning_cour_40_4bpp, 63, 0, 0, &cour_contextualFormsTable);
+    static touchgfx::GeneratedFont cour_40_4bpp(glyphs_cour_40_4bpp, 25, 40, 1, 4, 1, 0, 0, unicodes_cour_40_4bpp, kerning_cour_40_4bpp, 63, 0, 0, &cour_contextualFormsTable);
     return cour_40_4bpp;
 }

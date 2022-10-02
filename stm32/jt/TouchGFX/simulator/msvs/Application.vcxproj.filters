@@ -316,6 +316,18 @@
     <Filter Include="Source Files\generated\gui_generated\editcalibhighscreen_screen">
       <UniqueIdentifier>1C3D8120-0861-FE6E-88E3-B58DDF20FC15</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\gui\requeststopscreen_screen">
+      <UniqueIdentifier>AE77B99E-F9B9-EF78-0E05-A6AF849EC458</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\requeststopscreen_screen">
+      <UniqueIdentifier>6D0A07CA-9156-1A43-2AF1-95CEA914A56D</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\requeststopscreen_screen">
+      <UniqueIdentifier>09992B8F-2E27-ABF4-1D44-9A1DBA01A1DF</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\requeststopscreen_screen">
+      <UniqueIdentifier>C303B4A7-E11A-9C34-FA70-FB65E42D2CB8</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\driver\touch\SDL2TouchController.cpp">
@@ -452,6 +464,15 @@
     </ClCompile>
     <ClCompile Include="..\..\generated\gui_generated\src\editcaliblowscreen_screen\editCalibLowScreenViewBase.cpp">
       <Filter>Source Files\generated\gui_generated\editcaliblowscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\requeststopscreen_screen\requestStopScreenPresenter.cpp">
+      <Filter>Source Files\gui\requeststopscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\requeststopscreen_screen\requestStopScreenView.cpp">
+      <Filter>Source Files\gui\requeststopscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\requeststopscreen_screen\requestStopScreenViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\requeststopscreen_screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -999,6 +1020,15 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\editcaliblowscreen_screen\editCalibLowScreenViewBase.hpp">
       <Filter>Header Files\generated\gui_generated\editcaliblowscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\requeststopscreen_screen\requestStopScreenPresenter.hpp">
+      <Filter>Header Files\gui\requeststopscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\requeststopscreen_screen\requestStopScreenView.hpp">
+      <Filter>Header Files\gui\requeststopscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\requeststopscreen_screen\requestStopScreenViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\requeststopscreen_screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

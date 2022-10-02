@@ -1809,15 +1809,15 @@
           },
           {
             "Type": "ButtonWithIcon",
-            "Name": "stopButton",
+            "Name": "abortButton",
             "X": 493,
             "Y": 384,
             "Width": 170,
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
             "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "IconPressed": "stopBtnPressed.png",
-            "IconReleased": "stopBtn.png",
+            "IconPressed": "abortBtnPressed.png",
+            "IconReleased": "abortBtn.png",
             "IconHeight": 60,
             "IconWidth": 170,
             "ButtonStyle": "Style4"
@@ -1904,7 +1904,7 @@
           },
           {
             "Type": "ButtonWithIcon",
-            "Name": "buttonWithIcon1",
+            "Name": "continueButton",
             "X": 139,
             "Y": 384,
             "Width": 170,
@@ -1923,11 +1923,22 @@
             "InteractionName": "Interaction1",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "stopButton"
+              "TriggerComponent": "continueButton"
             },
             "Action": {
               "Type": "ActionCustom",
-              "FunctionName": "stopButtonPressed"
+              "FunctionName": "continueButtonPressed"
+            }
+          },
+          {
+            "InteractionName": "Interaction2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "abortButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "abortButtonPressed"
             }
           }
         ]

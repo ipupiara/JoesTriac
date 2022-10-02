@@ -3,6 +3,7 @@
 /*********************************************************************************/
 #include <gui_generated/fatalerrorscreen_screen/fatalErrorScreenViewBase.hpp>
 #include <touchgfx/Color.hpp>
+#include <texts/TextKeysAndLanguages.hpp>
 
 fatalErrorScreenViewBase::fatalErrorScreenViewBase()
 {
@@ -10,7 +11,29 @@ fatalErrorScreenViewBase::fatalErrorScreenViewBase()
     __background.setPosition(0, 0, 800, 480);
     __background.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
 
+    box1.setPosition(0, 0, 800, 480);
+    box1.setColor(touchgfx::Color::getColorFromRGB(224, 145, 139));
+
+    textArea1.setXY(42, 45);
+    textArea1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea1.setLinespacing(0);
+    textArea1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_EJIV));
+
+    textArea2.setXY(42, 147);
+    textArea2.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea2.setLinespacing(0);
+    textArea2.setTypedText(touchgfx::TypedText(T___SINGLEUSE_25II));
+
+    reasonText.setXY(42, 228);
+    reasonText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    reasonText.setLinespacing(0);
+    reasonText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_ZIV2));
+
     add(__background);
+    add(box1);
+    add(textArea1);
+    add(textArea2);
+    add(reasonText);
 }
 
 void fatalErrorScreenViewBase::setupScreen()

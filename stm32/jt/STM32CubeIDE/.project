@@ -680,6 +680,16 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/model/Model.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/gui/requestStopScreenPresenter.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/requeststopscreen_screen/requestStopScreenPresenter.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/requestStopScreenView.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/requeststopscreen_screen/requestStopScreenView.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/gui/runScreenPresenter.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/runscreen_screen/runScreenPresenter.cpp</locationURI>
@@ -830,6 +840,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/mainscreen_screen/mainScreenViewBase.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/requestStopScreenViewBase.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/requeststopscreen_screen/requestStopScreenViewBase.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/runScreenViewBase.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/runscreen_screen/runScreenViewBase.cpp</locationURI>
@@ -880,6 +895,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__designer/image_Blue_Needles_original_gauge_needle_style_01.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/image_Blue_ProgressIndicators_bg_medium_progress_indicator_bg_square_0_degrees.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__designer/image_Blue_ProgressIndicators_bg_medium_progress_indicator_bg_square_0_degrees.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/image_Blue_Togglebars_Toggle_round_large_button_OFF.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__designer/image_Blue_Togglebars_Toggle_round_large_button_OFF.cpp</locationURI>
@@ -888,6 +908,16 @@
 			<name>Application/User/generated/image_Blue_Togglebars_Toggle_round_large_button_ON.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__designer/image_Blue_Togglebars_Toggle_round_large_button_ON.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_abortBtn.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_abortBtn.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_abortBtnPressed.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_abortBtnPressed.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_blueNormal-0.cpp</name>
@@ -948,6 +978,16 @@
 			<name>Application/User/generated/image_configuration.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_configuration.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_continueBtn.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_continueBtn.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_continueBtnPressed.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_continueBtnPressed.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_startBtn.cpp</name>

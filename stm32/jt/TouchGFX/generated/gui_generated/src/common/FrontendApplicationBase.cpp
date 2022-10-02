@@ -31,6 +31,8 @@
 #include <gui/editcaliblowscreen_screen/editCalibLowScreenPresenter.hpp>
 #include <gui/editcalibhighscreen_screen/editCalibHighScreenView.hpp>
 #include <gui/editcalibhighscreen_screen/editCalibHighScreenPresenter.hpp>
+#include <gui/requeststopscreen_screen/requestStopScreenView.hpp>
+#include <gui/requeststopscreen_screen/requestStopScreenPresenter.hpp>
 
 using namespace touchgfx;
 
