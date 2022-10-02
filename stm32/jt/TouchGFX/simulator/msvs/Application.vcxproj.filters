@@ -232,6 +232,90 @@
     <Filter Include="Header Files\generated\gui_generated\calibrationscreen_screen">
       <UniqueIdentifier>1FD2C253-60CC-58C7-F6C5-944A41221BEC</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\gui\alarmconfigscreen_screen">
+      <UniqueIdentifier>059ADED9-02F5-207F-F1CC-4C813F1DBA98</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\alarmconfigscreen_screen">
+      <UniqueIdentifier>AC89C3AA-4432-1D8F-15F5-9FA6E6D1D463</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\alarmconfigscreen_screen">
+      <UniqueIdentifier>3C2273CA-EEE5-0D59-A9C8-321ABD62829C</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\alarmconfigscreen_screen">
+      <UniqueIdentifier>E8731AB0-E7ED-D746-3078-4FDE8F08C0EB</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\setamperescreen_screen">
+      <UniqueIdentifier>0ECD35FE-76D0-EC58-3E92-41D9EB2CBDD2</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\setamperescreen_screen">
+      <UniqueIdentifier>6B739962-E12F-1ABB-308D-75547E7124C5</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\editcalibvaluesscreen_screen">
+      <UniqueIdentifier>3CD47292-A007-CCAE-DB6F-21EDFFF2EAAC</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\editcalibvaluesscreen_screen">
+      <UniqueIdentifier>EE210927-3369-1E35-E201-EE884E14ACEB</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\setamperescreen_screen">
+      <UniqueIdentifier>7BDA5C80-6830-AD51-F70B-9282FD237FA7</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\setamperescreen_screen">
+      <UniqueIdentifier>D09C45C6-6399-A860-1D53-C286F17AF2F7</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\editcalibvaluesscreen_screen">
+      <UniqueIdentifier>2015FAA0-48A1-E18B-407E-7EF15F6C2963</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\editcalibvaluesscreen_screen">
+      <UniqueIdentifier>7F1BAEE0-B1C4-E8AE-DB1F-C4BF70D018A8</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\runscreen_screen">
+      <UniqueIdentifier>B738272A-7F49-553A-AA0D-C335926E5D6E</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\runscreen_screen">
+      <UniqueIdentifier>EFD88FB4-A43B-5198-EEE2-614481B8B311</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\fatalerrorscreen_screen">
+      <UniqueIdentifier>83E83202-8B68-9E79-B342-31FC9A53E594</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\fatalerrorscreen_screen">
+      <UniqueIdentifier>748FE763-F352-B628-4A76-224B2254B85B</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\runscreen_screen">
+      <UniqueIdentifier>EA55180E-7550-A52E-0DC2-7D4F222F2D51</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\runscreen_screen">
+      <UniqueIdentifier>B35F40F2-822F-6C43-B06B-4C4E812AA159</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\fatalerrorscreen_screen">
+      <UniqueIdentifier>0465F395-F07E-8F02-4462-E02A0EB4F238</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\fatalerrorscreen_screen">
+      <UniqueIdentifier>C4F4BFE6-DA7E-FB18-94BA-4C082ED532D8</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\editcalibhighscreen_screen">
+      <UniqueIdentifier>920A1605-9785-C9A6-90CA-7C3DDF25E47E</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\editcalibhighscreen_screen">
+      <UniqueIdentifier>DADA0CFB-CBDB-00CF-6BEC-5F429AA5CD36</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\editcaliblowscreen_screen">
+      <UniqueIdentifier>2AA375CD-02C0-C38E-6A3C-BB37AB76B24B</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\editcaliblowscreen_screen">
+      <UniqueIdentifier>473C86DB-1B61-F3E6-83F4-F56411C8B20D</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\editcaliblowscreen_screen">
+      <UniqueIdentifier>B3321534-DF27-0D95-BF40-47C3EED14761</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\editcaliblowscreen_screen">
+      <UniqueIdentifier>103A5323-12A7-429C-D2BA-F274ABC271AD</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\editcalibhighscreen_screen">
+      <UniqueIdentifier>A3ED5E75-2A3C-0AC1-FE17-5EED9404FB35</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\editcalibhighscreen_screen">
+      <UniqueIdentifier>1C3D8120-0861-FE6E-88E3-B58DDF20FC15</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\driver\touch\SDL2TouchController.cpp">
@@ -305,6 +389,69 @@
     </ClCompile>
     <ClCompile Include="..\..\generated\gui_generated\src\calibrationscreen_screen\calibrationScreenViewBase.cpp">
       <Filter>Source Files\generated\gui_generated\calibrationscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\alarmconfigscreen_screen\alarmConfigScreenPresenter.cpp">
+      <Filter>Source Files\gui\alarmconfigscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\alarmconfigscreen_screen\alarmConfigScreenView.cpp">
+      <Filter>Source Files\gui\alarmconfigscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\alarmconfigscreen_screen\alarmConfigScreenViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\alarmconfigscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\editcalibvaluesscreen_screen\editCalibValuesScreenPresenter.cpp">
+      <Filter>Source Files\gui\editcalibvaluesscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\editcalibvaluesscreen_screen\editCalibValuesScreenView.cpp">
+      <Filter>Source Files\gui\editcalibvaluesscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\editcalibvaluesscreen_screen\editCalibValuesScreenViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\editcalibvaluesscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\setamperescreen_screen\setAmpereScreenPresenter.cpp">
+      <Filter>Source Files\gui\setamperescreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\setamperescreen_screen\setAmpereScreenView.cpp">
+      <Filter>Source Files\gui\setamperescreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\setamperescreen_screen\setAmpereScreenViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\setamperescreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\fatalerrorscreen_screen\fatalErrorScreenPresenter.cpp">
+      <Filter>Source Files\gui\fatalerrorscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\fatalerrorscreen_screen\fatalErrorScreenView.cpp">
+      <Filter>Source Files\gui\fatalerrorscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\fatalerrorscreen_screen\fatalErrorScreenViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\fatalerrorscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\runscreen_screen\runScreenPresenter.cpp">
+      <Filter>Source Files\gui\runscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\runscreen_screen\runScreenView.cpp">
+      <Filter>Source Files\gui\runscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\runscreen_screen\runScreenViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\runscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\editcalibhighscreen_screen\editCalibHighScreenPresenter.cpp">
+      <Filter>Source Files\gui\editcalibhighscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\editcalibhighscreen_screen\editCalibHighScreenView.cpp">
+      <Filter>Source Files\gui\editcalibhighscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\editcalibhighscreen_screen\editCalibHighScreenViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\editcalibhighscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\editcaliblowscreen_screen\editCalibLowScreenPresenter.cpp">
+      <Filter>Source Files\gui\editcaliblowscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\editcaliblowscreen_screen\editCalibLowScreenView.cpp">
+      <Filter>Source Files\gui\editcaliblowscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\editcaliblowscreen_screen\editCalibLowScreenViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\editcaliblowscreen_screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -789,6 +936,69 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\calibrationscreen_screen\calibrationScreenViewBase.hpp">
       <Filter>Header Files\generated\gui_generated\calibrationscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\alarmconfigscreen_screen\alarmConfigScreenPresenter.hpp">
+      <Filter>Header Files\gui\alarmconfigscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\alarmconfigscreen_screen\alarmConfigScreenView.hpp">
+      <Filter>Header Files\gui\alarmconfigscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\alarmconfigscreen_screen\alarmConfigScreenViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\alarmconfigscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\editcalibvaluesscreen_screen\editCalibValuesScreenPresenter.hpp">
+      <Filter>Header Files\gui\editcalibvaluesscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\editcalibvaluesscreen_screen\editCalibValuesScreenView.hpp">
+      <Filter>Header Files\gui\editcalibvaluesscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\editcalibvaluesscreen_screen\editCalibValuesScreenViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\editcalibvaluesscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\setamperescreen_screen\setAmpereScreenPresenter.hpp">
+      <Filter>Header Files\gui\setamperescreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\setamperescreen_screen\setAmpereScreenView.hpp">
+      <Filter>Header Files\gui\setamperescreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\setamperescreen_screen\setAmpereScreenViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\setamperescreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\fatalerrorscreen_screen\fatalErrorScreenPresenter.hpp">
+      <Filter>Header Files\gui\fatalerrorscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\fatalerrorscreen_screen\fatalErrorScreenView.hpp">
+      <Filter>Header Files\gui\fatalerrorscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\fatalerrorscreen_screen\fatalErrorScreenViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\fatalerrorscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\runscreen_screen\runScreenPresenter.hpp">
+      <Filter>Header Files\gui\runscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\runscreen_screen\runScreenView.hpp">
+      <Filter>Header Files\gui\runscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\runscreen_screen\runScreenViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\runscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\editcalibhighscreen_screen\editCalibHighScreenPresenter.hpp">
+      <Filter>Header Files\gui\editcalibhighscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\editcalibhighscreen_screen\editCalibHighScreenView.hpp">
+      <Filter>Header Files\gui\editcalibhighscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\editcalibhighscreen_screen\editCalibHighScreenViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\editcalibhighscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\editcaliblowscreen_screen\editCalibLowScreenPresenter.hpp">
+      <Filter>Header Files\gui\editcaliblowscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\editcaliblowscreen_screen\editCalibLowScreenView.hpp">
+      <Filter>Header Files\gui\editcaliblowscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\editcaliblowscreen_screen\editCalibLowScreenViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\editcaliblowscreen_screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

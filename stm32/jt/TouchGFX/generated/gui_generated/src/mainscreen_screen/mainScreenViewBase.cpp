@@ -63,13 +63,26 @@ mainScreenViewBase::mainScreenViewBase() :
     setTimeButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     setTimeButton.setAction(buttonCallback);
 
-    buttonWithIcon1.setXY(139, 384);
-    buttonWithIcon1.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID), touchgfx::Bitmap(BITMAP_STARTBTN_ID), touchgfx::Bitmap(BITMAP_STOPBTNPRESSED_ID));
-    buttonWithIcon1.setIconXY(0, 0);
+    startButton.setXY(139, 384);
+    startButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID), touchgfx::Bitmap(BITMAP_STARTBTN_ID), touchgfx::Bitmap(BITMAP_STARTBTNPRESSED_ID));
+    startButton.setIconXY(0, 0);
+    startButton.setAction(buttonCallback);
 
-    stopButton.setXY(482, 384);
-    stopButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID), touchgfx::Bitmap(BITMAP_STOPBTN_ID), touchgfx::Bitmap(BITMAP_STOPBTNPRESSED_ID));
+    stopButton.setXY(493, 384);
+    stopButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID), touchgfx::Bitmap(BITMAP_STOPBTNINACTIVE_ID), touchgfx::Bitmap(BITMAP_STOPBTNINACTIVE_ID));
     stopButton.setIconXY(0, 0);
+
+    setAmpereButton.setXY(630, 6);
+    setAmpereButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
+    setAmpereButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_ZCVA));
+    setAmpereButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    setAmpereButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    setAmpereButton.setAction(buttonCallback);
+
+    setAmpereText.setXY(465, 12);
+    setAmpereText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    setAmpereText.setLinespacing(0);
+    setAmpereText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_DEJR));
 
     add(__background);
     add(box1);
@@ -79,8 +92,10 @@ mainScreenViewBase::mainScreenViewBase() :
     add(textArea1);
     add(timeValueText);
     add(setTimeButton);
-    add(buttonWithIcon1);
+    add(startButton);
     add(stopButton);
+    add(setAmpereButton);
+    add(setAmpereText);
 }
 
 void mainScreenViewBase::setupScreen()
@@ -103,5 +118,19 @@ void mainScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& s
         //When setTimeButton clicked change screen to setTimeScreen
         //Go to setTimeScreen with no screen transition
         application().gotosetTimeScreenScreenNoTransition();
+    }
+    else if (&src == &startButton)
+    {
+        //Interaction6
+        //When startButton clicked call virtual function
+        //Call startButtonPressed
+        startButtonPressed();
+    }
+    else if (&src == &setAmpereButton)
+    {
+        //Interaction2
+        //When setAmpereButton clicked change screen to setAmpereScreen
+        //Go to setAmpereScreen with no screen transition
+        application().gotosetAmpereScreenScreenNoTransition();
     }
 }

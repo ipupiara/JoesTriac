@@ -585,6 +585,16 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/target/generated/tgfx_jpeg_utils.c</locationURI>
 		</link>
 		<link>
+			<name>Application/User/gui/alarmConfigScreenPresenter.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/alarmconfigscreen_screen/alarmConfigScreenPresenter.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/alarmConfigScreenView.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/alarmconfigscreen_screen/alarmConfigScreenView.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/gui/calibrationScreenPresenter.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/calibrationscreen_screen/calibrationScreenPresenter.cpp</locationURI>
@@ -615,6 +625,46 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/containers/numericKeyPad.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/gui/editCalibHighScreenPresenter.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/editcalibhighscreen_screen/editCalibHighScreenPresenter.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/editCalibHighScreenView.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/editcalibhighscreen_screen/editCalibHighScreenView.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/editCalibLowScreenPresenter.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/editcaliblowscreen_screen/editCalibLowScreenPresenter.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/editCalibLowScreenView.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/editcaliblowscreen_screen/editCalibLowScreenView.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/editCalibValuesScreenPresenter.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/editcalibvaluesscreen_screen/editCalibValuesScreenPresenter.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/editCalibValuesScreenView.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/editcalibvaluesscreen_screen/editCalibValuesScreenView.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/fatalErrorScreenPresenter.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/fatalerrorscreen_screen/fatalErrorScreenPresenter.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/fatalErrorScreenView.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/fatalerrorscreen_screen/fatalErrorScreenView.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/gui/mainScreenPresenter.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/mainscreen_screen/mainScreenPresenter.cpp</locationURI>
@@ -628,6 +678,26 @@
 			<name>Application/User/gui/Model.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/model/Model.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/runScreenPresenter.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/runscreen_screen/runScreenPresenter.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/runScreenView.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/runscreen_screen/runScreenView.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/setAmpereScreenPresenter.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/setamperescreen_screen/setAmpereScreenPresenter.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/setAmpereScreenView.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/setamperescreen_screen/setAmpereScreenView.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/gui/setTimeScreenPresenter.cpp</name>
@@ -710,6 +780,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/fonts/src/UnmappedDataFont.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/alarmConfigScreenViewBase.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/alarmconfigscreen_screen/alarmConfigScreenViewBase.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/calibrationScreenViewBase.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/calibrationscreen_screen/calibrationScreenViewBase.cpp</locationURI>
@@ -730,9 +805,39 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/containers/numericKeyPadBase.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/editCalibHighScreenViewBase.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/editcalibhighscreen_screen/editCalibHighScreenViewBase.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/editCalibLowScreenViewBase.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/editcaliblowscreen_screen/editCalibLowScreenViewBase.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/editCalibValuesScreenViewBase.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/editcalibvaluesscreen_screen/editCalibValuesScreenViewBase.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/fatalErrorScreenViewBase.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/fatalerrorscreen_screen/fatalErrorScreenViewBase.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/mainScreenViewBase.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/mainscreen_screen/mainScreenViewBase.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/runScreenViewBase.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/runscreen_screen/runScreenViewBase.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/setAmpereScreenViewBase.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/setamperescreen_screen/setAmpereScreenViewBase.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/setTimeScreenViewBase.cpp</name>
@@ -773,6 +878,16 @@
 			<name>Application/User/generated/image_Blue_Needles_original_gauge_needle_style_01.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__designer/image_Blue_Needles_original_gauge_needle_style_01.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_Blue_Togglebars_Toggle_round_large_button_OFF.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__designer/image_Blue_Togglebars_Toggle_round_large_button_OFF.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_Blue_Togglebars_Toggle_round_large_button_ON.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__designer/image_Blue_Togglebars_Toggle_round_large_button_ON.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_blueNormal-0.cpp</name>
@@ -840,6 +955,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_startBtn.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/image_startBtnInactive.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_startBtnInactive.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/image_startBtnPressed.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_startBtnPressed.cpp</locationURI>
@@ -848,6 +968,11 @@
 			<name>Application/User/generated/image_stopBtn.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_stopBtn.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_stopBtnInactive.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_stopBtnInactive.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_stopBtnPressed.cpp</name>

@@ -88,6 +88,13 @@ calibrationScreenViewBase::calibrationScreenViewBase() :
     processStateText.setLinespacing(0);
     processStateText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_JNJA));
 
+    abortButton.setXY(35, 397);
+    abortButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
+    abortButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_J3DJ));
+    abortButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    abortButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    abortButton.setAction(buttonCallback);
+
     add(__background);
     add(box1);
     add(textArea1);
@@ -102,6 +109,7 @@ calibrationScreenViewBase::calibrationScreenViewBase() :
     add(minus1Button);
     add(textArea4);
     add(processStateText);
+    add(abortButton);
 }
 
 void calibrationScreenViewBase::setupScreen()
@@ -152,5 +160,12 @@ void calibrationScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractBu
         //When minus1Button clicked call virtual function
         //Call function1
         function1();
+    }
+    else if (&src == &abortButton)
+    {
+        //Interaction6
+        //When abortButton clicked call virtual function
+        //Call abortButtonPressed
+        abortButtonPressed();
     }
 }

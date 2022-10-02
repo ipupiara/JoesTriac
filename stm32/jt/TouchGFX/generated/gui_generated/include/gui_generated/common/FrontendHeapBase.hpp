@@ -20,6 +20,20 @@
 #include <gui/settimescreen_screen/setTimeScreenPresenter.hpp>
 #include <gui/calibrationscreen_screen/calibrationScreenView.hpp>
 #include <gui/calibrationscreen_screen/calibrationScreenPresenter.hpp>
+#include <gui/alarmconfigscreen_screen/alarmConfigScreenView.hpp>
+#include <gui/alarmconfigscreen_screen/alarmConfigScreenPresenter.hpp>
+#include <gui/editcalibvaluesscreen_screen/editCalibValuesScreenView.hpp>
+#include <gui/editcalibvaluesscreen_screen/editCalibValuesScreenPresenter.hpp>
+#include <gui/setamperescreen_screen/setAmpereScreenView.hpp>
+#include <gui/setamperescreen_screen/setAmpereScreenPresenter.hpp>
+#include <gui/fatalerrorscreen_screen/fatalErrorScreenView.hpp>
+#include <gui/fatalerrorscreen_screen/fatalErrorScreenPresenter.hpp>
+#include <gui/runscreen_screen/runScreenView.hpp>
+#include <gui/runscreen_screen/runScreenPresenter.hpp>
+#include <gui/editcaliblowscreen_screen/editCalibLowScreenView.hpp>
+#include <gui/editcaliblowscreen_screen/editCalibLowScreenPresenter.hpp>
+#include <gui/editcalibhighscreen_screen/editCalibHighScreenView.hpp>
+#include <gui/editcalibhighscreen_screen/editCalibHighScreenPresenter.hpp>
 
 
 /**
@@ -46,7 +60,14 @@ public:
             touchgfx::meta::TypeList< configScreenView,
             touchgfx::meta::TypeList< setTimeScreenView,
             touchgfx::meta::TypeList< calibrationScreenView,
-            touchgfx::meta::Nil > > >
+            touchgfx::meta::TypeList< alarmConfigScreenView,
+            touchgfx::meta::TypeList< editCalibValuesScreenView,
+            touchgfx::meta::TypeList< setAmpereScreenView,
+            touchgfx::meta::TypeList< fatalErrorScreenView,
+            touchgfx::meta::TypeList< runScreenView,
+            touchgfx::meta::TypeList< editCalibLowScreenView,
+            touchgfx::meta::TypeList< editCalibHighScreenView,
+            touchgfx::meta::Nil > > > > > > > > > >
             > GeneratedViewTypes;
 
     /**
@@ -62,7 +83,14 @@ public:
             touchgfx::meta::TypeList< configScreenPresenter,
             touchgfx::meta::TypeList< setTimeScreenPresenter,
             touchgfx::meta::TypeList< calibrationScreenPresenter,
-            touchgfx::meta::Nil > > >
+            touchgfx::meta::TypeList< alarmConfigScreenPresenter,
+            touchgfx::meta::TypeList< editCalibValuesScreenPresenter,
+            touchgfx::meta::TypeList< setAmpereScreenPresenter,
+            touchgfx::meta::TypeList< fatalErrorScreenPresenter,
+            touchgfx::meta::TypeList< runScreenPresenter,
+            touchgfx::meta::TypeList< editCalibLowScreenPresenter,
+            touchgfx::meta::TypeList< editCalibHighScreenPresenter,
+            touchgfx::meta::Nil > > > > > > > > > >
             > GeneratedPresenterTypes;
 
     /**

@@ -126,14 +126,14 @@
           },
           {
             "Type": "ButtonWithIcon",
-            "Name": "buttonWithIcon1",
+            "Name": "startButton",
             "X": 139,
             "Y": 384,
             "Width": 170,
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
             "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "IconPressed": "stopBtnPressed.png",
+            "IconPressed": "startBtnPressed.png",
             "IconReleased": "startBtn.png",
             "IconHeight": 60,
             "IconWidth": 170,
@@ -142,17 +142,51 @@
           {
             "Type": "ButtonWithIcon",
             "Name": "stopButton",
-            "X": 482,
+            "X": 493,
             "Y": 384,
             "Width": 170,
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
             "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "IconPressed": "stopBtnPressed.png",
-            "IconReleased": "stopBtn.png",
+            "IconPressed": "stopBtnInactive.png",
+            "IconReleased": "stopBtnInactive.png",
             "IconHeight": 60,
             "IconWidth": 170,
             "ButtonStyle": "Style4"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "setAmpereButton",
+            "X": 630,
+            "Y": 6,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "TextId": "__SingleUse_ZCVA",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Style": "Style4"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "setAmpereText",
+            "X": 465,
+            "Y": 12,
+            "Width": 144,
+            "Height": 46,
+            "TextId": "__SingleUse_DEJR",
+            "TextRotation": "0",
+            "AutoSize": true
           }
         ],
         "Interactions": [
@@ -178,6 +212,48 @@
               "Type": "ActionGotoScreen",
               "ScreenTransitionType": "ScreenTransitionNone",
               "ActionComponent": "setTimeScreen"
+            }
+          },
+          {
+            "InteractionName": "Interaction2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "setAmpereButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "setAmpereScreen"
+            }
+          },
+          {
+            "InteractionName": "Interaction4",
+            "Trigger": {
+              "Type": "TriggerClicked"
+            },
+            "Action": {
+              "Type": "ActionNone"
+            }
+          },
+          {
+            "InteractionName": "Interaction5",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "startButton"
+            },
+            "Action": {
+              "Type": "ActionNone"
+            }
+          },
+          {
+            "InteractionName": "Interaction6",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "startButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "startButtonPressed"
             }
           }
         ]
@@ -676,6 +752,29 @@
             "TextId": "__SingleUse_JNJA",
             "TextRotation": "0",
             "AutoSize": true
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "abortButton",
+            "X": 35,
+            "Y": 397,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "TextId": "__SingleUse_J3DJ",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Style": "Style4"
           }
         ],
         "Interactions": [
@@ -744,11 +843,23 @@
               "Type": "ActionCustom",
               "FunctionName": "function1"
             }
+          },
+          {
+            "InteractionName": "Interaction6",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "abortButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "abortButtonPressed"
+            }
           }
         ]
       },
       {
         "Name": "alarmConfigScreen",
+        "CanvasBufferSize": 12000,
         "Components": [
           {
             "Type": "Box",
@@ -760,9 +871,1066 @@
               "Green": 247,
               "Blue": 191
             }
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "numericKeyPad1",
+            "Y": 23,
+            "Width": 346,
+            "Height": 457,
+            "CustomContainerDefinitionName": "numericKeyPad"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 466,
+            "Y": 60,
+            "Width": 120,
+            "Height": 22,
+            "TextId": "__SingleUse_TPKG",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "alarmTimeText",
+            "X": 602,
+            "Y": 48,
+            "Width": 48,
+            "Height": 46,
+            "TextId": "__SingleUse_Y4IF",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "toggleButton1",
+            "X": 602,
+            "Y": 154,
+            "Width": 128,
+            "Height": 38,
+            "Pressed": "__designer\\Blue_Togglebars_Toggle_round_large_button_ON.png",
+            "Released": "__designer\\Blue_Togglebars_Toggle_round_large_button_OFF.png",
+            "Style": "Style4"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea2",
+            "X": 466,
+            "Y": 162,
+            "Width": 60,
+            "Height": 22,
+            "TextId": "__SingleUse_MZQ4",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "Line",
+            "Name": "cursor",
+            "X": 606,
+            "Y": 55,
+            "Width": 23,
+            "Height": 39,
+            "Color": {
+              "Red": 247,
+              "Green": 212,
+              "Blue": 15
+            },
+            "Alpha": 138,
+            "StartX": 5.0,
+            "StartY": 5.0,
+            "EndX": 5.0,
+            "EndY": 20.0,
+            "LineWidth": 20.0,
+            "LineEndingStyle": "Round"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "backNSaveButton",
+            "X": 466,
+            "Y": 372,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "TextId": "__SingleUse_ORQ0",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Style": "Style4"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "backNSaveButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "backNSaveButtonPressed"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "editCalibValuesScreen",
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "box1",
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 176,
+              "Green": 247,
+              "Blue": 191
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "calibLowText",
+            "X": 652,
+            "Y": 51,
+            "Width": 72,
+            "Height": 46,
+            "TextId": "__SingleUse_4WZ3",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "calibHighText",
+            "X": 652,
+            "Y": 150,
+            "Width": 72,
+            "Height": 46,
+            "TextId": "__SingleUse_96UQ",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "calibLowButton",
+            "X": 439,
+            "Y": 44,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "TextId": "__SingleUse_FXNH",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Style": "Style4"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "calibHighButton",
+            "X": 439,
+            "Y": 143,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "TextId": "__SingleUse_YFOC",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Style": "Style4"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "backNSaveButton",
+            "X": 439,
+            "Y": 345,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "TextId": "__SingleUse_E0C8",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Style": "Style4"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "calibLowButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "editCalibLowScreen"
+            }
+          },
+          {
+            "InteractionName": "Interaction2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "calibHighButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "editCalibHighScreen"
+            }
+          },
+          {
+            "InteractionName": "Interaction3",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "backNSaveButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "backNSaveButtonPressed"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "setAmpereScreen",
+        "CanvasBufferSize": 12000,
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "box1",
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 190,
+              "Green": 226,
+              "Blue": 247
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "setAmpereText",
+            "X": 465,
+            "Y": 12,
+            "Width": 144,
+            "Height": 46,
+            "TextId": "__SingleUse_EKBE",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "numericKeyPad1",
+            "Y": 23,
+            "Width": 346,
+            "Height": 457,
+            "CustomContainerDefinitionName": "numericKeyPad"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "backNSaveButton",
+            "X": 596,
+            "Y": 391,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "TextId": "__SingleUse_NX94",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Style": "Style4"
+          },
+          {
+            "Type": "Line",
+            "Name": "cursor",
+            "X": 471,
+            "Y": 19,
+            "Width": 23,
+            "Height": 39,
+            "Color": {
+              "Red": 247,
+              "Green": 212,
+              "Blue": 15
+            },
+            "Alpha": 138,
+            "StartX": 5.0,
+            "StartY": 5.0,
+            "EndX": 5.0,
+            "EndY": 20.0,
+            "LineWidth": 20.0,
+            "LineEndingStyle": "Round"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "backNSaveButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "backNSaveButtonPressed"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "fatalErrorScreen",
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "box1",
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 224,
+              "Green": 145,
+              "Blue": 139
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 42,
+            "Y": 45,
+            "Width": 264,
+            "Height": 46,
+            "TextId": "__SingleUse_EJIV",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea2",
+            "X": 42,
+            "Y": 147,
+            "Width": 168,
+            "Height": 46,
+            "TextId": "__SingleUse_25II",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "reasonText",
+            "X": 42,
+            "Y": 228,
+            "Width": 240,
+            "Height": 46,
+            "TextId": "__SingleUse_ZIV2",
+            "TextRotation": "0",
+            "AutoSize": true
           }
         ],
         "Interactions": []
+      },
+      {
+        "Name": "runScreen",
+        "CanvasBufferSize": 12000,
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "box1",
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 190,
+              "Green": 226,
+              "Blue": 247
+            }
+          },
+          {
+            "Type": "Gauge",
+            "Name": "ampGauge",
+            "X": 263,
+            "Y": 133,
+            "Width": 251,
+            "Height": 251,
+            "Style": "Style2",
+            "FileNameBackground": "__designer\\Blue_Gauges_original_gauge_background_style_01.png",
+            "RotationCenterX": 125.0,
+            "RotationCenterY": 125.0,
+            "StartAngle": -85.0,
+            "EndAngle": 85.0,
+            "RangeMax": 100.0,
+            "InitialValue": 50.0,
+            "Easing": "Linear",
+            "EasingOption": "In",
+            "FileNameNeedle": "__designer\\Blue_Needles_original_gauge_needle_style_01.png",
+            "NeedleRotationCenterX": 11.0,
+            "NeedleRotationCenterY": 55.0,
+            "NeedleMovingRenderingAlgorithm": "Bilinear Interpolation",
+            "NeedleSteadyRenderingAlgorithm": "Bilinear Interpolation",
+            "UseArc": true,
+            "FileNameArc": "__designer\\Blue_Gauges_original_gauge_fill_style_01.png",
+            "ArcColor": {
+              "Red": 20,
+              "Green": 151,
+              "Blue": 197
+            },
+            "SetArcPosition": true,
+            "ArcX": 28.0,
+            "ArcY": 30.0,
+            "ArcWidth": 196.0,
+            "ArcHeight": 88.0,
+            "ArcRadius": 94.0,
+            "ArcLineWidth": 14.0,
+            "ArcCapStyle": "Butt"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "timeValueText",
+            "X": 172,
+            "Y": 11,
+            "Width": 137,
+            "Height": 49,
+            "TextId": "__SingleUse_XHDS",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_0QML",
+              "UseBuffer": true,
+              "BufferSize": 20
+            }
+          },
+          {
+            "Type": "ButtonWithIcon",
+            "Name": "startButton",
+            "X": 139,
+            "Y": 384,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "IconPressed": "startBtnInactive.png",
+            "IconReleased": "startBtnInactive.png",
+            "IconHeight": 60,
+            "IconWidth": 170,
+            "ButtonStyle": "Style4"
+          },
+          {
+            "Type": "ButtonWithIcon",
+            "Name": "stopButton",
+            "X": 493,
+            "Y": 384,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "IconPressed": "stopBtnPressed.png",
+            "IconReleased": "stopBtn.png",
+            "IconHeight": 60,
+            "IconWidth": 170,
+            "ButtonStyle": "Style4"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "setAmpereText",
+            "X": 465,
+            "Y": 12,
+            "Width": 144,
+            "Height": 46,
+            "TextId": "__SingleUse_X5Q9",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 14,
+            "Y": 94,
+            "Width": 60,
+            "Height": 22,
+            "TextId": "__SingleUse_K159",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea2",
+            "X": 352,
+            "Y": 94,
+            "Width": 96,
+            "Height": 22,
+            "TextId": "__SingleUse_FEL2",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "currentTimeText",
+            "X": 172,
+            "Y": 81,
+            "Width": 137,
+            "Height": 49,
+            "TextId": "__SingleUse_LPIR",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_J99Y",
+              "UseBuffer": true,
+              "BufferSize": 20
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "currentAmpereText",
+            "X": 465,
+            "Y": 82,
+            "Width": 144,
+            "Height": 46,
+            "TextId": "__SingleUse_GCRP",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "BoxProgress",
+            "Name": "boxProgress1",
+            "X": 14,
+            "Y": 248,
+            "Width": 184,
+            "Height": 20,
+            "Color": {
+              "Green": 151,
+              "Blue": 255
+            },
+            "Direction": "Right",
+            "Style": "Style3",
+            "FileNameBackground": "__designer\\Blue_ProgressIndicators_bg_medium_progress_indicator_bg_square_0_degrees.png",
+            "IndicatorPositionX": 2,
+            "IndicatorPositionY": 2,
+            "IndicatorPositionWidth": 180,
+            "IndicatorPositionHeight": 16,
+            "ProgressRangeMax": 100,
+            "ProgressInitialValue": 60
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "stopButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "stopButtonPressed"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "editCalibLowScreen",
+        "CanvasBufferSize": 12000,
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "box1",
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 176,
+              "Green": 247,
+              "Blue": 191
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "calibLowText",
+            "X": 652,
+            "Y": 51,
+            "Width": 72,
+            "Height": 46,
+            "TextId": "__SingleUse_3Y75",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "calibHighText",
+            "X": 652,
+            "Y": 150,
+            "Width": 72,
+            "Height": 46,
+            "TextId": "__SingleUse_U3U4",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "calibHighButton",
+            "X": 439,
+            "Y": 143,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "TextId": "__SingleUse_ALJ6",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Style": "Style4"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "backButton",
+            "X": 439,
+            "Y": 345,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "TextId": "__SingleUse_07BE",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Style": "Style4"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "numericKeyPad1",
+            "Y": 23,
+            "Width": 346,
+            "Height": 457,
+            "CustomContainerDefinitionName": "numericKeyPad"
+          },
+          {
+            "Type": "Line",
+            "Name": "cursor",
+            "X": 658,
+            "Y": 58,
+            "Width": 23,
+            "Height": 39,
+            "Color": {
+              "Red": 247,
+              "Green": 212,
+              "Blue": 15
+            },
+            "Alpha": 138,
+            "StartX": 5.0,
+            "StartY": 5.0,
+            "EndX": 5.0,
+            "EndY": 20.0,
+            "LineWidth": 20.0,
+            "LineEndingStyle": "Round"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "Interaction2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "calibHighButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "editCalibHighScreen"
+            }
+          },
+          {
+            "InteractionName": "Interaction3",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "backButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "editCalibValuesScreen"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "editCalibHighScreen",
+        "CanvasBufferSize": 12000,
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "box1",
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 176,
+              "Green": 247,
+              "Blue": 191
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "calibLowText",
+            "X": 652,
+            "Y": 51,
+            "Width": 72,
+            "Height": 46,
+            "TextId": "__SingleUse_3T7H",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "calibHighText",
+            "X": 652,
+            "Y": 150,
+            "Width": 72,
+            "Height": 46,
+            "TextId": "__SingleUse_ZV9Z",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "calibLowButton",
+            "X": 439,
+            "Y": 44,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "TextId": "__SingleUse_J1FN",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Style": "Style4"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "backButton",
+            "X": 439,
+            "Y": 345,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "TextId": "__SingleUse_1RV2",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Style": "Style4"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "numericKeyPad1",
+            "Y": 23,
+            "Width": 346,
+            "Height": 457,
+            "CustomContainerDefinitionName": "numericKeyPad"
+          },
+          {
+            "Type": "Line",
+            "Name": "cursor",
+            "X": 658,
+            "Y": 157,
+            "Width": 23,
+            "Height": 39,
+            "Color": {
+              "Red": 247,
+              "Green": 212,
+              "Blue": 15
+            },
+            "Alpha": 138,
+            "StartX": 5.0,
+            "StartY": 5.0,
+            "EndX": 5.0,
+            "EndY": 20.0,
+            "LineWidth": 20.0,
+            "LineEndingStyle": "Round"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "calibLowButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "editCalibLowScreen"
+            }
+          },
+          {
+            "InteractionName": "Interaction2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "backButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "editCalibValuesScreen"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "requestStopScreen",
+        "CanvasBufferSize": 12000,
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "box1",
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 190,
+              "Green": 226,
+              "Blue": 247
+            }
+          },
+          {
+            "Type": "Gauge",
+            "Name": "ampGauge",
+            "X": 263,
+            "Y": 133,
+            "Width": 251,
+            "Height": 251,
+            "Style": "Style2",
+            "FileNameBackground": "__designer\\Blue_Gauges_original_gauge_background_style_01.png",
+            "RotationCenterX": 125.0,
+            "RotationCenterY": 125.0,
+            "StartAngle": -85.0,
+            "EndAngle": 85.0,
+            "RangeMax": 100.0,
+            "InitialValue": 50.0,
+            "Easing": "Linear",
+            "EasingOption": "In",
+            "FileNameNeedle": "__designer\\Blue_Needles_original_gauge_needle_style_01.png",
+            "NeedleRotationCenterX": 11.0,
+            "NeedleRotationCenterY": 55.0,
+            "NeedleMovingRenderingAlgorithm": "Bilinear Interpolation",
+            "NeedleSteadyRenderingAlgorithm": "Bilinear Interpolation",
+            "UseArc": true,
+            "FileNameArc": "__designer\\Blue_Gauges_original_gauge_fill_style_01.png",
+            "ArcColor": {
+              "Red": 20,
+              "Green": 151,
+              "Blue": 197
+            },
+            "SetArcPosition": true,
+            "ArcX": 28.0,
+            "ArcY": 30.0,
+            "ArcWidth": 196.0,
+            "ArcHeight": 88.0,
+            "ArcRadius": 94.0,
+            "ArcLineWidth": 14.0,
+            "ArcCapStyle": "Butt"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "timeValueText",
+            "X": 172,
+            "Y": 11,
+            "Width": 137,
+            "Height": 49,
+            "TextId": "__SingleUse_IPRE",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_W7D7",
+              "UseBuffer": true,
+              "BufferSize": 20
+            }
+          },
+          {
+            "Type": "ButtonWithIcon",
+            "Name": "stopButton",
+            "X": 493,
+            "Y": 384,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "IconPressed": "stopBtnPressed.png",
+            "IconReleased": "stopBtn.png",
+            "IconHeight": 60,
+            "IconWidth": 170,
+            "ButtonStyle": "Style4"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "setAmpereText",
+            "X": 465,
+            "Y": 12,
+            "Width": 144,
+            "Height": 46,
+            "TextId": "__SingleUse_EEDJ",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 14,
+            "Y": 94,
+            "Width": 60,
+            "Height": 22,
+            "TextId": "__SingleUse_3JKB",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea2",
+            "X": 352,
+            "Y": 94,
+            "Width": 96,
+            "Height": 22,
+            "TextId": "__SingleUse_9JDU",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "currentTimeText",
+            "X": 172,
+            "Y": 81,
+            "Width": 137,
+            "Height": 49,
+            "TextId": "__SingleUse_72RI",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_8VJ0",
+              "UseBuffer": true,
+              "BufferSize": 20
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "currentAmpereText",
+            "X": 465,
+            "Y": 82,
+            "Width": 144,
+            "Height": 46,
+            "TextId": "__SingleUse_RXFU",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "BoxProgress",
+            "Name": "boxProgress1",
+            "X": 14,
+            "Y": 248,
+            "Width": 184,
+            "Height": 20,
+            "Color": {
+              "Green": 151,
+              "Blue": 255
+            },
+            "Direction": "Right",
+            "Style": "Style3",
+            "FileNameBackground": "__designer\\Blue_ProgressIndicators_bg_medium_progress_indicator_bg_square_0_degrees.png",
+            "IndicatorPositionX": 2,
+            "IndicatorPositionY": 2,
+            "IndicatorPositionWidth": 180,
+            "IndicatorPositionHeight": 16,
+            "ProgressRangeMax": 100,
+            "ProgressInitialValue": 60
+          },
+          {
+            "Type": "ButtonWithIcon",
+            "Name": "buttonWithIcon1",
+            "X": 139,
+            "Y": 384,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "IconPressed": "continueBtnPressed.png",
+            "IconReleased": "continueBtn.png",
+            "IconHeight": 60,
+            "IconWidth": 170,
+            "ButtonStyle": "Style4"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "stopButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "stopButtonPressed"
+            }
+          }
+        ]
       }
     ],
     "CustomContainerDefinitions": [

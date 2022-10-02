@@ -29,6 +29,18 @@ public:
     // setTimeScreen
     void gotosetTimeScreenScreenNoTransition();
 
+    // editCalibValuesScreen
+    void gotoeditCalibValuesScreenScreenNoTransition();
+
+    // setAmpereScreen
+    void gotosetAmpereScreenScreenNoTransition();
+
+    // editCalibLowScreen
+    void gotoeditCalibLowScreenScreenNoTransition();
+
+    // editCalibHighScreen
+    void gotoeditCalibHighScreenScreenNoTransition();
+
 protected:
     touchgfx::Callback<FrontendApplicationBase> transitionCallback;
     FrontendHeap& frontendHeap;
@@ -42,6 +54,18 @@ protected:
 
     // setTimeScreen
     void gotosetTimeScreenScreenNoTransitionImpl();
+
+    // editCalibValuesScreen
+    void gotoeditCalibValuesScreenScreenNoTransitionImpl();
+
+    // setAmpereScreen
+    void gotosetAmpereScreenScreenNoTransitionImpl();
+
+    // editCalibLowScreen
+    void gotoeditCalibLowScreenScreenNoTransitionImpl();
+
+    // editCalibHighScreen
+    void gotoeditCalibHighScreenScreenNoTransitionImpl();
 };
 
 #endif // FRONTENDAPPLICATIONBASE_HPP

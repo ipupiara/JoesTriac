@@ -23,6 +23,14 @@ public:
     virtual ~mainScreenViewBase() {}
     virtual void setupScreen();
 
+    /*
+     * Virtual Action Handlers
+     */
+    virtual void startButtonPressed()
+    {
+        // Override and implement this function in mainScreen
+    }
+
 protected:
     FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(touchgfx::Application::getInstance());
@@ -40,8 +48,10 @@ protected:
     touchgfx::TextArea textArea1;
     touchgfx::TextAreaWithOneWildcard timeValueText;
     touchgfx::ButtonWithLabel setTimeButton;
-    touchgfx::ButtonWithIcon buttonWithIcon1;
+    touchgfx::ButtonWithIcon startButton;
     touchgfx::ButtonWithIcon stopButton;
+    touchgfx::ButtonWithLabel setAmpereButton;
+    touchgfx::TextArea setAmpereText;
 
     /*
      * Wildcard Buffers

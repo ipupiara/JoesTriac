@@ -35,6 +35,27 @@
     <ClCompile Include="..\..\gui\src\calibrationscreen_screen\calibrationScreenPresenter.cpp"/>
     <ClCompile Include="..\..\gui\src\calibrationscreen_screen\calibrationScreenView.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\calibrationscreen_screen\calibrationScreenViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\alarmconfigscreen_screen\alarmConfigScreenPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\alarmconfigscreen_screen\alarmConfigScreenView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\alarmconfigscreen_screen\alarmConfigScreenViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\editcalibvaluesscreen_screen\editCalibValuesScreenPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\editcalibvaluesscreen_screen\editCalibValuesScreenView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\editcalibvaluesscreen_screen\editCalibValuesScreenViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\setamperescreen_screen\setAmpereScreenPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\setamperescreen_screen\setAmpereScreenView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\setamperescreen_screen\setAmpereScreenViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\fatalerrorscreen_screen\fatalErrorScreenPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\fatalerrorscreen_screen\fatalErrorScreenView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\fatalerrorscreen_screen\fatalErrorScreenViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\runscreen_screen\runScreenPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\runscreen_screen\runScreenView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\runscreen_screen\runScreenViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\editcalibhighscreen_screen\editCalibHighScreenPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\editcalibhighscreen_screen\editCalibHighScreenView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\editcalibhighscreen_screen\editCalibHighScreenViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\editcaliblowscreen_screen\editCalibLowScreenPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\editcaliblowscreen_screen\editCalibLowScreenView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\editcaliblowscreen_screen\editCalibLowScreenViewBase.cpp"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xml"/>
@@ -199,6 +220,27 @@
     <ClInclude Include="..\..\gui\include\gui\calibrationscreen_screen\calibrationScreenPresenter.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\calibrationscreen_screen\calibrationScreenView.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\calibrationscreen_screen\calibrationScreenViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\alarmconfigscreen_screen\alarmConfigScreenPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\alarmconfigscreen_screen\alarmConfigScreenView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\alarmconfigscreen_screen\alarmConfigScreenViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\editcalibvaluesscreen_screen\editCalibValuesScreenPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\editcalibvaluesscreen_screen\editCalibValuesScreenView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\editcalibvaluesscreen_screen\editCalibValuesScreenViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\setamperescreen_screen\setAmpereScreenPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\setamperescreen_screen\setAmpereScreenView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\setamperescreen_screen\setAmpereScreenViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\fatalerrorscreen_screen\fatalErrorScreenPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\fatalerrorscreen_screen\fatalErrorScreenView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\fatalerrorscreen_screen\fatalErrorScreenViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\runscreen_screen\runScreenPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\runscreen_screen\runScreenView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\runscreen_screen\runScreenViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\editcalibhighscreen_screen\editCalibHighScreenPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\editcalibhighscreen_screen\editCalibHighScreenView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\editcalibhighscreen_screen\editCalibHighScreenViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\editcaliblowscreen_screen\editCalibLowScreenPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\editcaliblowscreen_screen\editCalibLowScreenView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\editcaliblowscreen_screen\editCalibLowScreenViewBase.hpp"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>

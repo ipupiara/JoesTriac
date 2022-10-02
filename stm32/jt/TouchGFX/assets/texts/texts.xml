@@ -6,6 +6,129 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_RXFU" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">000.00</Translation>
+      </Text>
+      <Text Id="__SingleUse_8VJ0" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">00:00</Translation>
+      </Text>
+      <Text Id="__SingleUse_72RI" Alignment="Center" TypographyId="Large">
+        <Translation Language="GB">&lt;weldingTime&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_9JDU" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">ampere: </Translation>
+      </Text>
+      <Text Id="__SingleUse_3JKB" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">time:</Translation>
+      </Text>
+      <Text Id="__SingleUse_EEDJ" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">000.00</Translation>
+      </Text>
+      <Text Id="__SingleUse_W7D7" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">00:00</Translation>
+      </Text>
+      <Text Id="__SingleUse_IPRE" Alignment="Center" TypographyId="Large">
+        <Translation Language="GB">&lt;weldingTime&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_GCRP" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">000.00</Translation>
+      </Text>
+      <Text Id="__SingleUse_J99Y" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">00:00</Translation>
+      </Text>
+      <Text Id="__SingleUse_LPIR" Alignment="Center" TypographyId="Large">
+        <Translation Language="GB">&lt;weldingTime&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_FEL2" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">ampere: </Translation>
+      </Text>
+      <Text Id="__SingleUse_K159" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">time:</Translation>
+      </Text>
+      <Text Id="__SingleUse_X5Q9" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">000.00</Translation>
+      </Text>
+      <Text Id="__SingleUse_0QML" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">00:00</Translation>
+      </Text>
+      <Text Id="__SingleUse_XHDS" Alignment="Center" TypographyId="Large">
+        <Translation Language="GB">&lt;weldingTime&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_ZIV2" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">reasonText</Translation>
+      </Text>
+      <Text Id="__SingleUse_25II" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">reason:</Translation>
+      </Text>
+      <Text Id="__SingleUse_EJIV" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">fatal error</Translation>
+      </Text>
+      <Text Id="__SingleUse_ORQ0" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">back &amp; save</Translation>
+      </Text>
+      <Text Id="__SingleUse_MZQ4" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">alarm</Translation>
+      </Text>
+      <Text Id="__SingleUse_Y4IF" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">00</Translation>
+      </Text>
+      <Text Id="__SingleUse_TPKG" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">alarm Time</Translation>
+      </Text>
+      <Text Id="__SingleUse_1RV2" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">back</Translation>
+      </Text>
+      <Text Id="__SingleUse_J1FN" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">calib Low</Translation>
+      </Text>
+      <Text Id="__SingleUse_ZV9Z" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_3T7H" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_07BE" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">back</Translation>
+      </Text>
+      <Text Id="__SingleUse_ALJ6" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">calib High</Translation>
+      </Text>
+      <Text Id="__SingleUse_U3U4" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_3Y75" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_E0C8" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">back &amp; save</Translation>
+      </Text>
+      <Text Id="__SingleUse_YFOC" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">calib High</Translation>
+      </Text>
+      <Text Id="__SingleUse_FXNH" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">calib Low</Translation>
+      </Text>
+      <Text Id="__SingleUse_96UQ" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_4WZ3" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_NX94" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">back &amp; save</Translation>
+      </Text>
+      <Text Id="__SingleUse_EKBE" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">000.00</Translation>
+      </Text>
+      <Text Id="__SingleUse_DEJR" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">000.00</Translation>
+      </Text>
+      <Text Id="__SingleUse_ZCVA" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">set ampere</Translation>
+      </Text>
+      <Text Id="__SingleUse_J3DJ" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">abort</Translation>
+      </Text>
       <Text Id="__SingleUse_JNJA" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">New Text</Translation>
       </Text>

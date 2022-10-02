@@ -17,6 +17,20 @@
 #include <gui/settimescreen_screen/setTimeScreenPresenter.hpp>
 #include <gui/calibrationscreen_screen/calibrationScreenView.hpp>
 #include <gui/calibrationscreen_screen/calibrationScreenPresenter.hpp>
+#include <gui/alarmconfigscreen_screen/alarmConfigScreenView.hpp>
+#include <gui/alarmconfigscreen_screen/alarmConfigScreenPresenter.hpp>
+#include <gui/editcalibvaluesscreen_screen/editCalibValuesScreenView.hpp>
+#include <gui/editcalibvaluesscreen_screen/editCalibValuesScreenPresenter.hpp>
+#include <gui/setamperescreen_screen/setAmpereScreenView.hpp>
+#include <gui/setamperescreen_screen/setAmpereScreenPresenter.hpp>
+#include <gui/fatalerrorscreen_screen/fatalErrorScreenView.hpp>
+#include <gui/fatalerrorscreen_screen/fatalErrorScreenPresenter.hpp>
+#include <gui/runscreen_screen/runScreenView.hpp>
+#include <gui/runscreen_screen/runScreenPresenter.hpp>
+#include <gui/editcaliblowscreen_screen/editCalibLowScreenView.hpp>
+#include <gui/editcaliblowscreen_screen/editCalibLowScreenPresenter.hpp>
+#include <gui/editcalibhighscreen_screen/editCalibHighScreenView.hpp>
+#include <gui/editcalibhighscreen_screen/editCalibHighScreenPresenter.hpp>
 
 using namespace touchgfx;
 
@@ -77,4 +91,56 @@ void FrontendApplicationBase::gotosetTimeScreenScreenNoTransition()
 void FrontendApplicationBase::gotosetTimeScreenScreenNoTransitionImpl()
 {
     touchgfx::makeTransition<setTimeScreenView, setTimeScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+// editCalibValuesScreen
+
+void FrontendApplicationBase::gotoeditCalibValuesScreenScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplication::gotoeditCalibValuesScreenScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotoeditCalibValuesScreenScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<editCalibValuesScreenView, editCalibValuesScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+// setAmpereScreen
+
+void FrontendApplicationBase::gotosetAmpereScreenScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplication::gotosetAmpereScreenScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotosetAmpereScreenScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<setAmpereScreenView, setAmpereScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+// editCalibLowScreen
+
+void FrontendApplicationBase::gotoeditCalibLowScreenScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplication::gotoeditCalibLowScreenScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotoeditCalibLowScreenScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<editCalibLowScreenView, editCalibLowScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+// editCalibHighScreen
+
+void FrontendApplicationBase::gotoeditCalibHighScreenScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplication::gotoeditCalibHighScreenScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotoeditCalibHighScreenScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<editCalibHighScreenView, editCalibHighScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }

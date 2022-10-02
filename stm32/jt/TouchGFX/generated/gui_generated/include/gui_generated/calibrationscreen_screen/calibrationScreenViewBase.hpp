@@ -51,6 +51,11 @@ public:
         // Override and implement this function in calibrationScreen
     }
 
+    virtual void abortButtonPressed()
+    {
+        // Override and implement this function in calibrationScreen
+    }
+
 protected:
     FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(touchgfx::Application::getInstance());
@@ -73,6 +78,7 @@ protected:
     touchgfx::ButtonWithLabel minus1Button;
     touchgfx::TextArea textArea4;
     touchgfx::TextArea processStateText;
+    touchgfx::ButtonWithLabel abortButton;
 
 private:
 
