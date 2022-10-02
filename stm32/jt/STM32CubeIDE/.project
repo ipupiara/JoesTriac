@@ -665,6 +665,16 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/fatalerrorscreen_screen/fatalErrorScreenView.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/gui/jobCompleteScreenPresenter.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/jobcompletescreen_screen/jobCompleteScreenPresenter.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/jobCompleteScreenView.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/jobcompletescreen_screen/jobCompleteScreenView.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/gui/mainScreenPresenter.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/mainscreen_screen/mainScreenPresenter.cpp</locationURI>
@@ -833,6 +843,11 @@
 			<name>Application/User/generated/fatalErrorScreenViewBase.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/fatalerrorscreen_screen/fatalErrorScreenViewBase.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/jobCompleteScreenViewBase.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/jobcompletescreen_screen/jobCompleteScreenViewBase.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/mainScreenViewBase.cpp</name>

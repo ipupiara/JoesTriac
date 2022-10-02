@@ -33,6 +33,8 @@
 #include <gui/editcalibhighscreen_screen/editCalibHighScreenPresenter.hpp>
 #include <gui/requeststopscreen_screen/requestStopScreenView.hpp>
 #include <gui/requeststopscreen_screen/requestStopScreenPresenter.hpp>
+#include <gui/jobcompletescreen_screen/jobCompleteScreenView.hpp>
+#include <gui/jobcompletescreen_screen/jobCompleteScreenPresenter.hpp>
 
 using namespace touchgfx;
 

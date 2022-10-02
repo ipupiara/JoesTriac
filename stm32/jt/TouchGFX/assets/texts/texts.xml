@@ -6,6 +6,12 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_0ZCT" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">return</Translation>
+      </Text>
+      <Text Id="__SingleUse_EJ31" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">job complete</Translation>
+      </Text>
       <Text Id="__SingleUse_RXFU" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">000.00</Translation>
       </Text>

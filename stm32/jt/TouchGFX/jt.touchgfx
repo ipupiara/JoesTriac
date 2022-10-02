@@ -1942,6 +1942,69 @@
             }
           }
         ]
+      },
+      {
+        "Name": "jobCompleteScreen",
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "box1",
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 190,
+              "Green": 226,
+              "Blue": 247
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 65,
+            "Y": 111,
+            "Width": 288,
+            "Height": 46,
+            "TextId": "__SingleUse_EJ31",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "returnButton",
+            "X": 65,
+            "Y": 343,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "TextId": "__SingleUse_0ZCT",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Style": "Style4"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "returnButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "returnButtonPressed"
+            }
+          }
+        ]
       }
     ],
     "CustomContainerDefinitions": [

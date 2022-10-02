@@ -59,6 +59,9 @@
     <ClCompile Include="..\..\gui\src\requeststopscreen_screen\requestStopScreenPresenter.cpp"/>
     <ClCompile Include="..\..\gui\src\requeststopscreen_screen\requestStopScreenView.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\requeststopscreen_screen\requestStopScreenViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\jobcompletescreen_screen\jobCompleteScreenPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\jobcompletescreen_screen\jobCompleteScreenView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\jobcompletescreen_screen\jobCompleteScreenViewBase.cpp"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xml"/>
@@ -247,6 +250,9 @@
     <ClInclude Include="..\..\gui\include\gui\requeststopscreen_screen\requestStopScreenPresenter.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\requeststopscreen_screen\requestStopScreenView.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\requeststopscreen_screen\requestStopScreenViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\jobcompletescreen_screen\jobCompleteScreenPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\jobcompletescreen_screen\jobCompleteScreenView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\jobcompletescreen_screen\jobCompleteScreenViewBase.hpp"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>

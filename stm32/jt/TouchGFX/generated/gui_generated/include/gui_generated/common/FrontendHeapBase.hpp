@@ -36,6 +36,8 @@
 #include <gui/editcalibhighscreen_screen/editCalibHighScreenPresenter.hpp>
 #include <gui/requeststopscreen_screen/requestStopScreenView.hpp>
 #include <gui/requeststopscreen_screen/requestStopScreenPresenter.hpp>
+#include <gui/jobcompletescreen_screen/jobCompleteScreenView.hpp>
+#include <gui/jobcompletescreen_screen/jobCompleteScreenPresenter.hpp>
 
 
 /**
@@ -70,7 +72,8 @@ public:
             touchgfx::meta::TypeList< editCalibLowScreenView,
             touchgfx::meta::TypeList< editCalibHighScreenView,
             touchgfx::meta::TypeList< requestStopScreenView,
-            touchgfx::meta::Nil > > > > > > > > > > >
+            touchgfx::meta::TypeList< jobCompleteScreenView,
+            touchgfx::meta::Nil > > > > > > > > > > > >
             > GeneratedViewTypes;
 
     /**
@@ -94,7 +97,8 @@ public:
             touchgfx::meta::TypeList< editCalibLowScreenPresenter,
             touchgfx::meta::TypeList< editCalibHighScreenPresenter,
             touchgfx::meta::TypeList< requestStopScreenPresenter,
-            touchgfx::meta::Nil > > > > > > > > > > >
+            touchgfx::meta::TypeList< jobCompleteScreenPresenter,
+            touchgfx::meta::Nil > > > > > > > > > > > >
             > GeneratedPresenterTypes;
 
     /**

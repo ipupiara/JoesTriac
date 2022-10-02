@@ -328,6 +328,18 @@
     <Filter Include="Source Files\generated\gui_generated\requeststopscreen_screen">
       <UniqueIdentifier>C303B4A7-E11A-9C34-FA70-FB65E42D2CB8</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\gui\jobcompletescreen_screen">
+      <UniqueIdentifier>DA4C15FC-385F-F303-B358-840D3994F92F</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\jobcompletescreen_screen">
+      <UniqueIdentifier>69F69934-6346-F241-1B9A-B9B76AE02ED1</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\jobcompletescreen_screen">
+      <UniqueIdentifier>FF818CA8-3CE3-6AC3-C8B5-99F0CE726AC0</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\jobcompletescreen_screen">
+      <UniqueIdentifier>4A1AD49F-894D-0508-3594-22AB8C7F9EC2</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\driver\touch\SDL2TouchController.cpp">
@@ -473,6 +485,15 @@
     </ClCompile>
     <ClCompile Include="..\..\generated\gui_generated\src\requeststopscreen_screen\requestStopScreenViewBase.cpp">
       <Filter>Source Files\generated\gui_generated\requeststopscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\jobcompletescreen_screen\jobCompleteScreenPresenter.cpp">
+      <Filter>Source Files\gui\jobcompletescreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\jobcompletescreen_screen\jobCompleteScreenView.cpp">
+      <Filter>Source Files\gui\jobcompletescreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\jobcompletescreen_screen\jobCompleteScreenViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\jobcompletescreen_screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1029,6 +1050,15 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\requeststopscreen_screen\requestStopScreenViewBase.hpp">
       <Filter>Header Files\generated\gui_generated\requeststopscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\jobcompletescreen_screen\jobCompleteScreenPresenter.hpp">
+      <Filter>Header Files\gui\jobcompletescreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\jobcompletescreen_screen\jobCompleteScreenView.hpp">
+      <Filter>Header Files\gui\jobcompletescreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\jobcompletescreen_screen\jobCompleteScreenViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\jobcompletescreen_screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
