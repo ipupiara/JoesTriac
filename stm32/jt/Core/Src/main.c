@@ -19,7 +19,6 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "cmsis_os.h"
 #include "libjpeg.h"
 #include "app_touchgfx.h"
 #include "mainJt.h"

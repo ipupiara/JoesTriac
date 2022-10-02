@@ -3,6 +3,8 @@
 #include <string.h>
 #include <uart-comms.h>
 #include <dma-tools.h>
+#include "cmsis_os.h"
+#include <mainJt.h>
 
 /*
  * ATTENTION:  implementation of UART receiver as done here is applicable only for
@@ -34,7 +36,8 @@ extern uint16_t  teCounter;
 extern uint16_t  dmeCounter;
 
 uint8_t  commsError;
-//OS_EVENT *dmaQSem;
+osSemaphoreId uartSemaphore;
+osSemaphoreDef_t  uartSemaphoreDef;
 uint32_t  rxMsgCounter;
 uint32_t  txMsgCounter;
 
@@ -356,8 +359,20 @@ uint8_t initUartHw()
 	rxMsgCounter = 0;
 	txMsgCounter = 0;
 
+	uartSemaphoreDef.name = "uartSemaphore";
+	uartSemaphoreDef.attr_bits = NULL;
+	uartSemaphoreDef.cb_mem = 0;
+	uartSemaphoreDef.cb_size = 0;
 
-//	dmaQSem = OSSemCreate(0);
+
+	 uartSemaphore = osSemaphoreCreate (&uartSemaphoreDef, 1);
+
+
+	if( uartSemaphore == NULL )
+	{
+		errorHandler(0,stop,"uartSemaphoer NULL","initUartHw()");
+	}
+
 
 	resetStringBuffer();
 
