@@ -8,12 +8,15 @@
 #ifndef ST_TEMPIX_TOOLS_UART_COMMS_H_
 #define ST_TEMPIX_TOOLS_UART_COMMS_H_
 
-
+#define maxSerialStringSz   80
+#define charWidth sizeof(char)
 
 
 void init_printf();
 void err_printf ( char *emsg, ...);
 void info_printf( char *emsg, ...);
+
+
 //void start_printf();
 void printStartMessage();
 

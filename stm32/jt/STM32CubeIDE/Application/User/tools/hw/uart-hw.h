@@ -10,22 +10,21 @@
 
 #include<stdio.h>
 #include  <stm32f7xx_hal.h>
+#include "cmsis_os.h"
 
-#define maxUartReceiveDmaStringSize  0x80
+
+#define maxSerialStringSz   80
+#define charWidth sizeof(char)
 
 
-#define dmaAvailable  0x01
+extern osSemaphoreId uartSendSemaphore;
 
 uint8_t initUartHw();
 
 uint8_t startUartHw();
 
-uint8_t sendUartString(char* sndStr);
+osStatus_t sendUartString(char* sndStr);
 
-
-uint8_t enableUartInterrupts();
-
-uint8_t disableUartInterrupts();
 
 
 #endif /* ST_TEMPIX_TOOLS_UART_HW_H_ */
