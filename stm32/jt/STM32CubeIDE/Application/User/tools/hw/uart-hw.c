@@ -11,7 +11,6 @@ UART_HandleTypeDef huart6;
 
 uint8_t  commsError;
 osSemaphoreId uartSendSemaphore;
-osSemaphoreDef_t  uartSendSemaphoreDef;
 uint32_t  rxMsgCounter;
 uint32_t  txMsgCounter;
 
@@ -99,7 +98,7 @@ uint8_t initUartHw()
 
 	debugIdleCounter = 0;
 	 commsError = 0;
-
+	osSemaphoreDef_t  uartSendSemaphoreDef;
 	rxMsgCounter = 0;
 	txMsgCounter = 0;
 

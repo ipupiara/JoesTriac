@@ -49,7 +49,6 @@ void OnPrintError()
 void  SerialQMethod (void *p_arg)
 {
 	osStatus_t status;
-//	serialMem* sm;
 	do  {
 		memset(&receiveBuffer, 0, sizeof(maxSerialStringSz));
 		if ((status = osMessageQueueGet(serialMessageQ,(void *) &receiveBuffer, 0, osWaitForever)) == osOK )  {

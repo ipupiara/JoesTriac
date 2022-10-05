@@ -4,7 +4,8 @@
 #include <dma-tools.h>
 #include <StateClass.h>
 #include <main.h>
-#include <uart-comms.h>
+#include <mainJt.h>
+#include "cmsis_os.h"
 
 #define I2C_FLAG_NACKF   I2C_FLAG_AF
 
@@ -12,7 +13,8 @@
 
 
 
-//OS_EVENT *i2cJobSem;
+osSemaphoreId_t   i2cJobSema;
+osSemaphoreId_t   i2cResourceSema;
 
 I2C_HandleTypeDef hi2c1;
 
@@ -22,9 +24,8 @@ uint8_t i2cInitialized;
 uint8_t  transmitErrorCollectoruint8_t;
 uint8_t  jobSemSet;
 
-//OS_STK  i2cMethodStk[APP_CFG_DEFAULT_TASK_STK_SIZE];
 
-void reInitOnError();
+//void reInitOnError();
 
 typedef enum  {
 	sendI2c = 0,
@@ -45,14 +46,11 @@ i2cJobDataType i2cJobData;
 
 void setI2cJobSema()
 {
-	uint8_t err;
-//	OSSemSet(i2cJobSem,1,&err);
 	if (jobSemSet == 0)  {    // prevent multiple events by irqs
-//		err = OSSemPost(i2cJobSem);
+		osSemaphoreRelease(&i2cJobSema);
 		jobSemSet = 1;
-		if (err != 0)  {
-//			jobSemSet = 2;  //  just for debugging
-		}
+	} else  {
+			jobSemSet = 2;  //  just for debugging
 	}
 }
 
@@ -61,10 +59,11 @@ void i2cFinishedOk()
 	setI2cJobSema();
 }
 
-void flushTXEempty(I2C_HandleTypeDef *hdma)
-{
-	SET_BIT((hdma)->Instance->ISR,I2C_ISR_TXE  );
-}
+//void flushTXEempty(I2C_HandleTypeDef *hdma)
+//{
+//	SET_BIT((hdma)->Instance->ISR,I2C_ISR_TXE  );
+//}
+
 
 void i2cError(uint8_t err)
 {
@@ -245,6 +244,7 @@ void establishContactAndRun()
 		clearDmaInterruptFlags(&hdma_i2c1_rx);
 		__HAL_DMA_ENABLE(&hdma_i2c1_rx);
 	}
+
 #endif
 
 	i2cTransferConfig(&hi2c1,i2cJobData.address,i2cJobData.amtChars,(i2cJobData.jobType == receiveI2c ? 1:0));
@@ -264,8 +264,8 @@ void enableI2cInterrupts()
 	BSP_IntEnable(DMA1_Stream0_IRQn);
 #endif
 //	clearUartInterruptFlags(&huart1);
-//	BSP_IntEnable(I2C1_ER_IRQn);
-//	BSP_IntEnable(I2C1_EV_IRQn);
+	HAL_NVIC_EnableIRQ(I2C1_ER_IRQn);
+	HAL_NVIC_EnableIRQ(I2C1_EV_IRQn);
 
 
 
@@ -277,11 +277,9 @@ void disableI2cInterrupts()
 	BSP_IntDisable(DMA1_Stream6_IRQn);
 	BSP_IntDisable(DMA1_Stream0_IRQn);
 #endif
-//	BSP_IntDisable(I2C1_ER_IRQn);
-//	BSP_IntDisable(I2C1_EV_IRQn);
+	HAL_NVIC_DisableIRQ(I2C1_ER_IRQn);
+	HAL_NVIC_DisableIRQ(I2C1_EV_IRQn);
 }
-
-
 
 void I2C1_EV_IRQHandler(void)
 {
@@ -306,13 +304,6 @@ void I2C1_EV_IRQHandler(void)
 
 void I2C1_ER_IRQHandler(void)
 {
-//	CPU_SR_ALLOC();
-//	uint8_t err = OS_ERR_NONE;
-
-//	CPU_CRITICAL_ENTER();
-//	OSIntEnter();           /* Tell OS that we are starting an ISR           */
-//	CPU_CRITICAL_EXIT();
-	// copied from stm32f7xx_hal_i2d.c
 	uint32_t itflags   = READ_REG(hi2c1.Instance->ISR);
 	uint32_t itsources = READ_REG(hi2c1.Instance->CR1);
 	  /* I2C Bus error interrupt occurred ------------------------------------*/
@@ -341,25 +332,17 @@ void I2C1_ER_IRQHandler(void)
 	  if ((itflags & I2C_FLAG_STOPF) != 0) {
 		  i2cError(0x96);
 	  }
-
-
-//	CPU_CRITICAL_ENTER();
-//	reInitOnError();
-//	CPU_CRITICAL_EXIT();
-//
-//	OSIntExit();
 }
 
-uint8_t transmitI2cByteArray(uint8_t adr,uint8_t* pResultString,uint8_t amtChars, uint8_t doSend, uint8_t delayMs)
+uint8_t transmitI2cByteArray(uint8_t adr,uint8_t* pResultString,uint8_t amtChars, uint8_t doSend)
 {
 	uint8_t res = 0xFF;
+	osStatus_t status;
 
-	if ((i2cInitialized == 1) ) {          //&& (OSIntNesting > 0u))
-//		uint8_t semErr;
-//		OSSemPend(i2cResourceSem, 2803, &semErr);
-//		if (semErr == OS_ERR_NONE) {
-//			transmitErrorCollectoruint8_t = OS_ERR_NONE;
-//			OSSemSet(i2cJobSem,0,&semErr);  // debug: be sure it was not set multiple times at last end of transfer..
+	if ((i2cInitialized == 1) )  {
+		status = osSemaphoreAcquire(i2cResourceSema, osWaitForever);
+		if (status == osOK) {
+			transmitErrorCollectoruint8_t = 0;
 			jobSemSet = 0;
 			i2cJobData.buffer = pResultString;
 			i2cJobData.amtChars = amtChars;
@@ -373,22 +356,17 @@ uint8_t transmitI2cByteArray(uint8_t adr,uint8_t* pResultString,uint8_t amtChars
 				memset(pResultString,0,amtChars);  // todo check if this work correct (not content of pointer variable is changed)
 				}
 			}
-
 			establishContactAndRun();
 
-//			OSSemPend(i2cJobSem, 0, &semErr);
-//			if (semErr != OS_ERR_NONE) {
-//				transmitErrorCollectoruint8_t = semErr;
-//			}
-			if (delayMs > 0) {
-//				OSTimeDlyHMSM(0, 0, 0, delayMs);
+			status = osSemaphoreAcquire(i2cJobSema, osWaitForever);
+			if (status != osOK) {
+				errorHandler((uint32_t)status ,stop," i2cJobSema "," transmitI2cByteArray ");
 			}
-			//  todo wait until data written into eeprom memory
-//			OSSemSet(i2cResourceSem, 1, &semErr);
+			osSemaphoreRelease(i2cResourceSema);
 			res = transmitErrorCollectoruint8_t;
-//		}  else {
-//			res = semErr;
-//		}
+		}  else {
+			errorHandler((uint32_t)status ,stop," i2cResourceSema "," transmitI2cByteArray ");
+		}
 	}
 	return res;
 }
@@ -396,223 +374,55 @@ uint8_t transmitI2cByteArray(uint8_t adr,uint8_t* pResultString,uint8_t amtChars
 //  todo delay should not be done on transmit level on i2c side,
 //  but on client side that needs the delay
 //  else traffic will be blocked for all
-uint8_t sendI2cByteArray(uint8_t adr,uint8_t* pString,uint8_t amtChars, uint8_t delayMs)
+uint8_t sendI2cByteArray(uint8_t adr,uint8_t* pString,uint8_t amtChars)
 {
-	return transmitI2cByteArray(adr, pString, amtChars, 1, delayMs);
+	return transmitI2cByteArray(adr, pString, amtChars, 1);
 }
 
-uint8_t receiveI2cByteArray(uint8_t adr,uint8_t* pString,uint8_t amtChars, uint8_t delayMs)
+uint8_t receiveI2cByteArray(uint8_t adr,uint8_t* pString,uint8_t amtChars)
 {
-	return transmitI2cByteArray(adr, pString, amtChars, 0, delayMs);
-}
-
-
-
-uint8_t pollForReady(uint8_t adr, uint8_t delay)
-{
-	int8_t res = 0xFF;
-//	int8_t resOnErrStack = resetOnError;
-//	resetOnError = 0;
-//	uint8_t dummyBuffer [1];
-
-	while (res != 0) {
-		//sendI2cByteArray(adr,&dummyBuffer[0],0, delay);  // do just a very short delay if desired
-//		resetOnError = resOnErrStack;
-	}
-    return res;
-}
-
-void initI2cTo4()
-{
-	// copy all needed from cubemx  (except interrupts since we only want clocks , gpio and i2c configured and enabled)
-	// methods intended for debugging nasty i2c problem
-
-	GPIO_InitTypeDef GPIO_InitStruct = {0};
-	 RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
-
-	I2C_HandleTypeDef hi2c2;
-	I2C_HandleTypeDef hi2c3;
-	I2C_HandleTypeDef hi2c4;
-
-
-
-	  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_I2C2|RCC_PERIPHCLK_I2C3
-	                              |RCC_PERIPHCLK_I2C4;
-	  PeriphClkInitStruct.I2c2ClockSelection = RCC_I2C2CLKSOURCE_PCLK1;
-	  PeriphClkInitStruct.I2c3ClockSelection = RCC_I2C3CLKSOURCE_PCLK1;
-	  PeriphClkInitStruct.I2c4ClockSelection = RCC_I2C4CLKSOURCE_PCLK1;
-	  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
-	  {
-	    while(1){};
-	  }
-
-
-
-	 __HAL_RCC_GPIOF_CLK_ENABLE();
-	  __HAL_RCC_GPIOH_CLK_ENABLE();
-	  __HAL_RCC_GPIOC_CLK_ENABLE();
-	  __HAL_RCC_GPIOA_CLK_ENABLE();
-
-	__HAL_RCC_I2C2_CLK_ENABLE();
-	__HAL_RCC_I2C3_CLK_ENABLE();
-	__HAL_RCC_I2C4_CLK_ENABLE();
-
-    __HAL_RCC_GPIOF_CLK_ENABLE();
-    /**I2C2 GPIO Configuration
-    PF0     ------> I2C2_SDA
-    PF1     ------> I2C2_SCL
-    */
-    GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-    GPIO_InitStruct.Pull = GPIO_PULLUP;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF4_I2C2;
-    HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
-
-    /* Peripheral clock enable */
-    __HAL_RCC_I2C2_CLK_ENABLE();
-
-
-    __HAL_RCC_GPIOC_CLK_ENABLE();
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-    /**I2C3 GPIO Configuration
-    PC9     ------> I2C3_SDA
-    PA8     ------> I2C3_SCL
-    */
-    GPIO_InitStruct.Pin = GPIO_PIN_9;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-    GPIO_InitStruct.Pull = GPIO_PULLUP;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF4_I2C3;
-    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-    GPIO_InitStruct.Pin = GPIO_PIN_8;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-    GPIO_InitStruct.Pull = GPIO_PULLUP;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF4_I2C3;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-    /* Peripheral clock enable */
-    __HAL_RCC_I2C3_CLK_ENABLE();
-
-
-    __HAL_RCC_GPIOF_CLK_ENABLE();
-    /**I2C4 GPIO Configuration
-    PF14     ------> I2C4_SCL
-    PF15     ------> I2C4_SDA
-    */
-    GPIO_InitStruct.Pin = GPIO_PIN_14|GPIO_PIN_15;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-    GPIO_InitStruct.Pull = GPIO_PULLUP;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF4_I2C4;
-    HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
-
-    /* Peripheral clock enable */
-    __HAL_RCC_I2C4_CLK_ENABLE();
-
-
-	  hi2c2.Instance = I2C2;
-	  hi2c2.Init.Timing = 0x20404768;
-	  hi2c2.Init.OwnAddress1 = 0;
-	  hi2c2.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
-	  hi2c2.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-	  hi2c2.Init.OwnAddress2 = 0;
-	  hi2c2.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
-	  hi2c2.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-	  hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
-	  if (HAL_I2C_Init(&hi2c2) != HAL_OK)
-	  {
-		  while(1){};
-	  }
-	  /** Configure Analogue filter
-	  */
-	  if (HAL_I2CEx_ConfigAnalogFilter(&hi2c2, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
-	  {
-		  while(1){};
-	  }
-	  /** Configure Digital filter
-	  */
-	  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c2, 0) != HAL_OK)
-	  {
-		  while(1){};
-	  }
-
-
-
-	  hi2c3.Instance = I2C3;
-	  hi2c3.Init.Timing = 0x20404768;
-	  hi2c3.Init.OwnAddress1 = 0;
-	  hi2c3.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
-	  hi2c3.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-	  hi2c3.Init.OwnAddress2 = 0;
-	  hi2c3.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
-	  hi2c3.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-	  hi2c3.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
-	  if (HAL_I2C_Init(&hi2c3) != HAL_OK)
-	  {
-		  while(1){};
-	  }
-	  /** Configure Analogue filter
-	  */
-	  if (HAL_I2CEx_ConfigAnalogFilter(&hi2c3, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
-	  {
-		  while(1){};
-	  }
-	  /** Configure Digital filter
-	  */
-	  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c3, 0) != HAL_OK)
-	  {
-		  while(1){};
-	  }
-
-
-	  hi2c4.Instance = I2C4;
-	  hi2c4.Init.Timing = 0x20404768;
-	  hi2c4.Init.OwnAddress1 = 0;
-	  hi2c4.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
-	  hi2c4.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-	  hi2c4.Init.OwnAddress2 = 0;
-	  hi2c4.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
-	  hi2c4.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-	  hi2c4.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
-	  if (HAL_I2C_Init(&hi2c4) != HAL_OK)
-	  {
-		  while(1){};
-	  }
-	  /** Configure Analogue filter
-	  */
-	  if (HAL_I2CEx_ConfigAnalogFilter(&hi2c4, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
-	  {
-		  while(1){};
-	  }
-	  /** Configure Digital filter
-	  */
-	  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c4, 0) != HAL_OK)
-	  {
-		  while(1){};
-	  }
-
+	return transmitI2cByteArray(adr, pString, amtChars, 0);
 }
 
 
 
-uint8_t initI2c1()
-{
+//uint8_t pollForReady(uint8_t adr, uint8_t delay)
+//{
+//	int8_t res = 0xFF;
+////	int8_t resOnErrStack = resetOnError;
+////	resetOnError = 0;
+////	uint8_t dummyBuffer [1];
+//
+//	while (res != 0) {
+//		//sendI2cByteArray(adr,&dummyBuffer[0],0, delay);  // do just a very short delay if desired
+////		resetOnError = resOnErrStack;
+//	}
+//    return res;
+//}
 
+void initI2c()
+{
+	osStatus_t status;
+	osSemaphoreDef_t  i2cSendSemaphoreDef;
 	i2cInitialized = 0;
 //	resetOnError = 1;
 	resetOnError = 0;
 	GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-	uint8_t err =0; // = OS_ERR_NONE;
-//	if (err == OS_ERR_NONE) {
-//		 i2cJobSem = OSSemCreate(0);
-//	}
-//	if (err == OS_ERR_NONE) {
-//		 i2cResourceSem = OSSemCreate(1);
-//	}
+
+	i2cSendSemaphoreDef.name="i2c send sema"  ;
+	i2cSendSemaphoreDef.attr_bits= 0;
+	i2cSendSemaphoreDef.cb_mem = NULL;
+	i2cSendSemaphoreDef.cb_size = 0;
+	i2cResourceSema=  osSemaphoreNew(1,1,&i2cSendSemaphoreDef);
+	i2cJobSema =  osSemaphoreNew(1,1,&i2cSendSemaphoreDef);
+
+	status = osSemaphoreAcquire(i2cJobSema, osWaitForever);  // set event to zero . todo replace with event group type ,
+							//implemented this out of time to market reasons and at this time unknown cmsis_os eventGroup  interface
+	if (status != osOK) {
+		errorHandler((uint32_t)status ,stop," i2cResourceSema "," transmitI2cByteArray ");
+	}
+
 
 	__HAL_RCC_GPIOH_CLK_ENABLE();
     __HAL_RCC_GPIOB_CLK_ENABLE();
@@ -689,15 +499,14 @@ uint8_t initI2c1()
   {
 	  i2cError(0x89);
   }
-//  BSP_IntVectSet (I2C1_EV_IRQn,tempixIsrPrioLevel,CPU_INT_KA,I2C1_EV_IRQHandler);
-//  BSP_IntVectSet (I2C1_ER_IRQn,tempixIsrPrioLevel,CPU_INT_KA,I2C1_ER_IRQHandler);
-//
-//  BSP_IntEnable(I2C1_EV_IRQn);
-//  BSP_IntEnable(I2C1_ER_IRQn);
+  HAL_NVIC_SetPriority(I2C1_EV_IRQn, 0, 0);
+  HAL_NVIC_SetPriority(I2C1_ER_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(I2C1_EV_IRQn);
+  HAL_NVIC_EnableIRQ(I2C1_ER_IRQn);
 
   __HAL_I2C_ENABLE_IT(&hi2c1,(I2C_IT_ERRI | I2C_IT_TCI));
   __HAL_I2C_ENABLE_IT(&hi2c1,(I2C_IT_STOPI | I2C_IT_NACKI));
-//  __HAL_I2C_ENABLE_IT(&hi2c1,(I2C_IT_STOPI | I2C_IT_NACKI));
+
   __HAL_I2C_AutoEndENABLE(&hi2c1);
 
 #ifdef i2cUseDma
@@ -708,30 +517,31 @@ uint8_t initI2c1()
 
   enableI2c();
   i2cInitialized = 1;
-  return err; // error return does not really make sense.....
-}
 
-void initI2c()
-{
-	initI2c1();
-	initI2cTo4();
-}
-
-void reInitI2cAfterError()   // called from backgroundEventQ
-{
-//	uint8_t err = OS_ERR_NONE;
-//	OSSemDel(i2cJobSem, OS_DEL_ALWAYS, &err);
-//	OSSemDel(i2cResourceSem, OS_DEL_ALWAYS, &err);
-	initI2c1();
 }
 
 
-void reInitOnError()
-{
-	i2cSendStop(&hi2c1);
-	if (resetOnError != 0)  {
-//		backGroundEvent   bgEv;
-//		bgEv.evType = i2cReinitNeeded;
-//		proceedBackGroundEvent(&bgEv);
-	}
-}
+//void initI2c()
+//{
+//	initI2c1();
+////	initI2cTo4();
+//}
+
+//void reInitI2cAfterError()   // called from backgroundEventQ
+//{
+////	uint8_t err = OS_ERR_NONE;
+////	OSSemDel(i2cJobSem, OS_DEL_ALWAYS, &err);
+////	OSSemDel(i2cResourceSem, OS_DEL_ALWAYS, &err);
+//	initI2c();
+//}
+
+
+//void reInitOnError()
+//{
+////	i2cSendStop(&hi2c1);
+//	if (resetOnError != 0)  {
+////		backGroundEvent   bgEv;
+////		bgEv.evType = i2cReinitNeeded;
+////		proceedBackGroundEvent(&bgEv);
+//	}
+//}
