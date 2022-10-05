@@ -111,6 +111,7 @@
 									<listOptionValue builtIn="false" value="../../TouchGFX/generated/videos/include"/>
 									<listOptionValue builtIn="false" value="../../TouchGFX/gui/include"/>
 									<listOptionValue builtIn="false" value="../Application/User"/>
+									<listOptionValue builtIn="false" value="../Application/User/tools"/>
 								</option>
 								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.warnings.treataserror.1249972572" name="Treat warnings as errors (-Werror)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.warnings.treataserror" useByScannerDiscovery="false" value="false" valueType="boolean"/>
 								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.warnings.fatal.1539057606" name="Abort compilation on first error (-Wfatal-errors)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.warnings.fatal" useByScannerDiscovery="false" value="false" valueType="boolean"/>

@@ -32,6 +32,11 @@ typedef struct {
 	uint32_t  alarmTime;
 } persistentData;
 
+#ifdef  __cplusplus
+extern "C"
+{
+#endif
+
 tStatus saveWeldingTime(uint32_t wTime);
 
 tStatus saveWeldingAmps(float wAmps);
@@ -50,5 +55,8 @@ void errorHandler(uint32_t  code, errorSeverity severity, char* errorString, cha
 
 tStatus initDefines();
 
+#ifdef  __cplusplus
+}
+#endif
 
 #endif /* APPLICATION_USER_TOOLS_DEFINES_H_ */
