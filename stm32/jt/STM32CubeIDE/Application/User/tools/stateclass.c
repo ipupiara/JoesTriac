@@ -22,27 +22,19 @@ TStatechart* PJoesTriacStateChart;
 enum eStates
 {
 	eStateJoesTriac,
-	eStartState = eStateJoesTriac,
-	eStateTriacOperating,
-	eStateAskForCalibration,
-	eStateChangeCalibVars,
-	eStateCalibrating,
-	eStateAskingRmsAvg,
-	eStateCalibrateZeroSignal,
-	eStateCalibrateScale,
-	eStateCalibrateLow,
-	eStateCalibrateHigh,
-	eStateTriacIdle,
-	eStateEditIdle,
-	eStateEditAmps,
-	eStateEditDuration,
-	eStateSetupMiniString,
-	eStateSetupMiniStringIdle,
-	eStateSetupMiniStringAstEdit,
-	eStateSetupMiniStringNumEdit,
-	eStateTriacRunning,
-	eStateJobOkDisplay,
-	eStateFatalError,
+		eStartState = eStateJoesTriac,  // decide calib or idle
+		eStateTriacOperating,
+			eStateCalibrating,  // calibration/setup
+				eStateManualCalibrating,   // manual
+				eStateAutoCalibrating,		// autoCalibrate
+					eStateCalibrateZeroSignal,
+					eStateCalibratingScale,
+						eStateCalibrateLow,
+						eStateCalibrateHigh,
+			eStateTriacIdle,
+			eStateTriacRunning,
+			eStateJobOkDisplay,
+		eStateFatalError,
 	eNumberOfStates
 };
 
@@ -97,17 +89,17 @@ uStInt evAskForCalibrationChecker(void)
 	}
 	if ((currentEvent->evType == evAstPressed) || (currentEvent->evType == evStartPressed))
 	{	
-			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrating);
-				// No event action.
-			END_EVENT_HANDLER(PJoesTriacStateChart);
-			res =  uStIntHandlingDone;
+////			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrating);
+//				// No event action.
+//			END_EVENT_HANDLER(PJoesTriacStateChart);
+//			res =  uStIntHandlingDone;
 	}
 	if (currentEvent->evType == evF1Pressed) 
 	{	
-			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateChangeCalibVars);
-				// No event action.
-			END_EVENT_HANDLER(PJoesTriacStateChart);
-			res =  uStIntHandlingDone;
+////			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateChangeCalibVars);
+//				// No event action.
+//			END_EVENT_HANDLER(PJoesTriacStateChart);
+//			res =  uStIntHandlingDone;
 	}
 	if (currentEvent->evType == evSecondsTick) 
 	{	
@@ -311,7 +303,7 @@ uStInt checkCalibZeroInner(uStInt res)
 	{	
 //		debugEvent1Triggered = 1;			
 		
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateScale);
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibratingScale);
 		// No event action.
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;	
@@ -345,7 +337,7 @@ uStInt evCalibrateZeroSignalChecker(void)
 
 	if (currentEvent->evType == evZeroSignalOK) 
 	{	
-			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateScale);
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibratingScale);
 			// No event action.
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
@@ -579,18 +571,18 @@ uStInt evEditIdleChecker(void)
 	if (currentEvent->evType==evAstPressed) {
 //		printf("\ncheck for event in State evStateIdle amps");
 	
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditAmps);
-			// No event action.
-		END_EVENT_HANDLER(PJoesTriacStateChart);
-		res =  uStIntHandlingDone;
+////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditAmps);
+//			// No event action.
+//		END_EVENT_HANDLER(PJoesTriacStateChart);
+//		res =  uStIntHandlingDone;
 	}
 	if (currentEvent->evType==evNumPressed) {	
 //		printf("\ncheck for event in State evStateIdle dur");
 
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditDuration);
-			// No event action.
-		END_EVENT_HANDLER(PJoesTriacStateChart);
-		res =  uStIntHandlingDone;
+////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditDuration);
+//			// No event action.
+//		END_EVENT_HANDLER(PJoesTriacStateChart);
+//		res =  uStIntHandlingDone;
 	}
 	if (currentEvent->evType == evTWIDataReceived) 
 	// do writing  only in edit idle, not to interfere with the edit-cursor position
@@ -642,16 +634,16 @@ uStInt evEditAmpsChecker(void)
 	//	printf("check for event in State evStateIdle\n");
 
 	if (currentEvent->evType == evNumPressed)  {	
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditDuration);
-			// No event action.
-		END_EVENT_HANDLER(PJoesTriacStateChart);
-		res =  uStIntHandlingDone;
+////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditDuration);
+//			// No event action.
+//		END_EVENT_HANDLER(PJoesTriacStateChart);
+//		res =  uStIntHandlingDone;
 	}
 			if (currentEvent->evType == evAstPressed)  {	
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
-			// No event action.
-		END_EVENT_HANDLER(PJoesTriacStateChart);
-		res =  uStIntHandlingDone;
+////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
+//			// No event action.
+//		END_EVENT_HANDLER(PJoesTriacStateChart);
+//		res =  uStIntHandlingDone;
 	}
 
 	if (currentEvent->evType == evCharEntered) {
@@ -704,16 +696,16 @@ uStInt evEditDurationChecker(void)
 	//	printf("check for event in State evStateIdle\n");
 
 	if (currentEvent->evType == evAstPressed)  {	
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditAmps);
-			// No event action.
-		END_EVENT_HANDLER(PJoesTriacStateChart);
-		res =  uStIntHandlingDone;
+////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditAmps);
+//			// No event action.
+//		END_EVENT_HANDLER(PJoesTriacStateChart);
+//		res =  uStIntHandlingDone;
 	}
 	if (currentEvent->evType == evNumPressed)  {	
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
-			// No event action.
-		END_EVENT_HANDLER(PJoesTriacStateChart);
-		res =  uStIntHandlingDone;
+////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
+//			// No event action.
+//		END_EVENT_HANDLER(PJoesTriacStateChart);
+//		res =  uStIntHandlingDone;
 	}
 
 	if (currentEvent->evType == evCharEntered) {
@@ -801,18 +793,18 @@ uStInt evSetupMiniStringIdleChecker(void)
 	if (currentEvent->evType==evAstPressed) {
 		//		printf("\ncheck for event in State evStateIdle amps");
 		
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupMiniStringAstEdit);
-		// No event action.
-		END_EVENT_HANDLER(PJoesTriacStateChart);
-		res =  uStIntHandlingDone;
+////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupMiniStringAstEdit);
+//		// No event action.
+//		END_EVENT_HANDLER(PJoesTriacStateChart);
+//		res =  uStIntHandlingDone;
 	}
 	if (currentEvent->evType==evNumPressed) {
 		//		printf("\ncheck for event in State evStateIdle dur");
 
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupMiniStringNumEdit);
-		// No event action.
-		END_EVENT_HANDLER(PJoesTriacStateChart);
-		res =  uStIntHandlingDone;
+////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupMiniStringNumEdit);
+//		// No event action.
+//		END_EVENT_HANDLER(PJoesTriacStateChart);
+//		res =  uStIntHandlingDone;
 	}
 	return (res);
 }
@@ -838,18 +830,18 @@ uStInt evSetupMiniStringAstEditChecker(void)
 	if (currentEvent->evType==evNumPressed) {
 		//		printf("\ncheck for event in State evStateIdle amps");
 		
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupMiniStringNumEdit);
-		// No event action.
-		END_EVENT_HANDLER(PJoesTriacStateChart);
-		res =  uStIntHandlingDone;
+////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupMiniStringNumEdit);
+//		// No event action.
+//		END_EVENT_HANDLER(PJoesTriacStateChart);
+//		res =  uStIntHandlingDone;
 	}
 	if ((currentEvent->evType==evAstPressed) || (currentEvent->evType == evEditFinished)) {
 		//		printf("\ncheck for event in State evStateIdle dur");
 
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupMiniStringIdle);
-		// No event action.
-		END_EVENT_HANDLER(PJoesTriacStateChart);
-		res =  uStIntHandlingDone;
+////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupMiniStringIdle);
+//		// No event action.
+//		END_EVENT_HANDLER(PJoesTriacStateChart);
+//		res =  uStIntHandlingDone;
 	}
 	return (res);
 }
@@ -1041,6 +1033,24 @@ t_fvoid  tfNull;
 
 // attention: sequence must be the same as above enum eStates
 
+/*
+eStateJoesTriac,
+		eStartState = eStateJoesTriac,  // decide calib or idle
+		eStateTriacOperating,
+			eStateCalibration,  // calibration/setup
+				eStateManualCalibrating,   // manual
+				eStateAutoCalibrating,		// autoCalibrate
+					eStateCalibrateZeroSignal,
+					eStateCalibrateScale,
+						eStateCalibrateLow,
+						eStateCalibrateHigh,
+			eStateTriacIdle,
+			eStateTriacRunning,
+			eStateJobOkDisplay,
+		eStateFatalError,
+	eNumberOfStates
+*/
+
 xStateType xaStates[eNumberOfStates] = {
  	{eStateJoesTriac,    // name
  	-1,									//parent
@@ -1051,186 +1061,114 @@ xStateType xaStates[eNumberOfStates] = {
  	tfNull,     //    entering state
  	tfNull},     // exiting state
 
- 	{eStateTriacOperating,
- 	eStateJoesTriac,
- 	eStateAskForCalibration,
- 	0,									
- 	evTriacOperatingChecker,
- 	tfNull,
- 	tfNull,
- 	tfNull},
-
-
- 	{eStateAskForCalibration,
- 	eStateTriacOperating,
- 	-1,
- 	0,									
- 	evAskForCalibrationChecker,
- 	tfNull,
- 	entryAskForCalibrationState,
- 	exitAskForCalibrationState},
-
- 	{eStateChangeCalibVars,
- 	eStateTriacOperating,
- 	-1,
- 	0,									
- 	evChangeCalibVarsChecker,
- 	tfNull,
- 	entryChangeCalibVarsState,
- 	exitChangeCalibVarsState},
-
- 	{eStateCalibrating,
- 	eStateTriacOperating,
- 	eStateAskingRmsAvg,
- 	0,
- 	evCalibratingChecker,
- 	tfNull,
- 	entryCalibratingState,
- 	exitCalibratingState},
-
- 	{eStateAskingRmsAvg,
- 	eStateCalibrating,
- 	-1,
- 	0,
- 	evAskingRmsAvgChecker,
- 	tfNull,
- 	entryAskingRmsAvgState,
- 	exitAskingRmsAvgState},
-
-	{eStateCalibrateZeroSignal,
- 	eStateCalibrating,
- 	-1,
- 	0,
- 	evCalibrateZeroSignalChecker,
- 	tfNull,
- 	entryCalibrateZeroSignalState,
- 	exitCalibrateZeroSignalState},
-
- 	{eStateCalibrateScale,
- 	eStateCalibrating,
- 	eStateCalibrateLow,
- 	0,
- 	evCalibrateScaleChecker,
- 	tfNull,
- 	entryCalibrateScaleState,
- 	exitCalibrateScaleState},
-
-	 {eStateCalibrateLow,
- 	eStateCalibrateScale,
- 	-1,
- 	0,
- 	evCalibrateLowChecker,
- 	tfNull,
- 	entryCalibrateLowState,
- 	exitCalibrateLowState},
-	 
- 	{eStateCalibrateHigh,
- 	eStateCalibrateScale,
- 	-1,
- 	0,
- 	evCalibrateHighChecker,
- 	tfNull,
- 	entryCalibrateHighState,
- 	exitCalibrateHighState},
-
- 	{eStateTriacIdle,
- 	eStateTriacOperating,
- 	eStateEditIdle,
- 	0,
- 	evTriacIdleChecker,
- 	tfNull,
- 	entryTriacIdleState,
- 	exitTriacIdleState},
-
- 	{eStateEditIdle,
- 	eStateTriacIdle,
- 	-1,
- 	0,
- 	evEditIdleChecker,
- 	tfNull,
- 	entryEditIdleState,
- 	exitEditIdleState},
-
- 	{eStateEditAmps,
- 	eStateTriacIdle,
- 	-1,
- 	0,
- 	evEditAmpsChecker,
- 	tfNull,
- 	entryEditAmpsState,
- 	exitEditAmpsState},
-	 
-	{eStateEditDuration,
- 	eStateTriacIdle,
- 	-1,
- 	0,
- 	evEditDurationChecker,
- 	tfNull,
- 	entryEditDurationState,
- 	exitEditDurationState},
-	 
-	{eStateSetupMiniString,
-		eStateTriacOperating,
-		eStateSetupMiniStringIdle,
+		{eStateTriacOperating,
+		eStateJoesTriac,
+		eStateTriacIdle,
 		0,
-		evSetupMiniStringChecker,
+		evTriacOperatingChecker,
 		tfNull,
-		entrySetupMiniStringState,
-	exitSetupMiniStringState},
+		tfNull,
+		tfNull},
 
-	{eStateSetupMiniStringIdle,
-		eStateSetupMiniString,
+			{eStateCalibrating,
+			eStateTriacOperating,
+			eStateManualCalibrating,
+			0,
+			evAskForCalibrationChecker,
+			tfNull,
+			entryAskForCalibrationState,
+			exitAskForCalibrationState},
+
+				{eStateManualCalibrating,
+				eStateCalibrating,
+				-1,
+				0,
+				evChangeCalibVarsChecker,
+				tfNull,
+				entryChangeCalibVarsState,
+				exitChangeCalibVarsState},
+
+				{eStateAutoCalibrating,
+				eStateCalibrating,
+				eStateCalibrateZeroSignal,
+				0,
+				evCalibratingChecker,
+				tfNull,
+				entryCalibratingState,
+				exitCalibratingState},
+
+					{eStateCalibrateZeroSignal,
+					eStateAutoCalibrating,
+					-1,
+					0,
+					evCalibrateZeroSignalChecker,
+					tfNull,
+					entryCalibrateZeroSignalState,
+					exitCalibrateZeroSignalState},
+
+					{eStateCalibratingScale,
+					eStateAutoCalibrating,
+					eStateCalibrateLow,
+					0,
+					evCalibrateScaleChecker,
+					tfNull,
+					entryCalibrateScaleState,
+					exitCalibrateScaleState},
+
+						 {eStateCalibrateLow,
+						eStateCalibratingScale,
+						-1,
+						0,
+						evCalibrateLowChecker,
+						tfNull,
+						entryCalibrateLowState,
+						exitCalibrateLowState},
+
+						{eStateCalibrateHigh,
+						eStateCalibratingScale,
+						-1,
+						0,
+						evCalibrateHighChecker,
+						tfNull,
+						entryCalibrateHighState,
+						exitCalibrateHighState},
+
+			{eStateTriacIdle,
+			eStateTriacOperating,
+			-1,
+			0,
+			evTriacIdleChecker,
+			tfNull,
+			entryTriacIdleState,
+			exitTriacIdleState},
+
+
+			{eStateTriacRunning,
+			eStateTriacOperating,
+			-1,
+			0,
+			evTriacRunningChecker,
+			tfNull,
+			entryTriacRunningState,
+			exitTriacRunningState},
+
+			{eStateJobOkDisplay,
+			eStateTriacOperating,
+			-1,
+			0,
+			evJobOkDisplayChecker,
+			tfNull,
+			entryJobOkDisplayState,
+			exitJobOkDisplayState},
+
+		{eStateFatalError,
+		eStateJoesTriac,
 		-1,
 		0,
-		evSetupMiniStringIdleChecker,
+		evFatalErrorChecker,
 		tfNull,
-		entrySetupMiniStringIdleState,
-	exitSetupMiniStringIdleState},
-
-	{eStateSetupMiniStringAstEdit,
-		eStateSetupMiniString,
-		-1,
-		0,
-		evSetupMiniStringAstEditChecker,
-		tfNull,
-		entrySetupMiniStringAstEditState,
-	exitSetupMiniStringAstEditState},
-
-	{eStateSetupMiniStringNumEdit,
-		eStateSetupMiniString,
-		-1,
-		0,
-		evSetupMiniStringNumEditChecker,
-		tfNull,
-		entrySetupMiniStringNumEditState,
-	exitSetupMiniStringNumEditState},
-
-	{eStateTriacRunning,
- 	eStateTriacOperating,
- 	-1,
- 	0,
- 	evTriacRunningChecker,
- 	tfNull,
- 	entryTriacRunningState,
- 	exitTriacRunningState},
-	 
-	{eStateJobOkDisplay,
- 	eStateTriacOperating,
- 	-1,
- 	0,
- 	evJobOkDisplayChecker,
- 	tfNull,
- 	entryJobOkDisplayState,
- 	exitJobOkDisplayState},
-	
-	{eStateFatalError,
- 	eStateJoesTriac,
- 	-1,
- 	0,
- 	evFatalErrorChecker,
- 	tfNull,
- 	entryFatalErrorState,
- 	exitFatalErrorState}	 	 	 
+		entryFatalErrorState,
+		exitFatalErrorState}
 };
 
 
