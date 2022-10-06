@@ -1,9 +1,10 @@
 
 
 #include <stdio.h>
-
+#include <defines.h>
 #include "TStatechart.h"
 #include "StateClass.h"
+#include <TriacIntr.h>
 
 
 extern const uStInt uStIntHandlingDone;
@@ -38,12 +39,34 @@ enum eStates
 	eNumberOfStates
 };
 
+
+void entryJoesTriac()
+{
+
+}
+
+void exitJoesTriac()
+{
+
+}
+
 uStInt evJoesTriacChecker(void)
 {
 	return (uStIntNoMatch);
 }
 
-uStInt evTriacOperatingChecker(void)
+
+void entryTiacOperatingChecker()
+{
+	startDurationTimer(3);
+}
+
+void exitTiacOperatingChecker()
+{
+	stopDurationTimer();
+}
+
+uStInt evTriacOperatingChecker(void)   // during Start Screen
 {
 	uStInt res = uStIntNoMatch;
 //	printf("check for event in State evTriacOperating\n");
@@ -56,10 +79,25 @@ uStInt evTriacOperatingChecker(void)
 			res =  uStIntHandlingDone;
 	}
 	
+	if (currentEvent->evType == evTimeOutDurationTimer)
+	{
+		if (isCalibrationReady() == tOk) {
+ 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+		}  else {
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrating);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+		}
+	}
+
 	return (res); 
 }
 
-void entryAskForCalibrationState(void)
+void entryCalibratingState(void)
 {
 	printf("entry AskForCalibration\n");
 //	displayCalibrationPrompt();
@@ -68,14 +106,14 @@ void entryAskForCalibrationState(void)
 //	startDurationTimer(maxSecsPossible);
 }
 
-void exitAskForCalibrationState(void)
+void exitCalibratingState(void)
 {
 	printf("exit ask calib\n");
 //	stopDurationTimer();
 //	clr_scr();
 }
 
-uStInt evAskForCalibrationChecker(void)
+uStInt evStateCalibratingChecker(void)
 {
 	uStInt res = uStIntNoMatch;
 //	printf("check for event in State evStateIdle\n");
@@ -198,19 +236,19 @@ uStInt evChangeCalibVarsChecker(void)
 	return (res); 
 }
 
-void entryCalibratingState(void)
+void entryAutoCalibratingState(void)
 {
 //	printf("\nentry Calib");
 //	startDurationTimer(maxSecsPossible);   // enable secondsTick
 }
 
-void exitCalibratingState(void)
+void exitAutoCalibratingState(void)
 {
 //	printf("exit calib\n");
 //	stopDurationTimer();
 }
 
-uStInt evCalibratingChecker(void)
+uStInt evAutoCalibratingChecker(void)
 {
 	int8_t res;
 	
@@ -1058,26 +1096,26 @@ xStateType xaStates[eNumberOfStates] = {
  	0,    // keep history
  	evJoesTriacChecker,    // event checking fu
 	tfNull,       // def state entry function
- 	tfNull,     //    entering state
- 	tfNull},     // exiting state
+	entryJoesTriac,     //    entering state
+	exitJoesTriac},     // exiting state
 
 		{eStateTriacOperating,
 		eStateJoesTriac,
-		eStateTriacIdle,
+		-1,
 		0,
 		evTriacOperatingChecker,
 		tfNull,
-		tfNull,
-		tfNull},
+		entryTiacOperatingChecker,
+		exitTiacOperatingChecker},
 
 			{eStateCalibrating,
 			eStateTriacOperating,
 			eStateManualCalibrating,
 			0,
-			evAskForCalibrationChecker,
+			evStateCalibratingChecker,
 			tfNull,
-			entryAskForCalibrationState,
-			exitAskForCalibrationState},
+			entryCalibratingState,
+			exitCalibratingState},
 
 				{eStateManualCalibrating,
 				eStateCalibrating,
@@ -1092,10 +1130,10 @@ xStateType xaStates[eNumberOfStates] = {
 				eStateCalibrating,
 				eStateCalibrateZeroSignal,
 				0,
-				evCalibratingChecker,
+				evAutoCalibratingChecker,
 				tfNull,
-				entryCalibratingState,
-				exitCalibratingState},
+				entryAutoCalibratingState,
+				exitAutoCalibratingState},
 
 					{eStateCalibrateZeroSignal,
 					eStateAutoCalibrating,

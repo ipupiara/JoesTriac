@@ -49,11 +49,11 @@ tStatus saveAlarmNeeded(uint8_t aNeeded);
 
 tStatus saveWeldingTime(uint32_t aTime);
 
-
-
 void errorHandler(uint32_t  code, errorSeverity severity, char* errorString, char* method );
 
 tStatus initDefines();
+
+tStatus isCalibrationReady();
 
 #ifdef  __cplusplus
 }

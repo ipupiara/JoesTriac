@@ -114,6 +114,13 @@ void errorHandler(uint32_t  code, errorSeverity severity, char* errorString, cha
 	if (severity == stop) {  do {} while (1);}
 }
 
+tStatus isCalibrationReady()
+{
+	tStatus res= tOk;
+
+	return res;
+}
+
 tStatus initDefines()
 {
 	tStatus success =  tFailed;

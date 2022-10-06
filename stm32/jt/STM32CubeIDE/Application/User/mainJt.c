@@ -7,6 +7,7 @@
 
 #include <mainJt.h>
 #include <StateClass.h>
+#include <TriacIntr.h>
 
 
 //////////////////  types and variables   //////////////////////////////7
@@ -31,7 +32,7 @@ osMutexId_t  jtQAccessMutex;
 
 void secondTickHandler()
 {
-	errorHandler(0,goOn," status ","secondTick");  // just something for a breakpoint for first tests
+	durationTimerTick();
 }
 
 
@@ -67,7 +68,7 @@ void mainJtSecondTickCallback(void *argument)
 	}
 }
 
-void osStarted()
+void startMainJtTimer()
 {
 	osStatus_t  status;
 
@@ -81,7 +82,7 @@ void osStarted()
 void mainJt(void *argument)
 {
 	osStatus_t status;
-	osStarted();
+	startMainJtTimer();
 	CJoesTriacEventT  ev;
 	do  {
 		memset(&ev, 0, sizeof(ev));
