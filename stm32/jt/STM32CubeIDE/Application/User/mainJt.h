@@ -42,16 +42,16 @@ typedef struct  {
 			uint16_t  potiPos;
 		} zeroAdjustingNVoltageState;
 	}  evData;
-} CJoesTriacEventT ;
+} mainJtEventT ;
 
-typedef CJoesTriacEventT*  pJoesTriacEventT;
+typedef mainJtEventT*  pMainJtEventT;
 
 
 //void mainJt(void *argument);
 
 void initJt();
 
-osStatus_t sendEventToMainJtMessageQ(pJoesTriacEventT bufferAddr, uint8_t  fromIsr);
+osStatus_t sendEventToMainJtMessageQ(pMainJtEventT bufferAddr, uint8_t  fromIsr);
 
 #ifdef __cplusplus
 }

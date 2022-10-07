@@ -625,6 +625,16 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/containers/numericKeyPad.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/gui/dummyScreenPresenter.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/dummyscreen_screen/dummyScreenPresenter.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/dummyScreenView.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/dummyscreen_screen/dummyScreenView.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/gui/editCalibHighScreenPresenter.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/editcalibhighscreen_screen/editCalibHighScreenPresenter.cpp</locationURI>
@@ -730,6 +740,16 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/settimescreen_screen/setTimeScreenView.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/gui/startupScreenPresenter.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/startupscreen_screen/startupScreenPresenter.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/startupScreenView.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/startupscreen_screen/startupScreenView.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/ApplicationFontProvider.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/fonts/src/ApplicationFontProvider.cpp</locationURI>
@@ -825,6 +845,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/containers/numericKeyPadBase.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/dummyScreenViewBase.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/dummyscreen_screen/dummyScreenViewBase.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/editCalibHighScreenViewBase.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/editcalibhighscreen_screen/editCalibHighScreenViewBase.cpp</locationURI>
@@ -873,6 +898,11 @@
 			<name>Application/User/generated/setTimeScreenViewBase.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/settimescreen_screen/setTimeScreenViewBase.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/startupScreenViewBase.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/startupscreen_screen/startupScreenViewBase.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/BitmapDatabase.cpp</name>

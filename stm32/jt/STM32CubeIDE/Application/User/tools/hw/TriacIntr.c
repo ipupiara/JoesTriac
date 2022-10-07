@@ -411,9 +411,9 @@ void durationTimerTick()
 	}
 	if (secondsDurationTimerRemaining == 0) {
 		stopDurationTimer();
-		CJoesTriacEvent ev;
+		fsmTriacEvent ev;
 		ev.evType = evSecondsTick;
-		processTriacEvent(PJoesTriacStateChart,&ev);
+		processTriacFsmEvent(PJoesTriacStateChart,&ev);
 	}
 }
 

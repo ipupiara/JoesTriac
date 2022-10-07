@@ -1,16 +1,15 @@
-
-
 #include <stdio.h>
 #include <defines.h>
 #include "TStatechart.h"
 #include "StateClass.h"
 #include <TriacIntr.h>
+#include <uart-comms.h>
 
 
 extern const uStInt uStIntHandlingDone;
 extern const uStInt uStIntNoMatch;
 
-CJoesTriacEvent* currentEvent;
+fsmTriacEvent* currentEvent;
 
 
 #include "triacPID.h"
@@ -69,7 +68,7 @@ void exitTiacOperatingChecker()
 uStInt evTriacOperatingChecker(void)   // during Start Screen
 {
 	uStInt res = uStIntNoMatch;
-//	printf("check for event in State evTriacOperating\n");
+	info_printf("check for event in State evTriacOperating\n");
 
 	if (currentEvent->evType == evFatalError) 
 	{	
@@ -779,170 +778,6 @@ uStInt evEditDurationChecker(void)
 }
 
 
-uStInt evSetupMiniStringChecker(void)
-{
-	uStInt res;
-	res = uStIntNoMatch;
-	if (currentEvent->evType == evF1Pressed)
-	{
-//		if (nextMiniStringPage()) {
-//			//printf("start debug Transition from \n");
-//			//printf("setupMiniStringPage into itself\n");
-//			//printf("may not be equal to local transition!\n");
-//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupMiniString);
-//			// No event action.
-//			END_EVENT_HANDLER(PJoesTriacStateChart);
-//		} else {
-//			printf("debug no more ministring page\n");
-//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
-//			// No event action.
-//			END_EVENT_HANDLER(PJoesTriacStateChart);
-//		}
-//		res =  uStIntHandlingDone;
-//	}
-//		if (currentEvent->evType == evF2Pressed)
-//		{
-//			printf("f1 pressed goto idle\n");
-//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
-//			// No event action.
-//			END_EVENT_HANDLER(PJoesTriacStateChart);
-//
-//			res =  uStIntHandlingDone;
-		}
-	return (res);
-}
-
-void entrySetupMiniStringState(void)
-{
-	printf("entry SetupMiniStringState\n");
-//	pCurrentMiniStringPage->pageDisplayMethod();
-}
-
-void exitSetupMiniStringState(void)
-{
-//	printf("exit SetupMiniStringState\n");
-}
-
-
-uStInt evSetupMiniStringIdleChecker(void)
-{
-	uStInt res;
-	res = uStIntNoMatch;
-	if (currentEvent->evType==evAstPressed) {
-		//		printf("\ncheck for event in State evStateIdle amps");
-		
-////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupMiniStringAstEdit);
-//		// No event action.
-//		END_EVENT_HANDLER(PJoesTriacStateChart);
-//		res =  uStIntHandlingDone;
-	}
-	if (currentEvent->evType==evNumPressed) {
-		//		printf("\ncheck for event in State evStateIdle dur");
-
-////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupMiniStringNumEdit);
-//		// No event action.
-//		END_EVENT_HANDLER(PJoesTriacStateChart);
-//		res =  uStIntHandlingDone;
-	}
-	return (res);
-}
-
-void entrySetupMiniStringIdleState(void)
-{
-//	printf("entry SetupMiniStringIdleState\n");
-//	pCurrentMiniStringPage->miniStringSetupAstConfiguration.dispMethod(-1);
-//	pCurrentMiniStringPage->miniStringSetupNumConfiguration.dispMethod(-1);
-//	clearSetupInputHint();
-}
-
-void exitSetupMiniStringIdleState(void)
-{
-	printf("exit SetupMiniStringIdleState\n");
-}
-
-
-uStInt evSetupMiniStringAstEditChecker(void)
-{
-	uStInt res;
-	res = uStIntNoMatch;
-	if (currentEvent->evType==evNumPressed) {
-		//		printf("\ncheck for event in State evStateIdle amps");
-		
-////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupMiniStringNumEdit);
-//		// No event action.
-//		END_EVENT_HANDLER(PJoesTriacStateChart);
-//		res =  uStIntHandlingDone;
-	}
-	if ((currentEvent->evType==evAstPressed) || (currentEvent->evType == evEditFinished)) {
-		//		printf("\ncheck for event in State evStateIdle dur");
-
-////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupMiniStringIdle);
-//		// No event action.
-//		END_EVENT_HANDLER(PJoesTriacStateChart);
-//		res =  uStIntHandlingDone;
-	}
-	return (res);
-}
-
-void entrySetupMiniStringAstEditState(void)
-{
-//	printf("entry SetupMiniStringAstEditState\n");
-//	if (pCurrentMiniStringPage->miniStringSetupAstConfiguration.inUse)  {
-//		editMiniString(pCurrentMiniStringPage->miniStringSetupAstConfiguration.miniStringArrayPos,
-//						pCurrentMiniStringPage->miniStringSetupAstConfiguration.dispMethod);
-//	} else {
-//		triggerGotoIdle();
-//	}
-}
-
-void exitSetupMiniStringAstEditState(void)
-{
-//	printf("exit SetupMiniStringAstEditState\n");
-//	endEditMiniString();
-}
-
-
-uStInt evSetupMiniStringNumEditChecker(void)
-{
-	uStInt res;
-	res = uStIntNoMatch;
-//	if (currentEvent->evType==evAstPressed) {
-//		//		printf("\ncheck for event in State evStateIdle amps");
-//
-//		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupMiniStringAstEdit);
-//		// No event action.
-//		END_EVENT_HANDLER(PJoesTriacStateChart);
-//		res =  uStIntHandlingDone;
-//	}
-//	if ((currentEvent->evType==evNumPressed) || (currentEvent->evType == evEditFinished)) {
-//		//		printf("\ncheck for event in State evStateIdle dur");
-//
-//		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupMiniStringIdle);
-//		// No event action.
-//		END_EVENT_HANDLER(PJoesTriacStateChart);
-//		res =  uStIntHandlingDone;
-//	}
-	return (res);
-}
-
-void entrySetupMiniStringNumEditState(void)
-{
-//	printf("entry SetupMiniStringNumEditState\n");
-//	if (pCurrentMiniStringPage->miniStringSetupNumConfiguration.inUse)  {
-//		editMiniString(pCurrentMiniStringPage->miniStringSetupNumConfiguration.miniStringArrayPos,
-//						pCurrentMiniStringPage->miniStringSetupNumConfiguration.dispMethod);
-//	} else {
-//		triggerGotoIdle();
-//	}
-}
-
-void exitSetupMiniStringNumEditState(void)
-{
-//	printf("exit SetupMiniStringNumEditState\n");
-//	endEditMiniString();
-}
-
-
 void entryTriacRunningState(void)
 {
 //	printf("entry Running\n");
@@ -1338,7 +1173,7 @@ void stopStateCharts()
 }
 
 
-bool processTriacEvent(TStatechart* t,CJoesTriacEvent* ev)
+bool processTriacFsmEvent(TStatechart* t,fsmTriacEvent* ev)
 {
 	currentEvent = ev;
 	return ProcessEvent(t);

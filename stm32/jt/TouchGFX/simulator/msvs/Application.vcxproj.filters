@@ -340,6 +340,30 @@
     <Filter Include="Source Files\generated\gui_generated\jobcompletescreen_screen">
       <UniqueIdentifier>4A1AD49F-894D-0508-3594-22AB8C7F9EC2</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\gui\startupscreen_screen">
+      <UniqueIdentifier>04A3DC69-ECFA-996E-4AF2-28421E7989AF</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\startupscreen_screen">
+      <UniqueIdentifier>C750394E-B757-83C8-8232-E15808C56F93</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\startupscreen_screen">
+      <UniqueIdentifier>185FCD22-4AD7-3158-517F-DA763ADBD32E</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\startupscreen_screen">
+      <UniqueIdentifier>1C268DE6-7E48-8097-BCCD-BD05065230CD</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\dummyscreen_screen">
+      <UniqueIdentifier>CFB29412-0F5E-9F3C-FCCD-30D195DABBA4</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\dummyscreen_screen">
+      <UniqueIdentifier>E3464FA3-38EE-9476-1A71-DAF8E28DED77</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\dummyscreen_screen">
+      <UniqueIdentifier>088E119C-A68F-913F-754E-C63A102D047A</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\dummyscreen_screen">
+      <UniqueIdentifier>C71A9C26-BFB8-7094-E984-0C9567C10058</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\driver\touch\SDL2TouchController.cpp">
@@ -494,6 +518,24 @@
     </ClCompile>
     <ClCompile Include="..\..\generated\gui_generated\src\jobcompletescreen_screen\jobCompleteScreenViewBase.cpp">
       <Filter>Source Files\generated\gui_generated\jobcompletescreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\startupscreen_screen\startupScreenPresenter.cpp">
+      <Filter>Source Files\gui\startupscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\startupscreen_screen\startupScreenView.cpp">
+      <Filter>Source Files\gui\startupscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\startupscreen_screen\startupScreenViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\startupscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\dummyscreen_screen\dummyScreenPresenter.cpp">
+      <Filter>Source Files\gui\dummyscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\dummyscreen_screen\dummyScreenView.cpp">
+      <Filter>Source Files\gui\dummyscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\dummyscreen_screen\dummyScreenViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\dummyscreen_screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1059,6 +1101,24 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\jobcompletescreen_screen\jobCompleteScreenViewBase.hpp">
       <Filter>Header Files\generated\gui_generated\jobcompletescreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\startupscreen_screen\startupScreenPresenter.hpp">
+      <Filter>Header Files\gui\startupscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\startupscreen_screen\startupScreenView.hpp">
+      <Filter>Header Files\gui\startupscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\startupscreen_screen\startupScreenViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\startupscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\dummyscreen_screen\dummyScreenPresenter.hpp">
+      <Filter>Header Files\gui\dummyscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\dummyscreen_screen\dummyScreenView.hpp">
+      <Filter>Header Files\gui\dummyscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\dummyscreen_screen\dummyScreenViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\dummyscreen_screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -14,10 +14,10 @@ public:
     typedef enum {
     	changeToRunScreen = 0,
 		changeToMainScreen,
+		changeToRequesStopScreen,
 		secondUpdate
 
     }  modelMessageType;
-
 
 
     typedef struct  {
@@ -32,9 +32,6 @@ public:
     } CJoesModelEventT ;
 
     typedef CJoesModelEventT*  pJoesModelEventT;
-
-    osMessageQueueId_t    modelMessageQ;
-
 
     void bind(ModelListener* listener)
     {
@@ -59,7 +56,9 @@ public:
 
     int16_t stringToSecValue();
 
-    osStatus_t sendModelMessage(pJoesModelEventT  pMsg);
+    static osStatus_t sendModelMessage(pJoesModelEventT  pMsg);
+
+    static osMessageQueueId_t    modelMessageQ;
 
 ////   basic methods
 

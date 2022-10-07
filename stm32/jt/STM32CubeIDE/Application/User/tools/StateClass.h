@@ -9,7 +9,7 @@ extern TStatechart* PJoesTriacStateChart;
 
 
 
-enum eEventTypes
+typedef enum eEventTypes
 {
 	evCharEntered,
 	evF1Pressed,
@@ -25,11 +25,11 @@ enum eEventTypes
 	evTWIDataReceived,
 	evEditFinished,
 	evFatalError
-};
+}fsmTriacEventType;
 
 
 typedef struct  {
-	int evType;
+	fsmTriacEventType evType;
 	union {
 		int8_t keyCode;
 		struct {			// currently not in use
@@ -38,7 +38,7 @@ typedef struct  {
 			int8_t  jobType;
 		} zeroAdjustingState;
 	}  evData;
-} CJoesTriacEvent ;
+} fsmTriacEvent ;
 
 
 
@@ -49,7 +49,7 @@ void startStateCharts();
 void stopStateCharts();
 
 
-bool processTriacEvent(TStatechart* t,CJoesTriacEvent* ev);
+bool processTriacFsmEvent(TStatechart* t,fsmTriacEvent* ev);
 
 
 

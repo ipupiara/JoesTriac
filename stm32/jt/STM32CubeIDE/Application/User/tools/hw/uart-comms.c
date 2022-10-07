@@ -97,16 +97,16 @@ void info_printf( char *emsg, ...)
 
 	va_start(ap, emsg);
 
-	if (serialOn == 1) {
-
-		vsnprintf((char *)&transmitBuffer, maxSerialStringSz-1,  emsg, ap);
-		transmitBuffer[maxSerialStringSz-1] = 0;
-
-		status = osMessageQueuePut(serialMessageQ,&transmitBuffer,0,100);
-		if (status != osOK)  {
-			errorHandler(status ,goOn," osMessageQueuePut ","info_printf");
-		}
-	}
+//	if (serialOn == 1) {
+//
+//		vsnprintf((char *)&transmitBuffer, maxSerialStringSz-1,  emsg, ap);
+//		transmitBuffer[maxSerialStringSz-1] = 0;
+//
+//		status = osMessageQueuePut(serialMessageQ,&transmitBuffer,0,100);
+//		if (status != osOK)  {
+//			errorHandler(status ,goOn," osMessageQueuePut ","info_printf");
+//		}
+//	}
 	va_end(ap);
 	//	printf(emsg, ap);
 }

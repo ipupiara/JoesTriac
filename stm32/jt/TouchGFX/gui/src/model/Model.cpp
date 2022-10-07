@@ -3,13 +3,15 @@
 #include <stdint.h>
 #include <defines.h>
 
+ osMessageQueueId_t Model::modelMessageQ =  osMessageQueueNew(5,sizeof(CJoesModelEventT)*4, NULL);
+
 Model::Model() : modelListener(0)
 {
 	char  modelm []= " modelMessageQ ";
 	char  meth   []= "Model::Model";
-	modelMessageQ =  osMessageQueueNew(1,sizeof(CJoesModelEventT)*4, NULL);
+
 	if (modelMessageQ  == NULL)   {
-		errorHandler((uint32_t)modelMessageQ, stop,(char*) &modelm, (char*)&meth);
+		errorHandler((uint32_t)NULL, stop,(char*) &modelm, (char*)&meth);
 	}
 }
 

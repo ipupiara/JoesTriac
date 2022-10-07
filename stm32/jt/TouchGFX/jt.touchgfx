@@ -2005,6 +2005,73 @@
             }
           }
         ]
+      },
+      {
+        "Name": "startupScreen",
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "box1",
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 235,
+              "Green": 224,
+              "Blue": 26
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 120,
+            "Y": 133,
+            "Width": 360,
+            "Height": 46,
+            "TextId": "__SingleUse_NW6D",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea2",
+            "X": 120,
+            "Y": 240,
+            "Width": 264,
+            "Height": 46,
+            "TextId": "__SingleUse_P107",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "dummyScreen",
+        "Components": [
+          {
+            "Type": "Button",
+            "Name": "button1",
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "Style": "Style4"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "button1"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "requestStopScreen"
+            }
+          }
+        ]
       }
     ],
     "CustomContainerDefinitions": [
@@ -2254,7 +2321,7 @@
       "Height": 480
     },
     "SelectedColorDepth": 16,
-    "StartupScreenName": "mainScreen",
+    "StartupScreenName": "startupScreen",
     "SelectedStartupLanguage": "GB",
     "Skin": "Blue",
     "TouchGfxPath": "../Middlewares/ST/touchgfx",

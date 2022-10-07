@@ -17,7 +17,7 @@ public:
 
     virtual void changeToStartScreen()
     {
-        gotomainScreenScreenNoTransition();
+        gotostartupScreenScreenNoTransition();
     }
 
     // mainScreen
@@ -40,6 +40,12 @@ public:
 
     // editCalibHighScreen
     void gotoeditCalibHighScreenScreenNoTransition();
+
+    // requestStopScreen
+    void gotorequestStopScreenScreenNoTransition();
+
+    // startupScreen
+    void gotostartupScreenScreenNoTransition();
 
 protected:
     touchgfx::Callback<FrontendApplicationBase> transitionCallback;
@@ -66,6 +72,12 @@ protected:
 
     // editCalibHighScreen
     void gotoeditCalibHighScreenScreenNoTransitionImpl();
+
+    // requestStopScreen
+    void gotorequestStopScreenScreenNoTransitionImpl();
+
+    // startupScreen
+    void gotostartupScreenScreenNoTransitionImpl();
 };
 
 #endif // FRONTENDAPPLICATIONBASE_HPP

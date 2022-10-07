@@ -62,6 +62,12 @@
     <ClCompile Include="..\..\gui\src\jobcompletescreen_screen\jobCompleteScreenPresenter.cpp"/>
     <ClCompile Include="..\..\gui\src\jobcompletescreen_screen\jobCompleteScreenView.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\jobcompletescreen_screen\jobCompleteScreenViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\startupscreen_screen\startupScreenPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\startupscreen_screen\startupScreenView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\startupscreen_screen\startupScreenViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\dummyscreen_screen\dummyScreenPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\dummyscreen_screen\dummyScreenView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\dummyscreen_screen\dummyScreenViewBase.cpp"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xml"/>
@@ -253,6 +259,12 @@
     <ClInclude Include="..\..\gui\include\gui\jobcompletescreen_screen\jobCompleteScreenPresenter.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\jobcompletescreen_screen\jobCompleteScreenView.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\jobcompletescreen_screen\jobCompleteScreenViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\startupscreen_screen\startupScreenPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\startupscreen_screen\startupScreenView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\startupscreen_screen\startupScreenViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\dummyscreen_screen\dummyScreenPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\dummyscreen_screen\dummyScreenView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\dummyscreen_screen\dummyScreenViewBase.hpp"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>

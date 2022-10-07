@@ -35,6 +35,10 @@
 #include <gui/requeststopscreen_screen/requestStopScreenPresenter.hpp>
 #include <gui/jobcompletescreen_screen/jobCompleteScreenView.hpp>
 #include <gui/jobcompletescreen_screen/jobCompleteScreenPresenter.hpp>
+#include <gui/startupscreen_screen/startupScreenView.hpp>
+#include <gui/startupscreen_screen/startupScreenPresenter.hpp>
+#include <gui/dummyscreen_screen/dummyScreenView.hpp>
+#include <gui/dummyscreen_screen/dummyScreenPresenter.hpp>
 
 using namespace touchgfx;
 
@@ -147,4 +151,30 @@ void FrontendApplicationBase::gotoeditCalibHighScreenScreenNoTransition()
 void FrontendApplicationBase::gotoeditCalibHighScreenScreenNoTransitionImpl()
 {
     touchgfx::makeTransition<editCalibHighScreenView, editCalibHighScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+// requestStopScreen
+
+void FrontendApplicationBase::gotorequestStopScreenScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplication::gotorequestStopScreenScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotorequestStopScreenScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<requestStopScreenView, requestStopScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+// startupScreen
+
+void FrontendApplicationBase::gotostartupScreenScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplication::gotostartupScreenScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotostartupScreenScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<startupScreenView, startupScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }

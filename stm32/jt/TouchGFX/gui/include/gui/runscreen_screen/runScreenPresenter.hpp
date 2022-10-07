@@ -4,6 +4,7 @@
 #include <gui/model/ModelListener.hpp>
 #include <mvp/Presenter.hpp>
 
+
 using namespace touchgfx;
 
 class runScreenView;
@@ -11,6 +12,29 @@ class runScreenView;
 class runScreenPresenter : public touchgfx::Presenter, public ModelListener
 {
 public:
+
+//	   typedef enum {
+//	    	changeToRunScreen = 0,
+//			changeToMainScreen,
+//			secondUpdate
+//
+//	    }  runScreenPresenterMessageType;
+//
+//	    typedef struct  {
+//	    	runScreenPresenterMessageType messageType;
+//	    	union {
+//	    		uint32_t keyCode;
+//	    		struct {
+//	    			float   voltage;
+//	    			uint16_t  potiPos;
+//	    		} secondRunData;
+//	    	}  evData;
+//	    } CJoesRunScreenPresenterEventT ;
+//
+//	    typedef CJoesRunScreenPresenterEventT*  pJoesRunScreenPresenterEventT;
+//
+//	    osMessageQueueId_t    presenterScreenMessageQ;
+
     runScreenPresenter(runScreenView& v);
 
     /**
@@ -26,6 +50,9 @@ public:
     virtual void deactivate();
 
     virtual ~runScreenPresenter() {};
+
+    virtual void tick();
+
 
 private:
     runScreenPresenter();

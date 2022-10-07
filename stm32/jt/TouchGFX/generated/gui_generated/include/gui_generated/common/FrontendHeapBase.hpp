@@ -38,6 +38,10 @@
 #include <gui/requeststopscreen_screen/requestStopScreenPresenter.hpp>
 #include <gui/jobcompletescreen_screen/jobCompleteScreenView.hpp>
 #include <gui/jobcompletescreen_screen/jobCompleteScreenPresenter.hpp>
+#include <gui/startupscreen_screen/startupScreenView.hpp>
+#include <gui/startupscreen_screen/startupScreenPresenter.hpp>
+#include <gui/dummyscreen_screen/dummyScreenView.hpp>
+#include <gui/dummyscreen_screen/dummyScreenPresenter.hpp>
 
 
 /**
@@ -73,7 +77,9 @@ public:
             touchgfx::meta::TypeList< editCalibHighScreenView,
             touchgfx::meta::TypeList< requestStopScreenView,
             touchgfx::meta::TypeList< jobCompleteScreenView,
-            touchgfx::meta::Nil > > > > > > > > > > > >
+            touchgfx::meta::TypeList< startupScreenView,
+            touchgfx::meta::TypeList< dummyScreenView,
+            touchgfx::meta::Nil > > > > > > > > > > > > > >
             > GeneratedViewTypes;
 
     /**
@@ -98,7 +104,9 @@ public:
             touchgfx::meta::TypeList< editCalibHighScreenPresenter,
             touchgfx::meta::TypeList< requestStopScreenPresenter,
             touchgfx::meta::TypeList< jobCompleteScreenPresenter,
-            touchgfx::meta::Nil > > > > > > > > > > > >
+            touchgfx::meta::TypeList< startupScreenPresenter,
+            touchgfx::meta::TypeList< dummyScreenPresenter,
+            touchgfx::meta::Nil > > > > > > > > > > > > > >
             > GeneratedPresenterTypes;
 
     /**
@@ -121,7 +129,7 @@ public:
 
     virtual void gotoStartScreen(FrontendApplication& app)
     {
-        app.gotomainScreenScreenNoTransition();
+        app.gotostartupScreenScreenNoTransition();
     }
 protected:
     FrontendHeapBase(touchgfx::AbstractPartition& presenters, touchgfx::AbstractPartition& views, touchgfx::AbstractPartition& transitions, FrontendApplication& app)
