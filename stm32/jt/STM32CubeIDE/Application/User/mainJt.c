@@ -56,7 +56,7 @@ void mainJtSecondTickCallback(void *argument)
 	mainJtEventT  ev;
 	memset(&ev, 0x0, sizeof(ev));
 	ev.evType = secondTick;
-	ev.evData.zeroAdjustingNVoltageState.voltage = 3.1415926535897932384;
+	ev.evData.zeroAdjustingNVoltageState.amps = 3.1415926535897932384;
 	ev.evData.zeroAdjustingNVoltageState.potiPos = 0x1234;
 	osStatus_t status =  sendEventToMainJtMessageQ( &ev, 0);
 	if (status != osOK) {

@@ -32,6 +32,8 @@ void stopDurationTimer();
 
 void durationTimerTick();
 
+float lastAmpsValF();
+
 //void initInterrupts();
 //void setTriacFireDuration(int16_t cmsecs);
 //void startTriacRun();

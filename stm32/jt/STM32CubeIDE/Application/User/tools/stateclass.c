@@ -4,6 +4,7 @@
 #include "StateClass.h"
 #include <TriacIntr.h>
 #include <uart-comms.h>
+#include <mainJt.h>
 
 
 extern const uStInt uStIntHandlingDone;
@@ -103,6 +104,14 @@ void entryCalibratingState(void)
 //	startDurationTimer(6);
 
 //	startDurationTimer(maxSecsPossible);
+	CJoesPresenterEventT  msg;
+	osStatus_t status;
+	info_printf("entryTriacIdleState\n");
+	msg.messageType = changeToCalibratingScreen;
+	status = sendPresenterMessage(&msg);
+	if(status != osOK)  {
+		errorHandler(status,goOn," status ","entryTriacIdleState");
+	}
 }
 
 void exitCalibratingState(void)
@@ -157,6 +166,7 @@ void entryChangeCalibVarsState(void)
 //	currentVarVal = calibLowADC;
 //	currentTitle = "calibLowADC";
 //	displayCurrentVar();
+
 }
 
 
@@ -528,15 +538,14 @@ int8_t keyInd;
 
 void entryTriacIdleState(void)
 {
+	CJoesPresenterEventT  msg;
+	osStatus_t status;
 	info_printf("entryTriacIdleState\n");
-//	Model::sendModelMessage(Model::)
-////	debugEvent1Triggered = 1;
-//	onEntryIdlePID();
-//	startDurationTimer(maxSecsPossible);   // enable secondsTick
-//    if (!setAdjustJob(volatileZeroAdjust)) {
-//		sprintf((char *) &lastFatalErrorString,"i2c comms err");
-//		fatalErrorOccurred = 1;
-//	}
+	msg.messageType = changeToMainScreen;
+	status = sendPresenterMessage(&msg);
+	if(status != osOK)  {
+		errorHandler(status,goOn," status ","entryTriacIdleState");
+	}
 }
 
 void exitTriacIdleState(void)
@@ -789,6 +798,17 @@ void entryTriacRunningState(void)
 //												// because of 220 V fuse ejects
 //												// lowCalib seems better choice than 0
 //	startTriacRun();
+
+	CJoesPresenterEventT  msg;
+	osStatus_t status;
+	info_printf("entryTriacIdleState\n");
+	msg.messageType = changeToRunScreen;
+	status = sendPresenterMessage(&msg);
+	if(status != osOK)  {
+		errorHandler(status,goOn," status ","entryTriacIdleState");
+	}
+
+
 }
 
 void exitTriacRunningState(void)
@@ -821,6 +841,10 @@ uStInt evTriacRunningChecker(void)
 //		displayCountDown();
 //		displayVoltage();
 ////		printDValueVars();
+
+
+
+
 		res =  uStIntHandlingDone;
 	}	
 	if (currentEvent->evType == evAdcTick)

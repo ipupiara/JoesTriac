@@ -26,30 +26,15 @@ void runScreenPresenter::tick()
 
 	while ( osMessageQueueGet ( presenterMessageQ, &presenterMessage, NULL, 0) == osOK)
 	{
-		if (presenterMessage.messageType ==  changeToMainScreen) {
-			static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotomainScreenScreenNoTransition();
+		if (presenterMessage.messageType ==  runScreenSecondUpdate) {
+			view.updateScreen(presenterMessage.evData.secondRunData.secondsRemaining, presenterMessage.evData.secondRunData.amps);
 		}
+
 		if (presenterMessage.messageType ==  changeToRequesStopScreen) {
 			static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotorequestStopScreenScreenNoTransition();
 		}
 	}
-
-
-
-
-//	Model::CJoesModelEventT  modelMessage;
-//
-//	while ( osMessageQueueGet ( model->modelMessageQ, &modelMessage, NULL, 0) == osOK)
-//	{
-//		if (modelMessage.messageType == Model::secondUpdate) {
-//
-//		}
-//		if (modelMessage.messageType == Model::changeToMainScreen) {
-////			view.application().gotomainScreenScreenNoTransition();
-//			static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotomainScreenScreenNoTransition();
-//		}
-//		if (modelMessage.messageType == Model::changeToRequesStopScreen) {
-//			static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotorequestStopScreenScreenNoTransition();
-//		}
-//	}
 }
+
+
+

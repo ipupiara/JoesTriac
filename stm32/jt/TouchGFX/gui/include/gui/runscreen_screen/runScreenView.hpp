@@ -11,6 +11,7 @@ public:
     virtual ~runScreenView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
+    void updateScreen(int16_t secondsRemaining,float amps);
 protected:
 };
 

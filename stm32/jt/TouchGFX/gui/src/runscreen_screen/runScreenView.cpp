@@ -14,3 +14,8 @@ void runScreenView::tearDownScreen()
 {
     runScreenViewBase::tearDownScreen();
 }
+
+void runScreenView::updateScreen(int16_t secondsRemaining,float amps)
+{
+
+}

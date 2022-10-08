@@ -11,6 +11,12 @@ uint8_t durationTimerOn;
 //int64_t  secondCount;
 //
 //int16_t lastAmpsADCVal;
+
+float lastAmpsValF()
+{
+	float res = 0.0;
+	return res;
+}
 //
 //uint16_t  shortCircuitAlarmAmpsADCValue;
 //

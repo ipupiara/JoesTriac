@@ -23,6 +23,10 @@ extern "C" {
 #define amtMessageBuffers 5
 #define bufferFull  0xFF
 
+
+/////////////////  statechart messages //////////////
+
+
 typedef enum {
 	msgFree = 0,
 	key,
@@ -38,7 +42,7 @@ typedef struct  {
 	union {
 		uint32_t keyCode;
 		struct {
-			float   voltage;
+			float   amps;
 			uint16_t  potiPos;
 		} zeroAdjustingNVoltageState;
 	}  evData;
@@ -46,12 +50,15 @@ typedef struct  {
 
 typedef mainJtEventT*  pMainJtEventT;
 
+
+///////////  presenter messages //////////////
+
 typedef enum {
 	changeToRunScreen = 0,
 	changeToMainScreen,
+	changeToCalibratingScreen,
 	changeToRequesStopScreen,
-	secondUpdate
-
+	runScreenSecondUpdate
 }  presenterMessageType;
 
 
@@ -60,11 +67,20 @@ typedef struct  {
 	union {
 		uint32_t keyCode;
 		struct {
-			float   voltage;
+			float   amps;
 			uint16_t  potiPos;
+			uint16_t  secondsRemaining;
 		} secondRunData;
 	}  evData;
 } CJoesPresenterEventT ;
+
+
+///////////////  model messages ////////////////
+
+
+
+
+
 
 typedef CJoesPresenterEventT*  pJoesPresenterEventT;
 
