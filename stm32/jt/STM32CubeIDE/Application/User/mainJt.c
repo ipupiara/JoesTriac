@@ -76,13 +76,19 @@ void startMainJtTimer()
 	}
 }
 
+void mainJtOsStarted()
+{
+	startStateCharts();
+	startMainJtTimer();
+}
+
 
 void mainJt(void *argument)
 {
 	osStatus_t status;
-	startMainJtTimer();
 	mainJtEventT  mainJtEv;
 	fsmTriacEvent fsmEv;
+	mainJtOsStarted();
 	do  {
 		memset(&mainJtEv, 0, sizeof(mainJtEv));
 		if ((status = osMessageQueueGet(mainJtMessageQ,(void *) &mainJtEv, 0, osWaitForever)) == osOK )  {
@@ -119,16 +125,9 @@ osStatus_t sendModelMessage(pJoesModelEventT  pMsg)
 
 void initJt()
 {
-	startStateCharts();
-
 	mainJtTaskHandle = osThreadNew(mainJt, NULL, &mainJt_attributes);
 	if (mainJtTaskHandle  == NULL)   {
 		errorHandler((uint32_t)mainJtTaskHandle ,stop," mainJtTaskHandle ","initJt");
-	}
-
-	mainJtMessageQ =  osMessageQueueNew(8,sizeof(pMainJtEventT)*4, NULL);   //  todo check multiplication with 4 ? needed ?
-	if (mainJtMessageQ  == NULL)   {
-		errorHandler((uint32_t)mainJtMessageQ ,stop," mainJtMessageQ ","initJt");
 	}
 
 
@@ -141,8 +140,20 @@ void initJt()
 		errorHandler((uint32_t)mainJtTimer ,stop," mainJtTimer ","initJt");
 	}
 
-	presenterMessageQ =  osMessageQueueNew(5,sizeof(pMainJtEventT)*4, NULL);
+	mainJtMessageQ =  osMessageQueueNew(8,sizeof(pMainJtEventT)*4, NULL);   //  todo check multiplication with 4 ? needed ?
+	if (mainJtMessageQ  == NULL)   {
+		errorHandler((uint32_t)mainJtMessageQ ,stop," mainJtMessageQ ","initJt");
+	}
+
+	presenterMessageQ =  osMessageQueueNew(5,sizeof(CJoesPresenterEventT)*4, NULL);
 	if (presenterMessageQ  == NULL)   {
 		errorHandler((uint32_t)NULL, stop," presenterMessageQ ", "initJt");
 	}
+
+	modelMessageQ =  osMessageQueueNew(3,sizeof(CJoesModelEventT)*4, NULL);
+		if (modelMessageQ  == NULL)   {
+			errorHandler((uint32_t)NULL, stop," modelMessageQ ", "initJt");
+		}
 }
+
+
