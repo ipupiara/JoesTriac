@@ -1,5 +1,6 @@
 #include <gui/startupscreen_screen/startupScreenView.hpp>
 #include <gui/startupscreen_screen/startupScreenPresenter.hpp>
+#include <mainJt.h>
 
 startupScreenPresenter::startupScreenPresenter(startupScreenView& v)
     : view(v)
@@ -20,12 +21,12 @@ void startupScreenPresenter::deactivate()
 
 void startupScreenPresenter::tick()
 {
-	Model::CJoesModelEventT  modelMessage;
+	CJoesPresenterEventT  presenterMessage;
 
-	while ( osMessageQueueGet ( Model::modelMessageQ, &modelMessage, NULL, 0) == osOK)
+	while ( osMessageQueueGet ( presenterMessageQ, &presenterMessage, NULL, 0) == osOK)
 	{
-		if (modelMessage.messageType ==  Model::changeToMainScreen) {
-//			Application::getInstance()->switchScreen();
+		if (presenterMessage.messageType ==  changeToMainScreen) {
+			static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotomainScreenScreenNoTransition();
 		}
 	}
 }

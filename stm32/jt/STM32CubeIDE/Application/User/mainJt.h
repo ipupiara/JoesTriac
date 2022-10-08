@@ -46,12 +46,37 @@ typedef struct  {
 
 typedef mainJtEventT*  pMainJtEventT;
 
+typedef enum {
+	changeToRunScreen = 0,
+	changeToMainScreen,
+	changeToRequesStopScreen,
+	secondUpdate
+
+}  presenterMessageType;
+
+
+typedef struct  {
+	presenterMessageType messageType;
+	union {
+		uint32_t keyCode;
+		struct {
+			float   voltage;
+			uint16_t  potiPos;
+		} secondRunData;
+	}  evData;
+} CJoesPresenterEventT ;
+
+typedef CJoesPresenterEventT*  pJoesPresenterEventT;
+
+extern osMessageQueueId_t    presenterMessageQ;
 
 //void mainJt(void *argument);
 
 void initJt();
 
 osStatus_t sendEventToMainJtMessageQ(pMainJtEventT bufferAddr, uint8_t  fromIsr);
+
+osStatus_t sendPresenterMessage(pJoesPresenterEventT  pMsg);
 
 #ifdef __cplusplus
 }

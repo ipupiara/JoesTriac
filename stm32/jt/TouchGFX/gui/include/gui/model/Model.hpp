@@ -11,27 +11,6 @@ class Model
 public:
     Model();
 
-    typedef enum {
-    	changeToRunScreen = 0,
-		changeToMainScreen,
-		changeToRequesStopScreen,
-		secondUpdate
-
-    }  modelMessageType;
-
-
-    typedef struct  {
-    	modelMessageType messageType;
-    	union {
-    		uint32_t keyCode;
-    		struct {
-    			float   voltage;
-    			uint16_t  potiPos;
-    		} secondRunData;
-    	}  evData;
-    } CJoesModelEventT ;
-
-    typedef CJoesModelEventT*  pJoesModelEventT;
 
     void bind(ModelListener* listener)
     {
@@ -56,7 +35,6 @@ public:
 
     int16_t stringToSecValue();
 
-    static osStatus_t sendModelMessage(pJoesModelEventT  pMsg);
 
     static osMessageQueueId_t    modelMessageQ;
 

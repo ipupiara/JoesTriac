@@ -26,10 +26,10 @@ osTimerId_t   mainJtTimer;
 
 osMessageQueueId_t    mainJtMessageQ;
 
+osMessageQueueId_t    presenterMessageQ;
+
 osMutexId_t  jtQAccessMutex;
 //////////////////////   methods   /////////////////////////////
-
-
 
 
 
@@ -95,7 +95,15 @@ void mainJt(void *argument)
 	}  while (1);
 }
 
-
+osStatus_t sendPresenterMessage(pJoesPresenterEventT  pMsg)
+{
+	osStatus_t  status = osError;
+	status = osMessageQueuePut (presenterMessageQ, (void *) pMsg, 0, 10);
+	if (status != osOK) {
+		errorHandler(status,goOn," status ","sendPresenterMessage");
+	}
+	return status;
+}
 
 void initJt()
 {
@@ -106,7 +114,7 @@ void initJt()
 		errorHandler((uint32_t)mainJtTaskHandle ,stop," mainJtTaskHandle ","initJt");
 	}
 
-	mainJtMessageQ =  osMessageQueueNew(1,sizeof(pMainJtEventT)*4, NULL);
+	mainJtMessageQ =  osMessageQueueNew(8,sizeof(pMainJtEventT)*4, NULL);   //  todo check multiplication with 4 ? needed ?
 	if (mainJtMessageQ  == NULL)   {
 		errorHandler((uint32_t)mainJtMessageQ ,stop," mainJtMessageQ ","initJt");
 	}
@@ -121,4 +129,8 @@ void initJt()
 		errorHandler((uint32_t)mainJtTimer ,stop," mainJtTimer ","initJt");
 	}
 
+	presenterMessageQ =  osMessageQueueNew(5,sizeof(pMainJtEventT)*4, NULL);
+	if (presenterMessageQ  == NULL)   {
+		errorHandler((uint32_t)NULL, stop," presenterMessageQ ", "initJt");
+	}
 }

@@ -92,7 +92,7 @@ void init_printf()
 
 void info_printf( char *emsg, ...)
 {
-	osStatus_t status;
+//	osStatus_t status;
 	va_list ap;
 
 	va_start(ap, emsg);

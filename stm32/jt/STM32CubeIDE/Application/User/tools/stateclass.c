@@ -528,7 +528,8 @@ int8_t keyInd;
 
 void entryTriacIdleState(void)
 {
-//	printf("entryTriacIdleState\n");
+	info_printf("entryTriacIdleState\n");
+//	Model::sendModelMessage(Model::)
 ////	debugEvent1Triggered = 1;
 //	onEntryIdlePID();
 //	startDurationTimer(maxSecsPossible);   // enable secondsTick
