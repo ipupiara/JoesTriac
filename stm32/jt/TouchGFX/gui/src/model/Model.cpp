@@ -32,10 +32,10 @@ void Model::tick()
 			static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotorunScreenScreenNoTransition();
 		}
 		if (modelMessage.messageType ==  changeToMainScreen) {
-			static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotorequestStopScreenScreenNoTransition();
+			static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotomainScreenScreenNoTransition();
 		}
 		if (modelMessage.messageType ==  changeToCalibratingScreen) {
-			static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotorequestStopScreenScreenNoTransition();
+			static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotoconfigScreenScreenNoTransition();
 		}
 	}
 }

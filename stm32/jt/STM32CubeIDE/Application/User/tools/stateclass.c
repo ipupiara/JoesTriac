@@ -104,11 +104,11 @@ void entryCalibratingState(void)
 //	startDurationTimer(6);
 
 //	startDurationTimer(maxSecsPossible);
-	CJoesPresenterEventT  msg;
+	CJoesModelEventT  msg;
 	osStatus_t status;
-	info_printf("entryTriacIdleState\n");
+	info_printf("entryCalibratingState\n");
 	msg.messageType = changeToCalibratingScreen;
-	status = sendPresenterMessage(&msg);
+	status = sendModelMessage(&msg);
 	if(status != osOK)  {
 		errorHandler(status,goOn," status ","entryTriacIdleState");
 	}
@@ -538,11 +538,11 @@ int8_t keyInd;
 
 void entryTriacIdleState(void)
 {
-	CJoesPresenterEventT  msg;
+	CJoesModelEventT  msg;
 	osStatus_t status;
 	info_printf("entryTriacIdleState\n");
 	msg.messageType = changeToMainScreen;
-	status = sendPresenterMessage(&msg);
+	status = sendModelMessage(&msg);
 	if(status != osOK)  {
 		errorHandler(status,goOn," status ","entryTriacIdleState");
 	}
@@ -799,13 +799,13 @@ void entryTriacRunningState(void)
 //												// lowCalib seems better choice than 0
 //	startTriacRun();
 
-	CJoesPresenterEventT  msg;
+	CJoesModelEventT  msg;
 	osStatus_t status;
-	info_printf("entryTriacIdleState\n");
+	info_printf("entryTriacRunningState\n");
 	msg.messageType = changeToRunScreen;
-	status = sendPresenterMessage(&msg);
+	status = sendModelMessage(&msg);
 	if(status != osOK)  {
-		errorHandler(status,goOn," status ","entryTriacIdleState");
+		errorHandler(status,goOn," status ","entryTriacRunningState");
 	}
 
 
