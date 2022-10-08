@@ -50,14 +50,13 @@ typedef struct  {
 
 typedef mainJtEventT*  pMainJtEventT;
 
+osStatus_t sendEventToMainJtMessageQ(pMainJtEventT bufferAddr, uint8_t  fromIsr);
+
+extern osMessageQueueId_t    mainJtMessageQ;
 
 ///////////  presenter messages //////////////
 
 typedef enum {
-	changeToRunScreen = 0,
-	changeToMainScreen,
-	changeToCalibratingScreen,
-	changeToRequesStopScreen,
 	runScreenSecondUpdate
 }  presenterMessageType;
 
@@ -74,25 +73,45 @@ typedef struct  {
 	}  evData;
 } CJoesPresenterEventT ;
 
-
-///////////////  model messages ////////////////
-
-
-
-
-
-
 typedef CJoesPresenterEventT*  pJoesPresenterEventT;
+
+osStatus_t sendPresenterMessage(pJoesPresenterEventT  pMsg);
 
 extern osMessageQueueId_t    presenterMessageQ;
 
-//void mainJt(void *argument);
+///////////////  model messages ////////////////
+
+typedef enum {
+	changeToRunScreen = 0,
+	changeToMainScreen,
+	changeToCalibratingScreen,
+	changeToRequesStopScreen
+}  modelMessageType;
+
+
+typedef struct  {
+	modelMessageType messageType;
+	union {
+		uint32_t keyCode;
+		struct {
+			float   amps;
+			uint16_t  potiPos;
+			uint16_t  secondsRemaining;
+		} secondRunData;
+	}  evData;
+} CJoesModelEventT ;
+
+typedef CJoesModelEventT*  pJoesModelEventT;
+
+osStatus_t sendModelMessage(pJoesModelEventT  pMsg);
+
+extern osMessageQueueId_t    modelMessageQ;
+
+//////////////////  end Messages  ///////////////////
+
 
 void initJt();
 
-osStatus_t sendEventToMainJtMessageQ(pMainJtEventT bufferAddr, uint8_t  fromIsr);
-
-osStatus_t sendPresenterMessage(pJoesPresenterEventT  pMsg);
 
 #ifdef __cplusplus
 }

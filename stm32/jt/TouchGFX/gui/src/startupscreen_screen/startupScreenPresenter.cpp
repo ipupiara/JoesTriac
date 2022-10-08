@@ -25,8 +25,8 @@ void startupScreenPresenter::tick()
 
 	while ( osMessageQueueGet ( presenterMessageQ, &presenterMessage, NULL, 0) == osOK)
 	{
-		if (presenterMessage.messageType ==  changeToMainScreen) {
-			static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotomainScreenScreenNoTransition();
-		}
+//		if (presenterMessage.messageType ==  changeToMainScreen) {
+//			static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotomainScreenScreenNoTransition();
+//		}
 	}
 }

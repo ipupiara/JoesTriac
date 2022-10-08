@@ -36,7 +36,6 @@ public:
     int16_t stringToSecValue();
 
 
-    static osMessageQueueId_t    modelMessageQ;
 
 ////   basic methods
 

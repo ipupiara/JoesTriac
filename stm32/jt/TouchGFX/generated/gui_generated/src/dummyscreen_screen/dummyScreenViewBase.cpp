@@ -12,12 +12,29 @@ dummyScreenViewBase::dummyScreenViewBase() :
     __background.setPosition(0, 0, 800, 480);
     __background.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
 
-    button1.setXY(0, 0);
+    button1.setXY(0, 7);
     button1.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
     button1.setAction(buttonCallback);
 
+    button2.setXY(0, 133);
+    button2.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
+    button2.setAction(buttonCallback);
+
+    button3.setXY(189, 67);
+    button3.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
+
+    button4.setXY(189, 0);
+    button4.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
+
+    button5.setXY(0, 67);
+    button5.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
+
     add(__background);
     add(button1);
+    add(button2);
+    add(button3);
+    add(button4);
+    add(button5);
 }
 
 void dummyScreenViewBase::setupScreen()
@@ -33,5 +50,12 @@ void dummyScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& 
         //When button1 clicked change screen to requestStopScreen
         //Go to requestStopScreen with no screen transition
         application().gotorequestStopScreenScreenNoTransition();
+    }
+    else if (&src == &button2)
+    {
+        //Interaction2
+        //When button2 clicked change screen to runScreen
+        //Go to runScreen with no screen transition
+        application().gotorunScreenScreenNoTransition();
     }
 }

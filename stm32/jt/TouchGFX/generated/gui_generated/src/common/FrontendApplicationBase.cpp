@@ -127,6 +127,19 @@ void FrontendApplicationBase::gotosetAmpereScreenScreenNoTransitionImpl()
     touchgfx::makeTransition<setAmpereScreenView, setAmpereScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
+// runScreen
+
+void FrontendApplicationBase::gotorunScreenScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplication::gotorunScreenScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotorunScreenScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<runScreenView, runScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
 // editCalibLowScreen
 
 void FrontendApplicationBase::gotoeditCalibLowScreenScreenNoTransition()

@@ -30,9 +30,9 @@ void runScreenPresenter::tick()
 			view.updateScreen(presenterMessage.evData.secondRunData.secondsRemaining, presenterMessage.evData.secondRunData.amps);
 		}
 
-		if (presenterMessage.messageType ==  changeToRequesStopScreen) {
-			static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotorequestStopScreenScreenNoTransition();
-		}
+//		if (presenterMessage.messageType ==  changeToRequesStopScreen) {
+//			static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotorequestStopScreenScreenNoTransition();
+//		}
 	}
 }
 

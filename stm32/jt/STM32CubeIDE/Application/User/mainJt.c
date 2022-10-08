@@ -28,6 +28,8 @@ osMessageQueueId_t    mainJtMessageQ;
 
 osMessageQueueId_t    presenterMessageQ;
 
+osMessageQueueId_t    modelMessageQ;
+
 osMutexId_t  jtQAccessMutex;
 //////////////////////   methods   /////////////////////////////
 
@@ -101,6 +103,16 @@ osStatus_t sendPresenterMessage(pJoesPresenterEventT  pMsg)
 	status = osMessageQueuePut (presenterMessageQ, (void *) pMsg, 0, 10);
 	if (status != osOK) {
 		errorHandler(status,goOn," status ","sendPresenterMessage");
+	}
+	return status;
+}
+
+osStatus_t sendModelMessage(pJoesModelEventT  pMsg)
+{
+	osStatus_t  status = osError;
+	status = osMessageQueuePut (modelMessageQ, (void *) pMsg, 0, 10);
+	if (status != osOK) {
+		errorHandler(status,goOn," status ","sendModelMessage");
 	}
 	return status;
 }

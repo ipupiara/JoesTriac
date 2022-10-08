@@ -27,6 +27,10 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Button button1;
+    touchgfx::Button button2;
+    touchgfx::Button button3;
+    touchgfx::Button button4;
+    touchgfx::Button button5;
 
 private:
 

@@ -35,6 +35,9 @@ public:
     // setAmpereScreen
     void gotosetAmpereScreenScreenNoTransition();
 
+    // runScreen
+    void gotorunScreenScreenNoTransition();
+
     // editCalibLowScreen
     void gotoeditCalibLowScreenScreenNoTransition();
 
@@ -66,6 +69,9 @@ protected:
 
     // setAmpereScreen
     void gotosetAmpereScreenScreenNoTransitionImpl();
+
+    // runScreen
+    void gotorunScreenScreenNoTransitionImpl();
 
     // editCalibLowScreen
     void gotoeditCalibLowScreenScreenNoTransitionImpl();
