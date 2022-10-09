@@ -24,7 +24,7 @@ extern "C" {
 #define bufferFull  0xFF
 
 
-/////////////////  statechart messages //////////////
+/////////////////  mainJt messages //////////////
 
 
 typedef enum {
@@ -33,12 +33,12 @@ typedef enum {
 	zeroAdjust,
 	voltage,
 	secondTick
-}  messageType;
+}  mainJtMessageType;
 
 
 
 typedef struct  {
-	messageType evType;
+	mainJtMessageType evType;
 	union {
 		uint32_t keyCode;
 		struct {
@@ -46,9 +46,9 @@ typedef struct  {
 			uint16_t  potiPos;
 		} zeroAdjustingNVoltageState;
 	}  evData;
-} mainJtEventT ;
+} CMainJtEventT ;
 
-typedef mainJtEventT*  pMainJtEventT;
+typedef CMainJtEventT*  pMainJtEventT;
 
 osStatus_t sendEventToMainJtMessageQ(pMainJtEventT bufferAddr, uint8_t  fromIsr);
 
@@ -93,11 +93,11 @@ typedef struct  {
 	modelMessageType messageType;
 	union {
 		uint32_t keyCode;
-		struct {
-			float   amps;
-			uint16_t  potiPos;
-			uint16_t  secondsRemaining;
-		} secondRunData;
+//		struct {
+//			float   amps;
+//			uint16_t  potiPos;
+//			uint16_t  secondsRemaining;
+//		} secondRunData;
 	}  evData;
 } CJoesModelEventT ;
 

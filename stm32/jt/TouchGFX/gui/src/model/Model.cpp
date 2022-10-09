@@ -22,8 +22,9 @@ void Model::tick()
 	modelListener->tick();
 
 	CJoesModelEventT  modelMessage;
+	uint8_t  prio = 0;
 
-	while ( osMessageQueueGet ( modelMessageQ, &modelMessage, NULL, 0) == osOK)
+	while ( osMessageQueueGet ( modelMessageQ, &modelMessage, &prio, 0) == osOK)
 	{
 		if (modelMessage.messageType ==  changeToRequesStopScreen) {
 			static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotorequestStopScreenScreenNoTransition();

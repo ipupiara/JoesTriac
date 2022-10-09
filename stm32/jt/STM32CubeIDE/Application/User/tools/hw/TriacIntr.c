@@ -418,7 +418,7 @@ void durationTimerTick()
 	if (secondsDurationTimerRemaining == 0) {
 		stopDurationTimer();
 		fsmTriacEvent ev;
-		ev.evType = evSecondsTick;
+		ev.evType = evTimeOutDurationTimer;
 		processTriacFsmEvent(PJoesTriacStateChart,&ev);
 	}
 }

@@ -58,7 +58,7 @@ uStInt evJoesTriacChecker(void)
 
 void entryTiacOperatingChecker()
 {
-	startDurationTimer(3);
+	startDurationTimer(5);
 }
 
 void exitTiacOperatingChecker()
@@ -542,6 +542,7 @@ void entryTriacIdleState(void)
 	osStatus_t status;
 	info_printf("entryTriacIdleState\n");
 	msg.messageType = changeToMainScreen;
+	msg.evData.keyCode = 0x2345;
 	status = sendModelMessage(&msg);
 	if(status != osOK)  {
 		errorHandler(status,goOn," status ","entryTriacIdleState");
@@ -932,14 +933,14 @@ t_fvoid  tfNull;
 // attention: sequence must be the same as above enum eStates
 
 /*
-eStateJoesTriac,
+	eStateJoesTriac,
 		eStartState = eStateJoesTriac,  // decide calib or idle
 		eStateTriacOperating,
-			eStateCalibration,  // calibration/setup
+			eStateCalibrating,  // calibration/setup
 				eStateManualCalibrating,   // manual
 				eStateAutoCalibrating,		// autoCalibrate
 					eStateCalibrateZeroSignal,
-					eStateCalibrateScale,
+					eStateCalibratingScale,
 						eStateCalibrateLow,
 						eStateCalibrateHigh,
 			eStateTriacIdle,
@@ -988,7 +989,7 @@ xStateType xaStates[eNumberOfStates] = {
 
 				{eStateAutoCalibrating,
 				eStateCalibrating,
-				eStateCalibrateZeroSignal,
+				-1,
 				0,
 				evAutoCalibratingChecker,
 				tfNull,
@@ -997,7 +998,7 @@ xStateType xaStates[eNumberOfStates] = {
 
 					{eStateCalibrateZeroSignal,
 					eStateAutoCalibrating,
-					-1,
+					eStateCalibrateLow,
 					0,
 					evCalibrateZeroSignalChecker,
 					tfNull,
