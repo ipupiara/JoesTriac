@@ -31,6 +31,8 @@ public:
 
     uint16_t getAlarmTime();
 
+    void  storeAlarmData(uint32_t aTime, uint8_t aNeeded);
+
     virtual void tick();
 
 private:

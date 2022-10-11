@@ -63,6 +63,8 @@ tStatus saveAlarmNeeded(uint8_t aNeeded);
 
 tStatus saveAlarmTime(uint32_t aTime);
 
+tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded);
+
 void errorHandler(uint32_t  code, errorSeverity severity, char* errorString, char* method );
 
 tStatus initDefines();

@@ -10,6 +10,12 @@ void alarmConfigScreenView::setupScreen()
     alarmConfigScreenViewBase::setupScreen();
 
     timeValueMin = presenter->getAlarmTime();
+    alarmNeeded = presenter->getAlarmNeeded();
+    if (alarmNeeded != 0)  {
+    	radioButtonOn.setSelected(true);
+    }  else {
+    	radioButtonOn.setSelected(false);
+    }
     setValArray(timeValueMin);
     printCurrentValueTimeOnScreen();
 }
@@ -21,7 +27,11 @@ void alarmConfigScreenView::tearDownScreen()
 
 void alarmConfigScreenView::backNSaveButtonPressed()
 {
-
+	uint8_t aNeeded;
+	uint16_t aTime = timeValueMin;
+	aNeeded = radioButtonOn.getSelected();
+	presenter->storeAlarmData(aTime,aNeeded);
+	static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotoconfigScreenScreenNoTransition();
 }
 
 void alarmConfigScreenView::toggleCursor()
@@ -56,7 +66,7 @@ void alarmConfigScreenView::buttonPressed(uint8_t val)
 
 void alarmConfigScreenView::cancelButtonPressed()
 {
-
+	static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotoconfigScreenScreenNoTransition();
 }
 
 void alarmConfigScreenView::numPressed(uint8_t value)

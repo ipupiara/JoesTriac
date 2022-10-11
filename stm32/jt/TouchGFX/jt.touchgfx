@@ -938,21 +938,10 @@
             "Wildcard1": {}
           },
           {
-            "Type": "ToggleButton",
-            "Name": "toggleButton1",
-            "X": 602,
-            "Y": 154,
-            "Width": 128,
-            "Height": 38,
-            "Pressed": "__designer\\Blue_Togglebars_Toggle_round_large_button_ON.png",
-            "Released": "__designer\\Blue_Togglebars_Toggle_round_large_button_OFF.png",
-            "Style": "Style4"
-          },
-          {
             "Type": "TextArea",
             "Name": "textArea2",
-            "X": 466,
-            "Y": 162,
+            "X": 475,
+            "Y": 229,
             "Width": 60,
             "Height": 22,
             "TextId": "__SingleUse_MZQ4",
@@ -1024,6 +1013,56 @@
             },
             "TextRotation": "0",
             "Style": "Style4"
+          },
+          {
+            "Type": "RadioButton",
+            "Name": "radioButtonOn",
+            "X": 606,
+            "Y": 224,
+            "Width": 44,
+            "Height": 44,
+            "Selected": true,
+            "FileNameSelected": "__designer\\Blue_Radio_buttons_Radio_Round_button_active.png",
+            "FileNameSelectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_normal.png",
+            "FileNameUnselected": "__designer\\Blue_Radio_buttons_Radio_Round_button_inactive.png",
+            "FileNameUnselectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_pressed.png",
+            "RadioButtonGroup": "radioButtonGroup1",
+            "Style": "Style3"
+          },
+          {
+            "Type": "RadioButton",
+            "Name": "radioButtonOff",
+            "X": 660,
+            "Y": 224,
+            "Width": 44,
+            "Height": 44,
+            "FileNameSelected": "__designer\\Blue_Radio_buttons_Radio_Round_button_active.png",
+            "FileNameSelectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_pressed.png",
+            "FileNameUnselected": "__designer\\Blue_Radio_buttons_Radio_Round_button_inactive.png",
+            "FileNameUnselectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_pressed.png",
+            "RadioButtonGroup": "radioButtonGroup1"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea3",
+            "X": 610,
+            "Y": 191,
+            "Width": 24,
+            "Height": 22,
+            "TextId": "__SingleUse_EHX2",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea4",
+            "X": 664,
+            "Y": 191,
+            "Width": 36,
+            "Height": 22,
+            "TextId": "__SingleUse_CDHX",
+            "TextRotation": "0",
+            "AutoSize": true
           }
         ],
         "Interactions": [

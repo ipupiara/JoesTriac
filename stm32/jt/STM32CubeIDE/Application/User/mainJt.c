@@ -84,21 +84,30 @@ void mainJtOsStarted()
 void mainJt(void *argument)
 {
 	osStatus_t status;
-	CMainJtEventT  mainJtEv;
+	CMainJtEventT  mJtEv;
 	fsmTriacEvent fsmEv;
 	mainJtOsStarted();
 	uint8_t  prio = 0;
 	do  {
-		memset(&mainJtEv, 0, sizeof(mainJtEv));
-		if ((status = osMessageQueueGet(mainJtMessageQ,(void *) &mainJtEv, &prio, osWaitForever)) == osOK )  {
-			if (mainJtEv.evType == secondTick) {
+		memset(&mJtEv, 0, sizeof(mJtEv));
+		if ((status = osMessageQueueGet(mainJtMessageQ,(void *) &mJtEv, &prio, osWaitForever)) == osOK )  {
+			if (mJtEv.evType == secondTick) {
 				durationTimerTick();
 				fsmEv.evType=evSecondsTick;
 				processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
 			}
-			if (mainJtEv.evType == configBackPressed)  {
+			if (mJtEv.evType == configBackPressed)  {
 				fsmEv.evType=evConfigBackPressed;
 				processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
+			}
+			if (mJtEv.evType == storeAlarmData) {
+				saveAlarmData(mJtEv.mainUnion.alarmData.alarmTime,mJtEv.mainUnion.alarmData.alarmNeeded);
+			}
+			if (mJtEv.evType == storeWeldingTime) {
+				saveWeldingTime(mJtEv.mainUnion.weldingTime);
+			}
+			if (mJtEv.evType == storeWeldingAmpere) {
+				saveWeldingAmps(mJtEv.mainUnion.weldingAmps);
 			}
 		}  else {
 			errorHandler((uint32_t)status ,goOn," osMessageQueueGet "," mainJt ");

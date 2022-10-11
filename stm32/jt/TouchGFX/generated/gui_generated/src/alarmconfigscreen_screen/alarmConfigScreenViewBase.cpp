@@ -34,10 +34,7 @@ alarmConfigScreenViewBase::alarmConfigScreenViewBase() :
     alarmTimeText.setLinespacing(0);
     alarmTimeText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_Y4IF));
 
-    toggleButton1.setXY(602, 154);
-    toggleButton1.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_TOGGLEBARS_TOGGLE_ROUND_LARGE_BUTTON_OFF_ID), touchgfx::Bitmap(BITMAP_BLUE_TOGGLEBARS_TOGGLE_ROUND_LARGE_BUTTON_ON_ID));
-
-    textArea2.setXY(466, 162);
+    textArea2.setXY(475, 229);
     textArea2.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea2.setLinespacing(0);
     textArea2.setTypedText(touchgfx::TypedText(T___SINGLEUSE_MZQ4));
@@ -65,16 +62,41 @@ alarmConfigScreenViewBase::alarmConfigScreenViewBase() :
     cancelButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     cancelButton.setAction(buttonCallback);
 
+    radioButtonOn.setXY(606, 224);
+    radioButtonOn.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_INACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_ACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_NORMAL_ID));
+    radioButtonOn.setSelected(true);
+    radioButtonOn.setDeselectionEnabled(false);
+
+    radioButtonOff.setXY(660, 224);
+    radioButtonOff.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_INACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_ACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID));
+    radioButtonOff.setSelected(false);
+    radioButtonOff.setDeselectionEnabled(false);
+
+    textArea3.setXY(610, 191);
+    textArea3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea3.setLinespacing(0);
+    textArea3.setTypedText(touchgfx::TypedText(T___SINGLEUSE_EHX2));
+
+    textArea4.setXY(664, 191);
+    textArea4.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea4.setLinespacing(0);
+    textArea4.setTypedText(touchgfx::TypedText(T___SINGLEUSE_CDHX));
+
     add(__background);
     add(box1);
     add(numericKeyPad1);
     add(textArea1);
     add(alarmTimeText);
-    add(toggleButton1);
     add(textArea2);
     add(cursor);
     add(backNSaveButton);
     add(cancelButton);
+    add(radioButtonOn);
+    add(radioButtonOff);
+    add(textArea3);
+    add(textArea4);
+    radioButtonGroup1.add(radioButtonOn);
+    radioButtonGroup1.add(radioButtonOff);
 }
 
 void alarmConfigScreenViewBase::setupScreen()

@@ -36,7 +36,8 @@ public:
     void storeAlarmTime(uint16_t alTime);
     void storeAlarmNeeded(uint8_t alNeeded);
     void storeAlarm(uint8_t alNeeded, uint16_t alTime);
-
+    float getWeldingAmps();
+    void storeWeldingAmps(float amps);
 
     int16_t weldingTime;
     float weldingAmps;

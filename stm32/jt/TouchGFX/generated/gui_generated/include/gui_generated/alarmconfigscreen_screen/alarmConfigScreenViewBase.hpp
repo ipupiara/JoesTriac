@@ -11,10 +11,11 @@
 #include <gui/containers/numericKeyPad.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
-#include <touchgfx/widgets/ToggleButton.hpp>
 #include <touchgfx/widgets/canvas/Line.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB565.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
+#include <touchgfx/widgets/RadioButton.hpp>
+#include <touchgfx/widgets/RadioButtonGroup.hpp>
 
 class alarmConfigScreenViewBase : public touchgfx::View<alarmConfigScreenPresenter>
 {
@@ -54,12 +55,16 @@ protected:
     numericKeyPad numericKeyPad1;
     touchgfx::TextArea textArea1;
     touchgfx::TextAreaWithOneWildcard alarmTimeText;
-    touchgfx::ToggleButton toggleButton1;
     touchgfx::TextArea textArea2;
     touchgfx::Line cursor;
     touchgfx::PainterRGB565 cursorPainter;
     touchgfx::ButtonWithLabel backNSaveButton;
     touchgfx::ButtonWithLabel cancelButton;
+    touchgfx::RadioButton radioButtonOn;
+    touchgfx::RadioButton radioButtonOff;
+    touchgfx::TextArea textArea3;
+    touchgfx::TextArea textArea4;
+    touchgfx::RadioButtonGroup<2> radioButtonGroup1;
 
 private:
 

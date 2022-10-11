@@ -163,6 +163,17 @@ tStatus saveAlarmTime(uint32_t aTime)
 	return success;
 }
 
+tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded)
+{
+	tStatus success = tFailed;
+	success = restorePersistenData();
+	if (success ==  tOk) {
+		persistentRec.alarmTime = aTime;
+		persistentRec.alarmNeeded = aNeeded;
+		success = savePersistendData();
+	}
+	return success;
+}
 
 
 void errorHandler(uint32_t  code, errorSeverity severity, char* errorString, char* method )

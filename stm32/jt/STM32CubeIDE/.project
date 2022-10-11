@@ -945,14 +945,24 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__designer/image_Blue_ProgressIndicators_bg_medium_progress_indicator_bg_square_0_degrees.cpp</locationURI>
 		</link>
 		<link>
-			<name>Application/User/generated/image_Blue_Togglebars_Toggle_round_large_button_OFF.cpp</name>
+			<name>Application/User/generated/image_Blue_Radio_buttons_Radio_Round_button_active.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__designer/image_Blue_Togglebars_Toggle_round_large_button_OFF.cpp</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__designer/image_Blue_Radio_buttons_Radio_Round_button_active.cpp</locationURI>
 		</link>
 		<link>
-			<name>Application/User/generated/image_Blue_Togglebars_Toggle_round_large_button_ON.cpp</name>
+			<name>Application/User/generated/image_Blue_Radio_buttons_Radio_Round_button_inactive.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__designer/image_Blue_Togglebars_Toggle_round_large_button_ON.cpp</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__designer/image_Blue_Radio_buttons_Radio_Round_button_inactive.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_Blue_Radio_buttons_Radio_Round_button_normal.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__designer/image_Blue_Radio_buttons_Radio_Round_button_normal.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_Blue_Radio_buttons_Radio_Round_button_pressed.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__designer/image_Blue_Radio_buttons_Radio_Round_button_pressed.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_abortBtn.cpp</name>

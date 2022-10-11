@@ -30,6 +30,8 @@ extern "C" {
 typedef enum {
 	msgFree = 0,
 	storeWeldingTime,
+	storeWeldingAmpere,
+	storeAlarmData,
 	secondTick,
 	configBackPressed
 }  mainJtMessageType;
@@ -40,8 +42,12 @@ typedef struct  {
 	mainJtMessageType evType;
 	union {
 		uint32_t keyCode;
-		float   amps;
+		float   weldingAmps;
 		uint32_t  weldingTime;
+		struct {
+			uint32_t     alarmTime;
+			uint8_t		alarmNeeded;
+		} alarmData;
 	} mainUnion;
 
 } CMainJtEventT ;

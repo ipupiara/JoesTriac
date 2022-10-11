@@ -28,6 +28,10 @@ uint16_t alarmConfigScreenPresenter::getAlarmTime()
 	return model->getAlarmTime();
 }
 
+void  alarmConfigScreenPresenter::storeAlarmData(uint32_t aTime, uint8_t aNeeded)
+{
+	model->storeAlarm(aNeeded, aTime);
+}
 
 void alarmConfigScreenPresenter::tick()
 {

@@ -54,8 +54,25 @@ uint16_t Model::getWeldingTimeSec()
 
 void Model::storeWeldingTimeSec(uint16_t  tm)
 {
-
+	CMainJtEventT evt;
+	evt.evType = storeWeldingTime;
+	evt.mainUnion.weldingTime = tm;
+	sendEventToMainJtMessageQ(&evt,0);
 }
+
+float Model::getWeldingAmps()
+{
+	return (uint16_t) getDefinesWeldingAmps();
+}
+
+void Model::storeWeldingAmps(float amps)
+{
+	CMainJtEventT evt;
+	evt.evType = storeWeldingAmpere;
+	evt.mainUnion.weldingAmps = amps;
+	sendEventToMainJtMessageQ(&evt,0);
+}
+
 
 uint16_t Model::getAlarmTime()
 {
@@ -82,7 +99,11 @@ void Model::storeAlarmNeeded(uint8_t alNeeded)
 
 void Model::storeAlarm(uint8_t alNeeded, uint16_t alTime)
 {
-
+	CMainJtEventT evt;
+	evt.evType = storeAlarmData;
+	evt.mainUnion.alarmData.alarmTime = alTime;
+	evt.mainUnion.alarmData.alarmNeeded = alNeeded;
+	sendEventToMainJtMessageQ(&evt,0);
 }
 
 void Model::restoreData()
