@@ -27,9 +27,15 @@ public:
 
     virtual ~alarmConfigScreenPresenter() {};
 
+    uint8_t getAlarmNeeded();
+
+    uint16_t getAlarmTime();
+
+    virtual void tick();
+
 private:
     alarmConfigScreenPresenter();
-
+    uint8_t tickCnt;
     alarmConfigScreenView& view;
 };
 

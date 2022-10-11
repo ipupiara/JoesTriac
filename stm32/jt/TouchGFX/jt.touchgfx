@@ -934,7 +934,8 @@
             "Height": 46,
             "TextId": "__SingleUse_Y4IF",
             "TextRotation": "0",
-            "AutoSize": true
+            "AutoSize": true,
+            "Wildcard1": {}
           },
           {
             "Type": "ToggleButton",
@@ -1046,6 +1047,18 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "cancelButtonPressed"
+            }
+          },
+          {
+            "InteractionName": "numPressedInteraction",
+            "Trigger": {
+              "Type": "TriggerCustom",
+              "TriggerCustomTypeName": "numericKeyPad numPressed happens",
+              "TriggerComponent": "numericKeyPad1"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "numPressed"
             }
           }
         ]

@@ -9,7 +9,8 @@
 
 
 alarmConfigScreenViewBase::alarmConfigScreenViewBase() :
-    buttonCallback(this, &alarmConfigScreenViewBase::buttonCallbackHandler)
+    buttonCallback(this, &alarmConfigScreenViewBase::buttonCallbackHandler),
+    numericKeyPad1NumPressedCallback(this, &alarmConfigScreenViewBase::numericKeyPad1NumPressedCallbackHandler)
 {
 
     touchgfx::CanvasWidgetRenderer::setupBuffer(canvasBuffer, CANVAS_BUFFER_SIZE);
@@ -21,6 +22,7 @@ alarmConfigScreenViewBase::alarmConfigScreenViewBase() :
     box1.setColor(touchgfx::Color::getColorFromRGB(176, 247, 191));
 
     numericKeyPad1.setXY(0, 23);
+    numericKeyPad1.setNumPressedCallback(numericKeyPad1NumPressedCallback);
 
     textArea1.setXY(466, 60);
     textArea1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
@@ -78,6 +80,14 @@ alarmConfigScreenViewBase::alarmConfigScreenViewBase() :
 void alarmConfigScreenViewBase::setupScreen()
 {
     numericKeyPad1.initialize();
+}
+
+void alarmConfigScreenViewBase::numericKeyPad1NumPressedCallbackHandler(uint8_t value)
+{
+    //numPressedInteraction
+    //When numericKeyPad1 numPressed call virtual function
+    //Call numPressed
+    numPressed(value);
 }
 
 void alarmConfigScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)

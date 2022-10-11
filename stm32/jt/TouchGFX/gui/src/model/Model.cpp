@@ -57,6 +57,34 @@ void Model::storeWeldingTimeSec(uint16_t  tm)
 
 }
 
+uint16_t Model::getAlarmTime()
+{
+	uint16_t res;
+	res = (uint16_t) getDefinesAlarmTime();
+	return res;
+}
+uint8_t  Model::getAlarmNeeded()
+{
+	uint8_t res;
+	res = getDefinesAlarmNeeded();
+	return res;
+}
+
+void Model::storeAlarmTime(uint16_t alTime)
+{
+
+}
+
+void Model::storeAlarmNeeded(uint8_t alNeeded)
+{
+
+}
+
+void Model::storeAlarm(uint8_t alNeeded, uint16_t alTime)
+{
+
+}
+
 void Model::restoreData()
 {
 	weldingTime = (uint16_t) getDefinesWeldingTime();

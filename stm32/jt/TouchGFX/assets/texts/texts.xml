@@ -91,7 +91,7 @@
         <Translation Language="GB">alarm</Translation>
       </Text>
       <Text Id="__SingleUse_Y4IF" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">00</Translation>
+        <Translation Language="GB">00&lt;value&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_TPKG" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">alarm Time</Translation>

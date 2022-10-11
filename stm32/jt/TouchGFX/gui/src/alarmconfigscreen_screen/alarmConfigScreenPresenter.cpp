@@ -16,3 +16,26 @@ void alarmConfigScreenPresenter::deactivate()
 {
 
 }
+
+uint8_t alarmConfigScreenPresenter::getAlarmNeeded()
+{
+
+	return model->getAlarmNeeded();
+}
+
+uint16_t alarmConfigScreenPresenter::getAlarmTime()
+{
+	return model->getAlarmTime();
+}
+
+
+void alarmConfigScreenPresenter::tick()
+{
+	// -fno-inline-functions  and no optimization -O0   ! if not set, sends the code to  booby hatch,  dancing wild on the stack :-)
+	if (tickCnt > 30) {
+		tickCnt = 0;
+		view.toggleCursor();
+	}
+	++tickCnt;
+}
+

@@ -10,6 +10,7 @@
 #include <touchgfx/widgets/Box.hpp>
 #include <gui/containers/numericKeyPad.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
+#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/ToggleButton.hpp>
 #include <touchgfx/widgets/canvas/Line.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB565.hpp>
@@ -35,6 +36,11 @@ public:
         // Override and implement this function in alarmConfigScreen
     }
 
+    virtual void numPressed(uint8_t value)
+    {
+        // Override and implement this function in alarmConfigScreen
+    }
+
 protected:
     FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(touchgfx::Application::getInstance());
@@ -47,7 +53,7 @@ protected:
     touchgfx::Box box1;
     numericKeyPad numericKeyPad1;
     touchgfx::TextArea textArea1;
-    touchgfx::TextArea alarmTimeText;
+    touchgfx::TextAreaWithOneWildcard alarmTimeText;
     touchgfx::ToggleButton toggleButton1;
     touchgfx::TextArea textArea2;
     touchgfx::Line cursor;
@@ -61,11 +67,13 @@ private:
      * Callback Declarations
      */
     touchgfx::Callback<alarmConfigScreenViewBase, const touchgfx::AbstractButton&> buttonCallback;
+    touchgfx::Callback<alarmConfigScreenViewBase, uint8_t> numericKeyPad1NumPressedCallback;
 
     /*
      * Callback Handler Declarations
      */
     void buttonCallbackHandler(const touchgfx::AbstractButton& src);
+    void numericKeyPad1NumPressedCallbackHandler(uint8_t value);
 
     /*
      * Canvas Buffer Size
