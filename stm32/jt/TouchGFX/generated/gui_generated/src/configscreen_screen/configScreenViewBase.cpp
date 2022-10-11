@@ -55,6 +55,11 @@ configScreenViewBase::configScreenViewBase() :
     textArea3.setLinespacing(0);
     textArea3.setTypedText(touchgfx::TypedText(T___SINGLEUSE_1T1P));
 
+    alarmText.setXY(241, 396);
+    alarmText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    alarmText.setLinespacing(0);
+    alarmText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_TOZG));
+
     add(__background);
     add(bgBox);
     add(calibrationButton);
@@ -64,6 +69,7 @@ configScreenViewBase::configScreenViewBase() :
     add(textArea1);
     add(textArea2);
     add(textArea3);
+    add(alarmText);
 }
 
 void configScreenViewBase::setupScreen()
@@ -83,8 +89,8 @@ void configScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton&
     else if (&src == &backButton)
     {
         //backInteraction
-        //When backButton clicked change screen to mainScreen
-        //Go to mainScreen with no screen transition
-        application().gotomainScreenScreenNoTransition();
+        //When backButton clicked call virtual function
+        //Call backPressed
+        backPressed();
     }
 }

@@ -6,6 +6,9 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_TOZG" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">needs calibration</Translation>
+      </Text>
       <Text Id="__SingleUse_P107" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">startup....</Translation>
       </Text>

@@ -1,9 +1,16 @@
 #ifndef dma_tools
 #define dma_tools
 
+#ifdef  __cplusplus
+extern "C"
+{
+#endif
+
 #include <stdio.h>
 #include <stm32f7xx_hal.h>
 //#include <stm32f7xx_hal_adc.h>
+
+
 
 #define  MAX( a, b ) ( ( a > b) ? a : b )
 
@@ -32,4 +39,10 @@ void i2cTransferConfig(I2C_HandleTypeDef *hi2c,  uint16_t DevAddress, uint8_t Si
 // method copied from stm32f7xx_hal_dma.c
 void DMA_SetTransferConfig(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, uint32_t DstAddress, uint32_t DataLength);
 uint8_t  dmaIsr(DMA_HandleTypeDef *hdma);
+
+#ifdef  __cplusplus
+}
+#endif
+
+
 #endif

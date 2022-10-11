@@ -29,10 +29,9 @@ extern "C" {
 
 typedef enum {
 	msgFree = 0,
-	key,
-	zeroAdjust,
-	voltage,
-	secondTick
+	storeWeldingTime,
+	secondTick,
+	configBackPressed
 }  mainJtMessageType;
 
 
@@ -41,11 +40,10 @@ typedef struct  {
 	mainJtMessageType evType;
 	union {
 		uint32_t keyCode;
-		struct {
-			float   amps;
-			uint16_t  potiPos;
-		} zeroAdjustingNVoltageState;
-	}  evData;
+		float   amps;
+		uint32_t  weldingTime;
+	} mainUnion;
+
 } CMainJtEventT ;
 
 typedef CMainJtEventT*  pMainJtEventT;
@@ -84,8 +82,9 @@ extern osMessageQueueId_t    presenterMessageQ;
 typedef enum {
 	changeToRunScreen = 0,
 	changeToMainScreen,
-	changeToCalibratingScreen,
-	changeToRequesStopScreen
+	changeToConfigScreen,
+	changeToRequesStopScreen,
+	restoreModelData
 }  modelMessageType;
 
 
@@ -108,7 +107,6 @@ osStatus_t sendModelMessage(pJoesModelEventT  pMsg);
 extern osMessageQueueId_t    modelMessageQ;
 
 //////////////////  end Messages  ///////////////////
-
 
 void initJt();
 

@@ -5,7 +5,10 @@
 #include<stdint.h>
 #include <math.h>
 
-
+#ifdef  __cplusplus
+extern "C"
+{
+#endif
 // Select 'double' or 'float' here:
 typedef double real;
 
@@ -15,6 +18,8 @@ typedef double real;
 
 
 extern float zeroAdjustDiffVoltage;
+
+
 
 void InitPID();
 
@@ -50,6 +55,10 @@ int8_t setAdjustJob(int8_t jobS);
 
 
 void calcNextTriacDelay();
+
+#ifdef  __cplusplus
+}
+#endif
 
 
 #endif

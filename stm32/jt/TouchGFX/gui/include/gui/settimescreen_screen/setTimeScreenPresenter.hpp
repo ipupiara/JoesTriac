@@ -3,6 +3,7 @@
 
 #include <gui/model/ModelListener.hpp>
 #include <mvp/Presenter.hpp>
+#include <defines.h>
 
 using namespace touchgfx;
 
@@ -30,7 +31,6 @@ public:
     virtual void tick();
 
     uint16_t getWeldingTimeSec();
-    void setWeldingTimeSec(uint16_t  tm);
     void storeWeldingTimeSec(uint16_t  tm);
 
 

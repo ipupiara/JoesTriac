@@ -8,6 +8,12 @@
 #ifndef ST_TEMPIX_TOOLS_UART_COMMS_H_
 #define ST_TEMPIX_TOOLS_UART_COMMS_H_
 
+#ifdef  __cplusplus
+extern "C"
+{
+#endif
+
+
 #define maxSerialStringSz   80
 #define charWidth sizeof(char)
 
@@ -21,5 +27,10 @@ void info_printf( char *emsg, ...);
 void printStartMessage();
 
 void forwardReceivedStringBuffer(char* strBuffer);
+
+#ifdef  __cplusplus
+}
+#endif
+
 
 #endif /* ST_TEMPIX_TOOLS_UART_COMMS_H_ */

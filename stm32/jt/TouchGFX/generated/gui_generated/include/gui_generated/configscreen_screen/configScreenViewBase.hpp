@@ -27,6 +27,11 @@ public:
         // Override and implement this function in configScreen
     }
 
+    virtual void backPressed()
+    {
+        // Override and implement this function in configScreen
+    }
+
 protected:
     FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(touchgfx::Application::getInstance());
@@ -44,6 +49,7 @@ protected:
     touchgfx::TextArea textArea1;
     touchgfx::TextArea textArea2;
     touchgfx::TextArea textArea3;
+    touchgfx::TextArea alarmText;
 
 private:
 

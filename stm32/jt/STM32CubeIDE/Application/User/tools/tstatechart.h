@@ -29,9 +29,13 @@
 #include<stdint.h>
 #include<stdbool.h>
 
+#ifdef  __cplusplus
+extern "C"
+{
+#endif
 
-typedef  uint8_t uStInt;
-typedef  int8_t  stInt;
+typedef  uint32_t uStInt;
+typedef  int32_t  stInt;
 
 #define maxDepth 12
 
@@ -122,6 +126,10 @@ void endEventAction(TStatechart* t, uStInt u32DestStateAndFlags,
 	uStInt u32LastStateExited);
 
 void resetHistoryReturns(TStatechart* t);
+
+#ifdef  __cplusplus
+}
+#endif
 
 
 #endif	

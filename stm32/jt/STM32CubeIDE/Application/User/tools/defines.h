@@ -11,6 +11,11 @@
 #ifndef APPLICATION_USER_TOOLS_DEFINES_H_
 #define APPLICATION_USER_TOOLS_DEFINES_H_
 
+#ifdef  __cplusplus
+extern "C"
+{
+#endif
+
 #define errorStringLen  20
 
 typedef enum{
@@ -32,10 +37,19 @@ typedef struct {
 	uint32_t  alarmTime;
 } persistentData;
 
-#ifdef  __cplusplus
-extern "C"
-{
-#endif
+
+
+uint32_t getDefinesWeldingTime();
+
+float getDefinesWeldingAmps();
+
+uint8_t getDefinesAlarmNeeded();
+
+uint32_t getDefinesAlarmTime();
+
+uint32_t getDefinesCalibHigh();
+
+uint32_t getDefinesCalibLow();
 
 tStatus saveWeldingTime(uint32_t wTime);
 
@@ -47,7 +61,7 @@ tStatus saveCalibHigh(uint32_t cLow);
 
 tStatus saveAlarmNeeded(uint8_t aNeeded);
 
-tStatus saveWeldingTime(uint32_t aTime);
+tStatus saveAlarmTime(uint32_t aTime);
 
 void errorHandler(uint32_t  code, errorSeverity severity, char* errorString, char* method );
 

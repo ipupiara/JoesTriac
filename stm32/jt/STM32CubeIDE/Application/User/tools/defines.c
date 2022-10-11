@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <defines.h>
+#include <FreeRTOS.h>
+#include <task.h>
 
 
 persistentData  persistentRec;
@@ -29,11 +31,69 @@ tStatus savePersistendData()
 	return success;
 }
 
+
 tStatus restorePersistenData()
 {
 	tStatus success = tFailed;
 
+	if (success != tOk)  {
+		initPersistendData();
+	}
 	return success;
+}
+
+uint32_t getDefinesWeldingTime()
+{
+	uint32_t wTime;
+	taskENTER_CRITICAL();
+	wTime = persistentRec.weldingTime;
+	taskEXIT_CRITICAL();
+	return wTime;
+}
+
+float getDefinesWeldingAmps()
+{
+	float amps;
+	taskENTER_CRITICAL();
+	amps = persistentRec.weldingAmps;
+	taskEXIT_CRITICAL();
+	return amps;
+}
+
+uint8_t getDefinesAlarmNeeded()
+{
+	uint8_t needed;
+	taskENTER_CRITICAL();
+	needed = persistentRec.alarmNeeded;
+	taskEXIT_CRITICAL();
+	return needed;
+}
+
+uint32_t getDefinesAlarmTime()
+{
+	uint32_t aTime;
+	taskENTER_CRITICAL();
+	aTime = persistentRec.alarmTime;
+	taskEXIT_CRITICAL();
+	return aTime;
+}
+
+uint32_t getDefinesCalibHigh()
+{
+	uint32_t cal;
+	taskENTER_CRITICAL();
+	cal = persistentRec.calibHigh;
+	taskEXIT_CRITICAL();
+	return cal;
+}
+
+uint32_t getDefinesCalibLow()
+{
+	uint32_t cal;
+	taskENTER_CRITICAL();
+	cal = persistentRec.calibLow;
+	taskEXIT_CRITICAL();
+	return cal;
 }
 
 tStatus saveWeldingTime(uint32_t wTime)
@@ -109,25 +169,27 @@ void errorHandler(uint32_t  code, errorSeverity severity, char* errorString, cha
 {
 	char buffer [100];
 	snprintf(buffer, 99, "%s, %s, %10lX, %X", method, errorString,code,severity);
-	//  todo log to peristency
+	//  todo log to persistency
 
 	if (severity == stop) {  do {} while (1);}
 }
 
 tStatus isCalibrationReady()
 {
-	tStatus res= tOk;
-
+	tStatus res= tFailed;
+	if ((getDefinesCalibHigh() != 0)  && (getDefinesCalibLow() != 0))   {
+		res = tOk;
+	}
 	return res;
 }
+
+
 
 tStatus initDefines()
 {
 	tStatus success =  tFailed;
 	success = restorePersistenData();
-	if (success == tOk) {
 
-	}
 	return success;
 }
 

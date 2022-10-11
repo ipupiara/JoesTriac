@@ -96,7 +96,6 @@ void setTimeScreenView::setValArray(uint16_t val)
  {
 	 timeValueSec = (valArray[0] * 600) + (valArray[1] * 60) +
 			 	 	 	 (valArray[2] * 10) + valArray[3]  ;
-	 presenter->setWeldingTimeSec(timeValueSec);
 
  }
  void setTimeScreenView::printCurrentValueTimeOnScreen()

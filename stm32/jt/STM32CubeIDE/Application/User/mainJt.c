@@ -18,7 +18,7 @@ void mainJt(void *argument);
 osThreadId_t mainJtTaskHandle;
 const osThreadAttr_t mainJt_attributes = {
   .name = "mainJtTask",
-  .stack_size = 512 * 8,
+  .stack_size = 1024 * 8,
   .priority = (osPriority_t) osPriorityNormal,
 };
 
@@ -58,8 +58,6 @@ void mainJtSecondTickCallback(void *argument)
 	CMainJtEventT  ev;
 	memset(&ev, 0x0, sizeof(ev));
 	ev.evType = secondTick;
-	ev.evData.zeroAdjustingNVoltageState.amps = 3.1415926535897932384;
-	ev.evData.zeroAdjustingNVoltageState.potiPos = 0x1234;
 	osStatus_t status =  sendEventToMainJtMessageQ( &ev, 0);
 	if (status != osOK) {
 		errorHandler(status,goOn," status ","mainJtSecondTickCallback");
@@ -95,7 +93,11 @@ void mainJt(void *argument)
 		if ((status = osMessageQueueGet(mainJtMessageQ,(void *) &mainJtEv, &prio, osWaitForever)) == osOK )  {
 			if (mainJtEv.evType == secondTick) {
 				durationTimerTick();
-				fsmEv.evType=secondTick;
+				fsmEv.evType=evSecondsTick;
+				processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
+			}
+			if (mainJtEv.evType == configBackPressed)  {
+				fsmEv.evType=evConfigBackPressed;
 				processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
 			}
 		}  else {
@@ -128,6 +130,7 @@ osStatus_t sendModelMessage(pJoesModelEventT  pMsg)
 
 void initJt()
 {
+	initDefines();
 	mainJtTaskHandle = osThreadNew(mainJt, NULL, &mainJt_attributes);
 	if (mainJtTaskHandle  == NULL)   {
 		errorHandler((uint32_t)mainJtTaskHandle ,stop," mainJtTaskHandle ","initJt");

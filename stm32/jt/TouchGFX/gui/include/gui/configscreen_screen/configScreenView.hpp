@@ -11,6 +11,8 @@ public:
     virtual ~configScreenView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
+    virtual void backPressed();
+
 protected:
 };
 

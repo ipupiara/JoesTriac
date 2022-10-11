@@ -4,6 +4,12 @@
 
 #include "TStatechart.h"
 
+#ifdef  __cplusplus
+extern "C"
+{
+#endif
+
+
 extern TStatechart SJoesTriacStateChart;
 extern TStatechart* PJoesTriacStateChart;
 
@@ -11,19 +17,13 @@ extern TStatechart* PJoesTriacStateChart;
 
 typedef enum eEventTypes
 {
-	evCharEntered,
-	evF1Pressed,
-	evF2Pressed,
-	evAstPressed,
-	evNumPressed,
 	evTimeOutDurationTimer,
 	evSecondsTick,
 	evStartPressed,
 	evStopPressed,
 	evZeroSignalOK,
 	evAdcTick,
-	evTWIDataReceived,
-	evEditFinished,
+	evConfigBackPressed,
 	evFatalError
 }fsmTriacEventType;
 
@@ -42,7 +42,6 @@ typedef struct  {
 
 
 
-
 void startStateCharts();
 
 
@@ -52,6 +51,9 @@ void stopStateCharts();
 bool processTriacFsmEvent(TStatechart* t,fsmTriacEvent* ev);
 
 
+#ifdef  __cplusplus
+}
+#endif
 
 
 #endif

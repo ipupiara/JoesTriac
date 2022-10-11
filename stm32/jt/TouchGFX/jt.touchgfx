@@ -391,6 +391,17 @@
             "TextId": "__SingleUse_1T1P",
             "TextRotation": "0",
             "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "alarmText",
+            "X": 241,
+            "Y": 396,
+            "Width": 408,
+            "Height": 46,
+            "TextId": "__SingleUse_TOZG",
+            "TextRotation": "0",
+            "AutoSize": true
           }
         ],
         "Interactions": [
@@ -412,9 +423,8 @@
               "TriggerComponent": "backButton"
             },
             "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionNone",
-              "ActionComponent": "mainScreen"
+              "Type": "ActionCustom",
+              "FunctionName": "backPressed"
             }
           }
         ]
@@ -2123,6 +2133,18 @@
               "Type": "ActionGotoScreen",
               "ScreenTransitionType": "ScreenTransitionNone",
               "ActionComponent": "runScreen"
+            }
+          },
+          {
+            "InteractionName": "Interaction3",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "button3"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "mainScreen"
             }
           }
         ]

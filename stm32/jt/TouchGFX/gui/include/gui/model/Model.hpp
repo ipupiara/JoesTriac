@@ -17,23 +17,25 @@ public:
         modelListener = listener;
     }
 
+    void restoreData();
+
     void tick();
 
 
-    uint16_t getWeldingTimeSec()
-    {
-    	return debugWeldingTime;
-    }
+    uint16_t getWeldingTimeSec();
 
     void setWeldingTimeSec(uint16_t  tm)
     {
-    	debugWeldingTime = tm;
+    	weldingTime = tm;
     }
 
     void storeWeldingTimeSec(uint16_t  tm);
 
 
-    int16_t stringToSecValue();
+    int16_t weldingTime;
+    float weldingAmps;
+    uint16_t alarmTime;
+    uint8_t alarmNeeded;
 
 
 

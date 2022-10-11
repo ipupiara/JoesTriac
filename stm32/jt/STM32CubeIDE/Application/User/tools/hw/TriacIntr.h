@@ -3,14 +3,23 @@
 #ifndef TriacIntr_H
 	#define TriacIntr_H
 
+#ifdef  __cplusplus
+extern "C"
+{
+#endif
+	
 #include <stdio.h>
 
-	
+
 	
 //int8_t durationTimerReachead;
 //int8_t runningSecondsTick;
 
 extern int64_t  secondCount;
+
+
+
+
 
 //int8_t adcTick;
 //void startAmpsADC();
@@ -50,5 +59,10 @@ float lastAmpsValF();
 ///*
 //opto coupler based 0x (zerocross) handling. optocoupler based diode opens at
 //*/
+
+#ifdef  __cplusplus
+}
+#endif
+
 
 #endif

@@ -341,7 +341,7 @@ void beginEventAction(TStatechart* t, uStInt u32DestState,
 {
 	int i1;
 
-	uStInt	u32StateBeingLeft = 0xff; //= 0xffffffff;
+	uStInt	u32StateBeingLeft = 0xffffffff;//0xff; //= 0xffffffff;
 	for ( i1=0; i1<=t->m_i32ExitingStatesIndex; i1++)
 	{
 		
