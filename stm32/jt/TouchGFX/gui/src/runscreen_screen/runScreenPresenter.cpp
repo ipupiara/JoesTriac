@@ -23,16 +23,18 @@ void runScreenPresenter::tick()
 {
 
 //	CJoesPresenterEventT  presenterMessage;
-
-//	while ( osMessageQueueGet ( presenterMessageQ, &presenterMessage, NULL, 0) == osOK)
-//	{
-//		if (presenterMessage.messageType ==  runScreenSecondUpdate) {
-//			view.updateScreen(presenterMessage.evData.secondRunData.secondsRemaining, presenterMessage.evData.secondRunData.amps);
-//		}
 //
-////		if (presenterMessage.messageType ==  changeToRequesStopScreen) {
-////			static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotorequestStopScreenScreenNoTransition();
-////		}
+//	while ( osMessageQueueGetCount ( presenterMessageQ))
+//	{
+//		if ( osMessageQueueGet ( presenterMessageQ, &presenterMessage, NULL, 0) == osOK)  {
+////			if (presenterMessage.messageType ==  runScreenSecondUpdate) {
+////				view.updateScreen(presenterMessage.evData.secondRunData.secondsRemaining, presenterMessage.evData.secondRunData.amps);
+////			}
+////
+////			if (presenterMessage.messageType ==  changeToRequesStopScreen) {
+////				static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotorequestStopScreenScreenNoTransition();
+////			}
+//		}
 //	}
 }
 

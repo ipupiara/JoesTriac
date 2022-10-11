@@ -157,20 +157,6 @@ uStInt evStateCalibratingChecker(void)
 			res =  uStIntHandlingDone;
 		}
 	}
-	if ((currentEvent->evType == evAstPressed) || (currentEvent->evType == evStartPressed))
-	{	
-////			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrating);
-//				// No event action.
-//			END_EVENT_HANDLER(PJoesTriacStateChart);
-//			res =  uStIntHandlingDone;
-	}
-	if (currentEvent->evType == evF1Pressed) 
-	{	
-////			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateChangeCalibVars);
-//				// No event action.
-//			END_EVENT_HANDLER(PJoesTriacStateChart);
-//			res =  uStIntHandlingDone;
-	}
 	if (currentEvent->evType == evSecondsTick) 
 	{	
 //		displayCountDown();
@@ -215,65 +201,65 @@ uStInt evStateManualCalibrating(void)
 //	printf("check for event in State evStateIdle\n");
 
 
-	if ((currentEvent->evType == evAstPressed) || (currentEvent->evType == evNumPressed)){
-		if (currentEvent->evType == evNumPressed)  {
-//			if (calibVarInd == 0) {
-////				calibLowADC = currentVarVal;
-////				saveCalibLowADC();
-//			}
-//			if (calibVarInd == 1) {
-//				calibHighADC = currentVarVal;
-//				saveCalibHighADC();
-//			}
-		}
-
-		if (calibVarInd == 1)   {	
-			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
-				// No event action.
-			END_EVENT_HANDLER(PJoesTriacStateChart);
-			res =  uStIntHandlingDone;
-		}
-		if (calibVarInd == 0) {
-//			currentVarVal = calibHighADC;
-//			currentTitle = "calibHighADC";
-//			calibVarInd = 1;
-//			displayCurrentVar();
-		}
-/*		if (calibVarInd == 1) {
-			currentVarVal = zeroPotiPos;
-			currentTitle = "zeroPotiPos";
-			calibVarInd = 2;
-			displayCurrentVar();
-		}    // stored on assistant cpu atTiny.  needs message to tiny (i2c) and changes on tiny as well  */
-		res =  uStIntHandlingDone;
-	}
-
-	if (currentEvent->evType == evCharEntered) {
-//		switch (currentEvent->evData.keyCode) {
-//			case kp1 :
-//				currentVarVal++;
-//				break;
-//			case kp2 :
-//				currentVarVal += 10;
-//				break ;
-//			case kp3 :
-//				currentVarVal += 100;
-//				break ;
-//			case kp7 :
-//				currentVarVal--;
-//				break;
-//			case kp8 :
-//				currentVarVal -= 10;
-//				break ;
-//			case kp9 :
-//				currentVarVal -= 100;
-//				break ;
+//	if ((currentEvent->evType == evAstPressed) || (currentEvent->evType == evNumPressed)){
+//		if (currentEvent->evType == evNumPressed)  {
+////			if (calibVarInd == 0) {
+//////				calibLowADC = currentVarVal;
+//////				saveCalibLowADC();
+////			}
+////			if (calibVarInd == 1) {
+////				calibHighADC = currentVarVal;
+////				saveCalibHighADC();
+////			}
 //		}
-//		if (currentVarVal < 0) currentVarVal = 0;
-//		if (currentVarVal > 1023) currentVarVal = 1023;
-//		currentVarChanged();
+//
+//		if (calibVarInd == 1)   {
+//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+//				// No event action.
+//			END_EVENT_HANDLER(PJoesTriacStateChart);
+//			res =  uStIntHandlingDone;
+//		}
+//		if (calibVarInd == 0) {
+////			currentVarVal = calibHighADC;
+////			currentTitle = "calibHighADC";
+////			calibVarInd = 1;
+////			displayCurrentVar();
+//		}
+///*		if (calibVarInd == 1) {
+//			currentVarVal = zeroPotiPos;
+//			currentTitle = "zeroPotiPos";
+//			calibVarInd = 2;
+//			displayCurrentVar();
+//		}    // stored on assistant cpu atTiny.  needs message to tiny (i2c) and changes on tiny as well  */
 //		res =  uStIntHandlingDone;
-	}
+//	}
+//
+//	if (currentEvent->evType == evCharEntered) {
+////		switch (currentEvent->evData.keyCode) {
+////			case kp1 :
+////				currentVarVal++;
+////				break;
+////			case kp2 :
+////				currentVarVal += 10;
+////				break ;
+////			case kp3 :
+////				currentVarVal += 100;
+////				break ;
+////			case kp7 :
+////				currentVarVal--;
+////				break;
+////			case kp8 :
+////				currentVarVal -= 10;
+////				break ;
+////			case kp9 :
+////				currentVarVal -= 100;
+////				break ;
+////		}
+////		if (currentVarVal < 0) currentVarVal = 0;
+////		if (currentVarVal > 1023) currentVarVal = 1023;
+////		currentVarChanged();
+////		res =  uStIntHandlingDone;
+//	}
 	return (res); 
 }
 
@@ -378,15 +364,15 @@ uStInt checkCalibZeroInner(uStInt res)
 // when this is outplaced into inner method (method size problem ??)
 // "silly problems, silly solutions"
 {
-	if (currentEvent->evType == evNumPressed) 
-	{	
-//		debugEvent1Triggered = 1;			
-		
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibratingScale);
-		// No event action.
-		END_EVENT_HANDLER(PJoesTriacStateChart);
-		res =  uStIntHandlingDone;	
-	}
+//	if (currentEvent->evType == evNumPressed)
+//	{
+////		debugEvent1Triggered = 1;
+//
+//		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibratingScale);
+//		// No event action.
+//		END_EVENT_HANDLER(PJoesTriacStateChart);
+//		res =  uStIntHandlingDone;
+//	}
 
 /*
 	if (currentEvent->evType == evCharEntered) {
@@ -509,22 +495,22 @@ uStInt evCalibrateLowChecker(void)
 //	printf("check for event in State evStateIdle\n");
 	uStInt res = uStIntNoMatch;
 
-	if (currentEvent->evType == evAstPressed) 
-	{	
-			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateHigh);
-			// No event action.
-			END_EVENT_HANDLER(PJoesTriacStateChart);
-			res =  uStIntHandlingDone;
-	}
-	if (currentEvent->evType == evNumPressed) 
-	{	
+//	if (currentEvent->evType == evAstPressed)
+//	{
 //			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateHigh);
-//
-//			storeCalibLowADC();
-//
+//			// No event action.
 //			END_EVENT_HANDLER(PJoesTriacStateChart);
 //			res =  uStIntHandlingDone;
-	}
+//	}
+//	if (currentEvent->evType == evNumPressed)
+//	{
+////			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateHigh);
+////
+////			storeCalibLowADC();
+////
+////			END_EVENT_HANDLER(PJoesTriacStateChart);
+////			res =  uStIntHandlingDone;
+//	}
 	return res;
 }
 
@@ -545,23 +531,23 @@ uStInt evCalibrateHighChecker(void)
 {
 	uStInt res = uStIntNoMatch;
 
-	if (currentEvent->evType == evAstPressed) 
-	{	
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
-
-		END_EVENT_HANDLER(PJoesTriacStateChart);
-		res =  uStIntHandlingDone;
-	}
-	if (currentEvent->evType == evNumPressed) 
-	{	
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
-
-//		storeCalibHighADC();
-//		updateGradAmps();
-
-		END_EVENT_HANDLER(PJoesTriacStateChart);
-		res =  uStIntHandlingDone;
-	}
+//	if (currentEvent->evType == evAstPressed)
+//	{
+//		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+//
+//		END_EVENT_HANDLER(PJoesTriacStateChart);
+//		res =  uStIntHandlingDone;
+//	}
+//	if (currentEvent->evType == evNumPressed)
+//	{
+//		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+//
+////		storeCalibHighADC();
+////		updateGradAmps();
+//
+//		END_EVENT_HANDLER(PJoesTriacStateChart);
+//		res =  uStIntHandlingDone;
+//	}
 	return res;
 }
 
@@ -606,15 +592,15 @@ uStInt evTriacIdleChecker(void)
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 	}
-	if (currentEvent->evType == evF1Pressed)
-	{
-//		if (resetMiniStringComponent()) {
-//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupMiniString);
-//
-//			END_EVENT_HANDLER(PJoesTriacStateChart);
-//			res =  uStIntHandlingDone;
-//		}
-	} 
+//	if (currentEvent->evType == evF1Pressed)
+//	{
+////		if (resetMiniStringComponent()) {
+////			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupMiniString);
+////
+////			END_EVENT_HANDLER(PJoesTriacStateChart);
+////			res =  uStIntHandlingDone;
+////		}
+//	}
 	if (currentEvent->evType == evTimeOutDurationTimer) 
 	{	
 //		startDurationTimer(maxSecsPossible);   // enable secondsTick
@@ -648,30 +634,30 @@ uStInt evEditIdleCheckChecker(void)
 	uStInt res = uStIntNoMatch;
 //	printf("\ncheck for event in State evStateIdle");
 
-	if (currentEvent->evType==evAstPressed) {
-//		printf("\ncheck for event in State evStateIdle amps");
-	
-////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditAmps);
-//			// No event action.
-//		END_EVENT_HANDLER(PJoesTriacStateChart);
-//		res =  uStIntHandlingDone;
-	}
-	if (currentEvent->evType==evNumPressed) {	
-//		printf("\ncheck for event in State evStateIdle dur");
-
-////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditDuration);
-//			// No event action.
-//		END_EVENT_HANDLER(PJoesTriacStateChart);
-//		res =  uStIntHandlingDone;
-	}
-	if (currentEvent->evType == evTWIDataReceived) 
-	// do writing  only in edit idle, not to interfere with the edit-cursor position
-	// could be done also by laying edit-cursor pos "on stack" and set again after write, 
-	 //  but lets first try with this simpler version ... should be ok as well
-	{				
-//		checkTWIZeroAdjustMsg();
-//		displayPotiVolatile();
-	}
+//	if (currentEvent->evType==evAstPressed) {
+////		printf("\ncheck for event in State evStateIdle amps");
+//
+//////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditAmps);
+////			// No event action.
+////		END_EVENT_HANDLER(PJoesTriacStateChart);
+////		res =  uStIntHandlingDone;
+//	}
+//	if (currentEvent->evType==evNumPressed) {
+////		printf("\ncheck for event in State evStateIdle dur");
+//
+//////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditDuration);
+////			// No event action.
+////		END_EVENT_HANDLER(PJoesTriacStateChart);
+////		res =  uStIntHandlingDone;
+//	}
+//	if (currentEvent->evType == evTWIDataReceived)
+//	// do writing  only in edit idle, not to interfere with the edit-cursor position
+//	// could be done also by laying edit-cursor pos "on stack" and set again after write,
+//	 //  but lets first try with this simpler version ... should be ok as well
+//	{
+////		checkTWIZeroAdjustMsg();
+////		displayPotiVolatile();
+//	}
 /*
 	if (currentEvent->evType == evCharEntered) {
 		switch (currentEvent->evData.keyCode) {
@@ -713,45 +699,45 @@ uStInt evEditAmpsChecker(void)
 	uStInt res = uStIntNoMatch;
 	//	printf("check for event in State evStateIdle\n");
 
-	if (currentEvent->evType == evNumPressed)  {	
-////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditDuration);
-//			// No event action.
-//		END_EVENT_HANDLER(PJoesTriacStateChart);
-//		res =  uStIntHandlingDone;
-	}
-			if (currentEvent->evType == evAstPressed)  {	
-////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
-//			// No event action.
-//		END_EVENT_HANDLER(PJoesTriacStateChart);
-//		res =  uStIntHandlingDone;
-	}
-
-	if (currentEvent->evType == evCharEntered) {
-		
-	//  TODO:	editChar(currentEvent,storeAmps100,keyInd,3,Amps);  //( , , amps)  struct editLine (char,amtChar,zeroPos,storeMethod[])
-	//
-
-//		if ((currentEvent->evData.keyCode <= kp9) && (currentEvent->evData.keyCode >= kp0)) {
-//			switch (keyInd)
-//			{
-//				case 0:
-//					storeAmps100(currentEvent->evData.keyCode);
-//					break;
-//				case 1:
-//					storeAmps10(currentEvent->evData.keyCode);
-//					break;
-//				case 2:
-//					storeAmps(currentEvent->evData.keyCode);
-//					BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
+//	if (currentEvent->evType == evNumPressed)  {
+//////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditDuration);
+////			// No event action.
+////		END_EVENT_HANDLER(PJoesTriacStateChart);
+////		res =  uStIntHandlingDone;
+//	}
+//			if (currentEvent->evType == evAstPressed)  {
+//////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
+////			// No event action.
+////		END_EVENT_HANDLER(PJoesTriacStateChart);
+////		res =  uStIntHandlingDone;
+//	}
 //
-//					END_EVENT_HANDLER(PJoesTriacStateChart);
-//			}
-//			keyInd ++;
-//			displayAmps(keyInd);  // if keyInd = 3, dispAmps can be done again in next State, no matter
+//	if (currentEvent->evType == evCharEntered) {
 //
-//		res =  uStIntHandlingDone;
-//		}
-	}		
+//	//  TODO:	editChar(currentEvent,storeAmps100,keyInd,3,Amps);  //( , , amps)  struct editLine (char,amtChar,zeroPos,storeMethod[])
+//	//
+//
+////		if ((currentEvent->evData.keyCode <= kp9) && (currentEvent->evData.keyCode >= kp0)) {
+////			switch (keyInd)
+////			{
+////				case 0:
+////					storeAmps100(currentEvent->evData.keyCode);
+////					break;
+////				case 1:
+////					storeAmps10(currentEvent->evData.keyCode);
+////					break;
+////				case 2:
+////					storeAmps(currentEvent->evData.keyCode);
+////					BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
+////
+////					END_EVENT_HANDLER(PJoesTriacStateChart);
+////			}
+////			keyInd ++;
+////			displayAmps(keyInd);  // if keyInd = 3, dispAmps can be done again in next State, no matter
+////
+////		res =  uStIntHandlingDone;
+////		}
+//	}
 	return res;
 }
 
@@ -775,48 +761,48 @@ uStInt evEditDurationChecker(void)
 	uStInt res = uStIntNoMatch;
 	//	printf("check for event in State evStateIdle\n");
 
-	if (currentEvent->evType == evAstPressed)  {	
-////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditAmps);
-//			// No event action.
-//		END_EVENT_HANDLER(PJoesTriacStateChart);
-//		res =  uStIntHandlingDone;
-	}
-	if (currentEvent->evType == evNumPressed)  {	
-////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
-//			// No event action.
-//		END_EVENT_HANDLER(PJoesTriacStateChart);
-//		res =  uStIntHandlingDone;
-	}
-
-	if (currentEvent->evType == evCharEntered) {
-
-//		if ((currentEvent->evData.keyCode <= kp9) && (currentEvent->evData.keyCode >= kp0)) {
-//			switch (keyInd)
-//			{
-//				case 0:
-//					storeMin10(currentEvent->evData.keyCode);
-//					break;
-//				case 1:
-//					storeMin(currentEvent->evData.keyCode);
-//					keyInd++;
-//					break;
-//				case 3:
-//					if (currentEvent->evData.keyCode <= kp5) {
-//						storeSec10(currentEvent->evData.keyCode);
-//					} else keyInd --;
-//					break;
-//				case 4:
-//					storeSec(currentEvent->evData.keyCode);
-//					BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
+//	if (currentEvent->evType == evAstPressed)  {
+//////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditAmps);
+////			// No event action.
+////		END_EVENT_HANDLER(PJoesTriacStateChart);
+////		res =  uStIntHandlingDone;
+//	}
+//	if (currentEvent->evType == evNumPressed)  {
+//////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
+////			// No event action.
+////		END_EVENT_HANDLER(PJoesTriacStateChart);
+////		res =  uStIntHandlingDone;
+//	}
 //
-//					END_EVENT_HANDLER(PJoesTriacStateChart);
-//			}
-//			keyInd ++;
-//			displayTime(keyInd);
+//	if (currentEvent->evType == evCharEntered) {
 //
-//			res =  uStIntHandlingDone;
-//		}
-	}		
+////		if ((currentEvent->evData.keyCode <= kp9) && (currentEvent->evData.keyCode >= kp0)) {
+////			switch (keyInd)
+////			{
+////				case 0:
+////					storeMin10(currentEvent->evData.keyCode);
+////					break;
+////				case 1:
+////					storeMin(currentEvent->evData.keyCode);
+////					keyInd++;
+////					break;
+////				case 3:
+////					if (currentEvent->evData.keyCode <= kp5) {
+////						storeSec10(currentEvent->evData.keyCode);
+////					} else keyInd --;
+////					break;
+////				case 4:
+////					storeSec(currentEvent->evData.keyCode);
+////					BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
+////
+////					END_EVENT_HANDLER(PJoesTriacStateChart);
+////			}
+////			keyInd ++;
+////			displayTime(keyInd);
+////
+////			res =  uStIntHandlingDone;
+////		}
+//	}
 	return res;
 }
 
@@ -908,12 +894,12 @@ uStInt evJobOkDisplayChecker(void)
 	uStInt res = uStIntNoMatch;
 	//	printf("check for event in State evStateIdle\n");
 
-	if ((currentEvent->evType == evAstPressed) || (currentEvent->evType == evTimeOutDurationTimer))  {	
-			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
-				// No event action.
-			END_EVENT_HANDLER(PJoesTriacStateChart);
-			res =  uStIntHandlingDone;
-	}
+//	if ((currentEvent->evType == evAstPressed) || (currentEvent->evType == evTimeOutDurationTimer))  {
+//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+//				// No event action.
+//			END_EVENT_HANDLER(PJoesTriacStateChart);
+//			res =  uStIntHandlingDone;
+//	}
 	if (currentEvent->evType == evSecondsTick) 
 	{	
 //		displayInDurationTimerSince();
@@ -1111,11 +1097,6 @@ xStateType xaStates[eNumberOfStates] = {
 		entryFatalErrorState,
 		exitFatalErrorState}
 };
-
-
-
-
-
 
 
 
