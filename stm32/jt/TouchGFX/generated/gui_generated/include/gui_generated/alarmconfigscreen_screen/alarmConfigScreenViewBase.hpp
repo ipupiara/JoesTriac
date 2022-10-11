@@ -30,6 +30,11 @@ public:
         // Override and implement this function in alarmConfigScreen
     }
 
+    virtual void cancelButtonPressed()
+    {
+        // Override and implement this function in alarmConfigScreen
+    }
+
 protected:
     FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(touchgfx::Application::getInstance());
@@ -48,6 +53,7 @@ protected:
     touchgfx::Line cursor;
     touchgfx::PainterRGB565 cursorPainter;
     touchgfx::ButtonWithLabel backNSaveButton;
+    touchgfx::ButtonWithLabel cancelButton;
 
 private:
 

@@ -49,12 +49,19 @@ alarmConfigScreenViewBase::alarmConfigScreenViewBase() :
     cursor.setLineEndingStyle(touchgfx::Line::ROUND_CAP_ENDING);
     cursor.setAlpha(138);
 
-    backNSaveButton.setXY(466, 372);
+    backNSaveButton.setXY(586, 363);
     backNSaveButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
     backNSaveButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_ORQ0));
     backNSaveButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     backNSaveButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     backNSaveButton.setAction(buttonCallback);
+
+    cancelButton.setXY(381, 363);
+    cancelButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
+    cancelButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_M4Y7));
+    cancelButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    cancelButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    cancelButton.setAction(buttonCallback);
 
     add(__background);
     add(box1);
@@ -65,6 +72,7 @@ alarmConfigScreenViewBase::alarmConfigScreenViewBase() :
     add(textArea2);
     add(cursor);
     add(backNSaveButton);
+    add(cancelButton);
 }
 
 void alarmConfigScreenViewBase::setupScreen()
@@ -80,5 +88,12 @@ void alarmConfigScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractBu
         //When backNSaveButton clicked call virtual function
         //Call backNSaveButtonPressed
         backNSaveButtonPressed();
+    }
+    else if (&src == &cancelButton)
+    {
+        //cancelPressedInteraction
+        //When cancelButton clicked call virtual function
+        //Call cancelButtonPressed
+        cancelButtonPressed();
     }
 }

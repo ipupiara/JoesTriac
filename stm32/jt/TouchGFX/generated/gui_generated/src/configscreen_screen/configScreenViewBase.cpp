@@ -33,12 +33,14 @@ configScreenViewBase::configScreenViewBase() :
     editCalibButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_GX36));
     editCalibButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     editCalibButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    editCalibButton.setAction(buttonCallback);
 
     alarmEditButton.setXY(230, 240);
     alarmEditButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
     alarmEditButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_AOKD));
     alarmEditButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     alarmEditButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    alarmEditButton.setAction(buttonCallback);
 
     textArea1.setXY(428, 72);
     textArea1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
@@ -92,5 +94,19 @@ void configScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton&
         //When backButton clicked call virtual function
         //Call backPressed
         backPressed();
+    }
+    else if (&src == &editCalibButton)
+    {
+        //editCalibPressedInteraction
+        //When editCalibButton clicked change screen to editCalibValuesScreen
+        //Go to editCalibValuesScreen with no screen transition
+        application().gotoeditCalibValuesScreenScreenNoTransition();
+    }
+    else if (&src == &alarmEditButton)
+    {
+        //alarmConfigPressedInteraction
+        //When alarmEditButton clicked change screen to alarmConfigScreen
+        //Go to alarmConfigScreen with no screen transition
+        application().gotoalarmConfigScreenScreenNoTransition();
     }
 }

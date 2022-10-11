@@ -6,6 +6,12 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_M4Y7" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">cancel</Translation>
+      </Text>
+      <Text Id="__SingleUse_R6ZB" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">cancel</Translation>
+      </Text>
       <Text Id="__SingleUse_TOZG" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">needs calibration</Translation>
       </Text>

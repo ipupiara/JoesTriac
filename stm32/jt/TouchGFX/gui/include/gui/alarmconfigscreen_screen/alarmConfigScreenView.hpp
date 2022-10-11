@@ -11,6 +11,11 @@ public:
     virtual ~alarmConfigScreenView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
+
+    virtual void backNSaveButtonPressed();
+
+    virtual void cancelButtonPressed();
+
 protected:
 };
 

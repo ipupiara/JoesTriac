@@ -14,3 +14,13 @@ void alarmConfigScreenView::tearDownScreen()
 {
     alarmConfigScreenViewBase::tearDownScreen();
 }
+
+void alarmConfigScreenView::backNSaveButtonPressed()
+{
+
+}
+
+void alarmConfigScreenView::cancelButtonPressed()
+{
+
+}

@@ -47,6 +47,13 @@ editCalibValuesScreenViewBase::editCalibValuesScreenViewBase() :
     backNSaveButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     backNSaveButton.setAction(buttonCallback);
 
+    cancelButton.setXY(223, 345);
+    cancelButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
+    cancelButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_R6ZB));
+    cancelButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    cancelButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    cancelButton.setAction(buttonCallback);
+
     add(__background);
     add(box1);
     add(calibLowText);
@@ -54,6 +61,7 @@ editCalibValuesScreenViewBase::editCalibValuesScreenViewBase() :
     add(calibLowButton);
     add(calibHighButton);
     add(backNSaveButton);
+    add(cancelButton);
 }
 
 void editCalibValuesScreenViewBase::setupScreen()
@@ -79,9 +87,16 @@ void editCalibValuesScreenViewBase::buttonCallbackHandler(const touchgfx::Abstra
     }
     else if (&src == &backNSaveButton)
     {
-        //Interaction3
+        //backNSaveButtonPressedInteraction
         //When backNSaveButton clicked call virtual function
         //Call backNSaveButtonPressed
         backNSaveButtonPressed();
+    }
+    else if (&src == &cancelButton)
+    {
+        //cancelButtonPressedInteraction
+        //When cancelButton clicked call virtual function
+        //Call cancelPressed
+        cancelPressed();
     }
 }

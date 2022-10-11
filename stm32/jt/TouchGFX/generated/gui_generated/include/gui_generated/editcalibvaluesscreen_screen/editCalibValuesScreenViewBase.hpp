@@ -26,6 +26,11 @@ public:
         // Override and implement this function in editCalibValuesScreen
     }
 
+    virtual void cancelPressed()
+    {
+        // Override and implement this function in editCalibValuesScreen
+    }
+
 protected:
     FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(touchgfx::Application::getInstance());
@@ -41,6 +46,7 @@ protected:
     touchgfx::ButtonWithLabel calibLowButton;
     touchgfx::ButtonWithLabel calibHighButton;
     touchgfx::ButtonWithLabel backNSaveButton;
+    touchgfx::ButtonWithLabel cancelButton;
 
 private:
 
