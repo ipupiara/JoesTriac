@@ -21,7 +21,7 @@ void initPersistendData()
 	persistentRec.calibLow = 0;
 	persistentRec.calibHigh = 0;
 	persistentRec.alarmNeeded = 1;
-	persistentRec.alarmTime   = 10 * 60;
+	persistentRec.alarmTime   = (10 * 60) + 122;
 }
 
 tStatus savePersistendData()

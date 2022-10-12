@@ -76,19 +76,19 @@ void alarmConfigScreenView::numPressed(uint8_t value)
 
 void alarmConfigScreenView::setValArray(uint16_t val)
 {
-	valArray[0] =  (uint8_t) (val/10);
-	valArray[1] =  (uint8_t) (val % 10);
+	valArray[0] =  (uint8_t) (val/600);
+	valArray[1] =  (uint8_t) ((val % 600) /60);
 }
  void alarmConfigScreenView::recalcTimeMin()
  {
-	 timeValueMin = (valArray[0] * 10) + (valArray[1] )  ;
+	 timeValueMin = (valArray[0] * 600) + ((valArray[1] * 60)  )  ;
 
  }
  void alarmConfigScreenView::printCurrentValueTimeOnScreen()
  {
 	 uint16_t  minVal =  timeValueMin;
 
-	 Unicode::snprintf(timeValueTextBuffer, 6, "%02d", minVal);
+	 Unicode::snprintf(timeValueTextBuffer, 2, "%02d", minVal);
 	 alarmTimeText.setWildcard(timeValueTextBuffer);
 	 alarmTimeText.invalidate();
  }

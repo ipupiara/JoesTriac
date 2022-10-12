@@ -1017,7 +1017,7 @@
           {
             "Type": "RadioButton",
             "Name": "radioButtonOn",
-            "X": 606,
+            "X": 585,
             "Y": 224,
             "Width": 44,
             "Height": 44,
@@ -1045,7 +1045,7 @@
           {
             "Type": "TextArea",
             "Name": "textArea3",
-            "X": 610,
+            "X": 594,
             "Y": 191,
             "Width": 24,
             "Height": 22,

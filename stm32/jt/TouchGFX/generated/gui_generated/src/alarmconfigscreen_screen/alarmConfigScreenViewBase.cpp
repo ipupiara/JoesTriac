@@ -62,7 +62,7 @@ alarmConfigScreenViewBase::alarmConfigScreenViewBase() :
     cancelButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     cancelButton.setAction(buttonCallback);
 
-    radioButtonOn.setXY(606, 224);
+    radioButtonOn.setXY(585, 224);
     radioButtonOn.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_INACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_ACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_NORMAL_ID));
     radioButtonOn.setSelected(true);
     radioButtonOn.setDeselectionEnabled(false);
@@ -72,7 +72,7 @@ alarmConfigScreenViewBase::alarmConfigScreenViewBase() :
     radioButtonOff.setSelected(false);
     radioButtonOff.setDeselectionEnabled(false);
 
-    textArea3.setXY(610, 191);
+    textArea3.setXY(594, 191);
     textArea3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea3.setLinespacing(0);
     textArea3.setTypedText(touchgfx::TypedText(T___SINGLEUSE_EHX2));
