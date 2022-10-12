@@ -8,7 +8,7 @@
 #include <mvp/View.hpp>
 #include <gui/editcaliblowscreen_screen/editCalibLowScreenPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
-#include <touchgfx/widgets/TextArea.hpp>
+#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
 #include <gui/containers/numericKeyPad.hpp>
 #include <touchgfx/widgets/canvas/Line.hpp>
@@ -31,13 +31,21 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Box box1;
-    touchgfx::TextArea calibLowText;
-    touchgfx::TextArea calibHighText;
+    touchgfx::TextAreaWithOneWildcard calibLowText;
+    touchgfx::TextAreaWithOneWildcard calibHighText;
     touchgfx::ButtonWithLabel calibHighButton;
     touchgfx::ButtonWithLabel backButton;
     numericKeyPad numericKeyPad1;
     touchgfx::Line cursor;
     touchgfx::PainterRGB565 cursorPainter;
+
+    /*
+     * Wildcard Buffers
+     */
+    static const uint16_t CALIBLOWTEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar calibLowTextBuffer[CALIBLOWTEXT_SIZE];
+    static const uint16_t CALIBHIGHTEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar calibHighTextBuffer[CALIBHIGHTEXT_SIZE];
 
 private:
 

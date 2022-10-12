@@ -8,7 +8,7 @@
 #include <mvp/View.hpp>
 #include <gui/editcalibvaluesscreen_screen/editCalibValuesScreenPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
-#include <touchgfx/widgets/TextArea.hpp>
+#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
 
 class editCalibValuesScreenViewBase : public touchgfx::View<editCalibValuesScreenPresenter>
@@ -41,12 +41,20 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Box box1;
-    touchgfx::TextArea calibLowText;
-    touchgfx::TextArea calibHighText;
+    touchgfx::TextAreaWithOneWildcard calibLowText;
+    touchgfx::TextAreaWithOneWildcard calibHighText;
     touchgfx::ButtonWithLabel calibLowButton;
     touchgfx::ButtonWithLabel calibHighButton;
     touchgfx::ButtonWithLabel backNSaveButton;
     touchgfx::ButtonWithLabel cancelButton;
+
+    /*
+     * Wildcard Buffers
+     */
+    static const uint16_t CALIBLOWTEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar calibLowTextBuffer[CALIBLOWTEXT_SIZE];
+    static const uint16_t CALIBHIGHTEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar calibHighTextBuffer[CALIBHIGHTEXT_SIZE];
 
 private:
 

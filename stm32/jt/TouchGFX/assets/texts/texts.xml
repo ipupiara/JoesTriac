@@ -6,6 +6,24 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_XBBM" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_MA31" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_9K8A" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_PO5I" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_YOH3" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_03KX" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">000</Translation>
+      </Text>
       <Text Id="__SingleUse_5Y1P" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">00</Translation>
       </Text>
@@ -112,10 +130,10 @@
         <Translation Language="GB">calib Low</Translation>
       </Text>
       <Text Id="__SingleUse_ZV9Z" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">000</Translation>
+        <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_3T7H" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">000</Translation>
+        <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_07BE" Alignment="Center" TypographyId="Default">
         <Translation Language="GB">back</Translation>
@@ -124,10 +142,10 @@
         <Translation Language="GB">calib High</Translation>
       </Text>
       <Text Id="__SingleUse_U3U4" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">000</Translation>
+        <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_3Y75" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">000</Translation>
+        <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_E0C8" Alignment="Center" TypographyId="Default">
         <Translation Language="GB">back &amp; save</Translation>
@@ -139,10 +157,10 @@
         <Translation Language="GB">calib Low</Translation>
       </Text>
       <Text Id="__SingleUse_96UQ" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">000</Translation>
+        <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_4WZ3" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">000</Translation>
+        <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_NX94" Alignment="Center" TypographyId="Default">
         <Translation Language="GB">back &amp; save</Translation>

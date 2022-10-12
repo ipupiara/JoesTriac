@@ -1129,7 +1129,12 @@
             "Height": 46,
             "TextId": "__SingleUse_4WZ3",
             "TextRotation": "0",
-            "AutoSize": true
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_03KX",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
           },
           {
             "Type": "TextArea",
@@ -1140,7 +1145,12 @@
             "Height": 46,
             "TextId": "__SingleUse_96UQ",
             "TextRotation": "0",
-            "AutoSize": true
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_YOH3",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
           },
           {
             "Type": "ButtonWithLabel",
@@ -1643,7 +1653,12 @@
             "Height": 46,
             "TextId": "__SingleUse_3Y75",
             "TextRotation": "0",
-            "AutoSize": true
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_PO5I",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
           },
           {
             "Type": "TextArea",
@@ -1654,7 +1669,12 @@
             "Height": 46,
             "TextId": "__SingleUse_U3U4",
             "TextRotation": "0",
-            "AutoSize": true
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_9K8A",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
           },
           {
             "Type": "ButtonWithLabel",
@@ -1782,7 +1802,12 @@
             "Height": 46,
             "TextId": "__SingleUse_3T7H",
             "TextRotation": "0",
-            "AutoSize": true
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_MA31",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
           },
           {
             "Type": "TextArea",
@@ -1793,7 +1818,12 @@
             "Height": 46,
             "TextId": "__SingleUse_ZV9Z",
             "TextRotation": "0",
-            "AutoSize": true
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_XBBM",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
           },
           {
             "Type": "ButtonWithLabel",

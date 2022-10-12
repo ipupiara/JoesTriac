@@ -23,11 +23,17 @@ editCalibLowScreenViewBase::editCalibLowScreenViewBase() :
     calibLowText.setXY(652, 51);
     calibLowText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     calibLowText.setLinespacing(0);
+    Unicode::snprintf(calibLowTextBuffer, CALIBLOWTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_PO5I).getText());
+    calibLowText.setWildcard(calibLowTextBuffer);
+    calibLowText.resizeToCurrentText();
     calibLowText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_3Y75));
 
     calibHighText.setXY(652, 150);
     calibHighText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     calibHighText.setLinespacing(0);
+    Unicode::snprintf(calibHighTextBuffer, CALIBHIGHTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_9K8A).getText());
+    calibHighText.setWildcard(calibHighTextBuffer);
+    calibHighText.resizeToCurrentText();
     calibHighText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_U3U4));
 
     calibHighButton.setXY(439, 143);
