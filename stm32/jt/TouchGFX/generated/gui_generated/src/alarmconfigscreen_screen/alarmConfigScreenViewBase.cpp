@@ -32,6 +32,9 @@ alarmConfigScreenViewBase::alarmConfigScreenViewBase() :
     alarmTimeText.setXY(602, 48);
     alarmTimeText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     alarmTimeText.setLinespacing(0);
+    Unicode::snprintf(alarmTimeTextBuffer, ALARMTIMETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_5Y1P).getText());
+    alarmTimeText.setWildcard(alarmTimeTextBuffer);
+    alarmTimeText.resizeToCurrentText();
     alarmTimeText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_Y4IF));
 
     textArea2.setXY(475, 229);

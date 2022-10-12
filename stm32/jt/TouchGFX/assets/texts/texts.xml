@@ -6,6 +6,9 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_5Y1P" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">00</Translation>
+      </Text>
       <Text Id="__SingleUse_CDHX" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">off</Translation>
       </Text>
@@ -97,7 +100,7 @@
         <Translation Language="GB">alarm</Translation>
       </Text>
       <Text Id="__SingleUse_Y4IF" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">00&lt;value&gt;</Translation>
+        <Translation Language="GB">&lt;alarmTime&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_TPKG" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">alarm Time</Translation>

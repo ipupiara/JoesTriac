@@ -66,6 +66,12 @@ protected:
     touchgfx::TextArea textArea4;
     touchgfx::RadioButtonGroup<2> radioButtonGroup1;
 
+    /*
+     * Wildcard Buffers
+     */
+    static const uint16_t ALARMTIMETEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar alarmTimeTextBuffer[ALARMTIMETEXT_SIZE];
+
 private:
 
     /*

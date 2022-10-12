@@ -14,7 +14,7 @@ void alarmConfigScreenView::setupScreen()
     if (alarmNeeded != 0)  {
     	radioButtonOn.setSelected(true);
     }  else {
-    	radioButtonOn.setSelected(false);
+    	radioButtonOff.setSelected(true);
     }
     setValArray(timeValueMin);
     printCurrentValueTimeOnScreen();
@@ -52,13 +52,10 @@ void alarmConfigScreenView::buttonPressed(uint8_t val)
 	recalcTimeMin();
 	printCurrentValueTimeOnScreen();
 
-	++valPos;
-
 	if (valPos  == 0)  {
 		cursor.moveRelative(24, 0);
 		valPos = 1;
-	}
-	if (valPos == 1)  {
+	} else if (valPos == 1)  {
 		cursor.moveRelative(-24, 0);
 		valPos = 0;
 	}
@@ -76,19 +73,19 @@ void alarmConfigScreenView::numPressed(uint8_t value)
 
 void alarmConfigScreenView::setValArray(uint16_t val)
 {
-	valArray[0] =  (uint8_t) (val/600);
-	valArray[1] =  (uint8_t) ((val % 600) /60);
+	valArray[0] =  (uint8_t) (val/10);
+	valArray[1] =  (uint8_t) (val % 10) ;
 }
  void alarmConfigScreenView::recalcTimeMin()
  {
-	 timeValueMin = (valArray[0] * 600) + ((valArray[1] * 60)  )  ;
+	 timeValueMin = (valArray[0] * 10) + valArray[1]    ;
 
  }
  void alarmConfigScreenView::printCurrentValueTimeOnScreen()
  {
 	 uint16_t  minVal =  timeValueMin;
 
-	 Unicode::snprintf(timeValueTextBuffer, 2, "%02d", minVal);
+	 Unicode::snprintf(timeValueTextBuffer, 3, "%02d", minVal);
 	 alarmTimeText.setWildcard(timeValueTextBuffer);
 	 alarmTimeText.invalidate();
  }

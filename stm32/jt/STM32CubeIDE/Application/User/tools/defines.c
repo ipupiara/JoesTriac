@@ -21,13 +21,13 @@ void initPersistendData()
 	persistentRec.calibLow = 0;
 	persistentRec.calibHigh = 0;
 	persistentRec.alarmNeeded = 1;
-	persistentRec.alarmTime   = (10 * 60) + 122;
+	persistentRec.alarmTime   = 12;
 }
 
 tStatus savePersistendData()
 {
 	tStatus success = tFailed;
-
+	success = tOk;
 	return success;
 }
 
@@ -166,7 +166,8 @@ tStatus saveAlarmTime(uint32_t aTime)
 tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded)
 {
 	tStatus success = tFailed;
-	success = restorePersistenData();
+//	success = restorePersistenData();
+	success = tOk;
 	if (success ==  tOk) {
 		persistentRec.alarmTime = aTime;
 		persistentRec.alarmNeeded = aNeeded;

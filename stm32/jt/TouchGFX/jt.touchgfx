@@ -935,7 +935,11 @@
             "TextId": "__SingleUse_Y4IF",
             "TextRotation": "0",
             "AutoSize": true,
-            "Wildcard1": {}
+            "Wildcard1": {
+              "TextId": "__SingleUse_5Y1P",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
           },
           {
             "Type": "TextArea",
