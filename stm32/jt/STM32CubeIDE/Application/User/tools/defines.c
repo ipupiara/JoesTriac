@@ -11,6 +11,13 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
+typedef struct {
+	uint32_t weldingTime;
+	float    weldingAmps;
+	uint32_t  calibLow, calibHigh;
+	uint8_t  alarmNeeded;
+	uint32_t  alarmTime;
+} persistentData;
 
 persistentData  persistentRec;
 

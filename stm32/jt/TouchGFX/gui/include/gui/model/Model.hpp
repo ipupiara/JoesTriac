@@ -8,6 +8,64 @@ class ModelListener;
 
 class Model
 {
+
+protected:
+
+	class CalibCache
+	{
+	protected:
+		uint32_t calibHighCache;
+		uint32_t calibLowCache;
+		bool  calibHighCacheValid;
+		bool  calibLowCacheValid;
+	public:
+		CalibCache()
+		{
+			calibHighCacheValid = false;
+			calibLowCacheValid  = false;
+		}
+
+		uint32_t getCalibHigh()
+		{
+			uint32_t res;
+			if (calibHighCacheValid)  {
+				res = calibHighCache;
+			}  else {
+				calibHighCache = res = getDefinesCalibHigh();
+				calibHighCacheValid = true;
+			}
+		}
+
+		uint32_t getCalibLow()
+		{
+			uint32_t res;
+			if (calibLowCacheValid)  {
+				res = calibLowCache;
+			}  else {
+				calibLowCache = res = getDefinesCalibLow();
+				calibLowCacheValid = true;
+			}
+		}
+
+		void store()
+		{
+			if (calibLowCacheValid)  {
+				saveCalibLow(calibLowCache);
+			}
+			if (calibHighCacheValid)  {
+				saveCalibHigh(calibHighCache);
+			}
+		}
+
+		void reset()
+		{
+			calibHighCacheValid = false;
+			calibLowCacheValid  = false;
+		}
+
+	};
+
+
 public:
     Model();
 
@@ -38,6 +96,10 @@ public:
     void storeAlarm(uint8_t alNeeded, uint16_t alTime);
     float getWeldingAmps();
     void storeWeldingAmps(float amps);
+    uint32_t getCalibHigh();
+    uint32_t getCalibLow();
+    void   saveCalibValues();
+    void   resetCalibValues();
 
     int16_t weldingTime;
     float weldingAmps;
@@ -51,6 +113,7 @@ public:
 protected:
     ModelListener* modelListener;
     uint16_t   debugWeldingTime = 754;
+    CalibCache  calibCache;
 };
 
 #endif // MODEL_HPP

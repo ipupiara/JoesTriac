@@ -116,3 +116,23 @@ void Model::restoreData()
 	alarmTime =  (uint16_t) getDefinesAlarmTime();
 }
 
+uint32_t Model::getCalibHigh()
+{
+	return calibCache.getCalibHigh();
+}
+
+uint32_t Model::getCalibLow()
+{
+	return calibCache.getCalibLow();
+}
+
+void   saveCalibValues()
+{
+	calibCache.saveCalibValues();
+}
+
+void   resetCalibValues()
+{
+	calibCache.resetCalibValues();
+}
+
