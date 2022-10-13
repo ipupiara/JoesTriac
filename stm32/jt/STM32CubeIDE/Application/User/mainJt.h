@@ -29,6 +29,8 @@ extern "C" {
 
 typedef enum {
 	msgFree = 0,
+	saveCalibLo,
+	saveCalibHi,
 	storeWeldingTime,
 	storeWeldingAmpere,
 	storeAlarmData,
@@ -44,6 +46,8 @@ typedef struct  {
 		uint32_t keyCode;
 		float   weldingAmps;
 		uint32_t  weldingTime;
+		uint32_t  calibLow;
+		uint32_t calibHigh;
 		struct {
 			uint32_t     alarmTime;
 			uint8_t		alarmNeeded;

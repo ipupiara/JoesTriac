@@ -12,6 +12,8 @@ public:
     virtual void setupScreen();
     virtual void tearDownScreen();
 protected:
+    uint32_t CLow;
+    uint32_t CHigh;
 };
 
 #endif // EDITCALIBVALUESSCREENVIEW_HPP

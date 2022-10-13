@@ -126,13 +126,39 @@ uint32_t Model::getCalibLow()
 	return calibCache.getCalibLow();
 }
 
-void   saveCalibValues()
+void Model::setCalibHigh(uint32_t cH)
 {
-	calibCache.saveCalibValues();
+	calibCache.setCalibHigh(cH);
 }
 
-void   resetCalibValues()
+void Model::setCalibLow(uint32_t cL)
+{
+	calibCache.setCalibLow(cL);
+}
+
+void   Model::saveCalibValues()
+{
+	calibCache.storeCalibValues();
+}
+
+void   Model::resetCalibValues()
 {
 	calibCache.resetCalibValues();
 }
 
+
+void Model::CalibCache::storeCalibHigh()
+{
+	CMainJtEventT evt;
+	evt.evType = saveCalibHi;
+	evt.mainUnion.calibHigh = calibHighCache;
+	sendEventToMainJtMessageQ(&evt,0);
+}
+
+void Model::CalibCache::storeCalibLow()
+{
+	CMainJtEventT evt;
+	evt.evType = saveCalibLo;
+	evt.mainUnion.calibLow = calibLowCache;
+	sendEventToMainJtMessageQ(&evt,0);
+}

@@ -1,14 +1,15 @@
 #ifndef EDITCALIBLOWSCREENPRESENTER_HPP
 #define EDITCALIBLOWSCREENPRESENTER_HPP
 
-#include <gui/model/ModelListener.hpp>
-#include <mvp/Presenter.hpp>
+//#include <gui/model/ModelListener.hpp>
+//#include <mvp/Presenter.hpp>
+#include <gui/JtPresenter.hpp>
 
 using namespace touchgfx;
 
 class editCalibLowScreenView;
 
-class editCalibLowScreenPresenter : public touchgfx::Presenter, public ModelListener
+class editCalibLowScreenPresenter : public JtPresenter //, public ModelListener
 {
 public:
     editCalibLowScreenPresenter(editCalibLowScreenView& v);
@@ -26,6 +27,7 @@ public:
     virtual void deactivate();
 
     virtual ~editCalibLowScreenPresenter() {};
+
 
 private:
     editCalibLowScreenPresenter();

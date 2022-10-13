@@ -1,14 +1,15 @@
 #ifndef EDITCALIBVALUESSCREENPRESENTER_HPP
 #define EDITCALIBVALUESSCREENPRESENTER_HPP
 
-#include <gui/model/ModelListener.hpp>
-#include <mvp/Presenter.hpp>
+//#include <gui/model/ModelListener.hpp>
+//#include <mvp/Presenter.hpp>
+#include <gui/JtPresenter.hpp>
 
 using namespace touchgfx;
 
 class editCalibValuesScreenView;
 
-class editCalibValuesScreenPresenter : public touchgfx::Presenter, public ModelListener
+class editCalibValuesScreenPresenter : public JtPresenter  //, public ModelListener
 {
 public:
     editCalibValuesScreenPresenter(editCalibValuesScreenView& v);

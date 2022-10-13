@@ -7,7 +7,8 @@ editCalibValuesScreenView::editCalibValuesScreenView()
 
 void editCalibValuesScreenView::setupScreen()
 {
-    editCalibValuesScreenViewBase::setupScreen();
+//    editCalibValuesScreenViewBase::setupScreen();
+//    cHigh = presenter->
 }
 
 void editCalibValuesScreenView::tearDownScreen()
