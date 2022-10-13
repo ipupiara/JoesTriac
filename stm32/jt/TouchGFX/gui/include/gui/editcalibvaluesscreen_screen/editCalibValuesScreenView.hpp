@@ -11,9 +11,14 @@ public:
     virtual ~editCalibValuesScreenView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
+
+    virtual void backNSaveButtonPressed();
+    virtual void cancelPressed();
+
+
 protected:
-    uint32_t CLow;
-    uint32_t CHigh;
+
+    void      printCurrentCalibValuesOnScreen();
 };
 
 #endif // EDITCALIBVALUESSCREENVIEW_HPP

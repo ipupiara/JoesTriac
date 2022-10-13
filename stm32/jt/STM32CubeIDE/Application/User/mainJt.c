@@ -109,6 +109,12 @@ void mainJt(void *argument)
 			if (mJtEv.evType == storeWeldingAmpere) {
 				saveWeldingAmps(mJtEv.mainUnion.weldingAmps);
 			}
+			if (mJtEv.evType == saveCalibLo) {
+				saveCalibLow(mJtEv.mainUnion.calibLow);
+			}
+			if (mJtEv.evType == saveCalibHi) {
+				saveCalibHigh(mJtEv.mainUnion.calibHigh);
+			}
 		}  else {
 			errorHandler((uint32_t)status ,goOn," osMessageQueueGet "," mainJt ");
 		}
