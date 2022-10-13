@@ -9,7 +9,8 @@
 
 
 editCalibLowScreenViewBase::editCalibLowScreenViewBase() :
-    buttonCallback(this, &editCalibLowScreenViewBase::buttonCallbackHandler)
+    buttonCallback(this, &editCalibLowScreenViewBase::buttonCallbackHandler),
+    numericKeyPad1NumPressedCallback(this, &editCalibLowScreenViewBase::numericKeyPad1NumPressedCallbackHandler)
 {
 
     touchgfx::CanvasWidgetRenderer::setupBuffer(canvasBuffer, CANVAS_BUFFER_SIZE);
@@ -51,6 +52,7 @@ editCalibLowScreenViewBase::editCalibLowScreenViewBase() :
     backButton.setAction(buttonCallback);
 
     numericKeyPad1.setXY(0, 23);
+    numericKeyPad1.setNumPressedCallback(numericKeyPad1NumPressedCallback);
 
     cursor.setPosition(658, 58, 23, 39);
     cursorPainter.setColor(touchgfx::Color::getColorFromRGB(247, 212, 15));
@@ -74,6 +76,14 @@ editCalibLowScreenViewBase::editCalibLowScreenViewBase() :
 void editCalibLowScreenViewBase::setupScreen()
 {
     numericKeyPad1.initialize();
+}
+
+void editCalibLowScreenViewBase::numericKeyPad1NumPressedCallbackHandler(uint8_t value)
+{
+    //Interaction4
+    //When numericKeyPad1 numPressed call virtual function
+    //Call buttonPressed
+    buttonPressed(value);
 }
 
 void editCalibLowScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)

@@ -1775,6 +1775,18 @@
               "ScreenTransitionType": "ScreenTransitionNone",
               "ActionComponent": "editCalibValuesScreen"
             }
+          },
+          {
+            "InteractionName": "Interaction4",
+            "Trigger": {
+              "Type": "TriggerCustom",
+              "TriggerCustomTypeName": "numericKeyPad numPressed happens",
+              "TriggerComponent": "numericKeyPad1"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "buttonPressed"
+            }
           }
         ]
       },

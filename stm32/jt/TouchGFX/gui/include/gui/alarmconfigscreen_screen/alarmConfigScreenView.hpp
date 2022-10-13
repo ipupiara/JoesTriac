@@ -32,8 +32,8 @@ protected:
    uint8_t   valPos = 0;
    uint8_t   valArray[2];
 
-   uint8_t getDefinesAlarmNeeded();
-   uint32_t getDefinesAlarmTime();
+//   uint8_t getDefinesAlarmNeeded();
+//   uint32_t getDefinesAlarmTime();
    void buttonPressed(uint8_t val);
 };
 
