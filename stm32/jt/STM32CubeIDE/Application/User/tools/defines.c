@@ -45,6 +45,7 @@ tStatus restorePersistenData()
 
 	if (success != tOk)  {
 		initPersistendData();
+		success = tOk;
 	}
 	return success;
 }

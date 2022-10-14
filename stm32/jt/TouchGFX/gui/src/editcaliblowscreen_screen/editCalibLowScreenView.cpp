@@ -3,15 +3,17 @@
 
 editCalibLowScreenView::editCalibLowScreenView()
 {
-
+	memset(valArray,0,sizeof(valArray));
 }
 
 void editCalibLowScreenView::setupScreen()
 {
     editCalibLowScreenViewBase::setupScreen();
+
+    calibVal =  presenter->getCalibLow();
+    setValArray(calibVal);
     printCurrentCalibValuesOnScreen(true);
     valPos = 0;
-    memset(valArray,0,sizeof(valArray));
 }
 
 void editCalibLowScreenView::tearDownScreen()
@@ -21,9 +23,8 @@ void editCalibLowScreenView::tearDownScreen()
 
 void editCalibLowScreenView::printCurrentCalibValuesOnScreen(bool first)
 {
-	 uint32_t  cLow  = presenter->getCalibLow();
 
-	 Unicode::snprintf(calibLowTextBuffer, 5, "%04d", cLow);
+	 Unicode::snprintf(calibLowTextBuffer, 5, "%04d", calibVal);
 	 calibLowText.setWildcard(calibLowTextBuffer);
 	 calibLowText.invalidate();
 
@@ -44,7 +45,7 @@ void editCalibLowScreenView::setValArray(uint16_t val)
 }
  void editCalibLowScreenView::recalcVal()
  {
-	 calibVal = (valArray[0] * 1000) + (valArray[1] * 100) + (valArray[3] * 10) + valArray[3];
+	 calibVal = (valArray[0] * 1000) + (valArray[1] * 100) + (valArray[2] * 10) + valArray[3];
 
  }
 
@@ -59,7 +60,7 @@ void editCalibLowScreenView::setValArray(uint16_t val)
  		cursor.moveRelative(24, 0);
  		++valPos;
  	} else   {
- 		static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotoconfigScreenScreenNoTransition();
+ 		static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotoeditCalibValuesScreenScreenNoTransition();
  	}
  }
 
