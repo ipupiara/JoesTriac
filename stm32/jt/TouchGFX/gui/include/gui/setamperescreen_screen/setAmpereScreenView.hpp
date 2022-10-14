@@ -19,7 +19,7 @@ public:
 
 protected:
 
-    float  ampsValue;
+    uint32_t  ampsValue;
     void      setValArray(float ampsF);
     void      recalcAmps();
     void      printCurrentValueTimeOnScreen();

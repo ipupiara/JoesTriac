@@ -16,7 +16,7 @@
 
 typedef struct {
 	uint32_t weldingTime;
-	float    weldingAmps;
+	uint32_t   weldingAmps100;
 	uint32_t  calibLow, calibHigh;
 	uint8_t  alarmNeeded;
 	uint32_t  alarmTime;
@@ -27,7 +27,7 @@ persistentData  persistentRec;
 void initPersistendData()
 {
 	persistentRec.weldingTime =  15 *60;
-	persistentRec.weldingAmps = 60;
+	persistentRec.weldingAmps100 = 60;
 	persistentRec.calibLow = 0;
 	persistentRec.calibHigh = 0;
 	persistentRec.alarmNeeded = 1;
@@ -62,11 +62,11 @@ uint32_t getDefinesWeldingTime()
 	return wTime;
 }
 
-float getDefinesWeldingAmps()
+uint32_t getDefinesWeldingAmps()
 {
-	float amps;
+	uint32_t amps;
 	taskENTER_CRITICAL();
-	amps = persistentRec.weldingAmps;
+	amps = persistentRec.weldingAmps100;
 	taskEXIT_CRITICAL();
 	return amps;
 }
@@ -199,10 +199,10 @@ tStatus saveWeldingTime(uint32_t wTime)
 	return success;
 }
 
-tStatus saveWeldingAmps(float wAmps)
+tStatus saveWeldingAmps(uint32_t wAmps)
 {
 	tStatus success = tOk;
-	persistentRec.weldingAmps = wAmps;
+	persistentRec.weldingAmps100 = wAmps;
 
 	return success;
 }

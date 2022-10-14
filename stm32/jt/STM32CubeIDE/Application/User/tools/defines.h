@@ -34,7 +34,7 @@ typedef enum  {
 
 uint32_t getDefinesWeldingTime();
 
-float getDefinesWeldingAmps();
+uint32_t getDefinesWeldingAmps();
 
 uint8_t getDefinesAlarmNeeded();
 
@@ -46,7 +46,7 @@ uint32_t getDefinesCalibLow();
 
 tStatus saveWeldingTime(uint32_t wTime);
 
-tStatus saveWeldingAmps(float wAmps);
+tStatus saveWeldingAmps(uint32_t wAmps);
 
 tStatus saveCalibLow(uint32_t cHigh);
 

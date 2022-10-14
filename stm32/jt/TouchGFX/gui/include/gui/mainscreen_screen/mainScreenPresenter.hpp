@@ -29,6 +29,8 @@ public:
 
     uint16_t getWeldingTimeSec();
 
+    uint32_t getWeldingAmps();
+
 private:
     mainScreenPresenter();
 

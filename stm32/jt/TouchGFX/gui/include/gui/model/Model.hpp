@@ -126,8 +126,8 @@ public:
     void storeAlarmTime(uint16_t alTime);
     void storeAlarmNeeded(uint8_t alNeeded);
     void storeAlarm(uint8_t alNeeded, uint16_t alTime);
-    float getWeldingAmps();
-    void storeWeldingAmps(float amps);
+    uint32_t getWeldingAmps();
+    void storeWeldingAmps(uint32_t amps);
     uint32_t getCalibHigh();
     uint32_t getCalibLow();
     void setCalibHigh(uint32_t cH);
@@ -136,7 +136,7 @@ public:
     void   resetCalibValues();
 
     int16_t weldingTime;
-    float weldingAmps;
+    uint32_t weldingAmps;
     uint16_t alarmTime;
     uint8_t alarmNeeded;
 

@@ -44,7 +44,7 @@ typedef struct  {
 	mainJtMessageType evType;
 	union {
 		uint32_t keyCode;
-		float   weldingAmps;
+		uint32_t   weldingAmps;
 		uint32_t  weldingTime;
 		uint32_t  calibLow;
 		uint32_t calibHigh;

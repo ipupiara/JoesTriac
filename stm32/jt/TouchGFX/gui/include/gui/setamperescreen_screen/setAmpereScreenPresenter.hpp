@@ -29,7 +29,7 @@ public:
 
     void storeWeldingAmps(float ampsV);
 
-    float getWeldingAmps();
+    uint32_t getWeldingAmps();
 
 private:
     setAmpereScreenPresenter();

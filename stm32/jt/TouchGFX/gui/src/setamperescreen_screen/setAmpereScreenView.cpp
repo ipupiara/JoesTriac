@@ -3,6 +3,9 @@
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/Unicode.hpp>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 
 typedef unsigned long uint32_t;
 
@@ -72,7 +75,7 @@ void setAmpereScreenView::numButtonPressed(uint8_t value)
 
 void setAmpereScreenView::setValArray(float ampsF)
 {
-	uint32_t ampsI = (uint32_t ) (ampsF  * 100);  // evtl later *1000 and round....
+	uint32_t ampsI = ampsF;
 	valArray[0] =  (uint8_t) (ampsI/10000);
 	valArray[1] =  (uint8_t) ((ampsI % 10000)/1000);
 	valArray[2] =  (uint8_t) ((ampsI % 1000)/100);
@@ -83,14 +86,14 @@ void setAmpereScreenView::setValArray(float ampsF)
  {
 	 uint32_t ampsIntValue = (valArray[0] * 10000) + (valArray[1] * 1000) +
 			 	 	 	 (valArray[2] * 100) + (valArray[3] *10 ) + valArray[4];
-	 ampsValue = (float ) ampsIntValue;
-	 ampsValue = (float) (ampsValue / 100);
-
+	 ampsValue = ampsIntValue;
  }
  void setAmpereScreenView::printCurrentValueTimeOnScreen()
  {
-	 float  amps = ampsValue;
-	 Unicode::snprintf(setAmpereTextBuffer, 7, "%03.2f", amps);
+	 uint32_t  amps = ampsValue;
+	 uint32_t uVal = amps/100;
+	 uint32_t lVal = amps % 100;
+	 Unicode::snprintf(setAmpereTextBuffer, 7, "%03d.%02d", uVal,  lVal);
 	 setAmpereText.setWildcard(setAmpereTextBuffer);
 	 setAmpereText.invalidate();
  }
