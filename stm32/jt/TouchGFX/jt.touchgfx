@@ -179,14 +179,19 @@
           },
           {
             "Type": "TextArea",
-            "Name": "setAmpereText",
+            "Name": "ampereText",
             "X": 465,
             "Y": 12,
             "Width": 144,
             "Height": 46,
             "TextId": "__SingleUse_DEJR",
             "TextRotation": "0",
-            "AutoSize": true
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_9X4F",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
           }
         ],
         "Interactions": [

@@ -17,10 +17,10 @@ void mainScreenView::setupScreen()
 
 	uint32_t ampsValue = presenter->getWeldingAmps();
 	uint16_t  sVal = uint8_t( ampsValue / 100);
-	uint8_t  rVal = (uint8_t) ( timeValueSec % 100);
+	uint8_t  rVal = (uint8_t) ( ampsValue % 100);
 	Unicode::snprintf(timeValueTextBuffer, 7, "%03d.%02d", sVal, rVal);
-	timeValueText.setWildcard(timeValueTextBuffer);
-	timeValueText.invalidate();
+	ampereText.setWildcard(timeValueTextBuffer);
+	ampereText.invalidate();
 }
 
 void mainScreenView::tearDownScreen()

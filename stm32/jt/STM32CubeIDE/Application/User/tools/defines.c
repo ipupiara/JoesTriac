@@ -27,7 +27,7 @@ persistentData  persistentRec;
 void initPersistendData()
 {
 	persistentRec.weldingTime =  15 *60;
-	persistentRec.weldingAmps100 = 60;
+	persistentRec.weldingAmps100 = 6000;
 	persistentRec.calibLow = 0;
 	persistentRec.calibHigh = 0;
 	persistentRec.alarmNeeded = 1;

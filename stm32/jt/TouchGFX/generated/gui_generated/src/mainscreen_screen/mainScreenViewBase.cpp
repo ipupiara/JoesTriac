@@ -79,10 +79,13 @@ mainScreenViewBase::mainScreenViewBase() :
     setAmpereButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     setAmpereButton.setAction(buttonCallback);
 
-    setAmpereText.setXY(465, 12);
-    setAmpereText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    setAmpereText.setLinespacing(0);
-    setAmpereText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_DEJR));
+    ampereText.setXY(465, 12);
+    ampereText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    ampereText.setLinespacing(0);
+    Unicode::snprintf(ampereTextBuffer, AMPERETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_9X4F).getText());
+    ampereText.setWildcard(ampereTextBuffer);
+    ampereText.resizeToCurrentText();
+    ampereText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_DEJR));
 
     add(__background);
     add(box1);
@@ -95,7 +98,7 @@ mainScreenViewBase::mainScreenViewBase() :
     add(startButton);
     add(stopButton);
     add(setAmpereButton);
-    add(setAmpereText);
+    add(ampereText);
 }
 
 void mainScreenViewBase::setupScreen()

@@ -51,13 +51,15 @@ protected:
     touchgfx::ButtonWithIcon startButton;
     touchgfx::ButtonWithIcon stopButton;
     touchgfx::ButtonWithLabel setAmpereButton;
-    touchgfx::TextArea setAmpereText;
+    touchgfx::TextAreaWithOneWildcard ampereText;
 
     /*
      * Wildcard Buffers
      */
     static const uint16_t TIMEVALUETEXT_SIZE = 20;
     touchgfx::Unicode::UnicodeChar timeValueTextBuffer[TIMEVALUETEXT_SIZE];
+    static const uint16_t AMPERETEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar ampereTextBuffer[AMPERETEXT_SIZE];
 
 private:
 
