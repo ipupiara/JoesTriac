@@ -21,6 +21,14 @@ public:
     virtual ~editCalibHighScreenViewBase() {}
     virtual void setupScreen();
 
+    /*
+     * Virtual Action Handlers
+     */
+    virtual void buttonPressed(uint8_t value)
+    {
+        // Override and implement this function in editCalibHighScreen
+    }
+
 protected:
     FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(touchgfx::Application::getInstance());
@@ -53,11 +61,13 @@ private:
      * Callback Declarations
      */
     touchgfx::Callback<editCalibHighScreenViewBase, const touchgfx::AbstractButton&> buttonCallback;
+    touchgfx::Callback<editCalibHighScreenViewBase, uint8_t> numericKeyPad1NumPressedCallback;
 
     /*
      * Callback Handler Declarations
      */
     void buttonCallbackHandler(const touchgfx::AbstractButton& src);
+    void numericKeyPad1NumPressedCallbackHandler(uint8_t value);
 
     /*
      * Canvas Buffer Size

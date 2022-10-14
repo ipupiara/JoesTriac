@@ -30,7 +30,7 @@ void setTimeScreenView::backSaveButtonPressed()
 {
 	presenter->storeWeldingTimeSec(timeValueSec);
 
-	Application::getInstance()->changeToStartScreen();
+	static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotomainScreenScreenNoTransition();
 }
 
 void setTimeScreenView::toggleCursor()

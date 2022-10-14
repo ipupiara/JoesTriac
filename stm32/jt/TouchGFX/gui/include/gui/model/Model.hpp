@@ -73,10 +73,10 @@ protected:
 		void storeCalibValues()
 		{
 			if ((calibLowCacheValid) && (calibLowCacheChanged))  {
-				saveCalibLow(calibLowCache);
+				storeCalibLow();
 			}
 			if ((calibHighCacheValid) && (calibHighCacheChanged)) {
-				saveCalibHigh(calibHighCache);
+				storeCalibHigh();
 			}
 			resetCalibValues();
 		}

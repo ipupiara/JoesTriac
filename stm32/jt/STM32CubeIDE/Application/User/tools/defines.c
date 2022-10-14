@@ -11,6 +11,9 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
+//#define  microSdWorking
+// despite trying all found examples on google and stm (also for F769Ni)  .... this stm  microSd bu..it did not work
+
 typedef struct {
 	uint32_t weldingTime;
 	float    weldingAmps;
@@ -104,6 +107,8 @@ uint32_t getDefinesCalibLow()
 	return cal;
 }
 
+#ifdef microSdWorking
+
 tStatus saveWeldingTime(uint32_t wTime)
 {
 	tStatus success = tFailed;
@@ -183,6 +188,67 @@ tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded)
 	}
 	return success;
 }
+
+#else
+
+tStatus saveWeldingTime(uint32_t wTime)
+{
+	tStatus success = tOk;
+	persistentRec.weldingTime = wTime;
+
+	return success;
+}
+
+tStatus saveWeldingAmps(float wAmps)
+{
+	tStatus success = tOk;
+	persistentRec.weldingAmps = wAmps;
+
+	return success;
+}
+
+tStatus saveCalibHigh(uint32_t cHigh)
+{
+	tStatus success = tOk;
+	persistentRec.calibHigh = cHigh;
+
+	return success;
+}
+
+tStatus saveCalibLow(uint32_t cLow)
+{
+	tStatus success = tOk;
+	persistentRec.calibLow = cLow;
+
+	return success;
+}
+
+tStatus saveAlarmNeeded(uint8_t aNeeded)
+{
+	tStatus success = tOk;
+	persistentRec.alarmNeeded = aNeeded;
+
+	return success;
+}
+
+
+tStatus saveAlarmTime(uint32_t aTime)
+{
+	tStatus success = tOk;
+	persistentRec.alarmTime = aTime;
+
+	return success;
+}
+
+tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded)
+{
+	tStatus success = tOk;
+	persistentRec.alarmTime = aTime;
+	persistentRec.alarmNeeded = aNeeded;
+
+	return success;
+}
+#endif
 
 
 void errorHandler(uint32_t  code, errorSeverity severity, char* errorString, char* method )
