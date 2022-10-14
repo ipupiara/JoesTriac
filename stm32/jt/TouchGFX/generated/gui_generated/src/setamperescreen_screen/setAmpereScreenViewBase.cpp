@@ -9,7 +9,8 @@
 
 
 setAmpereScreenViewBase::setAmpereScreenViewBase() :
-    buttonCallback(this, &setAmpereScreenViewBase::buttonCallbackHandler)
+    buttonCallback(this, &setAmpereScreenViewBase::buttonCallbackHandler),
+    numericKeyPad1NumPressedCallback(this, &setAmpereScreenViewBase::numericKeyPad1NumPressedCallbackHandler)
 {
 
     touchgfx::CanvasWidgetRenderer::setupBuffer(canvasBuffer, CANVAS_BUFFER_SIZE);
@@ -23,9 +24,13 @@ setAmpereScreenViewBase::setAmpereScreenViewBase() :
     setAmpereText.setXY(465, 12);
     setAmpereText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     setAmpereText.setLinespacing(0);
+    Unicode::snprintf(setAmpereTextBuffer, SETAMPERETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_ZSPQ).getText());
+    setAmpereText.setWildcard(setAmpereTextBuffer);
+    setAmpereText.resizeToCurrentText();
     setAmpereText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_EKBE));
 
     numericKeyPad1.setXY(0, 23);
+    numericKeyPad1.setNumPressedCallback(numericKeyPad1NumPressedCallback);
 
     backNSaveButton.setXY(596, 391);
     backNSaveButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
@@ -54,6 +59,14 @@ setAmpereScreenViewBase::setAmpereScreenViewBase() :
 void setAmpereScreenViewBase::setupScreen()
 {
     numericKeyPad1.initialize();
+}
+
+void setAmpereScreenViewBase::numericKeyPad1NumPressedCallbackHandler(uint8_t value)
+{
+    //Interaction2
+    //When numericKeyPad1 numPressed call virtual function
+    //Call numPressed
+    numPressed(value);
 }
 
 void setAmpereScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)

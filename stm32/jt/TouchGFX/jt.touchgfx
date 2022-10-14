@@ -1318,7 +1318,12 @@
             "Height": 46,
             "TextId": "__SingleUse_EKBE",
             "TextRotation": "0",
-            "AutoSize": true
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_ZSPQ",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
           },
           {
             "Type": "CustomContainerInstance",
@@ -1382,6 +1387,18 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "backNSaveButtonPressed"
+            }
+          },
+          {
+            "InteractionName": "Interaction2",
+            "Trigger": {
+              "Type": "TriggerCustom",
+              "TriggerCustomTypeName": "numericKeyPad numPressed happens",
+              "TriggerComponent": "numericKeyPad1"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "numPressed"
             }
           }
         ]

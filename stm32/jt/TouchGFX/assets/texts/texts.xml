@@ -6,6 +6,9 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_ZSPQ" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">000.00</Translation>
+      </Text>
       <Text Id="__SingleUse_XBBM" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">0000</Translation>
       </Text>
@@ -166,7 +169,7 @@
         <Translation Language="GB">back &amp; save</Translation>
       </Text>
       <Text Id="__SingleUse_EKBE" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">000.00</Translation>
+        <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_DEJR" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">000.00</Translation>

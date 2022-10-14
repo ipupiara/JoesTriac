@@ -16,3 +16,15 @@ void setAmpereScreenPresenter::deactivate()
 {
 
 }
+
+void setAmpereScreenPresenter::storeWeldingAmps(float ampsV)
+{
+	model->storeWeldingAmps(ampsV);
+}
+
+float setAmpereScreenPresenter::getWeldingAmps()
+{
+	float res = 0.0;
+	res = model->getWeldingAmps();
+	return res;
+}

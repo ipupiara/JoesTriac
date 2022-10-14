@@ -8,7 +8,7 @@
 #include <mvp/View.hpp>
 #include <gui/setamperescreen_screen/setAmpereScreenPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
-#include <touchgfx/widgets/TextArea.hpp>
+#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <gui/containers/numericKeyPad.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
 #include <touchgfx/widgets/canvas/Line.hpp>
@@ -29,6 +29,11 @@ public:
         // Override and implement this function in setAmpereScreen
     }
 
+    virtual void numPressed(uint8_t value)
+    {
+        // Override and implement this function in setAmpereScreen
+    }
+
 protected:
     FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(touchgfx::Application::getInstance());
@@ -39,11 +44,17 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Box box1;
-    touchgfx::TextArea setAmpereText;
+    touchgfx::TextAreaWithOneWildcard setAmpereText;
     numericKeyPad numericKeyPad1;
     touchgfx::ButtonWithLabel backNSaveButton;
     touchgfx::Line cursor;
     touchgfx::PainterRGB565 cursorPainter;
+
+    /*
+     * Wildcard Buffers
+     */
+    static const uint16_t SETAMPERETEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar setAmpereTextBuffer[SETAMPERETEXT_SIZE];
 
 private:
 
@@ -51,11 +62,13 @@ private:
      * Callback Declarations
      */
     touchgfx::Callback<setAmpereScreenViewBase, const touchgfx::AbstractButton&> buttonCallback;
+    touchgfx::Callback<setAmpereScreenViewBase, uint8_t> numericKeyPad1NumPressedCallback;
 
     /*
      * Callback Handler Declarations
      */
     void buttonCallbackHandler(const touchgfx::AbstractButton& src);
+    void numericKeyPad1NumPressedCallbackHandler(uint8_t value);
 
     /*
      * Canvas Buffer Size

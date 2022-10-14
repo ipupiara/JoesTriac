@@ -27,6 +27,10 @@ public:
 
     virtual ~setAmpereScreenPresenter() {};
 
+    void storeWeldingAmps(float ampsV);
+
+    float getWeldingAmps();
+
 private:
     setAmpereScreenPresenter();
 
