@@ -592,6 +592,20 @@ uStInt evTriacIdleChecker(void)
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 	}
+	if (currentEvent->evType == evConfigBackPressed)
+	{
+		if (isCalibrationReady() == tOk)  {
+			CJoesModelEventT  msg;
+			osStatus_t status;
+			info_printf("in idle state evConfigBackPressed\n");
+			msg.messageType = changeToMainScreen;
+			msg.evData.keyCode = 0x2345;
+			status = sendModelMessage(&msg);
+			if(status != osOK)  {
+				errorHandler(status,goOn," evConfigBackPressed ","evTriacIdleChecker");
+			}
+		}
+	}
 //	if (currentEvent->evType == evF1Pressed)
 //	{
 ////		if (resetMiniStringComponent()) {
@@ -616,69 +630,69 @@ uStInt evTriacIdleChecker(void)
 }
 
 
-void entryEditIdleState(void)
-{
-//	displayEditAmpsDuration();
-//	displayAmps(-1);
-//	displayTime(-1);
-//	printf("entry I\n");
-}	
-
-void exitEditIdleState(void)
-{
-//	printf("exit I\n");
-}
-
-uStInt evEditIdleCheckChecker(void)
-{
-	uStInt res = uStIntNoMatch;
-//	printf("\ncheck for event in State evStateIdle");
-
-//	if (currentEvent->evType==evAstPressed) {
-////		printf("\ncheck for event in State evStateIdle amps");
+//void entryEditIdleState(void)
+//{
+////	displayEditAmpsDuration();
+////	displayAmps(-1);
+////	displayTime(-1);
+////	printf("entry I\n");
+//}
 //
-//////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditAmps);
-////			// No event action.
-////		END_EVENT_HANDLER(PJoesTriacStateChart);
-////		res =  uStIntHandlingDone;
-//	}
-//	if (currentEvent->evType==evNumPressed) {
-////		printf("\ncheck for event in State evStateIdle dur");
+//void exitEditIdleState(void)
+//{
+////	printf("exit I\n");
+//}
 //
-//////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditDuration);
-////			// No event action.
-////		END_EVENT_HANDLER(PJoesTriacStateChart);
-////		res =  uStIntHandlingDone;
+//uStInt evEditIdleCheckChecker(void)
+//{
+//	uStInt res = uStIntNoMatch;
+////	printf("\ncheck for event in State evStateIdle");
+//
+////	if (currentEvent->evType==evAstPressed) {
+//////		printf("\ncheck for event in State evStateIdle amps");
+////
+////////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditAmps);
+//////			// No event action.
+//////		END_EVENT_HANDLER(PJoesTriacStateChart);
+//////		res =  uStIntHandlingDone;
+////	}
+////	if (currentEvent->evType==evNumPressed) {
+//////		printf("\ncheck for event in State evStateIdle dur");
+////
+////////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditDuration);
+//////			// No event action.
+//////		END_EVENT_HANDLER(PJoesTriacStateChart);
+//////		res =  uStIntHandlingDone;
+////	}
+////	if (currentEvent->evType == evTWIDataReceived)
+////	// do writing  only in edit idle, not to interfere with the edit-cursor position
+////	// could be done also by laying edit-cursor pos "on stack" and set again after write,
+////	 //  but lets first try with this simpler version ... should be ok as well
+////	{
+//////		checkTWIZeroAdjustMsg();
+//////		displayPotiVolatile();
+////	}
+///*
+//	if (currentEvent->evType == evCharEntered) {
+//		switch (currentEvent->evData.keyCode) {
+//			case kp1 :
+//				sendZeroAdjustMsg(up1);
+//				break;
+//			case kp2 :
+//				sendZeroAdjustMsg(up10);
+//				break ;
+//			case kp7 :
+//				sendZeroAdjustMsg(down1);
+//				break;
+//			case kp8 :
+//				sendZeroAdjustMsg(down10);
+//				break ;
+//		}
+//		res =  uStIntHandlingDone;
 //	}
-//	if (currentEvent->evType == evTWIDataReceived)
-//	// do writing  only in edit idle, not to interfere with the edit-cursor position
-//	// could be done also by laying edit-cursor pos "on stack" and set again after write,
-//	 //  but lets first try with this simpler version ... should be ok as well
-//	{
-////		checkTWIZeroAdjustMsg();
-////		displayPotiVolatile();
-//	}
-/*
-	if (currentEvent->evType == evCharEntered) {
-		switch (currentEvent->evData.keyCode) {
-			case kp1 : 
-				sendZeroAdjustMsg(up1);
-				break;
-			case kp2 :
-				sendZeroAdjustMsg(up10);
-				break ;			
-			case kp7 : 
-				sendZeroAdjustMsg(down1);	
-				break;
-			case kp8 :
-				sendZeroAdjustMsg(down10);
-				break ;									
-		}
-		res =  uStIntHandlingDone;
-	}
-*/
-	return res;
-}
+//*/
+//	return res;
+//}
 
 void entryEditAmpsState(void)
 {

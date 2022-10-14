@@ -18,8 +18,8 @@ void mainScreenView::setupScreen()
 	uint32_t ampsValue = presenter->getWeldingAmps();
 	uint16_t  sVal = uint8_t( ampsValue / 100);
 	uint8_t  rVal = (uint8_t) ( ampsValue % 100);
-	Unicode::snprintf(timeValueTextBuffer, 7, "%03d.%02d", sVal, rVal);
-	ampereText.setWildcard(timeValueTextBuffer);
+	Unicode::snprintf(ampereTextBuffer, 7, "%03d.%02d", sVal, rVal);
+	ampereText.setWildcard(ampereTextBuffer);
 	ampereText.invalidate();
 }
 

@@ -1391,7 +1391,7 @@
             },
             "Action": {
               "Type": "ActionCustom",
-              "FunctionName": "backNSaveButtonPressed"
+              "FunctionName": "backSaveButtonPressed"
             }
           },
           {
@@ -1403,7 +1403,7 @@
             },
             "Action": {
               "Type": "ActionCustom",
-              "FunctionName": "numPressed"
+              "FunctionName": "numButtonPressed"
             }
           }
         ]

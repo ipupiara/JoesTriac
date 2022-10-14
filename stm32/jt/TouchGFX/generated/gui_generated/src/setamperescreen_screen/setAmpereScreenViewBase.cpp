@@ -65,8 +65,8 @@ void setAmpereScreenViewBase::numericKeyPad1NumPressedCallbackHandler(uint8_t va
 {
     //Interaction2
     //When numericKeyPad1 numPressed call virtual function
-    //Call numPressed
-    numPressed(value);
+    //Call numButtonPressed
+    numButtonPressed(value);
 }
 
 void setAmpereScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
@@ -75,7 +75,7 @@ void setAmpereScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButt
     {
         //Interaction1
         //When backNSaveButton clicked call virtual function
-        //Call backNSaveButtonPressed
-        backNSaveButtonPressed();
+        //Call backSaveButtonPressed
+        backSaveButtonPressed();
     }
 }

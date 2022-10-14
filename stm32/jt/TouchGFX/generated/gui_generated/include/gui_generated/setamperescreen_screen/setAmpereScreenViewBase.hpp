@@ -24,12 +24,12 @@ public:
     /*
      * Virtual Action Handlers
      */
-    virtual void backNSaveButtonPressed()
+    virtual void backSaveButtonPressed()
     {
         // Override and implement this function in setAmpereScreen
     }
 
-    virtual void numPressed(uint8_t value)
+    virtual void numButtonPressed(uint8_t value)
     {
         // Override and implement this function in setAmpereScreen
     }
