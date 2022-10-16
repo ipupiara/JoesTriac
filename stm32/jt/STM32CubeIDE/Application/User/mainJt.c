@@ -97,7 +97,7 @@ void mainJt(void *argument)
 				processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
 			}
 			if (mJtEv.evType == configBackPressed)  {
-				fsmEv.evType=evConfigBackPressed;
+				fsmEv.evType=configBackPressed;
 				processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
 			}
 			if (mJtEv.evType == storeAlarmData) {
@@ -114,6 +114,10 @@ void mainJt(void *argument)
 			}
 			if (mJtEv.evType == saveCalibHi) {
 				saveCalibHigh(mJtEv.mainUnion.calibHigh);
+			}
+			if (mJtEv.evType == configPressed)  {
+				fsmEv.evType=evConfigPressed;
+				processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
 			}
 		}  else {
 			errorHandler((uint32_t)status ,goOn," osMessageQueueGet "," mainJt ");

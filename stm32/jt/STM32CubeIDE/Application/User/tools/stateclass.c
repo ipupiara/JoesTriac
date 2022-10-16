@@ -103,7 +103,7 @@ uStInt evStartupCheckChecker(void)   // during Start Screen
 			ev.messageType = restoreModelData;
 			 status = sendModelMessage(&ev);
 			 if (status != osOK) {
-				 errorHandler(status, goOn, "restoreModelData","evTriacOperatingChecker");
+				 errorHandler(status, goOn, "restoreModelData","evStartupCheckChecker");
 			 }
 		}
 	}
@@ -148,7 +148,7 @@ uStInt evStateCalibratingChecker(void)
 	uStInt res = uStIntNoMatch;
 //	printf("check for event in State evStateIdle\n");
 
-	if (currentEvent->evType == evConfigBackPressed)
+	if (currentEvent->evType == evConfigOkPressed)
 	{
 		if (isCalibrationReady() == tOk)  {
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
@@ -592,19 +592,12 @@ uStInt evTriacIdleChecker(void)
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 	}
-	if (currentEvent->evType == evConfigBackPressed)
+	if (currentEvent->evType == evConfigPressed)
 	{
-		if (isCalibrationReady() == tOk)  {
-			CJoesModelEventT  msg;
-			osStatus_t status;
-			info_printf("in idle state evConfigBackPressed\n");
-			msg.messageType = changeToMainScreen;
-			msg.evData.keyCode = 0x2345;
-			status = sendModelMessage(&msg);
-			if(status != osOK)  {
-				errorHandler(status,goOn," evConfigBackPressed ","evTriacIdleChecker");
-			}
-		}
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetup);
+
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
 	}
 //	if (currentEvent->evType == evF1Pressed)
 //	{
@@ -615,11 +608,11 @@ uStInt evTriacIdleChecker(void)
 ////			res =  uStIntHandlingDone;
 ////		}
 //	}
-	if (currentEvent->evType == evTimeOutDurationTimer) 
-	{	
-//		startDurationTimer(maxSecsPossible);   // enable secondsTick
-		res =  uStIntHandlingDone;
-	}
+//	if (currentEvent->evType == evTimeOutDurationTimer)
+//	{
+////		startDurationTimer(maxSecsPossible);   // enable secondsTick
+//		res =  uStIntHandlingDone;
+//	}
 	if (currentEvent->evType == evSecondsTick) 
 	{	
 //		onTriacIdleSecondTick_PID();
@@ -632,10 +625,15 @@ uStInt evTriacIdleChecker(void)
 
 void entrySetupState(void)
 {
-//	displayEditAmpsDuration();
-//	displayAmps(-1);
-//	displayTime(-1);
-//	printf("entry I\n");
+	CJoesModelEventT  msg;
+	osStatus_t status;
+	info_printf("entryTriacIdleState\n");
+	msg.messageType = changeToConfigScreen;
+	msg.evData.keyCode = 0x2345;
+	status = sendModelMessage(&msg);
+	if(status != osOK)  {
+		errorHandler(status,goOn," status ","entryTriacIdleState");
+	}
 }
 
 void exitSetupState(void)
@@ -646,24 +644,9 @@ void exitSetupState(void)
 uStInt evSetupChecker(void)
 {
 	uStInt res = uStIntNoMatch;
-//	printf("\ncheck for event in State evStateIdle");
+	printf("\ncheck for event in State evStateIdle");
 
-//	if (currentEvent->evType==evAstPressed) {
-////		printf("\ncheck for event in State evStateIdle amps");
-//
-//////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditAmps);
-////			// No event action.
-////		END_EVENT_HANDLER(PJoesTriacStateChart);
-////		res =  uStIntHandlingDone;
-//	}
-//	if (currentEvent->evType==evNumPressed) {
-////		printf("\ncheck for event in State evStateIdle dur");
-//
-//////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditDuration);
-////			// No event action.
-////		END_EVENT_HANDLER(PJoesTriacStateChart);
-////		res =  uStIntHandlingDone;
-//	}
+
 //	if (currentEvent->evType == evTWIDataReceived)
 //	// do writing  only in edit idle, not to interfere with the edit-cursor position
 //	// could be done also by laying edit-cursor pos "on stack" and set again after write,
@@ -672,25 +655,16 @@ uStInt evSetupChecker(void)
 ////		checkTWIZeroAdjustMsg();
 ////		displayPotiVolatile();
 //	}
-/*
-	if (currentEvent->evType == evCharEntered) {
-		switch (currentEvent->evData.keyCode) {
-			case kp1 :
-				sendZeroAdjustMsg(up1);
-				break;
-			case kp2 :
-				sendZeroAdjustMsg(up10);
-				break ;
-			case kp7 :
-				sendZeroAdjustMsg(down1);
-				break;
-			case kp8 :
-				sendZeroAdjustMsg(down10);
-				break ;
+
+	if (currentEvent->evType == evConfigOkPressed)  {
+		if (isCalibrationReady() == tOk) {
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
 		}
-		res =  uStIntHandlingDone;
 	}
-*/
+
 	return res;
 }
 

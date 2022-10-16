@@ -26,6 +26,7 @@ dummyScreenViewBase::dummyScreenViewBase() :
 
     button4.setXY(189, 0);
     button4.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
+    button4.setAction(buttonCallback);
 
     button5.setXY(0, 67);
     button5.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
@@ -65,5 +66,12 @@ void dummyScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& 
         //When button3 clicked change screen to mainScreen
         //Go to mainScreen with no screen transition
         application().gotomainScreenScreenNoTransition();
+    }
+    else if (&src == &button4)
+    {
+        //Interaction4
+        //When button4 clicked change screen to configScreen
+        //Go to configScreen with no screen transition
+        application().gotoconfigScreenScreenNoTransition();
     }
 }

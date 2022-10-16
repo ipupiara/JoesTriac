@@ -35,6 +35,7 @@ typedef enum {
 	storeWeldingAmpere,
 	storeAlarmData,
 	secondTick,
+	configPressed,
 	configBackPressed
 }  mainJtMessageType;
 

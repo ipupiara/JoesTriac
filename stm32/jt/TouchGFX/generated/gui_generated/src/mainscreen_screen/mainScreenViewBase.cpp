@@ -111,9 +111,9 @@ void mainScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& s
     if (&src == &configButton)
     {
         //configButtonInteraction
-        //When configButton clicked change screen to configScreen
-        //Go to configScreen with no screen transition
-        application().gotoconfigScreenScreenNoTransition();
+        //When configButton clicked call virtual function
+        //Call configButtonPressed
+        configButtonPressed();
     }
     else if (&src == &setTimeButton)
     {

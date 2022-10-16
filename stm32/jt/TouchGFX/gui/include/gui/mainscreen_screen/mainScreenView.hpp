@@ -11,6 +11,7 @@ public:
     virtual ~mainScreenView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
+    virtual void configButtonPressed();
 protected:
 };
 

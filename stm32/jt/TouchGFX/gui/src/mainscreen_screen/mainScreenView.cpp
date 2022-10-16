@@ -1,4 +1,5 @@
 #include <gui/mainscreen_screen/mainScreenView.hpp>
+#include <mainJt.h>
 
 mainScreenView::mainScreenView()
 {
@@ -26,4 +27,11 @@ void mainScreenView::setupScreen()
 void mainScreenView::tearDownScreen()
 {
     mainScreenViewBase::tearDownScreen();
+}
+
+void mainScreenView::configButtonPressed()
+{
+	CMainJtEventT evt;
+	evt.evType = configPressed;
+	sendEventToMainJtMessageQ(&evt,0);
 }

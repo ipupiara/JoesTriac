@@ -26,6 +26,11 @@ public:
     /*
      * Virtual Action Handlers
      */
+    virtual void configButtonPressed()
+    {
+        // Override and implement this function in mainScreen
+    }
+
     virtual void startButtonPressed()
     {
         // Override and implement this function in mainScreen
