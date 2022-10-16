@@ -12,6 +12,8 @@
 
 //////////////////  types and variables   //////////////////////////////7
 
+uint8_t presenterQActive;
+
 void mainJt(void *argument);
 
 
@@ -128,11 +130,23 @@ void mainJt(void *argument)
 osStatus_t sendPresenterMessage(pJoesPresenterEventT  pMsg)
 {
 	osStatus_t  status = osError;
-	status = osMessageQueuePut (presenterMessageQ, (void *) pMsg, 0, 10);
-	if (status != osOK) {
-		errorHandler(status,goOn," status ","sendPresenterMessage");
+	if (presenterQActive != 0)  {
+		status = osMessageQueuePut (presenterMessageQ, (void *) pMsg, 0, 10);
+		if (status != osOK) {
+			errorHandler(status,goOn," status ","sendPresenterMessage");
+		}
 	}
 	return status;
+}
+
+void setPresenterQActive()
+{
+	presenterQActive = 1;
+}
+
+void setPresenterQInactive()
+{
+	presenterQActive = 0;
 }
 
 osStatus_t sendModelMessage(pJoesModelEventT  pMsg)
@@ -174,6 +188,7 @@ void initJt()
 	if (presenterMessageQ  == NULL)   {
 		errorHandler((uint32_t)NULL, stop," presenterMessageQ ", "initJt");
 	}
+	presenterQActive = 0;
 
 	modelMessageQ =  osMessageQueueNew(3,sizeof(CJoesModelEventT)*memoryMultiplier, NULL);
 		if (modelMessageQ  == NULL)   {

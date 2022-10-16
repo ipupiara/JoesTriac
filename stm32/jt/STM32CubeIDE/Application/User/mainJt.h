@@ -86,6 +86,10 @@ typedef CJoesPresenterEventT*  pJoesPresenterEventT;
 
 osStatus_t sendPresenterMessage(pJoesPresenterEventT  pMsg);
 
+void setPresenterQActive();
+
+void setPresenterQInactive();
+
 extern osMessageQueueId_t    presenterMessageQ;
 
 ///////////////  model messages ////////////////

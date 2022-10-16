@@ -56,6 +56,7 @@ public:
 
 private:
     runScreenPresenter();
+    bool presenterActive;
 
     runScreenView& view;
 };
