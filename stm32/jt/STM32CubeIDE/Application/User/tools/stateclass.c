@@ -26,8 +26,8 @@ enum eStates
 		eStartState = eStateJoesTriac,  // decide calib or idle
 		eStateTriacOperating,
 			eStateStartupCheck,
-			eStateCalibrating,  // calibration/setup
-				eStateManualCalibrating,   // manual
+			eStateSetup,  // calibration/setup
+				eStateSetupIdle,   // manual
 				eStateAutoCalibrating,		// autoCalibrate
 					eStateCalibrateZeroSignal,
 					eStateCalibratingScale,
@@ -116,7 +116,7 @@ uStInt evStartupCheckChecker(void)   // during Start Screen
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 		}  else {
-			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrating);
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetup);
 				// No event action.
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
@@ -169,16 +169,16 @@ uStInt evStateCalibratingChecker(void)
 int8_t  calibVarInd;
 
 
-void entryManualCalibratingState(void)
+void entrySetupIdleState(void)
 {
-	printf("entryManualCalibratingState\n");
+	printf("entrySetupIdleState\n");
 	CJoesModelEventT  msg;
 	osStatus_t status;
-	info_printf("entryCalibratingState\n");
+	info_printf("entrySetupIdleState\n");
 	msg.messageType = changeToConfigScreen;
 	status = sendModelMessage(&msg);
 	if(status != osOK)  {
-		errorHandler(status,goOn," status ","entryManualCalibratingState");
+		errorHandler(status,goOn," status ","entrySetupIdleState");
 	}
 //	calibVarInd = 0;
 //	currentVarVal = calibLowADC;
@@ -189,13 +189,13 @@ void entryManualCalibratingState(void)
 
 
 
-void exitManualCalibratingState(void)
+void exitSetupIdleState(void)
 {
 //	printf("exit ask calib\n");
 //	updateGradAmps();
 }
 
-uStInt evStateManualCalibrating(void)
+uStInt evStateSetupIdle(void)
 {
 	uStInt res = uStIntNoMatch;
 //	printf("check for event in State evStateIdle\n");
@@ -260,7 +260,7 @@ uStInt evStateManualCalibrating(void)
 ////		currentVarChanged();
 ////		res =  uStIntHandlingDone;
 //	}
-	return (res); 
+	return (res);
 }
 
 void entryAutoCalibratingState(void)
@@ -630,195 +630,195 @@ uStInt evTriacIdleChecker(void)
 }
 
 
-//void entryEditIdleState(void)
-//{
-////	displayEditAmpsDuration();
-////	displayAmps(-1);
-////	displayTime(-1);
-////	printf("entry I\n");
-//}
-//
-//void exitEditIdleState(void)
-//{
-////	printf("exit I\n");
-//}
-//
-//uStInt evEditIdleCheckChecker(void)
-//{
-//	uStInt res = uStIntNoMatch;
-////	printf("\ncheck for event in State evStateIdle");
-//
-////	if (currentEvent->evType==evAstPressed) {
-//////		printf("\ncheck for event in State evStateIdle amps");
-////
-////////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditAmps);
-//////			// No event action.
-//////		END_EVENT_HANDLER(PJoesTriacStateChart);
-//////		res =  uStIntHandlingDone;
-////	}
-////	if (currentEvent->evType==evNumPressed) {
-//////		printf("\ncheck for event in State evStateIdle dur");
-////
-////////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditDuration);
-//////			// No event action.
-//////		END_EVENT_HANDLER(PJoesTriacStateChart);
-//////		res =  uStIntHandlingDone;
-////	}
-////	if (currentEvent->evType == evTWIDataReceived)
-////	// do writing  only in edit idle, not to interfere with the edit-cursor position
-////	// could be done also by laying edit-cursor pos "on stack" and set again after write,
-////	 //  but lets first try with this simpler version ... should be ok as well
-////	{
-//////		checkTWIZeroAdjustMsg();
-//////		displayPotiVolatile();
-////	}
-///*
-//	if (currentEvent->evType == evCharEntered) {
-//		switch (currentEvent->evData.keyCode) {
-//			case kp1 :
-//				sendZeroAdjustMsg(up1);
-//				break;
-//			case kp2 :
-//				sendZeroAdjustMsg(up10);
-//				break ;
-//			case kp7 :
-//				sendZeroAdjustMsg(down1);
-//				break;
-//			case kp8 :
-//				sendZeroAdjustMsg(down10);
-//				break ;
-//		}
-//		res =  uStIntHandlingDone;
-//	}
-//*/
-//	return res;
-//}
-
-void entryEditAmpsState(void)
+void entrySetupState(void)
 {
-//	printf("entry I\n");
-//	displayEditAmps();
-//	keyInd = 0;
-//	displayAmps(keyInd);
-}
-
-void exitEditAmpsState(void)
-{
-//	printf("exit I\n");
+//	displayEditAmpsDuration();
 //	displayAmps(-1);
-}
-
-uStInt evEditAmpsChecker(void)
-{
-	uStInt res = uStIntNoMatch;
-	//	printf("check for event in State evStateIdle\n");
-
-//	if (currentEvent->evType == evNumPressed)  {
-//////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditDuration);
-////			// No event action.
-////		END_EVENT_HANDLER(PJoesTriacStateChart);
-////		res =  uStIntHandlingDone;
-//	}
-//			if (currentEvent->evType == evAstPressed)  {
-//////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
-////			// No event action.
-////		END_EVENT_HANDLER(PJoesTriacStateChart);
-////		res =  uStIntHandlingDone;
-//	}
-//
-//	if (currentEvent->evType == evCharEntered) {
-//
-//	//  TODO:	editChar(currentEvent,storeAmps100,keyInd,3,Amps);  //( , , amps)  struct editLine (char,amtChar,zeroPos,storeMethod[])
-//	//
-//
-////		if ((currentEvent->evData.keyCode <= kp9) && (currentEvent->evData.keyCode >= kp0)) {
-////			switch (keyInd)
-////			{
-////				case 0:
-////					storeAmps100(currentEvent->evData.keyCode);
-////					break;
-////				case 1:
-////					storeAmps10(currentEvent->evData.keyCode);
-////					break;
-////				case 2:
-////					storeAmps(currentEvent->evData.keyCode);
-////					BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
-////
-////					END_EVENT_HANDLER(PJoesTriacStateChart);
-////			}
-////			keyInd ++;
-////			displayAmps(keyInd);  // if keyInd = 3, dispAmps can be done again in next State, no matter
-////
-////		res =  uStIntHandlingDone;
-////		}
-//	}
-	return res;
-}
-
-
-void entryEditDurationState(void)
-{
+//	displayTime(-1);
 //	printf("entry I\n");
-//	displayEditDuration();
-//	keyInd = 0;
-//	displayTime(keyInd);
 }
 
-void exitEditDurationState(void)
+void exitSetupState(void)
 {
 //	printf("exit I\n");
-//	displayTime(-1);
 }
 
-uStInt evEditDurationChecker(void)
+uStInt evSetupChecker(void)
 {
 	uStInt res = uStIntNoMatch;
-	//	printf("check for event in State evStateIdle\n");
+//	printf("\ncheck for event in State evStateIdle");
 
-//	if (currentEvent->evType == evAstPressed)  {
+//	if (currentEvent->evType==evAstPressed) {
+////		printf("\ncheck for event in State evStateIdle amps");
+//
 //////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditAmps);
 ////			// No event action.
 ////		END_EVENT_HANDLER(PJoesTriacStateChart);
 ////		res =  uStIntHandlingDone;
 //	}
-//	if (currentEvent->evType == evNumPressed)  {
-//////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
+//	if (currentEvent->evType==evNumPressed) {
+////		printf("\ncheck for event in State evStateIdle dur");
+//
+//////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditDuration);
 ////			// No event action.
 ////		END_EVENT_HANDLER(PJoesTriacStateChart);
 ////		res =  uStIntHandlingDone;
 //	}
-//
-//	if (currentEvent->evType == evCharEntered) {
-//
-////		if ((currentEvent->evData.keyCode <= kp9) && (currentEvent->evData.keyCode >= kp0)) {
-////			switch (keyInd)
-////			{
-////				case 0:
-////					storeMin10(currentEvent->evData.keyCode);
-////					break;
-////				case 1:
-////					storeMin(currentEvent->evData.keyCode);
-////					keyInd++;
-////					break;
-////				case 3:
-////					if (currentEvent->evData.keyCode <= kp5) {
-////						storeSec10(currentEvent->evData.keyCode);
-////					} else keyInd --;
-////					break;
-////				case 4:
-////					storeSec(currentEvent->evData.keyCode);
-////					BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
-////
-////					END_EVENT_HANDLER(PJoesTriacStateChart);
-////			}
-////			keyInd ++;
-////			displayTime(keyInd);
-////
-////			res =  uStIntHandlingDone;
-////		}
+//	if (currentEvent->evType == evTWIDataReceived)
+//	// do writing  only in edit idle, not to interfere with the edit-cursor position
+//	// could be done also by laying edit-cursor pos "on stack" and set again after write,
+//	 //  but lets first try with this simpler version ... should be ok as well
+//	{
+////		checkTWIZeroAdjustMsg();
+////		displayPotiVolatile();
 //	}
+/*
+	if (currentEvent->evType == evCharEntered) {
+		switch (currentEvent->evData.keyCode) {
+			case kp1 :
+				sendZeroAdjustMsg(up1);
+				break;
+			case kp2 :
+				sendZeroAdjustMsg(up10);
+				break ;
+			case kp7 :
+				sendZeroAdjustMsg(down1);
+				break;
+			case kp8 :
+				sendZeroAdjustMsg(down10);
+				break ;
+		}
+		res =  uStIntHandlingDone;
+	}
+*/
 	return res;
 }
+
+//void entryEditAmpsState(void)
+//{
+////	printf("entry I\n");
+////	displayEditAmps();
+////	keyInd = 0;
+////	displayAmps(keyInd);
+//}
+//
+//void exitEditAmpsState(void)
+//{
+////	printf("exit I\n");
+////	displayAmps(-1);
+//}
+//
+//uStInt evEditAmpsChecker(void)
+//{
+//	uStInt res = uStIntNoMatch;
+//	//	printf("check for event in State evStateIdle\n");
+//
+////	if (currentEvent->evType == evNumPressed)  {
+////////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditDuration);
+//////			// No event action.
+//////		END_EVENT_HANDLER(PJoesTriacStateChart);
+//////		res =  uStIntHandlingDone;
+////	}
+////			if (currentEvent->evType == evAstPressed)  {
+////////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
+//////			// No event action.
+//////		END_EVENT_HANDLER(PJoesTriacStateChart);
+//////		res =  uStIntHandlingDone;
+////	}
+////
+////	if (currentEvent->evType == evCharEntered) {
+////
+////	//  TODO:	editChar(currentEvent,storeAmps100,keyInd,3,Amps);  //( , , amps)  struct editLine (char,amtChar,zeroPos,storeMethod[])
+////	//
+////
+//////		if ((currentEvent->evData.keyCode <= kp9) && (currentEvent->evData.keyCode >= kp0)) {
+//////			switch (keyInd)
+//////			{
+//////				case 0:
+//////					storeAmps100(currentEvent->evData.keyCode);
+//////					break;
+//////				case 1:
+//////					storeAmps10(currentEvent->evData.keyCode);
+//////					break;
+//////				case 2:
+//////					storeAmps(currentEvent->evData.keyCode);
+//////					BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
+//////
+//////					END_EVENT_HANDLER(PJoesTriacStateChart);
+//////			}
+//////			keyInd ++;
+//////			displayAmps(keyInd);  // if keyInd = 3, dispAmps can be done again in next State, no matter
+//////
+//////		res =  uStIntHandlingDone;
+//////		}
+////	}
+//	return res;
+//}
+//
+//
+//void entryEditDurationState(void)
+//{
+////	printf("entry I\n");
+////	displayEditDuration();
+////	keyInd = 0;
+////	displayTime(keyInd);
+//}
+//
+//void exitEditDurationState(void)
+//{
+////	printf("exit I\n");
+////	displayTime(-1);
+//}
+//
+//uStInt evEditDurationChecker(void)
+//{
+//	uStInt res = uStIntNoMatch;
+//	//	printf("check for event in State evStateIdle\n");
+//
+////	if (currentEvent->evType == evAstPressed)  {
+////////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditAmps);
+//////			// No event action.
+//////		END_EVENT_HANDLER(PJoesTriacStateChart);
+//////		res =  uStIntHandlingDone;
+////	}
+////	if (currentEvent->evType == evNumPressed)  {
+////////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
+//////			// No event action.
+//////		END_EVENT_HANDLER(PJoesTriacStateChart);
+//////		res =  uStIntHandlingDone;
+////	}
+////
+////	if (currentEvent->evType == evCharEntered) {
+////
+//////		if ((currentEvent->evData.keyCode <= kp9) && (currentEvent->evData.keyCode >= kp0)) {
+//////			switch (keyInd)
+//////			{
+//////				case 0:
+//////					storeMin10(currentEvent->evData.keyCode);
+//////					break;
+//////				case 1:
+//////					storeMin(currentEvent->evData.keyCode);
+//////					keyInd++;
+//////					break;
+//////				case 3:
+//////					if (currentEvent->evData.keyCode <= kp5) {
+//////						storeSec10(currentEvent->evData.keyCode);
+//////					} else keyInd --;
+//////					break;
+//////				case 4:
+//////					storeSec(currentEvent->evData.keyCode);
+//////					BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
+//////
+//////					END_EVENT_HANDLER(PJoesTriacStateChart);
+//////			}
+//////			keyInd ++;
+//////			displayTime(keyInd);
+//////
+//////			res =  uStIntHandlingDone;
+//////		}
+////	}
+//	return res;
+//}
 
 
 void entryTriacRunningState(void)
@@ -968,8 +968,8 @@ t_fvoid  tfNull;
 	eStateJoesTriac,
 		eStartState = eStateJoesTriac,  // decide calib or idle
 		eStateTriacOperating,
-			eStateCalibrating,  // calibration/setup
-				eStateManualCalibrating,   // manual
+			eStateSetup,  // calibration/setup
+				eStateSetupIdle,   // manual
 				eStateAutoCalibrating,		// autoCalibrate
 					eStateCalibrateZeroSignal,
 					eStateCalibratingScale,
@@ -1011,26 +1011,26 @@ xStateType xaStates[eNumberOfStates] = {
 			exitStartupCheck},
 
 
-			{eStateCalibrating,
+			{eStateSetup,
 			eStateTriacOperating,
-			eStateManualCalibrating,
+			eStateSetupIdle,
 			0,
-			evStateCalibratingChecker,
+			evSetupChecker,
 			tfNull,
-			entryCalibratingState,
-			exitCalibratingState},
+			entrySetupState,
+			exitSetupState},
 
-				{eStateManualCalibrating,
-				eStateCalibrating,
+				{eStateSetupIdle,
+				eStateSetup,
 				-1,
 				0,
-				evStateManualCalibrating,
+				evStateSetupIdle,
 				tfNull,
-				entryManualCalibratingState,
-				exitManualCalibratingState},
+				entrySetupIdleState,
+				exitSetupIdleState},
 
 				{eStateAutoCalibrating,
-				eStateCalibrating,
+				eStateSetup,
 				-1,
 				0,
 				evAutoCalibratingChecker,
