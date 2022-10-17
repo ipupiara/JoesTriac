@@ -16,21 +16,20 @@ protected:
 	protected:
 		uint32_t calibHighCache;
 		uint32_t calibLowCache;
+		uint32_t zeroPotiPosCache;
 		bool  calibHighCacheValid;
 		bool  calibLowCacheValid;
 		bool  calibHighCacheChanged;
 		bool  calibLowCacheChanged;
+		bool zeroPotiPosCacheValid;
+		bool zeroPotiPosCacheChanged;
 
-		uint32_t zeroPotiPos;
-		uint32_t calibHigh;
-		uint32_t calibLow;
-		bool zeroPotiPosValid;
-		bool zeroPotiPosChanged;
-		bool calibHighValid;
-		bool calibHighChanged;
-		bool calibLowValid;
-		bool calibLowChanged;
 	public:
+
+		void storeCalibHigh();
+		void storeCalibLow();
+		void storeZeroPotiPos();
+
 		CalibCache()
 		{
 			resetCalibValues();
@@ -80,6 +79,27 @@ protected:
 			}
 		}
 
+		uint32_t getZeroPotiPos()
+		{
+			uint32_t res;
+			if (zeroPotiPosCacheValid)  {
+				res = zeroPotiPosCache;
+			}  else {
+				zeroPotiPosCache = res = getDefinesZeroPotiPos();
+				calibHighCacheValid = true;
+			}
+			return res;		}
+
+		void setZeroPotiPos(uint32_t val)
+		{
+			if (zeroPotiPosCacheValid)  {
+				if (zeroPotiPosCache != val)  {
+					zeroPotiPosCache = val;
+					zeroPotiPosCacheChanged = true;
+				}
+			}
+		}
+
 		void storeCalibValues()
 		{
 			if ((calibLowCacheValid) && (calibLowCacheChanged))  {
@@ -88,12 +108,14 @@ protected:
 			if ((calibHighCacheValid) && (calibHighCacheChanged)) {
 				storeCalibHigh();
 			}
+			if ((zeroPotiPosCacheValid) && (zeroPotiPosCacheChanged)) {
+				storeZeroPotiPos();
+			}
+
 			resetCalibValues();
 		}
 
-		void storeCalibHigh();
-		void storeCalibLow();
-		void storeZeroPotiPos();
+
 
 		void resetCalibValues()
 		{
@@ -101,8 +123,11 @@ protected:
 			calibLowCacheValid  = false;
 			calibHighCacheChanged = false;
 			calibLowCacheChanged = false;
+			zeroPotiPosCacheChanged = false;
+			zeroPotiPosCacheChanged = false;
 			calibLowCache = 0;
 			calibHighCache = 0;
+			zeroPotiPosCache = 0;
 		}
 
 	};
@@ -140,6 +165,8 @@ public:
     void storeWeldingAmps(uint32_t amps);
     uint32_t getCalibHigh();
     uint32_t getCalibLow();
+    uint32_t getZeroPotiPos();
+    void setZeroPotiPos(uint32_t val);
     void setCalibHigh(uint32_t cH);
     void setCalibLow(uint32_t cL);
     void   saveCalibValues();

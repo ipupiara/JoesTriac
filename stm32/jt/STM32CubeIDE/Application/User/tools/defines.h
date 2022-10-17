@@ -44,6 +44,8 @@ uint32_t getDefinesCalibHigh();
 
 uint32_t getDefinesCalibLow();
 
+uint32_t getDefinesZeroPotiPos();
+
 tStatus saveWeldingTime(uint32_t wTime);
 
 tStatus saveWeldingAmps(uint32_t wAmps);
@@ -51,6 +53,8 @@ tStatus saveWeldingAmps(uint32_t wAmps);
 tStatus saveCalibLow(uint32_t cHigh);
 
 tStatus saveCalibHigh(uint32_t cLow);
+
+tStatus saveZeroPotiPos(uint32_t val);
 
 tStatus saveAlarmNeeded(uint8_t aNeeded);
 

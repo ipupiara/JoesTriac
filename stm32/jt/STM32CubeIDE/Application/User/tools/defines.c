@@ -17,7 +17,7 @@
 typedef struct {
 	uint32_t weldingTime;
 	uint32_t   weldingAmps100;
-	uint32_t  calibLow, calibHigh;
+	uint32_t  calibLow, calibHigh, zeroPotiPos;
 	uint8_t  alarmNeeded;
 	uint32_t  alarmTime;
 } persistentData;
@@ -106,6 +106,16 @@ uint32_t getDefinesCalibLow()
 	taskEXIT_CRITICAL();
 	return cal;
 }
+
+uint32_t getDefinesZeroPotiPos()
+{
+	uint32_t val;
+	taskENTER_CRITICAL();
+	val = persistentRec.zeroPotiPos;
+	taskEXIT_CRITICAL();
+	return val;
+}
+
 
 #ifdef microSdWorking
 
@@ -246,6 +256,13 @@ tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded)
 	persistentRec.alarmTime = aTime;
 	persistentRec.alarmNeeded = aNeeded;
 
+	return success;
+}
+
+tStatus saveZeroPotiPos(uint32_t val)
+{
+	tStatus success = tOk;
+	persistentRec.zeroPotiPos = val;
 	return success;
 }
 #endif

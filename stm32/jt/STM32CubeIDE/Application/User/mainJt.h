@@ -31,7 +31,7 @@ typedef enum {
 	msgFree = 0,
 	saveCalibLo,
 	saveCalibHi,
-	saveZeroPotiPos,
+	saveZPotiPos,
 	storeWeldingTime,
 	storeWeldingAmpere,
 	storeAlarmData,

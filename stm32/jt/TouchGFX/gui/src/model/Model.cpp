@@ -146,6 +146,15 @@ void   Model::resetCalibValues()
 	calibCache.resetCalibValues();
 }
 
+uint32_t Model::getZeroPotiPos()
+{
+	return calibCache.getZeroPotiPos();
+}
+
+void Model::setZeroPotiPos(uint32_t val)
+{
+	calibCache.setZeroPotiPos(val);
+}
 
 void Model::CalibCache::storeCalibHigh()
 {
@@ -166,7 +175,9 @@ void Model::CalibCache::storeCalibLow()
 void Model::CalibCache::storeZeroPotiPos()
 {
 	CMainJtEventT evt;
-	evt.evType = saveZeroPotiPos;
-	evt.mainUnion.zPotiPos = zeroPotiPos;
+	evt.evType = saveZPotiPos;
+	evt.mainUnion.zPotiPos = zeroPotiPosCache;
 	sendEventToMainJtMessageQ(&evt,0);
 }
+
+
