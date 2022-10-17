@@ -595,6 +595,16 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/alarmconfigscreen_screen/alarmConfigScreenView.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/gui/calibrateZeroScreenPresenter.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/calibratezeroscreen_screen/calibrateZeroScreenPresenter.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/calibrateZeroScreenView.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/calibratezeroscreen_screen/calibrateZeroScreenView.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/gui/calibrationScreenPresenter.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/calibrationscreen_screen/calibrationScreenPresenter.cpp</locationURI>
@@ -823,6 +833,11 @@
 			<name>Application/User/generated/alarmConfigScreenViewBase.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/alarmconfigscreen_screen/alarmConfigScreenViewBase.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/calibrateZeroScreenViewBase.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/calibratezeroscreen_screen/calibrateZeroScreenViewBase.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/calibrationScreenViewBase.cpp</name>

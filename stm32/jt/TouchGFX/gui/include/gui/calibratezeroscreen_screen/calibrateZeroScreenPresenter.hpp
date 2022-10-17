@@ -1,17 +1,17 @@
-#ifndef CALIBRATIONSCREENPRESENTER_HPP
-#define CALIBRATIONSCREENPRESENTER_HPP
+#ifndef CALIBRATEZEROSCREENPRESENTER_HPP
+#define CALIBRATEZEROSCREENPRESENTER_HPP
 
 #include <gui/model/ModelListener.hpp>
 #include <mvp/Presenter.hpp>
 
 using namespace touchgfx;
 
-class calibrationScreenView;
+class calibrateZeroScreenView;
 
-class calibrationScreenPresenter : public touchgfx::Presenter, public ModelListener
+class calibrateZeroScreenPresenter : public touchgfx::Presenter, public ModelListener
 {
 public:
-    calibrationScreenPresenter(calibrationScreenView& v);
+    calibrateZeroScreenPresenter(calibrateZeroScreenView& v);
 
     /**
      * The activate function is called automatically when this screen is "switched in"
@@ -25,15 +25,12 @@ public:
      */
     virtual void deactivate();
 
-    virtual ~calibrationScreenPresenter() {};
-
-    virtual void tick();
+    virtual ~calibrateZeroScreenPresenter() {};
 
 private:
-    calibrationScreenPresenter();
-    bool presenterActive;
+    calibrateZeroScreenPresenter();
 
-    calibrationScreenView& view;
+    calibrateZeroScreenView& view;
 };
 
-#endif // CALIBRATIONSCREENPRESENTER_HPP
+#endif // CALIBRATEZEROSCREENPRESENTER_HPP

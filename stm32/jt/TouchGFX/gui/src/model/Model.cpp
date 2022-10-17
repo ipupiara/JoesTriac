@@ -162,3 +162,11 @@ void Model::CalibCache::storeCalibLow()
 	evt.mainUnion.calibLow = calibLowCache;
 	sendEventToMainJtMessageQ(&evt,0);
 }
+
+void Model::CalibCache::storeZeroPotiPos()
+{
+	CMainJtEventT evt;
+	evt.evType = saveZeroPotiPos;
+	evt.mainUnion.zPotiPos = zeroPotiPos;
+	sendEventToMainJtMessageQ(&evt,0);
+}

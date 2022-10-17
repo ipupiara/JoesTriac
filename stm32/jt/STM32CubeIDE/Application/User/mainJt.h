@@ -31,6 +31,7 @@ typedef enum {
 	msgFree = 0,
 	saveCalibLo,
 	saveCalibHi,
+	saveZeroPotiPos,
 	storeWeldingTime,
 	storeWeldingAmpere,
 	storeAlarmData,
@@ -49,6 +50,7 @@ typedef struct  {
 		uint32_t  weldingTime;
 		uint32_t  calibLow;
 		uint32_t calibHigh;
+		uint32_t  zPotiPos;
 		struct {
 			uint32_t     alarmTime;
 			uint8_t		alarmNeeded;
@@ -89,6 +91,8 @@ osStatus_t sendPresenterMessage(pJoesPresenterEventT  pMsg);
 void setPresenterQActive();
 
 void setPresenterQInactive();
+
+uint8_t isPresenterQActive();
 
 extern osMessageQueueId_t    presenterMessageQ;
 

@@ -39,6 +39,8 @@
 #include <gui/startupscreen_screen/startupScreenPresenter.hpp>
 #include <gui/dummyscreen_screen/dummyScreenView.hpp>
 #include <gui/dummyscreen_screen/dummyScreenPresenter.hpp>
+#include <gui/calibratezeroscreen_screen/calibrateZeroScreenView.hpp>
+#include <gui/calibratezeroscreen_screen/calibrateZeroScreenPresenter.hpp>
 
 using namespace touchgfx;
 

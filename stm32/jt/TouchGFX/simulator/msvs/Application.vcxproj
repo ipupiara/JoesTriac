@@ -68,6 +68,9 @@
     <ClCompile Include="..\..\gui\src\dummyscreen_screen\dummyScreenPresenter.cpp"/>
     <ClCompile Include="..\..\gui\src\dummyscreen_screen\dummyScreenView.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\dummyscreen_screen\dummyScreenViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\calibratezeroscreen_screen\calibrateZeroScreenPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\calibratezeroscreen_screen\calibrateZeroScreenView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\calibratezeroscreen_screen\calibrateZeroScreenViewBase.cpp"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xml"/>
@@ -265,6 +268,9 @@
     <ClInclude Include="..\..\gui\include\gui\dummyscreen_screen\dummyScreenPresenter.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\dummyscreen_screen\dummyScreenView.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\dummyscreen_screen\dummyScreenViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\calibratezeroscreen_screen\calibrateZeroScreenPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\calibratezeroscreen_screen\calibrateZeroScreenView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\calibratezeroscreen_screen\calibrateZeroScreenViewBase.hpp"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>

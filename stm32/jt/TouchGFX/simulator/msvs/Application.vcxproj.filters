@@ -364,6 +364,18 @@
     <Filter Include="Source Files\generated\gui_generated\dummyscreen_screen">
       <UniqueIdentifier>C71A9C26-BFB8-7094-E984-0C9567C10058</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\gui\calibratezeroscreen_screen">
+      <UniqueIdentifier>706BCC9F-B064-1DF6-F14B-3BA0ECD2DEA3</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\calibratezeroscreen_screen">
+      <UniqueIdentifier>78E89F8B-C2C0-E229-FB34-6A19756DDC91</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\calibratezeroscreen_screen">
+      <UniqueIdentifier>FF92FF89-9DFD-D7B6-9BC3-43002C9A7445</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\calibratezeroscreen_screen">
+      <UniqueIdentifier>92888FAD-F084-B25D-BBDB-FAF8065CC2B9</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\driver\touch\SDL2TouchController.cpp">
@@ -536,6 +548,15 @@
     </ClCompile>
     <ClCompile Include="..\..\generated\gui_generated\src\dummyscreen_screen\dummyScreenViewBase.cpp">
       <Filter>Source Files\generated\gui_generated\dummyscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\calibratezeroscreen_screen\calibrateZeroScreenPresenter.cpp">
+      <Filter>Source Files\gui\calibratezeroscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\calibratezeroscreen_screen\calibrateZeroScreenView.cpp">
+      <Filter>Source Files\gui\calibratezeroscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\calibratezeroscreen_screen\calibrateZeroScreenViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\calibratezeroscreen_screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1119,6 +1140,15 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\dummyscreen_screen\dummyScreenViewBase.hpp">
       <Filter>Header Files\generated\gui_generated\dummyscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\calibratezeroscreen_screen\calibrateZeroScreenPresenter.hpp">
+      <Filter>Header Files\gui\calibratezeroscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\calibratezeroscreen_screen\calibrateZeroScreenView.hpp">
+      <Filter>Header Files\gui\calibratezeroscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\calibratezeroscreen_screen\calibrateZeroScreenViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\calibratezeroscreen_screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

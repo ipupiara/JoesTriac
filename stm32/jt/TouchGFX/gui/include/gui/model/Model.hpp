@@ -20,6 +20,16 @@ protected:
 		bool  calibLowCacheValid;
 		bool  calibHighCacheChanged;
 		bool  calibLowCacheChanged;
+
+		uint32_t zeroPotiPos;
+		uint32_t calibHigh;
+		uint32_t calibLow;
+		bool zeroPotiPosValid;
+		bool zeroPotiPosChanged;
+		bool calibHighValid;
+		bool calibHighChanged;
+		bool calibLowValid;
+		bool calibLowChanged;
 	public:
 		CalibCache()
 		{
@@ -82,8 +92,8 @@ protected:
 		}
 
 		void storeCalibHigh();
-
 		void storeCalibLow();
+		void storeZeroPotiPos();
 
 		void resetCalibValues()
 		{

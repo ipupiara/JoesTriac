@@ -24,6 +24,9 @@ calibrationScreenViewBase::calibrationScreenViewBase() :
     ampereText.setXY(225, 50);
     ampereText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     ampereText.setLinespacing(0);
+    Unicode::snprintf(ampereTextBuffer, AMPERETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_C8ZW).getText());
+    ampereText.setWildcard(ampereTextBuffer);
+    ampereText.resizeToCurrentText();
     ampereText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_8TPJ));
 
     textArea3.setXY(26, 169);
@@ -34,6 +37,9 @@ calibrationScreenViewBase::calibrationScreenViewBase() :
     delayText.setXY(225, 169);
     delayText.setColor(touchgfx::Color::getColorFromRGB(13, 1, 1));
     delayText.setLinespacing(0);
+    Unicode::snprintf(delayTextBuffer, DELAYTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_PYBL).getText());
+    delayText.setWildcard(delayTextBuffer);
+    delayText.resizeToCurrentText();
     delayText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_ZGP7));
 
     plus100Button.setXY(277, 109);
@@ -78,7 +84,7 @@ calibrationScreenViewBase::calibrationScreenViewBase() :
     minus1Button.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     minus1Button.setAction(buttonCallback);
 
-    textArea4.setXY(35, 357);
+    textArea4.setXY(24, 357);
     textArea4.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea4.setLinespacing(0);
     textArea4.setTypedText(touchgfx::TypedText(T___SINGLEUSE_VANS));
@@ -88,12 +94,25 @@ calibrationScreenViewBase::calibrationScreenViewBase() :
     processStateText.setLinespacing(0);
     processStateText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_JNJA));
 
-    abortButton.setXY(35, 397);
+    abortButton.setXY(26, 397);
     abortButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
     abortButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_J3DJ));
     abortButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     abortButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     abortButton.setAction(buttonCallback);
+
+    textArea5.setXY(24, 290);
+    textArea5.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea5.setLinespacing(0);
+    textArea5.setTypedText(touchgfx::TypedText(T___SINGLEUSE_IJQ4));
+
+    adcVoltageText.setXY(225, 290);
+    adcVoltageText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    adcVoltageText.setLinespacing(0);
+    Unicode::snprintf(adcVoltageTextBuffer, ADCVOLTAGETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_HMNH).getText());
+    adcVoltageText.setWildcard(adcVoltageTextBuffer);
+    adcVoltageText.resizeToCurrentText();
+    adcVoltageText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_1KAN));
 
     add(__background);
     add(box1);
@@ -110,6 +129,8 @@ calibrationScreenViewBase::calibrationScreenViewBase() :
     add(textArea4);
     add(processStateText);
     add(abortButton);
+    add(textArea5);
+    add(adcVoltageText);
 }
 
 void calibrationScreenViewBase::setupScreen()

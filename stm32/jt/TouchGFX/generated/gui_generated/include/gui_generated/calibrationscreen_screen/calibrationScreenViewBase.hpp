@@ -9,6 +9,7 @@
 #include <gui/calibrationscreen_screen/calibrationScreenPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
+#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
 
 class calibrationScreenViewBase : public touchgfx::View<calibrationScreenPresenter>
@@ -67,9 +68,9 @@ protected:
     touchgfx::Box __background;
     touchgfx::Box box1;
     touchgfx::TextArea textArea1;
-    touchgfx::TextArea ampereText;
+    touchgfx::TextAreaWithOneWildcard ampereText;
     touchgfx::TextArea textArea3;
-    touchgfx::TextArea delayText;
+    touchgfx::TextAreaWithOneWildcard delayText;
     touchgfx::ButtonWithLabel plus100Button;
     touchgfx::ButtonWithLabel plus10Button;
     touchgfx::ButtonWithLabel plus1Button;
@@ -79,6 +80,18 @@ protected:
     touchgfx::TextArea textArea4;
     touchgfx::TextArea processStateText;
     touchgfx::ButtonWithLabel abortButton;
+    touchgfx::TextArea textArea5;
+    touchgfx::TextAreaWithOneWildcard adcVoltageText;
+
+    /*
+     * Wildcard Buffers
+     */
+    static const uint16_t AMPERETEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar ampereTextBuffer[AMPERETEXT_SIZE];
+    static const uint16_t DELAYTEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar delayTextBuffer[DELAYTEXT_SIZE];
+    static const uint16_t ADCVOLTAGETEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar adcVoltageTextBuffer[ADCVOLTAGETEXT_SIZE];
 
 private:
 

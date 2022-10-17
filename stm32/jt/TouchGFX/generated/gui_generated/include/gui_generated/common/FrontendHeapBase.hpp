@@ -42,6 +42,8 @@
 #include <gui/startupscreen_screen/startupScreenPresenter.hpp>
 #include <gui/dummyscreen_screen/dummyScreenView.hpp>
 #include <gui/dummyscreen_screen/dummyScreenPresenter.hpp>
+#include <gui/calibratezeroscreen_screen/calibrateZeroScreenView.hpp>
+#include <gui/calibratezeroscreen_screen/calibrateZeroScreenPresenter.hpp>
 
 
 /**
@@ -79,7 +81,8 @@ public:
             touchgfx::meta::TypeList< jobCompleteScreenView,
             touchgfx::meta::TypeList< startupScreenView,
             touchgfx::meta::TypeList< dummyScreenView,
-            touchgfx::meta::Nil > > > > > > > > > > > > > >
+            touchgfx::meta::TypeList< calibrateZeroScreenView,
+            touchgfx::meta::Nil > > > > > > > > > > > > > > >
             > GeneratedViewTypes;
 
     /**
@@ -106,7 +109,8 @@ public:
             touchgfx::meta::TypeList< jobCompleteScreenPresenter,
             touchgfx::meta::TypeList< startupScreenPresenter,
             touchgfx::meta::TypeList< dummyScreenPresenter,
-            touchgfx::meta::Nil > > > > > > > > > > > > > >
+            touchgfx::meta::TypeList< calibrateZeroScreenPresenter,
+            touchgfx::meta::Nil > > > > > > > > > > > > > > >
             > GeneratedPresenterTypes;
 
     /**

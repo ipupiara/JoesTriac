@@ -149,6 +149,13 @@ void setPresenterQInactive()
 	presenterQActive = 0;
 }
 
+uint8_t isPresenterQActive()
+{
+	uint8_t res;
+	res = (presenterQActive != 0);
+	return res;
+}
+
 osStatus_t sendModelMessage(pJoesModelEventT  pMsg)
 {
 	osStatus_t  status = osError;
