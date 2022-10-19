@@ -7,6 +7,7 @@
 
 #include <gui/JtPresenter.hpp>
 
+
 JtPresenter::JtPresenter() {
 
 
@@ -54,4 +55,5 @@ void JtPresenter::setZeroPotiPos(uint32_t cL)
 {
 	model->setZeroPotiPos(cL);
 }
+
 

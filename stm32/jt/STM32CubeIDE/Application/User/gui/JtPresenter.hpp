@@ -30,7 +30,10 @@ public:
 	    void   saveCalibValues();
 
 	    void   resetCache();
-	    uint8_t  presenterActive;
+
+
+protected:
+
 };
 
 #endif /* APPLICATION_USER_GUI_JTPRESENTER_HPP_ */

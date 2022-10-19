@@ -6,7 +6,7 @@
 calibrationScreenPresenter::calibrationScreenPresenter(calibrationScreenView& v)
     : view(v)
 {
-	presenterActive = 0;   todo   can this be get simlified with inheritance ?
+	presenterActive = 0;
 }
 
 void calibrationScreenPresenter::activate()

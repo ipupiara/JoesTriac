@@ -34,6 +34,7 @@ private:
     calibrationScreenPresenter();
 
     calibrationScreenView& view;
+    uint8_t  presenterActive;
 };
 
 #endif // CALIBRATIONSCREENPRESENTER_HPP
