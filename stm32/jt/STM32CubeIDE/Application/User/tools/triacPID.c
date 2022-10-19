@@ -14,7 +14,7 @@ enum adcScopeEnum
 	farScope
 };
 
-double currentAmpsValue;
+float currentAmpsValue;
 int8_t stableZeroAdjReached;
 
 int8_t m_started;

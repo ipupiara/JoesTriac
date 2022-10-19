@@ -33,7 +33,7 @@ void onTriacIdleSecondTick_PID();
 
 real Update(real error);
 
-extern double currentAmpsValue;
+extern float currentAmpsValue;
 
 extern int8_t stableZeroAdjReached;
 

@@ -9,10 +9,42 @@
 #include <stdint.h>
 #include <FreeRTOS.h>
 #include <task.h>
+
 #include <defines.h>
+#include <TriacIntr.h>
+#include <mainJt.h>
+#include <triacPID.h>
 
 //#define  microSdWorking
 // despite trying all found examples on google and stm (also for F769Ni)  .... this stm  microSd bu..it did not work
+
+
+
+extern float currentAmpsValue;
+
+float getCurrentAmpsValue()
+{
+	float  res;
+	taskENTER_CRITICAL();
+	res = currentAmpsValue;
+	taskEXIT_CRITICAL();
+	return res;
+}
+
+void sendActualValuesToRunScreen()
+{
+	uint32_t ampsI = (uint32_t) ( getCurrentAmpsValue() * 100);
+	uint32_t time = getSecondsInDurationTimer();
+
+	CJoesPresenterEventT  presenterMessage;
+	presenterMessage.messageType=runScreenUpdate;
+	presenterMessage.evData.runScreenData.secondsRemaining= getSecondsDurationTimerRemaining();
+	presenterMessage.evData.runScreenData.amps= ampsI;
+	presenterMessage.evData.runScreenData.potiPos= 50;
+
+	sendPresenterMessage(&presenterMessage);
+}
+
 
 typedef struct {
 	uint32_t weldingTime;

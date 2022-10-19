@@ -69,7 +69,7 @@ extern osMessageQueueId_t    mainJtMessageQ;
 ///////////  presenter messages //////////////
 
 typedef enum {
-	runScreenSecondUpdate
+	runScreenUpdate
 }  presenterMessageType;
 
 
@@ -78,10 +78,10 @@ typedef struct  {
 	union {
 		uint32_t keyCode;
 		struct {
-			float   amps;
+			uint32_t   amps;
 			uint16_t  potiPos;
 			uint16_t  secondsRemaining;
-		} secondRunData;
+		} runScreenData;
 	}  evData;
 } CJoesPresenterEventT ;
 

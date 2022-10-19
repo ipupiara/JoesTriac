@@ -68,6 +68,8 @@ tStatus initDefines();
 
 tStatus isCalibrationReady();
 
+void sendActualValuesToRunScreen();
+
 #ifdef  __cplusplus
 }
 #endif
