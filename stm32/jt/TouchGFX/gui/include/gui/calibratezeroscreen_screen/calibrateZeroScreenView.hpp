@@ -11,6 +11,7 @@ public:
     virtual ~calibrateZeroScreenView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
+    virtual void abortPressed();
 protected:
 };
 

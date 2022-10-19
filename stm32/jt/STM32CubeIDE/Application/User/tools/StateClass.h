@@ -25,6 +25,8 @@ typedef enum eEventTypes
 	evAdcTick,
 	evConfigOkPressed,
 	evConfigPressed,
+	evAutoConfigPressed,
+	evAutoCalibAbortPressed,
 	evFatalError
 }fsmTriacEventType;
 

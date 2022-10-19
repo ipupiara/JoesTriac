@@ -9,7 +9,7 @@ using namespace touchgfx;
 
 class editCalibValuesScreenView;
 
-class editCalibValuesScreenPresenter : public JtPresenter  //, public ModelListener
+class editCalibValuesScreenPresenter : public JtPresenter
 {
 public:
     editCalibValuesScreenPresenter(editCalibValuesScreenView& v);

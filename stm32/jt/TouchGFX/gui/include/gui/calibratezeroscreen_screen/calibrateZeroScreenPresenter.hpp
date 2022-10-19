@@ -1,14 +1,15 @@
 #ifndef CALIBRATEZEROSCREENPRESENTER_HPP
 #define CALIBRATEZEROSCREENPRESENTER_HPP
 
-#include <gui/model/ModelListener.hpp>
-#include <mvp/Presenter.hpp>
+//#include <gui/model/ModelListener.hpp>
+//#include <mvp/Presenter.hpp>
+#include <gui/JtPresenter.hpp>
 
 using namespace touchgfx;
 
 class calibrateZeroScreenView;
 
-class calibrateZeroScreenPresenter : public touchgfx::Presenter, public ModelListener
+class calibrateZeroScreenPresenter : public JtPresenter
 {
 public:
     calibrateZeroScreenPresenter(calibrateZeroScreenView& v);

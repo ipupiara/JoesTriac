@@ -37,7 +37,8 @@ typedef enum {
 	storeAlarmData,
 	secondTick,
 	configPressed,
-	configBackPressed
+	configBackPressed,
+	autoConfigPressed
 }  mainJtMessageType;
 
 
@@ -102,6 +103,7 @@ typedef enum {
 	changeToRunScreen = 0,
 	changeToMainScreen,
 	changeToConfigScreen,
+	changeToCalibrateZeroScreen,
 	changeToRequesStopScreen,
 	restoreModelData
 }  modelMessageType;

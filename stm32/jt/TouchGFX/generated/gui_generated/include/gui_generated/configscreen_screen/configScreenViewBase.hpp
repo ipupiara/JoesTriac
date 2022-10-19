@@ -22,7 +22,7 @@ public:
     /*
      * Virtual Action Handlers
      */
-    virtual void calibrationClicked()
+    virtual void autoCalibrationClicked()
     {
         // Override and implement this function in configScreen
     }

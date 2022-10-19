@@ -30,7 +30,10 @@ void configScreenView::backPressed()
 	sendEventToMainJtMessageQ( &evnt, 0);
 }
 
-void configScreenView::calibrationClicked()
+void configScreenView::autoCalibrationClicked()
 {
-
+	CMainJtEventT evnt;
+	evnt.evType = autoConfigPressed;
+	sendEventToMainJtMessageQ( &evnt, 0);
 }
+

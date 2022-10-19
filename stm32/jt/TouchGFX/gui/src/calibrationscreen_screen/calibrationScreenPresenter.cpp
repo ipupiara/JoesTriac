@@ -6,7 +6,7 @@
 calibrationScreenPresenter::calibrationScreenPresenter(calibrationScreenView& v)
     : view(v)
 {
-	presenterActive = 0;
+	presenterActive = 0;   todo   can this be get simlified with inheritance ?
 }
 
 void calibrationScreenPresenter::activate()
@@ -25,7 +25,7 @@ void calibrationScreenPresenter::tick()
 {
 	CJoesPresenterEventT  presenterMessage;
 
-	if (presenterActive) {
+	if (this->    presenterActive) {
 		while ( osMessageQueueGetCount ( presenterMessageQ))
 		{	//  todo check performance if while is done without any delay (blocking behaviour)
 			if ( osMessageQueueGet ( presenterMessageQ, &presenterMessage, NULL, 0) == osOK)  {

@@ -143,7 +143,7 @@ void exitCalibratingState(void)
 //	clr_scr();
 }
 
-uStInt evStateCalibratingChecker(void)
+uStInt evCalibratingChecker(void)
 {
 	uStInt res = uStIntNoMatch;
 //	printf("check for event in State evStateIdle\n");
@@ -195,78 +195,31 @@ void exitSetupIdleState(void)
 //	updateGradAmps();
 }
 
-uStInt evStateSetupIdle(void)
+uStInt evSetupIdle(void)
 {
 	uStInt res = uStIntNoMatch;
-//	printf("check for event in State evStateIdle\n");
 
+	if (currentEvent->evType == evAutoConfigPressed)
+	{
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateZeroSignal);
+			// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
 
-//	if ((currentEvent->evType == evAstPressed) || (currentEvent->evType == evNumPressed)){
-//		if (currentEvent->evType == evNumPressed)  {
-////			if (calibVarInd == 0) {
-//////				calibLowADC = currentVarVal;
-//////				saveCalibLowADC();
-////			}
-////			if (calibVarInd == 1) {
-////				calibHighADC = currentVarVal;
-////				saveCalibHighADC();
-////			}
-//		}
-//
-//		if (calibVarInd == 1)   {
-//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
-//				// No event action.
-//			END_EVENT_HANDLER(PJoesTriacStateChart);
-//			res =  uStIntHandlingDone;
-//		}
-//		if (calibVarInd == 0) {
-////			currentVarVal = calibHighADC;
-////			currentTitle = "calibHighADC";
-////			calibVarInd = 1;
-////			displayCurrentVar();
-//		}
-///*		if (calibVarInd == 1) {
-//			currentVarVal = zeroPotiPos;
-//			currentTitle = "zeroPotiPos";
-//			calibVarInd = 2;
-//			displayCurrentVar();
-//		}    // stored on assistant cpu atTiny.  needs message to tiny (i2c) and changes on tiny as well  */
-//		res =  uStIntHandlingDone;
-//	}
-//
-//	if (currentEvent->evType == evCharEntered) {
-////		switch (currentEvent->evData.keyCode) {
-////			case kp1 :
-////				currentVarVal++;
-////				break;
-////			case kp2 :
-////				currentVarVal += 10;
-////				break ;
-////			case kp3 :
-////				currentVarVal += 100;
-////				break ;
-////			case kp7 :
-////				currentVarVal--;
-////				break;
-////			case kp8 :
-////				currentVarVal -= 10;
-////				break ;
-////			case kp9 :
-////				currentVarVal -= 100;
-////				break ;
-////		}
-////		if (currentVarVal < 0) currentVarVal = 0;
-////		if (currentVarVal > 1023) currentVarVal = 1023;
-////		currentVarChanged();
-////		res =  uStIntHandlingDone;
-//	}
-	return (res);
+	return res;
 }
 
 void entryAutoCalibratingState(void)
 {
-//	printf("\nentry Calib");
-//	startDurationTimer(maxSecsPossible);   // enable secondsTick
+	CJoesModelEventT  msg;
+	osStatus_t status;
+	info_printf("entryTriacIdleState\n");
+	msg.messageType = changeToCalibrateZeroScreen;
+	status = sendModelMessage(&msg);
+	if(status != osOK)  {
+		errorHandler(status,goOn," status ","entryTriacIdleState");
+	}
 }
 
 void exitAutoCalibratingState(void)
@@ -282,7 +235,7 @@ uStInt evAutoCalibratingChecker(void)
 	res = uStIntNoMatch;
 
 //	printf("inside evCalibratingChecker\n");
-	if (currentEvent->evType == evStopPressed)  {	
+	if (currentEvent->evType == evAutoCalibAbortPressed)  {
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
 				// No event action.
 			END_EVENT_HANDLER(PJoesTriacStateChart);
@@ -397,6 +350,71 @@ uStInt checkCalibZeroInner(uStInt res)
 
 uStInt evCalibrateZeroSignalChecker(void)
 {
+
+
+
+	//	printf("check for event in State evStateIdle\n");
+
+
+	//	if ((currentEvent->evType == evAstPressed) || (currentEvent->evType == evNumPressed)){
+	//		if (currentEvent->evType == evNumPressed)  {
+	////			if (calibVarInd == 0) {
+	//////				calibLowADC = currentVarVal;
+	//////				saveCalibLowADC();
+	////			}
+	////			if (calibVarInd == 1) {
+	////				calibHighADC = currentVarVal;
+	////				saveCalibHighADC();
+	////			}
+	//		}
+	//
+	//		if (calibVarInd == 1)   {
+	//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+	//				// No event action.
+	//			END_EVENT_HANDLER(PJoesTriacStateChart);
+	//			res =  uStIntHandlingDone;
+	//		}
+	//		if (calibVarInd == 0) {
+	////			currentVarVal = calibHighADC;
+	////			currentTitle = "calibHighADC";
+	////			calibVarInd = 1;
+	////			displayCurrentVar();
+	//		}
+	///*		if (calibVarInd == 1) {
+	//			currentVarVal = zeroPotiPos;
+	//			currentTitle = "zeroPotiPos";
+	//			calibVarInd = 2;
+	//			displayCurrentVar();
+	//		}    // stored on assistant cpu atTiny.  needs message to tiny (i2c) and changes on tiny as well  */
+	//		res =  uStIntHandlingDone;
+	//	}
+	//
+	//	if (currentEvent->evType == evCharEntered) {
+	////		switch (currentEvent->evData.keyCode) {
+	////			case kp1 :
+	////				currentVarVal++;
+	////				break;
+	////			case kp2 :
+	////				currentVarVal += 10;
+	////				break ;
+	////			case kp3 :
+	////				currentVarVal += 100;
+	////				break ;
+	////			case kp7 :
+	////				currentVarVal--;
+	////				break;
+	////			case kp8 :
+	////				currentVarVal -= 10;
+	////				break ;
+	////			case kp9 :
+	////				currentVarVal -= 100;
+	////				break ;
+	////		}
+	////		if (currentVarVal < 0) currentVarVal = 0;
+	////		if (currentVarVal > 1023) currentVarVal = 1023;
+	////		currentVarChanged();
+	////		res =  uStIntHandlingDone;
+	//	}
 //	printf("check for event in State evStateIdle\n");
 	uStInt res = uStIntNoMatch;
 
@@ -629,7 +647,6 @@ void entrySetupState(void)
 	osStatus_t status;
 	info_printf("entryTriacIdleState\n");
 	msg.messageType = changeToConfigScreen;
-	msg.evData.keyCode = 0x2345;
 	status = sendModelMessage(&msg);
 	if(status != osOK)  {
 		errorHandler(status,goOn," status ","entryTriacIdleState");
@@ -998,7 +1015,7 @@ xStateType xaStates[eNumberOfStates] = {
 				eStateSetup,
 				-1,
 				0,
-				evStateSetupIdle,
+				evSetupIdle,
 				tfNull,
 				entrySetupIdleState,
 				exitSetupIdleState},

@@ -12,7 +12,7 @@ public:
     virtual void setupScreen();
     virtual void tearDownScreen();
     virtual void backPressed();
-    virtual void calibrationClicked();
+    virtual void autoCalibrationClicked();
 
 protected:
 };

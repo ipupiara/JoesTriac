@@ -121,6 +121,10 @@ void mainJt(void *argument)
 				fsmEv.evType=evConfigPressed;
 				processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
 			}
+			if (mJtEv.evType == autoConfigPressed)  {
+				fsmEv.evType=evAutoConfigPressed;
+				processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
+			}
 		}  else {
 			errorHandler((uint32_t)status ,goOn," osMessageQueueGet "," mainJt ");
 		}

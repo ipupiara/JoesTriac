@@ -38,6 +38,6 @@ void editCalibValuesScreenView::backNSaveButtonPressed()
 
  void editCalibValuesScreenView::cancelPressed()
  {
-	 presenter->resetCalibValues();
+	 presenter->resetCache();
 	 static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotoconfigScreenScreenNoTransition();
  }

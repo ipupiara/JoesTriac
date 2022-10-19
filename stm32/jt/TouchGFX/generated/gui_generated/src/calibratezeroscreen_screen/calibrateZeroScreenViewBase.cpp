@@ -52,7 +52,7 @@ calibrateZeroScreenViewBase::calibrateZeroScreenViewBase() :
     textArea5.resizeToCurrentText();
     textArea5.setTypedText(touchgfx::TypedText(T___SINGLEUSE_0Q2U));
 
-    abortButton.setXY(33, 374);
+    abortButton.setXY(33, 378);
     abortButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
     abortButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_KE25));
     abortButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));

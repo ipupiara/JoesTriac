@@ -206,3 +206,16 @@ void FrontendApplicationBase::gotostartupScreenScreenNoTransitionImpl()
 {
     touchgfx::makeTransition<startupScreenView, startupScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
+
+// calibrateZeroScreen
+
+void FrontendApplicationBase::gotocalibrateZeroScreenScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplication::gotocalibrateZeroScreenScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotocalibrateZeroScreenScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<calibrateZeroScreenView, calibrateZeroScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}

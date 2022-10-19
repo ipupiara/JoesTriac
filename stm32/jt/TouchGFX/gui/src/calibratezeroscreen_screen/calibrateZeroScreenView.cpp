@@ -14,3 +14,8 @@ void calibrateZeroScreenView::tearDownScreen()
 {
     calibrateZeroScreenViewBase::tearDownScreen();
 }
+
+void calibrateZeroScreenView::abortPressed()
+{
+//	presenter->resetCalibValues();
+}

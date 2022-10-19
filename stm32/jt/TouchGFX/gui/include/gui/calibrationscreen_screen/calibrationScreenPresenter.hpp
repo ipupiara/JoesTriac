@@ -1,14 +1,15 @@
 #ifndef CALIBRATIONSCREENPRESENTER_HPP
 #define CALIBRATIONSCREENPRESENTER_HPP
 
-#include <gui/model/ModelListener.hpp>
-#include <mvp/Presenter.hpp>
+//#include <gui/model/ModelListener.hpp>
+//#include <mvp/Presenter.hpp>
+#include <gui/JtPresenter.hpp>
 
 using namespace touchgfx;
 
 class calibrationScreenView;
 
-class calibrationScreenPresenter : public touchgfx::Presenter, public ModelListener
+class calibrationScreenPresenter : public JtPresenter
 {
 public:
     calibrationScreenPresenter(calibrationScreenView& v);
@@ -31,7 +32,6 @@ public:
 
 private:
     calibrationScreenPresenter();
-    bool presenterActive;
 
     calibrationScreenView& view;
 };

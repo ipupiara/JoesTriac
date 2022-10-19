@@ -6,6 +6,15 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_OGN3" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_MZOD" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;potiPos&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_6WAP" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">poti pos</Translation>
+      </Text>
       <Text Id="__SingleUse_KE25" Alignment="Center" TypographyId="Default">
         <Translation Language="GB">abort</Translation>
       </Text>
@@ -268,7 +277,7 @@
         <Translation Language="GB">enter calibration values</Translation>
       </Text>
       <Text Id="__SingleUse_ON4B" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">calibration process</Translation>
+        <Translation Language="GB">auto calibration process</Translation>
       </Text>
       <Text Id="__SingleUse_AOKD" Alignment="Center" TypographyId="Default">
         <Translation Language="GB">Alarm config</Translation>

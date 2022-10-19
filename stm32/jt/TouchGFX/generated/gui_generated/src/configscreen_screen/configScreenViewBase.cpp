@@ -85,8 +85,8 @@ void configScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton&
     {
         //calibrationInteraction
         //When calibrationButton clicked call virtual function
-        //Call calibrationClicked
-        calibrationClicked();
+        //Call autoCalibrationClicked
+        autoCalibrationClicked();
     }
     else if (&src == &backButton)
     {
