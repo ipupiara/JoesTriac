@@ -1,8 +1,8 @@
+#include <defines.h>
 #include <gui/model/Model.hpp>
 #include <gui/model/ModelListener.hpp>
 #include <gui/common/FrontendApplication.hpp>
 #include <stdint.h>
-#include <defines.h>
 #include <mainJt.h>
 
 

@@ -28,10 +28,13 @@ public:
 
     virtual ~calibrateZeroScreenPresenter() {};
 
+    virtual void tick();
+
 private:
     calibrateZeroScreenPresenter();
 
     calibrateZeroScreenView& view;
+    uint8_t  presenterActive;
 };
 
 #endif // CALIBRATEZEROSCREENPRESENTER_HPP

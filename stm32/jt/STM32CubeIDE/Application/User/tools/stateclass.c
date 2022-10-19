@@ -1,10 +1,10 @@
 #include <stdio.h>
-#include <defines.h>
 #include "TStatechart.h"
 #include "StateClass.h"
 #include <TriacIntr.h>
 #include <uart-comms.h>
 #include <mainJt.h>
+#include <defines.h>
 
 
 extern const uStInt uStIntHandlingDone;
@@ -19,7 +19,7 @@ TStatechart SJoesTriacStateChart;
 TStatechart* PJoesTriacStateChart;
 
 // This defines and names the states the class has.
-#warning  attention: sequence must be the same as in xaStates (below)  !!!
+//  todo  attention: sequence must be the same as in xaStates (below)  !!!%%%%%%%%%%***********##########  (i} {i)
 enum eStates
 {
 	eStateJoesTriac,

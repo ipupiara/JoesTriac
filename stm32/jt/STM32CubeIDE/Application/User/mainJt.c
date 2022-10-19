@@ -91,36 +91,31 @@ void mainJt(void *argument)
 	mainJtOsStarted();
 	uint8_t  prio = 0;
 	do  {
-		memset(&mJtEv, 0, sizeof(mJtEv));
+		memset(&mJtEv, 0, sizeof(mJtEv));  //  todo sort ifs for best performance,
 		if ((status = osMessageQueueGet(mainJtMessageQ,(void *) &mJtEv, &prio, osWaitForever)) == osOK )  {
 			if (mJtEv.evType == secondTick) {
-				durationTimerTick();
-				fsmEv.evType=evSecondsTick;
-				processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
-			}
-			if (mJtEv.evType == configBackPressed)  {
+					durationTimerTick();
+					fsmEv.evType=evSecondsTick;
+					processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
+			} else if (mJtEv.evType == storeAlarmData) {
+				saveAlarmData(mJtEv.mainUnion.alarmData.alarmTime,mJtEv.mainUnion.alarmData.alarmNeeded);
+			} else if (mJtEv.evType == storeWeldingTime) {
+				saveWeldingTime(mJtEv.mainUnion.weldingTime);
+			} else if (mJtEv.evType == storeWeldingAmpere) {
+				saveWeldingAmps(mJtEv.mainUnion.weldingAmps);
+			} else if (mJtEv.evType == saveZPotiPos) {
+				saveZeroPotiPos(mJtEv.mainUnion.zPotiPos);
+			} else if (mJtEv.evType == saveCalibLo) {
+				saveCalibLow(mJtEv.mainUnion.calibLow);
+			} else if (mJtEv.evType == saveCalibHi) {
+				saveCalibHigh(mJtEv.mainUnion.calibHigh);
+			} else if (mJtEv.evType == configBackPressed)  {
 				fsmEv.evType=configBackPressed;
 				processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
-			}
-			if (mJtEv.evType == storeAlarmData) {
-				saveAlarmData(mJtEv.mainUnion.alarmData.alarmTime,mJtEv.mainUnion.alarmData.alarmNeeded);
-			}
-			if (mJtEv.evType == storeWeldingTime) {
-				saveWeldingTime(mJtEv.mainUnion.weldingTime);
-			}
-			if (mJtEv.evType == storeWeldingAmpere) {
-				saveWeldingAmps(mJtEv.mainUnion.weldingAmps);
-			}
-			if (mJtEv.evType == saveCalibLo) {
-				saveCalibLow(mJtEv.mainUnion.calibLow);
-			}
-			if (mJtEv.evType == saveCalibHi) {
-				saveCalibHigh(mJtEv.mainUnion.calibHigh);
-			}
-			if (mJtEv.evType == configPressed)  {
+			} else if (mJtEv.evType == configPressed)  {
 				fsmEv.evType=evConfigPressed;
 				processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
-			}
+			} else
 			if (mJtEv.evType == autoConfigPressed)  {
 				fsmEv.evType=evAutoConfigPressed;
 				processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);

@@ -30,13 +30,13 @@ void runScreenPresenter::tick()
 		while ( osMessageQueueGetCount ( presenterMessageQ))
 		{	//  todo check performance if while is done without any delay (blocking behaviour)
 			if ( osMessageQueueGet ( presenterMessageQ, &presenterMessage, NULL, 0) == osOK)  {
-	//			if (presenterMessage.messageType ==  runScreenSecondUpdate) {
+				if (presenterMessage.messageType ==  runScreenSecondUpdate) {
 	//				view.updateScreen(presenterMessage.evData.secondRunData.secondsRemaining, presenterMessage.evData.secondRunData.amps);
 	//			}
 	//
 	//			if (presenterMessage.messageType ==  changeToRequesStopScreen) {
 	//				static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotorequestStopScreenScreenNoTransition();
-	//			}
+				}
 			}
 		}
 	}

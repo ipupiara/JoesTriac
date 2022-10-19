@@ -25,6 +25,8 @@ extern "C"
 #include <jpeg_utils.h>
 #include <stm32f7xx_hal.h>
 
+#define UNUSED(X) (void)X
+
     uint32_t JPEG_Decode_DMA(JPEG_HandleTypeDef* hjpeg, uint8_t* input, uint32_t chunkSizeIn, uint8_t* output);
     uint32_t JPEG_OutputHandler(JPEG_HandleTypeDef* hjpeg);
     void HAL_JPEG_DecodeCpltCallback(JPEG_HandleTypeDef* hjpeg);
@@ -653,8 +655,8 @@ extern "C"
       */
     void HAL_JPEG_ErrorCallback(JPEG_HandleTypeDef* hjpeg)
     {
-        HAL_JPEG_STATETypeDef  state = HAL_JPEG_GetState(hjpeg);
-        uint32_t error = HAL_JPEG_GetError(hjpeg);
+        HAL_JPEG_STATETypeDef  state = HAL_JPEG_GetState(hjpeg);  UNUSED(state);
+        uint32_t error = HAL_JPEG_GetError(hjpeg); UNUSED(error);
         while (1) {}
     }
 

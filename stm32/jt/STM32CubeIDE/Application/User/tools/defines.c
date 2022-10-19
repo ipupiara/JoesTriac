@@ -7,9 +7,9 @@
 
 #include <stdio.h>
 #include <stdint.h>
-#include <defines.h>
 #include <FreeRTOS.h>
 #include <task.h>
+#include <defines.h>
 
 //#define  microSdWorking
 // despite trying all found examples on google and stm (also for F769Ni)  .... this stm  microSd bu..it did not work

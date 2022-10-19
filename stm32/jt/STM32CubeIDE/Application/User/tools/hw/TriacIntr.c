@@ -1,8 +1,8 @@
 #include "TriacIntr.h"
-#include "defines.h"
 #include <StateClass.h>
 #include <FreeRTOS.h>
 #include <task.h>
+#include <defines.h>
 //#include "triacPID.h"
 
 uint8_t durationTimerOn;
