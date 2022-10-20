@@ -11,6 +11,8 @@
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
+#include <touchgfx/widgets/RadioButton.hpp>
+#include <touchgfx/widgets/RadioButtonGroup.hpp>
 
 class calibrateZeroScreenViewBase : public touchgfx::View<calibrateZeroScreenPresenter>
 {
@@ -23,6 +25,16 @@ public:
      * Virtual Action Handlers
      */
     virtual void abortPressed()
+    {
+        // Override and implement this function in calibrateZeroScreen
+    }
+
+    virtual void autoButtonOn()
+    {
+        // Override and implement this function in calibrateZeroScreen
+    }
+
+    virtual void autoButtonOff()
     {
         // Override and implement this function in calibrateZeroScreen
     }
@@ -46,6 +58,12 @@ protected:
     touchgfx::ButtonWithLabel abortButton;
     touchgfx::TextArea textArea5;
     touchgfx::TextAreaWithOneWildcard stateText;
+    touchgfx::TextArea textArea6;
+    touchgfx::RadioButton onRadioButton;
+    touchgfx::RadioButton offRadioButton;
+    touchgfx::TextArea textArea7;
+    touchgfx::TextArea textArea8;
+    touchgfx::RadioButtonGroup<2> radioButtonGroup1;
 
     /*
      * Wildcard Buffers
@@ -63,11 +81,15 @@ private:
      * Callback Declarations
      */
     touchgfx::Callback<calibrateZeroScreenViewBase, const touchgfx::AbstractButton&> buttonCallback;
+    touchgfx::Callback<calibrateZeroScreenViewBase, const touchgfx::AbstractButton&> radioButtonSelectedCallback;
+    touchgfx::Callback<calibrateZeroScreenViewBase, const touchgfx::AbstractButton&> radioButtonDeselectedCallback;
 
     /*
      * Callback Handler Declarations
      */
     void buttonCallbackHandler(const touchgfx::AbstractButton& src);
+    void radioButtonSelectedCallbackHandler(const touchgfx::AbstractButton& src);
+    void radioButtonDeselectedCallbackHandler(const touchgfx::AbstractButton& src);
 
 };
 

@@ -318,7 +318,10 @@ tStatus isCalibrationReady()
 	return res;
 }
 
+void setZCalibAuto(uint32_t on)
+{
 
+}
 
 tStatus initDefines()
 {

@@ -37,3 +37,14 @@ void calibrateZeroScreenView::updateState(char* txt)
 	stateText.setWildcard(stateTextBuffer);
 	stateText.invalidate();
 }
+
+void calibrateZeroScreenView::autoButtonOn()
+{
+	presenter->autoButtonOn(1);
+}
+
+void calibrateZeroScreenView::autoButtonOff()
+{
+	presenter->autoButtonOn(0);
+}
+

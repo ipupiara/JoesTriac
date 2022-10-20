@@ -11,6 +11,7 @@ void calibrateZeroScreenPresenter::activate()
 {
 	setPresenterQActive();
 	presenterActive = 1;
+	autoButtonOn(0);
 }
 
 void calibrateZeroScreenPresenter::deactivate()
@@ -37,4 +38,12 @@ void calibrateZeroScreenPresenter::tick()
 			}
 		}
 	}
+}
+
+void calibrateZeroScreenPresenter::autoButtonOn(uint32_t on)
+{
+	CMainJtEventT evt;
+	evt.evType = zCalibAuto;
+	evt.mainUnion.zAuto = on;
+	sendEventToMainJtMessageQ(&evt,0);
 }

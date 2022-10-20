@@ -97,6 +97,8 @@ void mainJt(void *argument)
 					durationTimerTick();
 					fsmEv.evType=evSecondsTick;
 					processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
+			} else if (mJtEv.evType == zCalibAuto) {
+				setZCalibAuto(mJtEv.mainUnion.zAuto);
 			} else if (mJtEv.evType == storeAlarmData) {
 				saveAlarmData(mJtEv.mainUnion.alarmData.alarmTime,mJtEv.mainUnion.alarmData.alarmNeeded);
 			} else if (mJtEv.evType == storeWeldingTime) {

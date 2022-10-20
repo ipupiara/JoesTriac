@@ -850,7 +850,7 @@
             "Name": "textArea5",
             "X": 26,
             "Y": 290,
-            "Width": 156,
+            "Width": 108,
             "Height": 22,
             "TextId": "__SingleUse_X3FF",
             "TextRotation": "0",
@@ -1148,6 +1148,15 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "numPressed"
+            }
+          },
+          {
+            "InteractionName": "Interaction2",
+            "Trigger": {
+              "Type": "TriggerNone"
+            },
+            "Action": {
+              "Type": "ActionNone"
             }
           }
         ]
@@ -2626,6 +2635,68 @@
               "UseBuffer": true,
               "BufferSize": 22
             }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea6",
+            "X": 273,
+            "Y": 397,
+            "Width": 288,
+            "Height": 22,
+            "TextId": "__SingleUse_Z53N",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "RadioButton",
+            "Name": "onRadioButton",
+            "X": 588,
+            "Y": 386,
+            "Width": 44,
+            "Height": 44,
+            "FileNameSelected": "__designer\\Blue_Radio_buttons_Radio_Round_button_active.png",
+            "FileNameSelectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_normal.png",
+            "FileNameUnselected": "__designer\\Blue_Radio_buttons_Radio_Round_button_inactive.png",
+            "FileNameUnselectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_pressed.png",
+            "RadioButtonGroup": "radioButtonGroup1",
+            "Style": "Style3"
+          },
+          {
+            "Type": "RadioButton",
+            "Name": "offRadioButton",
+            "X": 671,
+            "Y": 386,
+            "Width": 44,
+            "Height": 44,
+            "Selected": true,
+            "FileNameSelected": "__designer\\Blue_Radio_buttons_Radio_Round_button_active.png",
+            "FileNameSelectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_normal.png",
+            "FileNameUnselected": "__designer\\Blue_Radio_buttons_Radio_Round_button_inactive.png",
+            "FileNameUnselectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_pressed.png",
+            "RadioButtonGroup": "radioButtonGroup1",
+            "Style": "Style3"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea7",
+            "X": 598,
+            "Y": 356,
+            "Width": 24,
+            "Height": 22,
+            "TextId": "__SingleUse_MQ6Q",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea8",
+            "X": 675,
+            "Y": 356,
+            "Width": 36,
+            "Height": 22,
+            "TextId": "__SingleUse_VTJB",
+            "TextRotation": "0",
+            "AutoSize": true
           }
         ],
         "Interactions": [
@@ -2638,6 +2709,28 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "abortPressed"
+            }
+          },
+          {
+            "InteractionName": "Interaction2",
+            "Trigger": {
+              "Type": "TriggerRadioButtonSelected",
+              "TriggerComponent": "onRadioButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "autoButtonOn"
+            }
+          },
+          {
+            "InteractionName": "Interaction3",
+            "Trigger": {
+              "Type": "TriggerRadioButtonDeselected",
+              "TriggerComponent": "onRadioButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "autoButtonOff"
             }
           }
         ]

@@ -227,7 +227,7 @@ void exitCalibrateZeroSignalState(void)
 
 uStInt evCalibrateZeroSignalChecker(void)
 {
-
+	int8_t res = 0;
 	if (currentEvent->evType == evZeroSignalOK) 
 	{	
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibratingScale);

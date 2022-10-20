@@ -68,6 +68,8 @@ tStatus initDefines();
 
 tStatus isCalibrationReady();
 
+void setZCalibAuto(uint32_t on);
+
 void sendActualValuesToRunScreen();
 
 #ifdef  __cplusplus

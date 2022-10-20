@@ -14,6 +14,9 @@ public:
     virtual void abortPressed();
     void update(uint32_t pPos, float devV);
     void updateState(char* txt);
+    virtual void autoButtonOn();
+    virtual void autoButtonOff();
+
 protected:
 };
 

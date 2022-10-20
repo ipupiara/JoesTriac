@@ -7,7 +7,9 @@
 #include <BitmapDatabase.hpp>
 
 calibrateZeroScreenViewBase::calibrateZeroScreenViewBase() :
-    buttonCallback(this, &calibrateZeroScreenViewBase::buttonCallbackHandler)
+    buttonCallback(this, &calibrateZeroScreenViewBase::buttonCallbackHandler),
+    radioButtonSelectedCallback(this, &calibrateZeroScreenViewBase::radioButtonSelectedCallbackHandler),
+    radioButtonDeselectedCallback(this, &calibrateZeroScreenViewBase::radioButtonDeselectedCallbackHandler)
 {
 
     __background.setPosition(0, 0, 800, 480);
@@ -72,6 +74,31 @@ calibrateZeroScreenViewBase::calibrateZeroScreenViewBase() :
     stateText.resizeToCurrentText();
     stateText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_THPN));
 
+    textArea6.setXY(273, 397);
+    textArea6.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea6.setLinespacing(0);
+    textArea6.setTypedText(touchgfx::TypedText(T___SINGLEUSE_Z53N));
+
+    onRadioButton.setXY(588, 386);
+    onRadioButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_INACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_ACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_NORMAL_ID));
+    onRadioButton.setSelected(false);
+    onRadioButton.setDeselectionEnabled(false);
+
+    offRadioButton.setXY(671, 386);
+    offRadioButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_INACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_ACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_NORMAL_ID));
+    offRadioButton.setSelected(true);
+    offRadioButton.setDeselectionEnabled(false);
+
+    textArea7.setXY(598, 356);
+    textArea7.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea7.setLinespacing(0);
+    textArea7.setTypedText(touchgfx::TypedText(T___SINGLEUSE_MQ6Q));
+
+    textArea8.setXY(675, 356);
+    textArea8.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea8.setLinespacing(0);
+    textArea8.setTypedText(touchgfx::TypedText(T___SINGLEUSE_VTJB));
+
     add(__background);
     add(box1);
     add(textArea1);
@@ -83,6 +110,15 @@ calibrateZeroScreenViewBase::calibrateZeroScreenViewBase() :
     add(abortButton);
     add(textArea5);
     add(stateText);
+    add(textArea6);
+    add(onRadioButton);
+    add(offRadioButton);
+    add(textArea7);
+    add(textArea8);
+    radioButtonGroup1.add(onRadioButton);
+    radioButtonGroup1.add(offRadioButton);
+    radioButtonGroup1.setRadioButtonSelectedHandler(radioButtonSelectedCallback);
+    radioButtonGroup1.setRadioButtonDeselectedHandler(radioButtonDeselectedCallback);
 }
 
 void calibrateZeroScreenViewBase::setupScreen()
@@ -98,5 +134,27 @@ void calibrateZeroScreenViewBase::buttonCallbackHandler(const touchgfx::Abstract
         //When abortButton clicked call virtual function
         //Call abortPressed
         abortPressed();
+    }
+}
+
+void calibrateZeroScreenViewBase::radioButtonSelectedCallbackHandler(const touchgfx::AbstractButton& src)
+{
+    if (&src == &onRadioButton)
+    {
+        //Interaction2
+        //When onRadioButton selected call virtual function
+        //Call autoButtonOn
+        autoButtonOn();
+    }
+}
+
+void calibrateZeroScreenViewBase::radioButtonDeselectedCallbackHandler(const touchgfx::AbstractButton& src)
+{
+    if (&src == &onRadioButton)
+    {
+        //Interaction3
+        //When onRadioButton deselected call virtual function
+        //Call autoButtonOff
+        autoButtonOff();
     }
 }

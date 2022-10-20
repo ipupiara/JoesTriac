@@ -32,6 +32,7 @@ typedef enum {
 	saveCalibLo,
 	saveCalibHi,
 	saveZPotiPos,
+	zCalibAuto,
 	storeWeldingTime,
 	storeWeldingAmpere,
 	storeAlarmData,
@@ -47,6 +48,7 @@ typedef struct  {
 	mainJtMessageType evType;
 	union {
 		uint32_t keyCode;
+		uint32_t zAuto;
 		float   weldingAmps;
 		uint32_t  weldingTime;
 		uint32_t  calibLow;

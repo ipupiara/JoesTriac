@@ -6,6 +6,15 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_VTJB" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">off</Translation>
+      </Text>
+      <Text Id="__SingleUse_MQ6Q" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">on</Translation>
+      </Text>
+      <Text Id="__SingleUse_Z53N" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">auto finetune &amp; continue</Translation>
+      </Text>
       <Text Id="__SingleUse_MGE6" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">waiting</Translation>
       </Text>
@@ -19,7 +28,7 @@
         <Translation Language="GB">state:</Translation>
       </Text>
       <Text Id="__SingleUse_X3FF" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">deviat. Volts</Translation>
+        <Translation Language="GB">adc Volts</Translation>
       </Text>
       <Text Id="__SingleUse_OJB3" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">000.00</Translation>

@@ -30,7 +30,7 @@ public:
 
     virtual void tick();
 
-private:
+ private:
     calibrationScreenPresenter();
 
     calibrationScreenView& view;

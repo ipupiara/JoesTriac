@@ -30,6 +30,8 @@ public:
 
     virtual void tick();
 
+    void autoButtonOn(uint32_t on);
+
 private:
     calibrateZeroScreenPresenter();
 
