@@ -79,7 +79,7 @@ typedef struct  {
 	presenterMessageType messageType;
 	union {
 		struct {
-			float   amps;
+			float   	amps;
 			uint16_t  potiPos;
 			uint16_t  secondsRemaining;
 		} runScreenData;

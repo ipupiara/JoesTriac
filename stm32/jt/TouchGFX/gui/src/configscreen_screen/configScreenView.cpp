@@ -25,15 +25,11 @@ void configScreenView::tearDownScreen()
 
 void configScreenView::backPressed()
 {
-	CMainJtEventT evnt;
-	evnt.evType = configBackPressed;
-	sendEventToMainJtMessageQ( &evnt, 0);
+	presenter->backPressed();
 }
 
 void configScreenView::autoCalibrationClicked()
 {
-	CMainJtEventT evnt;
-	evnt.evType = autoConfigPressed;
-	sendEventToMainJtMessageQ( &evnt, 0);
+	presenter->autoCalibrationClicked();
 }
 

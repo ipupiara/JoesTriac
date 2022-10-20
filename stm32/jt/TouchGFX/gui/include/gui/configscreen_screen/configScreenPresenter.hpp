@@ -27,6 +27,9 @@ public:
 
     virtual ~configScreenPresenter() {};
 
+    void backPressed();
+    void autoCalibrationClicked();
+
 private:
     configScreenPresenter();
 

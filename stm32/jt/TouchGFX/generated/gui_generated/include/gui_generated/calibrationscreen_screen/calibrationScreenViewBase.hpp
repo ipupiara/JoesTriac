@@ -80,8 +80,8 @@ protected:
     touchgfx::TextArea textArea4;
     touchgfx::TextArea processStateText;
     touchgfx::ButtonWithLabel abortButton;
-    touchgfx::TextArea textArea5;
     touchgfx::TextAreaWithOneWildcard adcVoltageText;
+    touchgfx::TextArea textArea5;
 
     /*
      * Wildcard Buffers

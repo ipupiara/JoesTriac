@@ -826,19 +826,8 @@
           },
           {
             "Type": "TextArea",
-            "Name": "textArea5",
-            "X": 24,
-            "Y": 290,
-            "Width": 168,
-            "Height": 22,
-            "TextId": "__SingleUse_IJQ4",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
             "Name": "adcVoltageText",
-            "X": 225,
+            "X": 201,
             "Y": 290,
             "Width": 60,
             "Height": 22,
@@ -850,6 +839,17 @@
               "UseBuffer": true,
               "BufferSize": 10
             }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea5",
+            "X": 26,
+            "Y": 290,
+            "Width": 156,
+            "Height": 22,
+            "TextId": "__SingleUse_X3FF",
+            "TextRotation": "0",
+            "AutoSize": true
           }
         ],
         "Interactions": [

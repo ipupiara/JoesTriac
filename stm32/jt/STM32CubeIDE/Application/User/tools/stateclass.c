@@ -126,47 +126,9 @@ uStInt evStartupCheckChecker(void)   // during Start Screen
 	return (res); 
 }
 
-void entryCalibratingState(void)
-{
-	printf("entryCalibratingState\n");
-//	displayCalibrationPrompt();
-//	startDurationTimer(6);
 
-//	startDurationTimer(maxSecsPossible);
 
-}
-
-void exitCalibratingState(void)
-{
-	printf("exitCalibratingState\n");
-//	stopDurationTimer();
-//	clr_scr();
-}
-
-uStInt evCalibratingChecker(void)
-{
-	uStInt res = uStIntNoMatch;
-//	printf("check for event in State evStateIdle\n");
-
-	if (currentEvent->evType == evConfigOkPressed)
-	{
-		if (isCalibrationReady() == tOk)  {
-			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
-				// No event action.
-			END_EVENT_HANDLER(PJoesTriacStateChart);
-			res =  uStIntHandlingDone;
-		}
-	}
-	if (currentEvent->evType == evSecondsTick) 
-	{	
-//		displayCountDown();
-//		res =  uStIntHandlingDone;
-//		debugEvent1Triggered = 1;
-	}
-	return (res); 
-}
-
-int8_t  calibVarInd;
+//int8_t  calibVarInd;
 
 
 void entrySetupIdleState(void)
@@ -191,7 +153,7 @@ void entrySetupIdleState(void)
 
 void exitSetupIdleState(void)
 {
-//	printf("exit ask calib\n");
+	info_printf("exitSetupIdleState\n");
 //	updateGradAmps();
 }
 
@@ -214,7 +176,7 @@ void entryAutoCalibratingState(void)
 {
 	CJoesModelEventT  msg;
 	osStatus_t status;
-	info_printf("entryTriacIdleState\n");
+	info_printf("entryAutoCalibratingState\n");
 	msg.messageType = changeToCalibrateZeroScreen;
 	status = sendModelMessage(&msg);
 	if(status != osOK)  {
@@ -224,8 +186,7 @@ void entryAutoCalibratingState(void)
 
 void exitAutoCalibratingState(void)
 {
-//	printf("exit calib\n");
-//	stopDurationTimer();
+	info_printf("exitAutoCalibratingState\n");
 }
 
 uStInt evAutoCalibratingChecker(void)
@@ -236,58 +197,15 @@ uStInt evAutoCalibratingChecker(void)
 
 //	printf("inside evCalibratingChecker\n");
 	if (currentEvent->evType == evAutoCalibAbortPressed)  {
-			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
-				// No event action.
-			END_EVENT_HANDLER(PJoesTriacStateChart);
-			res =  uStIntHandlingDone;
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+			// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
 	}	
 	return res;
+
 }
 
-//void entryAskingRmsAvgState(void)
-//{
-////	printf("entry I\n");
-////	displayRmsAvgQuery();
-//}
-//
-//void exitAskingRmsAvgState(void)
-//{
-////	printf("exit I\n");
-//}
-//
-//uStInt evAskingRmsAvgChecker(void)
-//{
-////	printf("check for event in State evStateIdle\n");
-//	uStInt res = uStIntNoMatch;
-//
-//	if (currentEvent->evType == evNumPressed)
-//	{
-//		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateZeroSignal);
-//		// No event action.
-//
-////		storeAmpsInputPin(avg);
-//
-//		END_EVENT_HANDLER(PJoesTriacStateChart);
-//		res =  uStIntHandlingDone;
-//	}
-//
-//	if (currentEvent->evType == evAstPressed)
-//	{
-//		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateZeroSignal);
-//		// No event action.
-//
-////		storeAmpsInputPin(rms);
-//
-//		END_EVENT_HANDLER(PJoesTriacStateChart);
-//		res =  uStIntHandlingDone;
-//	}
-//	if (currentEvent->evType == evSecondsTick)
-//	{
-////		debugEvent1Triggered = 1;
-//		res =  uStIntHandlingDone;
-//	}
-//	return (res);
-//}
 
 void entryCalibrateZeroSignalState(void)
 {
@@ -680,6 +598,12 @@ uStInt evSetupChecker(void)
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 		}
+	}
+	if (currentEvent->evType == evConfigOkPressed)  {
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+			// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
 	}
 
 	return res;
