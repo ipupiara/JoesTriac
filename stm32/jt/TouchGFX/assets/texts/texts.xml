@@ -6,6 +6,18 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_MGE6" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">waiting</Translation>
+      </Text>
+      <Text Id="__SingleUse_0C4U" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">waiting...</Translation>
+      </Text>
+      <Text Id="__SingleUse_THPN" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_9F6T" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">state:</Translation>
+      </Text>
       <Text Id="__SingleUse_X3FF" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">deviat. Volts</Translation>
       </Text>
@@ -241,7 +253,7 @@
         <Translation Language="GB">abort</Translation>
       </Text>
       <Text Id="__SingleUse_JNJA" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">New Text</Translation>
+        <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_VANS" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">state of process:</Translation>

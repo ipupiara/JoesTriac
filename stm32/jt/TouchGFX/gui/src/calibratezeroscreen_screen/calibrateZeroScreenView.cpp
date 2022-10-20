@@ -30,3 +30,10 @@ void calibrateZeroScreenView::update(uint32_t pPos, float devV)
 	 devVoltageText.setWildcard(devVoltageTextBuffer);
 	 devVoltageText.invalidate();
 }
+
+void calibrateZeroScreenView::updateState(char* txt)
+{
+	Unicode::snprintf(stateTextBuffer, 19, "%c", txt);
+	stateText.setWildcard(stateTextBuffer);
+	stateText.invalidate();
+}

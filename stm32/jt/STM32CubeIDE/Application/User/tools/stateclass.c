@@ -174,14 +174,7 @@ uStInt evSetupIdle(void)
 
 void entryAutoCalibratingState(void)
 {
-	CJoesModelEventT  msg;
-	osStatus_t status;
 	info_printf("entryAutoCalibratingState\n");
-	msg.messageType = changeToCalibrateZeroScreen;
-	status = sendModelMessage(&msg);
-	if(status != osOK)  {
-		errorHandler(status,goOn," status ","entryTriacIdleState");
-	}
 }
 
 void exitAutoCalibratingState(void)
@@ -197,37 +190,37 @@ uStInt evAutoCalibratingChecker(void)
 
 //	printf("inside evCalibratingChecker\n");
 	if (currentEvent->evType == evAutoCalibAbortPressed)  {
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
-			// No event action.
-		END_EVENT_HANDLER(PJoesTriacStateChart);
-		res =  uStIntHandlingDone;
+		if (isCalibrationReady() == tOk) {
+ 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+		}  else {
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetup);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+		}
 	}	
 	return res;
-
 }
 
 
 void entryCalibrateZeroSignalState(void)
 {
-//	printf("entryCalibrateZeroSignalState\n");
-//	displayCalibrateZeroPotiPos();
-//
-//	stableZeroAdjReached = 0;
-//    if (!setAdjustJob(persistentZeroAdjust)) {
-//		sprintf((char *) &lastFatalErrorString,"i2c comms err");
-//		fatalErrorOccurred = 1;
-//	}
+	CJoesModelEventT  msg;
+	osStatus_t status;
+	info_printf("entryCalibrateZeroSignalState\n");
+	msg.messageType = changeToCalibrateZeroScreen;
+	status = sendModelMessage(&msg);
+	if(status != osOK)  {
+		errorHandler(status,goOn," status ","entryCalibrateZeroSignalState");
+	}
 }
 
 void exitCalibrateZeroSignalState(void)
 {
-//	printf("exitCalibrateZeroSignalState\n");
-//   if (!fatalErrorOccurred) {
-//	   if (!setAdjustJob(jobIdle)) {
-//		   sprintf((char *) &lastFatalErrorString,"i2c comms err");
-//		   fatalErrorOccurred = 1;
-//	   }
-//   }
+	info_printf("exitCalibrateZeroSignalState\n");
 }
 
 uStInt checkCalibZeroInner(uStInt res)

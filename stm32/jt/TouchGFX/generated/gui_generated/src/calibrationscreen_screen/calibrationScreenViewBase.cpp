@@ -92,6 +92,9 @@ calibrationScreenViewBase::calibrationScreenViewBase() :
     processStateText.setXY(277, 357);
     processStateText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     processStateText.setLinespacing(0);
+    Unicode::snprintf(processStateTextBuffer, PROCESSSTATETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_MGE6).getText());
+    processStateText.setWildcard(processStateTextBuffer);
+    processStateText.resizeToCurrentText();
     processStateText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_JNJA));
 
     abortButton.setXY(26, 397);

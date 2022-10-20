@@ -78,7 +78,7 @@ protected:
     touchgfx::ButtonWithLabel minus10Button;
     touchgfx::ButtonWithLabel minus1Button;
     touchgfx::TextArea textArea4;
-    touchgfx::TextArea processStateText;
+    touchgfx::TextAreaWithOneWildcard processStateText;
     touchgfx::ButtonWithLabel abortButton;
     touchgfx::TextAreaWithOneWildcard adcVoltageText;
     touchgfx::TextArea textArea5;
@@ -90,6 +90,8 @@ protected:
     touchgfx::Unicode::UnicodeChar ampereTextBuffer[AMPERETEXT_SIZE];
     static const uint16_t DELAYTEXT_SIZE = 10;
     touchgfx::Unicode::UnicodeChar delayTextBuffer[DELAYTEXT_SIZE];
+    static const uint16_t PROCESSSTATETEXT_SIZE = 22;
+    touchgfx::Unicode::UnicodeChar processStateTextBuffer[PROCESSSTATETEXT_SIZE];
     static const uint16_t ADCVOLTAGETEXT_SIZE = 10;
     touchgfx::Unicode::UnicodeChar adcVoltageTextBuffer[ADCVOLTAGETEXT_SIZE];
 

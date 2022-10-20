@@ -33,6 +33,9 @@ void calibrationScreenPresenter::tick()
 					view.update(presenterMessage.evData.calibrationScreenData.amps,
 							presenterMessage.evData.calibrationScreenData.secsRemain);
 				}
+				if (presenterMessage.messageType ==  calibPotiPos) {
+					view.updateState(presenterMessage.evData.calibState);
+				}
 			}
 		}
 	}

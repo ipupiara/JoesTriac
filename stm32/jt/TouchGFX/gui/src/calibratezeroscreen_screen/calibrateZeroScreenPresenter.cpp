@@ -31,6 +31,9 @@ void calibrateZeroScreenPresenter::tick()
 					view.update(presenterMessage.evData.calibZeroPPScreenData.potiPos,
 							presenterMessage.evData.calibZeroPPScreenData.devV);
 				}
+				if (presenterMessage.messageType ==  calibPotiPos) {
+					view.updateState(presenterMessage.evData.calibState);
+				}
 			}
 		}
 	}

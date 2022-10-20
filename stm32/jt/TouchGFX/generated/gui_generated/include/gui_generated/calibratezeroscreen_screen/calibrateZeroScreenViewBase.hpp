@@ -44,6 +44,8 @@ protected:
     touchgfx::TextArea textArea4;
     touchgfx::TextAreaWithOneWildcard devVoltageText;
     touchgfx::ButtonWithLabel abortButton;
+    touchgfx::TextArea textArea5;
+    touchgfx::TextAreaWithOneWildcard stateText;
 
     /*
      * Wildcard Buffers
@@ -52,6 +54,8 @@ protected:
     touchgfx::Unicode::UnicodeChar zeroPotiPosTextBuffer[ZEROPOTIPOSTEXT_SIZE];
     static const uint16_t DEVVOLTAGETEXT_SIZE = 10;
     touchgfx::Unicode::UnicodeChar devVoltageTextBuffer[DEVVOLTAGETEXT_SIZE];
+    static const uint16_t STATETEXT_SIZE = 22;
+    touchgfx::Unicode::UnicodeChar stateTextBuffer[STATETEXT_SIZE];
 
 private:
 

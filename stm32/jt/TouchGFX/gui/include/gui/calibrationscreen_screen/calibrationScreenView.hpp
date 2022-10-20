@@ -12,6 +12,7 @@ public:
     virtual void setupScreen();
     virtual void tearDownScreen();
     void update(float amps, uint32_t secondsRemaining);
+    void updateState(char* txt);
 protected:
 };
 

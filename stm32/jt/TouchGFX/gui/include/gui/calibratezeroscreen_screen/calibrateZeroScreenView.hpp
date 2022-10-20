@@ -13,6 +13,7 @@ public:
     virtual void tearDownScreen();
     virtual void abortPressed();
     void update(uint32_t pPos, float devV);
+    void updateState(char* txt);
 protected:
 };
 

@@ -19,3 +19,8 @@ void calibrationScreenView::update(float amps, uint32_t secondsRemaining)
 {
 
 }
+
+void calibrationScreenView::updateState(char* txt)
+{
+
+}

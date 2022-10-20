@@ -26,12 +26,12 @@ calibrateZeroScreenViewBase::calibrateZeroScreenViewBase() :
     textArea2.setLinespacing(0);
     textArea2.setTypedText(touchgfx::TypedText(T___SINGLEUSE_96OR));
 
-    textArea3.setXY(33, 203);
+    textArea3.setXY(33, 156);
     textArea3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea3.setLinespacing(0);
     textArea3.setTypedText(touchgfx::TypedText(T___SINGLEUSE_CSK5));
 
-    zeroPotiPosText.setXY(297, 194);
+    zeroPotiPosText.setXY(297, 147);
     zeroPotiPosText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     zeroPotiPosText.setLinespacing(0);
     Unicode::snprintf(zeroPotiPosTextBuffer, ZEROPOTIPOSTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_FFOK).getText());
@@ -39,12 +39,12 @@ calibrateZeroScreenViewBase::calibrateZeroScreenViewBase() :
     zeroPotiPosText.resizeToCurrentText();
     zeroPotiPosText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_TOWM));
 
-    textArea4.setXY(33, 294);
+    textArea4.setXY(33, 237);
     textArea4.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea4.setLinespacing(0);
     textArea4.setTypedText(touchgfx::TypedText(T___SINGLEUSE_Z80T));
 
-    devVoltageText.setXY(273, 282);
+    devVoltageText.setXY(273, 225);
     devVoltageText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     devVoltageText.setLinespacing(0);
     Unicode::snprintf(devVoltageTextBuffer, DEVVOLTAGETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_AM4Z).getText());
@@ -59,6 +59,19 @@ calibrateZeroScreenViewBase::calibrateZeroScreenViewBase() :
     abortButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     abortButton.setAction(buttonCallback);
 
+    textArea5.setXY(33, 301);
+    textArea5.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea5.setLinespacing(0);
+    textArea5.setTypedText(touchgfx::TypedText(T___SINGLEUSE_9F6T));
+
+    stateText.setXY(273, 301);
+    stateText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    stateText.setLinespacing(0);
+    Unicode::snprintf(stateTextBuffer, STATETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_0C4U).getText());
+    stateText.setWildcard(stateTextBuffer);
+    stateText.resizeToCurrentText();
+    stateText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_THPN));
+
     add(__background);
     add(box1);
     add(textArea1);
@@ -68,6 +81,8 @@ calibrateZeroScreenViewBase::calibrateZeroScreenViewBase() :
     add(textArea4);
     add(devVoltageText);
     add(abortButton);
+    add(textArea5);
+    add(stateText);
 }
 
 void calibrateZeroScreenViewBase::setupScreen()

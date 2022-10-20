@@ -69,6 +69,8 @@ extern osMessageQueueId_t    mainJtMessageQ;
 ///////////  presenter messages //////////////
 
 typedef enum {
+	calibState,
+	calibPotiPos,
 	calibrateZeroPPScreenUpdate,
 	calibrationScreenUpdate,
 	runScreenUpdate
@@ -78,6 +80,7 @@ typedef enum {
 typedef struct  {
 	presenterMessageType messageType;
 	union {
+		char calibState  [20];
 		struct {
 			float   	amps;
 			uint16_t  potiPos;

@@ -795,11 +795,16 @@
             "Name": "processStateText",
             "X": 277,
             "Y": 357,
-            "Width": 96,
+            "Width": 84,
             "Height": 22,
             "TextId": "__SingleUse_JNJA",
             "TextRotation": "0",
-            "AutoSize": true
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_MGE6",
+              "UseBuffer": true,
+              "BufferSize": 22
+            }
           },
           {
             "Type": "ButtonWithLabel",
@@ -2522,7 +2527,7 @@
             "Type": "TextArea",
             "Name": "textArea3",
             "X": 33,
-            "Y": 203,
+            "Y": 156,
             "Width": 156,
             "Height": 22,
             "TextId": "__SingleUse_CSK5",
@@ -2533,7 +2538,7 @@
             "Type": "TextArea",
             "Name": "zeroPotiPosText",
             "X": 297,
-            "Y": 194,
+            "Y": 147,
             "Width": 72,
             "Height": 46,
             "TextId": "__SingleUse_TOWM",
@@ -2549,7 +2554,7 @@
             "Type": "TextArea",
             "Name": "textArea4",
             "X": 33,
-            "Y": 294,
+            "Y": 237,
             "Width": 204,
             "Height": 22,
             "TextId": "__SingleUse_Z80T",
@@ -2560,7 +2565,7 @@
             "Type": "TextArea",
             "Name": "devVoltageText",
             "X": 273,
-            "Y": 282,
+            "Y": 225,
             "Width": 96,
             "Height": 46,
             "TextId": "__SingleUse_0Q2U",
@@ -2594,6 +2599,33 @@
             },
             "TextRotation": "0",
             "Style": "Style4"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea5",
+            "X": 33,
+            "Y": 301,
+            "Width": 72,
+            "Height": 22,
+            "TextId": "__SingleUse_9F6T",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "stateText",
+            "X": 273,
+            "Y": 301,
+            "Width": 120,
+            "Height": 22,
+            "TextId": "__SingleUse_THPN",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_0C4U",
+              "UseBuffer": true,
+              "BufferSize": 22
+            }
           }
         ],
         "Interactions": [
