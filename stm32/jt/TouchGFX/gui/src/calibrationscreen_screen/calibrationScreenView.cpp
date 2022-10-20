@@ -14,3 +14,8 @@ void calibrationScreenView::tearDownScreen()
 {
     calibrationScreenViewBase::tearDownScreen();
 }
+
+void calibrationScreenView::update(float amps, uint32_t secondsRemaining)
+{
+
+}

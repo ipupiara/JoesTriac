@@ -75,7 +75,7 @@ void setAmpereScreenView::numButtonPressed(uint8_t value)
 
 void setAmpereScreenView::setValArray(float ampsF)
 {
-	uint32_t ampsI = ampsF;
+	uint32_t ampsI = (uint32_t) (ampsF * 100);  // evtl + 0.1 or so... to prevent rounding loss
 	valArray[0] =  (uint8_t) (ampsI/10000);
 	valArray[1] =  (uint8_t) ((ampsI % 10000)/1000);
 	valArray[2] =  (uint8_t) ((ampsI % 1000)/100);
@@ -86,13 +86,14 @@ void setAmpereScreenView::setValArray(float ampsF)
  {
 	 uint32_t ampsIntValue = (valArray[0] * 10000) + (valArray[1] * 1000) +
 			 	 	 	 (valArray[2] * 100) + (valArray[3] *10 ) + valArray[4];
-	 ampsValue = ampsIntValue;
+	 ampsValue = (float) (ampsIntValue);
+	 ampsValue = ampsValue / 100;
  }
  void setAmpereScreenView::printCurrentValueTimeOnScreen()
  {
-	 uint32_t  amps = ampsValue;
-	 uint32_t uVal = amps/100;
-	 uint32_t lVal = amps % 100;
+	 uint32_t  ampsI = (uint32_t) (ampsValue *100 ); // evtl + 0.1 or so... to prevent rounding loss
+	 uint32_t uVal = ampsI/100;
+	 uint32_t lVal = ampsI % 100;
 	 Unicode::snprintf(setAmpereTextBuffer, 7, "%03d.%02d", uVal,  lVal);
 	 setAmpereText.setWildcard(setAmpereTextBuffer);
 	 setAmpereText.invalidate();

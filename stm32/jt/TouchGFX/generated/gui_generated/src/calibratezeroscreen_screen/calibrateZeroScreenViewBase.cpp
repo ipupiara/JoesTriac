@@ -31,7 +31,7 @@ calibrateZeroScreenViewBase::calibrateZeroScreenViewBase() :
     textArea3.setLinespacing(0);
     textArea3.setTypedText(touchgfx::TypedText(T___SINGLEUSE_CSK5));
 
-    zeroPotiPosText.setXY(285, 214);
+    zeroPotiPosText.setXY(297, 194);
     zeroPotiPosText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     zeroPotiPosText.setLinespacing(0);
     Unicode::snprintf(zeroPotiPosTextBuffer, ZEROPOTIPOSTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_FFOK).getText());
@@ -44,13 +44,13 @@ calibrateZeroScreenViewBase::calibrateZeroScreenViewBase() :
     textArea4.setLinespacing(0);
     textArea4.setTypedText(touchgfx::TypedText(T___SINGLEUSE_Z80T));
 
-    textArea5.setXY(261, 294);
-    textArea5.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    textArea5.setLinespacing(0);
-    Unicode::snprintf(textArea5Buffer, TEXTAREA5_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_AM4Z).getText());
-    textArea5.setWildcard(textArea5Buffer);
-    textArea5.resizeToCurrentText();
-    textArea5.setTypedText(touchgfx::TypedText(T___SINGLEUSE_0Q2U));
+    devVoltageText.setXY(273, 282);
+    devVoltageText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    devVoltageText.setLinespacing(0);
+    Unicode::snprintf(devVoltageTextBuffer, DEVVOLTAGETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_AM4Z).getText());
+    devVoltageText.setWildcard(devVoltageTextBuffer);
+    devVoltageText.resizeToCurrentText();
+    devVoltageText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_0Q2U));
 
     abortButton.setXY(33, 378);
     abortButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
@@ -66,7 +66,7 @@ calibrateZeroScreenViewBase::calibrateZeroScreenViewBase() :
     add(textArea3);
     add(zeroPotiPosText);
     add(textArea4);
-    add(textArea5);
+    add(devVoltageText);
     add(abortButton);
 }
 

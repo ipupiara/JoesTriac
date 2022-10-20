@@ -45,11 +45,11 @@ protected:
     touchgfx::TextAreaWithOneWildcard timeValueText;
     touchgfx::ButtonWithIcon startButton;
     touchgfx::ButtonWithIcon stopButton;
-    touchgfx::TextArea setAmpereText;
+    touchgfx::TextAreaWithOneWildcard setAmpereText;
     touchgfx::TextArea textArea1;
     touchgfx::TextArea textArea2;
     touchgfx::TextAreaWithOneWildcard currentTimeText;
-    touchgfx::TextArea currentAmpereText;
+    touchgfx::TextAreaWithOneWildcard currentAmpereText;
     touchgfx::BoxProgress boxProgress1;
 
     /*
@@ -57,8 +57,12 @@ protected:
      */
     static const uint16_t TIMEVALUETEXT_SIZE = 20;
     touchgfx::Unicode::UnicodeChar timeValueTextBuffer[TIMEVALUETEXT_SIZE];
+    static const uint16_t SETAMPERETEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar setAmpereTextBuffer[SETAMPERETEXT_SIZE];
     static const uint16_t CURRENTTIMETEXT_SIZE = 20;
     touchgfx::Unicode::UnicodeChar currentTimeTextBuffer[CURRENTTIMETEXT_SIZE];
+    static const uint16_t CURRENTAMPERETEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar currentAmpereTextBuffer[CURRENTAMPERETEXT_SIZE];
 
 private:
 

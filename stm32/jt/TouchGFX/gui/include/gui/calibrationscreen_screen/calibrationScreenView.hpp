@@ -11,6 +11,7 @@ public:
     virtual ~calibrationScreenView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
+    void update(float amps, uint32_t secondsRemaining);
 protected:
 };
 

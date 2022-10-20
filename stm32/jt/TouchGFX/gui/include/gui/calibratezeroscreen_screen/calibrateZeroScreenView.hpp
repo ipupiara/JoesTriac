@@ -12,6 +12,7 @@ public:
     virtual void setupScreen();
     virtual void tearDownScreen();
     virtual void abortPressed();
+    void update(uint32_t pPos, float devV);
 protected:
 };
 

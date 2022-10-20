@@ -56,6 +56,9 @@ runScreenViewBase::runScreenViewBase() :
     setAmpereText.setXY(465, 12);
     setAmpereText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     setAmpereText.setLinespacing(0);
+    Unicode::snprintf(setAmpereTextBuffer, SETAMPERETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_OJB3).getText());
+    setAmpereText.setWildcard(setAmpereTextBuffer);
+    setAmpereText.resizeToCurrentText();
     setAmpereText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_X5Q9));
 
     textArea1.setXY(14, 94);
@@ -78,9 +81,12 @@ runScreenViewBase::runScreenViewBase() :
     currentAmpereText.setXY(465, 82);
     currentAmpereText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     currentAmpereText.setLinespacing(0);
+    Unicode::snprintf(currentAmpereTextBuffer, CURRENTAMPERETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_6OBZ).getText());
+    currentAmpereText.setWildcard(currentAmpereTextBuffer);
+    currentAmpereText.resizeToCurrentText();
     currentAmpereText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_GCRP));
 
-    boxProgress1.setXY(14, 248);
+    boxProgress1.setXY(14, 133);
     boxProgress1.setProgressIndicatorPosition(2, 2, 180, 16);
     boxProgress1.setRange(0, 100);
     boxProgress1.setDirection(touchgfx::AbstractDirectionProgress::RIGHT);

@@ -47,7 +47,7 @@ typedef struct  {
 	mainJtMessageType evType;
 	union {
 		uint32_t keyCode;
-		uint32_t   weldingAmps;
+		float   weldingAmps;
 		uint32_t  weldingTime;
 		uint32_t  calibLow;
 		uint32_t calibHigh;
@@ -69,6 +69,8 @@ extern osMessageQueueId_t    mainJtMessageQ;
 ///////////  presenter messages //////////////
 
 typedef enum {
+	calibrateZeroPPScreenUpdate,
+	calibrationScreenUpdate,
 	runScreenUpdate
 }  presenterMessageType;
 
@@ -76,12 +78,19 @@ typedef enum {
 typedef struct  {
 	presenterMessageType messageType;
 	union {
-		uint32_t keyCode;
 		struct {
-			uint32_t   amps;
+			float   amps;
 			uint16_t  potiPos;
 			uint16_t  secondsRemaining;
 		} runScreenData;
+		struct {
+			float   	 devV;
+			uint32_t  potiPos;
+		} calibZeroPPScreenData;
+		struct {
+			float   	 amps;
+			uint32_t  secsRemain;
+		} calibrationScreenData;
 	}  evData;
 } CJoesPresenterEventT ;
 

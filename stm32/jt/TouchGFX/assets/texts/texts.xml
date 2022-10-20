@@ -6,6 +6,12 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_OJB3" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">000.00</Translation>
+      </Text>
+      <Text Id="__SingleUse_6OBZ" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">000.00</Translation>
+      </Text>
       <Text Id="__SingleUse_OGN3" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">000</Translation>
       </Text>
@@ -19,9 +25,9 @@
         <Translation Language="GB">abort</Translation>
       </Text>
       <Text Id="__SingleUse_AM4Z" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">0.000</Translation>
+        <Translation Language="GB">0.00</Translation>
       </Text>
-      <Text Id="__SingleUse_0Q2U" Alignment="Left" TypographyId="Default">
+      <Text Id="__SingleUse_0Q2U" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">&lt;devVoltage&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_Z80T" Alignment="Left" TypographyId="Default">
@@ -30,7 +36,7 @@
       <Text Id="__SingleUse_FFOK" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">000</Translation>
       </Text>
-      <Text Id="__SingleUse_TOWM" Alignment="Left" TypographyId="Default">
+      <Text Id="__SingleUse_TOWM" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">&lt;potipos&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_CSK5" Alignment="Left" TypographyId="Default">
@@ -136,7 +142,7 @@
         <Translation Language="GB">&lt;weldingTime&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_GCRP" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">000.00</Translation>
+        <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_J99Y" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">00:00</Translation>
@@ -151,7 +157,7 @@
         <Translation Language="GB">time:</Translation>
       </Text>
       <Text Id="__SingleUse_X5Q9" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">000.00</Translation>
+        <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_0QML" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">00:00</Translation>

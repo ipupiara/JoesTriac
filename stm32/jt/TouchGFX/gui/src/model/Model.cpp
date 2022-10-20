@@ -63,12 +63,12 @@ void Model::storeWeldingTimeSec(uint16_t  tm)
 	sendEventToMainJtMessageQ(&evt,0);
 }
 
-uint32_t Model::getWeldingAmps()
+float Model::getWeldingAmps()
 {
-	return (uint32_t) getDefinesWeldingAmps();
+	return getDefinesWeldingAmps();
 }
 
-void Model::storeWeldingAmps(uint32_t amps)
+void Model::storeWeldingAmps(float amps)
 {
 	CMainJtEventT evt;
 	evt.evType = storeWeldingAmpere;

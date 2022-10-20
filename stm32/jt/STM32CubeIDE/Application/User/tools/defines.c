@@ -33,13 +33,13 @@ float getCurrentAmpsValue()
 
 void sendActualValuesToRunScreen()
 {
-	uint32_t ampsI = (uint32_t) ( getCurrentAmpsValue() * 100);
-	uint32_t time = getSecondsInDurationTimer();
+	float amps = getCurrentAmpsValue() ;
+	uint32_t time = getSecondsDurationTimerRemaining();
 
 	CJoesPresenterEventT  presenterMessage;
 	presenterMessage.messageType=runScreenUpdate;
-	presenterMessage.evData.runScreenData.secondsRemaining= getSecondsDurationTimerRemaining();
-	presenterMessage.evData.runScreenData.amps= ampsI;
+	presenterMessage.evData.runScreenData.secondsRemaining= time;
+	presenterMessage.evData.runScreenData.amps= amps;
 	presenterMessage.evData.runScreenData.potiPos= 50;
 
 	sendPresenterMessage(&presenterMessage);
@@ -48,7 +48,7 @@ void sendActualValuesToRunScreen()
 
 typedef struct {
 	uint32_t weldingTime;
-	uint32_t   weldingAmps100;
+	float   weldingAmps;
 	uint32_t  calibLow, calibHigh, zeroPotiPos;
 	uint8_t  alarmNeeded;
 	uint32_t  alarmTime;
@@ -59,7 +59,7 @@ persistentData  persistentRec;
 void initPersistendData()
 {
 	persistentRec.weldingTime =  15 *60;
-	persistentRec.weldingAmps100 = 6000;
+	persistentRec.weldingAmps = 60.00;
 	persistentRec.calibLow = 0;
 	persistentRec.calibHigh = 0;
 	persistentRec.alarmNeeded = 1;
@@ -94,11 +94,11 @@ uint32_t getDefinesWeldingTime()
 	return wTime;
 }
 
-uint32_t getDefinesWeldingAmps()
+float getDefinesWeldingAmps()
 {
 	uint32_t amps;
 	taskENTER_CRITICAL();
-	amps = persistentRec.weldingAmps100;
+	amps = persistentRec.weldingAmps;
 	taskEXIT_CRITICAL();
 	return amps;
 }
@@ -241,10 +241,10 @@ tStatus saveWeldingTime(uint32_t wTime)
 	return success;
 }
 
-tStatus saveWeldingAmps(uint32_t wAmps)
+tStatus saveWeldingAmps(float wAmps)
 {
 	tStatus success = tOk;
-	persistentRec.weldingAmps100 = wAmps;
+	persistentRec.weldingAmps = wAmps;
 
 	return success;
 }

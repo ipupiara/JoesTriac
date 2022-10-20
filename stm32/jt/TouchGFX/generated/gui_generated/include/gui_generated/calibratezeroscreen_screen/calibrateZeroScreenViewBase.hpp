@@ -42,7 +42,7 @@ protected:
     touchgfx::TextArea textArea3;
     touchgfx::TextAreaWithOneWildcard zeroPotiPosText;
     touchgfx::TextArea textArea4;
-    touchgfx::TextAreaWithOneWildcard textArea5;
+    touchgfx::TextAreaWithOneWildcard devVoltageText;
     touchgfx::ButtonWithLabel abortButton;
 
     /*
@@ -50,8 +50,8 @@ protected:
      */
     static const uint16_t ZEROPOTIPOSTEXT_SIZE = 10;
     touchgfx::Unicode::UnicodeChar zeroPotiPosTextBuffer[ZEROPOTIPOSTEXT_SIZE];
-    static const uint16_t TEXTAREA5_SIZE = 10;
-    touchgfx::Unicode::UnicodeChar textArea5Buffer[TEXTAREA5_SIZE];
+    static const uint16_t DEVVOLTAGETEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar devVoltageTextBuffer[DEVVOLTAGETEXT_SIZE];
 
 private:
 

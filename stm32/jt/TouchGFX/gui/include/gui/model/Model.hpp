@@ -161,8 +161,8 @@ public:
     void storeAlarmTime(uint16_t alTime);
     void storeAlarmNeeded(uint8_t alNeeded);
     void storeAlarm(uint8_t alNeeded, uint16_t alTime);
-    uint32_t getWeldingAmps();
-    void storeWeldingAmps(uint32_t amps);
+    float getWeldingAmps();
+    void storeWeldingAmps(float amps);
     uint32_t getCalibHigh();
     uint32_t getCalibLow();
     uint32_t getZeroPotiPos();

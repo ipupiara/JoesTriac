@@ -17,5 +17,16 @@ void calibrateZeroScreenView::tearDownScreen()
 
 void calibrateZeroScreenView::abortPressed()
 {
-//	presenter->resetCalibValues();
+	presenter->resetCache();
+}
+
+void calibrateZeroScreenView::update(uint32_t pPos, float devV)
+{
+	 Unicode::snprintf(zeroPotiPosTextBuffer, 4, "%03d", pPos);
+	 zeroPotiPosText.setWildcard(zeroPotiPosTextBuffer);
+	 zeroPotiPosText.invalidate();
+
+	 Unicode::snprintfFloat(devVoltageTextBuffer, 5, "%+01.2d", pPos);
+	 devVoltageText.setWildcard(devVoltageTextBuffer);
+	 devVoltageText.invalidate();
 }

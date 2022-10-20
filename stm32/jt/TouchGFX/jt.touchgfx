@@ -1640,7 +1640,12 @@
             "Height": 46,
             "TextId": "__SingleUse_X5Q9",
             "TextRotation": "0",
-            "AutoSize": true
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_OJB3",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
           },
           {
             "Type": "TextArea",
@@ -1688,13 +1693,18 @@
             "Height": 46,
             "TextId": "__SingleUse_GCRP",
             "TextRotation": "0",
-            "AutoSize": true
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_6OBZ",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
           },
           {
             "Type": "BoxProgress",
             "Name": "boxProgress1",
             "X": 14,
-            "Y": 248,
+            "Y": 133,
             "Width": 184,
             "Height": 20,
             "Color": {
@@ -2522,10 +2532,10 @@
           {
             "Type": "TextArea",
             "Name": "zeroPotiPosText",
-            "X": 285,
-            "Y": 214,
-            "Width": 36,
-            "Height": 22,
+            "X": 297,
+            "Y": 194,
+            "Width": 72,
+            "Height": 46,
             "TextId": "__SingleUse_TOWM",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2548,11 +2558,11 @@
           },
           {
             "Type": "TextArea",
-            "Name": "textArea5",
-            "X": 261,
-            "Y": 294,
-            "Width": 60,
-            "Height": 22,
+            "Name": "devVoltageText",
+            "X": 273,
+            "Y": 282,
+            "Width": 96,
+            "Height": 46,
             "TextId": "__SingleUse_0Q2U",
             "TextRotation": "0",
             "AutoSize": true,
