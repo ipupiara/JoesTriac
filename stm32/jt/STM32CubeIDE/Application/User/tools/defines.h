@@ -69,8 +69,11 @@ tStatus isCalibrationReady();
 
 void setZCalibAuto(uint32_t on);
 
+void sendActualValuesToCalibScreen();
 void sendActualValuesToRunScreen();
 void calibTriacDelayChange(int32_t diff);
+void storeCalibLowAdc();
+void storeCalibHighAdc();
 
 #ifdef  __cplusplus
 }

@@ -44,3 +44,8 @@ void calibrationScreenView::continueButtonPressed()
 {
 	presenter->continueButtonPressed();
 }
+
+void calibrationScreenView::skipButtonPressed()
+{
+     presenter->skipButtonPressed();
+}

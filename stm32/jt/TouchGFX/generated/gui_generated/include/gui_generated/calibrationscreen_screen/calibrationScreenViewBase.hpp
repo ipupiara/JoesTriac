@@ -62,6 +62,11 @@ public:
         // Override and implement this function in calibrationScreen
     }
 
+    virtual void skipButtonPressed()
+    {
+        // Override and implement this function in calibrationScreen
+    }
+
 protected:
     FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(touchgfx::Application::getInstance());
@@ -88,6 +93,7 @@ protected:
     touchgfx::TextArea textArea6;
     touchgfx::TextAreaWithOneWildcard adcValueText;
     touchgfx::ButtonWithLabel continueButton;
+    touchgfx::ButtonWithLabel skipButton;
 
     /*
      * Wildcard Buffers

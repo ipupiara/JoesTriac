@@ -36,7 +36,7 @@ typedef enum {
 	calibTriacDelayDelta,
 	calibAbortClick,
 	calibContinueClick,
-	evCalibContinueClick,
+	calibSkipClick,
 	storeWeldingTime,
 	storeWeldingAmpere,
 	storeAlarmData,
@@ -80,6 +80,7 @@ typedef enum {
 	calibState,
 	calibTriacDelay,
 	calibDesiredAmps,
+	calibScreenData,
 	calibrateZeroPPScreenUpdate,
 	calibrationScreenUpdate,
 	runScreenUpdate

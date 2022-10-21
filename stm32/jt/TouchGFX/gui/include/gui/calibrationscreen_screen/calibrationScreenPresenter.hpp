@@ -32,6 +32,7 @@ public:
     void sendTriacDelayCalibCorrection(int32_t val);
     void abortButtonPressed();
     void continueButtonPressed();
+    void skipButtonPressed();
 
  private:
     calibrationScreenPresenter();

@@ -124,6 +124,13 @@ calibrationScreenViewBase::calibrationScreenViewBase() :
     continueButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     continueButton.setAction(buttonCallback);
 
+    skipButton.setXY(453, 397);
+    skipButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
+    skipButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_T7E7));
+    skipButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    skipButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    skipButton.setAction(buttonCallback);
+
     add(__background);
     add(box1);
     add(textArea1);
@@ -142,6 +149,7 @@ calibrationScreenViewBase::calibrationScreenViewBase() :
     add(textArea6);
     add(adcValueText);
     add(continueButton);
+    add(skipButton);
 }
 
 void calibrationScreenViewBase::setupScreen()
@@ -206,5 +214,12 @@ void calibrationScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractBu
         //When continueButton clicked call virtual function
         //Call continueButtonPressed
         continueButtonPressed();
+    }
+    else if (&src == &skipButton)
+    {
+        //Interaction6
+        //When skipButton clicked call virtual function
+        //Call skipButtonPressed
+        skipButtonPressed();
     }
 }

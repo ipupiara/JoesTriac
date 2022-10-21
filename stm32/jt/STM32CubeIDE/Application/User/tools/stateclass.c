@@ -29,7 +29,7 @@ enum eStates
 			eStateSetup,  // calibration/setup
 				eStateSetupIdle,   // manual
 				eStateAutoCalibrating,		// autoCalibrate
-					eStateCalibrateZeroSignal,
+//					eStateCalibrateZeroSignal,
 					eStateCalibratingScale,
 						eStateCalibrateLow,
 						eStateCalibrateHigh,
@@ -163,17 +163,17 @@ uStInt evSetupIdleChecker(void)
 
 	if (currentEvent->evType == evAutoConfigPressed)
 	{
-		if (getDefinesZCalibOn() == 1)  {
-			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateZeroSignal);
+//		if (getDefinesZCalibOn() == 1)  {
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateAutoCalibrating);
 				// No event action.
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
-		} else {
-			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateLow);
-				// No event action.
-			END_EVENT_HANDLER(PJoesTriacStateChart);
-			res =  uStIntHandlingDone;
-		}
+//		} else {
+//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateLow);
+//				// No event action.
+//			END_EVENT_HANDLER(PJoesTriacStateChart);
+//			res =  uStIntHandlingDone;
+//		}
 	}
 
 	return res;
@@ -196,18 +196,11 @@ uStInt evAutoCalibratingChecker(void)
 	res = uStIntNoMatch;
 
 //	printf("inside evCalibratingChecker\n");
-	if (currentEvent->evType == evAutoCalibAbortPressed)  {
-		if (isCalibrationReady() == tOk) {
- 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
-				// No event action.
-			END_EVENT_HANDLER(PJoesTriacStateChart);
-			res =  uStIntHandlingDone;
-		}  else {
-			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetup);
-				// No event action.
-			END_EVENT_HANDLER(PJoesTriacStateChart);
-			res =  uStIntHandlingDone;
-		}
+	if (currentEvent->evType == evCalibAbortClick)  {
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetup);
+			// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
 	}	
 	return res;
 }
@@ -250,63 +243,28 @@ uStInt evCalibrateZeroSignalChecker(void)
 	
 		res =  uStIntHandlingDone;
 	}
-
-//	res = checkCalibZeroInner(res);  // method only works if one part is placed out
-									// no idea why (lenght of code ? )
 	return (res);
 }
 
 
 void entryCalibrateScaleState(void)
 {
-//	printf("\nentry Calib");
+	info_printf("entryCalibrateScaleState\n");
 //	startTriacRun();
 }
 
 void exitCalibrateScaleState(void)
 {
-//	printf("exit calib\n");
+//	info_printf("exit calib\n");
 //	stopTriacRun();
 }
 
 uStInt evCalibrateScaleChecker(void)
 {
-////	int16_t triggerDelay;
-	int8_t res = 0;
-////
-//	res = uStIntNoMatch;
-//	if (currentEvent->evType == evCharEntered) {
-////		triggerDelay = triacFireDurationTcnt2;
-////		switch (currentEvent->evData.keyCode) {
-////			case kp1 :
-////				triggerDelay++;
-////				break;
-////			case kp2 :
-////				triggerDelay += 10;
-////				break ;
-////			case kp3 :
-////				triggerDelay += 100;
-////				break ;
-////			case kp7 :
-////				triggerDelay--;
-////				break;
-////			case kp8 :
-////				triggerDelay -= 10;
-////				break ;
-////			case kp9 :
-////				triggerDelay -= 100;
-////				break ;
-////		}
-////		if (triggerDelay < 0) triggerDelay = 0;
-////		if (triggerDelay > triggerDelayMaxTcnt2) triggerDelay = triggerDelayMaxTcnt2;
-////		setTriacFireDuration(triggerDelay);
-////		displayDebugVoltageNTriggerDelay();
-////		res =  uStIntHandlingDone;
-//	}
-	if (currentEvent->evType == evSecondsTick) 
-	{	
-//		displayDebugVoltageNTriggerDelay();
-//		res =  uStIntHandlingDone;
+	uStInt res = uStIntNoMatch;
+	if (currentEvent->evType == evSecondsTick)  {
+		sendActualValuesToCalibScreen();
+		res =  uStIntHandlingDone;
 	}
 	return res;
 }
@@ -314,8 +272,11 @@ uStInt evCalibrateScaleChecker(void)
 
 void entryCalibrateLowState(void)
 {
-//	printf("entry calib Low\n");
-//	displayCalibrateLow();
+	info_printf("entryCalibrateLowState\n");
+	CJoesPresenterEventT msg;
+	msg.messageType = calibDesiredAmps;
+	msg.evData.desiredAmps = 20.0;
+	sendPresenterMessage(&msg);
 //	setTriacFireDuration(0);
 }
 
@@ -327,33 +288,36 @@ void exitCalibrateLowState(void)
 
 uStInt evCalibrateLowChecker(void)
 {
-//	printf("check for event in State evStateIdle\n");
+	printf("check for event in State evStateIdle\n");
 	uStInt res = uStIntNoMatch;
 
-//	if (currentEvent->evType == evAstPressed)
-//	{
-//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateHigh);
-//			// No event action.
-//			END_EVENT_HANDLER(PJoesTriacStateChart);
-//			res =  uStIntHandlingDone;
-//	}
-//	if (currentEvent->evType == evNumPressed)
-//	{
-////			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateHigh);
-////
-////			storeCalibLowADC();
-////
-////			END_EVENT_HANDLER(PJoesTriacStateChart);
-////			res =  uStIntHandlingDone;
-//	}
+	if (currentEvent->evType == evCalibContinueClick)
+	{
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetup);
+
+		storeCalibLowAdc();
+
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
+	if (currentEvent->evType == evCalibSkipClick)
+	{
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetup);
+
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
 	return res;
 }
 
 
 void entryCalibrateHighState(void)
 {
-//	printf("entry I\n");
-//	displayCalibrateHigh();
+	info_printf("entryCalibrateHighState\n");
+	CJoesPresenterEventT msg;
+	msg.messageType = calibDesiredAmps;
+	msg.evData.desiredAmps = 80.0;
+	sendPresenterMessage(&msg);
 }
 
 void exitCalibrateHighState(void)
@@ -366,23 +330,22 @@ uStInt evCalibrateHighChecker(void)
 {
 	uStInt res = uStIntNoMatch;
 
-//	if (currentEvent->evType == evAstPressed)
-//	{
-//		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
-//
-//		END_EVENT_HANDLER(PJoesTriacStateChart);
-//		res =  uStIntHandlingDone;
-//	}
-//	if (currentEvent->evType == evNumPressed)
-//	{
-//		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
-//
-////		storeCalibHighADC();
-////		updateGradAmps();
-//
-//		END_EVENT_HANDLER(PJoesTriacStateChart);
-//		res =  uStIntHandlingDone;
-//	}
+	if (currentEvent->evType == evCalibSkipClick)
+	{
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, evCalibSkipClick);
+
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
+	if (currentEvent->evType == evCalibContinueClick)
+	{
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, evCalibContinueClick);
+
+		storeCalibHighAdc();
+
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
 	return res;
 }
 
@@ -434,20 +397,7 @@ uStInt evTriacIdleChecker(void)
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
 	}
-//	if (currentEvent->evType == evF1Pressed)
-//	{
-////		if (resetMiniStringComponent()) {
-////			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupMiniString);
-////
-////			END_EVENT_HANDLER(PJoesTriacStateChart);
-////			res =  uStIntHandlingDone;
-////		}
-//	}
-//	if (currentEvent->evType == evTimeOutDurationTimer)
-//	{
-////		startDurationTimer(maxSecsPossible);   // enable secondsTick
-//		res =  uStIntHandlingDone;
-//	}
+
 	if (currentEvent->evType == evSecondsTick) 
 	{	
 //		onTriacIdleSecondTick_PID();
@@ -845,21 +795,21 @@ xStateType xaStates[eNumberOfStates] = {
 
 				{eStateAutoCalibrating,
 				eStateSetup,
-				-1,
+				eStateCalibratingScale,
 				0,
 				evAutoCalibratingChecker,
 				tfNull,
 				entryAutoCalibratingState,
 				exitAutoCalibratingState},
 
-					{eStateCalibrateZeroSignal,
-					eStateAutoCalibrating,
-					eStateCalibrateLow,
-					0,
-					evCalibrateZeroSignalChecker,
-					tfNull,
-					entryCalibrateZeroSignalState,
-					exitCalibrateZeroSignalState},
+//					{eStateCalibrateZeroSignal,
+//					eStateAutoCalibrating,
+//					eStateCalibrateLow,
+//					0,
+//					evCalibrateZeroSignalChecker,
+//					tfNull,
+//					entryCalibrateZeroSignalState,
+//					exitCalibrateZeroSignalState},
 
 					{eStateCalibratingScale,
 					eStateAutoCalibrating,

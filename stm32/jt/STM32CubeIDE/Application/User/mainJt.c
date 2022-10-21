@@ -97,8 +97,8 @@ void mainJt(void *argument)
 					durationTimerTick();
 					fsmEv.evType=evSecondsTick;
 					processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
-			} else if (mJtEv.evType == zCalibAuto) {
-				setZCalibAuto(mJtEv.mainUnion.zAuto);
+//			} else if (mJtEv.evType == zCalibAuto) {
+//				setZCalibAuto(mJtEv.mainUnion.zAuto);
 			} else if (mJtEv.evType == calibTriacDelayDelta) {
 				calibTriacDelayChange(mJtEv.mainUnion.calibTriDelayCorrection);
 			} else if (mJtEv.evType == storeAlarmData) {
@@ -125,6 +125,9 @@ void mainJt(void *argument)
 				processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
 			} else if (mJtEv.evType == calibContinueClick)  {
 				fsmEv.evType=evCalibContinueClick;
+				processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
+			} else if (mJtEv.evType == calibSkipClick)  {
+				fsmEv.evType=evCalibSkipClick;
 				processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
 			} else
 			if (mJtEv.evType == autoConfigPressed)  {

@@ -20,7 +20,14 @@
 
 
 
-
+void sendActualValuesToCalibScreen()
+{
+	CJoesPresenterEventT  msg;
+	msg.messageType = calibScreenData;
+	msg.evData.calibrationScreenData.adcValue = 300;
+	msg.evData.calibrationScreenData.adcVolts = 0.68;
+	sendPresenterMessage(&msg);
+}
 
 
 void sendActualValuesToRunScreen()
@@ -321,6 +328,41 @@ void errorHandler(uint32_t  code, errorSeverity severity, char* errorString, cha
 	if (severity == stop) {  do {} while (1);}
 }
 
+uint32_t  triacTriggerDelay;
+
+void addToTriggerDelay(int32_t val)
+{
+	uint32_t res;
+	if ((res = (triacTriggerDelay + val)) < 1000) {
+		triacTriggerDelay = res;
+	}  else  {
+		triacTriggerDelay = 1000;
+	}
+}
+
+void storeCalibLowAdc()
+{
+	saveCalibLow(100); //  for debugging only
+}
+
+void storeCalibHighAdc()
+{
+	saveCalibHigh(500);
+}
+
+void calibTriacDelayChange(int32_t diff)
+{
+   //   change variable
+
+	CJoesPresenterEventT msg;
+
+	addToTriggerDelay(diff);
+
+	msg.messageType = calibTriacDelay;
+	msg.evData.calibTriacDelay = triacTriggerDelay;
+	sendPresenterMessage(&msg);
+}
+
 tStatus isCalibrationReady()
 {
 	tStatus res= tFailed;
@@ -337,18 +379,12 @@ void setZCalibAuto(uint32_t on)
 
 tStatus initDefines()
 {
+	triacTriggerDelay = 0;
 	tStatus success =  tFailed;
 	success = restorePersistenData();
 
 	return success;
 }
 
-void calibTriacDelayChange(int32_t diff)
-{
-   //   change variable
-	CJoesPresenterEventT msg;
-	msg.messageType = calibTriacDelay;
-	msg.evData.calibTriacDelay = diff;
-	sendPresenterMessage(&msg);
-}
+
 
