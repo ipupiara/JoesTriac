@@ -11,11 +11,18 @@ void alarmConfigScreenView::setupScreen()
 
     timeValueMin = presenter->getAlarmTime();
     alarmNeeded = presenter->getAlarmNeeded();
+    zCalibOn = presenter->getZCalibOn();
     if (alarmNeeded != 0)  {
     	radioButtonOn.setSelected(true);
     }  else {
     	radioButtonOff.setSelected(true);
     }
+    if (zCalibOn != 0)  {
+    	ZCalibOnButton.setSelected(true);
+    }  else {
+    	ZCalibOffButton.setSelected(true);
+    }
+
     setValArray(timeValueMin);
     printCurrentValueTimeOnScreen();
 }
@@ -29,8 +36,10 @@ void alarmConfigScreenView::backNSaveButtonPressed()
 {
 	uint8_t aNeeded;
 	uint16_t aTime = timeValueMin;
+	uint32_t zCalibOn;
 	aNeeded = radioButtonOn.getSelected();
-	presenter->storeAlarmData(aTime,aNeeded);
+	zCalibOn= ZCalibOnButton.getSelected();
+	presenter->storeAlarmData(aTime,aNeeded, zCalibOn);
 	static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotoconfigScreenScreenNoTransition();
 }
 

@@ -158,9 +158,10 @@ public:
 
     uint16_t getAlarmTime();
     uint8_t  getAlarmNeeded();
-    void storeAlarmTime(uint16_t alTime);
-    void storeAlarmNeeded(uint8_t alNeeded);
-    void storeAlarm(uint8_t alNeeded, uint16_t alTime);
+    uint32_t getZCalibOn();
+//    void storeAlarmTime(uint16_t alTime);
+//    void storeAlarmNeeded(uint8_t alNeeded);
+    void storeAlarm(uint8_t alNeeded, uint16_t alTime, uint32_t zCalibOn);
     float getWeldingAmps();
     void storeWeldingAmps(float amps);
     uint32_t getCalibHigh();
@@ -172,11 +173,12 @@ public:
     void   saveCalibValues();
     void   resetCalibValues();
 
+protected:
     int16_t weldingTime;
     uint32_t weldingAmps;
     uint16_t alarmTime;
     uint8_t alarmNeeded;
-
+    uint32_t zCalibOn;
 
 
 ////   basic methods

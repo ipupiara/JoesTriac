@@ -100,7 +100,8 @@ void mainJt(void *argument)
 			} else if (mJtEv.evType == zCalibAuto) {
 				setZCalibAuto(mJtEv.mainUnion.zAuto);
 			} else if (mJtEv.evType == storeAlarmData) {
-				saveAlarmData(mJtEv.mainUnion.alarmData.alarmTime,mJtEv.mainUnion.alarmData.alarmNeeded);
+				saveAlarmData(mJtEv.mainUnion.alarmData.alarmTime,mJtEv.mainUnion.alarmData.alarmNeeded,
+						mJtEv.mainUnion.alarmData.zCalibOn);
 			} else if (mJtEv.evType == storeWeldingTime) {
 				saveWeldingTime(mJtEv.mainUnion.weldingTime);
 			} else if (mJtEv.evType == storeWeldingAmpere) {

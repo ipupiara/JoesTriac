@@ -38,6 +38,8 @@ float getDefinesWeldingAmps();
 
 uint8_t getDefinesAlarmNeeded();
 
+uint32_t getDefinesZCalibOn();
+
 uint32_t getDefinesAlarmTime();
 
 uint32_t getDefinesCalibHigh();
@@ -47,26 +49,26 @@ uint32_t getDefinesCalibLow();
 uint32_t getDefinesZeroPotiPos();
 
 tStatus saveWeldingTime(uint32_t wTime);
-
 tStatus saveWeldingAmps(float wAmps);
 
 tStatus saveCalibLow(uint32_t cHigh);
-
 tStatus saveCalibHigh(uint32_t cLow);
-
 tStatus saveZeroPotiPos(uint32_t val);
 
 tStatus saveAlarmNeeded(uint8_t aNeeded);
-
 tStatus saveAlarmTime(uint32_t aTime);
-
-tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded);
+tStatus saveZCalibOn(uint32_t val);
+tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded, uint32_t zCalibOn);
 
 void errorHandler(uint32_t  code, errorSeverity severity, char* errorString, char* method );
 
 tStatus initDefines();
 
 tStatus isCalibrationReady();
+
+uint32_t getCurrentAmpsADCValue();
+float getCurrentAmpsValue();
+void setAmpsADCValue(uint32_t val);
 
 void setZCalibAuto(uint32_t on);
 

@@ -37,7 +37,7 @@ alarmConfigScreenViewBase::alarmConfigScreenViewBase() :
     alarmTimeText.resizeToCurrentText();
     alarmTimeText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_Y4IF));
 
-    textArea2.setXY(475, 229);
+    textArea2.setXY(466, 141);
     textArea2.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea2.setLinespacing(0);
     textArea2.setTypedText(touchgfx::TypedText(T___SINGLEUSE_MZQ4));
@@ -65,25 +65,40 @@ alarmConfigScreenViewBase::alarmConfigScreenViewBase() :
     cancelButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     cancelButton.setAction(buttonCallback);
 
-    radioButtonOn.setXY(585, 224);
+    radioButtonOn.setXY(576, 136);
     radioButtonOn.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_INACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_ACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_NORMAL_ID));
     radioButtonOn.setSelected(true);
     radioButtonOn.setDeselectionEnabled(false);
 
-    radioButtonOff.setXY(660, 224);
+    radioButtonOff.setXY(651, 136);
     radioButtonOff.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_INACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_ACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID));
     radioButtonOff.setSelected(false);
     radioButtonOff.setDeselectionEnabled(false);
 
-    textArea3.setXY(594, 191);
+    textArea3.setXY(586, 108);
     textArea3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea3.setLinespacing(0);
     textArea3.setTypedText(touchgfx::TypedText(T___SINGLEUSE_EHX2));
 
-    textArea4.setXY(664, 191);
+    textArea4.setXY(653, 108);
     textArea4.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea4.setLinespacing(0);
     textArea4.setTypedText(touchgfx::TypedText(T___SINGLEUSE_CDHX));
+
+    textArea5.setXY(466, 229);
+    textArea5.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea5.setLinespacing(0);
+    textArea5.setTypedText(touchgfx::TypedText(T___SINGLEUSE_U7FD));
+
+    ZCalibOnButton.setXY(576, 218);
+    ZCalibOnButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_INACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_ACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_NORMAL_ID));
+    ZCalibOnButton.setSelected(true);
+    ZCalibOnButton.setDeselectionEnabled(false);
+
+    ZCalibOffButton.setXY(651, 218);
+    ZCalibOffButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_INACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_ACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID));
+    ZCalibOffButton.setSelected(false);
+    ZCalibOffButton.setDeselectionEnabled(false);
 
     add(__background);
     add(box1);
@@ -98,8 +113,13 @@ alarmConfigScreenViewBase::alarmConfigScreenViewBase() :
     add(radioButtonOff);
     add(textArea3);
     add(textArea4);
+    add(textArea5);
+    add(ZCalibOnButton);
+    add(ZCalibOffButton);
     radioButtonGroup1.add(radioButtonOn);
     radioButtonGroup1.add(radioButtonOff);
+    radioButtonGroup1.add(ZCalibOnButton);
+    radioButtonGroup1.add(ZCalibOffButton);
 }
 
 void alarmConfigScreenViewBase::setupScreen()

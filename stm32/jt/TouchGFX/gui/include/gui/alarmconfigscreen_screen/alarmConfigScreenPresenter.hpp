@@ -28,10 +28,10 @@ public:
     virtual ~alarmConfigScreenPresenter() {};
 
     uint8_t getAlarmNeeded();
-
+    uint32_t getZCalibOn();
     uint16_t getAlarmTime();
 
-    void  storeAlarmData(uint32_t aTime, uint8_t aNeeded);
+    void  storeAlarmData(uint32_t aTime, uint8_t aNeeded, uint32_t zCalibOn);
 
     virtual void tick();
 

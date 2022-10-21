@@ -26,6 +26,7 @@ protected:
 
     uint16_t  timeValueMin;
     uint8_t    alarmNeeded;
+    uint32_t   zCalibOn;
     void      setValArray(uint16_t val);
     void      recalcTimeMin();
     void      printCurrentValueTimeOnScreen();

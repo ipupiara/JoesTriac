@@ -6,6 +6,9 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_U7FD" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Z-calib</Translation>
+      </Text>
       <Text Id="__SingleUse_VTJB" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">off</Translation>
       </Text>
@@ -298,7 +301,7 @@
         <Translation Language="GB">desired ampere</Translation>
       </Text>
       <Text Id="__SingleUse_1T1P" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">configure alarm</Translation>
+        <Translation Language="GB">configure behaviour</Translation>
       </Text>
       <Text Id="__SingleUse_8CTH" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">enter calibration values</Translation>
@@ -307,7 +310,7 @@
         <Translation Language="GB">auto calibration process</Translation>
       </Text>
       <Text Id="__SingleUse_AOKD" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">Alarm config</Translation>
+        <Translation Language="GB">config</Translation>
       </Text>
       <Text Id="__SingleUse_GX36" Alignment="Center" TypographyId="Default">
         <Translation Language="GB">edit calib</Translation>

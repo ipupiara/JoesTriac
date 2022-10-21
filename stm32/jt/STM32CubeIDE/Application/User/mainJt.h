@@ -57,6 +57,7 @@ typedef struct  {
 		struct {
 			uint32_t     alarmTime;
 			uint8_t		alarmNeeded;
+			uint32_t    zCalibOn;
 		} alarmData;
 	} mainUnion;
 

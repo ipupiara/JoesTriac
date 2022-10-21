@@ -20,7 +20,17 @@
 
 
 
-extern float currentAmpsValue;
+float currentAmpsValue;
+uint32_t currentAmpsADCValue;
+
+uint32_t getCurrentAmpsADCValue()
+{
+	uint32_t res;
+	taskENTER_CRITICAL();
+	res = currentAmpsADCValue;
+	taskEXIT_CRITICAL();
+	return res;
+}
 
 float getCurrentAmpsValue()
 {
@@ -29,6 +39,13 @@ float getCurrentAmpsValue()
 	res = currentAmpsValue;
 	taskEXIT_CRITICAL();
 	return res;
+}
+
+void setAmpsADCValue(uint32_t val)
+{
+	taskENTER_CRITICAL();
+	currentAmpsADCValue = val;
+	taskEXIT_CRITICAL();
 }
 
 void sendActualValuesToRunScreen()
@@ -51,6 +68,7 @@ typedef struct {
 	float   weldingAmps;
 	uint32_t  calibLow, calibHigh, zeroPotiPos;
 	uint8_t  alarmNeeded;
+	uint8_t  zCalibOn;
 	uint32_t  alarmTime;
 } persistentData;
 
@@ -64,6 +82,7 @@ void initPersistendData()
 	persistentRec.calibHigh = 0;
 	persistentRec.alarmNeeded = 1;
 	persistentRec.alarmTime   = 12;
+	persistentRec.zCalibOn = 0;
 }
 
 tStatus savePersistendData()
@@ -119,6 +138,15 @@ uint32_t getDefinesAlarmTime()
 	aTime = persistentRec.alarmTime;
 	taskEXIT_CRITICAL();
 	return aTime;
+}
+
+uint32_t getDefinesZCalibOn()
+{
+	uint32_t res;
+	taskENTER_CRITICAL();
+	res = persistentRec.zCalibOn;
+	taskEXIT_CRITICAL();
+	return res;
 }
 
 uint32_t getDefinesCalibHigh()
@@ -282,11 +310,20 @@ tStatus saveAlarmTime(uint32_t aTime)
 	return success;
 }
 
-tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded)
+tStatus saveZCalibOn(uint32_t val)
+{
+	tStatus success = tOk;
+	persistentRec.zCalibOn = val;
+
+	return success;
+}
+
+tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded, uint32_t zCalibOn)
 {
 	tStatus success = tOk;
 	persistentRec.alarmTime = aTime;
 	persistentRec.alarmNeeded = aNeeded;
+	persistentRec.zCalibOn = (uint8_t) zCalibOn;
 
 	return success;
 }

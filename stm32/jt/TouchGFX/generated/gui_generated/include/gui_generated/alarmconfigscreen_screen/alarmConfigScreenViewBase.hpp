@@ -64,7 +64,10 @@ protected:
     touchgfx::RadioButton radioButtonOff;
     touchgfx::TextArea textArea3;
     touchgfx::TextArea textArea4;
-    touchgfx::RadioButtonGroup<2> radioButtonGroup1;
+    touchgfx::TextArea textArea5;
+    touchgfx::RadioButton ZCalibOnButton;
+    touchgfx::RadioButton ZCalibOffButton;
+    touchgfx::RadioButtonGroup<4> radioButtonGroup1;
 
     /*
      * Wildcard Buffers

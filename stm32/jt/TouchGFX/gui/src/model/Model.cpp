@@ -83,6 +83,7 @@ uint16_t Model::getAlarmTime()
 	res = (uint16_t) getDefinesAlarmTime();
 	return res;
 }
+
 uint8_t  Model::getAlarmNeeded()
 {
 	uint8_t res;
@@ -90,22 +91,30 @@ uint8_t  Model::getAlarmNeeded()
 	return res;
 }
 
-void Model::storeAlarmTime(uint16_t alTime)
+uint32_t Model::getZCalibOn()
 {
-
+	uint32_t res;
+	res = getDefinesZCalibOn();
+	return res;
 }
 
-void Model::storeAlarmNeeded(uint8_t alNeeded)
-{
+//void Model::storeAlarmTime(uint16_t alTime)
+//{
+//
+//}
+//
+//void Model::storeAlarmNeeded(uint8_t alNeeded)
+//{
+//
+//}
 
-}
-
-void Model::storeAlarm(uint8_t alNeeded, uint16_t alTime)
+void Model::storeAlarm(uint8_t alNeeded, uint16_t alTime, uint32_t zCalibOn)
 {
 	CMainJtEventT evt;
 	evt.evType = storeAlarmData;
 	evt.mainUnion.alarmData.alarmTime = alTime;
 	evt.mainUnion.alarmData.alarmNeeded = alNeeded;
+	evt.mainUnion.alarmData.zCalibOn = zCalibOn;
 	sendEventToMainJtMessageQ(&evt,0);
 }
 
@@ -117,6 +126,7 @@ void Model::restoreData()
 	alarmNeeded =  getDefinesAlarmNeeded();
 
 	alarmTime =  (uint16_t) getDefinesAlarmTime();
+	zCalibOn  =  getDefinesZCalibOn();
 }
 
 uint32_t Model::getCalibHigh()

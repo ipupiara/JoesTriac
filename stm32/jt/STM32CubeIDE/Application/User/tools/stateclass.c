@@ -157,16 +157,23 @@ void exitSetupIdleState(void)
 //	updateGradAmps();
 }
 
-uStInt evSetupIdle(void)
+uStInt evSetupIdleChecker(void)
 {
 	uStInt res = uStIntNoMatch;
 
 	if (currentEvent->evType == evAutoConfigPressed)
 	{
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateZeroSignal);
-			// No event action.
-		END_EVENT_HANDLER(PJoesTriacStateChart);
-		res =  uStIntHandlingDone;
+		if (getDefinesZCalibOn() == 1)  {
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateZeroSignal);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+		} else {
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateLow);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+		}
 	}
 
 	return res;
@@ -831,7 +838,7 @@ xStateType xaStates[eNumberOfStates] = {
 				eStateSetup,
 				-1,
 				0,
-				evSetupIdle,
+				evSetupIdleChecker,
 				tfNull,
 				entrySetupIdleState,
 				exitSetupIdleState},
