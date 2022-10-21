@@ -29,6 +29,9 @@ public:
     virtual ~calibrationScreenPresenter() {};
 
     virtual void tick();
+    void sendTriacDelayCalibCorrection(int32_t val);
+    void abortButtonPressed();
+    void continueButtonPressed();
 
  private:
     calibrationScreenPresenter();

@@ -7,6 +7,34 @@
 
 uint8_t durationTimerOn;
 
+float currentAmpsValue;
+uint32_t currentAmpsADCValue;
+
+uint32_t getCurrentAmpsADCValue()
+{
+	uint32_t res;
+	taskENTER_CRITICAL();
+	res = currentAmpsADCValue;
+	taskEXIT_CRITICAL();
+	return res;
+}
+
+float getCurrentAmpsValue()
+{
+	float  res;
+	taskENTER_CRITICAL();
+	res = currentAmpsValue;
+	taskEXIT_CRITICAL();
+	return res;
+}
+
+void setAmpsADCValue(uint32_t val)
+{
+	taskENTER_CRITICAL();
+	currentAmpsADCValue = val;
+	taskEXIT_CRITICAL();
+}
+
 
 //int64_t  secondCount;
 //

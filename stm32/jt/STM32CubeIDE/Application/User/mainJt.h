@@ -33,6 +33,10 @@ typedef enum {
 	saveCalibHi,
 	saveZPotiPos,
 	zCalibAuto,
+	calibTriacDelayDelta,
+	calibAbortClick,
+	calibContinueClick,
+	evCalibContinueClick,
 	storeWeldingTime,
 	storeWeldingAmpere,
 	storeAlarmData,
@@ -49,6 +53,7 @@ typedef struct  {
 	union {
 		uint32_t keyCode;
 		uint32_t zAuto;
+		int32_t calibTriDelayCorrection;
 		float   weldingAmps;
 		uint32_t  weldingTime;
 		uint32_t  calibLow;
@@ -73,7 +78,8 @@ extern osMessageQueueId_t    mainJtMessageQ;
 
 typedef enum {
 	calibState,
-	calibPotiPos,
+	calibTriacDelay,
+	calibDesiredAmps,
 	calibrateZeroPPScreenUpdate,
 	calibrationScreenUpdate,
 	runScreenUpdate
@@ -84,6 +90,8 @@ typedef struct  {
 	presenterMessageType messageType;
 	union {
 		char calibState  [20];
+		uint32_t calibTriacDelay;
+		float    desiredAmps;
 		struct {
 			float   	amps;
 			uint16_t  potiPos;
@@ -94,8 +102,8 @@ typedef struct  {
 			uint32_t  potiPos;
 		} calibZeroPPScreenData;
 		struct {
-			float   	 amps;
-			uint32_t  secsRemain;
+			float     adcVolts;
+			uint32_t  adcValue;
 		} calibrationScreenData;
 	}  evData;
 } CJoesPresenterEventT ;

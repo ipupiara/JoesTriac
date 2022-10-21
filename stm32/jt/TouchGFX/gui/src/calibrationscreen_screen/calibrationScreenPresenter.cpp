@@ -21,6 +21,28 @@ void calibrationScreenPresenter::deactivate()
 	presenterActive = 0;
 }
 
+void calibrationScreenPresenter::sendTriacDelayCalibCorrection(int32_t val)
+{
+	CMainJtEventT msg;
+	msg.evType = calibTriacDelayDelta;
+	msg.mainUnion.calibTriDelayCorrection = val;
+	sendEventToMainJtMessageQ(&msg, 0);
+}
+
+void calibrationScreenPresenter::abortButtonPressed()
+{
+	CMainJtEventT msg;
+	msg.evType = calibAbortClick;
+	sendEventToMainJtMessageQ(&msg, 0);
+}
+void calibrationScreenPresenter::continueButtonPressed()
+{
+	CMainJtEventT msg;
+	msg.evType = calibContinueClick;
+	sendEventToMainJtMessageQ(&msg, 0);
+}
+
+
 void calibrationScreenPresenter::tick()
 {
 	CJoesPresenterEventT  presenterMessage;
@@ -30,11 +52,14 @@ void calibrationScreenPresenter::tick()
 		{
 			if ( osMessageQueueGet ( presenterMessageQ, &presenterMessage, NULL, 0) == osOK)  {
 				if (presenterMessage.messageType ==  calibrationScreenUpdate) {
-					view.update(presenterMessage.evData.calibrationScreenData.amps,
-							presenterMessage.evData.calibrationScreenData.secsRemain);
+					view.updateAmpsValues(presenterMessage.evData.calibrationScreenData.adcVolts,
+							presenterMessage.evData.calibrationScreenData.adcValue);
 				}
-				if (presenterMessage.messageType ==  calibPotiPos) {
-					view.updateState(presenterMessage.evData.calibState);
+				if (presenterMessage.messageType ==  calibTriacDelay) {
+					view.updateTriacDelay(presenterMessage.evData.calibTriacDelay);
+				}
+				if (presenterMessage.messageType ==  calibDesiredAmps) {
+					view.updateDesiredAmps(presenterMessage.evData.desiredAmps);
 				}
 			}
 		}

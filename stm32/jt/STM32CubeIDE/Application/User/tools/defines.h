@@ -66,13 +66,11 @@ tStatus initDefines();
 
 tStatus isCalibrationReady();
 
-uint32_t getCurrentAmpsADCValue();
-float getCurrentAmpsValue();
-void setAmpsADCValue(uint32_t val);
 
 void setZCalibAuto(uint32_t on);
 
 void sendActualValuesToRunScreen();
+void calibTriacDelayChange(int32_t diff);
 
 #ifdef  __cplusplus
 }

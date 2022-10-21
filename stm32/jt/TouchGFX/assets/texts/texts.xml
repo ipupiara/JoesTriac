@@ -6,6 +6,18 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_EB81" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">continue</Translation>
+      </Text>
+      <Text Id="__SingleUse_STEN" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0000</Translation>
+      </Text>
+      <Text Id="__SingleUse_14SY" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_I5ZJ" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">adc Value</Translation>
+      </Text>
       <Text Id="__SingleUse_U7FD" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">Z-calib</Translation>
       </Text>
@@ -17,9 +29,6 @@
       </Text>
       <Text Id="__SingleUse_Z53N" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">auto finetune &amp; continue</Translation>
-      </Text>
-      <Text Id="__SingleUse_MGE6" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">waiting</Translation>
       </Text>
       <Text Id="__SingleUse_0C4U" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">waiting...</Translation>
@@ -263,12 +272,6 @@
       </Text>
       <Text Id="__SingleUse_J3DJ" Alignment="Center" TypographyId="Default">
         <Translation Language="GB">abort</Translation>
-      </Text>
-      <Text Id="__SingleUse_JNJA" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">&lt;value&gt;</Translation>
-      </Text>
-      <Text Id="__SingleUse_VANS" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">state of process:</Translation>
       </Text>
       <Text Id="__SingleUse_UKCC" Alignment="Center" TypographyId="Default">
         <Translation Language="GB">minus 1</Translation>

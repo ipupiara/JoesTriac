@@ -148,19 +148,11 @@ public:
 
 
     uint16_t getWeldingTimeSec();
-
-    void setWeldingTimeSec(uint16_t  tm)
-    {
-    	weldingTime = tm;
-    }
-
     void storeWeldingTimeSec(uint16_t  tm);
 
     uint16_t getAlarmTime();
     uint8_t  getAlarmNeeded();
     uint32_t getZCalibOn();
-//    void storeAlarmTime(uint16_t alTime);
-//    void storeAlarmNeeded(uint8_t alNeeded);
     void storeAlarm(uint8_t alNeeded, uint16_t alTime, uint32_t zCalibOn);
     float getWeldingAmps();
     void storeWeldingAmps(float amps);
@@ -174,11 +166,11 @@ public:
     void   resetCalibValues();
 
 protected:
-    int16_t weldingTime;
-    uint32_t weldingAmps;
-    uint16_t alarmTime;
-    uint8_t alarmNeeded;
-    uint32_t zCalibOn;
+//    int16_t weldingTime;
+//    uint32_t weldingAmps;
+//    uint16_t alarmTime;
+//    uint8_t alarmNeeded;
+//    uint32_t zCalibOn;
 
 
 ////   basic methods

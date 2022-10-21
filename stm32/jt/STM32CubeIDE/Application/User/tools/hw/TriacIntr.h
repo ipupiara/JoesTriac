@@ -18,6 +18,9 @@ extern "C"
 extern int64_t  secondCount;
 
 
+uint32_t getCurrentAmpsADCValue();
+float getCurrentAmpsValue();
+void setAmpsADCValue(uint32_t val);
 
 
 

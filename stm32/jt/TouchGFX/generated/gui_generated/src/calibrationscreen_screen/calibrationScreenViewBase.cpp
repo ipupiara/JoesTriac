@@ -84,19 +84,6 @@ calibrationScreenViewBase::calibrationScreenViewBase() :
     minus1Button.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     minus1Button.setAction(buttonCallback);
 
-    textArea4.setXY(24, 357);
-    textArea4.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    textArea4.setLinespacing(0);
-    textArea4.setTypedText(touchgfx::TypedText(T___SINGLEUSE_VANS));
-
-    processStateText.setXY(277, 357);
-    processStateText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    processStateText.setLinespacing(0);
-    Unicode::snprintf(processStateTextBuffer, PROCESSSTATETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_MGE6).getText());
-    processStateText.setWildcard(processStateTextBuffer);
-    processStateText.resizeToCurrentText();
-    processStateText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_JNJA));
-
     abortButton.setXY(26, 397);
     abortButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
     abortButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_J3DJ));
@@ -117,6 +104,26 @@ calibrationScreenViewBase::calibrationScreenViewBase() :
     textArea5.setLinespacing(0);
     textArea5.setTypedText(touchgfx::TypedText(T___SINGLEUSE_X3FF));
 
+    textArea6.setXY(26, 329);
+    textArea6.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea6.setLinespacing(0);
+    textArea6.setTypedText(touchgfx::TypedText(T___SINGLEUSE_I5ZJ));
+
+    adcValueText.setXY(213, 329);
+    adcValueText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    adcValueText.setLinespacing(0);
+    Unicode::snprintf(adcValueTextBuffer, ADCVALUETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_STEN).getText());
+    adcValueText.setWildcard(adcValueTextBuffer);
+    adcValueText.resizeToCurrentText();
+    adcValueText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_14SY));
+
+    continueButton.setXY(277, 397);
+    continueButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
+    continueButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_EB81));
+    continueButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    continueButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    continueButton.setAction(buttonCallback);
+
     add(__background);
     add(box1);
     add(textArea1);
@@ -129,11 +136,12 @@ calibrationScreenViewBase::calibrationScreenViewBase() :
     add(minus100Button);
     add(minus10Button);
     add(minus1Button);
-    add(textArea4);
-    add(processStateText);
     add(abortButton);
     add(adcVoltageText);
     add(textArea5);
+    add(textArea6);
+    add(adcValueText);
+    add(continueButton);
 }
 
 void calibrationScreenViewBase::setupScreen()
@@ -182,14 +190,21 @@ void calibrationScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractBu
     {
         //minus1ButtonPressed
         //When minus1Button clicked call virtual function
-        //Call function1
-        function1();
+        //Call minus1ButtonPressed
+        minus1ButtonPressed();
     }
     else if (&src == &abortButton)
     {
-        //Interaction6
+        //abortButtonPressed
         //When abortButton clicked call virtual function
         //Call abortButtonPressed
         abortButtonPressed();
+    }
+    else if (&src == &continueButton)
+    {
+        //continueButtonPressed
+        //When continueButton clicked call virtual function
+        //Call continueButtonPressed
+        continueButtonPressed();
     }
 }

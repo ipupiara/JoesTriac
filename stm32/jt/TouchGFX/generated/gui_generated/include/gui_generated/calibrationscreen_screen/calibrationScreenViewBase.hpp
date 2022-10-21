@@ -47,12 +47,17 @@ public:
         // Override and implement this function in calibrationScreen
     }
 
-    virtual void function1()
+    virtual void minus1ButtonPressed()
     {
         // Override and implement this function in calibrationScreen
     }
 
     virtual void abortButtonPressed()
+    {
+        // Override and implement this function in calibrationScreen
+    }
+
+    virtual void continueButtonPressed()
     {
         // Override and implement this function in calibrationScreen
     }
@@ -77,11 +82,12 @@ protected:
     touchgfx::ButtonWithLabel minus100Button;
     touchgfx::ButtonWithLabel minus10Button;
     touchgfx::ButtonWithLabel minus1Button;
-    touchgfx::TextArea textArea4;
-    touchgfx::TextAreaWithOneWildcard processStateText;
     touchgfx::ButtonWithLabel abortButton;
     touchgfx::TextAreaWithOneWildcard adcVoltageText;
     touchgfx::TextArea textArea5;
+    touchgfx::TextArea textArea6;
+    touchgfx::TextAreaWithOneWildcard adcValueText;
+    touchgfx::ButtonWithLabel continueButton;
 
     /*
      * Wildcard Buffers
@@ -90,10 +96,10 @@ protected:
     touchgfx::Unicode::UnicodeChar ampereTextBuffer[AMPERETEXT_SIZE];
     static const uint16_t DELAYTEXT_SIZE = 10;
     touchgfx::Unicode::UnicodeChar delayTextBuffer[DELAYTEXT_SIZE];
-    static const uint16_t PROCESSSTATETEXT_SIZE = 22;
-    touchgfx::Unicode::UnicodeChar processStateTextBuffer[PROCESSSTATETEXT_SIZE];
     static const uint16_t ADCVOLTAGETEXT_SIZE = 10;
     touchgfx::Unicode::UnicodeChar adcVoltageTextBuffer[ADCVOLTAGETEXT_SIZE];
+    static const uint16_t ADCVALUETEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar adcValueTextBuffer[ADCVALUETEXT_SIZE];
 
 private:
 

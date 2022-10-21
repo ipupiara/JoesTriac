@@ -98,16 +98,6 @@ uint32_t Model::getZCalibOn()
 	return res;
 }
 
-//void Model::storeAlarmTime(uint16_t alTime)
-//{
-//
-//}
-//
-//void Model::storeAlarmNeeded(uint8_t alNeeded)
-//{
-//
-//}
-
 void Model::storeAlarm(uint8_t alNeeded, uint16_t alTime, uint32_t zCalibOn)
 {
 	CMainJtEventT evt;
@@ -120,13 +110,13 @@ void Model::storeAlarm(uint8_t alNeeded, uint16_t alTime, uint32_t zCalibOn)
 
 void Model::restoreData()
 {
-	weldingTime = (uint16_t) getDefinesWeldingTime();
-	weldingAmps=  getDefinesWeldingAmps();
-
-	alarmNeeded =  getDefinesAlarmNeeded();
-
-	alarmTime =  (uint16_t) getDefinesAlarmTime();
-	zCalibOn  =  getDefinesZCalibOn();
+//	weldingTime = (uint16_t) getDefinesWeldingTime();
+//	weldingAmps=  getDefinesWeldingAmps();
+//
+//	alarmNeeded =  getDefinesAlarmNeeded();
+//
+//	alarmTime =  (uint16_t) getDefinesAlarmTime();
+//	zCalibOn  =  getDefinesZCalibOn();
 }
 
 uint32_t Model::getCalibHigh()

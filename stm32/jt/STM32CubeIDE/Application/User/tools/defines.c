@@ -20,33 +20,8 @@
 
 
 
-float currentAmpsValue;
-uint32_t currentAmpsADCValue;
 
-uint32_t getCurrentAmpsADCValue()
-{
-	uint32_t res;
-	taskENTER_CRITICAL();
-	res = currentAmpsADCValue;
-	taskEXIT_CRITICAL();
-	return res;
-}
 
-float getCurrentAmpsValue()
-{
-	float  res;
-	taskENTER_CRITICAL();
-	res = currentAmpsValue;
-	taskEXIT_CRITICAL();
-	return res;
-}
-
-void setAmpsADCValue(uint32_t val)
-{
-	taskENTER_CRITICAL();
-	currentAmpsADCValue = val;
-	taskEXIT_CRITICAL();
-}
 
 void sendActualValuesToRunScreen()
 {
@@ -366,5 +341,14 @@ tStatus initDefines()
 	success = restorePersistenData();
 
 	return success;
+}
+
+void calibTriacDelayChange(int32_t diff)
+{
+   //   change variable
+	CJoesPresenterEventT msg;
+	msg.messageType = calibTriacDelay;
+	msg.evData.calibTriacDelay = diff;
+	sendPresenterMessage(&msg);
 }
 

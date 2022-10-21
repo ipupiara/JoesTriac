@@ -15,12 +15,32 @@ void calibrationScreenView::tearDownScreen()
     calibrationScreenViewBase::tearDownScreen();
 }
 
-void calibrationScreenView::update(float amps, uint32_t secondsRemaining)
+void calibrationScreenView::updateAmpsValues(float amps, uint32_t adc)
 {
 
 }
 
-void calibrationScreenView::updateState(char* txt)
+void calibrationScreenView::updateTriacDelay(uint32_t val)
 {
 
+}
+
+void calibrationScreenView::updateDesiredAmps(float amps)
+{
+
+}
+
+void calibrationScreenView::sendTriacDelayCalibCorrection(int32_t val)
+{
+	presenter->sendTriacDelayCalibCorrection(val);
+}
+
+void calibrationScreenView::abortButtonPressed()
+{
+	presenter->abortButtonPressed();
+}
+
+void calibrationScreenView::continueButtonPressed()
+{
+	presenter->continueButtonPressed();
 }
