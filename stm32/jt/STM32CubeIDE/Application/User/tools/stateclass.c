@@ -34,8 +34,9 @@ enum eStates
 						eStateCalibrateLow,
 						eStateCalibrateHigh,
 			eStateTriacIdle,
-			eStateTriacRunning,
-			eStateRequestStop,
+			eStateTriacActive,
+				eStateTriacRunning,
+				eStateRequestStop,
 			eStateJobOkDisplay,
 		eStateFatalError,
 	eNumberOfStates
@@ -441,14 +442,38 @@ uStInt evSetupChecker(void)
 }
 
 
-void entryTriacRunningState(void)
+void entryTriacActiveState(void)
 {
-	info_printf("entryTriacRunningState\n");
+	info_printf("entryTriacActiveState\n");
 	startDurationTimer(getDefinesWeldingTime());
 //	startDurationTimer(maxSecsPossible);   // sometimes used for debugging
 //	setTriacFireDuration(calibLowTriacFireDuration);  // start defined,  not just somewhere
 //												// because of 220 V fuse ejects
 //												// lowCalib seems better choice than 0  todo tobe tested ... old comment  from before "rail" times
+
+}
+
+void exitTriacActiveState(void)
+{
+	stopDurationTimer();
+}
+
+uStInt evTriacActiveChecker(void)
+{
+	uStInt res = uStIntNoMatch;
+
+	if (currentEvent->evType == evTimeOutDurationTimer) {
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateJobOkDisplay);
+			// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
+	return res;
+}
+
+void entryTriacRunningState(void)
+{
+	info_printf("entryTriacRunningState\n");
 	setTriacFireDuration(0);
 	startTriacRun();
 
@@ -459,8 +484,7 @@ void entryTriacRunningState(void)
 
 void exitTriacRunningState(void)
 {
-	info_printf("exit Running\n");
-	stopDurationTimer();
+	haltDurationTimer();
 	stopTriacRun();
 }
 
@@ -469,17 +493,12 @@ uStInt evTriacRunningChecker(void)
 	uStInt res = uStIntNoMatch;
 
 	if (currentEvent->evType == evStopPressed)  {	
-			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateRequestStop);
 				// No event action.
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 	}		
-	if (currentEvent->evType == evTimeOutDurationTimer) {
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateJobOkDisplay);
-			// No event action.
-		END_EVENT_HANDLER(PJoesTriacStateChart);
-		res =  uStIntHandlingDone;
-	}			
+
 	if (currentEvent->evType == evSecondsTick) {
 		sendActualValuesToRunScreen();
 		res =  uStIntHandlingDone;
@@ -496,24 +515,16 @@ uStInt evTriacRunningChecker(void)
 void entryRequestStopState(void)
 {
 	info_printf("entryRequestStopState\n");
-//	startDurationTimer(getDefinesWeldingTime());
-//	startDurationTimer(maxSecsPossible);   // sometimes used for debugging
-//	setTriacFireDuration(calibLowTriacFireDuration);  // start defined,  not just somewhere
-//												// because of 220 V fuse ejects
-//												// lowCalib seems better choice than 0  todo tobe tested ... old comment  from before "rail" times
-	setTriacFireDuration(0);
-	startTriacRun();
 
 	CJoesModelEventT  msg;
-	msg.messageType = changeToRunScreen;
+	msg.messageType = changeToRequestStopScreen;
 	sendModelMessage(&msg);
+	void setBuzzerOn();
 }
 
 void exitRequestStopState(void)
 {
 //	info_printf("exit Running\n");
-	stopDurationTimer();
-	stopTriacRun();
 }
 
 uStInt evRequestStopChecker(void)
@@ -528,7 +539,8 @@ uStInt evRequestStopChecker(void)
 	}
 
 	if (currentEvent->evType == evSecondsTick) {
-		sendActualValuesToRunScreen();
+		toggleBuzzer();
+		sendActualValuesToRequestStopScreen();
 		res =  uStIntHandlingDone;
 	}
 	return res;
@@ -548,6 +560,7 @@ void entryJobOkDisplayState(void)
 
 void exitJobOkDisplayState(void)
 {
+	void setBuzzerOff();
 //	printf("exit I\n");
 //	setCompletionAlarmOff();
 //	stopDurationTimer();
@@ -614,23 +627,6 @@ t_fvoid  tfNull;
 
 // attention: sequence must be the same as above enum eStates
 
-/*
-	eStateJoesTriac,
-		eStartState = eStateJoesTriac,  // decide calib or idle
-		eStateTriacOperating,
-			eStateSetup,  // calibration/setup
-				eStateSetupIdle,   // manual
-				eStateAutoCalibrating,		// autoCalibrate
-					eStateCalibrateZeroSignal,
-					eStateCalibratingScale,
-						eStateCalibrateLow,
-						eStateCalibrateHigh,
-			eStateTriacIdle,
-			eStateTriacRunning,
-			eStateJobOkDisplay,
-		eStateFatalError,
-	eNumberOfStates
-*/
 
 xStateType xaStates[eNumberOfStates] = {
  	{eStateJoesTriac,    // name
@@ -733,24 +729,32 @@ xStateType xaStates[eNumberOfStates] = {
 			entryTriacIdleState,
 			exitTriacIdleState},
 
-
-			{eStateTriacRunning,
+			{eStateTriacActive,
 			eStateTriacOperating,
-			-1,
+			eStateTriacRunning,
 			0,
-			evTriacRunningChecker,
+			evTriacActiveChecker,
 			tfNull,
-			entryTriacRunningState,
-			exitTriacRunningState},
+			entryTriacActiveState,
+			exitTriacActiveState},
 
-			{eStateRequestStop,
-			eStateTriacOperating,
-			-1,
-			0,
-			evRequestStopChecker,
-			tfNull,
-			entryRequestStopState,
-			exitTriacRunningState},
+				{eStateTriacRunning,
+				eStateTriacActive,
+				-1,
+				0,
+				evTriacRunningChecker,
+				tfNull,
+				entryTriacRunningState,
+				exitTriacRunningState},
+
+				{eStateRequestStop,
+				eStateTriacActive,
+				-1,
+				0,
+				evRequestStopChecker,
+				tfNull,
+				entryRequestStopState,
+				exitRequestStopState},
 
 			{eStateJobOkDisplay,
 			eStateTriacOperating,

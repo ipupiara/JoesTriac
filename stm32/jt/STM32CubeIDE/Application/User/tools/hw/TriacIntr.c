@@ -10,6 +10,21 @@ uint8_t durationTimerOn;
 float currentAmpsValue;
 uint32_t currentAmpsADCValue;
 
+void setBuzzerOn()
+{
+
+}
+
+void setBuzzerOff()
+{
+
+}
+
+void toggleBuzzer()
+{
+
+}
+
 uint32_t getCurrentAmpsADCValue()
 {
 	uint32_t res;
@@ -467,9 +482,19 @@ void startDurationTimer(int16_t secs)
 void stopDurationTimer()
 {
 	durationTimerOn = 0;
+	secondsDurationTimerRemaining = 0;
+	secondsInDurationTimer = 0;
 }
 
+void resumeDurationTimer()
+{
+	durationTimerOn = 1;
+}
 
+void haltDurationTimer()
+{
+	durationTimerOn = 0;
+}
 
 int16_t getSecondsDurationTimerRemaining()
 {

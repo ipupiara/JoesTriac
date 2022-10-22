@@ -43,6 +43,20 @@ void sendActualValuesToRunScreen()
 	sendPresenterMessage(&presenterMessage);
 }
 
+void sendActualValuesToRequestStopScreen()
+{
+	float amps = getCurrentAmpsValue() ;
+	uint32_t time = getSecondsDurationTimerRemaining();
+
+	CJoesPresenterEventT  presenterMessage;
+	presenterMessage.messageType=runScreenUpdate;
+	presenterMessage.evData.runScreenData.secondsRemaining= time;
+	presenterMessage.evData.runScreenData.amps= amps;
+	presenterMessage.evData.runScreenData.potiPos= 50;
+
+	sendPresenterMessage(&presenterMessage);
+}
+
 
 typedef struct {
 	uint32_t weldingTime;

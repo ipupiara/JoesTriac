@@ -125,6 +125,7 @@ extern osMessageQueueId_t    presenterMessageQ;
 
 typedef enum {
 	changeToRunScreen = 0,
+	changeToRequestStopScreen,
 	changeToMainScreen,
 	changeToConfigScreen,
 	changeToCalibrateZeroScreen,

@@ -39,10 +39,14 @@ void setAmpsADCValue(uint32_t val);
 void startDurationTimer(int16_t secs);
 int16_t getSecondsDurationTimerRemaining();
 int16_t getSecondsInDurationTimer();
-
+void resumeDurationTimer();
+void haltDurationTimer();
 void stopDurationTimer();
-
 void durationTimerTick();
+
+void setBuzzerOn();
+void setBuzzerOff();
+void toggleBuzzer();
 
 float lastAmpsValF();
 
