@@ -93,48 +93,81 @@ void mainJt(void *argument)
 	do  {
 		memset(&mJtEv, 0, sizeof(mJtEv));  //  todo sort ifs for best performance,
 		if ((status = osMessageQueueGet(mainJtMessageQ,(void *) &mJtEv, &prio, osWaitForever)) == osOK )  {
-			if (mJtEv.evType == secondTick) {
-					durationTimerTick();
-					fsmEv.evType=evSecondsTick;
-					processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
-//			} else if (mJtEv.evType == zCalibAuto) {
-//				setZCalibAuto(mJtEv.mainUnion.zAuto);
-			} else if (mJtEv.evType == calibTriacDelayDelta) {
-				calibTriacDelayChange(mJtEv.mainUnion.calibTriDelayCorrection);
-			} else if (mJtEv.evType == storeAlarmData) {
-				saveAlarmData(mJtEv.mainUnion.alarmData.alarmTime,mJtEv.mainUnion.alarmData.alarmNeeded,
-						mJtEv.mainUnion.alarmData.zCalibOn);
-			} else if (mJtEv.evType == storeWeldingTime) {
-				saveWeldingTime(mJtEv.mainUnion.weldingTime);
-			} else if (mJtEv.evType == storeWeldingAmpere) {
-				saveWeldingAmps(mJtEv.mainUnion.weldingAmps);
-			} else if (mJtEv.evType == saveZPotiPos) {
-				saveZeroPotiPos(mJtEv.mainUnion.zPotiPos);
-			} else if (mJtEv.evType == saveCalibLo) {
-				saveCalibLow(mJtEv.mainUnion.calibLow);
-			} else if (mJtEv.evType == saveCalibHi) {
-				saveCalibHigh(mJtEv.mainUnion.calibHigh);
-			} else if (mJtEv.evType == configBackPressed)  {
-				fsmEv.evType=configBackPressed;
-				processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
-			} else if (mJtEv.evType == configPressed)  {
-				fsmEv.evType=evConfigPressed;
-				processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
-			} else if (mJtEv.evType == calibAbortClick)  {
-				fsmEv.evType=evCalibAbortClick;
-				processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
-			} else if (mJtEv.evType == calibContinueClick)  {
-				fsmEv.evType=evCalibContinueClick;
-				processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
-			} else if (mJtEv.evType == calibSkipClick)  {
-				fsmEv.evType=evCalibSkipClick;
-				processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
-			} else
-			if (mJtEv.evType == autoConfigPressed)  {
-				fsmEv.evType=evAutoConfigPressed;
-				processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
+			switch (mJtEv.evType) {
+						case secondTick: {
+							durationTimerTick();
+							fsmEv.evType=evSecondsTick;
+							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
+							break;
+						}
+//						case zCalibAuto: {
+//								setZCalibAuto(mJtEv.mainUnion.zAuto);
+//								break;
+//						}
+						case calibTriacDelayDelta: {
+							calibTriacDelayChange(mJtEv.mainUnion.calibTriDelayCorrection);
+							break;
+						}
+						case storeAlarmData: {
+							saveAlarmData(mJtEv.mainUnion.alarmData.alarmTime,mJtEv.mainUnion.alarmData.alarmNeeded,
+													mJtEv.mainUnion.alarmData.zCalibOn);
+							break;
+						}
+						case storeWeldingTime: {
+							saveWeldingTime(mJtEv.mainUnion.weldingTime);
+							break;
+						}
+						case storeWeldingAmpere: {
+							saveWeldingAmps(mJtEv.mainUnion.weldingAmps);
+							break;
+						}
+//						case saveZPotiPos: {
+//							saveZeroPotiPos(mJtEv.mainUnion.zPotiPos);
+//							break;
+//						}
+						case saveCalibLo: {
+							saveCalibLow(mJtEv.mainUnion.calibLow);
+							break;
+						}
+						case saveCalibHi: {
+							saveCalibHigh(mJtEv.mainUnion.calibHigh);
+							break;
+						}
+						case configBackPressed: {
+							fsmEv.evType=configBackPressed;
+							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
+							break;
+						}
+						case configPressed: {
+							fsmEv.evType=evConfigPressed;
+							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
+							break;
+						}
+						case calibAbortClick: {
+							fsmEv.evType=evCalibAbortClick;
+							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
+							break;
+						}
+						case calibContinueClick: {
+							fsmEv.evType=evCalibContinueClick;
+							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
+							break;
+						}
+						case calibSkipClick: {
+							fsmEv.evType=evCalibSkipClick;
+							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
+							break;
+						}
+						case autoConfigPressed: {
+							fsmEv.evType=evAutoConfigPressed;
+							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
+							break;
+						}
+						default : {
+								errorHandler(mJtEv.evType ,goOn," osMessageQueueGet unknown event "," mainJt ");
+						}
 			}
-		}  else {
+		} else {
 			errorHandler((uint32_t)status ,goOn," osMessageQueueGet "," mainJt ");
 		}
 	}  while (1);

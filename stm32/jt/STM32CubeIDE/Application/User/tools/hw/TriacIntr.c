@@ -118,8 +118,8 @@ int16_t secondsInDurationTimer;
 //	startTimer2();
 //}
 //
-//void setTriacFireDuration(int16_t durationTcnt2)
-//{
+void setTriacFireDuration(int32_t durationTcnt2)
+{
 //	cli();
 //	if (durationTcnt2 < triggerDelayMaxTcnt2) {
 //		if (durationTcnt2 > 0) {
@@ -131,7 +131,7 @@ int16_t secondsInDurationTimer;
 //		triacFireDurationTcnt2 = triggerDelayMaxTcnt2;
 //	}
 //	sei();
-//}
+}
 //
 //void calcAmtInductiveRepetitions(int16_t triacFireDurationTcnt2)
 //{
@@ -375,24 +375,24 @@ int16_t secondsInDurationTimer;
 //	TIMSK0  = 0b00000000;  //
 //}
 //
-//void startTriacRun()
-//{
+void startTriacRun()
+{
 //	resetPID();
 //	resetCircuitAlarms();
 //	startAmpsADC();
 //	EIFR = 0x00;
 //	EIMSK = 0x01;  				// start external interrupt (zero pass detection)
-//}
+}
 //
-//void stopTriacRun()
-//{
+void stopTriacRun()
+{
 //	resetCircuitAlarms();    // stops also circuit alarms (shortCircuit, DValue)
 //	EIMSK = 0x00;				// stop external interrupt
 //	cli();
 //	stopTimer2();
 //	sei();
 //	stopAmpsADC();
-//}
+}
 //
 //int16_t ampsADCValue()
 //{

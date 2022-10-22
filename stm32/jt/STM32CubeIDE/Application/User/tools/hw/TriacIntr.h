@@ -47,15 +47,14 @@ void durationTimerTick();
 float lastAmpsValF();
 
 //void initInterrupts();
-//void setTriacFireDuration(int16_t cmsecs);
-//void startTriacRun();
-//void stopTriacRun();
+void setTriacFireDuration(int32_t cmsecs);
+void startTriacRun();
+void stopTriacRun();
 //
 //void setCompletionAlarmOn();
 //void setCompletionAlarmOff();
 //void toggleCompletionAlarm();
-//void checkShortCircuitCondition();  // see comments at implementation in .c file
-//void resetCircuitAlarms();
+
 //
 //void printDValueVars();
 //

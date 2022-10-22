@@ -66,7 +66,7 @@ tStatus initDefines();
 
 tStatus isCalibrationReady();
 
-
+extern uint32_t desiredWeldingTimeS;
 void setZCalibAuto(uint32_t on);
 
 void sendActualValuesToCalibScreen();

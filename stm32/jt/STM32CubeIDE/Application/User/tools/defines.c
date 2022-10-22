@@ -19,7 +19,6 @@
 // despite trying all found examples on google and stm (also for F769Ni)  .... this stm  microSd bu..it did not work
 
 
-
 void sendActualValuesToCalibScreen()
 {
 	CJoesPresenterEventT  msg;

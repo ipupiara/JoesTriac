@@ -35,6 +35,7 @@ enum eStates
 						eStateCalibrateHigh,
 			eStateTriacIdle,
 			eStateTriacRunning,
+			eStateRequestStop,
 			eStateJobOkDisplay,
 		eStateFatalError,
 	eNumberOfStates
@@ -367,15 +368,7 @@ void entryTriacIdleState(void)
 
 void exitTriacIdleState(void)
 {
-//	printf("exitTriacIdleState\n");
-//	stopDurationTimer();
-//    if (!fatalErrorOccurred) {
-//		if (!setAdjustJob(jobIdle)) {
-//			sprintf((char *) &lastFatalErrorString,"i2c comms err");
-//			fatalErrorOccurred = 1;
-//		}
-//	}
-//	clr_scr();
+
 }
 
 uStInt evTriacIdleChecker(void)
@@ -430,16 +423,6 @@ uStInt evSetupChecker(void)
 	uStInt res = uStIntNoMatch;
 	printf("\ncheck for event in State evStateIdle");
 
-
-//	if (currentEvent->evType == evTWIDataReceived)
-//	// do writing  only in edit idle, not to interfere with the edit-cursor position
-//	// could be done also by laying edit-cursor pos "on stack" and set again after write,
-//	 //  but lets first try with this simpler version ... should be ok as well
-//	{
-////		checkTWIZeroAdjustMsg();
-////		displayPotiVolatile();
-//	}
-
 	if (currentEvent->evType == evConfigOkPressed)  {
 		if (isCalibrationReady() == tOk) {
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
@@ -454,172 +437,36 @@ uStInt evSetupChecker(void)
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
 	}
-
 	return res;
 }
-
-//void entryEditAmpsState(void)
-//{
-////	printf("entry I\n");
-////	displayEditAmps();
-////	keyInd = 0;
-////	displayAmps(keyInd);
-//}
-//
-//void exitEditAmpsState(void)
-//{
-////	printf("exit I\n");
-////	displayAmps(-1);
-//}
-//
-//uStInt evEditAmpsChecker(void)
-//{
-//	uStInt res = uStIntNoMatch;
-//	//	printf("check for event in State evStateIdle\n");
-//
-////	if (currentEvent->evType == evNumPressed)  {
-////////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditDuration);
-//////			// No event action.
-//////		END_EVENT_HANDLER(PJoesTriacStateChart);
-//////		res =  uStIntHandlingDone;
-////	}
-////			if (currentEvent->evType == evAstPressed)  {
-////////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
-//////			// No event action.
-//////		END_EVENT_HANDLER(PJoesTriacStateChart);
-//////		res =  uStIntHandlingDone;
-////	}
-////
-////	if (currentEvent->evType == evCharEntered) {
-////
-////	//  TODO:	editChar(currentEvent,storeAmps100,keyInd,3,Amps);  //( , , amps)  struct editLine (char,amtChar,zeroPos,storeMethod[])
-////	//
-////
-//////		if ((currentEvent->evData.keyCode <= kp9) && (currentEvent->evData.keyCode >= kp0)) {
-//////			switch (keyInd)
-//////			{
-//////				case 0:
-//////					storeAmps100(currentEvent->evData.keyCode);
-//////					break;
-//////				case 1:
-//////					storeAmps10(currentEvent->evData.keyCode);
-//////					break;
-//////				case 2:
-//////					storeAmps(currentEvent->evData.keyCode);
-//////					BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
-//////
-//////					END_EVENT_HANDLER(PJoesTriacStateChart);
-//////			}
-//////			keyInd ++;
-//////			displayAmps(keyInd);  // if keyInd = 3, dispAmps can be done again in next State, no matter
-//////
-//////		res =  uStIntHandlingDone;
-//////		}
-////	}
-//	return res;
-//}
-//
-//
-//void entryEditDurationState(void)
-//{
-////	printf("entry I\n");
-////	displayEditDuration();
-////	keyInd = 0;
-////	displayTime(keyInd);
-//}
-//
-//void exitEditDurationState(void)
-//{
-////	printf("exit I\n");
-////	displayTime(-1);
-//}
-//
-//uStInt evEditDurationChecker(void)
-//{
-//	uStInt res = uStIntNoMatch;
-//	//	printf("check for event in State evStateIdle\n");
-//
-////	if (currentEvent->evType == evAstPressed)  {
-////////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditAmps);
-//////			// No event action.
-//////		END_EVENT_HANDLER(PJoesTriacStateChart);
-//////		res =  uStIntHandlingDone;
-////	}
-////	if (currentEvent->evType == evNumPressed)  {
-////////		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
-//////			// No event action.
-//////		END_EVENT_HANDLER(PJoesTriacStateChart);
-//////		res =  uStIntHandlingDone;
-////	}
-////
-////	if (currentEvent->evType == evCharEntered) {
-////
-//////		if ((currentEvent->evData.keyCode <= kp9) && (currentEvent->evData.keyCode >= kp0)) {
-//////			switch (keyInd)
-//////			{
-//////				case 0:
-//////					storeMin10(currentEvent->evData.keyCode);
-//////					break;
-//////				case 1:
-//////					storeMin(currentEvent->evData.keyCode);
-//////					keyInd++;
-//////					break;
-//////				case 3:
-//////					if (currentEvent->evData.keyCode <= kp5) {
-//////						storeSec10(currentEvent->evData.keyCode);
-//////					} else keyInd --;
-//////					break;
-//////				case 4:
-//////					storeSec(currentEvent->evData.keyCode);
-//////					BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateEditIdle);
-//////
-//////					END_EVENT_HANDLER(PJoesTriacStateChart);
-//////			}
-//////			keyInd ++;
-//////			displayTime(keyInd);
-//////
-//////			res =  uStIntHandlingDone;
-//////		}
-////	}
-//	return res;
-//}
 
 
 void entryTriacRunningState(void)
 {
-//	printf("entry Running\n");
-//	displayTriacRunning();
-//	startDurationTimer(desiredTimeS);
-////	startDurationTimer(maxSecsPossible);   // sometimes used for debugging
+	info_printf("entryTriacRunningState\n");
+	startDurationTimer(getDefinesWeldingTime());
+//	startDurationTimer(maxSecsPossible);   // sometimes used for debugging
 //	setTriacFireDuration(calibLowTriacFireDuration);  // start defined,  not just somewhere
 //												// because of 220 V fuse ejects
-//												// lowCalib seems better choice than 0
-//	startTriacRun();
+//												// lowCalib seems better choice than 0  todo tobe tested ... old comment  from before "rail" times
+	setTriacFireDuration(0);
+	startTriacRun();
 
 	CJoesModelEventT  msg;
-	osStatus_t status;
-	info_printf("entryTriacRunningState\n");
 	msg.messageType = changeToRunScreen;
-	status = sendModelMessage(&msg);
-	if(status != osOK)  {
-		errorHandler(status,goOn," status ","entryTriacRunningState");
-	}
-
-
+	sendModelMessage(&msg);
 }
 
 void exitTriacRunningState(void)
 {
-//	printf("exit Running\n");
-//	stopDurationTimer();
-//	stopTriacRun();
-//	clr_scr();
+	info_printf("exit Running\n");
+	stopDurationTimer();
+	stopTriacRun();
 }
 
 uStInt evTriacRunningChecker(void)
 {
 	uStInt res = uStIntNoMatch;
-	//	printf("check for event in State evStateIdle\n");
 
 	if (currentEvent->evType == evStopPressed)  {	
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
@@ -634,21 +481,56 @@ uStInt evTriacRunningChecker(void)
 		res =  uStIntHandlingDone;
 	}			
 	if (currentEvent->evType == evSecondsTick) {
-//		displayCurrentAmps();
-//		displayCountDown();
-//		displayVoltage();
-////		printDValueVars();
-
-
-
-
+		sendActualValuesToRunScreen();
 		res =  uStIntHandlingDone;
 	}	
 	if (currentEvent->evType == evAdcTick)
 	{
-//		calcNextTriacDelay();
-//		res =  uStIntHandlingDone;
+		calcNextTriacDelay();
+		res =  uStIntHandlingDone;
 	}		
+	return res;
+}
+
+
+void entryRequestStopState(void)
+{
+	info_printf("entryRequestStopState\n");
+//	startDurationTimer(getDefinesWeldingTime());
+//	startDurationTimer(maxSecsPossible);   // sometimes used for debugging
+//	setTriacFireDuration(calibLowTriacFireDuration);  // start defined,  not just somewhere
+//												// because of 220 V fuse ejects
+//												// lowCalib seems better choice than 0  todo tobe tested ... old comment  from before "rail" times
+	setTriacFireDuration(0);
+	startTriacRun();
+
+	CJoesModelEventT  msg;
+	msg.messageType = changeToRunScreen;
+	sendModelMessage(&msg);
+}
+
+void exitRequestStopState(void)
+{
+//	info_printf("exit Running\n");
+	stopDurationTimer();
+	stopTriacRun();
+}
+
+uStInt evRequestStopChecker(void)
+{
+	uStInt res = uStIntNoMatch;
+
+	if (currentEvent->evType == evStopPressed)  {
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+	}
+
+	if (currentEvent->evType == evSecondsTick) {
+		sendActualValuesToRunScreen();
+		res =  uStIntHandlingDone;
+	}
 	return res;
 }
 
@@ -658,6 +540,10 @@ void entryJobOkDisplayState(void)
 //	printf("entry I\n");
 //	displayJobOk();
 //	startDurationTimer(maxSecsPossible);
+//	CJoesModelEventT  msg;
+//	msg.messageType = changeToRunScreen;
+//	sendModelMessage(&msg);
+
 }
 
 void exitJobOkDisplayState(void)
@@ -855,6 +741,15 @@ xStateType xaStates[eNumberOfStates] = {
 			evTriacRunningChecker,
 			tfNull,
 			entryTriacRunningState,
+			exitTriacRunningState},
+
+			{eStateRequestStop,
+			eStateTriacOperating,
+			-1,
+			0,
+			evRequestStopChecker,
+			tfNull,
+			entryRequestStopState,
 			exitTriacRunningState},
 
 			{eStateJobOkDisplay,
