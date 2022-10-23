@@ -56,4 +56,16 @@ void JtPresenter::setZeroPotiPos(uint32_t cL)
 	model->setZeroPotiPos(cL);
 }
 
+uint16_t JtPresenter::getWeldingTimeSec()
+{
+	return model->getWeldingTimeSec();
+}
+
+float JtPresenter::getWeldingAmps()
+{
+	uint32_t res = 0;
+	res = model->getWeldingAmps();
+	return res;
+}
+
 

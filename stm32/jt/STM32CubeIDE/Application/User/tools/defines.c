@@ -38,7 +38,6 @@ void sendActualValuesToRunScreen()
 	presenterMessage.messageType=runScreenUpdate;
 	presenterMessage.evData.runScreenData.secondsRemaining= time;
 	presenterMessage.evData.runScreenData.amps= amps;
-	presenterMessage.evData.runScreenData.potiPos= 50;
 
 	sendPresenterMessage(&presenterMessage);
 }

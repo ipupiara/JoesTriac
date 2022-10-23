@@ -3,6 +3,7 @@
 
 #include <gui_generated/runscreen_screen/runScreenViewBase.hpp>
 #include <gui/runscreen_screen/runScreenPresenter.hpp>
+#include <stdint.h>
 
 class runScreenView : public runScreenViewBase
 {
@@ -13,6 +14,8 @@ public:
     virtual void tearDownScreen();
     void update(float amps,uint32_t secRemain,uint32_t pPos );
 protected:
+    uint32_t weldingTimeSec;
+    float     weldingAmps;
 };
 
 #endif // RUNSCREENVIEW_HPP

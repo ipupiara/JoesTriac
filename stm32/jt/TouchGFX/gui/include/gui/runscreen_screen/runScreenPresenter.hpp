@@ -1,15 +1,15 @@
 #ifndef RUNSCREENPRESENTER_HPP
 #define RUNSCREENPRESENTER_HPP
 
-#include <gui/model/ModelListener.hpp>
-#include <mvp/Presenter.hpp>
-
+//#include <gui/model/ModelListener.hpp>
+//#include <mvp/Presenter.hpp>
+#include <gui/JtPresenter.hpp>
 
 using namespace touchgfx;
 
 class runScreenView;
 
-class runScreenPresenter : public touchgfx::Presenter, public ModelListener
+class runScreenPresenter : public JtPresenter
 {
 public:
 

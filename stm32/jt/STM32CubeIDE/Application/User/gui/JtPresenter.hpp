@@ -31,7 +31,8 @@ public:
 
 	    void   resetCache();
 
-
+	    uint16_t getWeldingTimeSec();
+	    float getWeldingAmps();
 protected:
 
 };

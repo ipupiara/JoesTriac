@@ -8,6 +8,33 @@ runScreenView::runScreenView()
 void runScreenView::setupScreen()
 {
     runScreenViewBase::setupScreen();
+
+    weldingTimeSec = presenter->getWeldingTimeSec();
+    weldingAmps    = presenter->getWeldingAmps();
+
+	ampGauge.setValue(0);
+	ampGauge.invalidate();
+
+	Unicode::snprintfFloat(setAmpereTextBuffer, 7, "%6.2f", weldingAmps);
+	setAmpereText.setWildcard(setAmpereTextBuffer);
+	setAmpereText.invalidate();
+
+	Unicode::snprintfFloat(currentAmpereTextBuffer, 7, "%6.2f",0.0);
+	currentAmpereText.setWildcard(currentAmpereTextBuffer);
+	currentAmpereText.invalidate();
+
+	uint8_t  minVal = uint8_t( weldingTimeSec / 60);
+	uint8_t  secVal = (uint8_t) ( weldingTimeSec % 60);
+	Unicode::snprintf(currentTimeTextBuffer, 6, "%02d:%02d", minVal, secVal);
+	currentTimeText.setWildcard(currentTimeTextBuffer);
+	currentTimeText.invalidate();
+
+	Unicode::snprintf(timeValueTextBuffer, 6, "%02d:%02d", minVal, secVal);
+	timeValueText.setWildcard(timeValueTextBuffer);
+	timeValueText.invalidate();
+
+	 boxProgress1.setValue(0);
+	 boxProgress1.invalidate();
 }
 
 void runScreenView::tearDownScreen()
@@ -17,5 +44,21 @@ void runScreenView::tearDownScreen()
 
 void runScreenView::update(float amps,uint32_t secRemain,uint32_t pPos )
 {
+	Unicode::snprintfFloat(currentAmpereTextBuffer, 7, "%6.2f",amps);
+	currentAmpereText.setWildcard(currentAmpereTextBuffer);
+	currentAmpereText.invalidate();
 
+	 uint8_t  minVal = uint8_t( secRemain / 60);
+	 uint8_t  secVal = (uint8_t) ( secRemain % 60);
+	 Unicode::snprintf(currentTimeTextBuffer, 6, "%02d:%02d", minVal, secVal);
+	 currentTimeText.setWildcard(currentTimeTextBuffer);
+	 currentTimeText.invalidate();
+
+	 int ampValue = ((int)( amps  ));
+	 ampGauge.setValue(ampValue);
+	 ampGauge.invalidate();
+
+	 int boxPro = 100 * (secRemain/ weldingTimeSec);
+	 boxProgress1.setValue(boxPro);
+	 boxProgress1.invalidate();
 }

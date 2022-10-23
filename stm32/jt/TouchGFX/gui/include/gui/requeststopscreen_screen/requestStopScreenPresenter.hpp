@@ -1,14 +1,15 @@
 #ifndef REQUESTSTOPSCREENPRESENTER_HPP
 #define REQUESTSTOPSCREENPRESENTER_HPP
 
-#include <gui/model/ModelListener.hpp>
-#include <mvp/Presenter.hpp>
+//#include <gui/model/ModelListener.hpp>
+//#include <mvp/Presenter.hpp>
+#include <gui/JtPresenter.hpp>
 
 using namespace touchgfx;
 
 class requestStopScreenView;
 
-class requestStopScreenPresenter : public touchgfx::Presenter, public ModelListener
+class requestStopScreenPresenter : public JtPresenter
 {
 public:
     requestStopScreenPresenter(requestStopScreenView& v);
