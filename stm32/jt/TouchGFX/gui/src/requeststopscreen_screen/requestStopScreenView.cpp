@@ -14,3 +14,9 @@ void requestStopScreenView::tearDownScreen()
 {
     requestStopScreenViewBase::tearDownScreen();
 }
+
+void requestStopScreenView::update(float amps,uint32_t secRemain,uint32_t pPos )
+{
+
+}
+

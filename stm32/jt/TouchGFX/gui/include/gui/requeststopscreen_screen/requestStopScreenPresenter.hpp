@@ -28,8 +28,11 @@ public:
 
     virtual ~requestStopScreenPresenter() {};
 
+    virtual void tick();
+
 private:
     requestStopScreenPresenter();
+    bool presenterActive;
 
     requestStopScreenView& view;
 };
