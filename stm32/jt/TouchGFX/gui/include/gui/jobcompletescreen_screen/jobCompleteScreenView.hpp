@@ -12,7 +12,7 @@ public:
     virtual void setupScreen();
     virtual void tearDownScreen();
     virtual void returnButtonPressed();
-    void updateCompletionTime(uint32_t secs);
+    void updateCompletionTime(uint32_t secsRemain);
 protected:
 };
 

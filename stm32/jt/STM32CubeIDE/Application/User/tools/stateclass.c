@@ -5,18 +5,9 @@
 #include <uart-comms.h>
 #include <mainJt.h>
 #include <defines.h>
-
-
-extern const uStInt uStIntHandlingDone;
-extern const uStInt uStIntNoMatch;
-
-fsmTriacEvent* currentEvent;
-
-
 #include "triacPID.h"
 
-TStatechart SJoesTriacStateChart;
-TStatechart* PJoesTriacStateChart;
+
 
 // This defines and names the states the class has.
 //  todo  attention: sequence must be the same as in xaStates (below)  !!!%%%%%%%%%%***********##########  (i} {i)
@@ -41,6 +32,15 @@ enum eStates
 		eStateFatalError,
 	eNumberOfStates
 };
+
+uint32_t timeCnt;
+TStatechart SJoesTriacStateChart;
+TStatechart* PJoesTriacStateChart;
+extern const uStInt uStIntHandlingDone;
+extern const uStInt uStIntNoMatch;
+
+fsmTriacEvent* currentEvent;
+
 
 
 void entryJoesTriac()
@@ -539,6 +539,12 @@ uStInt evRequestStopChecker(void)
 	}
 
 	if (currentEvent->evType == evSecondsTick) {
+		if (timeCnt < 2 )  {
+			setBuzzerOn();
+		} else {
+			setBuzzerOff();
+			timeCnt = 0;
+		}
 		toggleBuzzer();
 		sendActualValuesToRequestStopScreen();
 		res =  uStIntHandlingDone;
@@ -564,6 +570,8 @@ void exitJobOkDisplayState(void)
 //	setCompletionAlarmOff();
 //	stopDurationTimer();
 }
+
+
 
 uStInt evJobOkDisplayChecker(void)
 {
@@ -881,6 +889,7 @@ xStateType xaStates[eNumberOfStates] = {
 
 void startStateCharts()
 {
+	timeCnt = 0;
 
 #ifdef  sdccNULL 
 
