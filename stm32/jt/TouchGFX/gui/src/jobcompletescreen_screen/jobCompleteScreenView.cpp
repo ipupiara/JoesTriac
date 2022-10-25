@@ -14,3 +14,13 @@ void jobCompleteScreenView::tearDownScreen()
 {
     jobCompleteScreenViewBase::tearDownScreen();
 }
+
+void jobCompleteScreenView::returnButtonPressed()
+ {
+
+ }
+
+void jobCompleteScreenView::updateCompletionTime(uint32_t secs)
+{
+
+}

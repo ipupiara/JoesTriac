@@ -10,7 +10,7 @@ extern "C"
 	
 #include <stdio.h>
 
-
+#define maxSecsPossible  0xFFFFFFFF
 	
 //int8_t durationTimerReachead;
 //int8_t runningSecondsTick;
@@ -36,9 +36,9 @@ void setAmpsADCValue(uint32_t val);
 //
 //int16_t triacFireDurationTcnt2;   // centi-millis-secs, not exactly but approximate, PID will handle the rest
 
-void startDurationTimer(int16_t secs);
-int16_t getSecondsDurationTimerRemaining();
-int16_t getSecondsInDurationTimer();
+void startDurationTimer(uint32_t secs);
+uint32_t getSecondsDurationTimerRemaining();
+uint32_t getSecondsInDurationTimer();
 void resumeDurationTimer();
 void haltDurationTimer();
 void stopDurationTimer();
@@ -54,10 +54,10 @@ float lastAmpsValF();
 void setTriacFireDuration(int32_t cmsecs);
 void startTriacRun();
 void stopTriacRun();
-//
-//void setCompletionAlarmOn();
-//void setCompletionAlarmOff();
-//void toggleCompletionAlarm();
+
+void setCompletionAlarmOn();
+void setCompletionAlarmOff();
+void toggleCompletionAlarm();
 
 //
 //void printDValueVars();

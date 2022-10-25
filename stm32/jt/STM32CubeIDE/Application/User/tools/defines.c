@@ -18,6 +18,13 @@
 //#define  microSdWorking
 // despite trying all found examples on google and stm (also for F769Ni)  .... this stm  microSd bu..it did not work
 
+void sendActualValuesToJobOkScreen()
+{
+	CJoesPresenterEventT  msg;
+	msg.messageType = jobOkScreenUpdate;
+	msg.evData.alarmTimeSince = getSecondsInDurationTimer();
+	sendPresenterMessage(&msg);
+}
 
 void sendActualValuesToCalibScreen()
 {

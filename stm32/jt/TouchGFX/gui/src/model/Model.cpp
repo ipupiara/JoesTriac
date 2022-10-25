@@ -41,6 +41,9 @@ void Model::tick()
 			if (modelMessage.messageType ==  changeToRequestStopScreen) {
 				static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotorequestStopScreenScreenNoTransition();
 			}
+			if (modelMessage.messageType ==  changeToJobOkScreen) {
+				static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotojobCompleteScreenScreenNoTransition();
+			}
 			if (modelMessage.messageType ==  restoreModelData) {
 				restoreData();
 			}

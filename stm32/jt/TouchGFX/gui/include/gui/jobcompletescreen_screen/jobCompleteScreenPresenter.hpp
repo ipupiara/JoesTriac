@@ -27,9 +27,13 @@ public:
 
     virtual ~jobCompleteScreenPresenter() {};
 
+    void returnButtonPressed();
+
+    virtual void tick();
+
 private:
     jobCompleteScreenPresenter();
-
+    bool presenterActive;
     jobCompleteScreenView& view;
 };
 

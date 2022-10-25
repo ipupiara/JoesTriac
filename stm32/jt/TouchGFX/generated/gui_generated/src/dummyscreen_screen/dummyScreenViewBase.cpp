@@ -32,12 +32,17 @@ dummyScreenViewBase::dummyScreenViewBase() :
     button5.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
     button5.setAction(buttonCallback);
 
+    button6.setXY(189, 133);
+    button6.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
+    button6.setAction(buttonCallback);
+
     add(__background);
     add(button1);
     add(button2);
     add(button3);
     add(button4);
     add(button5);
+    add(button6);
 }
 
 void dummyScreenViewBase::setupScreen()
@@ -81,5 +86,12 @@ void dummyScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& 
         //When button5 clicked change screen to calibrateZeroScreen
         //Go to calibrateZeroScreen with no screen transition
         application().gotocalibrateZeroScreenScreenNoTransition();
+    }
+    else if (&src == &button6)
+    {
+        //Interaction6
+        //When button6 clicked change screen to jobCompleteScreen
+        //Go to jobCompleteScreen with no screen transition
+        application().gotojobCompleteScreenScreenNoTransition();
     }
 }

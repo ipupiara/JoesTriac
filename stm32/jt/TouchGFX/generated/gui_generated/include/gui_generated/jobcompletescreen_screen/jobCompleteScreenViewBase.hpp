@@ -10,6 +10,7 @@
 #include <touchgfx/widgets/Box.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
+#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 
 class jobCompleteScreenViewBase : public touchgfx::View<jobCompleteScreenPresenter>
 {
@@ -38,6 +39,15 @@ protected:
     touchgfx::Box box1;
     touchgfx::TextArea textArea1;
     touchgfx::ButtonWithLabel returnButton;
+    touchgfx::TextArea textArea2;
+    touchgfx::TextArea textArea3;
+    touchgfx::TextAreaWithOneWildcard timeText;
+
+    /*
+     * Wildcard Buffers
+     */
+    static const uint16_t TIMETEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar timeTextBuffer[TIMETEXT_SIZE];
 
 private:
 

@@ -28,10 +28,31 @@ jobCompleteScreenViewBase::jobCompleteScreenViewBase() :
     returnButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     returnButton.setAction(buttonCallback);
 
+    textArea2.setXY(71, 217);
+    textArea2.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea2.setLinespacing(0);
+    textArea2.setTypedText(touchgfx::TypedText(T___SINGLEUSE_Y76B));
+
+    textArea3.setXY(400, 217);
+    textArea3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea3.setLinespacing(0);
+    textArea3.setTypedText(touchgfx::TypedText(T___SINGLEUSE_UCEI));
+
+    timeText.setXY(233, 217);
+    timeText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    timeText.setLinespacing(0);
+    Unicode::snprintf(timeTextBuffer, TIMETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_CH8X).getText());
+    timeText.setWildcard(timeTextBuffer);
+    timeText.resizeToCurrentText();
+    timeText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_4I0G));
+
     add(__background);
     add(box1);
     add(textArea1);
     add(returnButton);
+    add(textArea2);
+    add(textArea3);
+    add(timeText);
 }
 
 void jobCompleteScreenViewBase::setupScreen()

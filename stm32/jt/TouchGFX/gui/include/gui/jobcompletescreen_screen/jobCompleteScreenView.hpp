@@ -11,6 +11,8 @@ public:
     virtual ~jobCompleteScreenView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
+    virtual void returnButtonPressed();
+    void updateCompletionTime(uint32_t secs);
 protected:
 };
 

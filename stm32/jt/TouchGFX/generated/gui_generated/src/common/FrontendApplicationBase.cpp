@@ -194,6 +194,19 @@ void FrontendApplicationBase::gotorequestStopScreenScreenNoTransitionImpl()
     touchgfx::makeTransition<requestStopScreenView, requestStopScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
+// jobCompleteScreen
+
+void FrontendApplicationBase::gotojobCompleteScreenScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplication::gotojobCompleteScreenScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotojobCompleteScreenScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<jobCompleteScreenView, jobCompleteScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
 // startupScreen
 
 void FrontendApplicationBase::gotostartupScreenScreenNoTransition()

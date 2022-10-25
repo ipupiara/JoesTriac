@@ -163,6 +163,12 @@ void mainJt(void *argument)
 							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
 							break;
 						}
+						case okPressed: {
+							fsmEv.evType=evOkPressed;
+							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
+							break;
+						}
+
 						default : {
 								errorHandler(mJtEv.evType ,goOn," osMessageQueueGet unknown event "," mainJt ");
 						}

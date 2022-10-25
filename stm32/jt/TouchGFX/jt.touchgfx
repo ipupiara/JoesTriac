@@ -183,7 +183,7 @@
             "X": 465,
             "Y": 12,
             "Width": 144,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_DEJR",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1758,7 +1758,7 @@
             "X": 465,
             "Y": 12,
             "Width": 144,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_X5Q9",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1774,7 +1774,7 @@
             "X": 14,
             "Y": 94,
             "Width": 60,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_K159",
             "TextRotation": "0",
             "AutoSize": true
@@ -1785,7 +1785,7 @@
             "X": 352,
             "Y": 94,
             "Width": 96,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_FEL2",
             "TextRotation": "0",
             "AutoSize": true
@@ -1811,7 +1811,7 @@
             "X": 465,
             "Y": 82,
             "Width": 144,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_GCRP",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2268,7 +2268,7 @@
             "X": 465,
             "Y": 12,
             "Width": 144,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_EEDJ",
             "TextRotation": "0",
             "AutoSize": true
@@ -2279,7 +2279,7 @@
             "X": 14,
             "Y": 94,
             "Width": 60,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_3JKB",
             "TextRotation": "0",
             "AutoSize": true
@@ -2290,7 +2290,7 @@
             "X": 352,
             "Y": 94,
             "Width": 96,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_9JDU",
             "TextRotation": "0",
             "AutoSize": true
@@ -2316,7 +2316,7 @@
             "X": 465,
             "Y": 82,
             "Width": 144,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_RXFU",
             "TextRotation": "0",
             "AutoSize": true
@@ -2403,7 +2403,7 @@
             "X": 65,
             "Y": 111,
             "Width": 288,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_EJ31",
             "TextRotation": "0",
             "AutoSize": true
@@ -2430,6 +2430,44 @@
             },
             "TextRotation": "0",
             "Style": "Style4"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea2",
+            "X": 71,
+            "Y": 217,
+            "Width": 120,
+            "Height": 45,
+            "TextId": "__SingleUse_Y76B",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea3",
+            "X": 400,
+            "Y": 217,
+            "Width": 168,
+            "Height": 45,
+            "TextId": "__SingleUse_UCEI",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "timeText",
+            "X": 233,
+            "Y": 217,
+            "Width": 120,
+            "Height": 45,
+            "TextId": "__SingleUse_4I0G",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_CH8X",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
           }
         ],
         "Interactions": [
@@ -2538,6 +2576,17 @@
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
             "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
             "Style": "Style4"
+          },
+          {
+            "Type": "Button",
+            "Name": "button6",
+            "X": 189,
+            "Y": 133,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "Style": "Style4"
           }
         ],
         "Interactions": [
@@ -2599,6 +2648,18 @@
               "Type": "ActionGotoScreen",
               "ScreenTransitionType": "ScreenTransitionNone",
               "ActionComponent": "calibrateZeroScreen"
+            }
+          },
+          {
+            "InteractionName": "Interaction6",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "button6"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "jobCompleteScreen"
             }
           }
         ]

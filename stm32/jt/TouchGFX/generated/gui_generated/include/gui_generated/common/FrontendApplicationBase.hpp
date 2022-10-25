@@ -50,6 +50,9 @@ public:
     // requestStopScreen
     void gotorequestStopScreenScreenNoTransition();
 
+    // jobCompleteScreen
+    void gotojobCompleteScreenScreenNoTransition();
+
     // startupScreen
     void gotostartupScreenScreenNoTransition();
 
@@ -90,6 +93,9 @@ protected:
 
     // requestStopScreen
     void gotorequestStopScreenScreenNoTransitionImpl();
+
+    // jobCompleteScreen
+    void gotojobCompleteScreenScreenNoTransitionImpl();
 
     // startupScreen
     void gotostartupScreenScreenNoTransitionImpl();

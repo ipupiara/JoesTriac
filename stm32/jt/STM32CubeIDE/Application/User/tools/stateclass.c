@@ -549,13 +549,12 @@ uStInt evRequestStopChecker(void)
 
 void entryJobOkDisplayState(void)
 {
-//	printf("entry I\n");
-//	displayJobOk();
-//	startDurationTimer(maxSecsPossible);
-//	CJoesModelEventT  msg;
-//	msg.messageType = changeToRunScreen;
-//	sendModelMessage(&msg);
+	printf("entryJobOkDisplayState\n");
 
+	CJoesModelEventT  msg;
+	msg.messageType = changeToJobOkScreen;
+	sendModelMessage(&msg);
+	startDurationTimer(maxSecsPossible);
 }
 
 void exitJobOkDisplayState(void)
@@ -571,21 +570,23 @@ uStInt evJobOkDisplayChecker(void)
 	uStInt res = uStIntNoMatch;
 	//	printf("check for event in State evStateIdle\n");
 
-//	if ((currentEvent->evType == evAstPressed) || (currentEvent->evType == evTimeOutDurationTimer))  {
-//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
-//				// No event action.
-//			END_EVENT_HANDLER(PJoesTriacStateChart);
-//			res =  uStIntHandlingDone;
-//	}
+
+	if  (currentEvent->evType == evOkPressed)  {
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+	}
+
 	if (currentEvent->evType == evSecondsTick) 
 	{	
-//		displayInDurationTimerSince();
-//		if (completionAlarmOn) {
-//			int16_t secondsRel = getSecondsInDurationTimer();
-//			if (secondsRel >= completionAlarmMinutes * 60) {
-//				toggleCompletionAlarm();
-//			}
-//		}
+		sendActualValuesToJobOkScreen();
+		if (getDefinesAlarmNeeded() != 0) {
+			int32_t secondsRel = getSecondsInDurationTimer();
+			if (secondsRel >= (getDefinesAlarmTime() * 60)) {
+				toggleCompletionAlarm();
+			}
+		}
 		res =  uStIntHandlingDone;
 	}
 	return (res);

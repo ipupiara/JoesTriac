@@ -72,6 +72,7 @@ void setZCalibAuto(uint32_t on);
 void sendActualValuesToCalibScreen();
 void sendActualValuesToRunScreen();
 void sendActualValuesToRequestStopScreen();
+void sendActualValuesToJobOkScreen();
 void calibTriacDelayChange(int32_t diff);
 void storeCalibLowAdc();
 void storeCalibHighAdc();

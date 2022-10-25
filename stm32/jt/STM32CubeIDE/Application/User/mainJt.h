@@ -37,12 +37,13 @@ typedef enum {
 	calibAbortClick,
 	calibContinueClick,
 	calibSkipClick,
+	configBackPressed,
 	storeWeldingTime,
 	storeWeldingAmpere,
 	storeAlarmData,
 	secondTick,
 	configPressed,
-	configBackPressed,
+	okPressed,
 	autoConfigPressed
 }  mainJtMessageType;
 
@@ -83,6 +84,7 @@ typedef enum {
 	calibScreenData,
 	calibrateZeroPPScreenUpdate,
 	calibrationScreenUpdate,
+	jobOkScreenUpdate,
 	runScreenUpdate
 }  presenterMessageType;
 
@@ -93,6 +95,7 @@ typedef struct  {
 		char calibState  [20];
 		uint32_t calibTriacDelay;
 		float    desiredAmps;
+		uint32_t  alarmTimeSince;
 		struct {
 			float   	amps;
 			uint16_t  potiPos;
@@ -130,6 +133,7 @@ typedef enum {
 	changeToConfigScreen,
 	changeToCalibrateZeroScreen,
 	changeToRequesStopScreen,
+	changeToJobOkScreen,
 	restoreModelData
 }  modelMessageType;
 

@@ -5,6 +5,7 @@
 #include <defines.h>
 //#include "triacPID.h"
 
+
 uint8_t durationTimerOn;
 
 float currentAmpsValue;
@@ -69,9 +70,9 @@ float lastAmpsValF()
 //
 //int16_t triacTriggerTimeTcnt2;
 
-int16_t secondsDurationTimerRemaining;
+uint32_t secondsDurationTimerRemaining;
 
-int16_t secondsInDurationTimer;
+uint32_t secondsInDurationTimer;
 
 //int8_t adcCnt;
 //
@@ -471,7 +472,7 @@ void durationTimerTick()
 
 
 
-void startDurationTimer(int16_t secs)
+void startDurationTimer(uint32_t secs)
 {
 //	durationTimerReachead = 0;
 	secondsDurationTimerRemaining = secs;
@@ -496,18 +497,18 @@ void haltDurationTimer()
 	durationTimerOn = 0;
 }
 
-int16_t getSecondsDurationTimerRemaining()
+uint32_t getSecondsDurationTimerRemaining()
 {
-	int16_t res;
+	uint32_t res;
 	taskENTER_CRITICAL();
 	res = secondsDurationTimerRemaining;
 	taskEXIT_CRITICAL();
 	return res;
 }
 
-int16_t getSecondsInDurationTimer()
+uint32_t getSecondsInDurationTimer()
 {
-	int16_t res;
+	uint32_t res;
 	taskENTER_CRITICAL();
 	res = secondsInDurationTimer;
 	taskEXIT_CRITICAL();
@@ -516,87 +517,25 @@ int16_t getSecondsInDurationTimer()
 
 
 
-//void setCompletionAlarmOff()
-//{
+void setCompletionAlarmOff()
+{
 //	PORTD &= ~0x08;
-//}
-//
-//void setCompletionAlarmOn()
-//{
+}
+
+void setCompletionAlarmOn()
+{
 //	PORTD |= 0x08;
-//}
-//
-//void toggleCompletionAlarm()
-//{
+}
+
+void toggleCompletionAlarm()
+{
 //	if (PORTD & 0x08) {
 //		setCompletionAlarmOff();
 //	} else {
 //		setCompletionAlarmOn();
 //	}
-//}
-//
-//void resetCircuitAlarms()
-//{
-//	shortCircuitAlarmAmpsADCValue = adcValueForAmps(shortCircuitAlarmAmps);
-//	shortCircuitAlarmOn = 0;
-//	dValueAlarmOn = 0;
-//	shortCircuitSec10Counter = 0;
-//	dValueSec10Counter = 0;
-//	setCompletionAlarmOff();
-//}
-//
-////  checkShortCircuitCondition, pn 27oct2016
-////  due to recent events in jo's production, we created
-////  this method which should be able to detect a behaviour that indicates a "short circuit" abnormality
-////  on the load side of the triac. compared to a not regulated power source it is much more difficult
-////  to find such an abnormality on a regulated one, because our triac application immediately starts regulating the
-////  current down as soon as a short circuit takes place, ie. a drastically reduction of the
-////  load resistance. Anyhow some indicator might show such a situation, but there will be always
-////  some uncertainty in the determination of such situation and wrong alerts have to be minimized
-////  as far as anyhow possible, because each interrupt of the welding process due to wrong alert
-////  means a high risk of material loss.
-////  indicators might be:
-////  - low triac delay value  - rapid increase of current to high level for short time before regulation down
-////  - hardware problems on triac regulation resulting in regulation loss
-//
-//#ifdef shortCircuitAlarmSupported
-//void checkShortCircuitCondition()
-//{
-//	cli();
-//	if (lastAmpsADCVal > shortCircuitAlarmAmpsADCValue) {
-//		if (shortCircuitSec10Counter == 0)  {
-//			shortCircuitSec10Counter = shortCircuitAlarmSecond10;
-//		}
-//
-//	} else {
-//		shortCircuitSec10Counter = 0;
-//		shortCircuitAlarmOn = 0;
-//	}
-//	if ((triacFireDurationTcnt2 > dValueAlarmHigh) || (triacFireDurationTcnt2 < dValueAlarmLow)) {
-//			if (dValueSec10Counter == 0)  {
-//				dValueSec10Counter = dValueAlarmSec10;
-//		}
-//
-//	} else {
-//		dValueSec10Counter = 0;
-//		dValueAlarmOn = 0;
-//	}
-//	sei();
-//}
-//#endif
-//
-//void printDValueVars()
-//{
-//	int16_t   sec10Counter;
-//	int16_t	  alarmSec10;
-//	int16_t   fireDuration;
-//	cli();
-//		sec10Counter = dValueSec10Counter;
-//		alarmSec10 = dValueAlarmSec10;
-//		fireDuration = triacFireDurationTcnt2;
-//	sei();
-//	printf("dValueSec10 Counter: %i,  alarmSec10: %i, fire Dur: %i\n",sec10Counter,alarmSec10,fireDuration);
-//}
+}
+
 
 
 void initTriacIntr()

@@ -24,6 +24,7 @@ typedef enum eEventTypes
 	evCalibAbortClick,
 	evCalibContinueClick,
 	evCalibSkipClick,
+	evOkPressed,
 	evZeroSignalOK,
 	evAdcTick,
 	evConfigOkPressed,
