@@ -19,7 +19,7 @@ extern "C"
 
 
 
-#define maxSerialStringSz   80
+#define maxSerialStringSz   160
 #define charWidth sizeof(char)
 
 

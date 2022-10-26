@@ -23,12 +23,6 @@ uint32_t  amtPrintErr;   // errors during print out, where err_printf should not
 
 uint8_t  serialOn;
 
-
-
-
-
-
-
 osThreadId_t serialQMethodThread;
 const osThreadAttr_t serialQMethod_attributes = {
   .name = "SerialQMethod",
@@ -67,7 +61,7 @@ void  SerialQMethod (void *p_arg)
 void init_printf()
 {
 
-//	serialOn = 0;
+	serialOn = 0;
 //	amtErr = 0;
 //	amtPrintErr = 0;
 //	uint8_t err_init_print = OS_ERR_NONE;
@@ -97,16 +91,16 @@ void info_printf( char *emsg, ...)
 
 	va_start(ap, emsg);
 
-//	if (serialOn == 1) {
-//
-//		vsnprintf((char *)&transmitBuffer, maxSerialStringSz-1,  emsg, ap);
-//		transmitBuffer[maxSerialStringSz-1] = 0;
-//
-//		status = osMessageQueuePut(serialMessageQ,&transmitBuffer,0,100);
-//		if (status != osOK)  {
-//			errorHandler(status ,goOn," osMessageQueuePut ","info_printf");
-//		}
-//	}
+	if (serialOn == 1) {
+
+		vsnprintf((char *)&transmitBuffer, maxSerialStringSz-1,  emsg, ap);
+		transmitBuffer[maxSerialStringSz-1] = 0;
+
+		status = osMessageQueuePut(serialMessageQ,&transmitBuffer,0,0);
+		if (status != osOK)  {
+			errorHandler(status ,goOn," osMessageQueuePut ","info_printf");
+		}
+	}
 	va_end(ap);
 	//	printf(emsg, ap);
 }
