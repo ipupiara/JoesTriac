@@ -8,6 +8,7 @@
 #include <mainJt.h>
 #include <StateClass.h>
 #include <TriacIntr.h>
+#include <i2c.h>
 
 
 //////////////////  types and variables   //////////////////////////////7
@@ -25,6 +26,8 @@ const osThreadAttr_t mainJt_attributes = {
 };
 
 osTimerId_t   mainJtTimer;
+
+osTimerId_t   mainJtSec100Timer;
 
 osMessageQueueId_t    mainJtMessageQ;
 
@@ -52,6 +55,18 @@ osStatus_t sendEventToMainJtMessageQ(pMainJtEventT pEv, uint8_t  fromIsr)
 	return status;
 }
 
+void mainJtSec100kCallback(void *argument)
+{
+	CMainJtEventT  ev;
+	memset(&ev, 0x0, sizeof(ev));
+	ev.evType = second100Tick;
+	osStatus_t status =  sendEventToMainJtMessageQ( &ev, 0);
+	if (status != osOK) {
+		errorHandler(status,goOn," status ","mainJtSecondTickCallback");
+	}
+}
+
+
 
 void mainJtSecondTickCallback(void *argument)
 {
@@ -66,11 +81,15 @@ void mainJtSecondTickCallback(void *argument)
 	}
 }
 
-void startMainJtTimer()
+void startMainJtTimers()
 {
 	osStatus_t  status;
 
 	status = osTimerStart (mainJtTimer, 1000);
+	if (status !=  osOK)  {
+		errorHandler((uint32_t)status ,goOn," osTimerStart "," osStarted ");
+	}
+	status = osTimerStart (mainJtSec100Timer, 10);
 	if (status !=  osOK)  {
 		errorHandler((uint32_t)status ,goOn," osTimerStart "," osStarted ");
 	}
@@ -79,7 +98,7 @@ void startMainJtTimer()
 void mainJtOsStarted()
 {
 	startStateCharts();
-	startMainJtTimer();
+	startMainJtTimers();
 }
 
 
@@ -98,6 +117,10 @@ void mainJt(void *argument)
 							durationTimerTick();
 							fsmEv.evType=evSecondsTick;
 							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
+							break;
+						}
+						case second100Tick: {
+							sendI2cByteArray(0xAA,(uint8_t*)"abb",3);
 							break;
 						}
 //						case zCalibAuto: {
@@ -236,6 +259,11 @@ void initJt()
 	mainJtTimer = osTimerNew (mainJtSecondTickCallback, osTimerPeriodic, (void *) 0x01, NULL);
 	if (mainJtTimer  == NULL)   {
 		errorHandler((uint32_t)mainJtTimer ,stop," mainJtTimer ","initJt");
+	}
+
+	mainJtSec100Timer= osTimerNew (mainJtSecondTickCallback, osTimerPeriodic, (void *) 0x02, NULL);
+	if (mainJtTimer  == NULL)   {
+		errorHandler((uint32_t)mainJtTimer ,stop," mainJtSec100 ","initJt");
 	}
 
 	mainJtMessageQ =  osMessageQueueNew(8,sizeof(CMainJtEventT)*memoryMultiplier, NULL);   //  todo check multiplication with 4 ? needed ?

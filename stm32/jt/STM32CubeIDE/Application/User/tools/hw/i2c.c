@@ -371,9 +371,7 @@ uint8_t transmitI2cByteArray(uint8_t adr,uint8_t* pResultString,uint8_t amtChars
 	return res;
 }
 
-//  todo delay should not be done on transmit level on i2c side,
-//  but on client side that needs the delay
-//  else traffic will be blocked for all
+
 uint8_t sendI2cByteArray(uint8_t adr,uint8_t* pString,uint8_t amtChars)
 {
 	return transmitI2cByteArray(adr, pString, amtChars, 1);
@@ -383,8 +381,6 @@ uint8_t receiveI2cByteArray(uint8_t adr,uint8_t* pString,uint8_t amtChars)
 {
 	return transmitI2cByteArray(adr, pString, amtChars, 0);
 }
-
-
 
 //uint8_t pollForReady(uint8_t adr, uint8_t delay)
 //{
@@ -402,12 +398,13 @@ uint8_t receiveI2cByteArray(uint8_t adr,uint8_t* pString,uint8_t amtChars)
 
 void initI2c()
 {
-	osStatus_t status;
+//	osStatus_t status;
 	osSemaphoreDef_t  i2cSendSemaphoreDef;
 	i2cInitialized = 0;
 //	resetOnError = 1;
 	resetOnError = 0;
-	GPIO_InitTypeDef GPIO_InitStruct = {0};
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
+    RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
 
 
 	i2cSendSemaphoreDef.name="i2c send sema"  ;
@@ -415,40 +412,44 @@ void initI2c()
 	i2cSendSemaphoreDef.cb_mem = NULL;
 	i2cSendSemaphoreDef.cb_size = 0;
 	i2cResourceSema=  osSemaphoreNew(1,1,&i2cSendSemaphoreDef);
-	i2cJobSema =  osSemaphoreNew(1,1,&i2cSendSemaphoreDef);
+	i2cJobSema =  osSemaphoreNew(1,0,&i2cSendSemaphoreDef);
 
-	status = osSemaphoreAcquire(i2cJobSema, osWaitForever);  // set event to zero . todo replace with event group type ,
-							//implemented this out of time to market reasons and at this time unknown cmsis_os eventGroup  interface
-	if (status != osOK) {
-		errorHandler((uint32_t)status ,stop," i2cResourceSema "," transmitI2cByteArray ");
-	}
+//	status = osSemaphoreAcquire(i2cJobSema, osWaitForever);  // set event to zero . todo replace with event group type ,
+//							//implemented this out of time to market reasons and at this time unknown cmsis_os eventGroup  interface
+//	if (status != osOK) {
+//		errorHandler((uint32_t)status ,stop," i2cResourceSema "," transmitI2cByteArray ");
+//	}
 
 
-	__HAL_RCC_GPIOH_CLK_ENABLE();
     __HAL_RCC_GPIOB_CLK_ENABLE();
-/*
-    //  I2C1 GPIO Configuration
-    PB6     ------> I2C1_SCL
-    PB7     ------> I2C1_SDA
-*/
-    GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-    GPIO_InitStruct.Pull = GPIO_PULLUP;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-
-
     __HAL_RCC_I2C1_CLK_ENABLE();
 
+      PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_I2C1;
+      PeriphClkInitStruct.I2c1ClockSelection = RCC_I2C1CLKSOURCE_PCLK1;
+      if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
+      {
+        Error_Handler();
+      }
+
+      __HAL_RCC_GPIOB_CLK_ENABLE();
+      /**I2C1 GPIO Configuration
+      PB8     ------> I2C1_SCL
+      PB9     ------> I2C1_SDA
+      */
+      GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9;
+      GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+      GPIO_InitStruct.Pull = GPIO_NOPULL;
+      GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+      GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
+      HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+
        disableI2c();
-     //   	OSTimeDlyHMSM(0u, 0u, 1u, 0u);  // wait for uart/dma ready,  else fe happens when immediately sending a msg
-     //     use this block if reset of i2c should be needed
 
      // //  enableI2c();
 
   hi2c1.Instance = I2C1;
+  hi2c1.Init.Timing = 0x1060EFFF;    // prop 769ni at 200 MHz
 //hi2c1.Init.Timing = 0x20404768;  // proposed by mx   FOR 100kHz
 //hi2c1.Init.Timing = 0xC042C3C7;  // proposed by 756 datasheet for 10 kHz
   hi2c1.Init.Timing = 0xC0426164;	// calculated by 756 datasheet for 50 kHz

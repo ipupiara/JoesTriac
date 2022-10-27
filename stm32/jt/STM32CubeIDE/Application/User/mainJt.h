@@ -42,6 +42,7 @@ typedef enum {
 	storeWeldingAmpere,
 	storeAlarmData,
 	secondTick,
+	second100Tick,
 	configPressed,
 	okPressed,
 	autoConfigPressed
