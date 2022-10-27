@@ -62,7 +62,7 @@ void mainJtSec100kCallback(void *argument)
 	ev.evType = second100Tick;
 	osStatus_t status =  sendEventToMainJtMessageQ( &ev, 0);
 	if (status != osOK) {
-		errorHandler(status,goOn," status ","mainJtSecondTickCallback");
+		errorHandler(status,goOn," status ","mainJtSec100kCallback");
 	}
 }
 
@@ -107,6 +107,7 @@ void mainJt(void *argument)
 	osStatus_t status;
 	CMainJtEventT  mJtEv;
 	fsmTriacEvent fsmEv;
+	initI2c();
 	mainJtOsStarted();
 	uint8_t  prio = 0;
 	do  {
@@ -261,7 +262,7 @@ void initJt()
 		errorHandler((uint32_t)mainJtTimer ,stop," mainJtTimer ","initJt");
 	}
 
-	mainJtSec100Timer= osTimerNew (mainJtSecondTickCallback, osTimerPeriodic, (void *) 0x02, NULL);
+	mainJtSec100Timer= osTimerNew (mainJtSec100kCallback, osTimerPeriodic, (void *) 0x02, NULL);
 	if (mainJtTimer  == NULL)   {
 		errorHandler((uint32_t)mainJtTimer ,stop," mainJtSec100 ","initJt");
 	}

@@ -21,7 +21,7 @@ I2C_HandleTypeDef hi2c1;
 uint8_t resetOnError;
 uint8_t i2cInitialized;
 
-uint8_t  transmitErrorCollectoruint8_t;
+uint8_t  transmitErrorCollectorUint8_t;
 uint8_t  jobSemSet;
 
 
@@ -68,7 +68,7 @@ void i2cFinishedOk()
 void i2cError(uint8_t err)
 {
 	 //log error
-	 transmitErrorCollectoruint8_t = err;
+	 transmitErrorCollectorUint8_t = err;
 	 setI2cJobSema();
 
 }
@@ -248,7 +248,7 @@ void establishContactAndRun()
 #endif
 
 	i2cTransferConfig(&hi2c1,i2cJobData.address,i2cJobData.amtChars,(i2cJobData.jobType == receiveI2c ? 1:0));
-	hi2c1.Instance->TXDR = (i2cJobData.address << 1);
+//	hi2c1.Instance->TXDR = (i2cJobData.address << 1);
 //	if (i2cJobData.jobType == receiveI2c) {
 //		hi2c1.Instance->TXDR |= 0x01;
 //	}  // did also not work ..... ???????
@@ -310,27 +310,29 @@ void I2C1_ER_IRQHandler(void)
 	  if (((itflags & I2C_FLAG_BERR) != RESET) && ((itsources & I2C_IT_ERRI) != RESET))
 	  {
 	    __HAL_I2C_CLEAR_FLAG(&hi2c1, I2C_FLAG_BERR);
+	    i2cError(0x66);
 	  }
 
 	  /* I2C Over-Run/Under-Run interrupt occurred ----------------------------------------*/
 	  if (((itflags & I2C_FLAG_OVR) != RESET) && ((itsources & I2C_IT_ERRI) != RESET))
 	  {
 	    __HAL_I2C_CLEAR_FLAG(&hi2c1, I2C_FLAG_OVR);
+	    i2cError(0x67);
 	  }
 
 	  /* I2C Arbitration Loss error interrupt occurred -------------------------------------*/
 	  if (((itflags & I2C_FLAG_ARLO) != RESET) && ((itsources & I2C_IT_ERRI) != RESET))
 	  {
 	    __HAL_I2C_CLEAR_FLAG(&hi2c1, I2C_FLAG_ARLO);
+	    i2cError(0x68);
 	  }
-	  i2cError(0x82);  //  todo implement refined error message with above details....
 
 	  // next two ifs are just for debugging reasons
 	  if ((itflags & I2C_FLAG_AF) != 0) {   //  should actually be named I2C_FLAG_NACKF. how this name ?
 		  i2cError(0x69);
 	  }
 	  if ((itflags & I2C_FLAG_STOPF) != 0) {
-		  i2cError(0x96);
+		  i2cError(0x70);
 	  }
 }
 
@@ -342,7 +344,7 @@ uint8_t transmitI2cByteArray(uint8_t adr,uint8_t* pResultString,uint8_t amtChars
 	if ((i2cInitialized == 1) )  {
 		status = osSemaphoreAcquire(i2cResourceSema, osWaitForever);
 		if (status == osOK) {
-			transmitErrorCollectoruint8_t = 0;
+			transmitErrorCollectorUint8_t = 0;
 			jobSemSet = 0;
 			i2cJobData.buffer = pResultString;
 			i2cJobData.amtChars = amtChars;
@@ -363,7 +365,7 @@ uint8_t transmitI2cByteArray(uint8_t adr,uint8_t* pResultString,uint8_t amtChars
 				errorHandler((uint32_t)status ,stop," i2cJobSema "," transmitI2cByteArray ");
 			}
 			osSemaphoreRelease(i2cResourceSema);
-			res = transmitErrorCollectoruint8_t;
+			res = transmitErrorCollectorUint8_t;
 		}  else {
 			errorHandler((uint32_t)status ,stop," i2cResourceSema "," transmitI2cByteArray ");
 		}
@@ -398,7 +400,7 @@ uint8_t receiveI2cByteArray(uint8_t adr,uint8_t* pString,uint8_t amtChars)
 
 void initI2c()
 {
-//	osStatus_t status;
+	osStatus_t status;
 	osSemaphoreDef_t  i2cSendSemaphoreDef;
 	i2cInitialized = 0;
 //	resetOnError = 1;
@@ -412,13 +414,13 @@ void initI2c()
 	i2cSendSemaphoreDef.cb_mem = NULL;
 	i2cSendSemaphoreDef.cb_size = 0;
 	i2cResourceSema=  osSemaphoreNew(1,1,&i2cSendSemaphoreDef);
-	i2cJobSema =  osSemaphoreNew(1,0,&i2cSendSemaphoreDef);
+	i2cJobSema =  osSemaphoreNew(1,1,&i2cSendSemaphoreDef);
 
-//	status = osSemaphoreAcquire(i2cJobSema, osWaitForever);  // set event to zero . todo replace with event group type ,
-//							//implemented this out of time to market reasons and at this time unknown cmsis_os eventGroup  interface
-//	if (status != osOK) {
-//		errorHandler((uint32_t)status ,stop," i2cResourceSema "," transmitI2cByteArray ");
-//	}
+	status = osSemaphoreAcquire(i2cJobSema, osWaitForever);  // set event to zero . todo replace with event group type ,
+							//implemented this out of time to market reasons and at this time unknown cmsis_os eventGroup  interface
+	if (status != osOK) {
+		errorHandler((uint32_t)status ,stop," i2cResourceSema "," transmitI2cByteArray ");
+	}
 
 
     __HAL_RCC_GPIOB_CLK_ENABLE();
@@ -449,10 +451,10 @@ void initI2c()
      // //  enableI2c();
 
   hi2c1.Instance = I2C1;
-  hi2c1.Init.Timing = 0x1060EFFF;    // prop 769ni at 200 MHz
+  hi2c1.Init.Timing = 0x1060EFFF;    // prop 769ni 50kHz at 200 MHz
 //hi2c1.Init.Timing = 0x20404768;  // proposed by mx   FOR 100kHz
 //hi2c1.Init.Timing = 0xC042C3C7;  // proposed by 756 datasheet for 10 kHz
-  hi2c1.Init.Timing = 0xC0426164;	// calculated by 756 datasheet for 50 kHz
+//  hi2c1.Init.Timing = 0xC0426164;	// calculated by 756 datasheet for 50 kHz
   hi2c1.Init.OwnAddress1 = 0;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
@@ -502,8 +504,7 @@ void initI2c()
   }
   HAL_NVIC_SetPriority(I2C1_EV_IRQn, 0, 0);
   HAL_NVIC_SetPriority(I2C1_ER_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(I2C1_EV_IRQn);
-  HAL_NVIC_EnableIRQ(I2C1_ER_IRQn);
+  enableI2cInterrupts();
 
   __HAL_I2C_ENABLE_IT(&hi2c1,(I2C_IT_ERRI | I2C_IT_TCI));
   __HAL_I2C_ENABLE_IT(&hi2c1,(I2C_IT_STOPI | I2C_IT_NACKI));
