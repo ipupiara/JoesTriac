@@ -13,7 +13,7 @@
 
 
 
-osSemaphoreId_t   i2cJobSema;
+osMessageQueueId_t   i2cJobSemaQ;
 osSemaphoreId_t   i2cResourceSema;
 
 I2C_HandleTypeDef hi2c1;
@@ -46,8 +46,9 @@ i2cJobDataType i2cJobData;
 
 void setI2cJobSema()
 {
+	uint32_t dummy = 0x5a;
 	if (jobSemSet == 0)  {    // prevent multiple events by irqs
-		osSemaphoreRelease(&i2cJobSema);
+		osMessageQueuePut(i2cJobSemaQ, &dummy, 0, 0);   //  after semaphores do not work from isr ?????  replaced by queue as done in OSWrappers.cpp
 		jobSemSet = 1;
 	} else  {
 			jobSemSet = 2;  //  just for debugging
@@ -340,6 +341,7 @@ uint8_t transmitI2cByteArray(uint8_t adr,uint8_t* pResultString,uint8_t amtChars
 {
 	uint8_t res = 0xFF;
 	osStatus_t status;
+	uint32_t dummyGet;
 
 	if ((i2cInitialized == 1) )  {
 		status = osSemaphoreAcquire(i2cResourceSema, osWaitForever);
@@ -360,10 +362,12 @@ uint8_t transmitI2cByteArray(uint8_t adr,uint8_t* pResultString,uint8_t amtChars
 			}
 			establishContactAndRun();
 
-			status = osSemaphoreAcquire(i2cJobSema, osWaitForever);
-			if (status != osOK) {
-				errorHandler((uint32_t)status ,stop," i2cJobSema "," transmitI2cByteArray ");
-			}
+			osMessageQueueGet(i2cJobSemaQ, &dummyGet, 0, osWaitForever);
+			//  after semaphores do not work from isr ?????  replaced by queue as done in OSWrappers.cpp from isr
+//  			status = osSemaphoreAcquire(i2cJobSemaQ, osWaitForever);
+//			if (status != osOK) {
+//				errorHandler((uint32_t)status ,stop," i2cJobSema "," transmitI2cByteArray ");
+//			}
 			osSemaphoreRelease(i2cResourceSema);
 			res = transmitErrorCollectorUint8_t;
 		}  else {
@@ -400,7 +404,7 @@ uint8_t receiveI2cByteArray(uint8_t adr,uint8_t* pString,uint8_t amtChars)
 
 void initI2c()
 {
-	osStatus_t status;
+//	osStatus_t status;
 	osSemaphoreDef_t  i2cSendSemaphoreDef;
 	i2cInitialized = 0;
 //	resetOnError = 1;
@@ -414,13 +418,13 @@ void initI2c()
 	i2cSendSemaphoreDef.cb_mem = NULL;
 	i2cSendSemaphoreDef.cb_size = 0;
 	i2cResourceSema=  osSemaphoreNew(1,1,&i2cSendSemaphoreDef);
-	i2cJobSema =  osSemaphoreNew(1,1,&i2cSendSemaphoreDef);
+	i2cJobSemaQ =  osMessageQueueNew(3,4,NULL);
 
-	status = osSemaphoreAcquire(i2cJobSema, osWaitForever);  // set event to zero . todo replace with event group type ,
-							//implemented this out of time to market reasons and at this time unknown cmsis_os eventGroup  interface
-	if (status != osOK) {
-		errorHandler((uint32_t)status ,stop," i2cResourceSema "," transmitI2cByteArray ");
-	}
+//	status = osSemaphoreAcquire(i2cJobSemaQ, osWaitForever);  // set event to zero . todo replace with event group type ,
+//							//implemented this out of time to market reasons and at this time unknown cmsis_os eventGroup  interface
+//	if (status != osOK) {
+//		errorHandler((uint32_t)status ,stop," i2cResourceSema "," transmitI2cByteArray ");
+//	}
 
 
     __HAL_RCC_GPIOB_CLK_ENABLE();
