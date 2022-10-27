@@ -13,7 +13,7 @@
 #include <mainJt.h>
 #include "cmsis_os.h"
 #include <mainJt.h>
-
+#include <uart-comms.h>
 #include "uart-hw.h"
 
 //extern OS_EVENT *dmaQSem;
@@ -64,7 +64,7 @@ void init_printf()
 	serialOn = 0;
 //	amtErr = 0;
 //	amtPrintErr = 0;
-//	uint8_t err_init_print = OS_ERR_NONE;
+	uint8_t err = osOK;
 //
 
 	serialMessageQ =  osMessageQueueNew(5,maxSerialStringSz * charWidth, NULL);
@@ -78,15 +78,18 @@ void init_printf()
 		errorHandler((uint32_t)serialQMethodThread ,stop," serialQMethodThread ","initJt");
 	}
 
+	err=initUartHw();
 
-	serialOn = 1;
-	startUartHw();
+	if (err == osOK)  {
+		serialOn = 1;
+		startUartHw();
+	}
 }
 
 
 void info_printf( char *emsg, ...)
 {
-//	osStatus_t status;
+	osStatus_t status;
 	va_list ap;
 
 	va_start(ap, emsg);

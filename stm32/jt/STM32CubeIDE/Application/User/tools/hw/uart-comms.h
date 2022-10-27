@@ -7,16 +7,15 @@
 
 #ifndef ST_TEMPIX_TOOLS_UART_COMMS_H_
 #define ST_TEMPIX_TOOLS_UART_COMMS_H_
+#include <cmsis_os.h>
 
 #ifdef  __cplusplus
 extern "C"
 {
 #endif
 
-
-#define maxSerialStringSz   80
-#define charWidth sizeof(char)
-
+#define maxUartReceiveDmaStringSize  0x80
+#define maxSerialStringSz   160
 
 void init_printf();
 void err_printf ( char *emsg, ...);

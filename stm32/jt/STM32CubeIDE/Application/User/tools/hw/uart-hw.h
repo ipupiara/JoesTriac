@@ -17,12 +17,9 @@ extern "C"
 #include  <stm32f7xx_hal.h>
 #include "cmsis_os.h"
 
-
-
-#define maxSerialStringSz   160
 #define charWidth sizeof(char)
 
-
+#define dmaAvailable  0x01
 
 
 extern osSemaphoreId uartSendSemaphore;
