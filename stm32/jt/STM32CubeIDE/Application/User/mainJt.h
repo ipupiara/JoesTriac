@@ -160,6 +160,9 @@ extern osMessageQueueId_t    modelMessageQ;
 
 //////////////////  end Messages  ///////////////////
 
+void startSec100Timer();
+void stopSec100Timer();
+
 void initJt();
 
 

@@ -81,6 +81,27 @@ void mainJtSecondTickCallback(void *argument)
 	}
 }
 
+void startSec100Timer()
+{
+	osStatus_t  status;
+
+	status = osTimerStart (mainJtSec100Timer, 10);
+	if (status !=  osOK)  {
+		errorHandler((uint32_t)status ,goOn," osTimerStart "," osStarted ");
+	}
+}
+
+void stopSec100Timer()
+{
+	osStatus_t  status;
+
+	status = osTimerStop (mainJtSec100Timer);
+	if (status !=  osOK)  {
+		errorHandler((uint32_t)status ,goOn," osTimerStart "," osStarted ");
+	}
+}
+
+
 void startMainJtTimers()
 {
 	osStatus_t  status;
@@ -89,10 +110,7 @@ void startMainJtTimers()
 	if (status !=  osOK)  {
 		errorHandler((uint32_t)status ,goOn," osTimerStart "," osStarted ");
 	}
-	status = osTimerStart (mainJtSec100Timer, 10);
-	if (status !=  osOK)  {
-		errorHandler((uint32_t)status ,goOn," osTimerStart "," osStarted ");
-	}
+	startSec100Timer();
 }
 
 void mainJtOsStarted()

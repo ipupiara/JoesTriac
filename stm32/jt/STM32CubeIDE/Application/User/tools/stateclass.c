@@ -6,6 +6,7 @@
 #include <mainJt.h>
 #include <defines.h>
 #include "triacPID.h"
+#include <i2c.h>
 
 
 
@@ -303,7 +304,7 @@ uStInt evCalibrateLowChecker(void)
 
 	if (currentEvent->evType == evCalibContinueClick)
 	{
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetup);
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateHigh);
 
 		storeCalibLowAdc();
 
@@ -312,7 +313,7 @@ uStInt evCalibrateLowChecker(void)
 	}
 	if (currentEvent->evType == evCalibSkipClick)
 	{
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetup);
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateHigh);
 
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
@@ -342,14 +343,14 @@ uStInt evCalibrateHighChecker(void)
 
 	if (currentEvent->evType == evCalibSkipClick)
 	{
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, evCalibSkipClick);
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupIdle);
 
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
 	}
 	if (currentEvent->evType == evCalibContinueClick)
 	{
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, evCalibContinueClick);
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupIdle);
 
 		storeCalibHighAdc();
 
