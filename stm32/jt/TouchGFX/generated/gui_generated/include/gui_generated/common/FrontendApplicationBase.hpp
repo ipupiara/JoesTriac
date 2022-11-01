@@ -29,6 +29,9 @@ public:
     // setTimeScreen
     void gotosetTimeScreenScreenNoTransition();
 
+    // calibrationScreen
+    void gotocalibrationScreenScreenNoTransition();
+
     // alarmConfigScreen
     void gotoalarmConfigScreenScreenNoTransition();
 
@@ -72,6 +75,9 @@ protected:
 
     // setTimeScreen
     void gotosetTimeScreenScreenNoTransitionImpl();
+
+    // calibrationScreen
+    void gotocalibrationScreenScreenNoTransitionImpl();
 
     // alarmConfigScreen
     void gotoalarmConfigScreenScreenNoTransitionImpl();

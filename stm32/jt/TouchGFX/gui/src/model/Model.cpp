@@ -44,6 +44,9 @@ void Model::tick()
 			if (modelMessage.messageType ==  changeToJobOkScreen) {
 				static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotojobCompleteScreenScreenNoTransition();
 			}
+			if (modelMessage.messageType ==  changeToCalibrationScreen) {
+				static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotocalibrationScreenScreenNoTransition();
+			}
 			if (modelMessage.messageType ==  restoreModelData) {
 				restoreData();
 			}

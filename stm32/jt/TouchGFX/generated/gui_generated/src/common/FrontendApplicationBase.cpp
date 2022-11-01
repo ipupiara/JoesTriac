@@ -103,6 +103,19 @@ void FrontendApplicationBase::gotosetTimeScreenScreenNoTransitionImpl()
     touchgfx::makeTransition<setTimeScreenView, setTimeScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
+// calibrationScreen
+
+void FrontendApplicationBase::gotocalibrationScreenScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplication::gotocalibrationScreenScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotocalibrationScreenScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<calibrationScreenView, calibrationScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
 // alarmConfigScreen
 
 void FrontendApplicationBase::gotoalarmConfigScreenScreenNoTransition()

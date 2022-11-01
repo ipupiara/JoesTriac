@@ -252,13 +252,21 @@ uStInt evCalibrateZeroSignalChecker(void)
 void entryCalibrateScaleState(void)
 {
 	info_printf("entryCalibrateScaleState\n");
-//	startTriacRun();
+	CJoesModelEventT  msg;
+	osStatus_t status;
+	info_printf("entryCalibrateZeroSignalState\n");
+	msg.messageType = changeToCalibrationScreen;
+	status = sendModelMessage(&msg);
+	if(status != osOK)  {
+		errorHandler(status,goOn," status ","entryCalibrateScaleState");
+	}
+	startTriacRun();
 }
 
 void exitCalibrateScaleState(void)
 {
 //	info_printf("exit calib\n");
-//	stopTriacRun();
+	stopTriacRun();
 }
 
 uStInt evCalibrateScaleChecker(void)

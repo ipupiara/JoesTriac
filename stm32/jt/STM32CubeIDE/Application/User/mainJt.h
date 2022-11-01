@@ -135,6 +135,7 @@ typedef enum {
 	changeToCalibrateZeroScreen,
 	changeToRequesStopScreen,
 	changeToJobOkScreen,
+	changeToCalibrationScreen,
 	restoreModelData
 }  modelMessageType;
 
