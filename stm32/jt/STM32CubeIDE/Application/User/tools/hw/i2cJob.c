@@ -9,20 +9,21 @@
 
 #include <stdio.h>
 #include <i2cJob.h>
-//#include <cpu.h>
 #include <main.h>
 #include <mainJT.h>
 #include <string.h>
 #include <uart-comms.h>     //  todo added temporarely,  tobe erased later
 #include <i2c.h>
+
 #include <TriacIntr.h>
 #include <FreeRTOS.h>
 #include <task.h>
 
+
 //    wip   work in progress     ,    entry on own risk :-)
 /////////////////////////////  work in progress ,  access on on risk
 #define screenI2cAddress 0x3c
-
+/*
 
 #define LCD_CLEARDISPLAY 0x01
 #define LCD_RETURNHOME 0x02
@@ -76,6 +77,7 @@
 #define waitShortCs   	1
 #define waitMediumCs		2
 #define waitLongCs		3
+*/
 
 #define byteArrayMaxSz   80
 
@@ -85,14 +87,16 @@ typedef enum {
 } jobStateEnum;
 
 typedef void(*t_fvoid)(void);
-typedef void(*t_fPar)(void* pCmdLine);
+//typedef void(*t_fPar)(void* pCmdLine);
 
-typedef struct {
-	uint16_t waitS1ms;
-	uint8_t xPos;
-	uint8_t yPos;
-	t_fvoid  stepMethod ;
-} i2cJobStepType ;
+typedef uint32_t (*t_fPar) (void* param);
+
+//typedef struct {
+//	uint16_t waitS1ms;
+//	uint8_t xPos;
+//	uint8_t yPos;
+//	t_fvoid  stepMethod ;
+//} i2cJobStepType ;
 
 typedef struct {
 	uint16_t waitS1ms;
@@ -103,23 +107,21 @@ typedef struct {
 		} pos;
 		void* param;
 	} uni1;
-	union {
-		t_fvoid  stepMethod ;
-		t_fPar   stepParMethod;
-	} uni2;
+	struct {
+		uint8_t  what;
+		union {
+			t_fvoid  stepMethod ;
+			t_fPar   stepParMethod;
+		} uni2;
+	} method;
 } i2cJobStepT ;
-
-typedef struct {
-	uint8_t   amtJobSteps;
-	i2cJobStepType  i2cJobSteps [];
-
-}screenJobType;
 
 typedef struct {
 	uint8_t   amtJobSteps;
 	i2cJobStepT  i2cJobSteps [];
 
-}screenJobT;
+}screenJobType;
+
 
 typedef uint8_t commandLineType [];
 
@@ -135,25 +137,25 @@ screenJobType *  currentScreenJob;
 uint8_t  currentStepIndex;
 uint8_t  currentWaitCycle;
 
-#define maxStateNameLen  20
-char  stateName[maxStateNameLen+1];
-char  appStateName[maxStateNameLen+1];
+//#define maxStateNameLen  20
+//char  stateName[maxStateNameLen+1];
+//char  appStateName[maxStateNameLen+1];
+//
+//void setStateName(uint8_t* stName)
+//{
+//	memset(stateName,0,maxStateNameLen);
+//	strncpy((char*)stateName,(char*) stName,maxStateNameLen);
+//}
+//
+//void appendStateName(uint8_t* stName)
+//{
+//	memset(appStateName,0,maxStateNameLen);
+//	strncpy(appStateName,(char*)stName,maxStateNameLen);
+//}
 
-void setStateName(uint8_t* stName)
-{
-	memset(stateName,0,maxStateNameLen);
-	strncpy((char*)stateName,(char*) stName,maxStateNameLen);
-}
 
-void appendStateName(uint8_t* stName)
-{
-	memset(appStateName,0,maxStateNameLen);
-	strncpy(appStateName,(char*)stName,maxStateNameLen);
-}
-
-
-void setHelloPaintJob();
-
+//void setHelloPaintJob();
+//
 void clear(pByteArrayT pBary)
 {
 	memset(pBary,0,byteArrayMaxSz);
@@ -215,21 +217,25 @@ uint8_t setNextScreenJob(screenJobType* sJob)
 	return res;
 }
 
-void  screenCentiStepExecution( uint8_t sz, i2cJobStepType  sJob [sz] )
+void  screenCentiStepExecution( uint8_t sz, i2cJobStepT  sJob [sz] )
 {
 	uint16_t waitTime = sJob[currentStepIndex].waitS1ms;
 	if (currentWaitCycle < waitTime) {
 		if (currentWaitCycle == 0) {
 			clear(&byteBuffer);
-			sJob [currentStepIndex].stepMethod();
+			if (sJob [currentStepIndex].method.what == 1)   {
+				sJob [currentStepIndex].method.uni2.stepMethod();
+			} else {
+				sJob[currentStepIndex].method.uni2.stepParMethod( sJob[currentStepIndex].uni1.param  );
+			}
 			sendI2cScreenCommand();
 		}
 		++ currentWaitCycle;
-		if (currentWaitCycle == waitTime) {
-			if (currentWaitCycle != waitTime) {
-				sendI2cScreenCommand();
-			}
-		}
+//		if (currentWaitCycle == waitTime) {
+//			if (currentWaitCycle != waitTime) {
+//				sendI2cScreenCommand();
+//			}
+//		}
 	} else {
 		currentWaitCycle = 0;
 		++ currentStepIndex;
@@ -237,7 +243,7 @@ void  screenCentiStepExecution( uint8_t sz, i2cJobStepType  sJob [sz] )
 }
 
 
-void screenCentiSecTimer ()
+void i2cCentiSecTimer ()
 {
 	screenJobType*  screenJob = NULL;
 
@@ -261,6 +267,21 @@ void screenCentiSecTimer ()
 		}
 	}
 }
+
+
+void storeFloatToEeprom(float val, uint16_t pos)
+{
+
+}
+
+float getFloatFromEeporm(uint16_t pos )
+{
+	float res = 0.0;
+	return res;
+}
+
+
+/*
 
 uint8_t lines [4] = {0x00, 0x40, 0x14, 0x54};
 
@@ -381,26 +402,26 @@ void displayTimeLine()
 //	addToByteArray(&byteBuffer, strlen(buffer) , (uint8_t*) buffer);
 }
 
-void displayStatechartLine()
-{
-	commandLineType cmd = {LCD_LastControlByte + LCD_AsciiControlByte};
-	addToByteArray(&byteBuffer, 1, cmd);
-	uint8_t stLen = strlen(stateName);
-	uint8_t appLen = strlen(appStateName);
-	addToByteArray(&byteBuffer, stLen, (uint8_t*) stateName);
-	uint8_t maxLen = maxStateNameLen -stLen;
-	if(appLen < maxLen) { maxLen = appLen; }
-	addToByteArray(&byteBuffer, maxLen, (uint8_t*) appStateName);
-	char* spc = " ";
-	for(uint8_t i1= stLen + appLen; i1 < 20 ; ++ i1 ) {
-		addToByteArray(&byteBuffer,1,(uint8_t*)spc);
-	}
-
+//void displayStatechartLine()
+//{
+//	commandLineType cmd = {LCD_LastControlByte + LCD_AsciiControlByte};
+//	addToByteArray(&byteBuffer, 1, cmd);
+//	uint8_t stLen = strlen(stateName);
+//	uint8_t appLen = strlen(appStateName);
+//	addToByteArray(&byteBuffer, stLen, (uint8_t*) stateName);
+//	uint8_t maxLen = maxStateNameLen -stLen;
+//	if(appLen < maxLen) { maxLen = appLen; }
+//	addToByteArray(&byteBuffer, maxLen, (uint8_t*) appStateName);
+//	char* spc = " ";
+//	for(uint8_t i1= stLen + appLen; i1 < 20 ; ++ i1 ) {
+//		addToByteArray(&byteBuffer,1,(uint8_t*)spc);
+//	}
+//
 
 //	snprintf(buffer, sizeof(buffer), "T %6.2f H %6.2f",tmp, hyd);
 //	addToByteArray(&byteBuffer, strlen(buffer) , (uint8_t*) buffer);
 
-}
+//}
 
 void displayErrorStateLine()
 {
@@ -427,10 +448,10 @@ screenJobType testPaint = {8, {{waitShortCs,1,1,setCursor}, {waitShortCs,0,0, pa
 
 screenJobType halloPaint = {2, {{waitShortCs,1,1,setCursor}, {waitShortCs,0,0, paintHello}}};
 
-screenJobType growboxScreenPaint = {6, {{waitShortCs,1,1,setCursor},{waitLongCs,1,1,displayTemperatureLine},
-										{waitShortCs,1,2,setCursor},{waitLongCs,1,1,displayTimeLine} ,
-										{waitShortCs,1,3,setCursor},{waitLongCs,1,1,displayStatechartLine}}};
-//										{waitShortCs,1,4,setCursor},{waitLongCs,1,1,displayErrorStateLine}}};
+//screenJobType growboxScreenPaint = {6, {{waitShortCs,1,1,setCursor},{waitLongCs,1,1,displayTemperatureLine},
+//										{waitShortCs,1,2,setCursor},{waitLongCs,1,1,displayTimeLine} ,
+//										{waitShortCs,1,3,setCursor},{waitLongCs,1,1,displayStatechartLine}}};
+////										{waitShortCs,1,4,setCursor},{waitLongCs,1,1,displayErrorStateLine}}};
 
 
 //void paintCanScreen()
@@ -438,26 +459,27 @@ screenJobType growboxScreenPaint = {6, {{waitShortCs,1,1,setCursor},{waitLongCs,
 //	setNextScreenJob(&canScreen);
 //}
 
-void setDebugScreenJob()
-{
-	setNextScreenJob(&testPaint);
-}
-
-void setHelloPaintJob()
-{
-	setNextScreenJob(&halloPaint);
-}
-
-void setGrowboxScreen()
-{
-	setNextScreenJob(&growboxScreenPaint);
-}
-
-
-void displayFatalError()
-{
-
-}
+//void setDebugScreenJob()
+//{
+//	setNextScreenJob(&testPaint);
+//}
+//
+//void setHelloPaintJob()
+//{
+//	setNextScreenJob(&halloPaint);
+//}
+//
+//void setGrowboxScreen()
+//{
+//	setNextScreenJob(&growboxScreenPaint);
+//}
+//
+//
+//void displayFatalError()
+//{
+//
+//}
+*/
 
 void initI2cJob()
 {
@@ -466,7 +488,7 @@ void initI2cJob()
 	jobState = jobInactive;
 	currentWaitCycle = 0;
 	clear(&byteBuffer);
-	setNextScreenJob(&initJob);
+//	setNextScreenJob(&initJob);
 }
 
 

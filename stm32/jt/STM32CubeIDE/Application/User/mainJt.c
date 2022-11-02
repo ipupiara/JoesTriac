@@ -9,6 +9,7 @@
 #include <StateClass.h>
 #include <TriacIntr.h>
 #include <i2c.h>
+#include <i2cJob.h>
 
 
 //////////////////  types and variables   //////////////////////////////7
@@ -140,6 +141,7 @@ void mainJt(void *argument)
 						}
 						case second100Tick: {
 							sendI2cByteArray(0xAA,(uint8_t*)"abb",3);
+//							i2cCentiSecTimer ();
 							break;
 						}
 //						case zCalibAuto: {

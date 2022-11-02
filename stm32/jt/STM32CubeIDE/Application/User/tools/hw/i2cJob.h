@@ -13,17 +13,17 @@ extern "C"
 #endif
 
 
-void setStateName(uint8_t * stName);
-void appendStateName(uint8_t* stName);
-void screenCentiSecTimer ();
-
-void paintCanScreen();
+//void setStateName(uint8_t * stName);
+//void appendStateName(uint8_t* stName);
+//void i2cCentiSecTimer ();
+//
+//void paintCanScreen();
 void initI2cJob();
-void setDebugScreenJob();
-
-void setGrowboxScreen();
-
-void displayFatalError();
+//void setDebugScreenJob();
+//
+//void setGrowboxScreen();
+//
+//void displayFatalError();
 
 
 
