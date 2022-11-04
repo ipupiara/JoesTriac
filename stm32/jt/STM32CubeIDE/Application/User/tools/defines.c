@@ -9,11 +9,13 @@
 #include <stdint.h>
 #include <FreeRTOS.h>
 #include <task.h>
-
+#include "cmsis_os.h"
 #include <defines.h>
 #include <TriacIntr.h>
 #include <mainJt.h>
 #include <triacPID.h>
+#include <i2c.h>
+#include <i2cJob.h>
 
 //#define  microSdWorking
 // despite trying all found examples on google and stm (also for F769Ni)  .... this stm  microSd bu..it did not work
@@ -262,10 +264,42 @@ tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded)
 
 #else
 
+#define amountPersistentValues  8
+
+
+
+#define wTimePos  0
+#define wAmpsPos  (wTimePos + sizeof (persistentRec.weldingTime))
+#define cLowPos  (wAmpsPos + sizeof(persistentRec.weldingAmps))
+#define cHighPos  (cLowPos + sizeof(persistentRec.calibLow))
+#define zPotiPos  (cHighPos + sizeof(persistentRec.calibHigh))
+#define aNeededPos  (zPotiPos + sizeof(persistentRec.zeroPotiPos))
+#define zOnPos  (aNeededPos + sizeof(persistentRec.alarmNeeded))
+#define aTimePos  (zOnPos + sizeof(persistentRec.zCalibOn))
+
+
+varData  variableData  [8]= {
+		{(void *)(&persistentRec.weldingTime), intVar32, wTimePos,sizeof(persistentRec.weldingTime)},
+		{(void *)(&persistentRec.weldingAmps), realVar,wAmpsPos, sizeof(persistentRec.weldingAmps)},
+		{(void *)(&persistentRec.calibLow), intVar32, cLowPos, sizeof(persistentRec.calibLow)},
+		{(void *)(&persistentRec.calibHigh), intVar32, cHighPos, sizeof(persistentRec.calibHigh)},
+		{(void *)(&persistentRec.zeroPotiPos), intVar32, zPotiPos, sizeof(persistentRec.zeroPotiPos)},
+		{(void *)(&persistentRec.alarmNeeded), intVar8, aNeededPos, sizeof(persistentRec.alarmNeeded)},
+		{(void *)(&persistentRec.zCalibOn), intVar8, zOnPos, sizeof(persistentRec.zCalibOn)},
+		{(void *)(&persistentRec.alarmTime), intVar32, aTimePos, sizeof(persistentRec.alarmTime)}
+};
+
+void eepromSave(pVarData pVD)
+{
+	uint32_t rand = requestAndWaitForCurrentI2cJob();
+	addToCurrentI2cJob(rand, pVD, setAddr);
+}
+
 tStatus saveWeldingTime(uint32_t wTime)
 {
 	tStatus success = tOk;
 	persistentRec.weldingTime = wTime;
+	eepromSave(&variableData[0]);
 
 	return success;
 }
@@ -274,15 +308,7 @@ tStatus saveWeldingAmps(float wAmps)
 {
 	tStatus success = tOk;
 	persistentRec.weldingAmps = wAmps;
-
-	return success;
-}
-
-tStatus saveCalibHigh(uint32_t cHigh)
-{
-	tStatus success = tOk;
-	persistentRec.calibHigh = cHigh;
-
+	eepromSave(&variableData[1]);
 	return success;
 }
 
@@ -290,7 +316,23 @@ tStatus saveCalibLow(uint32_t cLow)
 {
 	tStatus success = tOk;
 	persistentRec.calibLow = cLow;
+	eepromSave(&variableData[2]);
+	return success;
+}
 
+tStatus saveCalibHigh(uint32_t cHigh)
+{
+	tStatus success = tOk;
+	persistentRec.calibHigh = cHigh;
+	eepromSave(&variableData[3]);
+	return success;
+}
+
+tStatus saveZeroPotiPos(uint32_t val)
+{
+	tStatus success = tOk;
+	persistentRec.zeroPotiPos = val;
+	eepromSave(&variableData[4]);
 	return success;
 }
 
@@ -298,16 +340,7 @@ tStatus saveAlarmNeeded(uint8_t aNeeded)
 {
 	tStatus success = tOk;
 	persistentRec.alarmNeeded = aNeeded;
-
-	return success;
-}
-
-
-tStatus saveAlarmTime(uint32_t aTime)
-{
-	tStatus success = tOk;
-	persistentRec.alarmTime = aTime;
-
+	eepromSave(&variableData[5]);
 	return success;
 }
 
@@ -315,9 +348,18 @@ tStatus saveZCalibOn(uint32_t val)
 {
 	tStatus success = tOk;
 	persistentRec.zCalibOn = val;
-
+	eepromSave(&variableData[6]);
 	return success;
 }
+
+tStatus saveAlarmTime(uint32_t aTime)
+{
+	tStatus success = tOk;
+	persistentRec.alarmTime = aTime;
+	eepromSave(&variableData[7]);
+	return success;
+}
+
 
 tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded, uint32_t zCalibOn)
 {
@@ -329,12 +371,7 @@ tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded, uint32_t zCalibOn)
 	return success;
 }
 
-tStatus saveZeroPotiPos(uint32_t val)
-{
-	tStatus success = tOk;
-	persistentRec.zeroPotiPos = val;
-	return success;
-}
+
 #endif
 
 

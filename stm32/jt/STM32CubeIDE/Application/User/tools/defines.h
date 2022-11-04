@@ -29,7 +29,20 @@ typedef enum  {
 
 } tStatus ;
 
+typedef enum  {
+	realVar,
+	intVar32,
+	intVar8
+} varType;
 
+typedef struct  {
+	void* pValue;
+	varType vType;
+	uint32_t EepromPos;
+	uint32_t EepromLen;
+} varData;
+
+typedef varData* pVarData;
 
 
 uint32_t getDefinesWeldingTime();

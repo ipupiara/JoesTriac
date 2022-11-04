@@ -8,6 +8,8 @@
 
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include <i2cJob.h>
 #include <main.h>
 #include <mainJT.h>
@@ -20,107 +22,31 @@
 #include <task.h>
 
 
-//    wip   work in progress     ,    entry on own risk :-)
-/////////////////////////////  work in progress ,  access on on risk
-#define screenI2cAddress 0x3c
-/*
-
-#define LCD_CLEARDISPLAY 0x01
-#define LCD_RETURNHOME 0x02
-#define LCD_ENTRYMODESET 0x04
-#define LCD_DISPLAYCONTROL 0x08
-#define LCD_CURSORSHIFT 0x10
-#define LCD_FUNCTIONSET 0x20
-#define LCD_SETCGRAMADDR 0x40
-#define LCD_SETDDRAMADDR 0x80
-
-// flags for display entry mode
-#define LCD_CURSORLEFTADRDEC 0x00
-#define LCD_CURSORRIGHTADRINC 0x02
-#define LCD_ENTRYSHIFTINCREMENT 0x01
-#define LCD_ENTRYSHIFTDECREMENT 0x00
-
-// flags for display on/off control
-#define LCD_DISPLAYON 0x04
-#define LCD_DISPLAYOFF 0x00
-#define LCD_CURSORON 0x02
-#define LCD_CURSOROFF 0x00
-#define LCD_BLINKON 0x01
-#define LCD_BLINKOFF 0x00
-
-// flags for display/cursor shift
-#define LCD_DISPLAYMOVE 0x08
-#define LCD_CURSORMOVE 0x00
-#define LCD_MOVERIGHT 0x04
-#define LCD_MOVELEFT 0x00
-
-// flags for function set
-#define LCD_8BITMODE 0x10
-#define LCD_4BITMODE 0x00
-#define LCD_2LINE 0x08
-#define LCD_1LINE 0x00
-#define LCD_5x10DOTS 0x04
-#define LCD_5x8DOTS 0x00
-
-// flags for backlight control
-#define LCD_BACKLIGHT 0x08
-#define LCD_NOBACKLIGHT 0x00
-
-//  control bytes
-#define LCD_ContinuousControlByte  0x80
-#define LCD_LastControlByte			0x00
-
-//  flags for control bytes
-#define LCD_AsciiControlByte		0x40
-#define LCD_CommandControlByte      0x00
-
 #define waitShortCs   	1
 #define waitMediumCs		2
 #define waitLongCs		3
 */
 
 #define byteArrayMaxSz   80
+osSemaphoreId_t   i2cJobResourceSema;
 
 typedef enum {
 	jobActive,
 	jobInactive
 } jobStateEnum;
 
-typedef void(*t_fvoid)(void);
-//typedef void(*t_fPar)(void* pCmdLine);
-
-typedef uint32_t (*t_fPar) (void* param);
-
-//typedef struct {
-//	uint16_t waitS1ms;
-//	uint8_t xPos;
-//	uint8_t yPos;
-//	t_fvoid  stepMethod ;
-//} i2cJobStepType ;
-
 typedef struct {
 	uint16_t waitS1ms;
-	union {
-		struct {
-			uint8_t xPos;
-			uint8_t yPos;
-		} pos;
-		void* param;
-	} uni1;
-	struct {
-		uint8_t  what;
-		union {
-			t_fvoid  stepMethod ;
-			t_fPar   stepParMethod;
-		} uni2;
-	} method;
+	void* param;
+	t_fPar   stepParMethod;
 } i2cJobStepT ;
+
 
 typedef struct {
 	uint8_t   amtJobSteps;
 	i2cJobStepT  i2cJobSteps [];
 
-}screenJobType;
+}i2cJobType;
 
 
 typedef uint8_t commandLineType [];
@@ -133,9 +59,13 @@ typedef struct  {
 typedef byteArrayT* pByteArrayT;
 
 jobStateEnum jobState;
-screenJobType *  currentScreenJob;
+i2cJobType *  currentI2cJob;
 uint8_t  currentStepIndex;
 uint8_t  currentWaitCycle;
+
+uint32_t currentRand;
+
+i2cJobType i2cJob = {10,{{0,NULL,},{},{},{},{},{},{},{},{},{}}};
 
 //#define maxStateNameLen  20
 //char  stateName[maxStateNameLen+1];
@@ -199,13 +129,13 @@ uint8_t sendI2cScreenCommand()
 	return res;
 }
 
-uint8_t setNextScreenJob(screenJobType* sJob)
+uint8_t setNextScreenJob(i2cJobType* sJob)
 {
 	uint8_t res = 0;  // todo  check that used inside privileged code, else no effect of method
 						//  see also F103 programming manual  cpsid instruction, also check primask values... confusings??...
 	taskENTER_CRITICAL();  //  todo check that own assembler uses same constants as code in HAL (not only same value)
 	if ( jobState == jobInactive) {
-		currentScreenJob = sJob;
+		currentI2cJob = sJob;
 		currentStepIndex = 0;
 		currentWaitCycle = 0;
 		clear(&byteBuffer);  //  could be omitted here after debugging
@@ -223,11 +153,7 @@ void  screenCentiStepExecution( uint8_t sz, i2cJobStepT  sJob [sz] )
 	if (currentWaitCycle < waitTime) {
 		if (currentWaitCycle == 0) {
 			clear(&byteBuffer);
-			if (sJob [currentStepIndex].method.what == 1)   {
-				sJob [currentStepIndex].method.uni2.stepMethod();
-			} else {
-				sJob[currentStepIndex].method.uni2.stepParMethod( sJob[currentStepIndex].uni1.param  );
-			}
+			sJob[currentStepIndex].method.uni2.stepParMethod( sJob[currentStepIndex].uni1.param  );
 			sendI2cScreenCommand();
 		}
 		++ currentWaitCycle;
@@ -245,11 +171,11 @@ void  screenCentiStepExecution( uint8_t sz, i2cJobStepT  sJob [sz] )
 
 void i2cCentiSecTimer ()
 {
-	screenJobType*  screenJob = NULL;
+	i2cJobType*  screenJob = NULL;
 
 	taskENTER_CRITICAL();
 		if (jobState == jobActive) {
-			screenJob = currentScreenJob;
+			screenJob = currentI2cJob;
 		}
 	taskEXIT_CRITICAL();
 
@@ -258,7 +184,7 @@ void i2cCentiSecTimer ()
 
 		if (currentStepIndex >= screenJob->amtJobSteps) {
 			taskENTER_CRITICAL();
-			currentScreenJob = NULL;
+			currentI2cJob = NULL;
 			currentWaitCycle = 0;
 			currentStepIndex = 0;
 			jobState = jobInactive;
@@ -268,6 +194,56 @@ void i2cCentiSecTimer ()
 	}
 }
 
+uint32_t requestAndWaitForCurrentI2cJob()
+{
+	uint32_t res = 0;
+	osStatus_t status;
+	status = osSemaphoreAcquire(i2cJobResourceSema, osWaitForever);
+	if (status == osOK) {
+		while (res == 0) {
+			res= currentRand = (uint32_t) (rand());
+		}
+	}
+	return res;
+}
+
+
+//
+//uint8_t  setEepromAddress(INT8U i2cAdr,INT8U memAdr)
+//{
+//	uint8_t res = 0;
+//	uint8_t byteArr [1];
+//	byteArr[0] = memAdr;
+//	do {
+////		res = receiveI2cByteArray(i2cAdr, &byteArr[0], 1, 1);   // just once used for debugging
+//		res = sendI2cByteArray(i2cAdr, &byteArr[0], 1, 3);   // set 1 ms delay for debugging in the do while loop
+//		if (res == 0) {
+//			pollForReady(i2cAdr, 0);  // todo test if this is even needed here, without something to write
+//		}
+//	} while (1);
+//	return res;
+//}
+
+
+void addSetAddress(uint8_t adr)
+{
+
+}
+
+void addToCurrentI2cJob(uint32_t keyRand, pVarData pVarD, i2cJobTopic jobTopic)
+{
+	if ((keyRand == currentRand) && (keyRand != 0)) {
+
+	}
+}
+
+void startCurrentI2cJob(uint32_t keyRand)
+{
+	if ((keyRand == currentRand) && (keyRand != 0)) {
+
+		keyRand = 0;
+	}
+}
 
 void storeFloatToEeprom(float val, uint16_t pos)
 {
@@ -279,6 +255,7 @@ float getFloatFromEeporm(uint16_t pos )
 	float res = 0.0;
 	return res;
 }
+
 
 
 /*
@@ -483,148 +460,21 @@ screenJobType halloPaint = {2, {{waitShortCs,1,1,setCursor}, {waitShortCs,0,0, p
 
 void initI2cJob()
 {
-	currentScreenJob = NULL;
+	time_t tim;
+	srand((unsigned) time(&tim));
+	osSemaphoreDef_t  i2cJobSendSemaphoreDef;
+	i2cJobSendSemaphoreDef.name="i2c send sema"  ;
+	i2cJobSendSemaphoreDef.attr_bits= 0;
+	i2cJobSendSemaphoreDef.cb_mem = NULL;
+	i2cJobSendSemaphoreDef.cb_size = 0;
+	i2cJobResourceSema=  osSemaphoreNew(1,1,&i2cJobSendSemaphoreDef);
+
+
+	currentI2cJob = NULL;
 	currentStepIndex = 0;
 	jobState = jobInactive;
 	currentWaitCycle = 0;
 	clear(&byteBuffer);
 //	setNextScreenJob(&initJob);
 }
-
-
-enum valuesToSave
-{
-	kTot,
-	kP,
-	kI,
-	kD,
-	stepTime,
-	error_thresh,
-	amtEepromAccessors
-};
-
-
-#define lenOfReal  14
-
-
-
-////   begin eeprom code /////////////
-/*
-
-typedef struct  {
-	uint8_t index;
-	uint8_t startPos;
-	uint8_t len;
-} eepromAccessor ;
-
-
-uint8_t  setEepromAddress(INT8U i2cAdr,INT8U memAdr)
-{
-	uint8_t res = 0;
-	uint8_t byteArr [1];
-	byteArr[0] = memAdr;
-	do {
-//		res = receiveI2cByteArray(i2cAdr, &byteArr[0], 1, 1);   // just once used for debugging
-		res = sendI2cByteArray(i2cAdr, &byteArr[0], 1, 3);   // set 1 ms delay for debugging in the do while loop
-		if (res == 0) {
-			pollForReady(i2cAdr, 0);  // todo test if this is even needed here, without something to write
-		}
-	} while (1);
-	return res;
-}
-
-INT8U transmitEepromByteArray(INT8U i2cAdr,INT8U memAdr, INT8U* pString,INT8U amtChars, uint8_t doStore)
-{
-	uint8_t res = 0;
-	uint8_t semErr = OS_ERR_NONE;
-
-//	OSSemPend(i2cTransactionSem, 2803, &semErr);  todo check what this is for ???
-	memset(pString,0,amtChars);
-	if (semErr == OS_ERR_NONE) {
-		res = setEepromAddress(i2cAdr,memAdr);
-		if (res == 0) {
-			if (doStore) {
-				res = sendI2cByteArray(i2cAdr, pString, amtChars, 0);
-			}  else {
-				res= receiveI2cByteArray(i2cAdr, pString, amtChars,0);
-			}
-		}
-	}  else {
-		res = semErr;
-	}
-	return res;
-}
-
-void initEeprom()
-{
-	uint8_t err = OS_ERR_NONE;
-	if (err == OS_ERR_NONE) {
-//		 i2cTransactionSem = OSSemCreate(1);
-	}
-}
-
-//  end eeprom part  //////////////////////////////////
-//////// end eeprom code ///////////
-
-
-const eepromAccessor eepromAx[amtEepromAccessors] = {
-    {kTot, 0,lenOfReal},
-    {kP, 1 * lenOfReal,lenOfReal},
-	{kI, 2* lenOfReal, lenOfReal },
-	{kD ,3 * lenOfReal ,lenOfReal },
-	{stepTime, 4 * lenOfReal, lenOfReal },
-	{error_thresh, 5 * lenOfReal,lenOfReal }
-};
-
-uint8_t storeReal(real val, uint8_t realInd)
-{
-	uint8_t res = 0;
-	uint8_t  realStr[lenOfReal + 1];
-	memset(realStr,0,sizeof(realStr));
-	snprintf((char *)realStr, lenOfReal , "%e", val);
-	res = transmitEepromByteArray(eepromI2cAdr, eepromAx[realInd].startPos, realStr, eepromAx[realInd].len, 1);
-
-	if (res != 0) {
-		//check for errors
-	}
-	return res;
-}
-
-
-uint8_t restoreReal(real* result, uint8_t realInd )
-{
-	*result = 0.0;
-	uint8_t  realStr[lenOfReal + 1];
-	uint8_t err = OS_ERR_NONE;
-	uint8_t endPtr;
-
-	memset(realStr,0,sizeof(realStr));
-
-	err = transmitEepromByteArray(eepromI2cAdr, eepromAx[realInd].startPos, realStr, eepromAx [realInd].len, 0);
-	if (err != 0) {
-		*result =  strtod((const char*) &realStr[0],(char **) &endPtr);
-	    if (*result == 0.0) {
-	        if (endPtr == ERANGE) {err = endPtr; }  //  tobe tested, in our case, error should be contained in endPtr, which
-	        						//  may not have a valid value (eg. 0, not a valid address)
-	    } else {
-			storeReal(1.0, realInd);
-	    }
-	}
-	return err;
-}
-
-
-uint8_t restorePersistentValues()
-{
-	uint8_t err;
-	err = restoreReal(&m_kPTot,kTot);
-	err |= restoreReal(&m_kP, kP);
-	err |= restoreReal(&m_kI, kI);
-	err |= restoreReal(&m_kD, kD);
-	err |= restoreReal(&m_stepTime, stepTime);
-	err |= restoreReal(&m_error_thresh, error_thresh);
-	return err;
-}
-
-*/
 

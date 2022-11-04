@@ -11,23 +11,35 @@
 extern "C"
 {
 #endif
+#include <defines.h>
+
+typedef enum {
+	save,
+	restore,
+	setAddr
+} i2cJobTopic;
+
+typedef void(*t_fvoid)(void);
+//typedef void(*t_fPar)(void* pCmdLine);
+
+typedef uint32_t (*t_fPar) (void* param);
+
+//typedef struct {
+//	uint16_t waitS1ms;
+//	uint8_t xPos;
+//	uint8_t yPos;
+//	t_fvoid  stepMethod ;
+//} i2cJobStepType ;
 
 
-//void setStateName(uint8_t * stName);
-//void appendStateName(uint8_t* stName);
-//void i2cCentiSecTimer ();
-//
-//void paintCanScreen();
+void i2cCentiSecTimer ();
 void initI2cJob();
-//void setDebugScreenJob();
-//
-//void setGrowboxScreen();
-//
-//void displayFatalError();
 
+uint32_t requestAndWaitForCurrentI2cJob();
+void addToCurrentI2cJob(uint32_t keyRand,pVarData pVarD, i2cJobTopic jobTopic);
+void startCurrentI2cJob(uint32_t keyRand);
 
-
-
+void addSetAddress(uint8_t adr);
 
 #ifdef  __cplusplus
 }
