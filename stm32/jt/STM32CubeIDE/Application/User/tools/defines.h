@@ -38,8 +38,8 @@ typedef enum  {
 typedef struct  {
 	void* pValue;
 	varType vType;
-	uint32_t EepromPos;
-	uint32_t EepromLen;
+	uint8_t EepromPos;
+	uint8_t EepromLen;
 } varData;
 
 typedef varData* pVarData;

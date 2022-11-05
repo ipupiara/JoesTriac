@@ -9,7 +9,7 @@
 #include <StateClass.h>
 #include <TriacIntr.h>
 #include <i2c.h>
-#include <i2cJob.h>
+
 
 
 //////////////////  types and variables   //////////////////////////////7
@@ -56,7 +56,7 @@ osStatus_t sendEventToMainJtMessageQ(pMainJtEventT pEv, uint8_t  fromIsr)
 	return status;
 }
 
-void mainJtSec100kCallback(void *argument)
+void mainJtSec100Callback(void *argument)
 {
 	CMainJtEventT  ev;
 	memset(&ev, 0x0, sizeof(ev));
@@ -140,7 +140,7 @@ void mainJt(void *argument)
 							break;
 						}
 						case second100Tick: {
-							sendI2cByteArray(0xAA,(uint8_t*)"abb",3);
+							sendI2cByteArray(0x50,(uint8_t*)"abb",3);
 //							i2cCentiSecTimer ();
 							break;
 						}
@@ -282,7 +282,7 @@ void initJt()
 		errorHandler((uint32_t)mainJtTimer ,stop," mainJtTimer ","initJt");
 	}
 
-	mainJtSec100Timer= osTimerNew (mainJtSec100kCallback, osTimerPeriodic, (void *) 0x02, NULL);
+	mainJtSec100Timer= osTimerNew (mainJtSec100Callback, osTimerPeriodic, (void *) 0x02, NULL);
 	if (mainJtTimer  == NULL)   {
 		errorHandler((uint32_t)mainJtTimer ,stop," mainJtSec100 ","initJt");
 	}

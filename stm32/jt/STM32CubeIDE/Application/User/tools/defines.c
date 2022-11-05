@@ -15,10 +15,25 @@
 #include <mainJt.h>
 #include <triacPID.h>
 #include <i2c.h>
-#include <i2cJob.h>
 
 //#define  microSdWorking
 // despite trying all found examples on google and stm (also for F769Ni)  .... this stm  microSd bu..it did not work
+
+#define eepromI2cAddr  0x50
+
+
+osSemaphoreId_t   waitSema;
+
+void definesWait(uint8_t ms)
+{
+	osStatus_t status;
+	status = osSemaphoreAcquire(waitSema, ms);
+	if (status  != osErrorTimeout )  {
+		errorHandler(status,goOn," status ","definesWait1");
+	}  else  {
+		errorHandler(status,goOn," status ","definesWait2");
+	}
+}
 
 void sendActualValuesToJobOkScreen()
 {
@@ -269,13 +284,13 @@ tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded)
 
 
 #define wTimePos  0
-#define wAmpsPos  (wTimePos + sizeof (persistentRec.weldingTime))
-#define cLowPos  (wAmpsPos + sizeof(persistentRec.weldingAmps))
-#define cHighPos  (cLowPos + sizeof(persistentRec.calibLow))
-#define zPotiPos  (cHighPos + sizeof(persistentRec.calibHigh))
-#define aNeededPos  (zPotiPos + sizeof(persistentRec.zeroPotiPos))
-#define zOnPos  (aNeededPos + sizeof(persistentRec.alarmNeeded))
-#define aTimePos  (zOnPos + sizeof(persistentRec.zCalibOn))
+#define wAmpsPos  4
+#define cLowPos  8
+#define cHighPos  12
+#define zPotiPos  16
+#define aNeededPos  20
+#define zOnPos  24
+#define aTimePos  28
 
 
 varData  variableData  [8]= {
@@ -291,8 +306,12 @@ varData  variableData  [8]= {
 
 void eepromSave(pVarData pVD)
 {
-	uint32_t rand = requestAndWaitForCurrentI2cJob();
-	addToCurrentI2cJob(rand, pVD, setAddr);
+	uint8_t  buff [10];
+	memset (buff,0,sizeof(buff));
+	buff[0]= pVD->EepromPos;
+	memcpy(&buff[1],pVD->pValue,pVD->EepromLen);
+	sendI2cByteArray(eepromI2cAddr,(uint8_t*) &buff  ,pVD->EepromLen +1);
+	definesWait(2);
 }
 
 tStatus saveWeldingTime(uint32_t wTime)
@@ -435,6 +454,13 @@ void setZCalibAuto(uint32_t on)
 
 tStatus initDefines()
 {
+	osSemaphoreDef_t  waitSemaphoreDef;
+	waitSemaphoreDef.name="i2c send sema"  ;
+	waitSemaphoreDef.attr_bits= 0;
+	waitSemaphoreDef.cb_mem = NULL;
+	waitSemaphoreDef.cb_size = 0;
+	waitSema=  osSemaphoreNew(1,0,&waitSemaphoreDef);
+
 	triacTriggerDelay = 0;
 	tStatus success =  tFailed;
 	success = restorePersistenData();
