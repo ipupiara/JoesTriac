@@ -346,7 +346,10 @@ void establishContactAndRun()
 #endif
 
 // TODO TOBE TESTED
-	i2cTransferConfig2(&hi2c1,i2cJobData.address,i2cJobData.amtChars,I2C_AUTOEND_MODE,(i2cJobData.jobType == receiveI2c ? 1:0));
+
+	i2cTransferConfig2(&hi2c1,i2cJobData.address,i2cJobData.amtChars,I2C_AUTOEND_MODE,\
+			(i2cJobData.jobType == receiveI2c ? I2C_GENERATE_START_READ : I2C_GENERATE_START_WRITE));
+
 //	i2cTransferConfig(&hi2c1,i2cJobData.address,i2cJobData.amtChars,(i2cJobData.jobType == receiveI2c ? 1:0));
 //	hi2c1.Instance->TXDR = (i2cJobData.address << 1);
 //	if (i2cJobData.jobType == receiveI2c) {
@@ -550,6 +553,38 @@ void I2C1_EV_IRQHandler(void)
 	}
 }
 
+
+void I2C1_ER_IRQHandler(void)
+{
+	uint32_t itflags   = READ_REG(hi2c1.Instance->ISR);
+	uint32_t itsources = READ_REG(hi2c1.Instance->CR1);
+	  /* I2C Bus error interrupt occurred ------------------------------------*/
+	  if (((itflags & I2C_FLAG_BERR) != RESET) && ((itsources & I2C_IT_ERRI) != RESET))
+	  {
+	    __HAL_I2C_CLEAR_FLAG(&hi2c1, I2C_FLAG_BERR);
+	  }
+
+	  /* I2C Over-Run/Under-Run interrupt occurred ----------------------------------------*/
+	  if (((itflags & I2C_FLAG_OVR) != RESET) && ((itsources & I2C_IT_ERRI) != RESET))
+	  {
+	    __HAL_I2C_CLEAR_FLAG(&hi2c1, I2C_FLAG_OVR);
+	  }
+
+	  /* I2C Arbitration Loss error interrupt occurred -------------------------------------*/
+	  if (((itflags & I2C_FLAG_ARLO) != RESET) && ((itsources & I2C_IT_ERRI) != RESET))
+	  {
+	    __HAL_I2C_CLEAR_FLAG(&hi2c1, I2C_FLAG_ARLO);
+	  }
+	  i2cError(0x82);  //  todo implement refined error message with above details....
+
+	  // next two ifs are just for debugging reasons
+	  if ((itflags & I2C_FLAG_AF) != 0) {   //  should actually be named I2C_FLAG_NACKF. how this name ?
+		  i2cError(0x69);
+	  }
+	  if ((itflags & I2C_FLAG_STOPF) != 0) {
+		  i2cError(0x96);
+	  }
+}
 
 
 //void HAL_I2C_ER_IRQHandler(I2C_HandleTypeDef *hi2c)
@@ -786,12 +821,6 @@ void initI2c()
 
 }
 
-
-//void initI2c()
-//{
-//	initI2c1();
-////	initI2cTo4();
-//}
 
 //void reInitI2cAfterError()   // called from backgroundEventQ
 //{

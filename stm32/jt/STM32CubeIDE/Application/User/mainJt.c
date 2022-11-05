@@ -141,7 +141,6 @@ void mainJt(void *argument)
 						}
 						case second100Tick: {
 							sendI2cByteArray(0x50,(uint8_t*)"abb",3);
-//							i2cCentiSecTimer ();
 							break;
 						}
 //						case zCalibAuto: {
