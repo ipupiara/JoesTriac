@@ -28,7 +28,7 @@ const osThreadAttr_t mainJt_attributes = {
 
 osTimerId_t   mainJtTimer;
 
-osTimerId_t   mainJtSec100Timer;
+//osTimerId_t   mainJtSec100Timer;
 
 osMessageQueueId_t    mainJtMessageQ;
 
@@ -56,16 +56,16 @@ osStatus_t sendEventToMainJtMessageQ(pMainJtEventT pEv, uint8_t  fromIsr)
 	return status;
 }
 
-void mainJtSec100Callback(void *argument)
-{
-	CMainJtEventT  ev;
-	memset(&ev, 0x0, sizeof(ev));
-	ev.evType = second100Tick;
-	osStatus_t status =  sendEventToMainJtMessageQ( &ev, 0);
-	if (status != osOK) {
-		errorHandler(status,goOn," status ","mainJtSec100kCallback");
-	}
-}
+//void mainJtSec100Callback(void *argument)
+//{
+//	CMainJtEventT  ev;
+//	memset(&ev, 0x0, sizeof(ev));
+//	ev.evType = second100Tick;
+//	osStatus_t status =  sendEventToMainJtMessageQ( &ev, 0);
+//	if (status != osOK) {
+//		errorHandler(status,goOn," status ","mainJtSec100kCallback");
+//	}
+//}
 
 
 
@@ -82,25 +82,25 @@ void mainJtSecondTickCallback(void *argument)
 	}
 }
 
-void startSec100Timer()
-{
-	osStatus_t  status;
-
-	status = osTimerStart (mainJtSec100Timer, 10);
-	if (status !=  osOK)  {
-		errorHandler((uint32_t)status ,goOn," osTimerStart "," osStarted ");
-	}
-}
-
-void stopSec100Timer()
-{
-	osStatus_t  status;
-
-	status = osTimerStop (mainJtSec100Timer);
-	if (status !=  osOK)  {
-		errorHandler((uint32_t)status ,goOn," osTimerStart "," osStarted ");
-	}
-}
+//void startSec100Timer()
+//{
+//	osStatus_t  status;
+//
+//	status = osTimerStart (mainJtSec100Timer, 10);
+//	if (status !=  osOK)  {
+//		errorHandler((uint32_t)status ,goOn," osTimerStart "," osStarted ");
+//	}
+//}
+//
+//void stopSec100Timer()
+//{
+//	osStatus_t  status;
+//
+//	status = osTimerStop (mainJtSec100Timer);
+//	if (status !=  osOK)  {
+//		errorHandler((uint32_t)status ,goOn," osTimerStart "," osStarted ");
+//	}
+//}
 
 
 void startMainJtTimers()
@@ -111,7 +111,7 @@ void startMainJtTimers()
 	if (status !=  osOK)  {
 		errorHandler((uint32_t)status ,goOn," osTimerStart "," osStarted ");
 	}
-	startSec100Timer();
+//	startSec100Timer();
 }
 
 void mainJtOsStarted()
@@ -134,15 +134,27 @@ void mainJt(void *argument)
 		if ((status = osMessageQueueGet(mainJtMessageQ,(void *) &mJtEv, &prio, osWaitForever)) == osOK )  {
 			switch (mJtEv.evType) {
 						case secondTick: {
+
+							uint8_t byAr [5] =  {0,0xaa,0x55,0x12,0x34};
+							sendI2cByteArray(0xA0,(uint8_t*)byAr,5);
+
+							 definesWait(2);
+							 sendI2cByteArray(0xA0,(uint8_t*)byAr,1);
+							 definesWait(2);
+							 uint8_t byAr2[3];
+							 memset(&byAr2,0,3);
+							 receiveI2cByteArray(0xA0,(uint8_t*) byAr2,3);
+
 							durationTimerTick();
 							fsmEv.evType=evSecondsTick;
 							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
 							break;
 						}
-						case second100Tick: {
-							sendI2cByteArray(0x50,(uint8_t*)"abb",3);
-							break;
-						}
+//						case second100Tick: {
+//							uint8_t byAr [3] =  {0,0xaa,0x55};
+//							sendI2cByteArray(0xA0,(uint8_t*)byAr,1);
+//							break;
+//						}
 //						case zCalibAuto: {
 //								setZCalibAuto(mJtEv.mainUnion.zAuto);
 //								break;
@@ -281,10 +293,10 @@ void initJt()
 		errorHandler((uint32_t)mainJtTimer ,stop," mainJtTimer ","initJt");
 	}
 
-	mainJtSec100Timer= osTimerNew (mainJtSec100Callback, osTimerPeriodic, (void *) 0x02, NULL);
-	if (mainJtTimer  == NULL)   {
-		errorHandler((uint32_t)mainJtTimer ,stop," mainJtSec100 ","initJt");
-	}
+//	mainJtSec100Timer= osTimerNew (mainJtSec100Callback, osTimerPeriodic, (void *) 0x02, NULL);
+//	if (mainJtTimer  == NULL)   {
+//		errorHandler((uint32_t)mainJtTimer ,stop," mainJtSec100 ","initJt");
+//	}
 
 	mainJtMessageQ =  osMessageQueueNew(8,sizeof(CMainJtEventT)*memoryMultiplier, NULL);   //  todo check multiplication with 4 ? needed ?
 	if (mainJtMessageQ  == NULL)   {

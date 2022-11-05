@@ -35,7 +35,7 @@ void i2cSendStart(I2C_HandleTypeDef *hi2c);
 void i2cSendStop(I2C_HandleTypeDef *hi2c);
 
 void i2cTransferConfig(I2C_HandleTypeDef *hi2c,  uint16_t DevAddress, uint8_t Size,  uint8_t Request);
-void i2cTransferConfig2(I2C_HandleTypeDef *hi2c,  uint16_t DevAddress, uint8_t Size, uint32_t Mode, uint8_t Request);
+void i2cTransferConfig2(I2C_HandleTypeDef *hi2c,  uint16_t DevAddress, uint8_t Size, uint32_t Mode, uint32_t Request);
 
 // method copied from stm32f7xx_hal_dma.c
 void DMA_SetTransferConfig(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, uint32_t DstAddress, uint32_t DataLength);

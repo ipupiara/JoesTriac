@@ -90,6 +90,8 @@ void calibTriacDelayChange(int32_t diff);
 void storeCalibLowAdc();
 void storeCalibHighAdc();
 
+void definesWait(uint32_t ms);
+
 #ifdef  __cplusplus
 }
 #endif

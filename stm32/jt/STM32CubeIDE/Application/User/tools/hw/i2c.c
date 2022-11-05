@@ -546,10 +546,13 @@ void I2C1_EV_IRQHandler(void)
 	if ((itflags & I2C_FLAG_TC) != 0)  {
 		i2cFinishedOk();
 	}
-	if (((itflags & I2C_FLAG_STOPF) != 0)| ((itflags & I2C_FLAG_NACKF) != 0) )  {
+	if ((itflags & I2C_FLAG_STOPF) != 0)   {
 		__HAL_I2C_CLEAR_FLAG(&hi2c1, I2C_FLAG_STOPF);
+		  i2cError(0x77);   //  evtl.  i2cFinishedOk()  , could be ok under autoend mode
+	}
+	if ((itflags & I2C_FLAG_NACKF) != 0) {
 		__HAL_I2C_CLEAR_FLAG(&hi2c1, I2C_FLAG_NACKF);
-		  i2cError(0x77);
+		  i2cError(0x78);
 	}
 }
 

@@ -24,7 +24,7 @@
 
 osSemaphoreId_t   waitSema;
 
-void definesWait(uint8_t ms)
+void definesWait(uint32_t ms)
 {
 	osStatus_t status;
 	status = osSemaphoreAcquire(waitSema, ms);

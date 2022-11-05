@@ -43,7 +43,7 @@ void incDMAErrorCounter(DMA_HandleTypeDef *hdma)
 }
 
 
-void i2cTransferConfig2(I2C_HandleTypeDef *hi2c,  uint16_t DevAddress, uint8_t Size, uint32_t Mode, uint8_t Request)
+void i2cTransferConfig2(I2C_HandleTypeDef *hi2c,  uint16_t DevAddress, uint8_t Size, uint32_t Mode, uint32_t Request)
 {
 	/* Declaration of tmp to prevent undefined behavior of volatile usage */
 	  uint32_t tmp = ((uint32_t)(((uint32_t)DevAddress & I2C_CR2_SADD) | \
