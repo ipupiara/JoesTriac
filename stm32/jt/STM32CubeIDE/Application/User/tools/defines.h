@@ -17,6 +17,7 @@ extern "C"
 #endif
 
 #define errorStringLen  20
+#define eepromI2cAddr   0xA0
 
 typedef enum{
 	goOn,

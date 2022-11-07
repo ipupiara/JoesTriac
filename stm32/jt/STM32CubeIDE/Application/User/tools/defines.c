@@ -19,9 +19,6 @@
 //#define  microSdWorking
 // despite trying all found examples on google and stm (also for F769Ni)  .... this stm  microSd bu..it did not work
 
-#define eepromI2cAddr  0x50
-
-
 osSemaphoreId_t   waitSema;
 
 void definesWait(uint32_t ms)
@@ -80,7 +77,6 @@ void sendActualValuesToRequestStopScreen()
 	sendPresenterMessage(&presenterMessage);
 }
 
-
 typedef struct {
 	uint32_t weldingTime;
 	float   weldingAmps;
@@ -103,24 +99,9 @@ void initPersistendData()
 	persistentRec.zCalibOn = 0;
 }
 
-tStatus savePersistendData()
-{
-	tStatus success = tFailed;
-	success = tOk;
-	return success;
-}
 
 
-tStatus restorePersistenData()
-{
-	tStatus success = tFailed;
 
-	if (success != tOk)  {
-		initPersistendData();
-		success = tOk;
-	}
-	return success;
-}
 
 uint32_t getDefinesWeldingTime()
 {
@@ -281,26 +262,25 @@ tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded)
 
 #define amountPersistentValues  8
 
-
-
 #define wTimePos  0
-#define wAmpsPos  4
-#define cLowPos  8
-#define cHighPos  12
-#define zPotiPos  16
-#define aNeededPos  20
-#define zOnPos  24
-#define aTimePos  28
+#define wAmpsPos wTimePos+ 4
+#define cLowPos  wTimePos+ 8
+#define cHighPos wTimePos+ 12
+#define zPotiPos wTimePos+ 16
+#define aNeededPos wTimePos+ 20
+#define zOnPos wTimePos+ 24
+#define aTimePos  wTimePos+ 28
 
 
-varData  variableData  [8]= {
+#define amtPersistentVariables  8
+varData  variableData  [amtPersistentVariables]= {
 		{(void *)(&persistentRec.weldingTime), intVar32, wTimePos,sizeof(persistentRec.weldingTime)},
 		{(void *)(&persistentRec.weldingAmps), realVar,wAmpsPos, sizeof(persistentRec.weldingAmps)},
 		{(void *)(&persistentRec.calibLow), intVar32, cLowPos, sizeof(persistentRec.calibLow)},
 		{(void *)(&persistentRec.calibHigh), intVar32, cHighPos, sizeof(persistentRec.calibHigh)},
 		{(void *)(&persistentRec.zeroPotiPos), intVar32, zPotiPos, sizeof(persistentRec.zeroPotiPos)},
-		{(void *)(&persistentRec.alarmNeeded), intVar8, aNeededPos, sizeof(persistentRec.alarmNeeded)},
 		{(void *)(&persistentRec.zCalibOn), intVar8, zOnPos, sizeof(persistentRec.zCalibOn)},
+		{(void *)(&persistentRec.alarmNeeded), intVar8, aNeededPos, sizeof(persistentRec.alarmNeeded)},
 		{(void *)(&persistentRec.alarmTime), intVar32, aTimePos, sizeof(persistentRec.alarmTime)}
 };
 
@@ -309,9 +289,43 @@ void eepromSave(pVarData pVD)
 	uint8_t  buff [10];
 	memset (buff,0,sizeof(buff));
 	buff[0]= pVD->EepromPos;
-	memcpy(&buff[1],pVD->pValue,pVD->EepromLen);
+	memcpy(&buff,&pVD->EepromPos,1);
+	memcpy(&buff[1],&pVD->pValue,pVD->EepromLen);
 	sendI2cByteArray(eepromI2cAddr,(uint8_t*) &buff  ,pVD->EepromLen +1);
 	definesWait(2);
+}
+
+void eepromRestore(pVarData pVD)
+{
+	uint8_t  buff [10];
+	memset (buff,0,sizeof(buff));
+	buff[0]= pVD->EepromPos;
+	sendI2cByteArray(eepromI2cAddr,&buff[0],1);
+	memset (buff,0,sizeof(buff));
+	definesWait(2);
+	receiveI2cByteArray(eepromI2cAddr,buff,pVD->EepromLen);
+	definesWait(2);
+
+}
+
+tStatus restoreAll()
+{
+	tStatus success = tOk;
+	uint8_t cnt;
+	for (cnt=0; cnt < amountPersistentValues;++cnt)  {
+		eepromRestore(&variableData[cnt]);
+	}
+	return success;
+}
+
+tStatus saveAll()
+{
+	tStatus success = tOk;
+	uint8_t cnt;
+	for (cnt=0; cnt < amountPersistentValues;++cnt)  {
+		eepromSave(&variableData[cnt]);
+	}
+	return success;
 }
 
 tStatus saveWeldingTime(uint32_t wTime)
@@ -355,18 +369,18 @@ tStatus saveZeroPotiPos(uint32_t val)
 	return success;
 }
 
-tStatus saveAlarmNeeded(uint8_t aNeeded)
-{
-	tStatus success = tOk;
-	persistentRec.alarmNeeded = aNeeded;
-	eepromSave(&variableData[5]);
-	return success;
-}
-
 tStatus saveZCalibOn(uint32_t val)
 {
 	tStatus success = tOk;
 	persistentRec.zCalibOn = val;
+	eepromSave(&variableData[5]);
+	return success;
+}
+
+tStatus saveAlarmNeeded(uint8_t aNeeded)
+{
+	tStatus success = tOk;
+	persistentRec.alarmNeeded = aNeeded;
 	eepromSave(&variableData[6]);
 	return success;
 }
@@ -383,13 +397,30 @@ tStatus saveAlarmTime(uint32_t aTime)
 tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded, uint32_t zCalibOn)
 {
 	tStatus success = tOk;
-	persistentRec.alarmTime = aTime;
-	persistentRec.alarmNeeded = aNeeded;
-	persistentRec.zCalibOn = (uint8_t) zCalibOn;
-
+	success= saveZCalibOn(zCalibOn);
+	success= saveAlarmNeeded(aNeeded);
+	success= saveAlarmTime(aTime);
 	return success;
 }
 
+tStatus savePersistendData()
+{
+	tStatus success = tFailed;
+	success = saveAll();
+	return success;
+}
+
+
+tStatus restorePersistenData()
+{
+	tStatus success = tFailed;
+	success = restoreAll();
+	if (success != tOk)  {
+		initPersistendData();
+		success = tOk;
+	}
+	return success;
+}
 
 #endif
 
@@ -415,16 +446,6 @@ void addToTriggerDelay(int32_t val)
 	}
 }
 
-void storeCalibLowAdc()
-{
-	saveCalibLow(100); //  for debugging only
-}
-
-void storeCalibHighAdc()
-{
-	saveCalibHigh(500);
-}
-
 void calibTriacDelayChange(int32_t diff)
 {
    //   change variable
@@ -445,11 +466,6 @@ tStatus isCalibrationReady()
 		res = tOk;
 	}
 	return res;
-}
-
-void setZCalibAuto(uint32_t on)
-{
-
 }
 
 tStatus initDefines()

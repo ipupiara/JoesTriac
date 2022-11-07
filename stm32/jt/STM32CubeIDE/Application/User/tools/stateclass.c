@@ -306,7 +306,6 @@ uStInt evCalibrateLowChecker(void)
 	{
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateHigh);
 
-		storeCalibLowAdc();
 
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
@@ -352,7 +351,7 @@ uStInt evCalibrateHighChecker(void)
 	{
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupIdle);
 
-		storeCalibHighAdc();
+
 
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;

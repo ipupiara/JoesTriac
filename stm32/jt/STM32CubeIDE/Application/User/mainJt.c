@@ -10,6 +10,11 @@
 #include <TriacIntr.h>
 #include <i2c.h>
 
+union  {
+	float realVar;
+	uint32_t intVar32;
+	uint8_t  intVar8;
+} valType ;
 
 
 //////////////////  types and variables   //////////////////////////////7
