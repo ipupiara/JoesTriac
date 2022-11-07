@@ -134,17 +134,6 @@ void mainJt(void *argument)
 		if ((status = osMessageQueueGet(mainJtMessageQ,(void *) &mJtEv, &prio, osWaitForever)) == osOK )  {
 			switch (mJtEv.evType) {
 						case secondTick: {
-
-							uint8_t byAr [5] =  {0,0xaa,0x55,0x12,0x34};
-							sendI2cByteArray(0xA0,(uint8_t*)byAr,5);
-
-							 definesWait(2);
-							 sendI2cByteArray(0xA0,(uint8_t*)byAr,1);
-							 definesWait(2);
-							 uint8_t byAr2[3];
-							 memset(&byAr2,0,3);
-							 receiveI2cByteArray(0xA0,(uint8_t*) byAr2,3);
-
 							durationTimerTick();
 							fsmEv.evType=evSecondsTick;
 							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);

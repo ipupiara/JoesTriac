@@ -43,27 +43,6 @@ void incDMAErrorCounter(DMA_HandleTypeDef *hdma)
 }
 
 
-void i2cTransferConfig2(I2C_HandleTypeDef *hi2c,  uint16_t DevAddress, uint8_t Size, uint32_t Mode, uint32_t Request)
-{
-	/* Declaration of tmp to prevent undefined behavior of volatile usage */
-	  uint32_t tmp = ((uint32_t)(((uint32_t)DevAddress & I2C_CR2_SADD) | \
-	                             (((uint32_t)Size << I2C_CR2_NBYTES_Pos) & I2C_CR2_NBYTES) | \
-	                             (uint32_t)Mode | (uint32_t)Request) & (~0x80000000U));
-
-	  /* update CR2 register */
-	  MODIFY_REG(hi2c->Instance->CR2, \
-	             ((I2C_CR2_SADD | I2C_CR2_NBYTES | I2C_CR2_RELOAD | I2C_CR2_AUTOEND | \
-	               (I2C_CR2_RD_WRN & (uint32_t)(Request >> (31U - I2C_CR2_RD_WRN_Pos))) | \
-	               I2C_CR2_START | I2C_CR2_STOP)), tmp);
-
-}
-
-void i2cTransferConfig(I2C_HandleTypeDef *hi2c,  uint16_t DevAddress, uint8_t Size,  uint8_t Request)
-{
-  MODIFY_REG(hi2c->Instance->CR2,  \
-		  (I2C_CR2_SADD | I2C_CR2_NBYTES | I2C_CR2_RD_WRN ), (uint32_t)(((uint32_t)DevAddress << (I2C_CR2_SADD_Pos + 1)) | ((uint32_t)Size << I2C_CR2_NBYTES_Pos)  |
-    		   ((uint32_t) Request )<< I2C_CR2_RD_WRN_Pos));
-}
 
 
 // structure copied from stm32f7xx_hal_dma.c
