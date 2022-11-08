@@ -16,10 +16,12 @@ void mainScreenView::setupScreen()
 	timeValueText.setWildcard(timeValueTextBuffer);
 	timeValueText.invalidate();
 
-	uint32_t ampsValue = presenter->getWeldingAmps();
-	uint16_t  sVal = uint8_t( ampsValue / 100);
-	uint8_t  rVal = (uint8_t) ( ampsValue % 100);
-	Unicode::snprintf(ampereTextBuffer, 7, "%03d.%02d", sVal, rVal);
+	float ampsValue = presenter->getWeldingAmps();
+//	 uint32_t  ampsI =  (ampsValue *100 ); // evtl + 0.1 or so... to prevent rounding loss
+//	 uint32_t sVal = ampsI/100;
+//	 uint32_t rVal = ampsI % 100;
+//	Unicode::snprintf(ampereTextBuffer, 7, "%03d.%02d", sVal, rVal);
+	Unicode::snprintfFloat(ampereTextBuffer, 7, "%06.2f", ampsValue );
 	ampereText.setWildcard(ampereTextBuffer);
 	ampereText.invalidate();
 }

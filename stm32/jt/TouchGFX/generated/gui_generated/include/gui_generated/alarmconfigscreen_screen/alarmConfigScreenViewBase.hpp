@@ -60,14 +60,11 @@ protected:
     touchgfx::PainterRGB565 cursorPainter;
     touchgfx::ButtonWithLabel backNSaveButton;
     touchgfx::ButtonWithLabel cancelButton;
-    touchgfx::RadioButton radioButtonOn;
-    touchgfx::RadioButton radioButtonOff;
+    touchgfx::RadioButton radioButtonAlarmOn;
+    touchgfx::RadioButton radioButtonAlarmOff;
     touchgfx::TextArea textArea3;
     touchgfx::TextArea textArea4;
-    touchgfx::TextArea textArea5;
-    touchgfx::RadioButton ZCalibOnButton;
-    touchgfx::RadioButton ZCalibOffButton;
-    touchgfx::RadioButtonGroup<4> radioButtonGroup1;
+    touchgfx::RadioButtonGroup<2> radioButtonGroup1;
 
     /*
      * Wildcard Buffers

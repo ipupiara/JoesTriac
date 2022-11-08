@@ -29,7 +29,7 @@ public:
 
     uint16_t getWeldingTimeSec();
 
-    uint32_t getWeldingAmps();
+    float getWeldingAmps();
 
 private:
     mainScreenPresenter();

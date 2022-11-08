@@ -121,7 +121,6 @@ void startMainJtTimers()
 
 void mainJtOsStarted()
 {
-	startStateCharts();
 	startMainJtTimers();
 }
 
@@ -133,6 +132,8 @@ void mainJt(void *argument)
 	fsmTriacEvent fsmEv;
 	initI2c();
 	mainJtOsStarted();
+	initDefines();
+	startStateCharts();
 	uint8_t  prio = 0;
 	do  {
 		memset(&mJtEv, 0, sizeof(mJtEv));  //  todo sort ifs for best performance,
@@ -183,7 +184,7 @@ void mainJt(void *argument)
 							break;
 						}
 						case configBackPressed: {
-							fsmEv.evType=configBackPressed;
+							fsmEv.evType=evConfigOkPressed;
 							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
 							break;
 						}
@@ -271,7 +272,6 @@ osStatus_t sendModelMessage(pJoesModelEventT  pMsg)
 
 void initJt()
 {
-	initDefines();
 	mainJtTaskHandle = osThreadNew(mainJt, NULL, &mainJt_attributes);
 	if (mainJtTaskHandle  == NULL)   {
 		errorHandler((uint32_t)mainJtTaskHandle ,stop," mainJtTaskHandle ","initJt");

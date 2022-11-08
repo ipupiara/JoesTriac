@@ -24,7 +24,7 @@ void setAmpereScreenPresenter::storeWeldingAmps(float ampsV)
 
 float setAmpereScreenPresenter::getWeldingAmps()
 {
-	uint32_t res = 0;
+	float res = 0;
 	res = model->getWeldingAmps();
 	return res;
 }

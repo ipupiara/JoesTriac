@@ -22,7 +22,7 @@ uint16_t mainScreenPresenter::getWeldingTimeSec()
 	return model->getWeldingTimeSec();
 }
 
-uint32_t mainScreenPresenter::getWeldingAmps()
+float mainScreenPresenter::getWeldingAmps()
 {
 	return model->getWeldingAmps();
 }

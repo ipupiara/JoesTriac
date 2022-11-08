@@ -458,14 +458,15 @@ void stopTriacRun()
 void durationTimerTick()
 {
 	if (durationTimerOn == 1) {
-		--secondsDurationTimerRemaining;
-		++secondsInDurationTimer;
-
 		if (secondsDurationTimerRemaining == 0) {
 			stopDurationTimer();
 			fsmTriacEvent ev;
 			ev.evType = evTimeOutDurationTimer;
 			processTriacFsmEvent(PJoesTriacStateChart,&ev);
+		}
+		if (secondsDurationTimerRemaining > 0)  {
+			--secondsDurationTimerRemaining;
+			++secondsInDurationTimer;
 		}
 	}
 }

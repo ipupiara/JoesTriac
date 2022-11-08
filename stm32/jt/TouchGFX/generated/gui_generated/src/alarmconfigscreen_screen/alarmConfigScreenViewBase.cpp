@@ -65,15 +65,15 @@ alarmConfigScreenViewBase::alarmConfigScreenViewBase() :
     cancelButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     cancelButton.setAction(buttonCallback);
 
-    radioButtonOn.setXY(576, 136);
-    radioButtonOn.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_INACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_ACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_NORMAL_ID));
-    radioButtonOn.setSelected(true);
-    radioButtonOn.setDeselectionEnabled(false);
+    radioButtonAlarmOn.setXY(576, 136);
+    radioButtonAlarmOn.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_INACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_ACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_NORMAL_ID));
+    radioButtonAlarmOn.setSelected(true);
+    radioButtonAlarmOn.setDeselectionEnabled(false);
 
-    radioButtonOff.setXY(651, 136);
-    radioButtonOff.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_INACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_ACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID));
-    radioButtonOff.setSelected(false);
-    radioButtonOff.setDeselectionEnabled(false);
+    radioButtonAlarmOff.setXY(651, 136);
+    radioButtonAlarmOff.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_INACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_ACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID));
+    radioButtonAlarmOff.setSelected(false);
+    radioButtonAlarmOff.setDeselectionEnabled(false);
 
     textArea3.setXY(586, 108);
     textArea3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
@@ -85,21 +85,6 @@ alarmConfigScreenViewBase::alarmConfigScreenViewBase() :
     textArea4.setLinespacing(0);
     textArea4.setTypedText(touchgfx::TypedText(T___SINGLEUSE_CDHX));
 
-    textArea5.setXY(466, 229);
-    textArea5.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    textArea5.setLinespacing(0);
-    textArea5.setTypedText(touchgfx::TypedText(T___SINGLEUSE_U7FD));
-
-    ZCalibOnButton.setXY(576, 218);
-    ZCalibOnButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_INACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_ACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_NORMAL_ID));
-    ZCalibOnButton.setSelected(true);
-    ZCalibOnButton.setDeselectionEnabled(false);
-
-    ZCalibOffButton.setXY(651, 218);
-    ZCalibOffButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_INACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_ACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID));
-    ZCalibOffButton.setSelected(false);
-    ZCalibOffButton.setDeselectionEnabled(false);
-
     add(__background);
     add(box1);
     add(numericKeyPad1);
@@ -109,17 +94,12 @@ alarmConfigScreenViewBase::alarmConfigScreenViewBase() :
     add(cursor);
     add(backNSaveButton);
     add(cancelButton);
-    add(radioButtonOn);
-    add(radioButtonOff);
+    add(radioButtonAlarmOn);
+    add(radioButtonAlarmOff);
     add(textArea3);
     add(textArea4);
-    add(textArea5);
-    add(ZCalibOnButton);
-    add(ZCalibOffButton);
-    radioButtonGroup1.add(radioButtonOn);
-    radioButtonGroup1.add(radioButtonOff);
-    radioButtonGroup1.add(ZCalibOnButton);
-    radioButtonGroup1.add(ZCalibOffButton);
+    radioButtonGroup1.add(radioButtonAlarmOn);
+    radioButtonGroup1.add(radioButtonAlarmOff);
 }
 
 void alarmConfigScreenViewBase::setupScreen()

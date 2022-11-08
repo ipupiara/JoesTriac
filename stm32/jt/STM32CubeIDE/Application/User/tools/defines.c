@@ -114,7 +114,7 @@ uint32_t getDefinesWeldingTime()
 
 float getDefinesWeldingAmps()
 {
-	uint32_t amps;
+	float amps;
 	taskENTER_CRITICAL();
 	amps = persistentRec.weldingAmps;
 	taskEXIT_CRITICAL();
@@ -289,9 +289,9 @@ void eepromSave(pVarData pVD)
 	uint8_t  buff [10];
 	memset (buff,0,sizeof(buff));
 	buff[0]= pVD->EepromPos;
-	memcpy(&buff,&pVD->EepromPos,1);
-	memcpy(&buff[1],&pVD->pValue,pVD->EepromLen);
-	sendI2cByteArray(eepromI2cAddr,(uint8_t*) &buff  ,pVD->EepromLen +1);
+	memcpy(buff,&pVD->EepromPos,1);  //  *(uint32_t *)(pVD->pValue)  returns value
+	memcpy(&buff[1],pVD->pValue,pVD->EepromLen);
+	sendI2cByteArray(eepromI2cAddr,(uint8_t*) buff  ,pVD->EepromLen +1);
 	definesWait(2);
 }
 
@@ -305,7 +305,8 @@ void eepromRestore(pVarData pVD)
 	definesWait(2);
 	receiveI2cByteArray(eepromI2cAddr,buff,pVD->EepromLen);
 	definesWait(2);
-
+	memcpy(pVD->pValue,buff,pVD->EepromLen);
+	definesWait(1);  // just to place a reliable debug halt
 }
 
 tStatus restoreAll()

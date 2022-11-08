@@ -42,8 +42,6 @@ extern const uStInt uStIntNoMatch;
 
 fsmTriacEvent* currentEvent;
 
-
-
 void entryJoesTriac()
 {
 	printf("entryJoesTriac\n");
@@ -131,7 +129,45 @@ uStInt evStartupCheckChecker(void)   // during Start Screen
 
 
 
-//int8_t  calibVarInd;
+void entrySetupState(void)
+{
+	CJoesModelEventT  msg;
+	osStatus_t status;
+	info_printf("entryTriacIdleState\n");
+	msg.messageType = changeToConfigScreen;
+	status = sendModelMessage(&msg);
+	if(status != osOK)  {
+		errorHandler(status,goOn," status ","entryTriacIdleState");
+	}
+}
+
+void exitSetupState(void)
+{
+//	printf("exit I\n");
+}
+
+uStInt evSetupChecker(void)
+{
+	uStInt res = uStIntNoMatch;
+	printf("\ncheck for event in State evStateIdle");
+
+	if (currentEvent->evType == evConfigOkPressed)  {
+		if (isCalibrationReady() == tOk) {
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+		}
+	}
+//	if (currentEvent->evType == evConfigOkPressed)  { for abort
+//		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+//			// No event action.
+//		END_EVENT_HANDLER(PJoesTriacStateChart);
+//		res =  uStIntHandlingDone;
+//	}
+	return res;
+}
+
 
 
 void entrySetupIdleState(void)
@@ -408,48 +444,6 @@ uStInt evTriacIdleChecker(void)
 	}
 	return res;
 }
-
-
-void entrySetupState(void)
-{
-	CJoesModelEventT  msg;
-	osStatus_t status;
-	info_printf("entryTriacIdleState\n");
-	msg.messageType = changeToConfigScreen;
-	status = sendModelMessage(&msg);
-	if(status != osOK)  {
-		errorHandler(status,goOn," status ","entryTriacIdleState");
-	}
-}
-
-void exitSetupState(void)
-{
-//	printf("exit I\n");
-}
-
-uStInt evSetupChecker(void)
-{
-	uStInt res = uStIntNoMatch;
-	printf("\ncheck for event in State evStateIdle");
-
-	if (currentEvent->evType == evConfigOkPressed)  {
-		if (isCalibrationReady() == tOk) {
-			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
-				// No event action.
-			END_EVENT_HANDLER(PJoesTriacStateChart);
-			res =  uStIntHandlingDone;
-		}
-	}
-	if (currentEvent->evType == evConfigOkPressed)  {
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
-			// No event action.
-		END_EVENT_HANDLER(PJoesTriacStateChart);
-		res =  uStIntHandlingDone;
-	}
-	return res;
-}
-
-
 void entryTriacActiveState(void)
 {
 	info_printf("entryTriacActiveState\n");

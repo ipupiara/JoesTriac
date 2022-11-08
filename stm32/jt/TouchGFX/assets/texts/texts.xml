@@ -33,9 +33,6 @@
       <Text Id="__SingleUse_I5ZJ" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">adc Value</Translation>
       </Text>
-      <Text Id="__SingleUse_U7FD" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">Z-calib</Translation>
-      </Text>
       <Text Id="__SingleUse_VTJB" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">off</Translation>
       </Text>

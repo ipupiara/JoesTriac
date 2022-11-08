@@ -183,7 +183,7 @@
             "X": 465,
             "Y": 12,
             "Width": 144,
-            "Height": 45,
+            "Height": 46,
             "TextId": "__SingleUse_DEJR",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1134,7 +1134,7 @@
           },
           {
             "Type": "RadioButton",
-            "Name": "radioButtonOn",
+            "Name": "radioButtonAlarmOn",
             "X": 576,
             "Y": 136,
             "Width": 44,
@@ -1149,7 +1149,7 @@
           },
           {
             "Type": "RadioButton",
-            "Name": "radioButtonOff",
+            "Name": "radioButtonAlarmOff",
             "X": 651,
             "Y": 136,
             "Width": 44,
@@ -1181,45 +1181,6 @@
             "TextId": "__SingleUse_CDHX",
             "TextRotation": "0",
             "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea5",
-            "X": 466,
-            "Y": 229,
-            "Width": 84,
-            "Height": 22,
-            "TextId": "__SingleUse_U7FD",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "RadioButton",
-            "Name": "ZCalibOnButton",
-            "X": 576,
-            "Y": 218,
-            "Width": 44,
-            "Height": 44,
-            "Selected": true,
-            "FileNameSelected": "__designer\\Blue_Radio_buttons_Radio_Round_button_active.png",
-            "FileNameSelectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_normal.png",
-            "FileNameUnselected": "__designer\\Blue_Radio_buttons_Radio_Round_button_inactive.png",
-            "FileNameUnselectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_pressed.png",
-            "RadioButtonGroup": "radioButtonGroup1",
-            "Style": "Style3"
-          },
-          {
-            "Type": "RadioButton",
-            "Name": "ZCalibOffButton",
-            "X": 651,
-            "Y": 218,
-            "Width": 44,
-            "Height": 44,
-            "FileNameSelected": "__designer\\Blue_Radio_buttons_Radio_Round_button_active.png",
-            "FileNameSelectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_pressed.png",
-            "FileNameUnselected": "__designer\\Blue_Radio_buttons_Radio_Round_button_inactive.png",
-            "FileNameUnselectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_pressed.png",
-            "RadioButtonGroup": "radioButtonGroup1"
           }
         ],
         "Interactions": [
