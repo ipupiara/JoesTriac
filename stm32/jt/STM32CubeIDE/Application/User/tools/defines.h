@@ -4,10 +4,6 @@
  *  Created on: Sep 24, 2022
  *      Author: diego
  */
-
-#include <stdio.h>
-
-
 #ifndef APPLICATION_USER_TOOLS_DEFINES_H_
 #define APPLICATION_USER_TOOLS_DEFINES_H_
 
@@ -15,6 +11,12 @@
 extern "C"
 {
 #endif
+
+#include <stdio.h>
+
+#define calibHighAmps  80.0
+#define calibLowAmps   30.0
+#define triggerDelayMaxTcnt  1000
 
 #define errorStringLen  20
 #define eepromI2cAddr   0xA0

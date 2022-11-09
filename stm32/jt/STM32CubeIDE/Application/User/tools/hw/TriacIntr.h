@@ -33,8 +33,7 @@ void stopAmpsADC();
 //int16_t ampsADCValue();
 //int16_t diffADCValue();
 //double adcVoltage();
-//
-//int16_t triacFireDurationTcnt2;   // centi-millis-secs, not exactly but approximate, PID will handle the rest
+
 
 void startDurationTimer(uint32_t secs);
 uint32_t getSecondsDurationTimerRemaining();
@@ -50,6 +49,8 @@ void toggleBuzzer();
 
 
 void setTriacFireDuration(int32_t cmsecs);
+uint32_t getTriacFireDuration();
+
 void startTriacRun();
 void stopTriacRun();
 

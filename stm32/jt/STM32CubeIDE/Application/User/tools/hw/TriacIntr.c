@@ -5,7 +5,6 @@
 #include <defines.h>
 //#include "triacPID.h"
 
-
 uint8_t durationTimerOn;
 
 float currentAmpsValue;
@@ -45,7 +44,9 @@ void setAmpsADCValue(uint32_t val)
 //
 //int16_t remainingTriacTriggerDelayCounts;
 //
-//int16_t triacTriggerTimeTcnt2;
+uint32_t triacTriggerTimeTcnt;
+
+uint32_t triacFireDurationTcnt;
 
 uint32_t secondsDurationTimerRemaining;
 
@@ -111,19 +112,28 @@ int32_t amtInductiveRepetitions;
 //	startTimer2();
 //}
 //
-void setTriacFireDuration(int32_t durationTcnt2)
+void setTriacFireDuration(int32_t durationTcnt)
 {
-//	cli();
-//	if (durationTcnt2 < triggerDelayMaxTcnt2) {
-//		if (durationTcnt2 > 0) {
-//			triacFireDurationTcnt2 = durationTcnt2;}
-//		else {
-//			triacFireDurationTcnt2 = 0;
-//		}
-//	} else {
-//		triacFireDurationTcnt2 = triggerDelayMaxTcnt2;
-//	}
-//	sei();
+	taskENTER_CRITICAL();
+	if (durationTcnt < triggerDelayMaxTcnt) {
+		if (durationTcnt > 0) {
+			triacFireDurationTcnt = durationTcnt;
+		}  else {
+			triacFireDurationTcnt = 0;
+		}
+	} else {
+		triacFireDurationTcnt = triggerDelayMaxTcnt;
+	}
+	taskEXIT_CRITICAL();
+}
+
+uint32_t getTriacFireDuration()
+{
+	uint32_t res = 0;
+	taskENTER_CRITICAL();
+	res = triggerDelayMaxTcnt;
+	taskEXIT_CRITICAL();
+	return res;
 }
 //
 //void calcAmtInductiveRepetitions(int16_t triacFireDurationTcnt2)
@@ -386,17 +396,7 @@ void stopTriacRun()
 //	sei();
 //	stopAmpsADC();
 }
-//
-int16_t ampsADCValue()
-{
-	int16_t res;
-	taskENTER_CRITICAL();
-	res = lastAmpsADCVal;
-	taskEXIT_CRITICAL();
-//	printf("ampsADC %i ",lastAmpsADCVal);
-	return res;
-}
-//
+
 ///*
 //int16_t  valueFrom6Bit2Complement(int16_t adcV)
 //{
@@ -425,7 +425,7 @@ float adcVoltage()
 
 	VFl = 0.0;
 
-	VHex = ampsADCValue();
+	VHex = getCurrentAmpsADCValue();
 	VFl = (VHex * 5.0) / 0x03FF;  //  todo change for stm32F7
 	Vf = VFl;
 	return Vf;
@@ -533,5 +533,6 @@ void initTriacIntr()
 	durationTimerOn = 0;
 	currentAmpsValue = 0.0;
 	currentAmpsADCValue = 0;
+	triacFireDurationTcnt = 0;
 	initInterruptsNPorts();
 }

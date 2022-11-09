@@ -15,12 +15,12 @@
 enum eStates
 {
 	eStateJoesTriac,
-		eStartState = eStateJoesTriac,  // decide calib or idle
+		eStartState = eStateJoesTriac,
 		eStateTriacOperating,
 			eStateStartupCheck,
-			eStateSetup,  // calibration/setup
-				eStateSetupIdle,   // manual
-				eStateAutoCalibrating,		// autoCalibrate
+			eStateSetup,
+				eStateSetupIdle,
+				eStateAutoCalibrating,
 //					eStateCalibrateZeroSignal,
 					eStateCalibratingScale,
 						eStateCalibrateLow,
@@ -279,7 +279,6 @@ uStInt evCalibrateZeroSignalChecker(void)
 	{	
 		persistentZeroAdjustSecondTickJob();
 //		displayPotiPersistent();
-	
 		res =  uStIntHandlingDone;
 	}
 	return (res);
@@ -339,7 +338,7 @@ uStInt evCalibrateLowChecker(void)
 	{
 		CJoesPresenterEventT msg;
 		msg.messageType = calibDesiredAmps;
-		msg.evData.desiredAmps = 30.0;
+		msg.evData.desiredAmps = calibLowAmps;
 		sendPresenterMessage(&msg);
 	}
 	if (currentEvent->evType == evCalibContinueClick)
@@ -367,7 +366,7 @@ void entryCalibrateHighState(void)
 	info_printf("entryCalibrateHighState\n");
 	CJoesPresenterEventT msg;
 	msg.messageType = calibDesiredAmps;
-	msg.evData.desiredAmps = 80.0;
+	msg.evData.desiredAmps = calibHighAmps;
 	sendPresenterMessage(&msg);
 }
 

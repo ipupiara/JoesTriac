@@ -3,6 +3,8 @@
 #include <math.h>
 #include <string.h>
 #include "triacPID.h"
+#include <defines.h>
+#include <TriacIntr.h>
 
 
 //#define printfPid
@@ -20,23 +22,25 @@ int8_t stableZeroAdjReached;
 int8_t m_started;
 real m_kPTot, m_kP, m_kI, m_kD, m_stepTime, m_inv_stepTime, m_prev_error, m_error_thresh, m_integral;
 
-float gradAmps; // amperes ....
+float gradAmps; //   (delta amperes) / (delta adc)   ....
 float gradAdc;  
+uint32_t calibHighADC;
+uint32_t calibLowADC;
 
 real corrCarryOver;     // carry amount if correction in float gives zero correction in int
 
 void updateGradAmps()
 {
-//	float dADC;
-//	float dAmps;
-//	dAmps = calibHighAmps - calibLowAmps;
-//	dADC = calibHighADC - calibLowADC;
-//	if ( fabs(dADC) > 1) {
-//		gradAmps = dAmps / dADC;
-//	} else gradAmps = 0;
-//	if (fabs (dAmps) > 1)  {
-//		gradAdc = dADC / dAmps;
-//	} else gradAdc = 0;
+	float dADC;
+	float dAmps;
+	dAmps = calibHighAmps - calibLowAmps;
+	dADC = getDefinesCalibHigh() - getDefinesCalibLow();
+	if ( fabs(dADC) > 1) {
+		gradAmps = dAmps / dADC;
+	} else gradAmps = 0;
+	if (fabs (dAmps) > 1)  {
+		gradAdc = dADC / dAmps;
+	} else gradAdc = 0;
 }
 
 
@@ -265,13 +269,13 @@ real nextCorrection(real error)
 
 float currentAmps()
 {
-//	int16_t adcAmps;
+	uint32_t adcAmps;
 	float res = 0.0;
-//
-//	adcAmps = ampsADCValue();
-//
-//	res = calibLowAmps +  (gradAmps * ((int16_t) adcAmps - (int16_t) calibLowADC  ));
-//
+
+	adcAmps = getCurrentAmpsADCValue();
+
+	res = calibLowAmps +  (gradAmps * ((uint32_t) adcAmps - (uint32_t) getDefinesCalibLow()  ));
+
 //#ifdef printfAmps
 //	double grdA = gradAmps ;
 //	double resD = res;
@@ -294,16 +298,16 @@ uint16_t  adcValueForAmps (float amps)
 
 void calcNextTriacDelay()
 {  
-//	float err;
-//	float corr;
-//	int16_t newDelay;
-//	int16_t corrInt;
-//	err = currentAmps()  - desiredAmps ;
-//	corr = nextCorrection(err) + corrCarryOver;
-//	corrInt = corr;
-//	corrCarryOver = corr - corrInt;
-//	newDelay = triacFireDurationTcnt2 + corrInt;
-//	setTriacFireDuration(newDelay);
+	float err;
+	float corr;
+	int16_t newDelay;
+	int16_t corrInt;
+	err = currentAmps() - getDefinesWeldingAmps() ;
+	corr = nextCorrection(err) + corrCarryOver;
+	corrInt = corr;
+	corrCarryOver = corr - corrInt;
+	newDelay = getTriacFireDuration() + corrInt;
+	setTriacFireDuration(newDelay);
 //#ifdef printfPID
 //	double corrD = corr;
 //	double carryCorrD = corrCarryOver;
@@ -326,6 +330,7 @@ void resetPID()
 	corrCarryOver = 0;
  	m_integral =0;
 	m_prev_error = 0;
+	updateGradAmps();
 }
 
 void printPIDState()

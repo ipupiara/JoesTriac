@@ -3,7 +3,7 @@
 #include <stm32f7xx_hal.h>
 
 ADC_HandleTypeDef currentSensorADC;
-ADC_HandleTypeDef throttlePotiADC;
+//ADC_HandleTypeDef throttlePotiADC;
 
 //  todo create timer and start adc by command to reduce cpu usage
 //       or reduce prescaler alternatively.
@@ -14,10 +14,10 @@ void eocIrqHandler(ADC_HandleTypeDef* hadc)
 	if (hadc == &currentSensorADC) {
 		//  update sensor value
 	}
-	if (hadc == &throttlePotiADC) {
-
-		// update sensor value
-	}
+//	if (hadc == &throttlePotiADC) {
+//
+//		// update sensor value
+//	}
 }
 
 void awdIrqHandler(ADC_HandleTypeDef* hadc)
@@ -26,16 +26,16 @@ void awdIrqHandler(ADC_HandleTypeDef* hadc)
 		// update value
 		// stop servo engine  --   engine at movement boarder
 	}
-	if (hadc == &throttlePotiADC) {
-		// update value
-		// stop servo engine
-	}
+//	if (hadc == &throttlePotiADC) {
+//		// update value
+//		// stop servo engine
+//	}
 }
 
 
 
 void ADC_IRQ_(ADC_HandleTypeDef* hadc)
-{  // attention: speed is inverse
+{
 	uint32_t tmp1 = 0, tmp2 = 0;
 
 	tmp1 = __HAL_ADC_GET_FLAG(hadc, ADC_FLAG_EOC);
@@ -58,7 +58,7 @@ void ADC_IRQ_(ADC_HandleTypeDef* hadc)
 void ADC_IRQHandler(void)
 {
 	ADC_IRQ_(&currentSensorADC);
-	ADC_IRQ_(&throttlePotiADC);
+//	ADC_IRQ_(&throttlePotiADC);
 }
 
 
@@ -71,7 +71,7 @@ void ADC_IRQHandler(void)
 static void MX_ADC1_currentSensor_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
-  ADC_AnalogWDGConfTypeDef AnalogWDGConfig = {0};
+//  ADC_AnalogWDGConfTypeDef AnalogWDGConfig = {0};
   ADC_ChannelConfTypeDef sConfig = {0};
 
   __HAL_RCC_ADC1_CLK_ENABLE();
@@ -106,20 +106,20 @@ static void MX_ADC1_currentSensor_Init(void)
   }
   /** Configure the analog watchdog
   */
-  AnalogWDGConfig.WatchdogMode = ADC_ANALOGWATCHDOG_SINGLE_REG;
-  AnalogWDGConfig.HighThreshold = 2000;
-  AnalogWDGConfig.LowThreshold = 100;
-  AnalogWDGConfig.Channel = ADC_CHANNEL_0;
-  AnalogWDGConfig.ITMode = ENABLE;
-  if (HAL_ADC_AnalogWDGConfig(&currentSensorADC, &AnalogWDGConfig) != HAL_OK)
-  {
-
-  }
+//  AnalogWDGConfig.WatchdogMode = ADC_ANALOGWATCHDOG_SINGLE_REG;
+//  AnalogWDGConfig.HighThreshold = 2000;
+//  AnalogWDGConfig.LowThreshold = 100;
+//  AnalogWDGConfig.Channel = ADC_CHANNEL_0;
+//  AnalogWDGConfig.ITMode = ENABLE;
+//  if (HAL_ADC_AnalogWDGConfig(&currentSensorADC, &AnalogWDGConfig) != HAL_OK)
+//  {
+//
+//  }
   /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
   */
   sConfig.Channel = ADC_CHANNEL_0;
   sConfig.Rank = ADC_REGULAR_RANK_1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
+  sConfig.SamplingTime = ADC_SAMPLETIME_15CYCLES;
   if (HAL_ADC_ConfigChannel(&currentSensorADC, &sConfig) != HAL_OK)
   {
 
@@ -134,56 +134,56 @@ static void MX_ADC1_currentSensor_Init(void)
   * @param None
   * @retval None
   */
-static void MX_ADC2_throttlePoti_Init(void)
-{
-  ADC_AnalogWDGConfTypeDef AnalogWDGConfig = {0};
-  ADC_ChannelConfTypeDef sConfig = {0};
-
-  /** Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion)
-  */
-  throttlePotiADC.Instance = ADC2;
-  throttlePotiADC.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV8;
-  throttlePotiADC.Init.Resolution = ADC_RESOLUTION_12B;
-  throttlePotiADC.Init.ScanConvMode = ADC_SCAN_DISABLE;
-  throttlePotiADC.Init.ContinuousConvMode = ENABLE;
-  throttlePotiADC.Init.DiscontinuousConvMode = DISABLE;
-  throttlePotiADC.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
-  throttlePotiADC.Init.ExternalTrigConv = ADC_SOFTWARE_START;
-  throttlePotiADC.Init.DataAlign = ADC_DATAALIGN_RIGHT;
-  throttlePotiADC.Init.NbrOfConversion = 1;
-  throttlePotiADC.Init.DMAContinuousRequests = DISABLE;
-  throttlePotiADC.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
-  if (HAL_ADC_Init(&throttlePotiADC) != HAL_OK)
-  {
-
-  }
-  /** Configure the analog watchdog
-  */
-  AnalogWDGConfig.WatchdogMode = ADC_ANALOGWATCHDOG_SINGLE_REG;
-  AnalogWDGConfig.HighThreshold = 3000;
-  AnalogWDGConfig.LowThreshold = 200;
-  AnalogWDGConfig.Channel = ADC_CHANNEL_1;
-  AnalogWDGConfig.ITMode = ENABLE;
-  if (HAL_ADC_AnalogWDGConfig(&throttlePotiADC, &AnalogWDGConfig) != HAL_OK)
-  {
-
-  }
-  /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
-  */
-  sConfig.Channel = ADC_CHANNEL_1;
-  sConfig.Rank = ADC_REGULAR_RANK_1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
-  if (HAL_ADC_ConfigChannel(&throttlePotiADC, &sConfig) != HAL_OK)
-  {
-
-  }
-
-//  BSP_IntVectSet(ADC_IRQn,tempixIsrPrioLevel,CPU_INT_KA,ADC_IRQHandler);
-//  BSP_IntEnable(ADC_IRQn);
-  __HAL_ADC_ENABLE_IT(&currentSensorADC,ADC_IT_AWD);
-  __HAL_ADC_ENABLE_IT(&throttlePotiADC,ADC_IT_EOC);
-  // error handling of adc ?
-}
+//static void MX_ADC2_throttlePoti_Init(void)
+//{
+//  ADC_AnalogWDGConfTypeDef AnalogWDGConfig = {0};
+//  ADC_ChannelConfTypeDef sConfig = {0};
+//
+//  /** Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion)
+//  */
+//  throttlePotiADC.Instance = ADC2;
+//  throttlePotiADC.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV8;
+//  throttlePotiADC.Init.Resolution = ADC_RESOLUTION_12B;
+//  throttlePotiADC.Init.ScanConvMode = ADC_SCAN_DISABLE;
+//  throttlePotiADC.Init.ContinuousConvMode = ENABLE;
+//  throttlePotiADC.Init.DiscontinuousConvMode = DISABLE;
+//  throttlePotiADC.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
+//  throttlePotiADC.Init.ExternalTrigConv = ADC_SOFTWARE_START;
+//  throttlePotiADC.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+//  throttlePotiADC.Init.NbrOfConversion = 1;
+//  throttlePotiADC.Init.DMAContinuousRequests = DISABLE;
+//  throttlePotiADC.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
+//  if (HAL_ADC_Init(&throttlePotiADC) != HAL_OK)
+//  {
+//
+//  }
+//  /** Configure the analog watchdog
+//  */
+//  AnalogWDGConfig.WatchdogMode = ADC_ANALOGWATCHDOG_SINGLE_REG;
+//  AnalogWDGConfig.HighThreshold = 3000;
+//  AnalogWDGConfig.LowThreshold = 200;
+//  AnalogWDGConfig.Channel = ADC_CHANNEL_1;
+//  AnalogWDGConfig.ITMode = ENABLE;
+//  if (HAL_ADC_AnalogWDGConfig(&throttlePotiADC, &AnalogWDGConfig) != HAL_OK)
+//  {
+//
+//  }
+//  /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
+//  */
+//  sConfig.Channel = ADC_CHANNEL_1;
+//  sConfig.Rank = ADC_REGULAR_RANK_1;
+//  sConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
+//  if (HAL_ADC_ConfigChannel(&throttlePotiADC, &sConfig) != HAL_OK)
+//  {
+//
+//  }
+//
+////  BSP_IntVectSet(ADC_IRQn,tempixIsrPrioLevel,CPU_INT_KA,ADC_IRQHandler);
+////  BSP_IntEnable(ADC_IRQn);
+//  __HAL_ADC_ENABLE_IT(&currentSensorADC,ADC_IT_AWD);
+//  __HAL_ADC_ENABLE_IT(&throttlePotiADC,ADC_IT_EOC);
+//  // error handling of adc ?
+//}
 
 void setAdcLowerThreshold(ADC_HandleTypeDef* hadc,uint32_t  limit)
 {
@@ -198,21 +198,21 @@ void setAdcUpperThreshold(ADC_HandleTypeDef* hadc,uint32_t  limit)
 void startADC()
 {
 	__HAL_ADC_ENABLE(&currentSensorADC);
-	__HAL_ADC_ENABLE(&throttlePotiADC);
+//	__HAL_ADC_ENABLE(&throttlePotiADC);
 	currentSensorADC.Instance->CR2 |= (uint32_t)ADC_CR2_SWSTART;
-	throttlePotiADC.Instance->CR2 |= (uint32_t)ADC_CR2_SWSTART;
+//	throttlePotiADC.Instance->CR2 |= (uint32_t)ADC_CR2_SWSTART;
 }
 
 void stopAdc()
 {
 	__HAL_ADC_DISABLE(&currentSensorADC);
-	__HAL_ADC_DISABLE(&throttlePotiADC);
+//	__HAL_ADC_DISABLE(&throttlePotiADC);
 }
 
 void initAdc()
 {
 	MX_ADC1_currentSensor_Init();
-	MX_ADC2_throttlePoti_Init();
+//	MX_ADC2_throttlePoti_Init();
 
 }
 
