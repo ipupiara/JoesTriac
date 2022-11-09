@@ -49,6 +49,13 @@ void calibrationScreenPresenter::skipButtonPressed()
 	sendEventToMainJtMessageQ(&msg, 0);
 }
 
+void calibrationScreenPresenter::calibrationScreenReady()
+{
+	CMainJtEventT msg;
+	msg.evType = calibScreenReady;
+	sendEventToMainJtMessageQ(&msg, 0);
+}
+
 void calibrationScreenPresenter::tick()
 {
 	CJoesPresenterEventT  presenterMessage;

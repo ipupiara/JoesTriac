@@ -79,8 +79,6 @@ void errorHandler(uint32_t  code, errorSeverity severity, char* errorString, cha
 tStatus initDefines();
 
 tStatus isCalibrationReady();
-
-extern uint32_t desiredWeldingTimeS;
 void setZCalibAuto(uint32_t on);
 
 void sendActualValuesToCalibScreen();
@@ -93,6 +91,8 @@ void storeCalibHighAdc();
 
 void definesWait(uint32_t ms);
 
+void setCalibLow();
+void setCalibHigh();
 #ifdef  __cplusplus
 }
 #endif

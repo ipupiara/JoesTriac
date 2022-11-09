@@ -91,7 +91,7 @@ void setAmpereScreenView::setValArray(float ampsF)
  }
  void setAmpereScreenView::printCurrentValueTimeOnScreen()
  {
-	 uint32_t  ampsI =  (ampsValue *100 ); // evtl + 0.1 or so... to prevent rounding loss
+	 uint32_t  ampsI =  (ampsValue *100.0 ); // evtl + 0.1 or so... to prevent rounding loss
 	 uint32_t uVal = ampsI/100;
 	 uint32_t lVal = ampsI % 100;
 	 Unicode::snprintf(setAmpereTextBuffer, 7, "%03d.%02d", uVal,  lVal);

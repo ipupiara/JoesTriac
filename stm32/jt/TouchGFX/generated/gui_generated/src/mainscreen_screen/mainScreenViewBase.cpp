@@ -20,7 +20,7 @@ mainScreenViewBase::mainScreenViewBase() :
     box1.setPosition(0, 0, 800, 480);
     box1.setColor(touchgfx::Color::getColorFromRGB(190, 226, 247));
 
-    configButton.setXY(12, 422);
+    configButton.setXY(734, 414);
     configButton.setBitmaps(touchgfx::Bitmap(BITMAP_CONFIGURATION_ID), touchgfx::Bitmap(BITMAP_CONFIGURATION_ID));
     configButton.setAction(buttonCallback);
 

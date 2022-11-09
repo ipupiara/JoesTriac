@@ -21,6 +21,8 @@
 
 osSemaphoreId_t   waitSema;
 
+uint32_t  triacTriggerDelay;
+
 void definesWait(uint32_t ms)
 {
 	osStatus_t status;
@@ -435,15 +437,17 @@ void errorHandler(uint32_t  code, errorSeverity severity, char* errorString, cha
 	if (severity == stop) {  do {} while (1);}
 }
 
-uint32_t  triacTriggerDelay;
-
 void addToTriggerDelay(int32_t val)
 {
 	uint32_t res;
 	if ((res = (triacTriggerDelay + val)) < 1000) {
 		triacTriggerDelay = res;
 	}  else  {
-		triacTriggerDelay = 1000;
+		if (res < 1101)  {
+			triacTriggerDelay = 1000;
+		}  else  {
+			triacTriggerDelay = 0;
+		}
 	}
 }
 
@@ -467,6 +471,16 @@ tStatus isCalibrationReady()
 		res = tOk;
 	}
 	return res;
+}
+
+void setCalibLow()
+{
+
+}
+
+void setCalibHigh()
+{
+
 }
 
 tStatus initDefines()

@@ -37,6 +37,7 @@ typedef enum {
 	calibAbortClick,
 	calibContinueClick,
 	calibSkipClick,
+	calibScreenReady,
 	configBackPressed,
 	storeWeldingTime,
 	storeWeldingAmpere,

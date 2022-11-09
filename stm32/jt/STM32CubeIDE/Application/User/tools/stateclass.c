@@ -131,14 +131,14 @@ uStInt evStartupCheckChecker(void)   // during Start Screen
 
 void entrySetupState(void)
 {
-	CJoesModelEventT  msg;
-	osStatus_t status;
-	info_printf("entryTriacIdleState\n");
-	msg.messageType = changeToConfigScreen;
-	status = sendModelMessage(&msg);
-	if(status != osOK)  {
-		errorHandler(status,goOn," status ","entryTriacIdleState");
-	}
+//	CJoesModelEventT  msg;
+//	osStatus_t status;
+//	info_printf("entryTriacIdleState\n");
+//	msg.messageType = changeToConfigScreen;
+//	status = sendModelMessage(&msg);
+//	if(status != osOK)  {
+//		errorHandler(status,goOn," status ","entryTriacIdleState");
+//	}
 }
 
 void exitSetupState(void)
@@ -151,14 +151,14 @@ uStInt evSetupChecker(void)
 	uStInt res = uStIntNoMatch;
 	printf("\ncheck for event in State evStateIdle");
 
-	if (currentEvent->evType == evConfigOkPressed)  {
-		if (isCalibrationReady() == tOk) {
-			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
-				// No event action.
-			END_EVENT_HANDLER(PJoesTriacStateChart);
-			res =  uStIntHandlingDone;
-		}
-	}
+//	if (currentEvent->evType == evConfigOkPressed)  {
+//		if (isCalibrationReady() == tOk) {
+//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+//				// No event action.
+//			END_EVENT_HANDLER(PJoesTriacStateChart);
+//			res =  uStIntHandlingDone;
+//		}
+//	}
 //	if (currentEvent->evType == evConfigOkPressed)  { for abort
 //		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
 //			// No event action.
@@ -175,7 +175,6 @@ void entrySetupIdleState(void)
 	printf("entrySetupIdleState\n");
 	CJoesModelEventT  msg;
 	osStatus_t status;
-	info_printf("entrySetupIdleState\n");
 	msg.messageType = changeToConfigScreen;
 	status = sendModelMessage(&msg);
 	if(status != osOK)  {
@@ -207,14 +206,15 @@ uStInt evSetupIdleChecker(void)
 				// No event action.
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
-//		} else {
-//			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateLow);
-//				// No event action.
-//			END_EVENT_HANDLER(PJoesTriacStateChart);
-//			res =  uStIntHandlingDone;
-//		}
 	}
-
+	if (currentEvent->evType == evConfigOkPressed)  {
+		if (isCalibrationReady() == tOk) {
+			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
+				// No event action.
+			END_EVENT_HANDLER(PJoesTriacStateChart);
+			res =  uStIntHandlingDone;
+		}
+	}
 	return res;
 }
 
@@ -320,10 +320,6 @@ uStInt evCalibrateScaleChecker(void)
 void entryCalibrateLowState(void)
 {
 	info_printf("entryCalibrateLowState\n");
-	CJoesPresenterEventT msg;
-	msg.messageType = calibDesiredAmps;
-	msg.evData.desiredAmps = 20.0;
-	sendPresenterMessage(&msg);
 //	setTriacFireDuration(0);
 }
 
@@ -337,9 +333,16 @@ uStInt evCalibrateLowChecker(void)
 {
 	printf("check for event in State evStateIdle\n");
 	uStInt res = uStIntNoMatch;
-
+	if (currentEvent->evType == evCalibScreenReady)
+	{
+		CJoesPresenterEventT msg;
+		msg.messageType = calibDesiredAmps;
+		msg.evData.desiredAmps = 30.0;
+		sendPresenterMessage(&msg);
+	}
 	if (currentEvent->evType == evCalibContinueClick)
 	{
+		setCalibLow();
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateHigh);
 
 
@@ -385,9 +388,8 @@ uStInt evCalibrateHighChecker(void)
 	}
 	if (currentEvent->evType == evCalibContinueClick)
 	{
+		setCalibHigh();
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupIdle);
-
-
 
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
@@ -404,7 +406,6 @@ void entryTriacIdleState(void)
 	osStatus_t status;
 	info_printf("entryTriacIdleState\n");
 	msg.messageType = changeToMainScreen;
-	msg.evData.keyCode = 0x2345;
 	status = sendModelMessage(&msg);
 	if(status != osOK)  {
 		errorHandler(status,goOn," status ","entryTriacIdleState");

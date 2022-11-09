@@ -40,7 +40,7 @@ KEEP extern const uint32_t indicesGb[] TEXT_LOCATION_FLASH_ATTRIBUTE = {
     275, // T___SINGLEUSE_CSK5: "zero poti pos"
     242, // T___SINGLEUSE_96OR: "please wait ..."
     100, // T___SINGLEUSE_INHC: "calibrate zero position"
-    593, // T___SINGLEUSE_PYBL: "000"
+    627, // T___SINGLEUSE_PYBL: "0000"
     593, // T___SINGLEUSE_C8ZW: "000"
     591, // T___SINGLEUSE_HMNH: "0.000"
     273, // T___SINGLEUSE_1KAN: "<>"

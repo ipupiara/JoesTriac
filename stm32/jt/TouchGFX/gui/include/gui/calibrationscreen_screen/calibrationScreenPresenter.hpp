@@ -33,7 +33,7 @@ public:
     void abortButtonPressed();
     void continueButtonPressed();
     void skipButtonPressed();
-
+    void calibrationScreenReady();
  private:
     calibrationScreenPresenter();
 

@@ -218,6 +218,11 @@ void mainJt(void *argument)
 							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
 							break;
 						}
+						case calibScreenReady: {
+							fsmEv.evType=evCalibScreenReady;
+							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
+							break;
+						}
 
 						default : {
 								errorHandler(mJtEv.evType ,goOn," osMessageQueueGet unknown event "," mainJt ");

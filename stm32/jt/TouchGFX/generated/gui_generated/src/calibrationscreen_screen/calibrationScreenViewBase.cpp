@@ -16,12 +16,12 @@ calibrationScreenViewBase::calibrationScreenViewBase() :
     box1.setPosition(0, 0, 800, 480);
     box1.setColor(touchgfx::Color::getColorFromRGB(176, 247, 191));
 
-    textArea1.setXY(26, 50);
+    textArea1.setXY(26, 27);
     textArea1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea1.setLinespacing(0);
     textArea1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_JIYE));
 
-    ampereText.setXY(225, 50);
+    ampereText.setXY(277, 15);
     ampereText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     ampereText.setLinespacing(0);
     Unicode::snprintf(ampereTextBuffer, AMPERETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_C8ZW).getText());
@@ -34,7 +34,7 @@ calibrationScreenViewBase::calibrationScreenViewBase() :
     textArea3.setLinespacing(0);
     textArea3.setTypedText(touchgfx::TypedText(T___SINGLEUSE_ASW4));
 
-    delayText.setXY(225, 169);
+    delayText.setXY(190, 169);
     delayText.setColor(touchgfx::Color::getColorFromRGB(13, 1, 1));
     delayText.setLinespacing(0);
     Unicode::snprintf(delayTextBuffer, DELAYTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_PYBL).getText());
@@ -91,7 +91,7 @@ calibrationScreenViewBase::calibrationScreenViewBase() :
     abortButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     abortButton.setAction(buttonCallback);
 
-    adcVoltageText.setXY(201, 290);
+    adcVoltageText.setXY(178, 290);
     adcVoltageText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     adcVoltageText.setLinespacing(0);
     Unicode::snprintf(adcVoltageTextBuffer, ADCVOLTAGETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_HMNH).getText());
@@ -109,7 +109,7 @@ calibrationScreenViewBase::calibrationScreenViewBase() :
     textArea6.setLinespacing(0);
     textArea6.setTypedText(touchgfx::TypedText(T___SINGLEUSE_I5ZJ));
 
-    adcValueText.setXY(213, 329);
+    adcValueText.setXY(190, 329);
     adcValueText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     adcValueText.setLinespacing(0);
     Unicode::snprintf(adcValueTextBuffer, ADCVALUETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_STEN).getText());

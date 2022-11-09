@@ -97,7 +97,7 @@
         <Translation Language="GB">calibrate zero position</Translation>
       </Text>
       <Text Id="__SingleUse_PYBL" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">000</Translation>
+        <Translation Language="GB">0000</Translation>
       </Text>
       <Text Id="__SingleUse_C8ZW" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">000</Translation>
@@ -309,7 +309,7 @@
       <Text Id="__SingleUse_ASW4" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">triac delay</Translation>
       </Text>
-      <Text Id="__SingleUse_8TPJ" Alignment="Left" TypographyId="Default">
+      <Text Id="__SingleUse_8TPJ" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">&lt;amps&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_JIYE" Alignment="Left" TypographyId="Default">
@@ -372,7 +372,7 @@
     </TextGroup>
   </Texts>
   <Typographies>
-    <Typography Id="Default" Font="cour.ttf" Size="20" Bpp="4" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Default" Font="cour.ttf" Size="20" Bpp="4" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0x30-0x39,0x3A" />
     <Typography Id="Large" Font="cour.ttf" Size="40" Bpp="4" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0x30-0x39,0x3A" />
     <Typography Id="Small" Font="verdana.ttf" Size="10" Bpp="4" Direction="LTR" FallbackCharacter="?" />
   </Typographies>
