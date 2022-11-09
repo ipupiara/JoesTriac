@@ -133,6 +133,7 @@ void mainJt(void *argument)
 	initI2c();
 	mainJtOsStarted();
 	initDefines();
+	initTriacIntr();
 	startStateCharts();
 	uint8_t  prio = 0;
 	do  {

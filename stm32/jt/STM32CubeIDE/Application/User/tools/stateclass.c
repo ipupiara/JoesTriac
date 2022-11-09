@@ -297,6 +297,7 @@ void entryCalibrateScaleState(void)
 	if(status != osOK)  {
 		errorHandler(status,goOn," status ","entryCalibrateScaleState");
 	}
+	startAmpsADC();
 	startTriacRun();
 }
 
@@ -304,6 +305,7 @@ void exitCalibrateScaleState(void)
 {
 //	info_printf("exit calib\n");
 	stopTriacRun();
+	stopAmpsADC();
 }
 
 uStInt evCalibrateScaleChecker(void)
@@ -320,7 +322,7 @@ uStInt evCalibrateScaleChecker(void)
 void entryCalibrateLowState(void)
 {
 	info_printf("entryCalibrateLowState\n");
-//	setTriacFireDuration(0);
+	setTriacFireDuration(0);
 }
 
 void exitCalibrateLowState(void)

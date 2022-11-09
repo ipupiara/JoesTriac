@@ -15,7 +15,7 @@ extern "C"
 //int8_t durationTimerReachead;
 //int8_t runningSecondsTick;
 
-extern int64_t  secondCount;
+//extern int64_t  secondCount;
 
 
 uint32_t getCurrentAmpsADCValue();
@@ -25,8 +25,8 @@ void setAmpsADCValue(uint32_t val);
 
 
 //int8_t adcTick;
-//void startAmpsADC();
-//void stopAmpsADC();
+void startAmpsADC();
+void stopAmpsADC();
 ////void setDiffADC();
 ////void closeDiffADC();
 //void startSingleADC();
@@ -48,9 +48,7 @@ void setBuzzerOn();
 void setBuzzerOff();
 void toggleBuzzer();
 
-float lastAmpsValF();
 
-//void initInterrupts();
 void setTriacFireDuration(int32_t cmsecs);
 void startTriacRun();
 void stopTriacRun();
@@ -59,6 +57,7 @@ void setCompletionAlarmOn();
 void setCompletionAlarmOff();
 void toggleCompletionAlarm();
 
+void initTriacIntr();
 //
 //void printDValueVars();
 //

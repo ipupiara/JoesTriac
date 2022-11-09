@@ -10,21 +10,7 @@ uint8_t durationTimerOn;
 
 float currentAmpsValue;
 uint32_t currentAmpsADCValue;
-
-void setBuzzerOn()
-{
-
-}
-
-void setBuzzerOff()
-{
-
-}
-
-void toggleBuzzer()
-{
-
-}
+int32_t lastAmpsADCVal;
 
 uint32_t getCurrentAmpsADCValue()
 {
@@ -55,16 +41,7 @@ void setAmpsADCValue(uint32_t val)
 
 
 //int64_t  secondCount;
-//
-//int16_t lastAmpsADCVal;
 
-float lastAmpsValF()
-{
-	float res = 0.0;
-	return res;
-}
-//
-//uint16_t  shortCircuitAlarmAmpsADCValue;   extern "C"
 //
 //int16_t remainingTriacTriggerDelayCounts;
 //
@@ -76,7 +53,7 @@ uint32_t secondsInDurationTimer;
 
 //int8_t adcCnt;
 //
-//int16_t amtInductiveRepetitions;
+int32_t amtInductiveRepetitions;
 
 //#define ocra2aValueMax 0XFC  // still to be defined
 //
@@ -276,8 +253,8 @@ void setTriacFireDuration(int32_t durationTcnt2)
 //	}
 //}
 //
-//void initInterrupts()
-//{
+void initInterruptsNPorts()
+{
 //// Ext. Interrupt
 //		DDRA = 0b11110000;    // set pin 7 to 4 of port A as output for digital poti (zero adj)
 //		PORTA = 0b11100000;
@@ -355,12 +332,12 @@ void setTriacFireDuration(int32_t durationTcnt2)
 //		ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE
 //		adcTick = 0;
 //		adcCnt = 0;
-//		lastAmpsADCVal = 0;
+		lastAmpsADCVal = 0;
 //		sei();  // start interrupts if not yet started
-//}
+}
 //
-//void startAmpsADC()
-//{
+void startAmpsADC()
+{
 //	ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE
 //	adcTick = 0;
 //	adcCnt = 0;
@@ -381,15 +358,15 @@ void setTriacFireDuration(int32_t durationTcnt2)
 //
 //	TCCR0B = 0b00000101  ; // CTC on CC0A , set clk / 1024, timer 0 started
 //	TIMSK0  = 0b00000010;  // ena  interrupts, and let run ADC
-//}
+}
 //
-//void stopAmpsADC()
-//{
+void stopAmpsADC()
+{
 //	ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE
 //
 //	TCCR0B = 0b00000000  ; // stop timer 0
 //	TIMSK0  = 0b00000000;  //
-//}
+}
 //
 void startTriacRun()
 {
@@ -410,15 +387,15 @@ void stopTriacRun()
 //	stopAmpsADC();
 }
 //
-//int16_t ampsADCValue()
-//{
-//	int16_t res;
-//	cli();
-//	res = lastAmpsADCVal;
-//	sei();
-////	printf("ampsADC %i ",lastAmpsADCVal);
-//	return res;
-//}
+int16_t ampsADCValue()
+{
+	int16_t res;
+	taskENTER_CRITICAL();
+	res = lastAmpsADCVal;
+	taskEXIT_CRITICAL();
+//	printf("ampsADC %i ",lastAmpsADCVal);
+	return res;
+}
 //
 ///*
 //int16_t  valueFrom6Bit2Complement(int16_t adcV)
@@ -440,18 +417,19 @@ void stopTriacRun()
 //}
 //*/
 //
-//double adcVoltage()
-//{
-//	int16_t VHex;
-//	double   VFl;
-//
-//	VFl = 0.0;
-//
-//	VHex = ampsADCValue();
-//	VFl = (VHex * 5.0) / 0x03FF;
-//
-//	return VFl;
-//}{
+float adcVoltage()
+{
+	int16_t VHex;
+	double   VFl;
+	float    Vf;
+
+	VFl = 0.0;
+
+	VHex = ampsADCValue();
+	VFl = (VHex * 5.0) / 0x03FF;  //  todo change for stm32F7
+	Vf = VFl;
+	return Vf;
+}
 
 
 
@@ -516,31 +494,44 @@ uint32_t getSecondsInDurationTimer()
 	return res;
 }
 
+void setBuzzerOn()
+{
+	//	PORTD |= 0x08;
+}
 
+void setBuzzerOff()
+{
+	//	PORTD &= ~0x08;
+}
+
+void toggleBuzzer()
+{
+	//	if (PORTD & 0x08) {
+	//		setCompletionAlarmOff();
+	//	} else {
+	//		setCompletionAlarmOn();
+	//	}
+}
 
 void setCompletionAlarmOff()
 {
-//	PORTD &= ~0x08;
+	setBuzzerOn();
 }
 
 void setCompletionAlarmOn()
 {
-//	PORTD |= 0x08;
+	setBuzzerOff();
 }
 
 void toggleCompletionAlarm()
 {
-//	if (PORTD & 0x08) {
-//		setCompletionAlarmOff();
-//	} else {
-//		setCompletionAlarmOn();
-//	}
+	toggleBuzzer();
 }
-
-
 
 void initTriacIntr()
 {
 	durationTimerOn = 0;
-
+	currentAmpsValue = 0.0;
+	currentAmpsADCValue = 0;
+	initInterruptsNPorts();
 }
