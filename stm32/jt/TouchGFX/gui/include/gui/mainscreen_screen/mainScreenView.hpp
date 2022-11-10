@@ -12,6 +12,7 @@ public:
     virtual void setupScreen();
     virtual void tearDownScreen();
     virtual void configButtonPressed();
+    virtual void startButtonPressed();
 protected:
 };
 

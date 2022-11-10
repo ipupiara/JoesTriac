@@ -31,6 +31,9 @@ public:
 
     float getWeldingAmps();
 
+    void startButtonPressed();
+    void configButtonPressed();
+
 private:
     mainScreenPresenter();
 

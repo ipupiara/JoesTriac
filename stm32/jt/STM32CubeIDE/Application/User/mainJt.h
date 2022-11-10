@@ -45,6 +45,7 @@ typedef enum {
 	secondTick,
 	second100Tick,
 	configPressed,
+	runButtonPressed,
 	okPressed,
 	autoConfigPressed
 }  mainJtMessageType;

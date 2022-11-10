@@ -33,7 +33,10 @@ void mainScreenView::tearDownScreen()
 
 void mainScreenView::configButtonPressed()
 {
-	CMainJtEventT evt;
-	evt.evType = configPressed;
-	sendEventToMainJtMessageQ(&evt,0);
+	presenter->configButtonPressed();
+}
+
+void mainScreenView::startButtonPressed()
+{
+	presenter->startButtonPressed();
 }

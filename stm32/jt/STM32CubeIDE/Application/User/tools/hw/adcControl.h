@@ -11,6 +11,8 @@ extern "C"
 #endif
 
 void initAdc();
+void startADC();
+void stopADC();
 
 #ifdef  __cplusplus
 }

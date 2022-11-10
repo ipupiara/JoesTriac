@@ -203,7 +203,7 @@ void startADC()
 //	throttlePotiADC.Instance->CR2 |= (uint32_t)ADC_CR2_SWSTART;
 }
 
-void stopAdc()
+void stopADC()
 {
 	__HAL_ADC_DISABLE(&currentSensorADC);
 //	__HAL_ADC_DISABLE(&throttlePotiADC);

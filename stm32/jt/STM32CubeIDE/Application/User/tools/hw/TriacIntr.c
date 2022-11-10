@@ -3,7 +3,9 @@
 #include <FreeRTOS.h>
 #include <task.h>
 #include <defines.h>
-//#include "triacPID.h"
+#include <adcControl.h>
+#include "triacPID.h"
+
 
 uint8_t durationTimerOn;
 
@@ -380,7 +382,8 @@ void stopAmpsADC()
 //
 void startTriacRun()
 {
-//	resetPID();
+	startADC();
+	resetPID();
 //	resetCircuitAlarms();
 //	startAmpsADC();
 //	EIFR = 0x00;
@@ -389,7 +392,8 @@ void startTriacRun()
 //
 void stopTriacRun()
 {
-//	resetCircuitAlarms();    // stops also circuit alarms (shortCircuit, DValue)
+	stopADC();
+ // stops also circuit alarms (shortCircuit, DValue)
 //	EIMSK = 0x00;				// stop external interrupt
 //	cli();
 //	stopTimer2();

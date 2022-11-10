@@ -442,7 +442,7 @@ uStInt evTriacIdleChecker(void)
 	{	
 //		onTriacIdleSecondTick_PID();
 //		onTriacIdleSecondTick_Keyb();
-		res =  uStIntHandlingDone;
+//		res =  uStIntHandlingDone;
 	}
 	return res;
 }
