@@ -34,13 +34,14 @@ enum eStates
 	eNumberOfStates
 };
 
-uint32_t timeCnt;
 TStatechart SJoesTriacStateChart;
 TStatechart* PJoesTriacStateChart;
 extern const uStInt uStIntHandlingDone;
 extern const uStInt uStIntNoMatch;
 
 fsmTriacEvent* currentEvent;
+uint16_t secondsBeforeReturn;
+uint32_t timeCnt;
 
 void entryJoesTriac()
 {
@@ -484,11 +485,11 @@ void entryTriacRunningState(void)
 	CJoesModelEventT  msg;
 	msg.messageType = changeToRunScreen;
 	sendModelMessage(&msg);
+	secondsBeforeReturn = 0;
 }
 
 void exitTriacRunningState(void)
 {
-	haltDurationTimer();
 	stopTriacRun();
 }
 
@@ -504,7 +505,7 @@ uStInt evTriacRunningChecker(void)
 	}		
 
 	if (currentEvent->evType == evSecondsTick) {
-		sendActualValuesToRunScreen();
+		sendActualValuesToRunScreen(secondsBeforeReturn);
 		res =  uStIntHandlingDone;
 	}	
 	if (currentEvent->evType == evAdcTick)
@@ -524,6 +525,7 @@ void entryRequestStopState(void)
 	msg.messageType = changeToRequestStopScreen;
 	sendModelMessage(&msg);
 	void setBuzzerOn();
+	secondsBeforeReturn = 11;
 }
 
 void exitRequestStopState(void)
@@ -542,15 +544,24 @@ uStInt evRequestStopChecker(void)
 			res =  uStIntHandlingDone;
 	}
 
+	if ((secondsBeforeReturn == 0) || (currentEvent->evType == evContinuePressed)){
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacRunning);
+			// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+}
+
 	if (currentEvent->evType == evSecondsTick) {
 		if (timeCnt < 2 )  {
 			setBuzzerOn();
+			++timeCnt;
 		} else {
 			setBuzzerOff();
 			timeCnt = 0;
 		}
-		toggleBuzzer();
-		sendActualValuesToRequestStopScreen();
+		--secondsBeforeReturn;
+		sendActualValuesToRequestStopScreen(secondsBeforeReturn);
+
 		res =  uStIntHandlingDone;
 	}
 	return res;

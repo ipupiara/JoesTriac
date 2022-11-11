@@ -38,6 +38,6 @@ void mainScreenPresenter::configButtonPressed()
 void mainScreenPresenter::startButtonPressed()
 {
 	CMainJtEventT evt;
-	evt.evType = runButtonPressed;
+	evt.evType = runButtonClicked;
 	sendEventToMainJtMessageQ(&evt,0);
 }

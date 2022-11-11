@@ -183,7 +183,7 @@
             "X": 465,
             "Y": 12,
             "Width": 144,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_DEJR",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1802,6 +1802,42 @@
             "IndicatorPositionHeight": 16,
             "ProgressRangeMax": 100,
             "ProgressInitialValue": 60
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea3",
+            "Width": 96,
+            "Height": 23,
+            "TextId": "__SingleUse_5I23",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea4",
+            "Width": 96,
+            "Height": 23,
+            "TextId": "__SingleUse_56DF",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea5",
+            "Width": 96,
+            "Height": 23,
+            "TextId": "__SingleUse_2CW9",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea6",
+            "Width": 96,
+            "Height": 23,
+            "TextId": "__SingleUse_KBMG",
+            "TextRotation": "0",
+            "AutoSize": true
           }
         ],
         "Interactions": [
@@ -2232,7 +2268,12 @@
             "Height": 45,
             "TextId": "__SingleUse_EEDJ",
             "TextRotation": "0",
-            "AutoSize": true
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_GL4G",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
           },
           {
             "Type": "TextArea",
@@ -2280,13 +2321,16 @@
             "Height": 45,
             "TextId": "__SingleUse_RXFU",
             "TextRotation": "0",
-            "AutoSize": true
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_RHX6"
+            }
           },
           {
             "Type": "BoxProgress",
             "Name": "boxProgress1",
             "X": 14,
-            "Y": 248,
+            "Y": 133,
             "Width": 184,
             "Height": 20,
             "Color": {
@@ -2317,6 +2361,42 @@
             "IconHeight": 60,
             "IconWidth": 170,
             "ButtonStyle": "Style4"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea3",
+            "Width": 96,
+            "Height": 23,
+            "TextId": "__SingleUse_MVL0",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea4",
+            "X": 526,
+            "Y": 281,
+            "Width": 252,
+            "Height": 23,
+            "TextId": "__SingleUse_3974",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "secondsb4ReturnText",
+            "X": 526,
+            "Y": 316,
+            "Width": 48,
+            "Height": 45,
+            "TextId": "__SingleUse_1D86",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_N9A8",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
           }
         ],
         "Interactions": [

@@ -12,7 +12,8 @@ public:
     virtual ~runScreenView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
-    void update(float amps,uint32_t secRemain,uint32_t pPos );
+    void update(float amps,uint32_t secRemain);
+    virtual void stopButtonPressed();
 protected:
     uint32_t weldingTimeSec;
     float     weldingAmps;

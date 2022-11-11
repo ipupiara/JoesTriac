@@ -224,7 +224,7 @@ void mainJt(void *argument)
 							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
 							break;
 						}
-						case runButtonPressed: {
+						case runButtonClicked: {
 							fsmEv.evType=evStartPressed;
 							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
 							break;

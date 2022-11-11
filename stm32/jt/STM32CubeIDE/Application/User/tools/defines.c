@@ -52,7 +52,7 @@ void sendActualValuesToCalibScreen()
 }
 
 
-void sendActualValuesToRunScreen()
+void sendActualValuesToRunScreen(uint16_t secondsRemaining)
 {
 	float amps = getCurrentAmpsValue() ;
 	uint32_t time = getSecondsDurationTimerRemaining();
@@ -61,6 +61,7 @@ void sendActualValuesToRunScreen()
 	presenterMessage.messageType=runScreenUpdate;
 	presenterMessage.evData.runScreenData.secondsRemaining= time;
 	presenterMessage.evData.runScreenData.amps= amps;
+	presenterMessage.evData.runScreenData.secondsRemaining = secondsRemaining;
 
 	sendPresenterMessage(&presenterMessage);
 }
@@ -72,9 +73,9 @@ void sendActualValuesToRequestStopScreen()
 
 	CJoesPresenterEventT  presenterMessage;
 	presenterMessage.messageType=runScreenUpdate;
-	presenterMessage.evData.runScreenData.secondsRemaining= time;
+	presenterMessage.evData.runScreenData.secondsRemaining = time;
 	presenterMessage.evData.runScreenData.amps= amps;
-	presenterMessage.evData.runScreenData.potiPos= 50;
+//	presenterMessage.evData.runScreenData.potiPos= 50;
 
 	sendPresenterMessage(&presenterMessage);
 }

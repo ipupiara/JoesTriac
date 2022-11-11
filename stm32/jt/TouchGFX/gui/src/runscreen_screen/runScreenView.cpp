@@ -42,11 +42,15 @@ void runScreenView::tearDownScreen()
     runScreenViewBase::tearDownScreen();
 }
 
-void runScreenView::update(float amps,uint32_t secRemain,uint32_t pPos )
+void runScreenView::update(float amps,uint32_t secRemain )
 {
 	Unicode::snprintfFloat(currentAmpereTextBuffer, 7, "%6.2f",amps);
 	currentAmpereText.setWildcard(currentAmpereTextBuffer);
 	currentAmpereText.invalidate();
+
+	 int ampValue = ((int)( amps  ));
+	 ampGauge.setValue(ampValue);
+	 ampGauge.invalidate();
 
 	 uint8_t  minVal = uint8_t( secRemain / 60);
 	 uint8_t  secVal = (uint8_t) ( secRemain % 60);
@@ -54,11 +58,12 @@ void runScreenView::update(float amps,uint32_t secRemain,uint32_t pPos )
 	 currentTimeText.setWildcard(currentTimeTextBuffer);
 	 currentTimeText.invalidate();
 
-	 int ampValue = ((int)( amps  ));
-	 ampGauge.setValue(ampValue);
-	 ampGauge.invalidate();
-
-	 int boxPro = 100 * (secRemain/ weldingTimeSec);
+	 int boxPro = 100 * ((weldingTimeSec - secRemain)/ weldingTimeSec);
 	 boxProgress1.setValue(boxPro);
 	 boxProgress1.invalidate();
+}
+
+void runScreenView::stopButtonPressed()
+{
+	presenter->stopButtonPressed();
 }

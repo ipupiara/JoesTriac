@@ -56,6 +56,9 @@ protected:
     touchgfx::TextArea currentAmpereText;
     touchgfx::BoxProgress boxProgress1;
     touchgfx::ButtonWithIcon continueButton;
+    touchgfx::TextArea textArea3;
+    touchgfx::TextArea textArea4;
+    touchgfx::TextAreaWithOneWildcard secondsb4ReturnText;
 
     /*
      * Wildcard Buffers
@@ -64,6 +67,8 @@ protected:
     touchgfx::Unicode::UnicodeChar timeValueTextBuffer[TIMEVALUETEXT_SIZE];
     static const uint16_t CURRENTTIMETEXT_SIZE = 20;
     touchgfx::Unicode::UnicodeChar currentTimeTextBuffer[CURRENTTIMETEXT_SIZE];
+    static const uint16_t SECONDSB4RETURNTEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar secondsb4ReturnTextBuffer[SECONDSB4RETURNTEXT_SIZE];
 
 private:
 

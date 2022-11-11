@@ -30,6 +30,9 @@ public:
 
     virtual void tick();
 
+    void continueButtonPressed();
+    void abortButtonPressed();
+
 private:
     requestStopScreenPresenter();
     bool presenterActive;

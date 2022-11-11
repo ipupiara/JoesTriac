@@ -21,6 +21,13 @@ void runScreenPresenter::deactivate()
 	presenterActive = 0;
 }
 
+void runScreenPresenter::stopButtonPressed()
+{
+	CMainJtEventT msg;
+	msg.evType = stopButtonClicked;
+	sendEventToMainJtMessageQ(&msg, 0);
+}
+
 void runScreenPresenter::tick()
 {
 	CJoesPresenterEventT  presenterMessage;
@@ -30,8 +37,7 @@ void runScreenPresenter::tick()
 		{
 			if ( osMessageQueueGet ( presenterMessageQ, &presenterMessage, NULL, 0) == osOK)  {
 				if (presenterMessage.messageType ==  runScreenUpdate) {
-					view.update(presenterMessage.evData.runScreenData.amps, presenterMessage.evData.runScreenData.secondsRemaining,
-							presenterMessage.evData.runScreenData.potiPos);
+					view.update(presenterMessage.evData.runScreenData.amps, presenterMessage.evData.runScreenData.secondsRemaining);
 				}
 			}
 		}

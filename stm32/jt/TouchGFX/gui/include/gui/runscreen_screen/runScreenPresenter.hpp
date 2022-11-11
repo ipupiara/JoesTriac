@@ -31,6 +31,9 @@ public:
 
     virtual void tick();
 
+    void stopButtonPressed();
+
+
 private:
     runScreenPresenter();
     bool presenterActive;

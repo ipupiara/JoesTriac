@@ -51,6 +51,10 @@ protected:
     touchgfx::TextAreaWithOneWildcard currentTimeText;
     touchgfx::TextAreaWithOneWildcard currentAmpereText;
     touchgfx::BoxProgress boxProgress1;
+    touchgfx::TextArea textArea3;
+    touchgfx::TextArea textArea4;
+    touchgfx::TextArea textArea5;
+    touchgfx::TextArea textArea6;
 
     /*
      * Wildcard Buffers

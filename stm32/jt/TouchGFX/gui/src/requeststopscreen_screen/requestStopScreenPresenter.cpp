@@ -20,6 +20,20 @@ void requestStopScreenPresenter::deactivate()
 	presenterActive = 0;
 }
 
+void requestStopScreenPresenter::continueButtonPressed()
+{
+	CMainJtEventT msg;
+	msg.evType = continueButtonClicked;
+	sendEventToMainJtMessageQ(&msg, 0);
+}
+
+void requestStopScreenPresenter::abortButtonPressed()
+{
+	CMainJtEventT msg;
+	msg.evType = stopButtonClicked;
+	sendEventToMainJtMessageQ(&msg, 0);
+}
+
 void requestStopScreenPresenter::tick()
 {
 	CJoesPresenterEventT  presenterMessage;
@@ -30,7 +44,7 @@ void requestStopScreenPresenter::tick()
 			if ( osMessageQueueGet ( presenterMessageQ, &presenterMessage, NULL, 0) == osOK)  {
 				if (presenterMessage.messageType ==  runScreenUpdate) {
 					view.update(presenterMessage.evData.runScreenData.amps, presenterMessage.evData.runScreenData.secondsRemaining,
-							presenterMessage.evData.runScreenData.potiPos);
+							presenterMessage.evData.runScreenData.secondsBeforeReturn);
 				}
 			}
 		}

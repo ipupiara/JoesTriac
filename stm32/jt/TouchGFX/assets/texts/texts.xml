@@ -6,6 +6,36 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_GL4G" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">000.00</Translation>
+      </Text>
+      <Text Id="__SingleUse_RHX6" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">000.00</Translation>
+      </Text>
+      <Text Id="__SingleUse_N9A8" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">00</Translation>
+      </Text>
+      <Text Id="__SingleUse_1D86" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_3974" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">seconds before return</Translation>
+      </Text>
+      <Text Id="__SingleUse_MVL0" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">New Text</Translation>
+      </Text>
+      <Text Id="__SingleUse_KBMG" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">New Text</Translation>
+      </Text>
+      <Text Id="__SingleUse_2CW9" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">New Text</Translation>
+      </Text>
+      <Text Id="__SingleUse_56DF" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">New Text</Translation>
+      </Text>
+      <Text Id="__SingleUse_5I23" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">New Text</Translation>
+      </Text>
       <Text Id="__SingleUse_CH8X" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">00:00</Translation>
       </Text>
@@ -163,7 +193,7 @@
         <Translation Language="GB">job complete</Translation>
       </Text>
       <Text Id="__SingleUse_RXFU" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">000.00</Translation>
+        <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_8VJ0" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">00:00</Translation>
@@ -178,7 +208,7 @@
         <Translation Language="GB">time:</Translation>
       </Text>
       <Text Id="__SingleUse_EEDJ" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">000.00</Translation>
+        <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_W7D7" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">00:00</Translation>

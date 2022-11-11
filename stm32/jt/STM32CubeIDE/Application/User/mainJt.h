@@ -45,7 +45,9 @@ typedef enum {
 	secondTick,
 	second100Tick,
 	configPressed,
-	runButtonPressed,
+	runButtonClicked,
+	stopButtonClicked,
+	continueButtonClicked,
 	okPressed,
 	autoConfigPressed
 }  mainJtMessageType;
@@ -101,8 +103,9 @@ typedef struct  {
 		uint32_t  alarmTimeSince;
 		struct {
 			float   	amps;
-			uint16_t  potiPos;
+//			uint16_t  potiPos;
 			uint16_t  secondsRemaining;
+			uint16_t secondsBeforeReturn;
 		} runScreenData;
 		struct {
 			float   	 devV;

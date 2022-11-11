@@ -76,7 +76,7 @@ requestStopScreenViewBase::requestStopScreenViewBase() :
     currentAmpereText.setLinespacing(0);
     currentAmpereText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_RXFU));
 
-    boxProgress1.setXY(14, 248);
+    boxProgress1.setXY(14, 133);
     boxProgress1.setProgressIndicatorPosition(2, 2, 180, 16);
     boxProgress1.setRange(0, 100);
     boxProgress1.setDirection(touchgfx::AbstractDirectionProgress::RIGHT);
@@ -88,6 +88,24 @@ requestStopScreenViewBase::requestStopScreenViewBase() :
     continueButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID), touchgfx::Bitmap(BITMAP_CONTINUEBTN_ID), touchgfx::Bitmap(BITMAP_CONTINUEBTNPRESSED_ID));
     continueButton.setIconXY(0, 0);
     continueButton.setAction(buttonCallback);
+
+    textArea3.setXY(0, 0);
+    textArea3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea3.setLinespacing(0);
+    textArea3.setTypedText(touchgfx::TypedText(T___SINGLEUSE_MVL0));
+
+    textArea4.setXY(526, 281);
+    textArea4.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea4.setLinespacing(0);
+    textArea4.setTypedText(touchgfx::TypedText(T___SINGLEUSE_3974));
+
+    secondsb4ReturnText.setXY(526, 316);
+    secondsb4ReturnText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    secondsb4ReturnText.setLinespacing(0);
+    Unicode::snprintf(secondsb4ReturnTextBuffer, SECONDSB4RETURNTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_N9A8).getText());
+    secondsb4ReturnText.setWildcard(secondsb4ReturnTextBuffer);
+    secondsb4ReturnText.resizeToCurrentText();
+    secondsb4ReturnText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_1D86));
 
     add(__background);
     add(box1);
@@ -101,6 +119,9 @@ requestStopScreenViewBase::requestStopScreenViewBase() :
     add(currentAmpereText);
     add(boxProgress1);
     add(continueButton);
+    add(textArea3);
+    add(textArea4);
+    add(secondsb4ReturnText);
 }
 
 void requestStopScreenViewBase::setupScreen()
