@@ -52,7 +52,7 @@ void sendActualValuesToCalibScreen()
 }
 
 
-void sendActualValuesToRunScreen(uint16_t secondsRemaining)
+void sendActualValuesToRunNStopScreen(uint16_t secondsRemaining, uint16_t secondsb4Return)
 {
 	float amps = getCurrentAmpsValue() ;
 	uint32_t time = getSecondsDurationTimerRemaining();
@@ -61,24 +61,11 @@ void sendActualValuesToRunScreen(uint16_t secondsRemaining)
 	presenterMessage.messageType=runScreenUpdate;
 	presenterMessage.evData.runScreenData.secondsRemaining= time;
 	presenterMessage.evData.runScreenData.amps= amps;
-	presenterMessage.evData.runScreenData.secondsRemaining = secondsRemaining;
+	presenterMessage.evData.runScreenData.secondsBeforeReturn = secondsb4Return;
 
 	sendPresenterMessage(&presenterMessage);
 }
 
-void sendActualValuesToRequestStopScreen()
-{
-	float amps = getCurrentAmpsValue() ;
-	uint32_t time = getSecondsDurationTimerRemaining();
-
-	CJoesPresenterEventT  presenterMessage;
-	presenterMessage.messageType=runScreenUpdate;
-	presenterMessage.evData.runScreenData.secondsRemaining = time;
-	presenterMessage.evData.runScreenData.amps= amps;
-//	presenterMessage.evData.runScreenData.potiPos= 50;
-
-	sendPresenterMessage(&presenterMessage);
-}
 
 typedef struct {
 	uint32_t weldingTime;

@@ -22,7 +22,7 @@ uint32_t getCurrentAmpsADCValue();
 float getCurrentAmpsValue();
 void setAmpsADCValue(uint32_t val);
 
-
+extern uint32_t secondsDurationTimerRemaining;
 
 //int8_t adcTick;
 void startAmpsADC();

@@ -49,14 +49,13 @@ protected:
     touchgfx::PainterRGB565Bitmap ampGaugePainter;
     touchgfx::TextAreaWithOneWildcard timeValueText;
     touchgfx::ButtonWithIcon abortButton;
-    touchgfx::TextArea setAmpereText;
+    touchgfx::TextAreaWithOneWildcard setAmpereText;
     touchgfx::TextArea textArea1;
     touchgfx::TextArea textArea2;
     touchgfx::TextAreaWithOneWildcard currentTimeText;
-    touchgfx::TextArea currentAmpereText;
+    touchgfx::TextAreaWithOneWildcard currentAmpereText;
     touchgfx::BoxProgress boxProgress1;
     touchgfx::ButtonWithIcon continueButton;
-    touchgfx::TextArea textArea3;
     touchgfx::TextArea textArea4;
     touchgfx::TextAreaWithOneWildcard secondsb4ReturnText;
 
@@ -65,8 +64,12 @@ protected:
      */
     static const uint16_t TIMEVALUETEXT_SIZE = 20;
     touchgfx::Unicode::UnicodeChar timeValueTextBuffer[TIMEVALUETEXT_SIZE];
+    static const uint16_t SETAMPERETEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar setAmpereTextBuffer[SETAMPERETEXT_SIZE];
     static const uint16_t CURRENTTIMETEXT_SIZE = 20;
     touchgfx::Unicode::UnicodeChar currentTimeTextBuffer[CURRENTTIMETEXT_SIZE];
+    static const uint16_t CURRENTAMPERETEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar currentAmpereTextBuffer[CURRENTAMPERETEXT_SIZE];
     static const uint16_t SECONDSB4RETURNTEXT_SIZE = 10;
     touchgfx::Unicode::UnicodeChar secondsb4ReturnTextBuffer[SECONDSB4RETURNTEXT_SIZE];
 

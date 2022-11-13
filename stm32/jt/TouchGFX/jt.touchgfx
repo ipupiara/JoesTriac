@@ -2323,7 +2323,9 @@
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
-              "TextId": "__SingleUse_RHX6"
+              "TextId": "__SingleUse_RHX6",
+              "UseBuffer": true,
+              "BufferSize": 10
             }
           },
           {
@@ -2361,15 +2363,6 @@
             "IconHeight": 60,
             "IconWidth": 170,
             "ButtonStyle": "Style4"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea3",
-            "Width": 96,
-            "Height": 23,
-            "TextId": "__SingleUse_MVL0",
-            "TextRotation": "0",
-            "AutoSize": true
           },
           {
             "Type": "TextArea",

@@ -52,6 +52,9 @@ requestStopScreenViewBase::requestStopScreenViewBase() :
     setAmpereText.setXY(465, 12);
     setAmpereText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     setAmpereText.setLinespacing(0);
+    Unicode::snprintf(setAmpereTextBuffer, SETAMPERETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_GL4G).getText());
+    setAmpereText.setWildcard(setAmpereTextBuffer);
+    setAmpereText.resizeToCurrentText();
     setAmpereText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_EEDJ));
 
     textArea1.setXY(14, 94);
@@ -74,6 +77,9 @@ requestStopScreenViewBase::requestStopScreenViewBase() :
     currentAmpereText.setXY(465, 82);
     currentAmpereText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     currentAmpereText.setLinespacing(0);
+    Unicode::snprintf(currentAmpereTextBuffer, CURRENTAMPERETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_RHX6).getText());
+    currentAmpereText.setWildcard(currentAmpereTextBuffer);
+    currentAmpereText.resizeToCurrentText();
     currentAmpereText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_RXFU));
 
     boxProgress1.setXY(14, 133);
@@ -88,11 +94,6 @@ requestStopScreenViewBase::requestStopScreenViewBase() :
     continueButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID), touchgfx::Bitmap(BITMAP_CONTINUEBTN_ID), touchgfx::Bitmap(BITMAP_CONTINUEBTNPRESSED_ID));
     continueButton.setIconXY(0, 0);
     continueButton.setAction(buttonCallback);
-
-    textArea3.setXY(0, 0);
-    textArea3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    textArea3.setLinespacing(0);
-    textArea3.setTypedText(touchgfx::TypedText(T___SINGLEUSE_MVL0));
 
     textArea4.setXY(526, 281);
     textArea4.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
@@ -119,7 +120,6 @@ requestStopScreenViewBase::requestStopScreenViewBase() :
     add(currentAmpereText);
     add(boxProgress1);
     add(continueButton);
-    add(textArea3);
     add(textArea4);
     add(secondsb4ReturnText);
 }

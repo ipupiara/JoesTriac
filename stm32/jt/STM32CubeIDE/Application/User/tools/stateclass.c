@@ -505,7 +505,7 @@ uStInt evTriacRunningChecker(void)
 	}		
 
 	if (currentEvent->evType == evSecondsTick) {
-		sendActualValuesToRunScreen(secondsBeforeReturn);
+		sendActualValuesToRunNStopScreen(secondsDurationTimerRemaining, secondsBeforeReturn);
 		res =  uStIntHandlingDone;
 	}	
 	if (currentEvent->evType == evAdcTick)
@@ -531,6 +531,8 @@ void entryRequestStopState(void)
 void exitRequestStopState(void)
 {
 //	info_printf("exit Running\n");
+	void setBuzzerOff();
+	secondsBeforeReturn = 0;
 }
 
 uStInt evRequestStopChecker(void)
@@ -560,7 +562,7 @@ uStInt evRequestStopChecker(void)
 			timeCnt = 0;
 		}
 		--secondsBeforeReturn;
-		sendActualValuesToRequestStopScreen(secondsBeforeReturn);
+		sendActualValuesToRunNStopScreen(secondsDurationTimerRemaining, secondsBeforeReturn);
 
 		res =  uStIntHandlingDone;
 	}

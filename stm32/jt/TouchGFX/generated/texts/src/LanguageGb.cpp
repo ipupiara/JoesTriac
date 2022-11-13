@@ -10,10 +10,11 @@ KEEP extern const uint32_t indicesGb[] TEXT_LOCATION_FLASH_ATTRIBUTE;
 // Remap all strings
 TEXT_LOCATION_FLASH_PRAGMA
 KEEP extern const uint32_t indicesGb[] TEXT_LOCATION_FLASH_ATTRIBUTE = {
+    580, // T___SINGLEUSE_GL4G: "000.00"
+    580, // T___SINGLEUSE_RHX6: "000.00"
     509, // T___SINGLEUSE_N9A8: "00"
     295, // T___SINGLEUSE_1D86: "<>"
     170, // T___SINGLEUSE_3974: "seconds before return"
-    512, // T___SINGLEUSE_MVL0: "New Text"
     512, // T___SINGLEUSE_KBMG: "New Text"
     512, // T___SINGLEUSE_2CW9: "New Text"
     512, // T___SINGLEUSE_56DF: "New Text"
@@ -70,12 +71,12 @@ KEEP extern const uint32_t indicesGb[] TEXT_LOCATION_FLASH_ATTRIBUTE = {
     248, // T___SINGLEUSE_NW6D: "Triac Regulator"
     185, // T___SINGLEUSE_0ZCT: "return"
     311, // T___SINGLEUSE_EJ31: "job complete"
-    580, // T___SINGLEUSE_RXFU: "000.00"
+    295, // T___SINGLEUSE_RXFU: "<>"
     621, // T___SINGLEUSE_8VJ0: "00:00"
     295, // T___SINGLEUSE_72RI: "<>"
     521, // T___SINGLEUSE_9JDU: "ampere: "
     645, // T___SINGLEUSE_3JKB: "time:"
-    580, // T___SINGLEUSE_EEDJ: "000.00"
+    295, // T___SINGLEUSE_EEDJ: "<>"
     621, // T___SINGLEUSE_W7D7: "00:00"
     295, // T___SINGLEUSE_IPRE: "<>"
     295, // T___SINGLEUSE_GCRP: "<>"
