@@ -183,7 +183,7 @@
             "X": 465,
             "Y": 12,
             "Width": 144,
-            "Height": 45,
+            "Height": 46,
             "TextId": "__SingleUse_DEJR",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1719,7 +1719,7 @@
             "X": 465,
             "Y": 12,
             "Width": 144,
-            "Height": 45,
+            "Height": 46,
             "TextId": "__SingleUse_X5Q9",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1735,7 +1735,7 @@
             "X": 14,
             "Y": 94,
             "Width": 60,
-            "Height": 23,
+            "Height": 22,
             "TextId": "__SingleUse_K159",
             "TextRotation": "0",
             "AutoSize": true
@@ -1746,7 +1746,7 @@
             "X": 352,
             "Y": 94,
             "Width": 96,
-            "Height": 23,
+            "Height": 22,
             "TextId": "__SingleUse_FEL2",
             "TextRotation": "0",
             "AutoSize": true
@@ -1772,7 +1772,7 @@
             "X": 465,
             "Y": 82,
             "Width": 144,
-            "Height": 45,
+            "Height": 46,
             "TextId": "__SingleUse_GCRP",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1802,42 +1802,6 @@
             "IndicatorPositionHeight": 16,
             "ProgressRangeMax": 100,
             "ProgressInitialValue": 60
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea3",
-            "Width": 96,
-            "Height": 23,
-            "TextId": "__SingleUse_5I23",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea4",
-            "Width": 96,
-            "Height": 23,
-            "TextId": "__SingleUse_56DF",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea5",
-            "Width": 96,
-            "Height": 23,
-            "TextId": "__SingleUse_2CW9",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea6",
-            "Width": 96,
-            "Height": 23,
-            "TextId": "__SingleUse_KBMG",
-            "TextRotation": "0",
-            "AutoSize": true
           }
         ],
         "Interactions": [
@@ -2247,7 +2211,7 @@
           {
             "Type": "ButtonWithIcon",
             "Name": "abortButton",
-            "X": 493,
+            "X": 123,
             "Y": 384,
             "Width": 170,
             "Height": 60,
@@ -2265,7 +2229,7 @@
             "X": 465,
             "Y": 12,
             "Width": 144,
-            "Height": 45,
+            "Height": 46,
             "TextId": "__SingleUse_EEDJ",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2281,7 +2245,7 @@
             "X": 14,
             "Y": 94,
             "Width": 60,
-            "Height": 23,
+            "Height": 22,
             "TextId": "__SingleUse_3JKB",
             "TextRotation": "0",
             "AutoSize": true
@@ -2292,7 +2256,7 @@
             "X": 352,
             "Y": 94,
             "Width": 96,
-            "Height": 23,
+            "Height": 22,
             "TextId": "__SingleUse_9JDU",
             "TextRotation": "0",
             "AutoSize": true
@@ -2318,7 +2282,7 @@
             "X": 465,
             "Y": 82,
             "Width": 144,
-            "Height": 45,
+            "Height": 46,
             "TextId": "__SingleUse_RXFU",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2352,7 +2316,7 @@
           {
             "Type": "ButtonWithIcon",
             "Name": "continueButton",
-            "X": 139,
+            "X": 489,
             "Y": 384,
             "Width": 170,
             "Height": 60,
@@ -2370,7 +2334,7 @@
             "X": 526,
             "Y": 281,
             "Width": 252,
-            "Height": 23,
+            "Height": 22,
             "TextId": "__SingleUse_3974",
             "TextRotation": "0",
             "AutoSize": true
@@ -2381,7 +2345,7 @@
             "X": 526,
             "Y": 316,
             "Width": 48,
-            "Height": 45,
+            "Height": 46,
             "TextId": "__SingleUse_1D86",
             "TextRotation": "0",
             "AutoSize": true,

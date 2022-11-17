@@ -17,7 +17,7 @@ void jobCompleteScreenView::tearDownScreen()
 
 void jobCompleteScreenView::returnButtonPressed()
  {
-
+	presenter->returnButtonPressed();
  }
 
 void jobCompleteScreenView::updateCompletionTime(uint32_t secsRemain)

@@ -94,26 +94,6 @@ runScreenViewBase::runScreenViewBase() :
     boxProgress1.setColor(touchgfx::Color::getColorFromRGB(0, 151, 255));
     boxProgress1.setValue(60);
 
-    textArea3.setXY(0, 0);
-    textArea3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    textArea3.setLinespacing(0);
-    textArea3.setTypedText(touchgfx::TypedText(T___SINGLEUSE_5I23));
-
-    textArea4.setXY(0, 0);
-    textArea4.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    textArea4.setLinespacing(0);
-    textArea4.setTypedText(touchgfx::TypedText(T___SINGLEUSE_56DF));
-
-    textArea5.setXY(0, 0);
-    textArea5.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    textArea5.setLinespacing(0);
-    textArea5.setTypedText(touchgfx::TypedText(T___SINGLEUSE_2CW9));
-
-    textArea6.setXY(0, 0);
-    textArea6.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    textArea6.setLinespacing(0);
-    textArea6.setTypedText(touchgfx::TypedText(T___SINGLEUSE_KBMG));
-
     add(__background);
     add(box1);
     add(ampGauge);
@@ -126,10 +106,6 @@ runScreenViewBase::runScreenViewBase() :
     add(currentTimeText);
     add(currentAmpereText);
     add(boxProgress1);
-    add(textArea3);
-    add(textArea4);
-    add(textArea5);
-    add(textArea6);
 }
 
 void runScreenViewBase::setupScreen()

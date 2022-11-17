@@ -58,7 +58,10 @@ void runScreenView::update(float amps,uint32_t secRemain )
 	 currentTimeText.setWildcard(currentTimeTextBuffer);
 	 currentTimeText.invalidate();
 
-	 int boxPro = 100 * ((weldingTimeSec - secRemain)/ weldingTimeSec);
+	 float wTime = weldingTimeSec;
+	 float rTime = secRemain;
+	 float  remain = (wTime - rTime)/ wTime;
+	 uint32_t boxPro = 100 * remain;
 	 boxProgress1.setValue(boxPro);
 	 boxProgress1.invalidate();
 }

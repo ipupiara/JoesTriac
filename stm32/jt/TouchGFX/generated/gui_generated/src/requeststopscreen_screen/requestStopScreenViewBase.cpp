@@ -44,7 +44,7 @@ requestStopScreenViewBase::requestStopScreenViewBase() :
     timeValueText.setWildcard(timeValueTextBuffer);
     timeValueText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_IPRE));
 
-    abortButton.setXY(493, 384);
+    abortButton.setXY(123, 384);
     abortButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID), touchgfx::Bitmap(BITMAP_ABORTBTN_ID), touchgfx::Bitmap(BITMAP_ABORTBTNPRESSED_ID));
     abortButton.setIconXY(0, 0);
     abortButton.setAction(buttonCallback);
@@ -90,7 +90,7 @@ requestStopScreenViewBase::requestStopScreenViewBase() :
     boxProgress1.setColor(touchgfx::Color::getColorFromRGB(0, 151, 255));
     boxProgress1.setValue(60);
 
-    continueButton.setXY(139, 384);
+    continueButton.setXY(489, 384);
     continueButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID), touchgfx::Bitmap(BITMAP_CONTINUEBTN_ID), touchgfx::Bitmap(BITMAP_CONTINUEBTNPRESSED_ID));
     continueButton.setIconXY(0, 0);
     continueButton.setAction(buttonCallback);

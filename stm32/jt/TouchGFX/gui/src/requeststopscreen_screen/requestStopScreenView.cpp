@@ -21,6 +21,7 @@ void requestStopScreenView::setupScreen()
 	Unicode::snprintfFloat(setAmpereTextBuffer, 7, "%6.2f", weldingAmps);
 	setAmpereText.setWildcard(setAmpereTextBuffer);
 	setAmpereText.invalidate();
+
 }
 
 void requestStopScreenView::tearDownScreen()
@@ -44,7 +45,10 @@ void requestStopScreenView::update(float amps,uint32_t secRemain, uint16_t secon
 	 currentTimeText.setWildcard(currentTimeTextBuffer);
 	 currentTimeText.invalidate();
 
-	 int boxPro = 100 * ((weldingTimeSec - secRemain)/ weldingTimeSec);
+	 float wTime = weldingTimeSec;
+	 float rTime = secRemain;
+	 float  remain = (wTime - rTime)/ wTime;
+	 uint32_t boxPro = 100 * remain;
 	 boxProgress1.setValue(boxPro);
 	 boxProgress1.invalidate();
 

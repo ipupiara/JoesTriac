@@ -539,19 +539,19 @@ uStInt evRequestStopChecker(void)
 {
 	uStInt res = uStIntNoMatch;
 
+	if ((secondsBeforeReturn == 0) || (currentEvent->evType == evContinuePressed)){
+		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacRunning);
+			// No event action.
+		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
+
 	if (currentEvent->evType == evStopPressed)  {
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
 				// No event action.
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
 	}
-
-	if ((secondsBeforeReturn == 0) || (currentEvent->evType == evContinuePressed)){
-		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacRunning);
-			// No event action.
-		END_EVENT_HANDLER(PJoesTriacStateChart);
-		res =  uStIntHandlingDone;
-}
 
 	if (currentEvent->evType == evSecondsTick) {
 		if (timeCnt < 2 )  {
