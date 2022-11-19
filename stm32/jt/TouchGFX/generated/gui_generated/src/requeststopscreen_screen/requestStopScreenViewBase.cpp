@@ -44,7 +44,7 @@ requestStopScreenViewBase::requestStopScreenViewBase() :
     timeValueText.setWildcard(timeValueTextBuffer);
     timeValueText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_IPRE));
 
-    abortButton.setXY(123, 384);
+    abortButton.setXY(126, 384);
     abortButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID), touchgfx::Bitmap(BITMAP_ABORTBTN_ID), touchgfx::Bitmap(BITMAP_ABORTBTNPRESSED_ID));
     abortButton.setIconXY(0, 0);
     abortButton.setAction(buttonCallback);

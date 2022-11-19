@@ -3,8 +3,8 @@
 /*********************************************************************************/
 #include <gui_generated/runscreen_screen/runScreenViewBase.hpp>
 #include <touchgfx/Color.hpp>
-#include <BitmapDatabase.hpp>
 #include <texts/TextKeysAndLanguages.hpp>
+#include <BitmapDatabase.hpp>
 #include <touchgfx/canvas_widget_renderer/CanvasWidgetRenderer.hpp>
 
 
@@ -20,23 +20,6 @@ runScreenViewBase::runScreenViewBase() :
     box1.setPosition(0, 0, 800, 480);
     box1.setColor(touchgfx::Color::getColorFromRGB(190, 226, 247));
 
-    ampGauge.setBackground(touchgfx::Bitmap(BITMAP_BLUE_GAUGES_ORIGINAL_GAUGE_BACKGROUND_STYLE_01_ID));
-    ampGauge.setPosition(263, 133, 251, 251);
-    ampGauge.setCenter(125, 125);
-    ampGauge.setStartEndAngle(-85, 85);
-    ampGauge.setRange(0, 100);
-    ampGauge.setValue(50);
-    ampGauge.setNeedle(BITMAP_BLUE_NEEDLES_ORIGINAL_GAUGE_NEEDLE_STYLE_01_ID, 11, 55);
-    ampGauge.setMovingNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
-    ampGauge.setSteadyNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
-    ampGauge.setArcVisible();
-    ampGaugePainter.setBitmap(touchgfx::Bitmap(BITMAP_BLUE_GAUGES_ORIGINAL_GAUGE_FILL_STYLE_01_ID));
-    ampGauge.getArc().setPainter(ampGaugePainter);
-    ampGauge.getArc().setRadius(94);
-    ampGauge.getArc().setLineWidth(14);
-    ampGauge.getArc().setCapPrecision(180);
-    ampGauge.setArcPosition(28, 30, 196, 88);
-
     timeValueText.setPosition(172, 11, 137, 49);
     timeValueText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     timeValueText.setLinespacing(0);
@@ -44,7 +27,7 @@ runScreenViewBase::runScreenViewBase() :
     timeValueText.setWildcard(timeValueTextBuffer);
     timeValueText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_XHDS));
 
-    startButton.setXY(139, 384);
+    startButton.setXY(124, 384);
     startButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID), touchgfx::Bitmap(BITMAP_STARTBTNINACTIVE_ID), touchgfx::Bitmap(BITMAP_STARTBTNINACTIVE_ID));
     startButton.setIconXY(0, 0);
 
@@ -94,9 +77,25 @@ runScreenViewBase::runScreenViewBase() :
     boxProgress1.setColor(touchgfx::Color::getColorFromRGB(0, 151, 255));
     boxProgress1.setValue(60);
 
+    ampGauge.setBackground(touchgfx::Bitmap(BITMAP_BLUE_GAUGES_ORIGINAL_GAUGE_BACKGROUND_STYLE_01_ID));
+    ampGauge.setPosition(263, 133, 251, 251);
+    ampGauge.setCenter(125, 125);
+    ampGauge.setStartEndAngle(-85, 85);
+    ampGauge.setRange(0, 100);
+    ampGauge.setValue(50);
+    ampGauge.setNeedle(BITMAP_BLUE_NEEDLES_ORIGINAL_GAUGE_NEEDLE_STYLE_01_ID, 11, 55);
+    ampGauge.setMovingNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
+    ampGauge.setSteadyNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
+    ampGauge.setArcVisible();
+    ampGaugePainter.setBitmap(touchgfx::Bitmap(BITMAP_BLUE_GAUGES_ORIGINAL_GAUGE_FILL_STYLE_01_ID));
+    ampGauge.getArc().setPainter(ampGaugePainter);
+    ampGauge.getArc().setRadius(94);
+    ampGauge.getArc().setLineWidth(14);
+    ampGauge.getArc().setCapPrecision(180);
+    ampGauge.setArcPosition(28, 30, 196, 88);
+
     add(__background);
     add(box1);
-    add(ampGauge);
     add(timeValueText);
     add(startButton);
     add(stopButton);
@@ -106,6 +105,7 @@ runScreenViewBase::runScreenViewBase() :
     add(currentTimeText);
     add(currentAmpereText);
     add(boxProgress1);
+    add(ampGauge);
 }
 
 void runScreenViewBase::setupScreen()

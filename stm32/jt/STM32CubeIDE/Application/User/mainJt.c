@@ -33,8 +33,6 @@ const osThreadAttr_t mainJt_attributes = {
 
 osTimerId_t   mainJtTimer;
 
-//osTimerId_t   mainJtSec100Timer;
-
 osMessageQueueId_t    mainJtMessageQ;
 
 osMessageQueueId_t    presenterMessageQ;
@@ -61,18 +59,6 @@ osStatus_t sendEventToMainJtMessageQ(pMainJtEventT pEv, uint8_t  fromIsr)
 	return status;
 }
 
-//void mainJtSec100Callback(void *argument)
-//{
-//	CMainJtEventT  ev;
-//	memset(&ev, 0x0, sizeof(ev));
-//	ev.evType = second100Tick;
-//	osStatus_t status =  sendEventToMainJtMessageQ( &ev, 0);
-//	if (status != osOK) {
-//		errorHandler(status,goOn," status ","mainJtSec100kCallback");
-//	}
-//}
-
-
 
 void mainJtSecondTickCallback(void *argument)
 {
@@ -87,27 +73,6 @@ void mainJtSecondTickCallback(void *argument)
 	}
 }
 
-//void startSec100Timer()
-//{
-//	osStatus_t  status;
-//
-//	status = osTimerStart (mainJtSec100Timer, 10);
-//	if (status !=  osOK)  {
-//		errorHandler((uint32_t)status ,goOn," osTimerStart "," osStarted ");
-//	}
-//}
-//
-//void stopSec100Timer()
-//{
-//	osStatus_t  status;
-//
-//	status = osTimerStop (mainJtSec100Timer);
-//	if (status !=  osOK)  {
-//		errorHandler((uint32_t)status ,goOn," osTimerStart "," osStarted ");
-//	}
-//}
-
-
 void startMainJtTimers()
 {
 	osStatus_t  status;
@@ -116,7 +81,6 @@ void startMainJtTimers()
 	if (status !=  osOK)  {
 		errorHandler((uint32_t)status ,goOn," osTimerStart "," osStarted ");
 	}
-//	startSec100Timer();
 }
 
 void mainJtOsStarted()
@@ -131,10 +95,10 @@ void mainJt(void *argument)
 	CMainJtEventT  mJtEv;
 	fsmTriacEvent fsmEv;
 	initI2c();
-	mainJtOsStarted();
 	initDefines();
 	initTriacIntr();
 	startStateCharts();
+	mainJtOsStarted();
 	uint8_t  prio = 0;
 	do  {
 		memset(&mJtEv, 0, sizeof(mJtEv));  //  todo sort ifs for best performance,
@@ -239,6 +203,10 @@ void mainJt(void *argument)
 							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
 							break;
 						}
+						case adcTick: {
+							adcTickHandler();
+							break;
+						}
 						default : {
 								errorHandler(mJtEv.evType ,goOn," osMessageQueueGet unknown event "," mainJt ");
 						}
@@ -306,11 +274,6 @@ void initJt()
 	if (mainJtTimer  == NULL)   {
 		errorHandler((uint32_t)mainJtTimer ,stop," mainJtTimer ","initJt");
 	}
-
-//	mainJtSec100Timer= osTimerNew (mainJtSec100Callback, osTimerPeriodic, (void *) 0x02, NULL);
-//	if (mainJtTimer  == NULL)   {
-//		errorHandler((uint32_t)mainJtTimer ,stop," mainJtSec100 ","initJt");
-//	}
 
 	mainJtMessageQ =  osMessageQueueNew(8,sizeof(CMainJtEventT)*memoryMultiplier, NULL);   //  todo check multiplication with 4 ? needed ?
 	if (mainJtMessageQ  == NULL)   {

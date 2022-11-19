@@ -8,12 +8,12 @@
 #include <mvp/View.hpp>
 #include <gui/runscreen_screen/runScreenPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
-#include <touchgfx/widgets/Gauge.hpp>
-#include <touchgfx/widgets/canvas/PainterRGB565Bitmap.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/ButtonWithIcon.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/containers/progress_indicators/BoxProgress.hpp>
+#include <touchgfx/widgets/Gauge.hpp>
+#include <touchgfx/widgets/canvas/PainterRGB565Bitmap.hpp>
 
 class runScreenViewBase : public touchgfx::View<runScreenPresenter>
 {
@@ -40,8 +40,6 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Box box1;
-    touchgfx::Gauge ampGauge;
-    touchgfx::PainterRGB565Bitmap ampGaugePainter;
     touchgfx::TextAreaWithOneWildcard timeValueText;
     touchgfx::ButtonWithIcon startButton;
     touchgfx::ButtonWithIcon stopButton;
@@ -51,6 +49,8 @@ protected:
     touchgfx::TextAreaWithOneWildcard currentTimeText;
     touchgfx::TextAreaWithOneWildcard currentAmpereText;
     touchgfx::BoxProgress boxProgress1;
+    touchgfx::Gauge ampGauge;
+    touchgfx::PainterRGB565Bitmap ampGaugePainter;
 
     /*
      * Wildcard Buffers

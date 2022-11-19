@@ -14,9 +14,9 @@ void requestStopScreenView::setupScreen()
 
 	uint8_t  minVal = uint8_t( weldingTimeSec / 60);
 	uint8_t  secVal = (uint8_t) ( weldingTimeSec % 60);
-	Unicode::snprintf(currentTimeTextBuffer, 6, "%02d:%02d", minVal, secVal);
-	currentTimeText.setWildcard(currentTimeTextBuffer);
-	currentTimeText.invalidate();
+	Unicode::snprintf(timeValueTextBuffer, 6, "%02d:%02d", minVal, secVal);
+	timeValueText.setWildcard(timeValueTextBuffer);
+	timeValueText.invalidate();
 
 	Unicode::snprintfFloat(setAmpereTextBuffer, 7, "%6.2f", weldingAmps);
 	setAmpereText.setWildcard(setAmpereTextBuffer);

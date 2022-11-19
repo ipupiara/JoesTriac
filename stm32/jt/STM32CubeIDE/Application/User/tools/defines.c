@@ -461,14 +461,18 @@ tStatus isCalibrationReady()
 	return res;
 }
 
-void setCalibLow()
+void setCurrentAdcValAsCalibLow()
 {
-
+	uint32_t cL;
+	cL = getCurrentAmpsADCValue();
+	saveCalibLow(cL);
 }
 
-void setCalibHigh()
+void setCurrentAdcValAsCalibHigh()
 {
-
+	uint32_t cL;
+	cL = getCurrentAmpsADCValue();
+	saveCalibHigh(cL);
 }
 
 tStatus initDefines()

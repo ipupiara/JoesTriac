@@ -44,6 +44,7 @@ typedef enum {
 	storeAlarmData,
 	secondTick,
 	second100Tick,
+	adcTick,
 	configPressed,
 	runButtonClicked,
 	stopButtonClicked,

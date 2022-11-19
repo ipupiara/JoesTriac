@@ -344,7 +344,7 @@ uStInt evCalibrateLowChecker(void)
 	}
 	if (currentEvent->evType == evCalibContinueClick)
 	{
-		setCalibLow();
+		setCurrentAdcValAsCalibLow();
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibrateHigh);
 
 
@@ -390,7 +390,7 @@ uStInt evCalibrateHighChecker(void)
 	}
 	if (currentEvent->evType == evCalibContinueClick)
 	{
-		setCalibHigh();
+		setCurrentAdcValAsCalibHigh();
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetupIdle);
 
 		END_EVENT_HANDLER(PJoesTriacStateChart);

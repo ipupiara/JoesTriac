@@ -1,18 +1,57 @@
 
 #include <adcControl.h>
 #include <stm32f7xx_hal.h>
+#include "cmsis_os.h"
+#include <mainJt.h>
+#include <TriacIntr.h>
+
 
 ADC_HandleTypeDef currentSensorADC;
-//ADC_HandleTypeDef throttlePotiADC;
 
-//  todo create timer and start adc by command to reduce cpu usage
-//       or reduce prescaler alternatively.
-//  use twa for current sensor (avoid servo start current peak mismatch)
+osTimerId_t   mainJtAdcTimer;
+
+
+void adcTimerCallback(void *argument)
+{
+	currentSensorADC.Instance->CR2 |= (uint32_t)ADC_CR2_SWSTART;
+}
+
+void startAdcTimer()
+{
+	osStatus_t  status;
+
+	status = osTimerStart (mainJtAdcTimer, 10);
+	if (status !=  osOK)  {
+		errorHandler((uint32_t)status ,goOn," osTimerStart "," osStarted ");
+	}
+}
+
+void stopAdcTimer()
+{
+	osStatus_t  status;
+
+	status = osTimerStop (mainJtAdcTimer);
+	if (status !=  osOK)  {
+		errorHandler((uint32_t)status ,goOn," osTimerStart "," osStarted ");
+	}
+}
+
 
 void eocIrqHandler(ADC_HandleTypeDef* hadc)
 {
 	if (hadc == &currentSensorADC) {
-		//  update sensor value
+		uint32_t adcV = 0;
+		adcV = currentSensorADC.Instance->DR;
+//		adcV = HAL_ADC_GetValue(&currentSensorADC);
+		setAmpsADCValue(adcV);
+
+		CMainJtEventT  ev;
+		memset(&ev, 0x0, sizeof(ev));
+		ev.evType = adcTick;
+		osStatus_t status =  sendEventToMainJtMessageQ( &ev, 0);
+		if (status != osOK) {
+			errorHandler(status,goOn," status ","eocIrqHandler");
+		}
 	}
 //	if (hadc == &throttlePotiADC) {
 //
@@ -62,12 +101,6 @@ void ADC_IRQHandler(void)
 }
 
 
-
-/**
-  * @brief ADC1 Initialization Function
-  * @param None
-  * @retval None
-  */
 static void MX_ADC1_currentSensor_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
@@ -86,8 +119,7 @@ static void MX_ADC1_currentSensor_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /** Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion)
-  */
+
   currentSensorADC.Instance = ADC1;
   currentSensorADC.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV8;
   currentSensorADC.Init.Resolution = ADC_RESOLUTION_12B;
@@ -104,8 +136,7 @@ static void MX_ADC1_currentSensor_Init(void)
   {
 
   }
-  /** Configure the analog watchdog
-  */
+
 //  AnalogWDGConfig.WatchdogMode = ADC_ANALOGWATCHDOG_SINGLE_REG;
 //  AnalogWDGConfig.HighThreshold = 2000;
 //  AnalogWDGConfig.LowThreshold = 100;
@@ -115,8 +146,7 @@ static void MX_ADC1_currentSensor_Init(void)
 //  {
 //
 //  }
-  /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
-  */
+
   sConfig.Channel = ADC_CHANNEL_6;
   sConfig.Rank = ADC_REGULAR_RANK_1;
   sConfig.SamplingTime = ADC_SAMPLETIME_15CYCLES;
@@ -129,61 +159,6 @@ static void MX_ADC1_currentSensor_Init(void)
   HAL_NVIC_EnableIRQ(ADC_IRQn);
 }
 
-/**
-  * @brief ADC2 Initialization Function
-  * @param None
-  * @retval None
-  */
-//static void MX_ADC2_throttlePoti_Init(void)
-//{
-//  ADC_AnalogWDGConfTypeDef AnalogWDGConfig = {0};
-//  ADC_ChannelConfTypeDef sConfig = {0};
-//
-//  /** Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion)
-//  */
-//  throttlePotiADC.Instance = ADC2;
-//  throttlePotiADC.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV8;
-//  throttlePotiADC.Init.Resolution = ADC_RESOLUTION_12B;
-//  throttlePotiADC.Init.ScanConvMode = ADC_SCAN_DISABLE;
-//  throttlePotiADC.Init.ContinuousConvMode = ENABLE;
-//  throttlePotiADC.Init.DiscontinuousConvMode = DISABLE;
-//  throttlePotiADC.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
-//  throttlePotiADC.Init.ExternalTrigConv = ADC_SOFTWARE_START;
-//  throttlePotiADC.Init.DataAlign = ADC_DATAALIGN_RIGHT;
-//  throttlePotiADC.Init.NbrOfConversion = 1;
-//  throttlePotiADC.Init.DMAContinuousRequests = DISABLE;
-//  throttlePotiADC.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
-//  if (HAL_ADC_Init(&throttlePotiADC) != HAL_OK)
-//  {
-//
-//  }
-//  /** Configure the analog watchdog
-//  */
-//  AnalogWDGConfig.WatchdogMode = ADC_ANALOGWATCHDOG_SINGLE_REG;
-//  AnalogWDGConfig.HighThreshold = 3000;
-//  AnalogWDGConfig.LowThreshold = 200;
-//  AnalogWDGConfig.Channel = ADC_CHANNEL_1;
-//  AnalogWDGConfig.ITMode = ENABLE;
-//  if (HAL_ADC_AnalogWDGConfig(&throttlePotiADC, &AnalogWDGConfig) != HAL_OK)
-//  {
-//
-//  }
-//  /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
-//  */
-//  sConfig.Channel = ADC_CHANNEL_1;
-//  sConfig.Rank = ADC_REGULAR_RANK_1;
-//  sConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
-//  if (HAL_ADC_ConfigChannel(&throttlePotiADC, &sConfig) != HAL_OK)
-//  {
-//
-//  }
-//
-////  BSP_IntVectSet(ADC_IRQn,tempixIsrPrioLevel,CPU_INT_KA,ADC_IRQHandler);
-////  BSP_IntEnable(ADC_IRQn);
-//  __HAL_ADC_ENABLE_IT(&currentSensorADC,ADC_IT_AWD);
-//  __HAL_ADC_ENABLE_IT(&throttlePotiADC,ADC_IT_EOC);
-//  // error handling of adc ?
-//}
 
 void setAdcLowerThreshold(ADC_HandleTypeDef* hadc,uint32_t  limit)
 {
@@ -198,21 +173,25 @@ void setAdcUpperThreshold(ADC_HandleTypeDef* hadc,uint32_t  limit)
 void startADC()
 {
 	__HAL_ADC_ENABLE(&currentSensorADC);
-//	__HAL_ADC_ENABLE(&throttlePotiADC);
-	currentSensorADC.Instance->CR2 |= (uint32_t)ADC_CR2_SWSTART;
-//	throttlePotiADC.Instance->CR2 |= (uint32_t)ADC_CR2_SWSTART;
+	startAdcTimer();
 }
 
 void stopADC()
 {
+	stopAdcTimer();
 	__HAL_ADC_DISABLE(&currentSensorADC);
-//	__HAL_ADC_DISABLE(&throttlePotiADC);
 }
 
 void initAdc()
 {
+	mainJtAdcTimer= osTimerNew (adcTimerCallback, osTimerPeriodic, (void *) 0x02, NULL);
+	if (mainJtAdcTimer  == NULL)   {
+		errorHandler((uint32_t)mainJtAdcTimer ,stop,"mainJtAdcTimer ","initAdc");
+	}
+
 	MX_ADC1_currentSensor_Init();
-//	MX_ADC2_throttlePoti_Init();
+
+
 
 }
 

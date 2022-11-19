@@ -38,7 +38,10 @@ void setAmpsADCValue(uint32_t val)
 	taskEXIT_CRITICAL();
 }
 
+void adcTickHandler()
+{
 
+}
 
 
 //int64_t  secondCount;

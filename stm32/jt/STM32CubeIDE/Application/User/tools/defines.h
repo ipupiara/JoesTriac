@@ -92,8 +92,8 @@ void storeCalibHighAdc();
 
 void definesWait(uint32_t ms);
 
-void setCalibLow();
-void setCalibHigh();
+void setCurrentAdcValAsCalibLow();
+void setCurrentAdcValAsCalibHigh();
 #ifdef  __cplusplus
 }
 #endif

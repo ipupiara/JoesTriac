@@ -27,6 +27,7 @@ extern uint32_t secondsDurationTimerRemaining;
 //int8_t adcTick;
 void startAmpsADC();
 void stopAmpsADC();
+void adcTickHandler();
 ////void setDiffADC();
 ////void closeDiffADC();
 //void startSingleADC();
