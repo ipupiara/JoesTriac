@@ -81,7 +81,7 @@ static void MX_ADC1_currentSensor_Init(void)
   /**ADC1 GPIO Configuration
   PA0/WKUP     ------> ADC1_IN0
   */
-  GPIO_InitStruct.Pin = GPIO_PIN_0;
+  GPIO_InitStruct.Pin = GPIO_PIN_6;
   GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -92,7 +92,7 @@ static void MX_ADC1_currentSensor_Init(void)
   currentSensorADC.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV8;
   currentSensorADC.Init.Resolution = ADC_RESOLUTION_12B;
   currentSensorADC.Init.ScanConvMode = ADC_SCAN_DISABLE;
-  currentSensorADC.Init.ContinuousConvMode = ENABLE;
+  currentSensorADC.Init.ContinuousConvMode = DISABLE;
   currentSensorADC.Init.DiscontinuousConvMode = DISABLE;
   currentSensorADC.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
   currentSensorADC.Init.ExternalTrigConv = ADC_SOFTWARE_START;
@@ -117,7 +117,7 @@ static void MX_ADC1_currentSensor_Init(void)
 //  }
   /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
   */
-  sConfig.Channel = ADC_CHANNEL_0;
+  sConfig.Channel = ADC_CHANNEL_6;
   sConfig.Rank = ADC_REGULAR_RANK_1;
   sConfig.SamplingTime = ADC_SAMPLETIME_15CYCLES;
   if (HAL_ADC_ConfigChannel(&currentSensorADC, &sConfig) != HAL_OK)

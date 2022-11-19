@@ -1686,7 +1686,7 @@
           {
             "Type": "ButtonWithIcon",
             "Name": "startButton",
-            "X": 139,
+            "X": 124,
             "Y": 384,
             "Width": 170,
             "Height": 60,
@@ -2211,7 +2211,7 @@
           {
             "Type": "ButtonWithIcon",
             "Name": "abortButton",
-            "X": 123,
+            "X": 126,
             "Y": 384,
             "Width": 170,
             "Height": 60,
