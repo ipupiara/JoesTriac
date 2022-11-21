@@ -204,7 +204,7 @@ void mainJt(void *argument)
 							break;
 						}
 						case adcTick: {
-							adcTickHandler();
+							adcTickHandler(mJtEv.mainUnion.advV);
 							break;
 						}
 						default : {

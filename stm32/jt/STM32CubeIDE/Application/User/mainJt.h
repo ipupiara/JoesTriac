@@ -66,6 +66,7 @@ typedef struct  {
 		uint32_t  calibLow;
 		uint32_t calibHigh;
 		uint32_t  zPotiPos;
+		uint16_t  advV;
 		struct {
 			uint32_t     alarmTime;
 			uint8_t		alarmNeeded;

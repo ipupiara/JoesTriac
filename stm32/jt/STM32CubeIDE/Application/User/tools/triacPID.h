@@ -27,16 +27,16 @@ void resetPID();
 
 void printPIDState();
 
-void onEntryIdlePID();
+//void onEntryIdlePID();
 
-void onTriacIdleSecondTick_PID();
+//void onTriacIdleSecondTick_PID();
 
 real Update(real error);
 
 
-extern int8_t stableZeroAdjReached;
+//extern int8_t stableZeroAdjReached;
 
-uint16_t  adcValueForAmps (float amps);
+//uint16_t  adcValueForAmps (float amps);
 
 void updateGradAmps();
 
@@ -50,7 +50,7 @@ void checkTWIZeroAdjustMsg();
 
 void persistentZeroAdjustSecondTickJob();
 
-int8_t setAdjustJob(int8_t jobS);
+//int8_t setAdjustJob(int8_t jobS);
 
 
 void calcNextTriacDelay();

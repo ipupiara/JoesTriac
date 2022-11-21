@@ -10,8 +10,7 @@
 uint8_t durationTimerOn;
 
 float currentAmpsValue;
-uint32_t currentAmpsADCValue;
-int32_t lastAmpsADCVal;
+uint16_t currentAmpsADCValue;
 
 uint32_t getCurrentAmpsADCValue()
 {
@@ -38,9 +37,11 @@ void setAmpsADCValue(uint32_t val)
 	taskEXIT_CRITICAL();
 }
 
-void adcTickHandler()
+void adcTickHandler(uint16_t adcVal)
 {
-
+	taskENTER_CRITICAL();
+	currentAmpsADCValue = adcVal;
+	taskEXIT_CRITICAL();
 }
 
 
@@ -173,21 +174,6 @@ uint32_t getTriacFireDuration()
 //		setTriacTriggerDelayValues();
 //	}
 //	sei();
-//}
-//
-//ISR(ADC_vect)
-//{
-//	cli();
-//	lastAmpsADCVal = ADC;
-//	sei();
-//	++ adcCnt;
-//#ifdef shortCircuitAlarmSupported
-//	checkShortCircuitCondition();
-//#endif
-//	if (adcCnt == pidStepDelays)  {
-//		adcCnt = 0;
-//		adcTick = 1;
-//	}
 //}
 //
 //ISR(INT0_vect)
@@ -347,7 +333,7 @@ void initInterruptsNPorts()
 //		ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE
 //		adcTick = 0;
 //		adcCnt = 0;
-		lastAmpsADCVal = 0;
+		currentAmpsADCValue = 0;
 //		sei();  // start interrupts if not yet started
 }
 //
@@ -433,7 +419,8 @@ float adcVoltage()
 	VFl = 0.0;
 
 	VHex = getCurrentAmpsADCValue();
-	VFl = (VHex * 5.0) / 0x03FF;  //  todo change for stm32F7
+	VFl = (VHex * 3.6) / 0x0FFF;  // stm32F7..  todo tobe tested
+//	VFl = (VHex * 5.0) / 0x03FF;atmega
 	Vf = VFl;
 	return Vf;
 }

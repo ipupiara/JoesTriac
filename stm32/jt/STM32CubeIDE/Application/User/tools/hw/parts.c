@@ -97,21 +97,6 @@ ISR(TIMER2_COMPA_vect)
 	sei();
 }
 
-ISR(ADC_vect)
-{
-	cli();
-	lastAmpsADCVal = ADC;
-	sei();
-	++ adcCnt;
-#ifdef shortCircuitAlarmSupported
-	checkShortCircuitCondition();
-#endif
-	if (adcCnt == pidStepDelays)  {
-		adcCnt = 0;
-		adcTick = 1;
-	}
-}
-
 double adcVoltage()
 {
 	int16_t VHex;

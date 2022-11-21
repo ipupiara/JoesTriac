@@ -48,6 +48,7 @@ void eocIrqHandler(ADC_HandleTypeDef* hadc)
 		CMainJtEventT  ev;
 		memset(&ev, 0x0, sizeof(ev));
 		ev.evType = adcTick;
+		ev.mainUnion.advV = hadc->Instance->DR;
 		osStatus_t status =  sendEventToMainJtMessageQ( &ev, 0);
 		if (status != osOK) {
 			errorHandler(status,goOn," status ","eocIrqHandler");
@@ -192,7 +193,7 @@ void initAdc()
 	MX_ADC1_currentSensor_Init();
 
 
-
+//  todo eventually set adon to 0 when not executing triac regulation (save energy ) tobe tested !
 }
 
 
