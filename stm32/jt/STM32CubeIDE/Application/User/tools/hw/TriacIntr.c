@@ -4,8 +4,16 @@
 #include <task.h>
 #include <defines.h>
 #include <adcControl.h>
-#include "triacPID.h"
+#include <triacPID.h>
+#include <mainJt.h>
 
+#define zeroPassPin_Pin GPIO_PIN_12
+#define zeroPassPin_GPIO_Port GPIOA
+#define zeroPassPin_EXTI_IRQn EXTI15_10_IRQn
+#define triacTriggerPin_Pin GPIO_PIN_14
+#define triacTriggerPin_GPIO_Port GPIOB
+#define buzzerPin_Pin GPIO_PIN_15
+#define buzzerPin_GPIO_Port GPIOB
 
 uint8_t durationTimerOn;
 
@@ -121,14 +129,14 @@ int32_t amtInductiveRepetitions;
 void setTriacFireDuration(int32_t durationTcnt)
 {
 	taskENTER_CRITICAL();
-	if (durationTcnt < triggerDelayMaxTcnt) {
+	if (durationTcnt < avrTriggerDelayMaxTcnt) {
 		if (durationTcnt > 0) {
 			triacFireDurationTcnt = durationTcnt;
 		}  else {
 			triacFireDurationTcnt = 0;
 		}
 	} else {
-		triacFireDurationTcnt = triggerDelayMaxTcnt;
+		triacFireDurationTcnt = avrTriggerDelayMaxTcnt;
 	}
 	taskEXIT_CRITICAL();
 }
@@ -137,7 +145,7 @@ uint32_t getTriacFireDuration()
 {
 	uint32_t res = 0;
 	taskENTER_CRITICAL();
-	res = triggerDelayMaxTcnt;
+	res = avrTriggerDelayMaxTcnt;
 	taskEXIT_CRITICAL();
 	return res;
 }
@@ -254,87 +262,61 @@ uint32_t getTriacFireDuration()
 //	}
 //}
 //
+
+void EXTI15_10_IRQHandler(void)
+{
+  if(__HAL_GPIO_EXTI_GET_IT(zeroPassPin_Pin) != RESET)
+  {
+    __HAL_GPIO_EXTI_CLEAR_IT(zeroPassPin_Pin);
+
+
+  }
+}
+
+
+void initZeroPassDetector()
+{
+	GPIO_InitTypeDef GPIO_InitStruct = {0};
+	GPIO_InitStruct.Pin = zeroPassPin_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(zeroPassPin_GPIO_Port, &GPIO_InitStruct);
+
+	HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+}
+
+void initBuzzerPin()
+{
+	GPIO_InitTypeDef GPIO_InitStruct = {0};
+	GPIO_InitStruct.Pin = buzzerPin_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+	HAL_GPIO_Init(buzzerPin_GPIO_Port, &GPIO_InitStruct);
+}
+
+void initTriacTriggerPin()
+{
+	GPIO_InitTypeDef GPIO_InitStruct = {0};
+	GPIO_InitStruct.Pin = triacTriggerPin_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+	HAL_GPIO_Init(triacTriggerPin_GPIO_Port, &GPIO_InitStruct);
+}
+
+
 void initInterruptsNPorts()
 {
-//// Ext. Interrupt
-//		DDRA = 0b11110000;    // set pin 7 to 4 of port A as output for digital poti (zero adj)
-//		PORTA = 0b11100000;
-//		DIDR0 = 0x0F;			// disa digital input on a0..a3
-//
-//		DDRD &= ~0x04;		// set PortD pin 2 as input for trigger Ext Int 0
-//		PORTD &=  ~0x04;   // without pullup
-//
-//		PORTD &= ~0x10; 		// done also before setting DDR to avoid eventual accidental triac trigger
-//		DDRD |= 0x10;			// set Portd pin 04 be Triac output
-//		PORTD &= ~0x10; 		// and initialize with 0-value
-//
-//		PORTD &= ~0x08;
-//		DDRD |= 0x08;			// set Portd pin 03 to be completionAlarm
-//		PORTD &= ~0x08; 		// and initialize with 0-value
-//
-//
-//
-//		EICRA = 0x01;   // both, fall/rise edge trigger
-//		EIMSK = 0x00;
-//
-//// Timer 1 as Duration Timer
-//
-//			runningSecondsTick = 0;
-//			sec10Counter = 0;
-//			resetCircuitAlarms();
-//
-//		TCCR1A = 0x00;  // normal mode or CTC dep.on TCCR1B
-//		//TCCR1B = 0b00001101  ; // CTC on CC1A , set clk / 1024, timer started
-//
-//		TCCR1B = 0b00001000  ;  // CTC, timer stopped
-//
-//		TCCR1C = 0x00; // no Force output compare
-//
-////		OCR1A = 0x2A30;  // counter top value  , this value at clk/1024 will cause a delay of exact 1 sec
-//		OCR1A = 0x0438;  // counter top value  , this value at clk/1024 will cause a delay of exact 1/10 sec
-//		TCNT1 = 0x00 ;
-//
-//		TIMSK1  = 0x00; // disa  Interrupt
-//		//		TIMSK1   = 0b00000010;  //  Output Compare A Match Interrupt Enable
-//
-//// Timer 0    used for ADC triggering  in TriaRunning mode
-//
-//		TCCR0A = 0b00000010;  //  CTC
-//
-//		OCR0A = 0xFF;  // counter top value, 0xFF means approx 42.18 ADC measures and write to mem per sec
-//					// far too much for our needs, but runs parallel except
-//					//  the very short ADC-complete interrrupt
-//		TCNT0 = 0x00 ;
-//
-////		TCCR0B = 0b00000101  ; // CTC on CC0A , set clk / 1024, timer started
-////		TIMSK0  = 0b00000010;  // ena  interrupts, and let run ADC
-//// 		not yet start Timer0 and ADC, to be tested
-//		TCCR0B = 0b00000000  ; // CTC on CC0A , not yet started
-//		TIMSK0  = 0b00000000;
-//
-//
-//// Timer 2 as Triac Trigger Delay Timer
-//
-//		TCCR2A = 0b00000010;  //  CTC
-//
-//		//TCCR2B = 0b00000101  ; // CTC on CC0A , set clk / 128, timer started
-//
-//		TCCR2B = 0b00000000  ;  // CTC, timer stopped
-//		ASSR = 0x00;
-//
-//		OCR2A = ocra2aValueMax;  // counter top value  , just anything for start, will later be set by PID
-//		TCNT2 = 0x00 ;
-//
-//		TIMSK2  = 0x00; // disa  Interrupt
-//		//		TIMSK2   = 0b00000010;  //  Output Compare A Match Interrupt Enable
-//
-////  init ADC
-//
-//		ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE
-//		adcTick = 0;
-//		adcCnt = 0;
-		currentAmpsADCValue = 0;
-//		sei();  // start interrupts if not yet started
+	__HAL_RCC_GPIOA_CLK_ENABLE();
+	__HAL_RCC_GPIOH_CLK_ENABLE();
+	__HAL_RCC_GPIOB_CLK_ENABLE();
+
+	initZeroPassDetector();
+	void initBuzzerPin();
+	void initTriacTriggerPin();
+
 }
 //
 void startAmpsADC()
@@ -490,21 +472,17 @@ uint32_t getSecondsInDurationTimer()
 
 void setBuzzerOn()
 {
-	//	PORTD |= 0x08;
+	HAL_GPIO_WritePin(buzzerPin_GPIO_Port, buzzerPin_Pin, 1);
 }
 
 void setBuzzerOff()
 {
-	//	PORTD &= ~0x08;
+	HAL_GPIO_WritePin(buzzerPin_GPIO_Port, buzzerPin_Pin, 1);
 }
 
 void toggleBuzzer()
 {
-	//	if (PORTD & 0x08) {
-	//		setCompletionAlarmOff();
-	//	} else {
-	//		setCompletionAlarmOn();
-	//	}
+	HAL_GPIO_TogglePin(buzzerPin_GPIO_Port, buzzerPin_Pin);
 }
 
 void setCompletionAlarmOff()

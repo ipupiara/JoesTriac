@@ -16,7 +16,7 @@ extern "C" {
 #include "cmsis_os.h"
 #include <defines.h>
 #include <string.h>
-
+#include "stm32f7xx_hal.h"
 
 #define MUTEX_AQUIRE(HANDLE,TIMEOUT)  osMutexAcquire (HANDLE, TIMEOUT)
 #define MUTEX_RELEASE(HANDLE) osMutexRelease (HANDLE)
