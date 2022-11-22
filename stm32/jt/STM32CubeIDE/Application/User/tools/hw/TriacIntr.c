@@ -1,7 +1,5 @@
 #include "TriacIntr.h"
 #include <StateClass.h>
-#include <FreeRTOS.h>
-#include <task.h>
 #include <defines.h>
 #include <adcControl.h>
 #include <triacPID.h>
@@ -17,7 +15,6 @@
 
 uint8_t durationTimerOn;
 
-float currentAmpsValue;
 uint16_t currentAmpsADCValue;
 
 uint32_t getCurrentAmpsADCValue()
@@ -29,14 +26,6 @@ uint32_t getCurrentAmpsADCValue()
 	return res;
 }
 
-float getCurrentAmpsValue()
-{
-	float  res;
-	taskENTER_CRITICAL();
-	res = currentAmpsValue;
-	taskEXIT_CRITICAL();
-	return res;
-}
 
 void setAmpsADCValue(uint32_t val)
 {
@@ -503,7 +492,6 @@ void toggleCompletionAlarm()
 void initTriacIntr()
 {
 	durationTimerOn = 0;
-	currentAmpsValue = 0.0;
 	currentAmpsADCValue = 0;
 	triacFireDurationTcnt = 0;
 	initInterruptsNPorts();

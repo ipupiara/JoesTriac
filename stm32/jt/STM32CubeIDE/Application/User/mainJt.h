@@ -14,6 +14,8 @@ extern "C" {
 
 #include <stdint.h>
 #include "cmsis_os.h"
+#include <task.h>
+#include <FreeRTOS.h>
 #include <defines.h>
 #include <string.h>
 #include "stm32f7xx_hal.h"

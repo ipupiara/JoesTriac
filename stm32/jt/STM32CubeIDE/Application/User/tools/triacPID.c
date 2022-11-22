@@ -5,6 +5,7 @@
 #include "triacPID.h"
 #include <defines.h>
 #include <TriacIntr.h>
+#include <mainJt.h>
 
 
 //#define printfPid
@@ -16,8 +17,8 @@ enum adcScopeEnum
 	farScope
 };
 
-//float currentAmpsValue;
-int8_t stableZeroAdjReached;
+float currentAmpsValue;
+//int8_t stableZeroAdjReached;
 
 int8_t m_started;
 real m_kPTot, m_kP, m_kI, m_kD, m_stepTime, m_inv_stepTime, m_prev_error, m_error_thresh, m_integral;
@@ -29,12 +30,22 @@ uint32_t calibLowADC;
 
 real corrCarryOver;     // carry amount if correction in float gives zero correction in int
 
+float getCurrentAmpsValue()
+{
+	float  res;
+	taskENTER_CRITICAL();
+	res = currentAmpsValue;
+	taskEXIT_CRITICAL();
+	return res;
+}
+
+
 void updateGradAmps()
 {
 	float dADC;
 	float dAmps;
 	dAmps = calibHighAmps - calibLowAmps;
-	dADC = getDefinesCalibHigh() - getDefinesCalibLow();
+	dADC = getDefinesCalibHighAdc() - getDefinesCalibLowAdc();
 	if ( fabs(dADC) > 1) {
 		gradAmps = dAmps / dADC;
 	} else gradAmps = 0;
@@ -279,7 +290,7 @@ float currentAmps()
 
 	adcVal = getCurrentAmpsADCValue();
 
-	res = calibLowAmps +  (gradAmps * ((uint32_t) adcVal - (uint32_t) getDefinesCalibLow()  ));
+	res = calibLowAmps +  (gradAmps * ((uint32_t) adcVal - (uint32_t) getDefinesCalibLowAdc()  ));
 
 //#ifdef printfAmps
 //	double grdA = gradAmps ;
@@ -307,7 +318,11 @@ void calcNextTriacDelay()
 	float corr;
 	int16_t newDelay;
 	int16_t corrInt;
-	err = currentAmps() - getDefinesWeldingAmps() ;
+	float amps;
+	err = (amps = currentAmps()) - getDefinesWeldingAmps() ;
+	taskENTER_CRITICAL();
+	currentAmpsValue = amps;
+	taskEXIT_CRITICAL();
 	corr = nextCorrection(err) + corrCarryOver;
 	corrInt = corr;
 	corrCarryOver = corr - corrInt;
@@ -325,8 +340,8 @@ void InitPID()
 {
 //	InitializePID(real kpTot, real kpP, real ki, real kd, real error_thresh, real step_time);   
 	InitializePID( -0.45, 1.1, 0.2, 0.2, 5, (pidStepDelays/42.18));
-
-	stableZeroAdjReached = 0;
+	currentAmpsValue = 0.0;
+//	stableZeroAdjReached = 0;
 }
 
 

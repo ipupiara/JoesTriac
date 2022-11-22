@@ -138,7 +138,7 @@ uint32_t getDefinesZCalibOn()
 	return res;
 }
 
-uint32_t getDefinesCalibHigh()
+uint32_t getDefinesCalibHighAdc()
 {
 	uint32_t cal;
 	taskENTER_CRITICAL();
@@ -147,7 +147,7 @@ uint32_t getDefinesCalibHigh()
 	return cal;
 }
 
-uint32_t getDefinesCalibLow()
+uint32_t getDefinesCalibLowAdc()
 {
 	uint32_t cal;
 	taskENTER_CRITICAL();
@@ -455,7 +455,7 @@ void calibTriacDelayChange(int32_t diff)
 tStatus isCalibrationReady()
 {
 	tStatus res= tFailed;
-	if ((getDefinesCalibHigh() != 0)  && (getDefinesCalibLow() != 0))   {
+	if ((getDefinesCalibHighAdc() != 0)  && (getDefinesCalibLowAdc() != 0))   {
 		res = tOk;
 	}
 	return res;

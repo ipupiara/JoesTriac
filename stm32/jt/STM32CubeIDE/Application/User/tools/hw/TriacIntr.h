@@ -19,7 +19,6 @@ extern "C"
 
 
 uint32_t getCurrentAmpsADCValue();
-float getCurrentAmpsValue();
 void setAmpsADCValue(uint32_t val);
 
 extern uint32_t secondsDurationTimerRemaining;

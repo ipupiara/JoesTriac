@@ -59,9 +59,9 @@ uint32_t getDefinesZCalibOn();
 
 uint32_t getDefinesAlarmTime();
 
-uint32_t getDefinesCalibHigh();
+uint32_t getDefinesCalibHighAdc();
 
-uint32_t getDefinesCalibLow();
+uint32_t getDefinesCalibLowAdc();
 
 uint32_t getDefinesZeroPotiPos();
 

@@ -17,9 +17,9 @@ typedef double real;
 							// eg. 20 means approx 2 per second, 80 means 1 all 2 seconds
 
 
-extern float zeroAdjustDiffVoltage;
+//extern float zeroAdjustDiffVoltage;
 
-
+float getCurrentAmpsValue();
 
 void InitPID();
 

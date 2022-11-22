@@ -41,7 +41,7 @@ protected:
 			if (calibHighCacheValid)  {
 				res = calibHighCache;
 			}  else {
-				calibHighCache = res = getDefinesCalibHigh();
+				calibHighCache = res = getDefinesCalibHighAdc();
 				calibHighCacheValid = true;
 			}
 			return res;
@@ -53,7 +53,7 @@ protected:
 			if (calibLowCacheValid)  {
 				res = calibLowCache;
 			}  else {
-				calibLowCache = res = getDefinesCalibLow();
+				calibLowCache = res = getDefinesCalibLowAdc();
 				calibLowCacheValid = true;
 			}
 			return res;
