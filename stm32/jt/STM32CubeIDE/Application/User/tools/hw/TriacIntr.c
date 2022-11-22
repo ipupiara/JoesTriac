@@ -13,6 +13,8 @@
 #define buzzerPin_Pin GPIO_PIN_15
 #define buzzerPin_GPIO_Port GPIOB
 
+TIM_HandleTypeDef htim5;
+
 uint8_t durationTimerOn;
 
 uint16_t currentAmpsADCValue;
@@ -251,6 +253,46 @@ uint32_t getTriacFireDuration()
 //	}
 //}
 //
+
+void TIM5_IRQHandler(void)
+{
+
+  HAL_TIM_IRQHandler(&htim5);
+
+}
+
+void initTriacTimer()
+{
+	TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+	TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+	__HAL_RCC_TIM5_CLK_ENABLE();
+
+	htim5.Instance = TIM5;
+	htim5.Init.Prescaler = 1234;
+	htim5.Init.CounterMode = TIM_COUNTERMODE_UP;
+	htim5.Init.Period = 4294967295;
+	htim5.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+	htim5.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+	if (HAL_TIM_Base_Init(&htim5) != HAL_OK)
+	{
+		errorHandler(1,stop," HAL_TIM_Base_Init ","initTriacTimer");
+	}
+	sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+	if (HAL_TIM_ConfigClockSource(&htim5, &sClockSourceConfig) != HAL_OK)
+	{
+		errorHandler(2,stop," HAL_TIM_ConfigClockSource ","initTriacTimer");
+	}
+	sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+	sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+	if (HAL_TIMEx_MasterConfigSynchronization(&htim5, &sMasterConfig) != HAL_OK)
+	{
+		errorHandler(3,stop," HAL_TIMEx_MasterConfigSynchronization ","initTriacTimer");
+	}
+
+	HAL_NVIC_SetPriority(TIM5_IRQn, 0, 0);
+	HAL_NVIC_EnableIRQ(TIM5_IRQn);
+}
 
 void EXTI15_10_IRQHandler(void)
 {
