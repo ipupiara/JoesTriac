@@ -4,6 +4,7 @@
 #include "cmsis_os.h"
 #include <mainJt.h>
 #include <TriacIntr.h>
+#include <TriacPID.h>
 
 
 ADC_HandleTypeDef currentSensorADC;
@@ -20,7 +21,7 @@ void startAdcTimer()
 {
 	osStatus_t  status;
 
-	status = osTimerStart (mainJtAdcTimer, 10);
+	status = osTimerStart (mainJtAdcTimer, pidStepDelays);
 	if (status !=  osOK)  {
 		errorHandler((uint32_t)status ,goOn," osTimerStart "," osStarted ");
 	}
