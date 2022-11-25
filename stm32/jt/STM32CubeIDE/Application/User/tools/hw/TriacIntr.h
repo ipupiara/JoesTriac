@@ -26,6 +26,7 @@ void startAmpsADC();
 void stopAmpsADC();
 void adcValueReceived(uint16_t adcVal);
 uint32_t getCurrentAmpsADCValue();
+float adcVoltage();
 
 ////void setDiffADC();
 ////void closeDiffADC();

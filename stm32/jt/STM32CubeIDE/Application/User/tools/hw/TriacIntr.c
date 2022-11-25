@@ -36,6 +36,21 @@ void adcValueReceived(uint16_t adcVal)
 	taskEXIT_CRITICAL();
 }
 
+float adcVoltage()
+{
+	int16_t ampsAdcHex;
+	float   ampsAdcF;
+	float   adcMaxF = 0x0FFF;
+
+	float    Vf;
+
+	ampsAdcHex = getCurrentAmpsADCValue();
+	ampsAdcF  = ampsAdcHex;
+	Vf = (ampsAdcF * 3.3) / adcMaxF;  //  todo set final ref voltage here
+
+	return Vf;
+}
+
 
 //int64_t  secondCount;
 
@@ -354,6 +369,7 @@ void startTriacRun()
 void stopTriacRun()
 {
 	stopADC();
+
 }
 
 ///*
@@ -376,20 +392,8 @@ void stopTriacRun()
 //}
 //*/
 //
-float adcVoltage()
-{
-	int16_t VHex;
-	double   VFl;
-	float    Vf;
 
-	VFl = 0.0;
 
-	VHex = getCurrentAmpsADCValue();
-	VFl = (VHex * 3.6) / 0x0FFF;  // stm32F7..  todo tobe tested
-//	VFl = (VHex * 5.0) / 0x03FF;atmega
-	Vf = VFl;
-	return Vf;
-}
 
 
 
@@ -492,6 +496,7 @@ void startAmpsADC()
 void stopAmpsADC()
 {
 	stopADC();
+	currentAmpsADCValue = 0;
 }
 
 void initTriacIntr()

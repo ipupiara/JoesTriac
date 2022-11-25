@@ -45,9 +45,9 @@ void sendActualValuesToJobOkScreen()
 void sendActualValuesToCalibScreen()
 {
 	CJoesPresenterEventT  msg;
-	msg.messageType = calibScreenData;
-	msg.evData.calibrationScreenData.adcValue = 300;
-	msg.evData.calibrationScreenData.adcVolts = 0.68;
+	msg.messageType = calibrationScreenUpdate;
+	msg.evData.calibrationScreenData.adcValue = getCurrentAmpsADCValue();
+	msg.evData.calibrationScreenData.adcVolts = adcVoltage();
 	sendPresenterMessage(&msg);
 }
 

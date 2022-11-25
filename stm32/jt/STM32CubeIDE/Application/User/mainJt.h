@@ -93,7 +93,6 @@ typedef enum {
 	calibState,
 	calibTriacDelay,
 	calibDesiredAmps,
-	calibScreenData,
 	calibrateZeroPPScreenUpdate,
 	calibrationScreenUpdate,
 	jobOkScreenUpdate,

@@ -22,14 +22,14 @@ void calibrationScreenView::updateAmpsValues(float adcV, uint32_t adc)
 	adcVoltageText.setWildcard(adcVoltageTextBuffer);
 	adcVoltageText.invalidate();
 
-	Unicode::snprintf(adcValueTextBuffer, 5, "%04d", adc);
+	Unicode::snprintf(adcValueTextBuffer, 5, "%4d", adc);
 	adcValueText.setWildcard(adcValueTextBuffer);
 	adcValueText.invalidate();
 }
 
 void calibrationScreenView::updateTriacDelay(uint32_t val)
 {
-	Unicode::snprintf(delayTextBuffer,5, "%04d", val);
+	Unicode::snprintf(delayTextBuffer,5, "%4d", val);
 	delayText.setWildcard(delayTextBuffer);
 	delayText.invalidate();
 

@@ -30,12 +30,6 @@ uint32_t calibLowADC;
 
 real corrCarryOver;     // carry amount if correction in float gives zero correction in int
 
-float getCurrentAmpsValue()
-{
-	float  res;
-	res = currentAmps();
-	return res;
-}
 
 
 void updateGradAmps()
@@ -234,6 +228,34 @@ void InitializePID(real kpTot,real kpP, real ki, real kd, real error_thresh, rea
 	 corrCarryOver = 0;
 }
 
+
+float currentAmps()
+{
+	uint32_t adcVal;
+	float res = 0.0;
+
+	adcVal = getCurrentAmpsADCValue();
+	res = calibLowAmps +  (gradAmps * ((uint32_t) adcVal - (uint32_t) getDefinesCalibLowAdc()  ));
+	return res;
+}
+
+
+float getCurrentAmpsValue()
+{
+	float  res;
+	res = currentAmps();
+	return res;
+}
+
+//uint16_t  adcValueForAmps (float amps)
+//{
+//	uint16_t res = 0;
+////	uint16_t dAdc = gradAdc * (amps - calibLowAmps);
+////	res = calibLowADC + dAdc;
+//	return res;
+//}
+
+
 #define correctionThreshold  30
 
 real nextCorrection(real error)
@@ -271,33 +293,9 @@ real nextCorrection(real error)
 	} else if (res < -1*correctionThreshold) {
 		res = -1* correctionThreshold;
 	}
-
-#ifdef printfPID
-	double errD = error;
-	double intD = m_integral;
-	double derivD = deriv;
-	printf("err %f int %f deriv %f \n",errD, intD, derivD);
-#endif
     return res;
 }
 
-float currentAmps()
-{
-	uint32_t adcVal;
-	float res = 0.0;
-
-	adcVal = getCurrentAmpsADCValue();
-	res = calibLowAmps +  (gradAmps * ((uint32_t) adcVal - (uint32_t) getDefinesCalibLowAdc()  ));
-	return res;
-}
-
-//uint16_t  adcValueForAmps (float amps)
-//{
-//	uint16_t res = 0;
-////	uint16_t dAdc = gradAdc * (amps - calibLowAmps);
-////	res = calibLowADC + dAdc;
-//	return res;
-//}
 
 void calcNextTriacDelay()
 {  
