@@ -32,12 +32,12 @@ void mainScreenPresenter::configButtonPressed()
 {
 	CMainJtEventT evt;
 	evt.evType = configPressed;
-	sendEventToMainJtMessageQ(&evt,0);
+	sendEventToMainJtMessageQ(&evt,isNotFromIsr);
 }
 
 void mainScreenPresenter::startButtonPressed()
 {
 	CMainJtEventT evt;
 	evt.evType = runButtonClicked;
-	sendEventToMainJtMessageQ(&evt,0);
+	sendEventToMainJtMessageQ(&evt,isNotFromIsr);
 }

@@ -55,7 +55,10 @@ typedef enum {
 	autoConfigPressed
 }  mainJtMessageType;
 
-
+typedef enum {
+	isFromIsr,
+	isNotFromIsr
+} fromIsrParameterType;
 
 typedef struct  {
 	mainJtMessageType evType;
@@ -80,7 +83,7 @@ typedef struct  {
 
 typedef CMainJtEventT*  pMainJtEventT;
 
-osStatus_t sendEventToMainJtMessageQ(pMainJtEventT bufferAddr, uint8_t  fromIsr);
+osStatus_t sendEventToMainJtMessageQ(pMainJtEventT bufferAddr, fromIsrParameterType  fromIsr);
 
 extern osMessageQueueId_t    mainJtMessageQ;
 

@@ -44,11 +44,11 @@ osMutexId_t  jtQAccessMutex;
 
 
 
-osStatus_t sendEventToMainJtMessageQ(pMainJtEventT pEv, uint8_t  fromIsr)
+osStatus_t sendEventToMainJtMessageQ(pMainJtEventT pEv, fromIsrParameterType  fromIsr)
 {
 	osStatus_t  status = osError;
 
-	if (fromIsr == 1)  {
+	if (fromIsr == isFromIsr)  {
 		status = osMessageQueuePut (mainJtMessageQ, (void *) pEv, 0, 0);
 	}  else  {
 		status = osMessageQueuePut (mainJtMessageQ, (void *) pEv, 0, 1000);
@@ -141,11 +141,11 @@ void mainJt(void *argument)
 //							break;
 //						}
 						case saveCalibLo: {
-							saveCalibLow(mJtEv.mainUnion.calibLow);
+							saveCalibLowAdc(mJtEv.mainUnion.calibLow);
 							break;
 						}
 						case saveCalibHi: {
-							saveCalibHigh(mJtEv.mainUnion.calibHigh);
+							saveCalibHighAdc(mJtEv.mainUnion.calibHigh);
 							break;
 						}
 						case configBackPressed: {
@@ -277,7 +277,9 @@ void initJt()
 		errorHandler((uint32_t)mainJtTimer ,stop," mainJtTimer ","initJt");
 	}
 
-	mainJtMessageQ =  osMessageQueueNew(8,sizeof(CMainJtEventT)*memoryMultiplier, NULL);   //  todo check multiplication with 4 ? needed ?
+//	uint32_t sizeMain = sizeof(CMainJtEventT)*memoryMultiplier;
+
+	mainJtMessageQ =  osMessageQueueNew(8,sizeof(CMainJtEventT)*memoryMultiplier, NULL);  //  todo check multiplication with 4 ? needed ?
 	if (mainJtMessageQ  == NULL)   {
 		errorHandler((uint32_t)mainJtMessageQ ,stop," mainJtMessageQ ","initJt");
 	}

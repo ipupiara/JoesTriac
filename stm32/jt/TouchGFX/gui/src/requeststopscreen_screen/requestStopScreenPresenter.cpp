@@ -24,14 +24,14 @@ void requestStopScreenPresenter::continueButtonPressed()
 {
 	CMainJtEventT msg;
 	msg.evType = continueButtonClicked;
-	sendEventToMainJtMessageQ(&msg, 0);
+	sendEventToMainJtMessageQ(&msg, isNotFromIsr);
 }
 
 void requestStopScreenPresenter::abortButtonPressed()
 {
 	CMainJtEventT msg;
 	msg.evType = stopButtonClicked;
-	sendEventToMainJtMessageQ(&msg, 0);
+	sendEventToMainJtMessageQ(&msg, isNotFromIsr);
 }
 
 void requestStopScreenPresenter::tick()

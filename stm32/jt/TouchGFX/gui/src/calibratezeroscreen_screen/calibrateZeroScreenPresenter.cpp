@@ -45,5 +45,5 @@ void calibrateZeroScreenPresenter::autoButtonOn(uint32_t on)
 	CMainJtEventT evt;
 	evt.evType = zCalibAuto;
 	evt.mainUnion.zAuto = on;
-	sendEventToMainJtMessageQ(&evt,0);
+	sendEventToMainJtMessageQ(&evt,isNotFromIsr);
 }

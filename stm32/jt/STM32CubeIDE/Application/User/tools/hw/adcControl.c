@@ -41,16 +41,14 @@ void stopAdcTimer()
 void eocIrqHandler(ADC_HandleTypeDef* hadc)
 {
 	if (hadc == &currentSensorADC) {
-		uint32_t adcV = 0;
+		uint16_t adcV = 0;
 		adcV = currentSensorADC.Instance->DR;
-//		adcV = HAL_ADC_GetValue(&currentSensorADC);
-		setAmpsADCValue(adcV);
 
 		CMainJtEventT  ev;
 		memset(&ev, 0x0, sizeof(ev));
 		ev.evType = adcTick;
-		ev.mainUnion.advV = hadc->Instance->DR;
-		osStatus_t status =  sendEventToMainJtMessageQ( &ev, 0);
+		ev.mainUnion.advV = adcV;
+		osStatus_t status =  sendEventToMainJtMessageQ( &ev, isFromIsr);
 		if (status != osOK) {
 			errorHandler(status,goOn," status ","eocIrqHandler");
 		}
@@ -94,6 +92,10 @@ void ADC_IRQ_(ADC_HandleTypeDef* hadc)
 		awdIrqHandler(hadc);
 		__HAL_ADC_CLEAR_FLAG(hadc, ADC_FLAG_AWD);
 	}
+//	if (hadc->Instance->SR & ADC_FLAG_OVR)  {   // EOCS currently not set, so no OVR checked
+//
+//		__HAL_ADC_CLEAR_FLAG(hadc, ADC_FLAG_OVR);
+//	}
 }
 
 void ADC_IRQHandler(void)
@@ -157,7 +159,8 @@ static void MX_ADC1_currentSensor_Init(void)
 
   }
 
-  HAL_NVIC_SetPriority(ADC_IRQn, 5, 0);
+  __HAL_ADC_ENABLE_IT(&currentSensorADC,ADC_IT_EOC);
+  HAL_NVIC_SetPriority(ADC_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(ADC_IRQn);
 }
 

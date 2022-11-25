@@ -29,7 +29,7 @@ uint32_t getCurrentAmpsADCValue()
 }
 
 
-void setAmpsADCValue(uint32_t val)
+void setAmpsADCValue(uint16_t val)
 {
 	taskENTER_CRITICAL();
 	currentAmpsADCValue = val;
@@ -41,6 +41,12 @@ void adcTickHandler(uint16_t adcVal)
 	taskENTER_CRITICAL();
 	currentAmpsADCValue = adcVal;
 	taskEXIT_CRITICAL();
+}
+
+void adcValueReceived(uint16_t vl)
+{
+	setAmpsADCValue(vl);
+//	calcNextTriacDelay();
 }
 
 
@@ -344,63 +350,23 @@ void initInterruptsNPorts()
 	__HAL_RCC_GPIOH_CLK_ENABLE();
 	__HAL_RCC_GPIOB_CLK_ENABLE();
 
-	initZeroPassDetector();
-	void initBuzzerPin();
-	void initTriacTriggerPin();
+//	initZeroPassDetector();
+//	void initBuzzerPin();
+//	void initTriacTriggerPin();
 
 }
-//
-void startAmpsADC()
-{
-//	ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE
-//	adcTick = 0;
-//	adcCnt = 0;
-//
-//	if (ampsInputPin == avg) {
-//		ADMUX = 0b01000001;
-//	} else {
-//		ADMUX = 0b01000010;      // AVCC as ref,  right adjust, mux to adc2/adc1
-//	}
-//	ADCSRA = 0b10101111;
-//							// int ena, prescale /128
-//							// ADC clock will run at 86400 hz, or max 6646.
-//							//  read per sec,what is ok
-//							// for our settings of 42. read per sec
-//							// or manuals start
-//
-//	ADCSRB = 0x03;  // no ACME, trigger ADC on Timer0 compare match
-//
-//	TCCR0B = 0b00000101  ; // CTC on CC0A , set clk / 1024, timer 0 started
-//	TIMSK0  = 0b00000010;  // ena  interrupts, and let run ADC
-}
-//
-void stopAmpsADC()
-{
-//	ADCSRA  = 0b00000111;  // disa ADC, ADATE, ADIE
-//
-//	TCCR0B = 0b00000000  ; // stop timer 0
-//	TIMSK0  = 0b00000000;  //
-}
-//
+
 void startTriacRun()
 {
 	startADC();
 	resetPID();
-//	resetCircuitAlarms();
-//	startAmpsADC();
-//	EIFR = 0x00;
-//	EIMSK = 0x01;  				// start external interrupt (zero pass detection)
+	// todo start timers and zero pass detector.... pid etc....
+	// and stop in stopTriacRun
 }
-//
+
 void stopTriacRun()
 {
 	stopADC();
- // stops also circuit alarms (shortCircuit, DValue)
-//	EIMSK = 0x00;				// stop external interrupt
-//	cli();
-//	stopTimer2();
-//	sei();
-//	stopAmpsADC();
 }
 
 ///*
@@ -531,10 +497,21 @@ void toggleCompletionAlarm()
 	toggleBuzzer();
 }
 
+void startAmpsADC()
+{
+	startADC();
+}
+
+void stopAmpsADC()
+{
+	stopADC();
+}
+
 void initTriacIntr()
 {
 	durationTimerOn = 0;
 	currentAmpsADCValue = 0;
 	triacFireDurationTcnt = 0;
+	initAdc();
 	initInterruptsNPorts();
 }

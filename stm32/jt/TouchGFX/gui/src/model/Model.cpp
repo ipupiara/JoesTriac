@@ -69,7 +69,7 @@ void Model::storeWeldingTimeSec(uint16_t  tm)
 	CMainJtEventT evt;
 	evt.evType = storeWeldingTime;
 	evt.mainUnion.weldingTime = tm;
-	sendEventToMainJtMessageQ(&evt,0);
+	sendEventToMainJtMessageQ(&evt,isNotFromIsr);
 }
 
 float Model::getWeldingAmps()
@@ -82,7 +82,7 @@ void Model::storeWeldingAmps(float amps)
 	CMainJtEventT evt;
 	evt.evType = storeWeldingAmpere;
 	evt.mainUnion.weldingAmps = amps;
-	sendEventToMainJtMessageQ(&evt,0);
+	sendEventToMainJtMessageQ(&evt,isNotFromIsr);
 }
 
 
@@ -114,7 +114,7 @@ void Model::storeAlarm(uint8_t alNeeded, uint16_t alTime, uint32_t zCalibOn)
 	evt.mainUnion.alarmData.alarmTime = alTime;
 	evt.mainUnion.alarmData.alarmNeeded = alNeeded;
 	evt.mainUnion.alarmData.zCalibOn = zCalibOn;
-	sendEventToMainJtMessageQ(&evt,0);
+	sendEventToMainJtMessageQ(&evt,isNotFromIsr);
 }
 
 void Model::restoreData()
@@ -173,7 +173,7 @@ void Model::CalibCache::storeCalibHigh()
 	CMainJtEventT evt;
 	evt.evType = saveCalibHi;
 	evt.mainUnion.calibHigh = calibHighCache;
-	sendEventToMainJtMessageQ(&evt,0);
+	sendEventToMainJtMessageQ(&evt,isNotFromIsr);
 }
 
 void Model::CalibCache::storeCalibLow()
@@ -181,7 +181,7 @@ void Model::CalibCache::storeCalibLow()
 	CMainJtEventT evt;
 	evt.evType = saveCalibLo;
 	evt.mainUnion.calibLow = calibLowCache;
-	sendEventToMainJtMessageQ(&evt,0);
+	sendEventToMainJtMessageQ(&evt,isNotFromIsr);
 }
 
 void Model::CalibCache::storeZeroPotiPos()
@@ -189,7 +189,7 @@ void Model::CalibCache::storeZeroPotiPos()
 	CMainJtEventT evt;
 	evt.evType = saveZPotiPos;
 	evt.mainUnion.zPotiPos = zeroPotiPosCache;
-	sendEventToMainJtMessageQ(&evt,0);
+	sendEventToMainJtMessageQ(&evt,isNotFromIsr);
 }
 
 

@@ -24,7 +24,7 @@ void jobCompleteScreenPresenter::returnButtonPressed()
  {
 	CMainJtEventT  msg;
 	msg.evType = okPressed;
-	sendEventToMainJtMessageQ(&msg,0);
+	sendEventToMainJtMessageQ(&msg,isNotFromIsr);
  }
 
 void jobCompleteScreenPresenter::tick()

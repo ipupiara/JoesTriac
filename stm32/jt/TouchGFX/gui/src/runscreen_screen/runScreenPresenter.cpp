@@ -25,7 +25,7 @@ void runScreenPresenter::stopButtonPressed()
 {
 	CMainJtEventT msg;
 	msg.evType = stopButtonClicked;
-	sendEventToMainJtMessageQ(&msg, 0);
+	sendEventToMainJtMessageQ(&msg, isNotFromIsr);
 }
 
 void runScreenPresenter::tick()

@@ -70,7 +70,7 @@ void sendActualValuesToRunNStopScreen(uint16_t secondsRemaining, uint16_t second
 typedef struct {
 	uint32_t weldingTime;
 	float   weldingAmps;
-	uint32_t  calibLow, calibHigh, zeroPotiPos;
+	uint32_t  calibLowAdc, calibHighAdc, zeroPotiPos;
 	uint8_t  alarmNeeded;
 	uint8_t  zCalibOn;
 	uint32_t  alarmTime;
@@ -82,8 +82,8 @@ void initPersistendData()
 {
 	persistentRec.weldingTime =  15 *60;
 	persistentRec.weldingAmps = 60.00;
-	persistentRec.calibLow = 0;
-	persistentRec.calibHigh = 0;
+	persistentRec.calibLowAdc = 0;
+	persistentRec.calibHighAdc = 0;
 	persistentRec.alarmNeeded = 1;
 	persistentRec.alarmTime   = 12;
 	persistentRec.zCalibOn = 0;
@@ -142,7 +142,7 @@ uint32_t getDefinesCalibHighAdc()
 {
 	uint32_t cal;
 	taskENTER_CRITICAL();
-	cal = persistentRec.calibHigh;
+	cal = persistentRec.calibHighAdc;
 	taskEXIT_CRITICAL();
 	return cal;
 }
@@ -151,7 +151,7 @@ uint32_t getDefinesCalibLowAdc()
 {
 	uint32_t cal;
 	taskENTER_CRITICAL();
-	cal = persistentRec.calibLow;
+	cal = persistentRec.calibLowAdc;
 	taskEXIT_CRITICAL();
 	return cal;
 }
@@ -190,23 +190,23 @@ tStatus saveWeldingAmps(float wAmps)
 	return success;
 }
 
-tStatus saveCalibHigh(uint32_t cHigh)
+tStatus saveCalibHighAdc(uint32_t cHigh)
 {
 	tStatus success = tFailed;
 	success = restorePersistenData();
 	if (success ==  tOk) {
-		persistentRec.calibHigh = cHigh;
+		persistentRec.calibHighAdc = cHigh;
 		success = savePersistendData();
 	}
 	return success;
 }
 
-tStatus saveCalibLow(uint32_t cLow)
+tStatus saveCalibLowAdc(uint32_t cLow)
 {
 	tStatus success = tFailed;
 	success = restorePersistenData();
 	if (success ==  tOk) {
-		persistentRec.calibLow = cLow;
+		persistentRec.calibLowAdc = cLow;
 		success = savePersistendData();
 	}
 	return success;
@@ -266,8 +266,8 @@ tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded)
 varData  variableData  [amtPersistentVariables]= {
 		{(void *)(&persistentRec.weldingTime), intVar32, wTimePos,sizeof(persistentRec.weldingTime)},
 		{(void *)(&persistentRec.weldingAmps), realVar,wAmpsPos, sizeof(persistentRec.weldingAmps)},
-		{(void *)(&persistentRec.calibLow), intVar32, cLowPos, sizeof(persistentRec.calibLow)},
-		{(void *)(&persistentRec.calibHigh), intVar32, cHighPos, sizeof(persistentRec.calibHigh)},
+		{(void *)(&persistentRec.calibLowAdc), intVar32, cLowPos, sizeof(persistentRec.calibLowAdc)},
+		{(void *)(&persistentRec.calibHighAdc), intVar32, cHighPos, sizeof(persistentRec.calibHighAdc)},
 		{(void *)(&persistentRec.zeroPotiPos), intVar32, zPotiPos, sizeof(persistentRec.zeroPotiPos)},
 		{(void *)(&persistentRec.zCalibOn), intVar8, zOnPos, sizeof(persistentRec.zCalibOn)},
 		{(void *)(&persistentRec.alarmNeeded), intVar8, aNeededPos, sizeof(persistentRec.alarmNeeded)},
@@ -336,18 +336,18 @@ tStatus saveWeldingAmps(float wAmps)
 	return success;
 }
 
-tStatus saveCalibLow(uint32_t cLow)
+tStatus saveCalibLowAdc(uint32_t cLow)
 {
 	tStatus success = tOk;
-	persistentRec.calibLow = cLow;
+	persistentRec.calibLowAdc = cLow;
 	eepromSave(&variableData[2]);
 	return success;
 }
 
-tStatus saveCalibHigh(uint32_t cHigh)
+tStatus saveCalibHighAdc(uint32_t cHigh)
 {
 	tStatus success = tOk;
-	persistentRec.calibHigh = cHigh;
+	persistentRec.calibHighAdc = cHigh;
 	eepromSave(&variableData[3]);
 	return success;
 }
@@ -465,14 +465,14 @@ void setCurrentAdcValAsCalibLow()
 {
 	uint32_t cL;
 	cL = getCurrentAmpsADCValue();
-	saveCalibLow(cL);
+	saveCalibLowAdc(cL);
 }
 
 void setCurrentAdcValAsCalibHigh()
 {
 	uint32_t cL;
 	cL = getCurrentAmpsADCValue();
-	saveCalibHigh(cL);
+	saveCalibHighAdc(cL);
 }
 
 tStatus initDefines()

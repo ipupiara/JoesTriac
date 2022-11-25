@@ -22,13 +22,13 @@ void configScreenPresenter::backPressed()
 {
 	CMainJtEventT evnt;
 	evnt.evType = configBackPressed;
-	sendEventToMainJtMessageQ( &evnt, 0);
+	sendEventToMainJtMessageQ( &evnt, isNotFromIsr);
 }
 
 void configScreenPresenter::autoCalibrationClicked()
 {
 	CMainJtEventT evnt;
 	evnt.evType = autoConfigPressed;
-	sendEventToMainJtMessageQ( &evnt, 0);
+	sendEventToMainJtMessageQ( &evnt, isNotFromIsr);
 }
 

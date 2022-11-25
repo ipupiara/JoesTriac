@@ -26,34 +26,34 @@ void calibrationScreenPresenter::sendTriacDelayCalibCorrection(int32_t val)
 	CMainJtEventT msg;
 	msg.evType = calibTriacDelayDelta;
 	msg.mainUnion.calibTriDelayCorrection = val;
-	sendEventToMainJtMessageQ(&msg, 0);
+	sendEventToMainJtMessageQ(&msg, isNotFromIsr);
 }
 
 void calibrationScreenPresenter::abortButtonPressed()
 {
 	CMainJtEventT msg;
 	msg.evType = calibAbortClick;
-	sendEventToMainJtMessageQ(&msg, 0);
+	sendEventToMainJtMessageQ(&msg, isNotFromIsr);
 }
 void calibrationScreenPresenter::continueButtonPressed()
 {
 	CMainJtEventT msg;
 	msg.evType = calibContinueClick;
-	sendEventToMainJtMessageQ(&msg, 0);
+	sendEventToMainJtMessageQ(&msg, isNotFromIsr);
 }
 
 void calibrationScreenPresenter::skipButtonPressed()
 {
 	CMainJtEventT msg;
 	msg.evType = calibSkipClick;
-	sendEventToMainJtMessageQ(&msg, 0);
+	sendEventToMainJtMessageQ(&msg, isNotFromIsr);
 }
 
 void calibrationScreenPresenter::calibrationScreenReady()
 {
 	CMainJtEventT msg;
 	msg.evType = calibScreenReady;
-	sendEventToMainJtMessageQ(&msg, 0);
+	sendEventToMainJtMessageQ(&msg, isNotFromIsr);
 }
 
 void calibrationScreenPresenter::tick()
