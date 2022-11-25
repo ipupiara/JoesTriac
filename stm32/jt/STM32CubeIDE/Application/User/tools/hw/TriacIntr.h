@@ -19,14 +19,14 @@ extern "C"
 
 
 uint32_t getCurrentAmpsADCValue();
-void setAmpsADCValue(uint16_t val);
+
 
 extern uint32_t secondsDurationTimerRemaining;  // todo check this memory direct access
 
 //int8_t adcTick;
 void startAmpsADC();
 void stopAmpsADC();
-void adcTickHandler(uint16_t adcVal);
+void adcValueReceived(uint16_t adcVal);
 void adcValueReceived(uint16_t vl);
 ////void setDiffADC();
 ////void closeDiffADC();

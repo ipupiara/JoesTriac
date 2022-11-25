@@ -29,24 +29,11 @@ uint32_t getCurrentAmpsADCValue()
 }
 
 
-void setAmpsADCValue(uint16_t val)
-{
-	taskENTER_CRITICAL();
-	currentAmpsADCValue = val;
-	taskEXIT_CRITICAL();
-}
-
-void adcTickHandler(uint16_t adcVal)
+void adcValueReceived(uint16_t adcVal)
 {
 	taskENTER_CRITICAL();
 	currentAmpsADCValue = adcVal;
 	taskEXIT_CRITICAL();
-}
-
-void adcValueReceived(uint16_t vl)
-{
-	setAmpsADCValue(vl);
-//	calcNextTriacDelay();
 }
 
 

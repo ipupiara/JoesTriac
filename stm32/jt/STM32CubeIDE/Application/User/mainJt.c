@@ -204,8 +204,9 @@ void mainJt(void *argument)
 							break;
 						}
 						case adcTick: {
-							adcTickHandler(mJtEv.mainUnion.advV);
+							adcValueReceived(mJtEv.mainUnion.advV);
 							fsmEv.evType=evAdcTick;
+
 							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
 							break;
 						}
