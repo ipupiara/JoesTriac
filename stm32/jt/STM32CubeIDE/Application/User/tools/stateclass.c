@@ -11,7 +11,7 @@
 
 
 // This defines and names the states the class has.
-//  todo  attention: sequence must be the same as in xaStates (below)  !!!%%%%%%%%%%***********##########  (i} {i)
+//  todo  attention: sequence must be the same as in xaStates (below)
 enum eStates
 {
 	eStateJoesTriac,
@@ -451,15 +451,13 @@ void entryTriacActiveState(void)
 {
 	info_printf("entryTriacActiveState\n");
 	startDurationTimer(getDefinesWeldingTime());
-//	startDurationTimer(maxSecsPossible);   // sometimes used for debugging
-//	setTriacFireDuration(calibLowTriacFireDuration);  // start defined,  not just somewhere
-//												// because of 220 V fuse ejects
-//												// lowCalib seems better choice than 0  todo tobe tested ... old comment  from before "rail" times
-
+	setTriacFireDuration(0);
+	startTriacRun();
 }
 
 void exitTriacActiveState(void)
 {
+	stopTriacRun();
 	stopDurationTimer();
 }
 
@@ -473,24 +471,26 @@ uStInt evTriacActiveChecker(void)
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
 	}
+	if (currentEvent->evType == evAdcTick)
+	{
+		calcNextTriacDelay();
+		res =  uStIntHandlingDone;
+	}
 	return res;
 }
 
 void entryTriacRunningState(void)
 {
 	info_printf("entryTriacRunningState\n");
-	setTriacFireDuration(0);
-	startTriacRun();
 
 	CJoesModelEventT  msg;
 	msg.messageType = changeToRunScreen;
 	sendModelMessage(&msg);
-	secondsBeforeReturn = 0;
 }
 
 void exitTriacRunningState(void)
 {
-	stopTriacRun();
+
 }
 
 uStInt evTriacRunningChecker(void)
@@ -508,11 +508,7 @@ uStInt evTriacRunningChecker(void)
 		sendActualValuesToRunNStopScreen(secondsDurationTimerRemaining, secondsBeforeReturn);
 		res =  uStIntHandlingDone;
 	}	
-	if (currentEvent->evType == evAdcTick)
-	{
-		calcNextTriacDelay();
-		res =  uStIntHandlingDone;
-	}		
+
 	return res;
 }
 

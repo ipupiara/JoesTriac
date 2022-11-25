@@ -18,8 +18,6 @@ extern "C"
 //extern int64_t  secondCount;
 
 
-uint32_t getCurrentAmpsADCValue();
-
 
 extern uint32_t secondsDurationTimerRemaining;  // todo check this memory direct access
 
@@ -27,7 +25,8 @@ extern uint32_t secondsDurationTimerRemaining;  // todo check this memory direct
 void startAmpsADC();
 void stopAmpsADC();
 void adcValueReceived(uint16_t adcVal);
-void adcValueReceived(uint16_t vl);
+uint32_t getCurrentAmpsADCValue();
+
 ////void setDiffADC();
 ////void closeDiffADC();
 //void startSingleADC();

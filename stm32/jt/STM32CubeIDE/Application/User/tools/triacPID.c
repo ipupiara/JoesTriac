@@ -33,9 +33,7 @@ real corrCarryOver;     // carry amount if correction in float gives zero correc
 float getCurrentAmpsValue()
 {
 	float  res;
-	taskENTER_CRITICAL();
-	res = currentAmpsValue;
-	taskEXIT_CRITICAL();
+	res = currentAmps();
 	return res;
 }
 
@@ -289,18 +287,7 @@ float currentAmps()
 	float res = 0.0;
 
 	adcVal = getCurrentAmpsADCValue();
-
 	res = calibLowAmps +  (gradAmps * ((uint32_t) adcVal - (uint32_t) getDefinesCalibLowAdc()  ));
-
-//#ifdef printfAmps
-//	double grdA = gradAmps ;
-//	double resD = res;
-//
-//	printf("adcA %i grad %f res %f A, triacDelay %i \n",adcAmps,grdA, resD, triacFireDurationTcnt2);
-//	printf(" calowAdc %i cahiAdc %i calLowA %i calHighA %i\n",calibLowADC, calibHighADC, calibLowAmps,calibHighAmps);
-//#endif
-//
-//	currentAmpsValue = res;   // set this for ui
 	return res;
 }
 

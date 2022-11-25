@@ -97,38 +97,6 @@ ISR(TIMER2_COMPA_vect)
 	sei();
 }
 
-double adcVoltage()
-{
-	int16_t VHex;
-	double   VFl;
-
-	VFl = 0.0;
-
-	VHex = ampsADCValue();
-	VFl = (VHex * 5.0) / 0x03FF;
-
-	return VFl;
-}
-
-
-void startTriacRun()
-{
-	resetPID();
-	resetCircuitAlarms();
-	startAmpsADC();
-	EIFR = 0x00;
-	EIMSK = 0x01;  				// start external interrupt (zero pass detection)
-}
-
-void stopTriacRun()
-{
-	resetCircuitAlarms();    // stops also circuit alarms (shortCircuit, DValue)
-	EIMSK = 0x00;				// stop external interrupt
-	cli();
-	stopTimer2();
-	sei();
-	stopAmpsADC();
-}
 
 
 
@@ -191,35 +159,6 @@ void displayDebugVoltageNTriggerDelay()
 }
 
 
-void displayPotiPersistent()
-{
-	double   VFl;
-	char buffer [16];
-
-	VFl = zeroAdjustDiffVoltage;
-
-//	sprintf((char*)&buffer,"%3i P %6.3f V",zeroPotiPos,VFl);
-
-	lcd_Line1();
-	lcd_write_str((char*)&buffer);
-
-}
-
-void displayPotiVolatile()
-{
-	char buffer[10];
-	sprintf((char*) &buffer,"%3iP",zeroPotiPos);
-	lcd_goto(3,16);
-	lcd_write_str((char*)&buffer);
-}
-
-void displayCalibrateZeroPotiPos()
-{
-	lcd_clrscr();
-	lcd_write_str("calib Zero  ,# skip");
-	lcd_goto(3,0);
-	lcd_write_str("wait to stable + 30s");
-}
 
 
 */
