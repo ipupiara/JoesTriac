@@ -269,6 +269,22 @@ void TIM5_IRQHandler(void)
 
 }
 
+void setDelayTimer(int16_t  len)
+{
+	//  set ARR
+}
+
+void startDelayTimer()
+{
+	// enable Timer, interrupts and start
+}
+
+void stopDelayTimer()
+{
+	// stop the timer anyhow if passed or not
+
+}
+
 void initTriacTimer()
 {
 	TIM_ClockConfigTypeDef sClockSourceConfig = {0};
@@ -277,9 +293,9 @@ void initTriacTimer()
 	__HAL_RCC_TIM5_CLK_ENABLE();
 
 	htim5.Instance = TIM5;
-	htim5.Init.Prescaler = 1234;
+	htim5.Init.Prescaler = 1000;
 	htim5.Init.CounterMode = TIM_COUNTERMODE_UP;
-	htim5.Init.Period = 4294967295;
+	htim5.Init.Period = 100;
 	htim5.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
 	htim5.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
 	if (HAL_TIM_Base_Init(&htim5) != HAL_OK)
@@ -302,11 +318,17 @@ void initTriacTimer()
 	HAL_NVIC_EnableIRQ(TIM5_IRQn);
 }
 
+
 void EXTI15_10_IRQHandler(void)
 {
   if(__HAL_GPIO_EXTI_GET_IT(zeroPassPin_Pin) != RESET)
   {
     __HAL_GPIO_EXTI_CLEAR_IT(zeroPassPin_Pin);
+    if (HAL_GPIO_ReadPin(zeroPassPin_GPIO_Port,zeroPassPin_Pin))  {
+
+    }  else  {
+
+    }
 
 
   }
@@ -352,9 +374,9 @@ void initInterruptsNPorts()
 	__HAL_RCC_GPIOH_CLK_ENABLE();
 	__HAL_RCC_GPIOB_CLK_ENABLE();
 
-//	initZeroPassDetector();
-//	void initBuzzerPin();
-//	void initTriacTriggerPin();
+	initZeroPassDetector();
+	initBuzzerPin();
+	initTriacTriggerPin();
 
 }
 
