@@ -66,7 +66,8 @@ void calibrationScreenPresenter::tick()
 			if ( osMessageQueueGet ( presenterMessageQ, &presenterMessage, NULL, 0) == osOK)  {
 				if (presenterMessage.messageType ==  calibrationScreenUpdate) {
 					view.updateAmpsValues(presenterMessage.evData.calibrationScreenData.adcVolts,
-							presenterMessage.evData.calibrationScreenData.adcValue);
+							presenterMessage.evData.calibrationScreenData.adcValue,
+							presenterMessage.evData.calibTriacDelay);
 				}
 				if (presenterMessage.messageType ==  calibTriacDelay) {
 					view.updateTriacDelay(presenterMessage.evData.calibTriacDelay);

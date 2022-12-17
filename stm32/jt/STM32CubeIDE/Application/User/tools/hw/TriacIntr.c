@@ -56,52 +56,35 @@ float adcVoltage()
 }
 
 
-//int64_t  secondCount;
-
-//
-//int16_t remainingTriacTriggerDelayCounts;
-//
-uint32_t triacTriggerTimeTcnt;
-
-uint32_t triacFireDurationTcnt;
+uint16_t triacTriggerDelay;
 
 uint32_t secondsDurationTimerRemaining;
 
 uint32_t secondsInDurationTimer;
 
-//int8_t adcCnt;
-//
-int32_t amtInductiveRepetitions;
 
-
-void setTriacFireDuration(int32_t durationTcnt)
+void setTriacTriggerDelay(int32_t durationTcnt)
 {
 	taskENTER_CRITICAL();
-	if (durationTcnt < avrTriggerDelayMaxTcnt) {
+	if (durationTcnt < stmTriggerDelayMax) {
 		if (durationTcnt > 0) {
-			triacFireDurationTcnt = durationTcnt;
+			triacTriggerDelay = durationTcnt;
 		}  else {
-			triacFireDurationTcnt = 0;
+			triacTriggerDelay = 0;
 		}
 	} else {
-		triacFireDurationTcnt = avrTriggerDelayMaxTcnt;
+		triacTriggerDelay = stmTriggerDelayMax;
 	}
 	taskEXIT_CRITICAL();
 }
 
-uint32_t getTriacFireDuration()
-{
-	uint32_t res = 0;
-	taskENTER_CRITICAL();
-	res = avrTriggerDelayMaxTcnt;
-	taskEXIT_CRITICAL();
-	return res;
-}
 
 uint16_t getTriacTriggerDelay()
 {
-	uint16_t res = 0;
-
+	uint32_t res = 0;
+	taskENTER_CRITICAL();
+	res = triacTriggerDelay;
+	taskEXIT_CRITICAL();
 	return res;
 }
 
@@ -207,15 +190,24 @@ void EXTI15_10_IRQHandler(void)
   {
     __HAL_GPIO_EXTI_CLEAR_IT(zeroPassPin_Pin);
     if (HAL_GPIO_ReadPin(zeroPassPin_GPIO_Port,zeroPassPin_Pin))  {
-
+    	startDelayTimer();
     }  else  {
-
+    	stopDelayTimer();
     }
 
 
   }
 }
 
+void disableZeroPassDetector()
+{
+	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
+}
+
+void enableZeroPassDetector()
+{
+	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+}
 
 void initZeroPassDetector()
 {
@@ -226,7 +218,7 @@ void initZeroPassDetector()
 	HAL_GPIO_Init(zeroPassPin_GPIO_Port, &GPIO_InitStruct);
 
 	HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
-	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+//	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
 void initBuzzerPin()
@@ -283,14 +275,14 @@ void startTriacRun()
 {
 	startADC();
 	resetPID();
-	// todo start timers and zero pass detector.... pid etc....
-	// and stop in stopTriacRun
+	enableZeroPassDetector();
 }
 
 void stopTriacRun()
 {
+	stopDelayTimer();
 	stopADC();
-
+	disableZeroPassDetector();
 }
 
 
@@ -405,7 +397,7 @@ void initTriacIntr()
 {
 	durationTimerOn = 0;
 	currentAmpsADCValue = 0;
-	triacFireDurationTcnt = 0;
+	triacTriggerDelay = 0;
 	initAdc();
 	initInterruptsNPorts();
 }

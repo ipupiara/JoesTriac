@@ -48,9 +48,9 @@ void setBuzzerOn();
 void setBuzzerOff();
 void toggleBuzzer();
 
-
-void setTriacFireDuration(int32_t cmsecs);
-uint32_t getTriacFireDuration();
+extern uint16_t triacTriggerDelay;
+void setTriacTriggerDelay(int32_t cmsecs);
+uint16_t getTriacTriggerDelay();
 
 void startTriacRun();
 void stopTriacRun();

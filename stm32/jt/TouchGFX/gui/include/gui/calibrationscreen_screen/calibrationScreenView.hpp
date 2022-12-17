@@ -11,7 +11,7 @@ public:
     virtual ~calibrationScreenView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
-    void updateAmpsValues(float  adcV, uint32_t adc);
+    void updateAmpsValues(float adcV, uint32_t adc, uint16_t triacDelay);
     void updateTriacDelay(uint32_t val);
     void updateDesiredAmps(float amps);
 

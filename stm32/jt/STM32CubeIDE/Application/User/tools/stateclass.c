@@ -322,7 +322,7 @@ uStInt evCalibrateScaleChecker(void)
 void entryCalibrateLowState(void)
 {
 	info_printf("entryCalibrateLowState\n");
-	setTriacFireDuration(0);
+	setTriacTriggerDelay(stmTriggerDelayMax);
 }
 
 void exitCalibrateLowState(void)
@@ -451,7 +451,7 @@ void entryTriacActiveState(void)
 {
 	info_printf("entryTriacActiveState\n");
 	startDurationTimer(getDefinesWeldingTime());
-	setTriacFireDuration(0);
+	setTriacTriggerDelay(stmTriggerDelayMax);
 	startTriacRun();
 }
 

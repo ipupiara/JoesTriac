@@ -205,7 +205,7 @@ void InitializePID(real kpTot,real kpP, real ki, real kd, real error_thresh, rea
 	// PN 3.Oct 2011, added m_kP for better setting of proportional factor only
 	// though these 4 factors will be linearly dependent
 	real avrMax = avrTriggerDelayMaxTcnt;
-	real stmMax = stmTriggerDelayMaxTcnt;
+	real stmMax = stmTriggerDelayMax;
 	real delta = (stmMax / avrMax);
 
 	m_kP   = kpP;
@@ -311,8 +311,8 @@ void calcNextTriacDelay()
 	corr = nextCorrection(err) + corrCarryOver;
 	corrInt = corr;
 	corrCarryOver = corr - corrInt;
-	newDelay = getTriacFireDuration() + corrInt;
-	setTriacFireDuration(newDelay);
+	newDelay = getTriacTriggerDelay() + corrInt;
+	setTriacTriggerDelay(newDelay);
 //#ifdef printfPID
 //	double corrD = corr;
 //	double carryCorrD = corrCarryOver;

@@ -21,7 +21,6 @@
 
 osSemaphoreId_t   waitSema;
 
-uint32_t  triacTriggerDelay;
 
 void definesWait(uint32_t ms)
 {
@@ -48,6 +47,7 @@ void sendActualValuesToCalibScreen()
 	msg.messageType = calibrationScreenUpdate;
 	msg.evData.calibrationScreenData.adcValue = getCurrentAmpsADCValue();
 	msg.evData.calibrationScreenData.adcVolts = adcVoltage();
+	msg.evData.calibTriacDelay = getTriacTriggerDelay();
 	sendPresenterMessage(&msg);
 }
 
@@ -425,30 +425,16 @@ void errorHandler(uint32_t  code, errorSeverity severity, char* errorString, cha
 	if (severity == stop) {  do {} while (1);}
 }
 
-void addToTriggerDelay(int32_t val)
-{
-	uint32_t res;
-	if ((res = (triacTriggerDelay + val)) < 1000) {
-		triacTriggerDelay = res;
-	}  else  {
-		if (res < 1101)  {
-			triacTriggerDelay = 1000;
-		}  else  {
-			triacTriggerDelay = 0;
-		}
-	}
-}
 
 void calibTriacDelayChange(int32_t diff)
 {
-   //   change variable
-
-	CJoesPresenterEventT msg;
-
-	addToTriggerDelay(diff);
+   uint16_t res = getTriacTriggerDelay();
+   res += diff;
+   setTriacTriggerDelay(res);
+   CJoesPresenterEventT msg;
 
 	msg.messageType = calibTriacDelay;
-	msg.evData.calibTriacDelay = triacTriggerDelay;
+	msg.evData.calibTriacDelay =res;
 	sendPresenterMessage(&msg);
 }
 

@@ -16,7 +16,7 @@ void calibrationScreenView::tearDownScreen()
     calibrationScreenViewBase::tearDownScreen();
 }
 
-void calibrationScreenView::updateAmpsValues(float adcV, uint32_t adc)
+void calibrationScreenView::updateAmpsValues(float adcV, uint32_t adc, uint16_t triacDelay)
 {
 	Unicode::snprintfFloat(adcVoltageTextBuffer, 6, "%01.3f", adcV);
 	adcVoltageText.setWildcard(adcVoltageTextBuffer);
@@ -25,6 +25,10 @@ void calibrationScreenView::updateAmpsValues(float adcV, uint32_t adc)
 	Unicode::snprintf(adcValueTextBuffer, 5, "%4d", adc);
 	adcValueText.setWildcard(adcValueTextBuffer);
 	adcValueText.invalidate();
+
+	Unicode::snprintf(delayTextBuffer,5, "%4d", triacDelay);
+	delayText.setWildcard(delayTextBuffer);
+	delayText.invalidate();
 }
 
 void calibrationScreenView::updateTriacDelay(uint32_t val)
@@ -32,7 +36,6 @@ void calibrationScreenView::updateTriacDelay(uint32_t val)
 	Unicode::snprintf(delayTextBuffer,5, "%4d", val);
 	delayText.setWildcard(delayTextBuffer);
 	delayText.invalidate();
-
 }
 
 void calibrationScreenView::updateDesiredAmps(float amps)

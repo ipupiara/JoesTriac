@@ -17,7 +17,7 @@ extern "C"
 #define calibHighAmps  80.0
 #define calibLowAmps   30.0
 #define avrTriggerDelayMaxTcnt  810
-#define stmTriggerDelayMaxTcnt  1000   // todo tobe defined, currently just any dummy value
+#define stmTriggerDelayMax  1000   // todo tobe defined, currently just any dummy value
 
 #define errorStringLen  20
 #define eepromI2cAddr   0xA0
