@@ -322,7 +322,8 @@ uStInt evCalibrateScaleChecker(void)
 void entryCalibrateLowState(void)
 {
 	info_printf("entryCalibrateLowState\n");
-	setTriacTriggerDelay(stmTriggerDelayMax);
+//	setTriacTriggerDelay(stmTriggerDelayMax);
+	setTriacTriggerDelay(100);
 }
 
 void exitCalibrateLowState(void)

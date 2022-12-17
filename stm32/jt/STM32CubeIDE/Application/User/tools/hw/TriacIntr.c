@@ -104,6 +104,7 @@ void setDelayTimerCnt(uint16_t val)
 }
 
 
+
 void TIM5_IRQHandler(void)
 {
 
@@ -131,10 +132,10 @@ void TIM5_IRQHandler(void)
 }
 
 
-void startDelayTimer()
+void startDelayTimerFromIsr()
 {
 	// enable Timer, interrupts , set psc and arr and start
-	setDelayTimerArr(getTriacTriggerDelay());
+	setDelayTimerArr(triacTriggerDelay);
 	setDelayTimerPsc(1000);
 	setDelayTimerCnt(0);
 	setTriggerPinOff();
@@ -190,7 +191,7 @@ void EXTI15_10_IRQHandler(void)
   {
     __HAL_GPIO_EXTI_CLEAR_IT(zeroPassPin_Pin);
     if (HAL_GPIO_ReadPin(zeroPassPin_GPIO_Port,zeroPassPin_Pin))  {
-    	startDelayTimer();
+    	startDelayTimerFromIsr();
     }  else  {
     	stopDelayTimer();
     }
@@ -268,7 +269,7 @@ void initInterruptsNPorts()
 	initZeroPassDetector();
 	initBuzzerPin();
 	initTriacTriggerPin();
-
+	initTriacTimer();
 }
 
 void startTriacRun()
@@ -401,196 +402,4 @@ void initTriacIntr()
 	initAdc();
 	initInterruptsNPorts();
 }
-
-
-//
-//void calcAmtInductiveRepetitions(int16_t triacFireDurationTcnt2)
-//{
-//	if ( inductiveLoad)  {
-//		float amtInductiveRepetitionsF = 0.0;
-//		float triacFireDurationTcnt2F = triacFireDurationTcnt2;
-////		amtInductiveRepetitions = ((triacFireDurationTcnt2 * ( 1  /(11.0592e+6  /128) )) * 1.0e+6  ) /  measuredRepetitionIntervalus;
-//		amtInductiveRepetitionsF = (triacFireDurationTcnt2F * 11.63  )  /  measuredRepetitionIntervalus;
-//		// always cut off modulo part when converting to int
-//		amtInductiveRepetitions = amtInductiveRepetitionsF;   // tobe  debugged
-//	} else {
-//		amtInductiveRepetitions = 1;
-//	}
-//
-//}
-//
-//ISR(TIMER2_COMPA_vect)
-//{
-//	cli();
-//	if (remainingTriacTriggerDelayCounts <= 0) {
-//		PORTD |= 0x10;
-//		delay6pnt2d5us(triacTriggerLength);   // approx 5 us of triac trigger , try later half or even less, measured 7 with oscilloscope
-//		PORTD &= ~0x10;			// handled synchronous
-//		if ((triacTriggerTimeTcnt2 >= triggerDelayMaxTcnt2) ) {   //  || (amtInductiveRepetitions <= 0)  ) {
-//			stopTimer2();
-//		} else {
-//			startTriacTriggerDelay(delayBetweenTriacTriggers);
-//			// --amtInductiveRepetitions;
-//		}
-//	} else {
-//		setTriacTriggerDelayValues();
-//	}
-//	sei();
-//}
-//
-//ISR(INT0_vect)
-//{
-//	cli();
-//	if ((PIND & 0x04) != 0) {
-//		stopTimer2();
-//	} else {
-//		triacTriggerTimeTcnt2 = 0;
-//		if (triacFireDurationTcnt2 > 0)  {
-//			startTriacTriggerDelay(  triggerDelayMaxTcnt2 - triacFireDurationTcnt2);
-////			calcAmtInductiveRepetitions(triacFireDurationTcnt2);
-//		}
-//	}
-//	sei();
-//}
-//
-//ISR(TIMER0_COMPA_vect)
-//{    // needed for ADC so far..
-//}
-//
-//int8_t sec10Counter;
-//int8_t shortCircuitSec10Counter;
-//uint8_t  shortCircuitAlarmOn;
-//int16_t  dValueSec10Counter;
-//uint8_t  dValueAlarmOn;
-//
-//
-//ISR(TIMER1_COMPA_vect)
-//{
-//#ifdef shortCircuitAlarmSupported
-//
-//		cli();
-//		if (shortCircuitSec10Counter > 0)  {
-//			-- shortCircuitSec10Counter;
-//			if (shortCircuitSec10Counter == 0)  {
-//				shortCircuitSec10Counter = -1;
-//				shortCircuitAlarmOn = 1;
-//				sprintf((char *) &lastFatalErrorString,"short circuit");
-//				fatalErrorOccurred = 1;
-//			}
-//		}
-//		if (dValueSec10Counter > 0)  {
-//			-- dValueSec10Counter;
-//			if (dValueSec10Counter == 0)  {
-//				dValueSec10Counter = -1;
-//				if (dValueAlarmFatal > 0) {
-//					sprintf((char *) &lastFatalErrorString,"DValue low/high");
-//					fatalErrorOccurred = 1;
-//				} else {
-//					dValueAlarmOn = 1;
-//				}
-//			}
-//		}
-//		sei();
-//		if ((shortCircuitAlarmOn > 0) || (dValueAlarmOn > 0)) {
-////			if ((sec10Counter == 5) || (sec10Counter ==  10 ) || (sec10Counter == 3) || (sec10Counter ==  8 )) {sec
-//			if ((sec10Counter & 0x1) == 0 )  {
-//				toggleCompletionAlarm();
-//			}
-//		}  else {
-//			setCompletionAlarmOff();
-//		}
-//
-//#endif
-//	if ( sec10Counter >= 10)  {
-//		sec10Counter = 1;
-//		secondsDurationTimerRemaining --;
-//		secondsInDurationTimer ++;
-//		if (secondsDurationTimerRemaining <= 0) {
-//			stopDurationTimer();
-//			durationTimerReachead = 1;
-//		} else {
-//			runningSecondsTick = 1;
-//		}
-//	}  else {
-//		++ sec10Counter;
-//	}
-//}
-//
-
-///*
-//int16_t  valueFrom6Bit2Complement(int16_t adcV)
-//{
-//	if (adcV & 0x0200) {
-//		adcV--;
-//		adcV = ~(adcV | 0xFC00);
-//		adcV = - adcV;
-//	}
-//	return adcV;
-//}
-//
-//int16_t diffADCValue()
-//{
-//	int16_t res;
-//	res = ampsADCValue();
-//	res = valueFrom6Bit2Complement(res);
-//	return res;
-//}
-//*/
-//
-//#define ocra2aValueMax 0XFC  // still to be defined
-//
-//void setTcnt2AndOcra2a(int16_t newTcnt2Val,int16_t newOcra2a)
-//{
-//	// timer must be stopped to set tcnt, because else, on an
-//	// unprotected set, the timer itself could interfere with the *non double buffered feature" write access.
-//	// resulting in a more or less random set value.
-//	int8_t tccr2bStack;
-//	tccr2bStack = TCCR2B;
-//	TCCR2B = 0b00000000  ;  // CTC, timer stopped
-//	if (TCNT2 != newTcnt2Val) {  // dont set if not needed , because  .....
-//		TCNT2 = newTcnt2Val;
-//		if (newOcra2a == (TCNT2 + 1)) {++ newOcra2a; }  // .... updating avoids triggering of next clock cycle, but needs overnext.
-//	}
-//	OCR2A = newOcra2a;
-//	TCCR2B = tccr2bStack  ; // set previous value
-//}
-//
-//void setTriacTriggerDelayValues()
-//{
-//	if (remainingTriacTriggerDelayCounts < ocra2aValueMax) {
-//		setTcnt2AndOcra2a (0, remainingTriacTriggerDelayCounts);
-//		triacTriggerTimeTcnt2 += remainingTriacTriggerDelayCounts;
-//		remainingTriacTriggerDelayCounts = 0;
-//	} else {
-//		remainingTriacTriggerDelayCounts -= ocra2aValueMax;
-//		setTcnt2AndOcra2a(0, ocra2aValueMax);
-//		triacTriggerTimeTcnt2 +=  ocra2aValueMax;
-//	}
-//}
-//
-//void startTimer2()
-//{
-//	TIFR2 = 0x00;
-//	TIMSK2   = 0b00000010;  //  Output Compare A Match Interrupt Enable
-//	TCCR2B = 0b00000101  ; // CTC on CC2A , set clk / 128, timer 2 started
-//}
-//
-//void stopTimer2()
-//{
-//	TCCR2B = 0b00000000  ;  // CTC, timer stopped
-//	TIMSK2  = 0x00;
-//	TIFR2 = (1<< OCF2A);    // cleared by writing a "logic" one to the flag
-//}
-//
-//
-//void startTriacTriggerDelay( int16_t delayDuration)  // must run protected between cli and sei
-//{
-//	if (delayDuration <= 0) {
-//		delayDuration = 1;   // just a very short duration, but one that will happen in future
-//	}
-//	remainingTriacTriggerDelayCounts = delayDuration;
-//	setTriacTriggerDelayValues();
-//	startTimer2();
-//}
-//
 
