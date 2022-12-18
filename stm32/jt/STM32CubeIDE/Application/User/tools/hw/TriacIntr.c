@@ -117,14 +117,14 @@ void TIM5_IRQHandler(void)
 	  	__HAL_TIM_DISABLE(&htim5);
 	  	__HAL_TIM_DISABLE_IT(&htim5, TIM_IT_UPDATE);
 		setDelayTimerCnt(0);
-		setDelayTimerPsc(10);
+		setDelayTimerPsc(100);
 
 		if (isTriggerPinOn())  {
 			setTriggerPinOff();
 			setDelayTimerArr(300);
 		}  else  {
 			setTriggerPinOn();
-			setDelayTimerArr(50);
+			setDelayTimerArr(2000);
 		}
 		__HAL_TIM_ENABLE_IT(&htim5, TIM_IT_UPDATE);
 		__HAL_TIM_ENABLE(&htim5);
@@ -234,18 +234,18 @@ void initBuzzerPin()
 
 void setTriggerPinOn()
 {
-
+	HAL_GPIO_WritePin(triacTriggerPin_GPIO_Port, triacTriggerPin_Pin, 1);
 }
 
 void setTriggerPinOff()
 {
-
+	HAL_GPIO_WritePin(triacTriggerPin_GPIO_Port, triacTriggerPin_Pin, 0);
 }
 
 uint8_t isTriggerPinOn()
 {
 	uint8_t res = 0;
-
+	res = HAL_GPIO_ReadPin(triacTriggerPin_GPIO_Port, triacTriggerPin_Pin);
 	return res;
 }
 
@@ -285,12 +285,6 @@ void stopTriacRun()
 	stopADC();
 	disableZeroPassDetector();
 }
-
-
-
-
-
-
 
 void durationTimerTick()
 {
@@ -332,7 +326,7 @@ void resumeDurationTimer()
 
 void haltDurationTimer()
 {
-	durationTimerOn = 0;
+	durationTimerOn = 0;  // CLARIFY WITH Team if amps shall stop or not yet.
 }
 
 uint32_t getSecondsDurationTimerRemaining()
