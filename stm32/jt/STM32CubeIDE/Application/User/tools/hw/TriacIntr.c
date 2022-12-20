@@ -13,6 +13,8 @@
 #define buzzerPin_Pin GPIO_PIN_15
 #define buzzerPin_GPIO_Port GPIOB
 
+#define defaultPsc  940
+
 TIM_HandleTypeDef htim5;
 
 uint8_t durationTimerOn;
@@ -115,18 +117,18 @@ void TIM5_IRQHandler(void)
 	  }
 	  	__HAL_TIM_DISABLE(&htim5);
 	  	__HAL_TIM_DISABLE_IT(&htim5, TIM_IT_UPDATE);
-//		setDelayTimerCnt(0);
-//		setDelayTimerPsc(10);
-//
-//		if (isTriggerPinOn())  {
-//			setTriggerPinOff();
-//			setDelayTimerArr(50);
-//		}  else  {
+		setDelayTimerCnt(0);
+		setDelayTimerPsc(10);
+
+		if (isTriggerPinOn())  {
+			setTriggerPinOff();
+			setDelayTimerArr(50);
+		}  else  {
 			setTriggerPinOn();
-//			setDelayTimerArr(300);
-//		}
-//		__HAL_TIM_ENABLE_IT(&htim5, TIM_IT_UPDATE);
-//		__HAL_TIM_ENABLE(&htim5);
+			setDelayTimerArr(300);
+		}
+		__HAL_TIM_ENABLE_IT(&htim5, TIM_IT_UPDATE);
+		__HAL_TIM_ENABLE(&htim5);
 	}
 }
 
@@ -134,7 +136,7 @@ void TIM5_IRQHandler(void)
 void startDelayTimerFromIsr()
 {
 	setDelayTimerArr(triacTriggerDelay);
-	setDelayTimerPsc(1000);
+	setDelayTimerPsc(defaultPsc);
 	setDelayTimerCnt(0);
 	setTriggerPinOff();
 	__HAL_TIM_ENABLE_IT(&htim5, TIM_IT_UPDATE);
@@ -156,7 +158,7 @@ void initTriacTimer()
 	__HAL_RCC_TIM5_CLK_ENABLE();
 
 	htim5.Instance = TIM5;
-	htim5.Init.Prescaler = 1000;
+	htim5.Init.Prescaler = defaultPsc;
 	htim5.Init.CounterMode = TIM_COUNTERMODE_UP;
 	htim5.Init.Period = 100;
 	htim5.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -187,9 +189,9 @@ void EXTI15_10_IRQHandler(void)
   if(__HAL_GPIO_EXTI_GET_IT(zeroPassPin_Pin) != RESET) {
     __HAL_GPIO_EXTI_CLEAR_IT(zeroPassPin_Pin);
     if (HAL_GPIO_ReadPin(zeroPassPin_GPIO_Port,zeroPassPin_Pin))  {
-    	startDelayTimerFromIsr();
-    }  else  {
     	stopDelayTimer();
+    }  else  {
+    	startDelayTimerFromIsr();
     }
   }
 }
