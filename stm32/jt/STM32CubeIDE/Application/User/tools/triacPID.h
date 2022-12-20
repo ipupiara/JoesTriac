@@ -53,7 +53,7 @@ void persistentZeroAdjustSecondTickJob();
 //int8_t setAdjustJob(int8_t jobS);
 
 
-void calcNextTriacDelay();
+extern void calcNextTriacDelay();
 
 #ifdef  __cplusplus
 }

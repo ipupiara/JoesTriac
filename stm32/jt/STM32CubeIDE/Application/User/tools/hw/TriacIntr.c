@@ -107,7 +107,6 @@ void setDelayTimerCnt(uint16_t val)
 
 void TIM5_IRQHandler(void)
 {
-
 //  HAL_TIM_IRQHandler(&htim5);
 
   	if (__HAL_TIM_GET_FLAG(&htim5, TIM_FLAG_UPDATE) != 0)  {
@@ -116,25 +115,24 @@ void TIM5_IRQHandler(void)
 	  }
 	  	__HAL_TIM_DISABLE(&htim5);
 	  	__HAL_TIM_DISABLE_IT(&htim5, TIM_IT_UPDATE);
-		setDelayTimerCnt(0);
-		setDelayTimerPsc(100);
-
-		if (isTriggerPinOn())  {
-			setTriggerPinOff();
-			setDelayTimerArr(300);
-		}  else  {
+//		setDelayTimerCnt(0);
+//		setDelayTimerPsc(10);
+//
+//		if (isTriggerPinOn())  {
+//			setTriggerPinOff();
+//			setDelayTimerArr(50);
+//		}  else  {
 			setTriggerPinOn();
-			setDelayTimerArr(2000);
-		}
-		__HAL_TIM_ENABLE_IT(&htim5, TIM_IT_UPDATE);
-		__HAL_TIM_ENABLE(&htim5);
+//			setDelayTimerArr(300);
+//		}
+//		__HAL_TIM_ENABLE_IT(&htim5, TIM_IT_UPDATE);
+//		__HAL_TIM_ENABLE(&htim5);
 	}
 }
 
 
 void startDelayTimerFromIsr()
 {
-	// enable Timer, interrupts , set psc and arr and start
 	setDelayTimerArr(triacTriggerDelay);
 	setDelayTimerPsc(1000);
 	setDelayTimerCnt(0);
@@ -145,7 +143,6 @@ void startDelayTimerFromIsr()
 
 void stopDelayTimer()
 {
-	// stop the timer anyhow if passed or not set triggerPinLow
 	setTriggerPinOff();
 	__HAL_TIM_DISABLE(&htim5);
 	__HAL_TIM_DISABLE_IT(&htim5, TIM_IT_UPDATE);
@@ -187,16 +184,13 @@ void initTriacTimer()
 
 void EXTI15_10_IRQHandler(void)
 {
-  if(__HAL_GPIO_EXTI_GET_IT(zeroPassPin_Pin) != RESET)
-  {
+  if(__HAL_GPIO_EXTI_GET_IT(zeroPassPin_Pin) != RESET) {
     __HAL_GPIO_EXTI_CLEAR_IT(zeroPassPin_Pin);
     if (HAL_GPIO_ReadPin(zeroPassPin_GPIO_Port,zeroPassPin_Pin))  {
     	startDelayTimerFromIsr();
     }  else  {
     	stopDelayTimer();
     }
-
-
   }
 }
 
@@ -301,7 +295,6 @@ void durationTimerTick()
 		}
 	}
 }
-
 
 
 void startDurationTimer(uint32_t secs)

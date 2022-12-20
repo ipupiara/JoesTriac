@@ -89,10 +89,6 @@ void initPersistendData()
 	persistentRec.zCalibOn = 0;
 }
 
-
-
-
-
 uint32_t getDefinesWeldingTime()
 {
 	uint32_t wTime;
