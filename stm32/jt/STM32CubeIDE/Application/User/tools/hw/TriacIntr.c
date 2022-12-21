@@ -73,7 +73,7 @@ void setTriacTriggerDelay(int32_t durationTcnt)
 		if (durationTcnt > 0) {
 			triacTriggerDelay = durationTcnt;
 		}  else {
-			triacTriggerDelay = 0;
+			triacTriggerDelay = 1;
 		}
 	} else {
 		triacTriggerDelay = stmTriggerDelayMax;
