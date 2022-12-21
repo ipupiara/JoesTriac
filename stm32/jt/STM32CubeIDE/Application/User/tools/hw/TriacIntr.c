@@ -13,7 +13,7 @@
 #define buzzerPin_Pin GPIO_PIN_15
 #define buzzerPin_GPIO_Port GPIOB
 
-#define delayTimerPsc  940
+#define defaultPsc  940
 
 TIM_HandleTypeDef htim5;
 TIM_HandleTypeDef htim4;
@@ -93,33 +93,18 @@ uint16_t getTriacTriggerDelay()
 
 void setRailTimerArr(int16_t  period)
 {
-	htim5.Instance->ARR = period;
-}
-
-void setRailTimerPsc(uint16_t val)
-{
-	htim5.Instance->PSC = val;
+	htim4.Instance->ARR = period;
 }
 
 void setRailTimerCnt(uint16_t val)
 {
-	htim5.Instance->CNT = val;
+	htim4.Instance->CNT = val;
 }
+
 
 void setDelayTimerArr(int16_t  period)
 {
 	htim5.Instance->ARR = period;
-}
-
-void setDelayTimerPsc(uint16_t val)
-{
-	htim5.Instance->PSC = val;
-}
-
-uint16_t getDelayTimerCnt()
-{
-	uint16_t res = htim5.Instance->PSC;
-	return res;
 }
 
 void setDelayTimerCnt(uint16_t val)
@@ -129,15 +114,13 @@ void setDelayTimerCnt(uint16_t val)
 
 void startRailTimer()
 {
-	setRailTimerCnt(0);
-	setRailTimerArr(50);
+
 	__HAL_TIM_ENABLE_IT(&htim4, TIM_IT_UPDATE);
 	__HAL_TIM_ENABLE(&htim4);
 }
 
 void stopRailTimer()
 {
-	setTriggerPinOff();
 	__HAL_TIM_DISABLE(&htim4);
 	__HAL_TIM_DISABLE_IT(&htim4, TIM_IT_UPDATE);
 }
@@ -145,7 +128,6 @@ void stopRailTimer()
 void startDelayTimerFromIsr()
 {
 	setDelayTimerArr(triacTriggerDelay);
-	setDelayTimerPsc(delayTimerPsc);
 	setDelayTimerCnt(0);
 	setTriggerPinOff();
 	__HAL_TIM_ENABLE_IT(&htim5, TIM_IT_UPDATE);
@@ -154,19 +136,17 @@ void startDelayTimerFromIsr()
 
 void stopDelayTimer()
 {
+	setTriggerPinOff();
 	__HAL_TIM_DISABLE(&htim5);
 	__HAL_TIM_DISABLE_IT(&htim5, TIM_IT_UPDATE);
 }
 
-
 void TIM4_IRQHandler(void)
 {
   	if (__HAL_TIM_GET_FLAG(&htim4, TIM_FLAG_UPDATE) != 0)  {
-	  if (__HAL_TIM_GET_IT_SOURCE(&htim4, TIM_IT_UPDATE) != 0) {
 		__HAL_TIM_CLEAR_IT(&htim4, TIM_IT_UPDATE);
-	  }
-	  	__HAL_TIM_DISABLE(&htim4);
-	  	__HAL_TIM_DISABLE_IT(&htim4, TIM_IT_UPDATE);
+
+	  	stopRailTimer();
 		setRailTimerCnt(0);
 
 		if (isTriggerPinOn())  {
@@ -176,29 +156,43 @@ void TIM4_IRQHandler(void)
 			setTriggerPinOn();
 			setRailTimerArr(50);
 		}
-		__HAL_TIM_ENABLE_IT(&htim4, TIM_IT_UPDATE);
-		__HAL_TIM_ENABLE(&htim4);
+		startRailTimer();
 	}
 }
+
 
 void TIM5_IRQHandler(void)
 {
 //  HAL_TIM_IRQHandler(&htim5);
 
   	if (__HAL_TIM_GET_FLAG(&htim5, TIM_FLAG_UPDATE) != 0)  {
-	  if (__HAL_TIM_GET_IT_SOURCE(&htim5, TIM_IT_UPDATE) != 0) {
 		__HAL_TIM_CLEAR_IT(&htim5, TIM_IT_UPDATE);
-	  }
 
-	  if (getDelayTimerCnt() < stmTriggerDelayMax) {
-		  setDelayTimerArr(stmTriggerDelayMax);
-		  startRailTimer();
-	  }  else {
-		  stopRailTimer();
-		  __HAL_TIM_DISABLE(&htim5);
-		  __HAL_TIM_DISABLE_IT(&htim5, TIM_IT_UPDATE);
-	  }
+	  	__HAL_TIM_DISABLE(&htim5);
+	  	__HAL_TIM_DISABLE_IT(&htim5, TIM_IT_UPDATE);
+
+	  	setTriggerPinOn();
+
+	  	setRailTimerArr(50);
+	  	setRailTimerCnt(0);
+	  	startRailTimer();
+
+//		__HAL_TIM_ENABLE_IT(&htim5, TIM_IT_UPDATE);
+//		__HAL_TIM_ENABLE(&htim5);
 	}
+}
+
+void EXTI15_10_IRQHandler(void)
+{
+  if(__HAL_GPIO_EXTI_GET_IT(zeroPassPin_Pin) != RESET) {
+    __HAL_GPIO_EXTI_CLEAR_IT(zeroPassPin_Pin);
+    if (HAL_GPIO_ReadPin(zeroPassPin_GPIO_Port,zeroPassPin_Pin))  {
+    	stopDelayTimer();
+    	stopRailTimer();
+    }  else  {
+    	startDelayTimerFromIsr();
+    }
+  }
 }
 
 
@@ -210,30 +204,31 @@ void initTriacDelayTimer()
 	__HAL_RCC_TIM5_CLK_ENABLE();
 
 	htim5.Instance = TIM5;
-	htim5.Init.Prescaler = delayTimerPsc;
+	htim5.Init.Prescaler = defaultPsc;
 	htim5.Init.CounterMode = TIM_COUNTERMODE_UP;
 	htim5.Init.Period = 100;
 	htim5.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
 	htim5.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
 	if (HAL_TIM_Base_Init(&htim5) != HAL_OK)
 	{
-		errorHandler(1,stop," HAL_TIM_Base_Init ","initTriacDelayTimer");
+		errorHandler(1,stop," HAL_TIM_Base_Init ","initTriacTimer");
 	}
 	sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
 	if (HAL_TIM_ConfigClockSource(&htim5, &sClockSourceConfig) != HAL_OK)
 	{
-		errorHandler(2,stop," HAL_TIM_ConfigClockSource ","initTriacDelayTimer");
+		errorHandler(2,stop," HAL_TIM_ConfigClockSource ","initTriacTimer");
 	}
 	sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
 	sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
 	if (HAL_TIMEx_MasterConfigSynchronization(&htim5, &sMasterConfig) != HAL_OK)
 	{
-		errorHandler(3,stop," HAL_TIMEx_MasterConfigSynchronization ","initTriacDelayTimer");
+		errorHandler(3,stop," HAL_TIMEx_MasterConfigSynchronization ","initTriacTimer");
 	}
 
 	HAL_NVIC_SetPriority(TIM5_IRQn, 0, 0);
-	HAL_NVIC_DisableIRQ(TIM5_IRQn);
+	HAL_NVIC_EnableIRQ(TIM5_IRQn);
 }
+
 
 void initTriacRailTimer()
 {
@@ -242,12 +237,12 @@ void initTriacRailTimer()
 
 	__HAL_RCC_TIM4_CLK_ENABLE();
 
-	htim5.Instance = TIM4;
-	htim5.Init.Prescaler = 10;
-	htim5.Init.CounterMode = TIM_COUNTERMODE_UP;
-	htim5.Init.Period = 50;
-	htim5.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-	htim5.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+	htim4.Instance = TIM4;
+	htim4.Init.Prescaler = 10;
+	htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
+	htim4.Init.Period = 50;
+	htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+	htim4.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
 	if (HAL_TIM_Base_Init(&htim4) != HAL_OK)
 	{
 		errorHandler(1,stop," HAL_TIM_Base_Init ","initRailTimer");
@@ -265,22 +260,9 @@ void initTriacRailTimer()
 	}
 
 	HAL_NVIC_SetPriority(TIM4_IRQn, 0, 0);
-	HAL_NVIC_DisableIRQ(TIM4_IRQn);
+	HAL_NVIC_EnableIRQ(TIM4_IRQn);
 }
 
-
-void EXTI15_10_IRQHandler(void)
-{
-  if(__HAL_GPIO_EXTI_GET_IT(zeroPassPin_Pin) != RESET) {
-    __HAL_GPIO_EXTI_CLEAR_IT(zeroPassPin_Pin);
-    if (HAL_GPIO_ReadPin(zeroPassPin_GPIO_Port,zeroPassPin_Pin))  {
-    	stopDelayTimer();
-    	stopRailTimer();
-    }  else  {
-    	startDelayTimerFromIsr();
-    }
-  }
-}
 
 void disableZeroPassDetector()
 {
@@ -301,7 +283,7 @@ void initZeroPassDetector()
 	HAL_GPIO_Init(zeroPassPin_GPIO_Port, &GPIO_InitStruct);
 
 	HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
-	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
+//	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
 void initBuzzerPin()
@@ -342,18 +324,6 @@ void initTriacTriggerPin()
 }
 
 
-void initInterruptsNPorts()
-{
-	__HAL_RCC_GPIOA_CLK_ENABLE();
-	__HAL_RCC_GPIOH_CLK_ENABLE();
-	__HAL_RCC_GPIOB_CLK_ENABLE();
-
-	initZeroPassDetector();
-	initBuzzerPin();
-	initTriacTriggerPin();
-	initTriacDelayTimer();
-}
-
 void startTriacRun()
 {
 	startADC();
@@ -366,6 +336,20 @@ void stopTriacRun()
 	stopDelayTimer();
 	stopADC();
 	disableZeroPassDetector();
+}
+
+
+void initInterruptsNPorts()
+{
+	__HAL_RCC_GPIOA_CLK_ENABLE();
+	__HAL_RCC_GPIOH_CLK_ENABLE();
+	__HAL_RCC_GPIOB_CLK_ENABLE();
+
+	initZeroPassDetector();
+	initBuzzerPin();
+	initTriacTriggerPin();
+	initTriacDelayTimer();
+	initTriacRailTimer();
 }
 
 void durationTimerTick()
