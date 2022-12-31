@@ -10,13 +10,13 @@
 #define zeroPassPin_EXTI_IRQn EXTI15_10_IRQn
 #define triacTriggerPin_Pin GPIO_PIN_14
 #define triacTriggerPin_GPIO_Port GPIOB
-#define buzzerPin_Pin GPIO_PIN_15
-#define buzzerPin_GPIO_Port GPIOB
+#define buzzerTimer htim11
 
 #define defaultPsc  940
 
 TIM_HandleTypeDef htim5;
 TIM_HandleTypeDef htim4;
+TIM_HandleTypeDef htim11;
 
 uint8_t durationTimerOn;
 
@@ -127,7 +127,7 @@ void stopRailTimer()
 
 void startDelayTimerFromIsr()
 {
-	setDelayTimerArr(triacTriggerDelay);
+	setDelayTimerArr(triacTriggerDelay); //  unprotected (cli sei) cause in isr anyhow and no interrupt nesting !
 	setDelayTimerCnt(0);
 	setTriggerPinOff();
 	__HAL_TIM_ENABLE_IT(&htim5, TIM_IT_UPDATE);
@@ -195,6 +195,60 @@ void EXTI15_10_IRQHandler(void)
   }
 }
 
+void enableBuzzerTimerPWM()
+{
+	__HAL_TIM_ENABLE(&htim11);
+}
+
+void disableBuzzerTimerPWM()
+{
+	__HAL_TIM_DISABLE(&htim11);
+}
+
+uint8_t isEnabledBuzzerTimerPWM()
+{
+	uint8_t res = ((htim11.Instance->CR1 & TIM_CR1_CEN) == 1) ;
+	return res;
+}
+
+
+void initBuzzerTimerPWM()
+{
+	TIM_OC_InitTypeDef sConfigOC = {0};
+	GPIO_InitTypeDef GPIO_InitStruct = {0};
+	__HAL_RCC_TIM11_CLK_ENABLE();
+
+	htim11.Instance = TIM11;
+	htim11.Init.Prescaler = 0;
+	htim11.Init.CounterMode = TIM_COUNTERMODE_UP;
+	htim11.Init.Period = 25000;
+	htim11.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+	htim11.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+
+	if (HAL_TIM_PWM_Init(&htim11) != HAL_OK)
+	{
+		errorHandler(1,stop," HAL_TIM_PWM_Init ","initBuzzerTimerPWM");
+	}
+	sConfigOC.OCMode = TIM_OCMODE_PWM1;
+	sConfigOC.Pulse = 12500;
+	sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+	if (HAL_TIM_PWM_ConfigChannel(&htim11, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+	{
+		errorHandler(1,stop," HAL_TIM_PWM_ConfigChannel ","initBuzzerTimerPWM");
+	}
+	 __HAL_RCC_GPIOF_CLK_ENABLE();
+	/**TIM11 GPIO Configuration
+	PF7     ------> TIM11_CH1
+	*/
+	GPIO_InitStruct.Pin = GPIO_PIN_7;
+	GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+	GPIO_InitStruct.Alternate = GPIO_AF3_TIM11;
+	HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
+	disableBuzzerTimerPWM();
+}
 
 void initTriacDelayTimer()
 {
@@ -286,16 +340,6 @@ void initZeroPassDetector()
 //	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
-void initBuzzerPin()
-{
-	GPIO_InitTypeDef GPIO_InitStruct = {0};
-	GPIO_InitStruct.Pin = buzzerPin_Pin;
-	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-	GPIO_InitStruct.Pull = GPIO_NOPULL;
-	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-	HAL_GPIO_Init(buzzerPin_GPIO_Port, &GPIO_InitStruct);
-}
-
 void setTriggerPinOn()
 {
 	HAL_GPIO_WritePin(triacTriggerPin_GPIO_Port, triacTriggerPin_Pin, 1);
@@ -346,10 +390,10 @@ void initInterruptsNPorts()
 	__HAL_RCC_GPIOB_CLK_ENABLE();
 
 	initZeroPassDetector();
-	initBuzzerPin();
 	initTriacTriggerPin();
 	initTriacDelayTimer();
 	initTriacRailTimer();
+	initBuzzerTimerPWM();
 }
 
 void durationTimerTick()
@@ -414,17 +458,21 @@ uint32_t getSecondsInDurationTimer()
 
 void setBuzzerOn()
 {
-	HAL_GPIO_WritePin(buzzerPin_GPIO_Port, buzzerPin_Pin, 1);
+	enableBuzzerTimerPWM();
 }
 
 void setBuzzerOff()
 {
-	HAL_GPIO_WritePin(buzzerPin_GPIO_Port, buzzerPin_Pin, 1);
+	disableBuzzerTimerPWM();
 }
 
 void toggleBuzzer()
 {
-	HAL_GPIO_TogglePin(buzzerPin_GPIO_Port, buzzerPin_Pin);
+	if (isEnabledBuzzerTimerPWM()) {
+		disableBuzzerTimerPWM();
+	}  else {
+		enableBuzzerTimerPWM();
+	}
 }
 
 void setCompletionAlarmOff()
