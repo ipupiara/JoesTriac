@@ -189,6 +189,7 @@ void resetPID()
 	corrCarryOver = 0;
  	m_integral =0;
 	m_prev_error = 0;
+	m_started = 0;
 	updateGradAmps();
 }
 
