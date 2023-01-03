@@ -67,7 +67,7 @@ void calibrationScreenPresenter::tick()
 				if (presenterMessage.messageType ==  calibrationScreenUpdate) {
 					view.updateAmpsValues(presenterMessage.evData.calibrationScreenData.adcVolts,
 							presenterMessage.evData.calibrationScreenData.adcValue,
-							presenterMessage.evData.calibTriacDelay);
+							presenterMessage.evData.calibrationScreenData.calibTriacDly);
 				}
 				if (presenterMessage.messageType ==  calibTriacDelay) {
 					view.updateTriacDelay(presenterMessage.evData.calibTriacDelay);

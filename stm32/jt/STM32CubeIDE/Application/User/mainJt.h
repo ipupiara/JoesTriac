@@ -120,6 +120,7 @@ typedef struct  {
 		struct {
 			float     adcVolts;
 			uint32_t  adcValue;
+			uint32_t calibTriacDly;
 		} calibrationScreenData;
 	}  evData;
 } CJoesPresenterEventT ;

@@ -139,6 +139,7 @@ void stopDelayTimer()
 	setTriggerPinOff();
 	__HAL_TIM_DISABLE(&htim5);
 	__HAL_TIM_DISABLE_IT(&htim5, TIM_IT_UPDATE);
+	stopRailTimer();
 }
 
 void TIM4_IRQHandler(void)
