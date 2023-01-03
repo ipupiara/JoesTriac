@@ -197,12 +197,12 @@ void EXTI15_10_IRQHandler(void)
 
 void enableBuzzerTimerPWM()
 {
-	__HAL_TIM_ENABLE(&htim11);
+	htim11.Instance ->CR1  |= (TIM_CR1_CEN);
 }
 
 void disableBuzzerTimerPWM()
 {
-	__HAL_TIM_DISABLE(&htim11);
+	htim11.Instance ->CR1  &= ~(TIM_CR1_CEN);
 }
 
 uint8_t isEnabledBuzzerTimerPWM()
@@ -219,7 +219,7 @@ void initBuzzerTimerPWM()
 	__HAL_RCC_TIM11_CLK_ENABLE();
 
 	htim11.Instance = TIM11;
-	htim11.Init.Prescaler = 0;
+	htim11.Init.Prescaler = 8;
 	htim11.Init.CounterMode = TIM_COUNTERMODE_UP;
 	htim11.Init.Period = 25000;
 	htim11.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -248,8 +248,36 @@ void initBuzzerTimerPWM()
 	GPIO_InitStruct.Alternate = GPIO_AF3_TIM11;
 	HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
 	disableBuzzerTimerPWM();
-}
 
+	//htim11.Instance->CCER |= 0x01;  //  1 << CCIE;
+
+	//  TIMx->CCER &= ~TIM_CCER_CC1E;
+//	TIMx->CCER |= TIM_CCER_CC1E;
+
+//	TIM_TypeDef *TIMx
+
+	TIM_CCxChannelCmd(htim11.Instance, TIM_CHANNEL_1, TIM_CCx_ENABLE);
+	/*
+	 *
+	 * void TIM_CCxChannelCmd(TIM_TypeDef *TIMx, uint32_t Channel, uint32_t ChannelState)
+{
+  uint32_t tmp;
+
+
+  assert_param(IS_TIM_CC1_INSTANCE(TIMx));
+  assert_param(IS_TIM_CHANNELS(Channel));
+
+  tmp = TIM_CCER_CC1E << (Channel & 0x1FU); // 0x1FU = 31 bits max shift
+
+
+  TIMx->CCER &= ~tmp;
+
+  TIMx->CCER |= (uint32_t)(ChannelState << (Channel & 0x1FU)); // 0x1FU = 31 bits max shift
+}
+	 */
+
+
+}
 void initTriacDelayTimer()
 {
 	TIM_ClockConfigTypeDef sClockSourceConfig = {0};
@@ -477,12 +505,12 @@ void toggleBuzzer()
 
 void setCompletionAlarmOff()
 {
-	setBuzzerOn();
+	setBuzzerOff();
 }
 
 void setCompletionAlarmOn()
 {
-	setBuzzerOff();
+	setBuzzerOn();
 }
 
 void toggleCompletionAlarm()

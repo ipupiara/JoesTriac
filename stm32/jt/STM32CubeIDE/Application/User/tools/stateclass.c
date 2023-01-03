@@ -579,10 +579,9 @@ void entryJobOkDisplayState(void)
 
 void exitJobOkDisplayState(void)
 {
-	void setBuzzerOff();
 //	printf("exit I\n");
-//	setCompletionAlarmOff();
-//	stopDurationTimer();
+	setCompletionAlarmOff();
+	stopDurationTimer();
 }
 
 
