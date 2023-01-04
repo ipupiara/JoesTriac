@@ -14,6 +14,13 @@
 
 #define defaultPsc  940
 
+typedef enum {
+	extiRunning,
+	extiStopped
+} extiStateType;
+
+extiStateType extiState;
+
 TIM_HandleTypeDef htim5;
 TIM_HandleTypeDef htim4;
 TIM_HandleTypeDef htim11;
@@ -136,10 +143,12 @@ void startDelayTimerFromIsr()
 
 void stopDelayTimer()
 {
-	setTriggerPinOff();
 	__HAL_TIM_DISABLE(&htim5);
 	__HAL_TIM_DISABLE_IT(&htim5, TIM_IT_UPDATE);
-	stopRailTimer();
+	setTriggerPinOff();
+
+//	__HAL_TIM_DISABLE(&htim5);
+//	__HAL_TIM_DISABLE_IT(&htim5, TIM_IT_UPDATE);  // todo reimplemented after problems with triactrigger
 }
 
 void TIM4_IRQHandler(void)
@@ -185,15 +194,22 @@ void TIM5_IRQHandler(void)
 
 void EXTI15_10_IRQHandler(void)
 {
-  if(__HAL_GPIO_EXTI_GET_IT(zeroPassPin_Pin) != RESET) {
-    __HAL_GPIO_EXTI_CLEAR_IT(zeroPassPin_Pin);
-    if (HAL_GPIO_ReadPin(zeroPassPin_GPIO_Port,zeroPassPin_Pin))  {
-    	stopDelayTimer();
-    	stopRailTimer();
-    }  else  {
-    	startDelayTimerFromIsr();
-    }
-  }
+	if (extiState == extiRunning) {
+	  if(__HAL_GPIO_EXTI_GET_IT(zeroPassPin_Pin) != RESET) {
+		__HAL_GPIO_EXTI_CLEAR_IT(zeroPassPin_Pin);
+		if (HAL_GPIO_ReadPin(zeroPassPin_GPIO_Port,zeroPassPin_Pin))  {
+			stopDelayTimer();
+			stopRailTimer();
+		}  else  {
+			startDelayTimerFromIsr();
+		}
+	  }
+	}  else {
+		stopTriacRun();
+		stopDelayTimer();
+		stopRailTimer();
+		setTriggerPinOff();
+	}
 }
 
 void enableBuzzerTimerPWM()
@@ -258,27 +274,9 @@ void initBuzzerTimerPWM()
 //	TIM_TypeDef *TIMx
 
 	TIM_CCxChannelCmd(htim11.Instance, TIM_CHANNEL_1, TIM_CCx_ENABLE);
-	/*
-	 *
-	 * void TIM_CCxChannelCmd(TIM_TypeDef *TIMx, uint32_t Channel, uint32_t ChannelState)
-{
-  uint32_t tmp;
-
-
-  assert_param(IS_TIM_CC1_INSTANCE(TIMx));
-  assert_param(IS_TIM_CHANNELS(Channel));
-
-  tmp = TIM_CCER_CC1E << (Channel & 0x1FU); // 0x1FU = 31 bits max shift
-
-
-  TIMx->CCER &= ~tmp;
-
-  TIMx->CCER |= (uint32_t)(ChannelState << (Channel & 0x1FU)); // 0x1FU = 31 bits max shift
 }
-	 */
 
 
-}
 void initTriacDelayTimer()
 {
 	TIM_ClockConfigTypeDef sClockSourceConfig = {0};
@@ -349,7 +347,7 @@ void initTriacRailTimer()
 
 void disableZeroPassDetector()
 {
-	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
+	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);   // ok as long as we have only one line on this ISR, else use exti interrupt mask register
 }
 
 void enableZeroPassDetector()
@@ -366,7 +364,8 @@ void initZeroPassDetector()
 	HAL_GPIO_Init(zeroPassPin_GPIO_Port, &GPIO_InitStruct);
 
 	HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
-//	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+	extiState = extiStopped;
+	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
 }
 
 void setTriggerPinOn()
@@ -397,19 +396,6 @@ void initTriacTriggerPin()
 }
 
 
-void startTriacRun()
-{
-	startADC();
-	resetPID();
-	enableZeroPassDetector();
-}
-
-void stopTriacRun()
-{
-	stopDelayTimer();
-	stopADC();
-	disableZeroPassDetector();
-}
 
 
 void initInterruptsNPorts()
@@ -521,6 +507,7 @@ void toggleCompletionAlarm()
 
 void startAmpsADC()
 {
+	currentAmpsADCValue = 0;
 	startADC();
 }
 
@@ -529,6 +516,31 @@ void stopAmpsADC()
 	stopADC();
 	currentAmpsADCValue = 0;
 }
+
+void startTriacRun()
+{
+	startADC();
+	resetPID();
+	extiState = extiRunning;
+	enableZeroPassDetector();    //  todo added this line after problems
+}
+
+void stopTriacRun()
+{
+//	disableZeroPassDetector();    // ok as long as we have only one line on this ISR, else use exti interrupt mask register
+//	stopDelayTimer();
+//	stopRailTimer();
+//	stopAmpsADC();
+//	setTriggerPinOff();    // todo commented after problems
+
+	extiState = extiStopped;
+	disableZeroPassDetector();
+	stopDelayTimer();
+	stopRailTimer();
+	stopADC();
+	setTriggerPinOff();
+}
+
 
 void initTriacIntr()
 {

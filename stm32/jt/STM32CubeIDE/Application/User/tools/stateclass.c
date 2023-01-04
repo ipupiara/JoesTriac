@@ -297,16 +297,14 @@ void entryCalibrateScaleState(void)
 	if(status != osOK)  {
 		errorHandler(status,goOn," status ","entryCalibrateScaleState");
 	}
-	startAmpsADC();
 	startTriacRun();
+	stopAmpsADC();   // todo reimplemented after problems with triactrigger
 }
 
 void exitCalibrateScaleState(void)
 {
 //	info_printf("exit calib\n");
-	stopTriacRun();   //  todo define secure stop of run
-						//   EXTI, TIMERS, X-PASS DETECTOR ETC.
-	stopAmpsADC();
+	stopTriacRun();
 }
 
 uStInt evCalibrateScaleChecker(void)
