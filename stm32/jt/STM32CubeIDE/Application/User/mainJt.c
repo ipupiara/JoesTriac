@@ -7,6 +7,7 @@
 
 #include <mainJt.h>
 #include <StateClass.h>
+#include <triacPid.h>
 #include <TriacIntr.h>
 #include <i2c.h>
 
@@ -96,6 +97,7 @@ void mainJt(void *argument)
 	fsmTriacEvent fsmEv;
 	initI2c();
 	initDefines();
+	InitPID();
 	initTriacIntr();
 	startStateCharts();
 	mainJtOsStarted();

@@ -31,7 +31,7 @@ void printPIDState();
 
 //void onTriacIdleSecondTick_PID();
 
-real Update(real error);
+//real Update(real error);
 
 
 //extern int8_t stableZeroAdjReached;
@@ -42,13 +42,13 @@ void updateGradAmps();
 
 //void onIdleAdcTick();
 
-void checkTWIZeroAdjustMsg();
+//void checkTWIZeroAdjustMsg();
 
 //int sendZeroAdjustMsg(int8_t jobS);
 
 //int8_t getAndTestZeroAdjustState(int8_t jobS);
 
-void persistentZeroAdjustSecondTickJob();
+//void persistentZeroAdjustSecondTickJob();
 
 //int8_t setAdjustJob(int8_t jobS);
 

@@ -89,7 +89,12 @@ float currentAmps()
 	float res = 0.0;
 
 	adcVal = getCurrentAmpsADCValue();
-	res = calibLowAmps +  (gradAmps * ((uint32_t) adcVal - (uint32_t) getDefinesCalibLowAdc()  ));
+
+	int32_t diffAdc = ((uint32_t) (adcVal)) - ((uint32_t) ( getDefinesCalibLowAdc()))  ;
+
+	float diff = (gradAmps * diffAdc);
+
+	res = calibLowAmps +  diff;
 	return res;
 }
 

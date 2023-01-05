@@ -278,7 +278,7 @@ uStInt evCalibrateZeroSignalChecker(void)
 	
 	if (currentEvent->evType == evSecondsTick) 
 	{	
-		persistentZeroAdjustSecondTickJob();
+//		persistentZeroAdjustSecondTickJob();
 //		displayPotiPersistent();
 		res =  uStIntHandlingDone;
 	}
@@ -451,6 +451,7 @@ void entryTriacActiveState(void)
 	info_printf("entryTriacActiveState\n");
 	startDurationTimer(getDefinesWeldingTime());
 	setTriacTriggerDelay(stmTriggerDelayMax);
+	resetPID();
 	startTriacRun();
 }
 
@@ -528,6 +529,7 @@ void exitRequestStopState(void)
 //	info_printf("exit Running\n");
 	void setBuzzerOff();
 	secondsBeforeReturn = 0;
+	setBuzzerOff();
 }
 
 uStInt evRequestStopChecker(void)
