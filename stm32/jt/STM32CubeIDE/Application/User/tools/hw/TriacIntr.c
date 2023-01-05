@@ -200,6 +200,7 @@ void EXTI15_10_IRQHandler(void)
 		if (HAL_GPIO_ReadPin(zeroPassPin_GPIO_Port,zeroPassPin_Pin))  {
 			stopDelayTimer();
 			stopRailTimer();
+			setTriggerPinOff();
 		}  else  {
 			startDelayTimerFromIsr();
 		}

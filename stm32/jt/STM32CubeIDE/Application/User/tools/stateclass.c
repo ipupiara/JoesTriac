@@ -298,7 +298,6 @@ void entryCalibrateScaleState(void)
 		errorHandler(status,goOn," status ","entryCalibrateScaleState");
 	}
 	startTriacRun();
-	stopAmpsADC();   // todo reimplemented after problems with triactrigger
 }
 
 void exitCalibrateScaleState(void)
