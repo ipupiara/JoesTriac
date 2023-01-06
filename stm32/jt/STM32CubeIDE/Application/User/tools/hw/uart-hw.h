@@ -19,10 +19,10 @@ extern "C"
 
 #define charWidth sizeof(char)
 
-#define dmaAvailable  0x01
+#define dmaTxAvailable  0x01       //  rx dma stream occupied by touchgfx, only tx possible
 
 
-extern osSemaphoreId uartSendSemaphore;
+extern osMessageQueueId_t uartSendSemaphoreQ;
 
 uint8_t initUartHw();
 

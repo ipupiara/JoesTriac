@@ -13,7 +13,7 @@ enum {
 
 UART_HandleTypeDef huart6;
 DMA_HandleTypeDef hdma_usart6_tx;
-DMA_HandleTypeDef hdma_usart6_rx;
+//DMA_HandleTypeDef hdma_usart6_rx;
 
 extern uint16_t  feCounter;
 extern uint16_t  teCounter;
@@ -21,11 +21,12 @@ extern uint16_t  dmeCounter;
 
 
 uint8_t  commsError;
-osSemaphoreId uartSendSemaphore;
+osMessageQueueId_t uartSendSemaphoreQ;
 uint32_t  rxMsgCounter;
 uint32_t  txMsgCounter;
 
 uint32_t debugIdleCounter;
+uint8_t  uartJobSemSet;
 
 void clearUartInterruptFlags(UART_HandleTypeDef * huart)
 {
@@ -33,6 +34,30 @@ void clearUartInterruptFlags(UART_HandleTypeDef * huart)
 	__HAL_UART_CLEAR_IT(&huart6,USART_ICR_IDLECF_Msk);
 //	__HAL_UART_CLEAR_IT(&huart6,USART_ICR_TXE_Msk);
 }
+
+uint8_t enableUartInterrupts()
+{
+	uint8_t res = 0;
+
+	clearUartInterruptFlags(&huart6);
+	HAL_NVIC_EnableIRQ(USART6_IRQn);
+	HAL_NVIC_EnableIRQ(DMA2_Stream2_IRQn);
+	HAL_NVIC_EnableIRQ(DMA2_Stream6_IRQn);
+
+	return res;
+}
+
+uint8_t disableUartInterrupts()
+{
+	uint8_t res = 0;
+	HAL_NVIC_DisableIRQ(USART6_IRQn);
+	HAL_NVIC_DisableIRQ(DMA2_Stream2_IRQn);
+	HAL_NVIC_DisableIRQ(DMA2_Stream6_IRQn);
+	return res;
+}
+
+
+
 
 #define bufferCounterType uint8_t
 #define halfDmaRxBufferSize   0x20
@@ -97,51 +122,51 @@ void resetDmaBuffer()
 	memset(&dmaBuffer,0x00,sizeof(dmaBuffer));
 }
 
-void transferBuffer(uint8_t  tobeForwardedFrom)
-{
-	bufferCounterType newNdtr= (uint32_t)  (hdma_usart6_rx.Instance->NDTR);
-	bufferCounterType amtRcvd;
-
-	if (tobeForwardedFrom == fromTransferCompleteIsr)  {
-		amtRcvd = lastNdtr;     // newNdtr already set  to buffer size
-	}  else {
-		amtRcvd =   lastNdtr  - newNdtr;
-	}
-
-	uint8_t receivedAt = fullDmaRxBufferSize - lastNdtr;
-
-	bufferCounterType amtCpy = amtRcvd;
-	// evtl if inTc ndtr might already be reset ??
-
-	if (amtWrittenStringChars < maxUartReceiveDmaStringSize )  {
-		if (amtWrittenStringChars + amtRcvd > maxUartReceiveDmaStringSize) {
-			amtCpy = maxUartReceiveDmaStringSize  - amtWrittenStringChars;
-		}
-	} else {
-		amtCpy = 0;
-	}
-
-	if (amtCpy > 0) {
-		for (uint8_t cnt =0; cnt < amtCpy;++cnt) {
-			receiveStringBuffer[amtWrittenStringChars + cnt] = dmaBuffer.byteBuffer[receivedAt + cnt];
-		}
-	//	strncpy(stringBuffer[amtWrittenStringChars],dmaBuffer[amtReadBufferChars],amtCpy);
-	}
-	//	memcpy(&stringBuffer[amtWrittenStringChars],&dmaBuffer.byteBuffer[amtReadBufferChars],amtCpy);
-
-	lastNdtr = newNdtr;
-	amtWrittenStringChars += amtCpy;
-	addToDebugArray(tobeForwardedFrom,amtWrittenStringChars);
-
-	if (tobeForwardedFrom == fromTransferCompleteIsr)  {
-		resetDmaBuffer();
-	} else if (tobeForwardedFrom == fromUartIsr) {
-		if (amtWrittenStringChars > 0) {
-			forwardReceivedStringBuffer((char*)receiveStringBuffer);
-			resetStringBuffer();
-		}
-	}
-}
+//void transferBuffer(uint8_t  tobeForwardedFrom)
+//{
+//	bufferCounterType newNdtr= (uint32_t)  (hdma_usart6_rx.Instance->NDTR);
+//	bufferCounterType amtRcvd;
+//
+//	if (tobeForwardedFrom == fromTransferCompleteIsr)  {
+//		amtRcvd = lastNdtr;     // newNdtr already set  to buffer size
+//	}  else {
+//		amtRcvd =   lastNdtr  - newNdtr;
+//	}
+//
+//	uint8_t receivedAt = fullDmaRxBufferSize - lastNdtr;
+//
+//	bufferCounterType amtCpy = amtRcvd;
+//	// evtl if inTc ndtr might already be reset ??
+//
+//	if (amtWrittenStringChars < maxUartReceiveDmaStringSize )  {
+//		if (amtWrittenStringChars + amtRcvd > maxUartReceiveDmaStringSize) {
+//			amtCpy = maxUartReceiveDmaStringSize  - amtWrittenStringChars;
+//		}
+//	} else {
+//		amtCpy = 0;
+//	}
+//
+//	if (amtCpy > 0) {
+//		for (uint8_t cnt =0; cnt < amtCpy;++cnt) {
+//			receiveStringBuffer[amtWrittenStringChars + cnt] = dmaBuffer.byteBuffer[receivedAt + cnt];
+//		}
+//	//	strncpy(stringBuffer[amtWrittenStringChars],dmaBuffer[amtReadBufferChars],amtCpy);
+//	}
+//	//	memcpy(&stringBuffer[amtWrittenStringChars],&dmaBuffer.byteBuffer[amtReadBufferChars],amtCpy);
+//
+//	lastNdtr = newNdtr;
+//	amtWrittenStringChars += amtCpy;
+//	addToDebugArray(tobeForwardedFrom,amtWrittenStringChars);
+//
+//	if (tobeForwardedFrom == fromTransferCompleteIsr)  {
+//		resetDmaBuffer();
+//	} else if (tobeForwardedFrom == fromUartIsr) {
+//		if (amtWrittenStringChars > 0) {
+//			forwardReceivedStringBuffer((char*)receiveStringBuffer);
+//			resetStringBuffer();
+//		}
+//	}
+//}
 
 
 //uint32_t debugIdleCounter;
@@ -176,19 +201,33 @@ void transferBuffer(uint8_t  tobeForwardedFrom)
 //}
 //
 
+void setUartJobSema()
+{
+
+	uint32_t dummy = 0x5a;
+	if (uartJobSemSet == 0)  {    // prevent multiple events by irqs
+		osMessageQueuePut(uartSendSemaphoreQ, &dummy, 0, 0);   //  after semaphores do not work from isr ?????  replaced by queue as done in OSWrappers.cpp
+		uartJobSemSet = 1;
+	} else  {
+			uartJobSemSet = 2;  //  just for debugging
+	}
+}
+
 
 void USART6_IRQHandler(void)
 {
-//    if (__HAL_UART_GET_FLAG(&huart6,USART_ISR_TXE)  )  {
-//    	huart6.Instance->TDR= txStringBuffer[txStringBufferPos];
-//        ++ 	txStringBufferPos;
-//        if (txStringBufferPos == txStringBufferLen) {
-//        	disableUartInterrupts();
-//        	osSemaphoreRelease(&uartSendSemaphore);
-//        }
-//        //  todo handle errors
-////    	__HAL_UART_CLEAR_IT(&huart6,USART_ICR_TXE);
-//    }
+    if (__HAL_UART_GET_FLAG(&huart6,USART_ISR_TXE)  )  {
+    	__HAL_UART_CLEAR_IT(&huart6,USART_ISR_TXE);
+
+    	huart6.Instance->TDR= txStringBuffer[txStringBufferPos];
+        ++ 	txStringBufferPos;
+
+        if (txStringBufferPos == txStringBufferLen) {
+            disableUartInterrupts();
+            setUartJobSema();
+        }
+        //  todo handle errors
+    }
 
 	uint8_t idleDetected = 0;
 
@@ -209,40 +248,42 @@ void USART6_IRQHandler(void)
 }
 
 
-void DMA2_Stream2_IRQHandler(void)   // RX
-{
-	if (__HAL_DMA_GET_FLAG(&hdma_usart6_rx,DMA_FLAG_TCIF2_6) != 0)  {
-		transferBuffer(fromTransferCompleteIsr);
-		__HAL_DMA_CLEAR_FLAG(&hdma_usart6_rx,DMA_FLAG_TCIF2_6);
-	}
-
-
-    if (__HAL_DMA_GET_FLAG(&hdma_usart6_rx,DMA_FLAG_HTIF2_6) != 0)  {
-    	transferBuffer(fromHalfTransferCompleteIsr);
-    	__HAL_DMA_CLEAR_FLAG(&hdma_usart6_rx,DMA_FLAG_HTIF2_6);
-    }
-
-	if ((__HAL_DMA_GET_FLAG(&hdma_usart6_rx,DMA_FLAG_TEIF2_6))
-								| (__HAL_DMA_GET_FLAG(&hdma_usart6_rx,DMA_FLAG_FEIF2_6))
-								| (__HAL_DMA_GET_FLAG(&hdma_usart6_rx,DMA_FLAG_DMEIF2_6))) {
-		errorHandler((uint32_t)0 ,goOn," DMA_FLAG_TEIF2_6 "," DMA2_Stream2_IRQHandler ");
-		__HAL_DMA_CLEAR_FLAG(&hdma_usart6_rx,DMA_FLAG_TEIF2_6);
-		__HAL_DMA_CLEAR_FLAG(&hdma_usart6_rx,DMA_FLAG_FEIF2_6);
-		__HAL_DMA_CLEAR_FLAG(&hdma_usart6_rx,DMA_FLAG_DMEIF2_6);
-	}
-}
+//void DMA2_Stream2_IRQHandler(void)   // RX
+//{
+//	if (__HAL_DMA_GET_FLAG(&hdma_usart6_rx,DMA_FLAG_TCIF2_6) != 0)  {
+//		transferBuffer(fromTransferCompleteIsr);
+//		__HAL_DMA_CLEAR_FLAG(&hdma_usart6_rx,DMA_FLAG_TCIF2_6);
+//	}
+//
+//
+//    if (__HAL_DMA_GET_FLAG(&hdma_usart6_rx,DMA_FLAG_HTIF2_6) != 0)  {
+//    	transferBuffer(fromHalfTransferCompleteIsr);
+//    	__HAL_DMA_CLEAR_FLAG(&hdma_usart6_rx,DMA_FLAG_HTIF2_6);
+//    }
+//
+//	if ((__HAL_DMA_GET_FLAG(&hdma_usart6_rx,DMA_FLAG_TEIF2_6))
+//								| (__HAL_DMA_GET_FLAG(&hdma_usart6_rx,DMA_FLAG_FEIF2_6))
+//								| (__HAL_DMA_GET_FLAG(&hdma_usart6_rx,DMA_FLAG_DMEIF2_6))) {
+//		errorHandler((uint32_t)0 ,goOn," DMA_FLAG_TEIF2_6 "," DMA2_Stream2_IRQHandler ");
+//		__HAL_DMA_CLEAR_FLAG(&hdma_usart6_rx,DMA_FLAG_TEIF2_6);
+//		__HAL_DMA_CLEAR_FLAG(&hdma_usart6_rx,DMA_FLAG_FEIF2_6);
+//		__HAL_DMA_CLEAR_FLAG(&hdma_usart6_rx,DMA_FLAG_DMEIF2_6);
+//	}
+//}
 
 
 void DMA2_Stream6_IRQHandler(void)   // TX
 {
-
-	osStatus_t err = osOK;
+//	CMainJtEventT  ev;
+//	osStatus_t err = osOK;
 	if (__HAL_DMA_GET_FLAG(&hdma_usart6_tx,DMA_FLAG_TCIF3_7) != 0)  {
 
-		osSemaphoreRelease(&uartSendSemaphore);
-		if (err != osOK) {
-			errorHandler((uint32_t)err ,goOn," uartSendSemaphore "," DMA2_Stream7_IRQHandler ");
-		}
+		setUartJobSema();
+//
+//		osSemaphoreRelease(&uartSendSemaphore);
+//		if (err != osOK) {
+//			errorHandler((uint32_t)err ,goOn," uartSendSemaphore "," DMA2_Stream7_IRQHandler ");
+//		}
 		__HAL_DMA_CLEAR_FLAG(&hdma_usart6_tx,DMA_FLAG_TCIF3_7);
 	}
 
@@ -326,26 +367,6 @@ void startCircReceiver()
 }
 
 
-uint8_t enableUartInterrupts()
-{
-	uint8_t res = 0;
-
-	clearUartInterruptFlags(&huart6);
-	HAL_NVIC_EnableIRQ(USART6_IRQn);
-	HAL_NVIC_EnableIRQ(DMA2_Stream2_IRQn);
-	HAL_NVIC_EnableIRQ(DMA2_Stream6_IRQn);
-
-	return res;
-}
-
-uint8_t disableUartInterrupts()
-{
-	uint8_t res = 0;
-	HAL_NVIC_DisableIRQ(USART6_IRQn);
-	HAL_NVIC_DisableIRQ(DMA2_Stream2_IRQn);
-	HAL_NVIC_DisableIRQ(DMA2_Stream6_IRQn);
-	return res;
-}
 
 
 uint32_t debugIdleCounter;
@@ -368,6 +389,14 @@ void usart6_GPIO_Init(void)
 	    PG14     ------> USART6_TX
 	    PG9     ------> USART6_RX
 	    */
+	    /* planned
+	     *
+	     * usart 2
+	     *
+	     * PA2   TX
+	     * PA3   RX
+	     *
+	     */
 	    GPIO_InitStruct.Pin = GPIO_PIN_14|GPIO_PIN_9;
 	    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
 	    GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -385,15 +414,14 @@ uint8_t initUartHw()
 
 	debugIdleCounter = 0;
 	 commsError = 0;
-	osSemaphoreDef_t  uartSendSemaphoreDef;
 	rxMsgCounter = 0;
 	txMsgCounter = 0;
+	uartJobSemSet = 0;
 
-	uartSendSemaphoreDef.name="uart send sema"  ;
-	uartSendSemaphoreDef.attr_bits= 0;
-	uartSendSemaphoreDef.cb_mem = NULL;
-	uartSendSemaphoreDef.cb_size = 0;
-	uartSendSemaphore =  osSemaphoreNew(1,1,&uartSendSemaphoreDef);
+	uartSendSemaphoreQ =  osMessageQueueNew(3,4, NULL);
+	if (uartSendSemaphoreQ  == NULL)   {
+		errorHandler(0xff ,stop," osMessageQueueNew ","initUartHw");
+	}
 
 	resetStringBuffer();
 
