@@ -13,7 +13,7 @@ enum {
 
 UART_HandleTypeDef huart2;
 DMA_HandleTypeDef hdma_usart2_tx;
-// DMA_HandleTypeDef hdma_usart2_rx;;
+DMA_HandleTypeDef hdma_usart2_rx;;
 
 extern uint16_t  feCounter;
 extern uint16_t  teCounter;
@@ -73,14 +73,14 @@ void resetDebugArray()
 	debugArrayCnt = 0;
 }
 
-void addToDebugArray(uint8_t from,uint8_t val)
-{
-/*	if (debugArrayCnt < debugArraySize+3) {
-		debugArray[debugArrayCnt] = from;
-		debugArray[debugArrayCnt+1] = val;
-		debugArrayCnt += 3;
-	}*/
-}
+//void addToDebugArray(uint8_t from,uint8_t val)
+//{
+///*	if (debugArrayCnt < debugArraySize+3) {
+//		debugArray[debugArrayCnt] = from;
+//		debugArray[debugArrayCnt+1] = val;
+//		debugArrayCnt += 3;
+//	}*/
+//}
 uint8_t  receiveStringBuffer  [maxUartReceiveDmaStringSize + 1];
 
 typedef struct
@@ -122,48 +122,48 @@ void resetDmaBuffer()
 
 void transferBuffer(uint8_t  tobeForwardedFrom)
 {
-//	bufferCounterType newNdtr= (uint32_t)  (hdma_usart2_rx.Instance->NDTR);
-//	bufferCounterType amtRcvd;
-//
-//	if (tobeForwardedFrom == fromTransferCompleteIsr)  {
-//		amtRcvd = lastNdtr;     // newNdtr already set  to buffer size
-//	}  else {
-//		amtRcvd =   lastNdtr  - newNdtr;
-//	}
-//
-//	uint8_t receivedAt = fullDmaRxBufferSize - lastNdtr;
-//
-//	bufferCounterType amtCpy = amtRcvd;
-//	// evtl if inTc ndtr might already be reset ??
-//
-//	if (amtWrittenStringChars < maxUartReceiveDmaStringSize )  {
-//		if (amtWrittenStringChars + amtRcvd > maxUartReceiveDmaStringSize) {
-//			amtCpy = maxUartReceiveDmaStringSize  - amtWrittenStringChars;
-//		}
-//	} else {
-//		amtCpy = 0;
-//	}
-//
-//	if (amtCpy > 0) {
-//		for (uint8_t cnt =0; cnt < amtCpy;++cnt) {
-//			receiveStringBuffer[amtWrittenStringChars + cnt] = dmaBuffer.byteBuffer[receivedAt + cnt];
-//		}
-//	//	strncpy(stringBuffer[amtWrittenStringChars],dmaBuffer[amtReadBufferChars],amtCpy);
-//	}
-//	//	memcpy(&stringBuffer[amtWrittenStringChars],&dmaBuffer.byteBuffer[amtReadBufferChars],amtCpy);
-//
-//	lastNdtr = newNdtr;
-//	amtWrittenStringChars += amtCpy;
+	bufferCounterType newNdtr= (uint32_t)  (hdma_usart2_rx.Instance->NDTR);
+	bufferCounterType amtRcvd;
+
+	if (tobeForwardedFrom == fromTransferCompleteIsr)  {
+		amtRcvd = lastNdtr;     // newNdtr already set  to buffer size
+	}  else {
+		amtRcvd =   lastNdtr  - newNdtr;
+	}
+
+	uint8_t receivedAt = fullDmaRxBufferSize - lastNdtr;
+
+	bufferCounterType amtCpy = amtRcvd;
+	// evtl if inTc ndtr might already be reset ??
+
+	if (amtWrittenStringChars < maxUartReceiveDmaStringSize )  {
+		if (amtWrittenStringChars + amtRcvd > maxUartReceiveDmaStringSize) {
+			amtCpy = maxUartReceiveDmaStringSize  - amtWrittenStringChars -1;
+		}
+	} else {
+		amtCpy = 0;
+	}
+
+	if (amtCpy > 0) {
+		for (uint8_t cnt =0; cnt < amtCpy;++cnt) {
+			receiveStringBuffer[amtWrittenStringChars + cnt] = dmaBuffer.byteBuffer[receivedAt + cnt];
+		}
+	//	strncpy(stringBuffer[amtWrittenStringChars],dmaBuffer[amtReadBufferChars],amtCpy);
+	}
+	//	memcpy(&stringBuffer[amtWrittenStringChars],&dmaBuffer.byteBuffer[amtReadBufferChars],amtCpy);
+
+	lastNdtr = newNdtr;
+	amtWrittenStringChars += amtCpy;
 //	addToDebugArray(tobeForwardedFrom,amtWrittenStringChars);
-//
-//	if (tobeForwardedFrom == fromTransferCompleteIsr)  {
-//		resetDmaBuffer();
-//	} else if (tobeForwardedFrom == fromUartIsr) {
-//		if (amtWrittenStringChars > 0) {
-//			forwardReceivedStringBuffer((char*)receiveStringBuffer);
-//			resetStringBuffer();
-//		}
-//	}
+
+	if (tobeForwardedFrom == fromTransferCompleteIsr)  {
+		resetDmaBuffer();
+	} else if (tobeForwardedFrom == fromUartIsr) {
+		if (amtWrittenStringChars > 0) {
+			forwardReceivedStringBuffer((char*)receiveStringBuffer);
+			resetStringBuffer();
+		}
+	}
 }
 
 
@@ -241,16 +241,8 @@ void USART2_IRQHandler(void)
 
 void DMA1_Stream6_IRQHandler(void)   // TX
 {
-//	CMainJtEventT  ev;
-//	osStatus_t err = osOK;
 	if (__HAL_DMA_GET_FLAG(&hdma_usart2_tx,DMA_FLAG_TCIF2_6) != 0)  {
-
 		setUartJobSema();
-//
-//		osSemaphoreRelease(&uartSendSemaphore);
-//		if (err != osOK) {
-//			errorHandler((uint32_t)err ,goOn," uartSendSemaphore "," DMA2_Stream7_IRQHandler ");
-//		}
 		__HAL_DMA_CLEAR_FLAG(&hdma_usart2_tx,DMA_FLAG_TCIF2_6);
 	}
 
@@ -271,12 +263,12 @@ void DMA1_Stream6_IRQHandler(void)   // TX
 }
 
 
-//void startCircReceiver()
-//{
-//	DMA_SetTransferConfig(&hdma_usart2_rx, (uint32_t)&huart2.Instance->RDR , (uint32_t)&dmaBuffer, sizeof(dmaBuffer));
-//	clearDmaInterruptFlags(&hdma_usart2_rx);
-//	__HAL_DMA_ENABLE(&hdma_usart2_rx);
-//}
+void startCircReceiver()
+{
+	DMA_SetTransferConfig(&hdma_usart2_rx, (uint32_t)&huart2.Instance->RDR , (uint32_t)&dmaBuffer, sizeof(dmaBuffer));
+	clearDmaInterruptFlags(&hdma_usart2_rx);
+	__HAL_DMA_ENABLE(&hdma_usart2_rx);
+}
 
 
 uint32_t debugIdleCounter;
@@ -401,6 +393,7 @@ uint8_t startUartHw()
 {
 	uint8_t res = 0;
 	enableUartInterrupts();
+//	startCircReceiver();
 	return res;
 }
 

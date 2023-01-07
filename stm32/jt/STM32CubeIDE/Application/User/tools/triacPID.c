@@ -5,10 +5,11 @@
 #include "triacPID.h"
 #include <defines.h>
 #include <TriacIntr.h>
+#include <uart-comms.h>
 #include <mainJt.h>
 
 
-//#define printfPid
+#define printfPid
 //#define printfAmps
 
 enum adcScopeEnum
@@ -123,35 +124,40 @@ real nextCorrection(real error)
     // the threshold and 0 otherwise
     real q_fact;
 	real res;
-    if (fabs(error) < m_error_thresh)
+    if (fabs(error) < m_error_thresh) {
         q_fact = 1.0;
-    else  {
+    } else  {
         q_fact = 0.0;
 		m_integral = 0.0;
 	}
 
-    // Update the error integral
     m_integral += m_stepTime*q_fact*error;
 
-    // Compute the error derivative
     real deriv;
     if (!m_started)
     {
         m_started = 1;
         deriv = 0;
     }
-    else
+    else  {
         deriv = (error - m_prev_error) * m_inv_stepTime;
-
+    }
     m_prev_error = error;
-
-    // Return the PID controller actuator command
-	res = m_kPTot*(m_kP*error + m_kI*m_integral + m_kD*deriv);
+#ifdef printfPid
+    real mk, mi, md;
+	res = m_kPTot*((mk=(m_kP*error)) + (mi=(m_kI*m_integral)) + (md=(m_kD*deriv)));
+#else
+	res = m_kPTot*((m_kP*error) + (m_kI*m_integral) + (m_kD*deriv));
+#endif
 	if (res > correctionThreshold) {
 		res = correctionThreshold;
 	} else if (res < -1*correctionThreshold) {
 		res = -1* correctionThreshold;
 	}
+#ifdef printfPid
+	info_printf("m_kPTot*tot %10.3f, m_kP*e %10.3f,m_kI*i %10.3f, m_kD*d %10.3f\n",\
+					res, mk, mi, md);
+#endif
     return res;
 }
 
@@ -183,7 +189,7 @@ void calcNextTriacDelay()
 void InitPID()
 {
 //	InitializePID(real kpTot, real kpP, real ki, real kd, real error_thresh, real step_time);   
-	InitializePID( -0.45, 1.1, 0.2, 0.2, 5, (pidStepDelays/1000));
+	InitializePID( -0.45, 1.1, 0.2, 0.2, 8, (pidStepDelays/1000));
 	currentAmpsValue = 0.0;
 //	stableZeroAdjReached = 0;
 }
