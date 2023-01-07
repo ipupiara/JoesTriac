@@ -10,6 +10,7 @@
 #include <triacPid.h>
 #include <TriacIntr.h>
 #include <i2c.h>
+#include <uart-comms.h>
 
 union  {
 	float realVar;
@@ -95,6 +96,7 @@ void mainJt(void *argument)
 	osStatus_t status;
 	CMainJtEventT  mJtEv;
 	fsmTriacEvent fsmEv;
+	init_printf();
 	initI2c();
 	initDefines();
 	InitPID();
