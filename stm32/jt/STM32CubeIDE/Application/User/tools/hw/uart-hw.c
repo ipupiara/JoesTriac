@@ -15,53 +15,6 @@ UART_HandleTypeDef huart;
 DMA_HandleTypeDef hdma_usart_tx;
 DMA_HandleTypeDef hdma_usart_rx;
 
-#define useUsart2
-
-#ifdef useUsart2
-#define  USART_Number USART2
-#define txDMA_IRQHandler DMA1_Stream6_IRQHandler
-#define txDMA_FLAG_TCIF DMA_FLAG_TCIF2_6
-#define txDMA_FLAG_HTIF  DMA_FLAG_HTIF2_6
-#define txDMA_FLAG_TEIF  DMA_FLAG_TEIF2_6
-#define txDMA_FLAG_FEIF DMA_FLAG_FEIF2_6
-#define txDMA_FLAG_DMEIF DMA_FLAG_DMEIF2_6
-
-//#define rxDMA_IRQHandler DMA1_Stream6_IRQHandler
-//#define rxDMA_FLAG_TCIF DMA_FLAG_TCIF2_6
-//#define rxDMA_FLAG_HTIF  DMA_FLAG_HTIF2_6
-//#define rxDMA_FLAG_TEIF  DMA_FLAG_TEIF2_6
-//#define rxDMA_FLAG_FEIF DMA_FLAG_FEIF2_6
-//#define rxDMA_FLAG_DMEIF DMA_FLAG_DMEIF2_6
-
-#define USART_IRQHandler USART2_IRQHandler
-
-#define txDMA_Stream_IRQn DMA1_Stream6_IRQn
-#define USART_IRQn USART2_IRQn
-//#define rxDMA_Stream_IRQn DMA_Stream_IRQn
-
-/**USART2 GPIO Configuration
-PA2     ------> USART2_TX
-PA3     ------> USART2_RX
-*/
-#define   usart__HAL_RCC_DMA_CLK_ENABLE()  __HAL_RCC_DMA1_CLK_ENABLE()
-#define usart__HAL_RCC_USART_CLK_ENABLE()  __HAL_RCC_USART2_CLK_ENABLE()
-#define usart__HAL_RCC_GPIO_CLK_ENABLE()  __HAL_RCC_GPIOA_CLK_ENABLE()
-
-#define txGPIO_PIN GPIO_PIN_2
-#define rxGPIO_PIN GPIO_PIN_3
-#define GPIO_AF_USART  GPIO_AF7_USART2
-#define uartPort GPIOA
-
-#define RCC_PERIPHCLK_USART RCC_PERIPHCLK_USART2
-#define UsartClockSelection Usart2ClockSelection
-#define RCC_USARTCLKSOURCE_PCLK RCC_USART2CLKSOURCE_PCLK1
-
-#define  txDMA_Stream  DMA1_Stream6
-#define	 txDMA_CHANNEL DMA_CHANNEL_4
-//#define  rxDMA_Stream  DMA1_Stream6
-//#define	 rxDMA_CHANNEL DMA_CHANNEL_4
-
-#endif
 
 extern uint16_t  feCounter;
 extern uint16_t  teCounter;
@@ -335,6 +288,7 @@ uint8_t initUartHw()
 	if (uartSendSemaphoreQ  == NULL)   {
 		errorHandler(0xff ,stop," osMessageQueueNew ","initUartHw");
 	}
+	setUartJobSema();
 
 	resetStringBuffer();
 
