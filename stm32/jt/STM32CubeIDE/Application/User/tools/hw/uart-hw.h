@@ -88,7 +88,7 @@ PA3     ------> USART2_RX
 //#define rxDMA_FLAG_DMEIF DMA_FLAG_DMEIF2_6
 
 #define USART_IRQHandler USART6_IRQHandler
-
+#define txDMA_Stream_IRQHandler DMA2_Stream6_IRQHandler
 #define txDMA_Stream_IRQn DMA2_Stream6_IRQn
 #define USART_IRQn USART6_IRQn
 //#define rxDMA_Stream_IRQn DMA_Stream_IRQn
@@ -111,7 +111,7 @@ PC7     ------> USART6_RX
 #define RCC_USARTCLKSOURCE_PCLK RCC_USART6CLKSOURCE_PCLK2
 
 #define  txDMA_Stream  DMA2_Stream6
-#define	 txDMA_CHANNEL DMA_CHANNEL_5
+#define	 txDMA_CHANNEL DMA_CHANNEL_6
 //#define  rxDMA_Stream  DMA1_Stream6
 //#define	 rxDMA_CHANNEL DMA_CHANNEL_4
 

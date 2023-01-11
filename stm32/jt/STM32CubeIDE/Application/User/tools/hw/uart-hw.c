@@ -379,6 +379,7 @@ uint8_t initUartHw()
 	clearUartInterruptFlags(&huart);
 	huart.Instance->CR1 |= USART_CR1_IDLEIE_Msk;
 //		  huart2.Instance->CR1 |= USART_CR1_TCIE_Msk;
+	huart.Instance->CR3 |= USART_CR3_EIE_Msk;
 
 //	HAL_NVIC_SetPriority(DMA1_Stream5_IRQn, 0, 0);
 	HAL_NVIC_SetPriority(txDMA_Stream_IRQn, 0, 0);
