@@ -23,6 +23,7 @@ float currentAmpsValue;
 
 int8_t m_started;
 real m_kPTot, m_kP, m_kI, m_kD, m_stepTime, m_inv_stepTime, m_prev_error, m_error_thresh, m_integral;
+real deriv, error;
 
 float gradAmps; //   (delta amperes) / (delta adc)   ....
 float gradAdc;  
@@ -77,6 +78,7 @@ void InitializePID(real kpTot,real kpP, real ki, real kd, real error_thresh, rea
     // Initialize integral and derivative calculations
     m_integral = 0;
     m_started = 0;
+    deriv = 0;
 	
 	 updateGradAmps();
 
@@ -118,12 +120,13 @@ float getCurrentAmpsValue()
 
 #define correctionThreshold  30
 
-real nextCorrection(real error)
+real nextCorrection(real err)
 {
     // Set q_fact to 1 if the error magnitude is below
     // the threshold and 0 otherwise
     real q_fact;
 	real res;
+	error = err;
     if (fabs(error) < m_error_thresh) {
         q_fact = 1.0;
     } else  {
@@ -133,7 +136,6 @@ real nextCorrection(real error)
 
     m_integral += m_stepTime*q_fact*error;
 
-    real deriv;
     if (!m_started)
     {
         m_started = 1;
@@ -188,8 +190,11 @@ void calcNextTriacDelay()
 
 void InitPID()
 {
-//	InitializePID(real kpTot, real kpP, real ki, real kd, real error_thresh, real step_time);   
-	InitializePID( -0.45, 1.1, 0.2, 0.2, 8, (pidStepDelays/1000));
+//	InitializePID(real kpTot, real kpP, real ki, real kd, real error_thresh, real step_time);
+	real step = pidStepDelays;
+	real maxV = 1000.0;
+	real stepf = step / maxV;
+	InitializePID( -0.45, 1.1, 0.2, 0.2, 8, stepf);
 	currentAmpsValue = 0.0;
 //	stableZeroAdjReached = 0;
 }

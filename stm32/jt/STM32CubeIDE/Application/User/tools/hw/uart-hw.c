@@ -306,10 +306,6 @@ uint8_t initUartHw()
 	usart__HAL_RCC_USART_CLK_ENABLE();
 
 	usart__HAL_RCC_GPIO_CLK_ENABLE();
-	/**USART2 GPIO Configuration
-	PA2     ------> USART2_TX
-	PA3     ------> USART2_RX
-	*/
 
 	GPIO_InitStruct.Pin = txGPIO_PIN;
 //	    GPIO_InitStruct.Pin = txGPIO_PIN | rxGPIO_PIN;
@@ -354,10 +350,6 @@ uint8_t initUartHw()
 		errorHandler(0xfe,goOn," HAL_DMA_Init 2 ","initUartHw");
 	}
 
-	__HAL_LINKDMA(&huart,hdmatx,hdma_usart_tx);
-//	huart2.Instance->CR3 |= (USART_CR3_DMAR_Msk | USART_CR3_DMAT_Msk);
-	huart.Instance->CR3 |=  USART_CR3_DMAT_Msk;
-
 	huart.Instance = USART_Number;
 	huart.Init.BaudRate = 57600;
 	huart.Init.WordLength = UART_WORDLENGTH_8B;
@@ -373,10 +365,13 @@ uint8_t initUartHw()
 		errorHandler(0xfe,goOn," HAL_UART_Init","initUartHw");
 	}
 
+	__HAL_LINKDMA(&huart,hdmatx,hdma_usart_tx);
+//	huart2.Instance->CR3 |= (USART_CR3_DMAR_Msk | USART_CR3_DMAT_Msk);
+	huart.Instance->CR3 |=  USART_CR3_DMAT_Msk;
 	clearDmaInterruptFlags(&hdma_usart_tx);
 	enableAllDmaInterrupts(&hdma_usart_tx,withoutHT);
-
 	clearUartInterruptFlags(&huart);
+
 	huart.Instance->CR1 |= USART_CR1_IDLEIE_Msk;
 //		  huart2.Instance->CR1 |= USART_CR1_TCIE_Msk;
 	huart.Instance->CR3 |= USART_CR3_EIE_Msk;
@@ -403,8 +398,13 @@ osStatus_t sendUartString(char* sndStr)
 	++ txMsgCounter;
 //	commsError = 0;
 
-	DMA_SetTransferConfig(&hdma_usart_tx, (uint32_t)sndStr, (uint32_t)&huart.Instance->TDR, strlen(sndStr));
+	clearUartInterruptFlags(&huart);
+	enableUartInterrupts();
 	clearDmaInterruptFlags(&hdma_usart_tx);
+	enableAllDmaInterrupts(&hdma_usart_tx, 1);
+	clearDmaInterruptFlags(&hdma_usart_tx);
+
+	DMA_SetTransferConfig(&hdma_usart_tx, (uint32_t)sndStr, (uint32_t)&huart.Instance->TDR, strlen(sndStr));
 	__HAL_DMA_ENABLE(&hdma_usart_tx);
 
 	return res;

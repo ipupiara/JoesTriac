@@ -88,24 +88,24 @@ void init_printf()
 
 void info_printf( char *emsg, ...)
 {
-	char transmitBuffer  [maxSerialStringSz+1];
-	osStatus_t status;
-	va_list ap;
-
-	va_start(ap, emsg);
-
-	if (serialOn == 1) {
-
-		vsnprintf((char *)&transmitBuffer, maxSerialStringSz-1,  emsg, ap);
-		transmitBuffer[maxSerialStringSz-1] = 0;
-
-		status = osMessageQueuePut(serialMessageQ,&transmitBuffer,0,0);
-		if (status != osOK)  {
-			errorHandler(status ,goOn," osMessageQueuePut ","info_printf");
-		}
-	}
-	va_end(ap);
-	//	printf(emsg, ap);
+//	char transmitBuffer  [maxSerialStringSz+1];
+//	osStatus_t status;
+//	va_list ap;
+//
+//	va_start(ap, emsg);
+//
+//	if (serialOn == 1) {
+//
+//		vsnprintf((char *)&transmitBuffer, maxSerialStringSz-1,  emsg, ap);
+//		transmitBuffer[maxSerialStringSz-1] = 0;
+//
+//		status = osMessageQueuePut(serialMessageQ,&transmitBuffer,0,0);
+//		if (status != osOK)  {
+//			errorHandler(status ,goOn," osMessageQueuePut ","info_printf");
+//		}
+//	}
+//	va_end(ap);
+//	//	printf(emsg, ap);
 }
 
 // just for usage with short strings, otherwise sizes of buffers need to be increased

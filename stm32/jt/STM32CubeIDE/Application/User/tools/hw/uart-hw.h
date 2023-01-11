@@ -21,8 +21,8 @@ extern "C"
 
 #define dmaTxAvailable  0x01       //  rx dma stream occupied by touchgfx, only tx possible
 
-//#define useUsart2
-#define useUsart6
+#define useUsart2
+//#define useUsart6
 
 
 #ifdef useUsart2
