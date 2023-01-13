@@ -5,11 +5,11 @@
 #include "triacPID.h"
 #include <defines.h>
 #include <TriacIntr.h>
-#include <uart-comms.h>
+//#include <uart-comms.h>
 #include <mainJt.h>
 
 
-#define printfPid
+//#define printfPid
 //#define printfAmps
 
 enum adcScopeEnum
@@ -29,7 +29,7 @@ float gradAmps; //   (delta amperes) / (delta adc)   ....
 float gradAdc;  
 uint32_t calibHighADC;
 uint32_t calibLowADC;
-
+int16_t delayCorrection;
 real corrCarryOver;     // carry amount if correction in float gives zero correction in int
 
 
@@ -118,7 +118,7 @@ float getCurrentAmpsValue()
 //}
 
 
-#define correctionThreshold  30
+#define correctionThreshold  20
 
 real nextCorrection(real err)
 {
@@ -169,16 +169,16 @@ void calcNextTriacDelay()
 	float err;
 	float corr;
 	int16_t newDelay;
-	int16_t corrInt;
+
 	float amps;
 	err = (amps = currentAmps()) - getDefinesWeldingAmps() ;
 	taskENTER_CRITICAL();
 	currentAmpsValue = amps;
 	taskEXIT_CRITICAL();
 	corr = nextCorrection(err) + corrCarryOver;
-	corrInt = corr;
-	corrCarryOver = corr - corrInt;
-	newDelay = getTriacTriggerDelay() + corrInt;
+	delayCorrection = corr;
+	corrCarryOver = corr - delayCorrection;
+	newDelay = getTriacTriggerDelay() + delayCorrection;
 	setTriacTriggerDelay(newDelay);
 //#ifdef printfPID
 //	double corrD = corr;
@@ -194,7 +194,7 @@ void InitPID()
 	real step = pidStepDelays;
 	real maxV = 1000.0;
 	real stepf = step / maxV;
-	InitializePID( -0.45, 1.1, 0.2, 0.2, 8, stepf);
+	InitializePID( 1.0, 1.1, 0.2, 0.18, 4, stepf);
 	currentAmpsValue = 0.0;
 //	stableZeroAdjReached = 0;
 }
