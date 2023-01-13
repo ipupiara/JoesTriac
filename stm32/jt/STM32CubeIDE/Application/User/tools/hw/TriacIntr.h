@@ -17,7 +17,9 @@ extern "C"
 
 //extern int64_t  secondCount;
 
-
+#define stmTriggerDelayMax  1000
+//#define stmTriggerDelayMax  2000  // not yet available
+//#define stmTriggerDelayMax  4000   // not yet available
 
 extern uint32_t secondsDurationTimerRemaining;  // todo check this memory direct access
 

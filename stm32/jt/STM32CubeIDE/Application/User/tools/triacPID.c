@@ -32,7 +32,7 @@ uint32_t calibLowADC;
 int16_t delayCorrection;
 real corrCarryOver;     // carry amount if correction in float gives zero correction in int
 
-
+void InitializePID(real kpTot,real kpP, real ki, real kd, real error_thresh, real step_time);
 
 void updateGradAmps()
 {
@@ -55,35 +55,6 @@ uint8_t  sendMessageBuffer [4];
 uint8_t  receiveMessageBuffer[8];
 
 
-void InitializePID(real kpTot,real kpP, real ki, real kd, real error_thresh, real step_time)
-{
-    // Initialize controller parameters
-	// PN 3.Oct 2011, added m_kP for better setting of proportional factor only
-	// though these 4 factors will be linearly dependent
-	real avrMax = avrTriggerDelayMaxTcnt;
-	real stmMax = stmTriggerDelayMax;
-	real delta = (stmMax / avrMax);
-
-	m_kP   = kpP;
-    m_kPTot = kpTot;
-    kpTot = kpTot * delta;
-    m_kI = ki;
-    m_kD = kd;
-    m_error_thresh = error_thresh;
-
-    // Controller step time and its inverse
-    m_stepTime = step_time;
-    m_inv_stepTime = 1 / step_time;
-
-    // Initialize integral and derivative calculations
-    m_integral = 0;
-    m_started = 0;
-    deriv = 0;
-	
-	 updateGradAmps();
-
-	 corrCarryOver = 0;
-}
 
 
 float currentAmps()
@@ -198,6 +169,37 @@ void InitPID()
 	currentAmpsValue = 0.0;
 //	stableZeroAdjReached = 0;
 }
+
+void InitializePID(real kpTot,real kpP, real ki, real kd, real error_thresh, real step_time)
+{
+    // Initialize controller parameters
+	// PN 3.Oct 2011, added m_kP for better setting of proportional factor only
+	// though these 4 factors will be linearly dependent
+	real avrMax = avrTriggerDelayMaxTcnt;
+	real stmMax = stmTriggerDelayMax;
+	real delta = (stmMax / avrMax);
+
+	m_kP   = kpP;
+    m_kPTot = kpTot;
+    kpTot = kpTot * delta;
+    m_kI = ki;
+    m_kD = kd;
+    m_error_thresh = error_thresh;
+
+    // Controller step time and its inverse
+    m_stepTime = step_time;
+    m_inv_stepTime = 1 / step_time;
+
+    // Initialize integral and derivative calculations
+    m_integral = 0;
+    m_started = 0;
+    deriv = 0;
+
+	 updateGradAmps();
+
+	 corrCarryOver = 0;
+}
+
 
 
 void resetPID()
