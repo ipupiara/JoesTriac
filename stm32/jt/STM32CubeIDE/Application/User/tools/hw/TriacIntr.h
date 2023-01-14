@@ -17,9 +17,49 @@ extern "C"
 
 //extern int64_t  secondCount;
 
+#define stmTriggerDelayMax1000  1000    //  measures 10 ms, +- crystal tolerance
+//#define stmTriggerDelayMax2000  2000  // not yet available
+//#define stmTriggerDelayMax5000  5000   // not yet available
+
+#ifdef stmTriggerDelayMax1000
+
+#define kStepUnits  stmTriggerDelayMax1000
 #define stmTriggerDelayMax  1000
-//#define stmTriggerDelayMax  2000  // not yet available
-//#define stmTriggerDelayMax  4000   // not yet available
+#define kStepUnitsFactor  1
+#define defaultTriacDelayPsc   940   // measured max delay psc,
+									    //lays within ZX-detection range
+										//  ie. max returned delay
+#define triacDelayPsc  940   // (defaultTriacDelayPsc / kStepUnitsFactor)
+										// effectively used max psc
+
+#else
+
+	#ifdef  stmTriggerDelayMax5000
+		#define stmTriggerDelayMax  5000
+		#define kStepUnits  stmTriggerDelayMax5000
+		#define kStepUnitsFactor  5
+		#define defaultTriacDelayPsc   940   // measured max delay psc,
+												//lays within ZX-detection range
+												//  ie. max returned delay
+		#define triacDelayPsc  188   // (defaultTriacDelayPsc / kStepUnitsFactor)
+												// effectively used max psc
+
+	#else
+		#ifdef  stmTriggerDelayMax2000
+
+			#define stmTriggerDelayMax  2000
+			#define kStepUnits  stmTriggerDelayMax2000
+			#define kStepUnitsFactor  2
+			#define defaultTriacDelayPsc   940   // measured max delay psc,
+											//lays within ZX-detection range
+											//  ie. max returned delay
+			#define triacDelayPsc  470   // (defaultTriacDelayPsc / kStepUnitsFactor)
+
+		#endif
+	#endif
+#endif
+
+
 
 extern uint32_t secondsDurationTimerRemaining;  // todo check this memory direct access
 
@@ -28,6 +68,7 @@ void startAmpsADC();
 void stopAmpsADC();
 void adcValueReceived(uint16_t adcVal);
 uint32_t getCurrentAmpsADCValue();
+void setCurrentAmpsADCValueNonIsr(uint32_t adcV );
 float adcVoltage();
 
 ////void setDiffADC();

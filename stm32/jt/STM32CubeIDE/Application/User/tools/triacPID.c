@@ -66,9 +66,9 @@ float currentAmps()
 
 	int32_t diffAdc = ((uint32_t) (adcVal)) - ((uint32_t) ( getDefinesCalibLowAdc()))  ;
 
-	float diff = (gradAmps * diffAdc);
+	float diffI = (gradAmps * diffAdc);
 
-	res = calibLowAmps +  diff;
+	res = calibLowAmps +  diffI;
 	return res;
 }
 
@@ -181,7 +181,7 @@ void InitializePID(real kpTot,real kpP, real ki, real kd, real error_thresh, rea
 
 	m_kP   = kpP;
     m_kPTot = kpTot;
-    kpTot = kpTot * delta;
+    kpTot = kpTot * delta  *  kStepUnitsFactor ;
     m_kI = ki;
     m_kD = kd;
     m_error_thresh = error_thresh;

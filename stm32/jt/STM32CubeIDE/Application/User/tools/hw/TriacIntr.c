@@ -12,7 +12,8 @@
 #define triacTriggerPin_GPIO_Port GPIOB
 #define buzzerTimer htim11
 
-#define defaultPsc  940
+
+
 
 typedef enum {
 	extiRunning,
@@ -42,11 +43,17 @@ uint32_t getCurrentAmpsADCValue()
 	return res;
 }
 
+void setCurrentAmpsADCValueNonIsr(uint32_t adcV )
+{
+	taskENTER_CRITICAL();
+	currentAmpsADCValue = adcV;
+	taskEXIT_CRITICAL();
+}
 
 void adcValueReceived(uint16_t adcVal)
 {
 	taskENTER_CRITICAL();
-	currentAmpsADCValue = adcVal;
+	setCurrentAmpsADCValueNonIsr(adcVal);
 	taskEXIT_CRITICAL();
 }
 
@@ -288,7 +295,7 @@ void initTriacDelayTimer()
 	__HAL_RCC_TIM5_CLK_ENABLE();
 
 	htim5.Instance = TIM5;
-	htim5.Init.Prescaler = defaultPsc;
+	htim5.Init.Prescaler = triacDelayPsc;
 	htim5.Init.CounterMode = TIM_COUNTERMODE_UP;
 	htim5.Init.Period = 100;
 	htim5.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -510,14 +517,14 @@ void toggleCompletionAlarm()
 
 void startAmpsADC()
 {
-	currentAmpsADCValue = 0;
+	setCurrentAmpsADCValueNonIsr( 0);
 	startADC();
 }
 
 void stopAmpsADC()
 {
 	stopADC();
-	currentAmpsADCValue = 0;
+	setCurrentAmpsADCValueNonIsr(0);
 }
 
 void startTriacRun()
@@ -548,7 +555,7 @@ void stopTriacRun()
 void initTriacIntr()
 {
 	durationTimerOn = 0;
-	currentAmpsADCValue = 0;
+	currentAmpsADCValue = 0;  // in isr ok With arm cortex stn32F769 (st least)
 	triacTriggerDelay = 0;
 	initAdc();
 	initInterruptsNPorts();
