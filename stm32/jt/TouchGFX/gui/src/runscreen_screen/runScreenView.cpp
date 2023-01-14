@@ -15,11 +15,11 @@ void runScreenView::setupScreen()
 	ampGauge.setValue(0);
 	ampGauge.invalidate();
 
-	Unicode::snprintfFloat(setAmpereTextBuffer, 7, "%6.2f", weldingAmps);
+	Unicode::snprintfFloat(setAmpereTextBuffer, 7, "%06.2f", weldingAmps);
 	setAmpereText.setWildcard(setAmpereTextBuffer);
 	setAmpereText.invalidate();
 
-	Unicode::snprintfFloat(currentAmpereTextBuffer, 7, "%6.2f",0.0);
+	Unicode::snprintfFloat(currentAmpereTextBuffer, 7, "%06.2f",0.0);
 	currentAmpereText.setWildcard(currentAmpereTextBuffer);
 	currentAmpereText.invalidate();
 
@@ -44,6 +44,9 @@ void runScreenView::tearDownScreen()
 
 void runScreenView::update(float amps,uint32_t secRemain )
 {
+
+	// todo bug: amps does not show / calculate delay decimal places in setamperetext
+
 	Unicode::snprintfFloat(currentAmpereTextBuffer, 7, "%6.2f",amps);
 	currentAmpereText.setWildcard(currentAmpereTextBuffer);
 	currentAmpereText.invalidate();

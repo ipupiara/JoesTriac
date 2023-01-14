@@ -321,7 +321,7 @@ void initTriacDelayTimer()
 }
 
 
-void initTriacRailTimer()
+void initTriacRailTimer()    //  todo urgent check and make sure that timer does not automatically stop
 {
 	TIM_ClockConfigTypeDef sClockSourceConfig = {0};
 	TIM_MasterConfigTypeDef sMasterConfig = {0};

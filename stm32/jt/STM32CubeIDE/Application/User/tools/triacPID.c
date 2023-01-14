@@ -181,7 +181,7 @@ void InitializePID(real kpTot,real kpP, real ki, real kd, real error_thresh, rea
 
 	m_kP   = kpP;
     m_kPTot = kpTot;
-    kpTot = kpTot * delta  *  kStepUnitsFactor ;
+    kpTot = kpTot * delta  *  kStepUnitsFactor ;   // todo bring order into this and eliminate avr
     m_kI = ki;
     m_kD = kd;
     m_error_thresh = error_thresh;
