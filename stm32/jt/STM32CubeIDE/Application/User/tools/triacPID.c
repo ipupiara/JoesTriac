@@ -89,7 +89,7 @@ float getCurrentAmpsValue()
 //}
 
 
-#define correctionThreshold  20
+#define correctionThreshold  20 * kStepUnitsFactor
 
 real nextCorrection(real err)
 {
@@ -175,13 +175,11 @@ void InitializePID(real kpTot,real kpP, real ki, real kd, real error_thresh, rea
     // Initialize controller parameters
 	// PN 3.Oct 2011, added m_kP for better setting of proportional factor only
 	// though these 4 factors will be linearly dependent
-	real avrMax = avrTriggerDelayMaxTcnt;
-	real stmMax = stmTriggerDelayMax;
-	real delta = (stmMax / avrMax);
 
 	m_kP   = kpP;
-    m_kPTot = kpTot;
-    kpTot = kpTot * delta  *  kStepUnitsFactor ;   // todo bring order into this and eliminate avr
+ //   m_kPTot = kpTot;
+//    kpTot = kpTot * delta  *  kStepUnitsFactor ;   // todo bring order into this and eliminate avr
+	m_kPTot = kpTot * 0.8  *  kStepUnitsFactor ;   // todo bring order into this and eliminate avr
     m_kI = ki;
     m_kD = kd;
     m_error_thresh = error_thresh;

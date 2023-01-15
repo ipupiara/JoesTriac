@@ -17,16 +17,15 @@ extern "C"
 
 //extern int64_t  secondCount;
 
-#define stmTriggerDelayMax1000  1000    //  measures 10 ms, +- crystal tolerance
-//#define stmTriggerDelayMax2000  2000  // not yet available
-//#define stmTriggerDelayMax5000  5000   // not yet available
+//#define stmTriggerDelayMax1000     //  measures 10 ms, +- crystal tolerance
+//#define stmTriggerDelayMax2000    // not yet available
+#define stmTriggerDelayMax5000     // not yet available
 
 #ifdef stmTriggerDelayMax1000
 
-#define kStepUnits  stmTriggerDelayMax1000
 #define stmTriggerDelayMax  1000
 #define kStepUnitsFactor  1
-#define defaultTriacDelayPsc   940   // measured max delay psc,
+//#define defaultTriacDelayPsc   940   // measured max delay psc,
 									    //lays within ZX-detection range
 										//  ie. max returned delay
 #define triacDelayPsc  940   // (defaultTriacDelayPsc / kStepUnitsFactor)
@@ -36,21 +35,17 @@ extern "C"
 
 	#ifdef  stmTriggerDelayMax5000
 		#define stmTriggerDelayMax  5000
-		#define kStepUnits  stmTriggerDelayMax5000
 		#define kStepUnitsFactor  5
-		#define defaultTriacDelayPsc   940   // measured max delay psc,
-												//lays within ZX-detection range
-												//  ie. max returned delay
 		#define triacDelayPsc  188   // (defaultTriacDelayPsc / kStepUnitsFactor)
 												// effectively used max psc
+								// currently not in use, zx-detect makes the job
 
 	#else
 		#ifdef  stmTriggerDelayMax2000
 
 			#define stmTriggerDelayMax  2000
-			#define kStepUnits  stmTriggerDelayMax2000
 			#define kStepUnitsFactor  2
-			#define defaultTriacDelayPsc   940   // measured max delay psc,
+//			#define defaultTriacDelayPsc   940   // measured max delay psc,
 											//lays within ZX-detection range
 											//  ie. max returned delay
 			#define triacDelayPsc  470   // (defaultTriacDelayPsc / kStepUnitsFactor)

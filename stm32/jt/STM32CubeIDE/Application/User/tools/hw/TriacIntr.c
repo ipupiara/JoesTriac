@@ -163,7 +163,7 @@ void TIM4_IRQHandler(void)
   	if (__HAL_TIM_GET_FLAG(&htim4, TIM_FLAG_UPDATE) != 0)  {
 		__HAL_TIM_CLEAR_IT(&htim4, TIM_IT_UPDATE);
 
-	  	stopRailTimer();
+//	  	stopRailTimer();
 		setRailTimerCnt(0);
 
 		if (isTriggerPinOn())  {
@@ -173,7 +173,7 @@ void TIM4_IRQHandler(void)
 			setTriggerPinOn();
 			setRailTimerArr(50);
 		}
-		startRailTimer();
+//		startRailTimer();
 	}
 }
 
@@ -193,9 +193,6 @@ void TIM5_IRQHandler(void)
 	  	setRailTimerArr(50);
 	  	setRailTimerCnt(0);
 	  	startRailTimer();
-
-//		__HAL_TIM_ENABLE_IT(&htim5, TIM_IT_UPDATE);
-//		__HAL_TIM_ENABLE(&htim5);
 	}
 }
 
@@ -349,6 +346,7 @@ void initTriacRailTimer()    //  todo urgent check and make sure that timer does
 	{
 		errorHandler(3,stop," HAL_TIMEx_MasterConfigSynchronization ","initRailTimer");
 	}
+	htim4.Instance->CR1 &= (~TIM_CR1_OPM_Msk);
 
 	HAL_NVIC_SetPriority(TIM4_IRQn, 0, 0);
 	HAL_NVIC_EnableIRQ(TIM4_IRQn);
