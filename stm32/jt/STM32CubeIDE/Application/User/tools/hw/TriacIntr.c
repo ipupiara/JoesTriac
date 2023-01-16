@@ -327,7 +327,7 @@ void initTriacRailTimer()    //  todo urgent check and make sure that timer does
 	__HAL_RCC_TIM4_CLK_ENABLE();
 
 	htim4.Instance = TIM4;
-	htim4.Init.Prescaler = triacRailPsc;
+	htim4.Init.Prescaler = 10;
 	htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
 	htim4.Init.Period = 50;
 	htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;

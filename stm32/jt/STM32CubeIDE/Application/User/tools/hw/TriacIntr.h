@@ -21,6 +21,7 @@ extern "C"
 //#define stmTriggerDelayMax2000    // not yet available
 #define stmTriggerDelayMax5000     // not yet available
 
+
 #ifdef stmTriggerDelayMax1000
 
 #define stmTriggerDelayMax  1000
@@ -30,9 +31,6 @@ extern "C"
 										//  ie. max returned delay
 #define triacDelayPsc  940   // (defaultTriacDelayPsc / kStepUnitsFactor)
 										// effectively used max psc
-#define  triacRailPsc
-#define  triacRailPsc       10
-
 
 #else
 
@@ -42,7 +40,7 @@ extern "C"
 		#define triacDelayPsc  188   // (defaultTriacDelayPsc / kStepUnitsFactor)
 												// effectively used max psc
 								// currently not in use, zx-detect makes the job
-		#define  triacRailPsc    2
+
 	#else
 		#ifdef  stmTriggerDelayMax2000
 
@@ -52,7 +50,7 @@ extern "C"
 											//lays within ZX-detection range
 											//  ie. max returned delay
 			#define triacDelayPsc  470   // (defaultTriacDelayPsc / kStepUnitsFactor
-			#define  triacRailPsc    5
+
 	#else)
 
 		#endif
