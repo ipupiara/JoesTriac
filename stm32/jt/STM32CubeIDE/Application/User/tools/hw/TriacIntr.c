@@ -164,14 +164,15 @@ void TIM4_IRQHandler(void)
 		__HAL_TIM_CLEAR_IT(&htim4, TIM_IT_UPDATE);
 
 //	  	stopRailTimer();
-		setRailTimerCnt(0);
+		htim4.Instance->CNT = 0;
 
-		if (isTriggerPinOn())  {
-			setTriggerPinOff();
-			setRailTimerArr(300);
+		if (HAL_GPIO_ReadPin(triacTriggerPin_GPIO_Port, triacTriggerPin_Pin))  {
+			HAL_GPIO_WritePin(triacTriggerPin_GPIO_Port, triacTriggerPin_Pin, 0);
+			htim4.Instance->ARR = 300;
 		}  else  {
+			HAL_GPIO_WritePin(triacTriggerPin_GPIO_Port, triacTriggerPin_Pin, 1);
 			setTriggerPinOn();
-			setRailTimerArr(50);
+			htim4.Instance->ARR = 50;
 		}
 //		startRailTimer();
 	}
@@ -326,7 +327,7 @@ void initTriacRailTimer()    //  todo urgent check and make sure that timer does
 	__HAL_RCC_TIM4_CLK_ENABLE();
 
 	htim4.Instance = TIM4;
-	htim4.Init.Prescaler = 10;
+	htim4.Init.Prescaler = triacRailPsc;
 	htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
 	htim4.Init.Period = 50;
 	htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
