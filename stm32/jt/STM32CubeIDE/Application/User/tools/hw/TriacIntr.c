@@ -41,49 +41,11 @@ TIM_HandleTypeDef htim11;
 
 uint8_t durationTimerOn;
 
-uint16_t currentAmpsADCValue;
+
 
 void setTriggerPinOn();
 void setTriggerPinOff();
 uint8_t isTriggerPinOn();
-
-uint32_t getCurrentAmpsADCValue()
-{
-	uint32_t res;
-	taskENTER_CRITICAL();
-	res = currentAmpsADCValue;
-	taskEXIT_CRITICAL();
-	return res;
-}
-
-void setCurrentAmpsADCValueNonIsr(uint32_t adcV )
-{
-	taskENTER_CRITICAL();
-	currentAmpsADCValue = adcV;
-	taskEXIT_CRITICAL();
-}
-
-void adcValueReceived(uint16_t adcVal)
-{
-	taskENTER_CRITICAL();
-	setCurrentAmpsADCValueNonIsr(adcVal);
-	taskEXIT_CRITICAL();
-}
-
-float adcVoltage()
-{
-	int16_t ampsAdcHex;
-	float   ampsAdcF;
-	float   adcMaxF = 0x0FFF;
-
-	float    Vf;
-
-	ampsAdcHex = getCurrentAmpsADCValue();
-	ampsAdcF  = ampsAdcHex;
-	Vf = (ampsAdcF * 3.3) / adcMaxF;  //  todo set final ref voltage here
-
-	return Vf;
-}
 
 
 uint16_t triacTriggerDelay;
@@ -501,22 +463,9 @@ void toggleCompletionAlarm()
 	toggleBuzzer();
 }
 
-void startAmpsADC()
-{
-	setCurrentAmpsADCValueNonIsr( 0);
-	startADC();
-}
-
-void stopAmpsADC()
-{
-	stopADC();
-	setCurrentAmpsADCValueNonIsr(0);
-}
 
 void startTriacRun()
 {
-	startADC();
-	resetPID();
 	enableZeroPassDetector();
 }
 
@@ -526,7 +475,6 @@ void stopTriacRun()
 	// ok as long as we have only one line on this ISR, else use exti interrupt mask register
 	stopDelayTimer();
 	stopRailTimer();
-	stopADC();
 	setTriggerPinOff();
 }
 
@@ -535,9 +483,14 @@ void initTriacIntr()
 {
 	delayCnt0 = delayCnt1 = railCnt =  extiCnt1, extiCnt0 =0;
 	durationTimerOn = 0;
-	currentAmpsADCValue = 0;  // in isr ok With arm cortex stn32F769 (st least)
 	triacTriggerDelay = 0;
-	initAdc();
 	initInterruptsNPorts();
 }
+
+void startDebuggingTriacRun()
+{
+	triacTriggerDelay = stmTriggerDelayMax / 2;
+	startTriacRun();
+}
+
 

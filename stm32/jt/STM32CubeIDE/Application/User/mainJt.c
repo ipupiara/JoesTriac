@@ -9,6 +9,7 @@
 #include <StateClass.h>
 #include <triacPid.h>
 #include <TriacIntr.h>
+#include <adcControl.h>
 #include <i2c.h>
 //#include <uart-comms.h>
 
@@ -100,6 +101,7 @@ void mainJt(void *argument)
 	initI2c();
 	initDefines();
 	InitPID();
+	initAdc();
 	initTriacIntr();
 	startStateCharts();
 	mainJtOsStarted();

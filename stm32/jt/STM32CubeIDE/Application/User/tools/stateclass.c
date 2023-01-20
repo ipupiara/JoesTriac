@@ -297,13 +297,13 @@ void entryCalibrateScaleState(void)
 	if(status != osOK)  {
 		errorHandler(status,goOn," status ","entryCalibrateScaleState");
 	}
-	startTriacRun();
+	startTriacPidRun();
 }
 
 void exitCalibrateScaleState(void)
 {
 //	info_printf("exit calib\n");
-	stopTriacRun();
+	stopTriacPidRun();
 }
 
 uStInt evCalibrateScaleChecker(void)
@@ -451,13 +451,12 @@ void entryTriacActiveState(void)
 	info_printf("entryTriacActiveState\n");
 	startDurationTimer(getDefinesWeldingTime());
 	setTriacTriggerDelay(stmTriggerDelayMax);
-	resetPID();
-	startTriacRun();
+	startTriacPidRun();
 }
 
 void exitTriacActiveState(void)
 {
-	stopTriacRun();
+	stopTriacPidRun();
 	stopDurationTimer();
 }
 

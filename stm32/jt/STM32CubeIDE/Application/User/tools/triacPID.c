@@ -19,6 +19,7 @@ enum adcScopeEnum
 };
 
 float currentAmpsValue;
+uint16_t currentAmpsADCValue;
 //int8_t stableZeroAdjReached;
 
 int8_t m_started;
@@ -31,6 +32,45 @@ uint32_t calibHighADC;
 uint32_t calibLowADC;
 int16_t delayCorrection;
 real corrCarryOver;     // carry amount if correction in float gives zero correction in int
+
+
+uint32_t getCurrentAmpsADCValue()
+{
+	uint32_t res;
+	taskENTER_CRITICAL();
+	res = currentAmpsADCValue;
+	taskEXIT_CRITICAL();
+	return res;
+}
+
+void setCurrentAmpsADCValueNonIsr(uint32_t adcV )
+{
+	taskENTER_CRITICAL();
+	currentAmpsADCValue = adcV;
+	taskEXIT_CRITICAL();
+}
+
+void adcValueReceived(uint16_t adcVal)
+{
+	taskENTER_CRITICAL();
+	setCurrentAmpsADCValueNonIsr(adcVal);
+	taskEXIT_CRITICAL();
+}
+
+float adcVoltage()
+{
+	int16_t ampsAdcHex;
+	float   ampsAdcF;
+	float   adcMaxF = 0x0FFF;
+
+	float    Vf;
+
+	ampsAdcHex = getCurrentAmpsADCValue();
+	ampsAdcF  = ampsAdcHex;
+	Vf = (ampsAdcF * 3.3) / adcMaxF;  //  todo set final ref voltage here
+
+	return Vf;
+}
 
 void InitializePID(real kpTot,real kpP, real ki, real kd, real error_thresh, real step_time);
 
@@ -80,6 +120,30 @@ float getCurrentAmpsValue()
 	return res;
 }
 
+void startAmpsADC()
+{
+	setCurrentAmpsADCValueNonIsr( 0);
+	startADC();
+}
+
+void stopAmpsADC()
+{
+	stopADC();
+	setCurrentAmpsADCValueNonIsr(0);
+}
+
+void startTriacPidRun()
+{
+	startADC();
+	resetPID();
+	startTriacRun();
+}
+
+void stopTriacPidRun()
+{
+	stopADC();
+	stopTriacRun();
+}
 //uint16_t  adcValueForAmps (float amps)
 //{
 //	uint16_t res = 0;

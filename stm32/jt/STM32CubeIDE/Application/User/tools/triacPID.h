@@ -12,20 +12,28 @@ extern "C"
 // Select 'double' or 'float' here:
 typedef double real;
 
-
 #define pidStepDelays  787  // unit is 1/1000 sec = 1 mSec,
-
 
 
 //extern float zeroAdjustDiffVoltage;
 
 float getCurrentAmpsValue();
+void startAmpsADC();
+void stopAmpsADC();
+void adcValueReceived(uint16_t adcVal);
+uint32_t getCurrentAmpsADCValue();
+void setCurrentAmpsADCValueNonIsr(uint32_t adcV );
+float adcVoltage();
+
 
 void InitPID();
-
 void resetPID();
-
+void startTriacPidRun();
+void stopTriacPidRun();
 void printPIDState();
+void updateGradAmps();
+extern void calcNextTriacDelay();
+
 
 //void onEntryIdlePID();
 
@@ -38,7 +46,7 @@ void printPIDState();
 
 //uint16_t  adcValueForAmps (float amps);
 
-void updateGradAmps();
+
 
 //void onIdleAdcTick();
 
@@ -53,7 +61,7 @@ void updateGradAmps();
 //int8_t setAdjustJob(int8_t jobS);
 
 
-extern void calcNextTriacDelay();
+
 
 #ifdef  __cplusplus
 }
