@@ -12,8 +12,21 @@
 #define triacTriggerPin_GPIO_Port GPIOB
 #define buzzerTimer htim11
 
+#define triacDelayTimer htim5
+#define triacRailTimer htim4
 
+#define stopRailTimer() \
+  do { \
+        triacRailTimer.Instance->CR1 &= ~(TIM_CR1_CEN);  \
+        __HAL_TIM_DISABLE_IT(&triacRailTimer, TIM_IT_UPDATE);\
+        HAL_GPIO_WritePin(triacTriggerPin_GPIO_Port, triacTriggerPin_Pin, 0);\
+  } while(0)
 
+#define startRailTimer() \
+  do { \
+        triacRailTimer.Instance->CR1 |= (TIM_CR1_CEN);  \
+        __HAL_TIM_ENABLE_IT(&triacRailTimer, TIM_IT_UPDATE);\
+  } while(0)
 
 typedef enum {
 	extiRunning,
@@ -105,116 +118,81 @@ uint16_t getTriacTriggerDelay()
 	return res;
 }
 
-void setRailTimerArr(int16_t  period)
-{
-	htim4.Instance->ARR = period;
-}
-
-void setRailTimerCnt(uint16_t val)
-{
-	htim4.Instance->CNT = val;
-}
-
-
-void setDelayTimerArr(int16_t  period)
-{
-	htim5.Instance->ARR = period;
-}
-
-void setDelayTimerCnt(uint16_t val)
-{
-	htim5.Instance->CNT = val;
-}
-
-void startRailTimer()
-{
-
-	__HAL_TIM_ENABLE_IT(&htim4, TIM_IT_UPDATE);
-	__HAL_TIM_ENABLE(&htim4);
-}
-
-void stopRailTimer()
-{
-	__HAL_TIM_DISABLE(&htim4);
-	__HAL_TIM_DISABLE_IT(&htim4, TIM_IT_UPDATE);
-}
-
-void startDelayTimerFromIsr()
-{
-	setDelayTimerArr(triacTriggerDelay); //  unprotected (cli sei) cause in isr anyhow and no interrupt nesting !
-	setDelayTimerCnt(0);
-	setTriggerPinOff();
-	__HAL_TIM_ENABLE_IT(&htim5, TIM_IT_UPDATE);
-	__HAL_TIM_ENABLE(&htim5);
-}
-
 void stopDelayTimer()
 {
-	__HAL_TIM_DISABLE(&htim5);
-	__HAL_TIM_DISABLE_IT(&htim5, TIM_IT_UPDATE);
+	__HAL_TIM_DISABLE(&triacDelayTimer);
 	setTriggerPinOff();
 
-//	__HAL_TIM_DISABLE(&htim5);
-//	__HAL_TIM_DISABLE_IT(&htim5, TIM_IT_UPDATE);  // todo reimplemented after problems with triactrigger
+//	__HAL_TIM_DISABLE(&triacDelayTimer);
+//	__HAL_TIM_DISABLE_IT(&triacDelayTimer, TIM_IT_UPDATE);  // todo reimplemented after problems with triactrigger
 }
+
+uint32_t  delayCnt0, delayCnt1, railCnt, extiCnt1 , extiCnt0,extiCnt ;
+
 
 void TIM4_IRQHandler(void)
 {
-  	if (__HAL_TIM_GET_FLAG(&htim4, TIM_FLAG_UPDATE) != 0)  {
-		__HAL_TIM_CLEAR_IT(&htim4, TIM_IT_UPDATE);
+  	if (__HAL_TIM_GET_FLAG(&triacRailTimer, TIM_FLAG_UPDATE) != 0)  {
+		__HAL_TIM_CLEAR_IT(&triacRailTimer, TIM_IT_UPDATE);
 
-//	  	stopRailTimer();
-		htim4.Instance->CNT = 0;
-
+		++ railCnt;
+		triacRailTimer.Instance->CNT = 0;
 		if (HAL_GPIO_ReadPin(triacTriggerPin_GPIO_Port, triacTriggerPin_Pin))  {
 			HAL_GPIO_WritePin(triacTriggerPin_GPIO_Port, triacTriggerPin_Pin, 0);
-			htim4.Instance->ARR = 300;
+			triacRailTimer.Instance->ARR =300;
 		}  else  {
 			HAL_GPIO_WritePin(triacTriggerPin_GPIO_Port, triacTriggerPin_Pin, 1);
-			setTriggerPinOn();
-			htim4.Instance->ARR = 50;
+			triacRailTimer.Instance->ARR =50;
 		}
-//		startRailTimer();
 	}
 }
 
 
 void TIM5_IRQHandler(void)
 {
-//  HAL_TIM_IRQHandler(&htim5);
+  	if (__HAL_TIM_GET_FLAG(&triacDelayTimer, TIM_FLAG_UPDATE) != 0)  {
+		__HAL_TIM_CLEAR_IT(&triacDelayTimer, TIM_IT_UPDATE);
 
-  	if (__HAL_TIM_GET_FLAG(&htim5, TIM_FLAG_UPDATE) != 0)  {
-		__HAL_TIM_CLEAR_IT(&htim5, TIM_IT_UPDATE);
 
-	  	__HAL_TIM_DISABLE(&htim5);
-	  	__HAL_TIM_DISABLE_IT(&htim5, TIM_IT_UPDATE);
-
-	  	setTriggerPinOn();
-
-	  	setRailTimerArr(50);
-	  	setRailTimerCnt(0);
-	  	startRailTimer();
+	  	if (triacTriggerDelay <  stmTriggerDelayMax )  {
+	  		HAL_GPIO_WritePin(triacTriggerPin_GPIO_Port, triacTriggerPin_Pin, 1);
+	  		++ delayCnt0;
+			triacRailTimer.Instance->ARR = 50;
+			triacRailTimer.Instance->CNT = 0;
+			startRailTimer();
+			triacDelayTimer.Instance->ARR = stmTriggerDelayMax;
+	  	}  else {
+	  		++ delayCnt1;
+			__HAL_TIM_DISABLE(&triacDelayTimer);
+			stopRailTimer();
+			HAL_GPIO_WritePin(triacTriggerPin_GPIO_Port, triacTriggerPin_Pin, 0);
+	  	}
 	}
 }
 
 void EXTI15_10_IRQHandler(void)
 {
 	if (extiState == extiRunning) {
-	  if(__HAL_GPIO_EXTI_GET_IT(zeroPassPin_Pin) != RESET) {
+		++extiCnt;
+//if ((extiCnt & 0x1) == 1) {
+	  if(__HAL_GPIO_EXTI_GET_IT(zeroPassPin_Pin) != 0) {
 		__HAL_GPIO_EXTI_CLEAR_IT(zeroPassPin_Pin);
 		if (HAL_GPIO_ReadPin(zeroPassPin_GPIO_Port,zeroPassPin_Pin))  {
-			stopDelayTimer();
+			__HAL_TIM_DISABLE(&triacDelayTimer);
 			stopRailTimer();
-			setTriggerPinOff();
+			HAL_GPIO_WritePin(triacTriggerPin_GPIO_Port, triacTriggerPin_Pin, 0);
+			++extiCnt1;
 		}  else  {
-			startDelayTimerFromIsr();
+			++extiCnt0;
+			triacDelayTimer.Instance->ARR =triacTriggerDelay;
+			triacDelayTimer.Instance->CNT =0;
+			HAL_GPIO_WritePin(triacTriggerPin_GPIO_Port, triacTriggerPin_Pin, 0);
+			__HAL_TIM_ENABLE(&triacDelayTimer);
 		}
 	  }
+//}
 	}  else {
-		stopTriacRun();
-		stopDelayTimer();
-		stopRailTimer();
-		setTriggerPinOff();
+//		stopTriacRun();
 	}
 }
 
@@ -295,7 +273,7 @@ void initTriacDelayTimer()
 	htim5.Instance = TIM5;
 	htim5.Init.Prescaler = triacDelayPsc;
 	htim5.Init.CounterMode = TIM_COUNTERMODE_UP;
-	htim5.Init.Period = 100;
+	htim5.Init.Period = 0;
 	htim5.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
 	htim5.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
 	if (HAL_TIM_Base_Init(&htim5) != HAL_OK)
@@ -316,6 +294,8 @@ void initTriacDelayTimer()
 
 	HAL_NVIC_SetPriority(TIM5_IRQn, 0, 0);
 	HAL_NVIC_EnableIRQ(TIM5_IRQn);
+	__HAL_TIM_ENABLE_IT(&triacDelayTimer, TIM_IT_UPDATE);
+	stopDelayTimer();
 }
 
 
@@ -349,19 +329,25 @@ void initTriacRailTimer()    //  todo urgent check and make sure that timer does
 	}
 	htim4.Instance->CR1 &= (~TIM_CR1_OPM_Msk);
 
+	__HAL_TIM_DISABLE(&triacRailTimer);
 	HAL_NVIC_SetPriority(TIM4_IRQn, 0, 0);
 	HAL_NVIC_EnableIRQ(TIM4_IRQn);
+	stopRailTimer();
+
 }
 
 
 void disableZeroPassDetector()
 {
-	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);   // ok as long as we have only one line on this ISR, else use exti interrupt mask register
+	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);   // ok as long as we have only one line on this ISR, else use exti interrupt mask register}
+	extiState = extiStopped;
 }
 
 void enableZeroPassDetector()
 {
+	extiState = extiRunning;
 	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+
 }
 
 void initZeroPassDetector()
@@ -377,22 +363,22 @@ void initZeroPassDetector()
 	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
 }
 
-void setTriggerPinOn()
-{
-	HAL_GPIO_WritePin(triacTriggerPin_GPIO_Port, triacTriggerPin_Pin, 1);
-}
+//void setTriggerPinOn()
+//{
+//	HAL_GPIO_WritePin(triacTriggerPin_GPIO_Port, triacTriggerPin_Pin, 1);
+//}
 
 void setTriggerPinOff()
 {
 	HAL_GPIO_WritePin(triacTriggerPin_GPIO_Port, triacTriggerPin_Pin, 0);
 }
 
-uint8_t isTriggerPinOn()
-{
-	uint8_t res = 0;
-	res = HAL_GPIO_ReadPin(triacTriggerPin_GPIO_Port, triacTriggerPin_Pin);
-	return res;
-}
+//uint8_t isTriggerPinOn()
+//{
+//	uint8_t res = 0;
+//	res = HAL_GPIO_ReadPin(triacTriggerPin_GPIO_Port, triacTriggerPin_Pin);
+//	return res;
+//}
 
 void initTriacTriggerPin()
 {
@@ -402,6 +388,7 @@ void initTriacTriggerPin()
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
 	HAL_GPIO_Init(triacTriggerPin_GPIO_Port, &GPIO_InitStruct);
+	HAL_GPIO_WritePin(triacTriggerPin_GPIO_Port, triacTriggerPin_Pin, 0);
 }
 
 
@@ -530,20 +517,13 @@ void startTriacRun()
 {
 	startADC();
 	resetPID();
-	extiState = extiRunning;
-	enableZeroPassDetector();    //  todo added this line after problems
+	enableZeroPassDetector();
 }
 
 void stopTriacRun()
 {
-//	disableZeroPassDetector();    // ok as long as we have only one line on this ISR, else use exti interrupt mask register
-//	stopDelayTimer();
-//	stopRailTimer();
-//	stopAmpsADC();
-//	setTriggerPinOff();    // todo commented after problems
-
-	extiState = extiStopped;
 	disableZeroPassDetector();
+	// ok as long as we have only one line on this ISR, else use exti interrupt mask register
 	stopDelayTimer();
 	stopRailTimer();
 	stopADC();
@@ -553,6 +533,7 @@ void stopTriacRun()
 
 void initTriacIntr()
 {
+	delayCnt0 = delayCnt1 = railCnt =  extiCnt1, extiCnt0 =0;
 	durationTimerOn = 0;
 	currentAmpsADCValue = 0;  // in isr ok With arm cortex stn32F769 (st least)
 	triacTriggerDelay = 0;
