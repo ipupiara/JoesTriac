@@ -94,6 +94,7 @@ void mainJtOsStarted()
 
 void mainJt(void *argument)
 {
+
 	osStatus_t status;
 	CMainJtEventT  mJtEv;
 	fsmTriacEvent fsmEv;
@@ -223,7 +224,9 @@ void mainJt(void *argument)
 		} else {
 			errorHandler((uint32_t)status ,goOn," osMessageQueueGet "," mainJt ");
 		}
-	}  while (1);
+
+	}
+	while (1);
 }
 
 osStatus_t sendPresenterMessage(pJoesPresenterEventT  pMsg)
@@ -269,6 +272,7 @@ osStatus_t sendModelMessage(pJoesModelEventT  pMsg)
 
 void initJt()
 {
+#ifndef debugTriac
 	mainJtTaskHandle = osThreadNew(mainJt, NULL, &mainJt_attributes);
 	if (mainJtTaskHandle  == NULL)   {
 		errorHandler((uint32_t)mainJtTaskHandle ,stop," mainJtTaskHandle ","initJt");
@@ -301,6 +305,9 @@ void initJt()
 		if (modelMessageQ  == NULL)   {
 			errorHandler((uint32_t)NULL, stop," modelMessageQ ", "initJt");
 		}
+#else
+		initTriacIntr();
+#endif
 }
 
 

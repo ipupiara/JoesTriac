@@ -5,6 +5,7 @@
 #include "triacPID.h"
 #include <defines.h>
 #include <TriacIntr.h>
+#include <adcControl.h>
 //#include <uart-comms.h>
 #include <mainJt.h>
 
