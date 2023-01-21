@@ -20,7 +20,7 @@ extern "C" {
 #include <string.h>
 #include "stm32f7xx_hal.h"
 
-#define debugTriac
+//#define debugTriac
 
 #define MUTEX_AQUIRE(HANDLE,TIMEOUT)  osMutexAcquire (HANDLE, TIMEOUT)
 #define MUTEX_RELEASE(HANDLE) osMutexRelease (HANDLE)

@@ -182,7 +182,7 @@ int main(void)
   /* USER CODE END SysInit */
 //#define debugTriac
   /* Initialize all configured peripherals */
-#ifndef debugTriac
+//#ifndef debugTriac
 
   MX_GPIO_Init();
   MX_CRC_Init();
@@ -217,11 +217,11 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
-#endif
+//#endif
 
   initJt();
 
-#ifndef debugTriac
+//#ifndef debugTriac
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
@@ -248,7 +248,7 @@ int main(void)
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-#endif
+//#endif
   while (1)
   {
     /* USER CODE END WHILE */
