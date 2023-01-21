@@ -12,6 +12,7 @@
 
 #define triacDelayTimer htim5
 #define triacRailTimer htim4
+#define triacRailPwmTimer htim10
 
 #define stopRailTimer() \
   do { \
@@ -39,6 +40,18 @@
         triacDelayTimer.Instance->CR1 |= (TIM_CR1_CEN);  \
   } while(0)
 
+#define enableRailTimerPwm() \
+  do { \
+        triacRailPwmTimer.Instance->CR1  &= ~(TIM_CR1_CEN);  \
+  } while(0)
+
+
+#define disableRailTimerPwm() \
+  do { \
+        triacRailPwmTimer.Instance->CR1 |= (TIM_CR1_CEN);  \
+  } while(0)
+
+
 typedef enum {
 	tim5DelayPhase,
 	tim5RunPhase
@@ -55,7 +68,7 @@ tim5RunStateType tim5RunState;
 TIM_HandleTypeDef htim5;
 TIM_HandleTypeDef htim4;
 TIM_HandleTypeDef htim11;
-
+TIM_HandleTypeDef htim10;
 uint8_t durationTimerOn;
 
 
@@ -200,7 +213,7 @@ void initBuzzerTimerPWM()
 	__HAL_RCC_TIM11_CLK_ENABLE();
 
 	htim11.Instance = TIM11;
-	htim11.Init.Prescaler = 8;
+	htim11.Init.Prescaler = 8;   //  todo increase presc and lower periods for better overall performance
 	htim11.Init.CounterMode = TIM_COUNTERMODE_UP;
 	htim11.Init.Period = 25000;
 	htim11.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -317,6 +330,95 @@ void initTriacRailTimer()    //  todo urgent check and make sure that timer does
 	stopRailTimer();
 
 }
+
+void initTriacRailPwmTimer()
+{
+	TIM_OC_InitTypeDef sConfigOC = {0};
+	GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+	  __HAL_RCC_TIM10_CLK_ENABLE();
+
+
+	  htim10.Instance = TIM10;
+	  htim10.Init.Prescaler = 10;
+	  htim10.Init.CounterMode = TIM_COUNTERMODE_UP;
+	  htim10.Init.Period = 350;
+	  htim10.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+	  htim10.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+	  if (HAL_TIM_PWM_Init(&htim10) != HAL_OK)
+	  {
+		  errorHandler(4,stop," HAL_TIM_PWM_Init ","initTriacRailPwmTimer");
+	  }
+
+	  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+	  sConfigOC.Pulse = 50;
+	  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+	  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+	  if (HAL_TIM_PWM_ConfigChannel(&htim10, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+	  {
+		  errorHandler(4,stop," HAL_TIM_PWM_ConfigChannel ","initTriacRailPwmTimer");
+	  }
+
+	  __HAL_RCC_GPIOF_CLK_ENABLE();
+		GPIO_InitStruct.Pin = GPIO_PIN_6;
+		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+		GPIO_InitStruct.Pull = GPIO_NOPULL;
+		GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+		GPIO_InitStruct.Alternate = GPIO_AF3_TIM10;
+		HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
+
+		disableRailTimerPwm();
+		TIM_CCxChannelCmd(htim10.Instance, TIM_CHANNEL_1, TIM_CCx_ENABLE);
+
+//	    HAL_NVIC_SetPriority(TIM5_IRQn, 0, 0);
+//	    HAL_NVIC_EnableIRQ(TIM5_IRQn);
+
+}
+
+
+
+
+//void initTriacRailPwmTimer()
+//{
+////  made with firmware 1.17, while above runs so far on 16.2, so better take above
+//	  TIM_OC_InitTypeDef sConfigOC = {0};
+//
+//	  __HAL_RCC_TIM10_CLK_ENABLE();
+//
+//	  htim10.Instance = TIM10;
+//	  htim10.Init.Prescaler = 10;
+//	  htim10.Init.CounterMode = TIM_COUNTERMODE_UP;
+//	  htim10.Init.Period = 350;
+//	  htim10.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+//	  htim10.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+//	  if (HAL_TIM_Base_Init(&htim10) != HAL_OK)
+//	  {
+//		  errorHandler(3,stop," HAL_TIM_Base_Init ","initTriacRailPwmTimer");
+//	  }
+//	  if (HAL_TIM_PWM_Init(&htim10) != HAL_OK)
+//	  {
+//		  errorHandler(4,stop," HAL_TIM_PWM_Init ","initTriacRailPwmTimer");
+//	  }
+//	  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+//	  sConfigOC.Pulse = 50;
+//	  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+//	  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+//	  if (HAL_TIM_PWM_ConfigChannel(&htim10, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+//	  {
+//		  errorHandler(4,stop," HAL_TIM_PWM_ConfigChannel ","initTriacRailPwmTimer");
+//	  }
+//	  __HAL_RCC_GPIOF_CLK_ENABLE();
+//		GPIO_InitStruct.Pin = GPIO_PIN_6;
+//		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+//		GPIO_InitStruct.Pull = GPIO_NOPULL;
+//		GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+//		GPIO_InitStruct.Alternate = GPIO_AF3_TIM10;
+//		HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
+//
+////	    HAL_NVIC_SetPriority(TIM5_IRQn, 0, 0);
+////	    HAL_NVIC_EnableIRQ(TIM5_IRQn);
+//
+//}
 
 
 void disableZeroPassDetector()
