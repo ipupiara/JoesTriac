@@ -169,7 +169,7 @@ void transferBuffer(uint8_t  tobeForwardedFrom)
 
 
 
-void setUartJobSema()
+void setUartJobSemaQ()
 {
 
 	uint32_t dummy = 0x5a;
@@ -192,7 +192,7 @@ void USART_IRQHandler(void)
 
         if (txStringBufferPos == txStringBufferLen) {
             disableUartInterrupts();
-            setUartJobSema();
+            setUartJobSemaQ();
         }
         //  todo handle errors
     }
@@ -243,7 +243,7 @@ void USART_IRQHandler(void)
 void txDMA_Stream_IRQHandler(void)   // TX
 {
 	if (__HAL_DMA_GET_FLAG(&hdma_usart_tx,txDMA_FLAG_TCIF) != 0)  {
-		setUartJobSema();
+		setUartJobSemaQ();
 		__HAL_DMA_CLEAR_FLAG(&hdma_usart_tx,txDMA_FLAG_TCIF);
 	}
 
@@ -288,7 +288,7 @@ uint8_t initUartHw()
 	if (uartSendSemaphoreQ  == NULL)   {
 		errorHandler(0xff ,stop," osMessageQueueNew ","initUartHw");
 	}
-	setUartJobSema();
+	setUartJobSemaQ();
 
 	resetStringBuffer();
 
