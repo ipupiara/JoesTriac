@@ -2,11 +2,11 @@
 #include <StateClass.h>
 #include <defines.h>
 #include <mainJt.h>
-#include <core_cm7.h>
 
 #define zeroPassPin_Pin GPIO_PIN_12
 #define zeroPassPin_GPIO_Port GPIOA
 #define zeroPassPin_EXTI_IRQn EXTI15_10_IRQn
+
 #define buzzerTimer htim11
 
 #define triacDelayTimer htim5
@@ -20,14 +20,14 @@
 
 #define disableRailTimerPwm() \
   do { \
-	  TIM_CCxChannelCommand(triacRailPwmTimer.Instance, TIM_CHANNEL_1, TIM_CCx_DISABLE);  \
+	  TIM_CCxChannelCmd(triacRailPwmTimer.Instance, TIM_CHANNEL_1, TIM_CCx_DISABLE);  \
       triacRailPwmTimer.Instance->CR1  &= ~(TIM_CR1_CEN);  \
   } while(0)
 
 
 #define enableRailTimerPwm() \
   do { \
-	  TIM_CCxChannelCommand(triacRailPwmTimer.Instance, TIM_CHANNEL_1, TIM_CCx_ENABLE);  \
+	  TIM_CCxChannelCmd(triacRailPwmTimer.Instance, TIM_CHANNEL_1, TIM_CCx_ENABLE);  \
       triacRailPwmTimer.Instance->CR1 |= (TIM_CR1_CEN);  \
   } while(0)
 
@@ -44,6 +44,9 @@
         triacDelayTimer.Instance->CR1 |= (TIM_CR1_CEN);  \
         __HAL_TIM_ENABLE_IT(&triacDelayTimer, TIM_IT_UPDATE);  \
   } while(0)
+
+
+
 
 typedef enum {
 	tim5DelayPhase,
@@ -64,15 +67,19 @@ TIM_HandleTypeDef htim11;
 TIM_HandleTypeDef htim12;
 uint8_t durationTimerOn;
 
+
+
 void setTriggerPinOn();
 void setTriggerPinOff();
 uint8_t isTriggerPinOn();
 
+
 uint16_t triacTriggerDelay;
 
 uint32_t secondsDurationTimerRemaining;
+
 uint32_t secondsInDurationTimer;
-uint16_t tim5UsedDelay;
+
 
 void checkInterrupts()
 {
@@ -96,7 +103,6 @@ void checkInterrupts()
 	HAL_NVIC_SetPriority(TIM5_IRQn, 0, 0);
 	HAL_NVIC_EnableIRQ(TIM5_IRQn);
 }
-
 
 void setTriacTriggerDelay(int32_t durationTcnt)
 {
@@ -123,8 +129,12 @@ uint16_t getTriacTriggerDelay()
 	return res;
 }
 
+
 uint32_t  delayCnt0, delayCnt1, extiCnt1 , extiCnt0 ;
 
+
+uint16_t tim5UsedDelay;
+#define timerDelta  0   //  todo test works with 0
 
 void TIM5_IRQHandler(void)
 {
@@ -135,7 +145,7 @@ void TIM5_IRQHandler(void)
 	  		++ delayCnt0;
 	  		enableRailTimerPwm();
 			triacDelayTimer.Instance->CNT = 0;
-			triacDelayTimer.Instance->ARR = stmTriggerDelayMax - tim5UsedDelay;
+			triacDelayTimer.Instance->ARR = stmTriggerDelayMax - tim5UsedDelay -timerDelta ;
 			tim5RunState = tim5DelayPhase;
 	  	}  else {
 	  		++ delayCnt1;
@@ -144,6 +154,7 @@ void TIM5_IRQHandler(void)
 	  	}
 	}
 }
+
 
 
 void EXTI15_10_IRQHandler(void)
@@ -160,7 +171,6 @@ void EXTI15_10_IRQHandler(void)
 //			}
 		}  else  {
 			++extiCnt0;
-;
 //			if ((extiCnt0 & 0x1) == 1)  {
 				tim5UsedDelay =  triacDelayTimer.Instance->ARR =triacTriggerDelay;
 				triacDelayTimer.Instance->CNT =0;
@@ -313,10 +323,7 @@ void initTriacRailPwmTimer()
 	    HAL_GPIO_Init(GPIOH, &GPIO_InitStruct);
 
 	    disableRailTimerPwm();
-//		TIM_CCxChannelCmd(htim12.Instance, TIM_CHANNEL_1, TIM_CCx_ENABLE);
 
-//	    HAL_NVIC_SetPriority(TIM5_IRQn, 0, 0);
-//	    HAL_NVIC_EnableIRQ(TIM5_IRQn);
 }
 
 
@@ -330,6 +337,7 @@ void enableZeroPassDetector()
 {
 	extiState = extiRunning;
 	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+
 }
 
 void initZeroPassDetector()

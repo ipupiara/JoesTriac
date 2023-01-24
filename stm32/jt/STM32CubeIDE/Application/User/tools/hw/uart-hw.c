@@ -171,7 +171,6 @@ void transferBuffer(uint8_t  tobeForwardedFrom)
 
 void setUartJobSemaQ()
 {
-
 	uint32_t dummy = 0x5a;
 	if (uartJobSemSet == 0)  {    // prevent multiple events by irqs
 		osMessageQueuePut(uartSendSemaphoreQ, &dummy, 0, 0);   //  after semaphores do not work from isr ?????  replaced by queue as done in OSWrappers.cpp
