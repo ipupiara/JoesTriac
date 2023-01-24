@@ -19,8 +19,10 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+//#ifndef debugTriac
 #include "libjpeg.h"
 #include "app_touchgfx.h"
+//#endif
 #include "mainJt.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -68,6 +70,8 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+
+//#ifndef debugTriac
 
 CRC_HandleTypeDef hcrc;
 
@@ -141,6 +145,9 @@ static uint8_t QSPI_AutoPollingMemReady  (QSPI_HandleTypeDef *hqspi, uint32_t Ti
 static uint8_t BSP_QSPI_EnableMemoryMappedMode(QSPI_HandleTypeDef *hqspi);
 /* USER CODE END PFP */
 
+//#endif
+
+
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
@@ -180,9 +187,9 @@ int main(void)
   /* USER CODE BEGIN SysInit */
 
   /* USER CODE END SysInit */
-//#define debugTriac
+
   /* Initialize all configured peripherals */
-//#ifndef debugTriac
+#ifndef debugTriac
 
   MX_GPIO_Init();
   MX_CRC_Init();
@@ -248,7 +255,7 @@ int main(void)
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-//#endif
+#endif
   while (1)
   {
     /* USER CODE END WHILE */
@@ -318,6 +325,8 @@ void SystemClock_Config(void)
 	 Error_Handler();
 	}
 }
+
+//#ifndef debugTriac
 
 /**
   * @brief CRC Initialization Function
@@ -1522,6 +1531,31 @@ void StartDefaultTask(void *argument)
   /* USER CODE END 5 */
 }
 
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM6 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM6) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
+}
+
+
+//#endif
+
+
 /* MPU Configuration */
 
 void MPU_Config(void)
@@ -1593,26 +1627,6 @@ void MPU_Config(void)
 
 }
 
-/**
-  * @brief  Period elapsed callback in non blocking mode
-  * @note   This function is called  when TIM6 interrupt took place, inside
-  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
-  * a global variable "uwTick" used as application time base.
-  * @param  htim : TIM handle
-  * @retval None
-  */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-  /* USER CODE BEGIN Callback 0 */
-
-  /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM6) {
-    HAL_IncTick();
-  }
-  /* USER CODE BEGIN Callback 1 */
-
-  /* USER CODE END Callback 1 */
-}
 
 /**
   * @brief  This function is executed in case of error occurrence.

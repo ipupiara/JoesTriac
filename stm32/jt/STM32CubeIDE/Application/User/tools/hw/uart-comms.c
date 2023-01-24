@@ -14,7 +14,7 @@
 #include "cmsis_os.h"
 #include <mainJt.h>
 #include <uart-comms.h>
-#include "uart-hw.h"
+
 
 uint32_t  amtErr;			// amt calls to err_printf
 uint32_t  amtPrintErr;   // errors during print out, where err_printf should not be called

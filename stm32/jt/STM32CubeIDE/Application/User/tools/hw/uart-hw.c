@@ -282,13 +282,13 @@ uint8_t initUartHw()
 	rxMsgCounter = 0;
 	txMsgCounter = 0;
 	uartJobSemSet = 0;
-
+#ifndef debugTriac
 	uartSendSemaphoreQ =  osMessageQueueNew(3,4, NULL);
 	if (uartSendSemaphoreQ  == NULL)   {
 		errorHandler(0xff ,stop," osMessageQueueNew ","initUartHw");
 	}
 	setUartJobSemaQ();
-
+#endif
 	resetStringBuffer();
 
 	GPIO_InitTypeDef GPIO_InitStruct = {0};
@@ -380,6 +380,12 @@ uint8_t initUartHw()
 	HAL_NVIC_SetPriority(USART_IRQn, 0, 0);
 
 	disableUartInterrupts();
+#ifdef debugTriac
+uint32_t lastUwtick;
+
+
+
+#endif
 	return res;
 }
 

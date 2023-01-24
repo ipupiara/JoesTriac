@@ -13,14 +13,16 @@ extern "C" {
 #endif
 
 #include <stdint.h>
+//#ifndef debugTriac
 #include "cmsis_os.h"
 #include <task.h>
 #include <FreeRTOS.h>
+//#endif
 #include <defines.h>
 #include <string.h>
 #include "stm32f7xx_hal.h"
 
-//#define debugTriac
+
 
 #define MUTEX_AQUIRE(HANDLE,TIMEOUT)  osMutexAcquire (HANDLE, TIMEOUT)
 #define MUTEX_RELEASE(HANDLE) osMutexRelease (HANDLE)

@@ -8,6 +8,7 @@
 #ifndef ST_TEMPIX_TOOLS_UART_COMMS_H_
 #define ST_TEMPIX_TOOLS_UART_COMMS_H_
 #include <cmsis_os.h>
+#include <uart-hw.h>
 
 #ifdef  __cplusplus
 extern "C"

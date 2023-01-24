@@ -11,7 +11,7 @@
 #include <TriacIntr.h>
 #include <adcControl.h>
 #include <i2c.h>
-//#include <uart-comms.h>
+#include <uart-comms.h>
 
 union  {
 	float realVar;
@@ -306,8 +306,19 @@ void initJt()
 			errorHandler((uint32_t)NULL, stop," modelMessageQ ", "initJt");
 		}
 #else
-		initTriacIntr();
+
+
+//		initTriacIntr();
+		initUartHw();
 #endif
 }
 
+#ifdef debugTriac
 
+void SysTick_Handler(void)
+{
+  HAL_IncTick();
+}
+
+
+#endif

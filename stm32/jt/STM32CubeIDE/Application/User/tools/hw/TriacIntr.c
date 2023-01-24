@@ -492,7 +492,7 @@ void initTriacIntr()
 	durationTimerOn = 0;
 	triacTriggerDelay = stmTriggerDelayMax;
 	initInterruptsNPorts();
-#ifdef debugTriac
-	startDebuggingTriacRun();
-#endif
+//#ifdef debugTriac
+//	startDebuggingTriacRun();
+//#endif
 }
