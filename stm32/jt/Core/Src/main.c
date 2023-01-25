@@ -224,11 +224,11 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
-//#endif
+#endif
 
   initJt();
 
-//#ifndef debugTriac
+#ifndef debugTriac
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
@@ -273,7 +273,6 @@ void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
-  RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
 
   /** Configure the main internal regulator output voltage
   */
@@ -318,12 +317,6 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 
-    PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_USART6;
-	PeriphClkInitStruct.Usart6ClockSelection = RCC_USART6CLKSOURCE_PCLK2;
-	if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
-	{
-	 Error_Handler();
-	}
 }
 
 //#ifndef debugTriac

@@ -41,6 +41,11 @@ extern "C"
 //#define rxDMA_FLAG_FEIF DMA_FLAG_FEIF2_6
 //#define rxDMA_FLAG_DMEIF DMA_FLAG_DMEIF2_6
 
+#define  txDMA_Stream  DMA1_Stream6
+#define	 txDMA_CHANNEL DMA_CHANNEL_4
+//#define  rxDMA_Stream  DMA1_Stream5
+//#define	 rxDMA_CHANNEL DMA_CHANNEL_4
+
 #define USART_IRQHandler USART2_IRQHandler
 
 #define txDMA_Stream_IRQn DMA1_Stream6_IRQn
@@ -63,11 +68,6 @@ PA3     ------> USART2_RX
 #define RCC_PERIPHCLK_USART RCC_PERIPHCLK_USART2
 #define UsartClockSelection Usart2ClockSelection
 #define RCC_USARTCLKSOURCE_PCLK RCC_USART2CLKSOURCE_PCLK1
-
-#define  txDMA_Stream  DMA1_Stream6
-#define	 txDMA_CHANNEL DMA_CHANNEL_4
-//#define  rxDMA_Stream  DMA1_Stream6
-//#define	 rxDMA_CHANNEL DMA_CHANNEL_4
 
 #endif
 
