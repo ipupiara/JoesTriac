@@ -58,7 +58,6 @@ void Error_Handler(void);
 
 /* Private defines -----------------------------------------------------------*/
 
-#define debugTriac
 
 #define DSI_RESET_Pin GPIO_PIN_15
 #define DSI_RESET_GPIO_Port GPIOJ

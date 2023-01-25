@@ -14,7 +14,7 @@ extern "C"
 
 #include <stdio.h>
 
-#define debugTriac
+//#define debugTriac
 
 #define calibHighAmps  80.0
 #define calibLowAmps   30.0
