@@ -226,44 +226,33 @@ void calcNextTriacDelay()
 
 void InitPID()
 {
-//	InitializePID(real kpTot, real kpP, real ki, real kd, real error_thresh, real step_time);
 	real step = pidStepDelays;
 	real maxV = 1000.0;
 	real stepf = step / maxV;
-	InitializePID( 1.0, 1.1, 0.2, 0.18, 4, stepf);
+	InitializePID( 0.8, 1.1, 0.2, 0.01, 4, stepf);
+
+	//	InitializePID(real kpTot, real kpP, real ki, real kd, real error_thresh, real step_time);
 	currentAmpsValue = 0.0;
-//	stableZeroAdjReached = 0;
 }
 
 void InitializePID(real kpTot,real kpP, real ki, real kd, real error_thresh, real step_time)
 {
-    // Initialize controller parameters
-	// PN 3.Oct 2011, added m_kP for better setting of proportional factor only
-	// though these 4 factors will be linearly dependent
-
-	m_kP   = kpP;
- //   m_kPTot = kpTot;
-//    kpTot = kpTot * delta  *  kStepUnitsFactor ;   // todo bring order into this and eliminate avr
-	m_kPTot = kpTot * 0.8  *  kStepUnitsFactor ;   // todo bring order into this and eliminate avr
-    m_kI = ki;
-    m_kD = kd;
+	m_kPTot = kpTot  ;
+    m_kI = ki *  kStepUnitsFactor ;
+    m_kP   = kpP *  kStepUnitsFactor ;
+    m_kD = kd  *  kStepUnitsFactor ;
     m_error_thresh = error_thresh;
 
-    // Controller step time and its inverse
     m_stepTime = step_time;
     m_inv_stepTime = 1 / step_time;
 
-    // Initialize integral and derivative calculations
     m_integral = 0;
     m_started = 0;
     deriv = 0;
+    corrCarryOver = 0;
 
-	 updateGradAmps();
-
-	 corrCarryOver = 0;
+	updateGradAmps();
 }
-
-
 
 void resetPID()
 {

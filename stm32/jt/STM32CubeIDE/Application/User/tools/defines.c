@@ -425,7 +425,7 @@ void errorHandler(uint32_t  code, errorSeverity severity, char* errorString, cha
 void calibTriacDelayChange(int32_t diff)
 {
    int16_t res = getTriacTriggerDelay();
-   res += diff;
+   res += diff * kStepUnitsFactor;   //  todo change also on ui
    setTriacTriggerDelay(res);
    CJoesPresenterEventT msg;
 

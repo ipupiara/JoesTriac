@@ -12,6 +12,7 @@
 #include <adcControl.h>
 #include <i2c.h>
 #include <uart-comms.h>
+#include <defines.h>
 
 union  {
 	float realVar;
@@ -308,8 +309,8 @@ void initJt()
 #else
 
 
-//		initTriacIntr();
-		initUartHw();
+		initTriacIntr();
+//		initUartHw();
 #endif
 }
 
