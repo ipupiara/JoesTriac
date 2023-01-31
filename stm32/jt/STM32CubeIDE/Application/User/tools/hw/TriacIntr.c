@@ -39,7 +39,7 @@
       triacRailPwmTimer.Instance->CR1 |= (TIM_CR1_CEN);  \
   } while(0)
 
-#define stopDelayTimer() \
+#define disableDelayTimer() \
   do { \
         triacDelayTimer.Instance->CR1 &= ~(TIM_CR1_CEN);  \
         __HAL_TIM_DISABLE_IT(&triacDelayTimer, TIM_IT_UPDATE);\
@@ -48,24 +48,19 @@
 
 #define startDelayTimer() \
   do { \
-	    tim5RunState = tim5RunPhase; \
+	    tim5RunState = tim5DelayPhase; \
         __HAL_TIM_ENABLE_IT(&triacDelayTimer, TIM_IT_UPDATE);  \
         triacDelayTimer.Instance->CR1 |= (TIM_CR1_CEN);  \
   } while(0)
 
 
 typedef enum {
-	tim5DelayPhase,
-	tim5RunPhase
+	tim5RailPwmPhase,
+	tim5DelayPhase
 } tim5RunStateType;
 
-typedef enum {
-	extiRunning,
-	extiStopped
-} extiStateType;
-
-extiStateType extiState;
 tim5RunStateType tim5RunState;
+uint16_t tim5UsedDelay;
 
 TIM_HandleTypeDef htim5;
 //TIM_HandleTypeDef htim4;
@@ -78,7 +73,7 @@ uint8_t durationTimerOn;
 void setTriggerPinOn();
 void setTriggerPinOff();
 uint8_t isTriggerPinOn();
-
+void initBuzzerTimerPWM();
 
 uint16_t triacTriggerDelay;
 
@@ -141,7 +136,6 @@ uint16_t getTriacTriggerDelay()
 uint32_t  delayCnt0, delayCnt1, extiCnt1 , extiCnt0 ;
 
 
-uint16_t tim5UsedDelay;
 #define debugTimerDelta  0   //  todo test works with 0
 
 void TIM5_IRQHandler(void)
@@ -149,15 +143,15 @@ void TIM5_IRQHandler(void)
   	if (__HAL_TIM_GET_FLAG(&triacDelayTimer, TIM_FLAG_UPDATE) != 0)  {
 		__HAL_TIM_CLEAR_IT(&triacDelayTimer, TIM_IT_UPDATE);
 
-		if (tim5RunState == tim5RunPhase)  {
+		if (tim5RunState == tim5DelayPhase)  {
 	  		++ delayCnt1;
 	  		enableRailTimerPwm();
 			triacDelayTimer.Instance->CNT = 0;
-			triacDelayTimer.Instance->ARR = stmTriggerDelayMax - tim5UsedDelay -debugTimerDelta ;
-			tim5RunState = tim5DelayPhase;
+			triacDelayTimer.Instance->ARR = stmTriggerDelayMax - tim5UsedDelay -debugTimerDelta;
+			tim5RunState = tim5RailPwmPhase;
 	  	}  else {
 	  		++ delayCnt0;
-	  		stopDelayTimer();
+	  		disableDelayTimer();
 	  		disableRailTimerPwm();
 	  	}
 	}
@@ -173,39 +167,21 @@ void EXTI15_10_IRQHandler(void)
 //			if ((extiCnt1 & 0x1) == 1)  {
 				tim5UsedDelay =  triacDelayTimer.Instance->ARR =triacTriggerDelay;
 				triacDelayTimer.Instance->CNT =0;
-				ena = NVIC_GetEnableIRQ(TIM5_IRQn);
-				if (ena)  {
-					startDelayTimer();
-				}
+				tim5RunState = tim5DelayPhase;
+				startDelayTimer();
 //			}
 			++extiCnt1;
 		}  else  {
 //			if ((extiCnt1 & 0x1) == 1)  {
 				disableRailTimerPwm();
-				stopDelayTimer();
+//				disableDelayTimer();  // with this line it does not run, dunnowhy
 				++extiCnt0;
 //			}
 		}
 	}
 }
 
-void enableBuzzerTimerPWM()
-{
-	TIM_CCxChannelCmd(htim11.Instance, TIM_CHANNEL_1, TIM_CCx_ENABLE);
-	htim11.Instance ->CR1  |= (TIM_CR1_CEN);
-}
 
-void disableBuzzerTimerPWM()
-{
-	TIM_CCxChannelCmd(htim11.Instance, TIM_CHANNEL_1, TIM_CCx_DISABLE);
-	htim11.Instance ->CR1  &= ~(TIM_CR1_CEN);
-}
-
-uint8_t isEnabledBuzzerTimerPWM()
-{
-	uint8_t res = ((htim11.Instance->CR1 & TIM_CR1_CEN) == 1) ;
-	return res;
-}
 
 
 
@@ -241,7 +217,7 @@ void initTriacDelayTimer()
 	htim5.Instance->CR1 &= (~TIM_CR1_OPM_Msk);
 	HAL_NVIC_SetPriority(TIM5_IRQn, 0, 0);
 	HAL_NVIC_EnableIRQ(TIM5_IRQn);
-	stopDelayTimer();
+	disableDelayTimer();
 }
 
 void initTriacRailPwmTimer()
@@ -298,12 +274,10 @@ void initTriacRailPwmTimer()
 void disableZeroPassDetector()
 {
 	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);   // ok as long as we have only one line on this ISR, else use exti interrupt mask register}
-	extiState = extiStopped;
 }
 
 void enableZeroPassDetector()
 {
-	extiState = extiRunning;
 	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
 }
@@ -317,7 +291,6 @@ void initZeroPassDetector()
 	HAL_GPIO_Init(zeroPassPin_GPIO_Port, &GPIO_InitStruct);
 
 	HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
-	extiState = extiStopped;
 	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
 }
 
@@ -330,7 +303,7 @@ void stopTriacRun()
 {
 	disableZeroPassDetector();
 	// ok as long as we have only one line on this ISR, else use exti interrupt mask register
-	stopDelayTimer();
+	disableDelayTimer();
 	disableRailTimerPwm();
 }
 
@@ -350,6 +323,71 @@ void startDebuggingTriacRun()
 	float multi = 5.0 / 8.0;
 	triacTriggerDelay = stmTriggerDelayMax*  multi;
 	startTriacRun();
+}
+
+
+
+void initInterruptsNPorts()
+{
+	__HAL_RCC_GPIOA_CLK_ENABLE();
+	__HAL_RCC_GPIOH_CLK_ENABLE();
+	__HAL_RCC_GPIOB_CLK_ENABLE();
+
+	initZeroPassDetector();
+	initTriacDelayTimer();
+	initTriacRailPwmTimer();
+	initBuzzerTimerPWM();
+}
+
+
+void initTriacIntr()
+{
+	stopTimersWhenDebugHalt();
+	delayCnt0 = delayCnt1 =  extiCnt1 = extiCnt0 =0;
+	durationTimerOn = 0;
+	triacTriggerDelay = stmTriggerDelayMax;
+	initInterruptsNPorts();
+#ifdef debugTriac
+	startDebuggingTriacRun();
+#endif
+}
+
+
+void enableBuzzerTimerPWM()
+{
+	TIM_CCxChannelCmd(htim11.Instance, TIM_CHANNEL_1, TIM_CCx_ENABLE);
+	htim11.Instance ->CR1  |= (TIM_CR1_CEN);
+}
+
+void disableBuzzerTimerPWM()
+{
+	TIM_CCxChannelCmd(htim11.Instance, TIM_CHANNEL_1, TIM_CCx_DISABLE);
+	htim11.Instance ->CR1  &= ~(TIM_CR1_CEN);
+}
+
+uint8_t isEnabledBuzzerTimerPWM()
+{
+	uint8_t res = ((htim11.Instance->CR1 & TIM_CR1_CEN) == 1) ;
+	return res;
+}
+
+void setBuzzerOn()
+{
+	enableBuzzerTimerPWM();
+}
+
+void setBuzzerOff()
+{
+	disableBuzzerTimerPWM();
+}
+
+void toggleBuzzer()
+{
+	if (isEnabledBuzzerTimerPWM()) {
+		disableBuzzerTimerPWM();
+	}  else {
+		enableBuzzerTimerPWM();
+	}
 }
 
 
@@ -391,50 +429,6 @@ void initBuzzerTimerPWM()
 	disableBuzzerTimerPWM();
 }
 
-
-void initInterruptsNPorts()
-{
-	__HAL_RCC_GPIOA_CLK_ENABLE();
-	__HAL_RCC_GPIOH_CLK_ENABLE();
-	__HAL_RCC_GPIOB_CLK_ENABLE();
-
-	initZeroPassDetector();
-	initTriacDelayTimer();
-	initTriacRailPwmTimer();
-	initBuzzerTimerPWM();
-}
-
-
-void initTriacIntr()
-{
-	stopTimersWhenDebugHalt();
-	delayCnt0 = delayCnt1 =  extiCnt1 = extiCnt0 =0;
-	durationTimerOn = 0;
-	triacTriggerDelay = stmTriggerDelayMax;
-	initInterruptsNPorts();
-#ifdef debugTriac
-	startDebuggingTriacRun();
-#endif
-}
-
-void setBuzzerOn()
-{
-	enableBuzzerTimerPWM();
-}
-
-void setBuzzerOff()
-{
-	disableBuzzerTimerPWM();
-}
-
-void toggleBuzzer()
-{
-	if (isEnabledBuzzerTimerPWM()) {
-		disableBuzzerTimerPWM();
-	}  else {
-		enableBuzzerTimerPWM();
-	}
-}
 
 void setCompletionAlarmOff()
 {
