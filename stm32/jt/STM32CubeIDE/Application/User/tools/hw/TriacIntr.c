@@ -8,10 +8,13 @@
 #define zeroPassPin_EXTI_IRQn EXTI15_10_IRQn
 
 #define buzzerTimer htim11
+#define debugTimer htim6
 
 #define triacDelayTimer htim5
 #define triacDelayTimer_IRQn TIM5_IRQn
 #define triacRailPwmTimer htim12
+
+
 
 //#define nvic_enaIrq( IRQn)  NVIC->ISER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL))
 //#define nvic_disaIrq( IRQn)  \
@@ -22,20 +25,22 @@
 
 #define TIM_CCxChannelCommand(TIMx , Channel , ChannelState) \
 	do {  \
-	  TIMx->CCER &=  ~(TIM_CCER_CC1E << (Channel & 0x1FU)); \
-	  TIMx->CCER |= (uint32_t)(ChannelState << (Channel & 0x1FU)); \
+	  uint32_t  tmp;   \
+	  tmp = ~(TIM_CCER_CC1E << Channel);          \
+	  TIMx->CCER &=  tmp; \
+	  TIMx->CCER |= (uint32_t)(ChannelState << Channel); \
 	} while (0)
 
 #define disableRailTimerPwm() \
   do { \
-	  TIM_CCxChannelCmd(triacRailPwmTimer.Instance, TIM_CHANNEL_1, TIM_CCx_DISABLE);  \
+	  TIM_CCxChannelCommand(triacRailPwmTimer.Instance, TIM_CHANNEL_1, TIM_CCx_DISABLE);  \
       triacRailPwmTimer.Instance->CR1  &= ~(TIM_CR1_CEN);  \
   } while(0)
 
 
 #define enableRailTimerPwm() \
   do { \
-	  TIM_CCxChannelCmd(triacRailPwmTimer.Instance, TIM_CHANNEL_1, TIM_CCx_ENABLE);  \
+	  TIM_CCxChannelCommand(triacRailPwmTimer.Instance, TIM_CHANNEL_1, TIM_CCx_ENABLE);  \
       triacRailPwmTimer.Instance->CR1 |= (TIM_CR1_CEN);  \
   } while(0)
 
@@ -85,17 +90,26 @@ uint32_t secondsInDurationTimer;
 void checkInterrupts()
 {
 	uint32_t inr;
-	uint32_t prio, subPrio;
+	int32_t prio, subPrio;
 	uint32_t grp = HAL_NVIC_GetPriorityGrouping();
 	uint32_t ena;
+	uint32_t amt = 0;
 
 	for (inr = 0; inr < 109; ++ inr)  {
 		ena = NVIC_GetEnableIRQ(inr);
 		if (ena != 0) {
 			HAL_NVIC_GetPriority((IRQn_Type) inr, grp, &prio, &subPrio);
-
+			if (prio > -10) {
+				++ amt;
+			}
+			if (inr > 108)  {
+				++amt;
+				--amt;
+			}
 		}
 	}
+	++amt;
+	--amt;
 //	NVIC_GetEnableIRQ(TIM5_IRQn);
 //	UNUSED(grp);
 //	UNUSED(ena);
@@ -136,7 +150,7 @@ uint16_t getTriacTriggerDelay()
 uint32_t  delayCnt0, delayCnt1, extiCnt1 , extiCnt0 ;
 
 
-#define debugTimerDelta  0   //  todo test works with 0
+//  #define debugTimerDelta  0   //  todo test works with 0
 
 void TIM5_IRQHandler(void)
 {
@@ -147,8 +161,8 @@ void TIM5_IRQHandler(void)
 	  		++ delayCnt1;
 	  		enableRailTimerPwm();
 			triacDelayTimer.Instance->CNT = 0;
-			triacDelayTimer.Instance->ARR = stmTriggerDelayMax - tim5UsedDelay -debugTimerDelta;
-			tim5RunState = tim5RailPwmPhase;
+			triacDelayTimer.Instance->ARR = stmTriggerDelayMax - tim5UsedDelay; // -debugTimerDelta;
+			tim5RunState = tim5RailPwmPhase;   //  approx 10
 	  	}  else {
 	  		++ delayCnt0;
 	  		disableDelayTimer();
@@ -169,8 +183,10 @@ void EXTI15_10_IRQHandler(void)
 				triacDelayTimer.Instance->CNT =0;
 				tim5RunState = tim5DelayPhase;
 				startDelayTimer();
+				disableRailTimerPwm();
+				++extiCnt1;
 //			}
-			++extiCnt1;
+
 		}  else  {
 //			if ((extiCnt1 & 0x1) == 1)  {
 				disableRailTimerPwm();
@@ -297,6 +313,7 @@ void initZeroPassDetector()
 void startTriacRun()
 {
 	enableZeroPassDetector();
+	checkInterrupts();
 }
 
 void stopTriacRun()
