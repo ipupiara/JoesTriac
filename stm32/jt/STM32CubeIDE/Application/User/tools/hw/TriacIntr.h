@@ -26,7 +26,7 @@ extern "C"
 
 #define stmTriggerDelayMax  1000
 #define kStepUnitsFactor  1
-#define triacDelayPsc  940   // (defaultTriacDelayPsc / kStepUnitsFactor)
+#define triacDelayPsc  995   // (defaultTriacDelayPsc / kStepUnitsFactor)
 										// effectively used max psc
 
 #else

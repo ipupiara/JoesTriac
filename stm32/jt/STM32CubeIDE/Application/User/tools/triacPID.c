@@ -229,7 +229,7 @@ void InitPID()
 	real step = pidStepDelays;
 	real maxV = 1000.0;
 	real stepf = step / maxV;
-	InitializePID( 0.8, 1.1, 0.2, 0.01, 4, stepf);
+	InitializePID( 0.8, 1.1, 0.0, 0.04, 4, stepf);
 
 	//	InitializePID(real kpTot, real kpP, real ki, real kd, real error_thresh, real step_time);
 	currentAmpsValue = 0.0;
