@@ -24,14 +24,13 @@ uint16_t currentAmpsADCValue;
 //int8_t stableZeroAdjReached;
 
 int8_t m_started;
-real m_kPTot, m_kP, m_kI, m_kD, m_stepTime, m_inv_stepTime, m_prev_error, m_error_thresh, m_integral;
+real m_kPTot, m_kP, m_kI, m_kD, m_stepTime, m_inv_stepTime, m_prev_error, m_integral_thresh, m_integral;
 real deriv, error;
 
 float gradAmps; //   (delta amperes) / (delta adc)   ....
 float gradAdc;  
 uint32_t calibHighADC;
 uint32_t calibLowADC;
-int16_t delayCorrection;
 real corrCarryOver;     // carry amount if correction in float gives zero correction in int
 
 
@@ -73,7 +72,7 @@ float adcVoltage()
 	return Vf;
 }
 
-void InitializePID(real kpTot,real kpP, real ki, real kd, real error_thresh, real step_time);
+void InitializePID(real kpTot,real kpP, real ki, real kd, real integral_thresh, real step_time);
 
 void updateGradAmps()
 {
@@ -158,19 +157,16 @@ void stopTriacPidRun()
 
 real nextCorrection(real err)
 {
-    // Set q_fact to 1 if the error magnitude is below
-    // the threshold and 0 otherwise
-    real q_fact;
+    real i_fact;
 	real res;
-	error = err;
-    if (fabs(error) < m_error_thresh) {
-        q_fact = 1.0;
+    if (fabs(err) < m_integral_thresh) {
+        i_fact = 1.0;
     } else  {
-        q_fact = 0.0;
+        i_fact = 0.0;
 		m_integral = 0.0;
 	}
 
-    m_integral += m_stepTime*q_fact*error;
+    m_integral += m_stepTime*i_fact*err;
 
     if (!m_started)
     {
@@ -178,14 +174,14 @@ real nextCorrection(real err)
         deriv = 0;
     }
     else  {
-        deriv = (error - m_prev_error) * m_inv_stepTime;
+        deriv = (err - m_prev_error) * m_inv_stepTime;
     }
-    m_prev_error = error;
+    m_prev_error = err;
 #ifdef printfPid
     real mk, mi, md;
-	res = m_kPTot*((mk=(m_kP*error)) + (mi=(m_kI*m_integral)) + (md=(m_kD*deriv)));
+	res = m_kPTot*((mk=(m_kP*err)) + (mi=(m_kI*m_integral)) - (md=(m_kD*deriv)));
 #else
-	res = m_kPTot*((m_kP*error) + (m_kI*m_integral) + (m_kD*deriv));
+	res = m_kPTot*((m_kP*err) + (m_kI*m_integral) + (m_kD*deriv));
 #endif
 	if (res > correctionThreshold) {
 		res = correctionThreshold;
@@ -199,22 +195,30 @@ real nextCorrection(real err)
     return res;
 }
 
+int16_t delayCorrectionI;
 
 void calcNextTriacDelay()
 {  
 	float err;
-	float corr;
+	float delayCorrectionF;
 	int16_t newDelay;
 
+
 	float amps;
-	err = (amps = currentAmps()) - getDefinesWeldingAmps() ;
+	error = (amps = currentAmps()) - getDefinesWeldingAmps();
 	taskENTER_CRITICAL();
 	currentAmpsValue = amps;
 	taskEXIT_CRITICAL();
-	corr = nextCorrection(err) + corrCarryOver;
-	delayCorrection = corr;
-	corrCarryOver = corr - delayCorrection;
-	newDelay = getTriacTriggerDelay() + delayCorrection;
+	delayCorrectionF = nextCorrection(error);
+	delayCorrectionF += corrCarryOver;
+	delayCorrectionI = delayCorrectionF;
+	corrCarryOver = delayCorrectionF - delayCorrectionI;
+
+	if (((error > 0)  && (delayCorrectionI < 0)) || ((error < 0)  && (delayCorrectionI > 0)))   {
+		delayCorrectionI = 0;  //  do not go into the wrong direction
+	}
+
+	newDelay = getTriacTriggerDelay() + delayCorrectionI;
 	setTriacTriggerDelay(newDelay);
 //#ifdef printfPID
 //	double corrD = corr;
@@ -229,19 +233,19 @@ void InitPID()
 	real step = pidStepDelays;
 	real maxV = 1000.0;
 	real stepf = step / maxV;
-	InitializePID( 0.8, 1.1, 0.0, 0.04, 4, stepf);
+	InitializePID( 0.8, 2.0, 0.5, 0.01, 4, stepf);
 
 	//	InitializePID(real kpTot, real kpP, real ki, real kd, real error_thresh, real step_time);
 	currentAmpsValue = 0.0;
 }
 
-void InitializePID(real kpTot,real kpP, real ki, real kd, real error_thresh, real step_time)
+void InitializePID(real kpTot,real kpP, real ki, real kd, real integral_thresh, real step_time)
 {
 	m_kPTot = kpTot  ;
     m_kI = ki *  kStepUnitsFactor ;
     m_kP   = kpP *  kStepUnitsFactor ;
     m_kD = kd  *  kStepUnitsFactor ;
-    m_error_thresh = error_thresh;
+    m_integral_thresh = integral_thresh;
 
     m_stepTime = step_time;
     m_inv_stepTime = 1 / step_time;

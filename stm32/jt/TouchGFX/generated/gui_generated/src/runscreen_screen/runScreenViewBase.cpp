@@ -82,7 +82,7 @@ runScreenViewBase::runScreenViewBase() :
     ampGauge.setCenter(125, 125);
     ampGauge.setStartEndAngle(-85, 85);
     ampGauge.setRange(0, 100);
-    ampGauge.setValue(50);
+    ampGauge.setValue(0);
     ampGauge.setNeedle(BITMAP_BLUE_NEEDLES_ORIGINAL_GAUGE_NEEDLE_STYLE_01_ID, 11, 55);
     ampGauge.setMovingNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
     ampGauge.setSteadyNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
