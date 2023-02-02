@@ -25,7 +25,7 @@ uint16_t currentAmpsADCValue;
 
 int8_t m_started;
 real m_kPTot, m_kP, m_kI, m_kD, m_stepTime, m_inv_stepTime, m_prev_error, m_integral_thresh, m_integral;
-real deriv, error;
+real deriv, error, partial;
 
 float gradAmps; //   (delta amperes) / (delta adc)   ....
 float gradAdc;  
@@ -33,6 +33,12 @@ uint32_t calibHighADC;
 uint32_t calibLowADC;
 real corrCarryOver;     // carry amount if correction in float gives zero correction in int
 
+uint8_t signum(real re)
+{
+	int8_t res;
+	if (re > 0.0) {res =  1;} else {res = 0;}
+	return res;
+}
 
 uint32_t getCurrentAmpsADCValue()
 {
@@ -157,16 +163,24 @@ void stopTriacPidRun()
 
 real nextCorrection(real err)
 {
-    real i_fact;
+    real iFact = 1.0;
+	real pFact = 1.0;
+	real dFact = 1.0;
 	real res;
     if (fabs(err) < m_integral_thresh) {
-        i_fact = 1.0;
+        iFact = 1.0;
+        pFact = 0.0;
+        dFact = 0.0;
     } else  {
-        i_fact = 0.0;
+        iFact = 0.0;
 		m_integral = 0.0;
 	}
+    if (signum(err) != signum(m_prev_error))  {
+    	m_integral = 0.0;
+    }
 
-    m_integral += m_stepTime*i_fact*err;
+
+    m_integral += m_stepTime*iFact*err;
 
     if (!m_started)
     {
@@ -174,12 +188,13 @@ real nextCorrection(real err)
         deriv = 0;
     }
     else  {
-        deriv = (err - m_prev_error) * m_inv_stepTime;
+        deriv = dFact* ((err - m_prev_error) * m_inv_stepTime);
     }
+    partial  = pFact* err;
     m_prev_error = err;
 #ifdef printfPid
     real mk, mi, md;
-	res = m_kPTot*((mk=(m_kP*err)) + (mi=(m_kI*m_integral)) - (md=(m_kD*deriv)));
+	res = m_kPTot*((mk=(m_kP*partial)) + (mi=(m_kI*m_integral)) - (md=(m_kD*deriv)));
 #else
 	res = m_kPTot*((m_kP*err) + (m_kI*m_integral) + (m_kD*deriv));
 #endif
@@ -233,7 +248,7 @@ void InitPID()
 	real step = pidStepDelays;
 	real maxV = 1000.0;
 	real stepf = step / maxV;
-	InitializePID( 0.8, 2.0, 0.5, 0.01, 4, stepf);
+	InitializePID( 0.8, 2.0, 2.3, 0.01, 4, stepf);
 
 	//	InitializePID(real kpTot, real kpP, real ki, real kd, real error_thresh, real step_time);
 	currentAmpsValue = 0.0;

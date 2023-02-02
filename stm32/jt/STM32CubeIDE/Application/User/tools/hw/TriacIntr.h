@@ -17,9 +17,9 @@ extern "C"
 
 //extern int64_t  secondCount;
 
-#define stmTriggerDelayMax1000     //  measures 10 ms, +- crystal tolerance
+//#define stmTriggerDelayMax1000     //  measures 10 ms, +- crystal tolerance
 //#define stmTriggerDelayMax2000    // not yet available
-//#define stmTriggerDelayMax5000     // not yet available
+#define stmTriggerDelayMax5000     // not yet available
 
 
 #ifdef stmTriggerDelayMax1000
