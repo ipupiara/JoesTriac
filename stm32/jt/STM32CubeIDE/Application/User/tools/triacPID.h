@@ -12,8 +12,9 @@ extern "C"
 // Select 'double' or 'float' here:
 typedef double real;
 
-#define pidStepDelays  787  // unit is 1/1000 sec = 1 mSec,
-
+//#define pidStepDelays  787  // unit is 1/1000 sec = 1 mSec,
+//#define pidStepDelays pidStepDelays337
+#define pidStepDelays 251
 
 //extern float zeroAdjustDiffVoltage;
 
