@@ -30,4 +30,5 @@ git add stm32/.project
 git add stm32/.gitignore
 git add stm32/jt/.gitignore
 git add stm32/jt/TouchGFX/.gitignore
+git add stm32/jt/Drivers/
 git status
