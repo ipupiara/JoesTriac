@@ -51,6 +51,10 @@ public:
 
 protected:
     void sendTriacDelayCalibCorrection(int32_t val);
+
+    static const uint16_t ADCVALUETEXT_SIZE = 10;  // stm32 spaghetticode does no more create textBuffers
+    touchgfx::Unicode::UnicodeChar ampereTextBuffer[ADCVALUETEXT_SIZE];
+
 };
 
 #endif // CALIBRATIONSCREENVIEW_HPP

@@ -19,11 +19,11 @@ jobCompleteScreenViewBase::jobCompleteScreenViewBase() :
     textArea1.setXY(65, 111);
     textArea1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea1.setLinespacing(0);
-    textArea1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_EJ31));
+    textArea1.setTypedText(touchgfx::TypedText(T_JOBCOMPLETETEXT));
 
     returnButton.setXY(65, 343);
     returnButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
-    returnButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_0ZCT));
+    returnButton.setLabelText(touchgfx::TypedText(T_RETURNBUTTONTEXT));
     returnButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     returnButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     returnButton.setAction(buttonCallback);
@@ -31,20 +31,20 @@ jobCompleteScreenViewBase::jobCompleteScreenViewBase() :
     textArea2.setXY(71, 217);
     textArea2.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea2.setLinespacing(0);
-    textArea2.setTypedText(touchgfx::TypedText(T___SINGLEUSE_Y76B));
+    textArea2.setTypedText(touchgfx::TypedText(T_SINCETEXT));
 
     textArea3.setXY(400, 217);
     textArea3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea3.setLinespacing(0);
-    textArea3.setTypedText(touchgfx::TypedText(T___SINGLEUSE_UCEI));
+    textArea3.setTypedText(touchgfx::TypedText(T_MINSECDESCRIPTOR));
 
     timeText.setXY(233, 217);
     timeText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     timeText.setLinespacing(0);
-    Unicode::snprintf(timeTextBuffer, TIMETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_CH8X).getText());
+    Unicode::snprintf(timeTextBuffer, TIMETEXT_SIZE, "%s", touchgfx::TypedText(T_SETTIMEWILDCARD).getText());
     timeText.setWildcard(timeTextBuffer);
     timeText.resizeToCurrentText();
-    timeText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_4I0G));
+    timeText.setTypedText(touchgfx::TypedText(T_SINCETIMETEXT));
 
     add(__background);
     add(box1);

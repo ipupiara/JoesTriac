@@ -17,7 +17,7 @@ public:
 
     virtual void changeToStartScreen()
     {
-        gotostartupScreenScreenNoTransition();
+        gotomainScreenScreenNoTransition();
     }
 
     // mainScreen
@@ -55,9 +55,6 @@ public:
 
     // jobCompleteScreen
     void gotojobCompleteScreenScreenNoTransition();
-
-    // startupScreen
-    void gotostartupScreenScreenNoTransition();
 
     // calibrateZeroScreen
     void gotocalibrateZeroScreenScreenNoTransition();
@@ -102,9 +99,6 @@ protected:
 
     // jobCompleteScreen
     void gotojobCompleteScreenScreenNoTransitionImpl();
-
-    // startupScreen
-    void gotostartupScreenScreenNoTransitionImpl();
 
     // calibrateZeroScreen
     void gotocalibrateZeroScreenScreenNoTransitionImpl();

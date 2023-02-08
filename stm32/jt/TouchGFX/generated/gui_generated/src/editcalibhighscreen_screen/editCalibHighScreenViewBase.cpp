@@ -24,29 +24,29 @@ editCalibHighScreenViewBase::editCalibHighScreenViewBase() :
     calibLowText.setXY(652, 51);
     calibLowText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     calibLowText.setLinespacing(0);
-    Unicode::snprintf(calibLowTextBuffer, CALIBLOWTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_MA31).getText());
+    Unicode::snprintf(calibLowTextBuffer, CALIBLOWTEXT_SIZE, "%s", touchgfx::TypedText(T_ZZZZWCTEXT).getText());
     calibLowText.setWildcard(calibLowTextBuffer);
     calibLowText.resizeToCurrentText();
-    calibLowText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_3T7H));
+    calibLowText.setTypedText(touchgfx::TypedText(T_CALIBVALUETEXT));
 
     calibHighText.setXY(652, 150);
     calibHighText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     calibHighText.setLinespacing(0);
-    Unicode::snprintf(calibHighTextBuffer, CALIBHIGHTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_XBBM).getText());
+    Unicode::snprintf(calibHighTextBuffer, CALIBHIGHTEXT_SIZE, "%s", touchgfx::TypedText(T_ZZZZWCTEXT).getText());
     calibHighText.setWildcard(calibHighTextBuffer);
     calibHighText.resizeToCurrentText();
-    calibHighText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_ZV9Z));
+    calibHighText.setTypedText(touchgfx::TypedText(T_CALIBVALUETEXT));
 
     calibLowButton.setXY(439, 44);
     calibLowButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
-    calibLowButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_J1FN));
+    calibLowButton.setLabelText(touchgfx::TypedText(T_CALIBLOWBTNTEXT));
     calibLowButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     calibLowButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     calibLowButton.setAction(buttonCallback);
 
     backButton.setXY(439, 345);
     backButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
-    backButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_1RV2));
+    backButton.setLabelText(touchgfx::TypedText(T_BACKBUTTONTEXT));
     backButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     backButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     backButton.setAction(buttonCallback);
@@ -63,6 +63,11 @@ editCalibHighScreenViewBase::editCalibHighScreenViewBase() :
     cursor.setLineEndingStyle(touchgfx::Line::ROUND_CAP_ENDING);
     cursor.setAlpha(138);
 
+    textArea2.setXY(464, 161);
+    textArea2.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea2.setLinespacing(0);
+    textArea2.setTypedText(touchgfx::TypedText(T_CALIBHIGHBTNTEXT));
+
     add(__background);
     add(box1);
     add(calibLowText);
@@ -71,6 +76,7 @@ editCalibHighScreenViewBase::editCalibHighScreenViewBase() :
     add(backButton);
     add(numericKeyPad1);
     add(cursor);
+    add(textArea2);
 }
 
 void editCalibHighScreenViewBase::setupScreen()

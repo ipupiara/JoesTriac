@@ -78,7 +78,6 @@ protected:
     touchgfx::Box __background;
     touchgfx::Box box1;
     touchgfx::TextArea textArea1;
-    touchgfx::TextAreaWithOneWildcard ampereText;
     touchgfx::TextArea textArea3;
     touchgfx::TextAreaWithOneWildcard delayText;
     touchgfx::ButtonWithLabel plus100Button;
@@ -94,12 +93,11 @@ protected:
     touchgfx::TextAreaWithOneWildcard adcValueText;
     touchgfx::ButtonWithLabel continueButton;
     touchgfx::ButtonWithLabel skipButton;
+    touchgfx::TextAreaWithOneWildcard ampereText;
 
     /*
      * Wildcard Buffers
      */
-    static const uint16_t AMPERETEXT_SIZE = 10;
-    touchgfx::Unicode::UnicodeChar ampereTextBuffer[AMPERETEXT_SIZE];
     static const uint16_t DELAYTEXT_SIZE = 10;
     touchgfx::Unicode::UnicodeChar delayTextBuffer[DELAYTEXT_SIZE];
     static const uint16_t ADCVOLTAGETEXT_SIZE = 10;

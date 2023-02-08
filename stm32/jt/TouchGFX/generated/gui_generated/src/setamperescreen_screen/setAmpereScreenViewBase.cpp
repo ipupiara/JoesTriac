@@ -21,20 +21,20 @@ setAmpereScreenViewBase::setAmpereScreenViewBase() :
     box1.setPosition(0, 0, 800, 480);
     box1.setColor(touchgfx::Color::getColorFromRGB(190, 226, 247));
 
-    setAmpereText.setXY(465, 12);
+    setAmpereText.setXY(465, 23);
     setAmpereText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     setAmpereText.setLinespacing(0);
-    Unicode::snprintf(setAmpereTextBuffer, SETAMPERETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_ZSPQ).getText());
+    Unicode::snprintf(setAmpereTextBuffer, SETAMPERETEXT_SIZE, "%s", touchgfx::TypedText(T_AMPEREWILDCARD).getText());
     setAmpereText.setWildcard(setAmpereTextBuffer);
     setAmpereText.resizeToCurrentText();
-    setAmpereText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_EKBE));
+    setAmpereText.setTypedText(touchgfx::TypedText(T_AMPERETEXT));
 
     numericKeyPad1.setXY(0, 23);
     numericKeyPad1.setNumPressedCallback(numericKeyPad1NumPressedCallback);
 
     backNSaveButton.setXY(596, 391);
     backNSaveButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
-    backNSaveButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_NX94));
+    backNSaveButton.setLabelText(touchgfx::TypedText(T_BACKNSAVEBUTTONTEXT));
     backNSaveButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     backNSaveButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     backNSaveButton.setAction(buttonCallback);

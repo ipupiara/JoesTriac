@@ -50,7 +50,7 @@ protected:
     touchgfx::Gauge ampGauge;
     touchgfx::PainterRGB565Bitmap ampGaugePainter;
     touchgfx::Box dirtyBox;
-    touchgfx::TextArea textArea1;
+    touchgfx::TextArea ampsGaugeTitle;
     touchgfx::TextAreaWithOneWildcard timeValueText;
     touchgfx::ButtonWithLabel setTimeButton;
     touchgfx::ButtonWithIcon startButton;

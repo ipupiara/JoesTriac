@@ -25,7 +25,7 @@ requestStopScreenViewBase::requestStopScreenViewBase() :
     ampGauge.setCenter(125, 125);
     ampGauge.setStartEndAngle(-85, 85);
     ampGauge.setRange(0, 100);
-    ampGauge.setValue(0);
+    ampGauge.setValue(50);
     ampGauge.setNeedle(BITMAP_BLUE_NEEDLES_ORIGINAL_GAUGE_NEEDLE_STYLE_01_ID, 11, 55);
     ampGauge.setMovingNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
     ampGauge.setSteadyNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
@@ -40,9 +40,9 @@ requestStopScreenViewBase::requestStopScreenViewBase() :
     timeValueText.setPosition(172, 11, 137, 49);
     timeValueText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     timeValueText.setLinespacing(0);
-    Unicode::snprintf(timeValueTextBuffer, TIMEVALUETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_W7D7).getText());
+    Unicode::snprintf(timeValueTextBuffer, TIMEVALUETEXT_SIZE, "%s", touchgfx::TypedText(T_SETTIMEWILDCARD).getText());
     timeValueText.setWildcard(timeValueTextBuffer);
-    timeValueText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_IPRE));
+    timeValueText.setTypedText(touchgfx::TypedText(T_SETTIMETEXT));
 
     abortButton.setXY(126, 384);
     abortButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID), touchgfx::Bitmap(BITMAP_ABORTBTN_ID), touchgfx::Bitmap(BITMAP_ABORTBTNPRESSED_ID));
@@ -52,35 +52,35 @@ requestStopScreenViewBase::requestStopScreenViewBase() :
     setAmpereText.setXY(465, 12);
     setAmpereText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     setAmpereText.setLinespacing(0);
-    Unicode::snprintf(setAmpereTextBuffer, SETAMPERETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_GL4G).getText());
+    Unicode::snprintf(setAmpereTextBuffer, SETAMPERETEXT_SIZE, "%s", touchgfx::TypedText(T_AMPEREWILDCARD).getText());
     setAmpereText.setWildcard(setAmpereTextBuffer);
     setAmpereText.resizeToCurrentText();
-    setAmpereText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_EEDJ));
+    setAmpereText.setTypedText(touchgfx::TypedText(T_AMPERETEXT));
 
     textArea1.setXY(14, 94);
     textArea1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea1.setLinespacing(0);
-    textArea1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_3JKB));
+    textArea1.setTypedText(touchgfx::TypedText(T_RUNSCREENTIMETITLE));
 
     textArea2.setXY(352, 94);
     textArea2.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea2.setLinespacing(0);
-    textArea2.setTypedText(touchgfx::TypedText(T___SINGLEUSE_9JDU));
+    textArea2.setTypedText(touchgfx::TypedText(T_RUNSCREENTIMETITLE));
 
     currentTimeText.setPosition(172, 81, 137, 49);
     currentTimeText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     currentTimeText.setLinespacing(0);
-    Unicode::snprintf(currentTimeTextBuffer, CURRENTTIMETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_8VJ0).getText());
+    Unicode::snprintf(currentTimeTextBuffer, CURRENTTIMETEXT_SIZE, "%s", touchgfx::TypedText(T_SETTIMEWILDCARD).getText());
     currentTimeText.setWildcard(currentTimeTextBuffer);
-    currentTimeText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_72RI));
+    currentTimeText.setTypedText(touchgfx::TypedText(T_CURRENTTIMEVALTEXT));
 
     currentAmpereText.setXY(465, 82);
     currentAmpereText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     currentAmpereText.setLinespacing(0);
-    Unicode::snprintf(currentAmpereTextBuffer, CURRENTAMPERETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_RHX6).getText());
+    Unicode::snprintf(currentAmpereTextBuffer, CURRENTAMPERETEXT_SIZE, "%s", touchgfx::TypedText(T_AMPEREWILDCARD).getText());
     currentAmpereText.setWildcard(currentAmpereTextBuffer);
     currentAmpereText.resizeToCurrentText();
-    currentAmpereText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_RXFU));
+    currentAmpereText.setTypedText(touchgfx::TypedText(T_CURRENTAMPSVALTEXT));
 
     boxProgress1.setXY(14, 133);
     boxProgress1.setProgressIndicatorPosition(2, 2, 180, 16);
@@ -98,15 +98,15 @@ requestStopScreenViewBase::requestStopScreenViewBase() :
     textArea4.setXY(526, 281);
     textArea4.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea4.setLinespacing(0);
-    textArea4.setTypedText(touchgfx::TypedText(T___SINGLEUSE_3974));
+    textArea4.setTypedText(touchgfx::TypedText(T_SECONDSB4RETURNTITLE));
 
     secondsb4ReturnText.setXY(526, 316);
     secondsb4ReturnText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     secondsb4ReturnText.setLinespacing(0);
-    Unicode::snprintf(secondsb4ReturnTextBuffer, SECONDSB4RETURNTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_N9A8).getText());
+    Unicode::snprintf(secondsb4ReturnTextBuffer, SECONDSB4RETURNTEXT_SIZE, "%s", touchgfx::TypedText(T_SECSB4RETURNWILDCARD).getText());
     secondsb4ReturnText.setWildcard(secondsb4ReturnTextBuffer);
     secondsb4ReturnText.resizeToCurrentText();
-    secondsb4ReturnText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_1D86));
+    secondsb4ReturnText.setTypedText(touchgfx::TypedText(T_SECONDSB4TEXT));
 
     add(__background);
     add(box1);

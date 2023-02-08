@@ -26,7 +26,7 @@ setTimeScreenViewBase::setTimeScreenViewBase() :
 
     backSaveButton.setXY(12, 371);
     backSaveButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
-    backSaveButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_UF7D));
+    backSaveButton.setLabelText(touchgfx::TypedText(T_BACKNSAVEBUTTONTEXT));
     backSaveButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     backSaveButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     backSaveButton.setAction(buttonCallback);
@@ -43,9 +43,9 @@ setTimeScreenViewBase::setTimeScreenViewBase() :
     timeValueText.setPosition(172, 11, 137, 55);
     timeValueText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     timeValueText.setLinespacing(0);
-    Unicode::snprintf(timeValueTextBuffer, TIMEVALUETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_IBA0).getText());
+    Unicode::snprintf(timeValueTextBuffer, TIMEVALUETEXT_SIZE, "%s", touchgfx::TypedText(T_SETTIMEWILDCARD).getText());
     timeValueText.setWildcard(timeValueTextBuffer);
-    timeValueText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_EUXQ));
+    timeValueText.setTypedText(touchgfx::TypedText(T_SETTIMETEXT));
 
     add(__background);
     add(box1);

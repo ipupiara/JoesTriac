@@ -17,6 +17,8 @@ public:
     void buttonPressed(uint8_t val);
     virtual void numButtonPressed(uint8_t value);
 
+    void textClickHandler(const TextAreaWithOneWildcard& txt, const ClickEvent& ev);
+
 protected:
 
     float     ampsValue;
@@ -25,6 +27,8 @@ protected:
     void      printCurrentValueTimeOnScreen();
    uint8_t   valPos = 0;
    uint8_t   valArray[5];
+
+   Callback<setAmpereScreenView, const TextAreaWithOneWildcard&, const ClickEvent&> textClickedCallback;
 };
 
 #endif // SETAMPERESCREENVIEW_HPP

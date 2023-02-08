@@ -883,6 +883,20 @@
             },
             "TextRotation": "0",
             "Style": "Style4"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ampereText",
+            "X": 277,
+            "Y": 16,
+            "Width": 48,
+            "Height": 45,
+            "TextId": "desiredAmpereText",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "zzWcText"
+            }
           }
         ],
         "Interactions": [
@@ -1232,7 +1246,7 @@
             "Y": 51,
             "Width": 96,
             "Height": 45,
-            "TextId": "calibLowValueText",
+            "TextId": "calibValueText",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
@@ -1248,7 +1262,7 @@
             "Y": 150,
             "Width": 96,
             "Height": 45,
-            "TextId": "calibHighValueText",
+            "TextId": "calibValueText",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
@@ -1428,7 +1442,8 @@
               "TextId": "ampereWildcard",
               "UseBuffer": true,
               "BufferSize": 10
-            }
+            },
+            "Clickable": true
           },
           {
             "Type": "CustomContainerInstance",
@@ -1783,14 +1798,15 @@
             "Y": 51,
             "Width": 96,
             "Height": 45,
-            "TextId": "calibLowValueText",
+            "TextId": "calibValueText",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
               "TextId": "zzzzWcText",
               "UseBuffer": true,
               "BufferSize": 10
-            }
+            },
+            "Clickable": true
           },
           {
             "Type": "TextArea",
@@ -1799,7 +1815,7 @@
             "Y": 150,
             "Width": 96,
             "Height": 45,
-            "TextId": "calibHighValueText",
+            "TextId": "calibValueText",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
@@ -1881,6 +1897,17 @@
             "EndY": 20.0,
             "LineWidth": 20.0,
             "LineEndingStyle": "Round"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 470,
+            "Y": 66,
+            "Width": 108,
+            "Height": 23,
+            "TextId": "calibLowBtnText",
+            "TextRotation": "0",
+            "AutoSize": true
           }
         ],
         "Interactions": [
@@ -1944,7 +1971,7 @@
             "Y": 51,
             "Width": 96,
             "Height": 45,
-            "TextId": "calibLowValueText",
+            "TextId": "calibValueText",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
@@ -1960,14 +1987,15 @@
             "Y": 150,
             "Width": 96,
             "Height": 45,
-            "TextId": "calibHighValueText",
+            "TextId": "calibValueText",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
               "TextId": "zzzzWcText",
               "UseBuffer": true,
               "BufferSize": 10
-            }
+            },
+            "Clickable": true
           },
           {
             "Type": "ButtonWithLabel",
@@ -2042,6 +2070,17 @@
             "EndY": 20.0,
             "LineWidth": 20.0,
             "LineEndingStyle": "Round"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea2",
+            "X": 464,
+            "Y": 161,
+            "Width": 120,
+            "Height": 23,
+            "TextId": "calibHighBtnText",
+            "TextRotation": "0",
+            "AutoSize": true
           }
         ],
         "Interactions": [

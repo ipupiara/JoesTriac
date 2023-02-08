@@ -153,13 +153,13 @@
       </Text>
     </TextGroup>
     <TextGroup Id="TriacValueTexts">
+      <Text Id="ResourceId1" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">New Text</Translation>
+      </Text>
       <Text Id="currentAmpsValText" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="currentTimeValText" Alignment="Center" TypographyId="Large">
-        <Translation Language="GB">&lt;value&gt;</Translation>
-      </Text>
-      <Text Id="calibHighValueText" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="zdzzzWcText" Alignment="Left" TypographyId="Default">
@@ -177,7 +177,7 @@
       <Text Id="zzzzWcText" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">0000</Translation>
       </Text>
-      <Text Id="calibLowValueText" Alignment="Left" TypographyId="Large">
+      <Text Id="calibValueText" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="secondsb4text" Alignment="Left" TypographyId="Large">
@@ -232,7 +232,6 @@
         <Translation Language="GB">000.00</Translation>
       </Text>
     </TextGroup>
-    <TextGroup Id="TriacRecoTexts" />
     <TextGroup Id="Unsorted" />
   </Texts>
   <Typographies>

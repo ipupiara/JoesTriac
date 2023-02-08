@@ -21,42 +21,42 @@ calibrateZeroScreenViewBase::calibrateZeroScreenViewBase() :
     textArea1.setXY(33, 36);
     textArea1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea1.setLinespacing(0);
-    textArea1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_INHC));
+    textArea1.setTypedText(touchgfx::TypedText(T_CALIBZEROPOSTITLE));
 
     textArea2.setXY(33, 92);
     textArea2.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea2.setLinespacing(0);
-    textArea2.setTypedText(touchgfx::TypedText(T___SINGLEUSE_96OR));
+    textArea2.setTypedText(touchgfx::TypedText(T_PLEASEWAITTEXT));
 
     textArea3.setXY(33, 156);
     textArea3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea3.setLinespacing(0);
-    textArea3.setTypedText(touchgfx::TypedText(T___SINGLEUSE_CSK5));
+    textArea3.setTypedText(touchgfx::TypedText(T_ZPOTIPOSTEXT));
 
     zeroPotiPosText.setXY(297, 147);
     zeroPotiPosText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     zeroPotiPosText.setLinespacing(0);
-    Unicode::snprintf(zeroPotiPosTextBuffer, ZEROPOTIPOSTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_FFOK).getText());
+    Unicode::snprintf(zeroPotiPosTextBuffer, ZEROPOTIPOSTEXT_SIZE, "%s", touchgfx::TypedText(T_ZZZZWCTEXT).getText());
     zeroPotiPosText.setWildcard(zeroPotiPosTextBuffer);
     zeroPotiPosText.resizeToCurrentText();
-    zeroPotiPosText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_TOWM));
+    zeroPotiPosText.setTypedText(touchgfx::TypedText(T_ZEROPOTIPOS));
 
     textArea4.setXY(33, 237);
     textArea4.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea4.setLinespacing(0);
-    textArea4.setTypedText(touchgfx::TypedText(T___SINGLEUSE_Z80T));
+    textArea4.setTypedText(touchgfx::TypedText(T_DEVIATIONVOLTAGETEXT));
 
     devVoltageText.setXY(273, 225);
     devVoltageText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     devVoltageText.setLinespacing(0);
-    Unicode::snprintf(devVoltageTextBuffer, DEVVOLTAGETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_AM4Z).getText());
+    Unicode::snprintf(devVoltageTextBuffer, DEVVOLTAGETEXT_SIZE, "%s", touchgfx::TypedText(T_AMPSINITIALVALUE).getText());
     devVoltageText.setWildcard(devVoltageTextBuffer);
     devVoltageText.resizeToCurrentText();
-    devVoltageText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_0Q2U));
+    devVoltageText.setTypedText(touchgfx::TypedText(T_DEVVOLTAGE));
 
     abortButton.setXY(33, 378);
     abortButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
-    abortButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_KE25));
+    abortButton.setLabelText(touchgfx::TypedText(T_ABORTBUTTONTEXT));
     abortButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     abortButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     abortButton.setAction(buttonCallback);
@@ -64,20 +64,20 @@ calibrateZeroScreenViewBase::calibrateZeroScreenViewBase() :
     textArea5.setXY(33, 301);
     textArea5.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea5.setLinespacing(0);
-    textArea5.setTypedText(touchgfx::TypedText(T___SINGLEUSE_9F6T));
+    textArea5.setTypedText(touchgfx::TypedText(T_STATETITLE));
 
     stateText.setXY(273, 301);
     stateText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     stateText.setLinespacing(0);
-    Unicode::snprintf(stateTextBuffer, STATETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_0C4U).getText());
+    Unicode::snprintf(stateTextBuffer, STATETEXT_SIZE, "%s", touchgfx::TypedText(T_WAITINGWCTEXT).getText());
     stateText.setWildcard(stateTextBuffer);
     stateText.resizeToCurrentText();
-    stateText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_THPN));
+    stateText.setTypedText(touchgfx::TypedText(T_CALIBSTATETEXT));
 
     textArea6.setXY(273, 397);
     textArea6.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea6.setLinespacing(0);
-    textArea6.setTypedText(touchgfx::TypedText(T___SINGLEUSE_Z53N));
+    textArea6.setTypedText(touchgfx::TypedText(T_FINETUNETEXT));
 
     onRadioButton.setXY(588, 386);
     onRadioButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_INACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_ACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_NORMAL_ID));
@@ -92,12 +92,12 @@ calibrateZeroScreenViewBase::calibrateZeroScreenViewBase() :
     textArea7.setXY(598, 356);
     textArea7.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea7.setLinespacing(0);
-    textArea7.setTypedText(touchgfx::TypedText(T___SINGLEUSE_MQ6Q));
+    textArea7.setTypedText(touchgfx::TypedText(T_ONTITLE));
 
     textArea8.setXY(675, 356);
     textArea8.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea8.setLinespacing(0);
-    textArea8.setTypedText(touchgfx::TypedText(T___SINGLEUSE_VTJB));
+    textArea8.setTypedText(touchgfx::TypedText(T_OFFTITLE));
 
     add(__background);
     add(box1);

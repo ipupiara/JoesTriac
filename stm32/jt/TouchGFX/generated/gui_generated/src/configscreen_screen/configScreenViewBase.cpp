@@ -18,7 +18,7 @@ configScreenViewBase::configScreenViewBase() :
 
     calibrationButton.setXY(230, 53);
     calibrationButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
-    calibrationButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_VXN9));
+    calibrationButton.setLabelText(touchgfx::TypedText(T_CALIBBTNTEXT));
     calibrationButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     calibrationButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     calibrationButton.setAction(buttonCallback);
@@ -30,14 +30,14 @@ configScreenViewBase::configScreenViewBase() :
 
     editCalibButton.setXY(230, 147);
     editCalibButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
-    editCalibButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_GX36));
+    editCalibButton.setLabelText(touchgfx::TypedText(T_EDITCALIBBTNTEXT));
     editCalibButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     editCalibButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     editCalibButton.setAction(buttonCallback);
 
     alarmEditButton.setXY(230, 240);
     alarmEditButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
-    alarmEditButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_AOKD));
+    alarmEditButton.setLabelText(touchgfx::TypedText(T_CONFIGBTNTEXT));
     alarmEditButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     alarmEditButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     alarmEditButton.setAction(buttonCallback);
@@ -45,22 +45,22 @@ configScreenViewBase::configScreenViewBase() :
     textArea1.setXY(428, 72);
     textArea1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea1.setLinespacing(0);
-    textArea1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_ON4B));
+    textArea1.setTypedText(touchgfx::TypedText(T_AUTOCALIBTEXT));
 
     textArea2.setXY(428, 166);
     textArea2.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea2.setLinespacing(0);
-    textArea2.setTypedText(touchgfx::TypedText(T___SINGLEUSE_8CTH));
+    textArea2.setTypedText(touchgfx::TypedText(T_ENTERCALIBVALUESTEXT));
 
     textArea3.setXY(428, 259);
     textArea3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea3.setLinespacing(0);
-    textArea3.setTypedText(touchgfx::TypedText(T___SINGLEUSE_1T1P));
+    textArea3.setTypedText(touchgfx::TypedText(T_CONFIGBEHAVIORTEXT));
 
     alarmText.setXY(241, 396);
     alarmText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     alarmText.setLinespacing(0);
-    alarmText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_TOZG));
+    alarmText.setTypedText(touchgfx::TypedText(T_NEEDSCALIBRATIONTEXT));
 
     add(__background);
     add(bgBox);

@@ -9,7 +9,8 @@
 
 typedef unsigned long uint32_t;
 
-setAmpereScreenView::setAmpereScreenView()
+setAmpereScreenView::setAmpereScreenView():
+	textClickedCallback(this, &setAmpereScreenView::textClickHandler)
 {
 
 }
@@ -21,6 +22,15 @@ void setAmpereScreenView::setupScreen()
      ampsValue = presenter->getWeldingAmps();
      setValArray(ampsValue);
      printCurrentValueTimeOnScreen();
+     setAmpereText.setClickAction(textClickedCallback);
+}
+
+void setAmpereScreenView::textClickHandler(const TextAreaWithOneWildcard& txt, const ClickEvent& evt)
+{
+    if (&txt == &setAmpereText)
+    {
+
+    }
 }
 
 void setAmpereScreenView::tearDownScreen()

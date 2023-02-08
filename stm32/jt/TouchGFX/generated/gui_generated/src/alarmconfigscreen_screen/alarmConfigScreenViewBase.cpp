@@ -27,20 +27,20 @@ alarmConfigScreenViewBase::alarmConfigScreenViewBase() :
     textArea1.setXY(466, 60);
     textArea1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea1.setLinespacing(0);
-    textArea1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_TPKG));
+    textArea1.setTypedText(touchgfx::TypedText(T_ALARMTIMETITLE));
 
     alarmTimeText.setXY(602, 48);
     alarmTimeText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     alarmTimeText.setLinespacing(0);
-    Unicode::snprintf(alarmTimeTextBuffer, ALARMTIMETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_5Y1P).getText());
+    Unicode::snprintf(alarmTimeTextBuffer, ALARMTIMETEXT_SIZE, "%s", touchgfx::TypedText(T_ZZWCTEXT).getText());
     alarmTimeText.setWildcard(alarmTimeTextBuffer);
     alarmTimeText.resizeToCurrentText();
-    alarmTimeText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_Y4IF));
+    alarmTimeText.setTypedText(touchgfx::TypedText(T_ALARMMINUTESTEXT));
 
     textArea2.setXY(466, 141);
     textArea2.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea2.setLinespacing(0);
-    textArea2.setTypedText(touchgfx::TypedText(T___SINGLEUSE_MZQ4));
+    textArea2.setTypedText(touchgfx::TypedText(T_ALARMTITLE));
 
     cursor.setPosition(606, 55, 23, 39);
     cursorPainter.setColor(touchgfx::Color::getColorFromRGB(247, 212, 15));
@@ -53,14 +53,14 @@ alarmConfigScreenViewBase::alarmConfigScreenViewBase() :
 
     backNSaveButton.setXY(586, 363);
     backNSaveButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
-    backNSaveButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_ORQ0));
+    backNSaveButton.setLabelText(touchgfx::TypedText(T_BACKNSAVEBUTTONTEXT));
     backNSaveButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     backNSaveButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     backNSaveButton.setAction(buttonCallback);
 
     cancelButton.setXY(381, 363);
     cancelButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
-    cancelButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_M4Y7));
+    cancelButton.setLabelText(touchgfx::TypedText(T_CANCELBUTTONTEXT));
     cancelButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     cancelButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     cancelButton.setAction(buttonCallback);
@@ -78,12 +78,12 @@ alarmConfigScreenViewBase::alarmConfigScreenViewBase() :
     textArea3.setXY(586, 108);
     textArea3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea3.setLinespacing(0);
-    textArea3.setTypedText(touchgfx::TypedText(T___SINGLEUSE_EHX2));
+    textArea3.setTypedText(touchgfx::TypedText(T_ONTITLE));
 
     textArea4.setXY(653, 108);
     textArea4.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea4.setLinespacing(0);
-    textArea4.setTypedText(touchgfx::TypedText(T___SINGLEUSE_CDHX));
+    textArea4.setTypedText(touchgfx::TypedText(T_OFFTITLE));
 
     add(__background);
     add(box1);
