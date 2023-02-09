@@ -20,6 +20,18 @@ void editCalibHighScreenView::tearDownScreen()
     editCalibHighScreenViewBase::tearDownScreen();
 }
 
+void editCalibHighScreenView::toggleCursor()
+{
+	//-fno-inline-functions
+	bool vis = cursor.isVisible();
+	if (vis == true) {
+		cursor.setVisible(false);
+	}  else {
+		cursor.setVisible(true);
+	}
+	cursor.invalidate();
+}
+
 void editCalibHighScreenView::printCurrentCalibValuesOnScreen(bool first)
 {
 	if (first)  {
@@ -60,14 +72,4 @@ void editCalibHighScreenView::setValArray(uint16_t val)
  	}
  }
 
- void editCalibHighScreenView::toggleCursor()
- {
- 	//-fno-inline-functions
- 	bool vis = cursor.isVisible();
- 	if (vis == true) {
- 		cursor.setVisible(false);
- 	}  else {
- 		cursor.setVisible(true);
- 	}
- 	cursor.invalidate();
- }
+

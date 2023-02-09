@@ -20,6 +20,8 @@ public:
      */
     virtual void activate();
 
+    virtual void tick();
+
     /**
      * The deactivate function is called automatically when this screen is "switched out"
      * (ie. made inactive). Teardown functionality can be placed here.
@@ -31,7 +33,7 @@ public:
 
 private:
     editCalibLowScreenPresenter();
-
+    uint8_t tickCnt;
     editCalibLowScreenView& view;
 };
 

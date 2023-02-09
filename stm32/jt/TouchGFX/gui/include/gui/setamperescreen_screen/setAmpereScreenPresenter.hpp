@@ -25,6 +25,8 @@ public:
      */
     virtual void deactivate();
 
+    virtual void tick();
+
     virtual ~setAmpereScreenPresenter() {};
 
     void storeWeldingAmps(float ampsV);
@@ -33,6 +35,7 @@ public:
 
 private:
     setAmpereScreenPresenter();
+    uint8_t tickCnt;
 
     setAmpereScreenView& view;
 };

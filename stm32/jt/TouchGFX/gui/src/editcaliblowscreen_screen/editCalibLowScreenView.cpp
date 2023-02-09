@@ -21,6 +21,18 @@ void editCalibLowScreenView::tearDownScreen()
     editCalibLowScreenViewBase::tearDownScreen();
 }
 
+void editCalibLowScreenView::toggleCursor()  //  todo put all this redundant coding into "smallNumberInputField"
+{
+	//-fno-inline-functions
+	bool vis = cursor.isVisible();
+	if (vis == true) {
+		cursor.setVisible(false);
+	}  else {
+		cursor.setVisible(true);
+	}
+	cursor.invalidate();
+}
+
 void editCalibLowScreenView::printCurrentCalibValuesOnScreen(bool first)
 {
 
@@ -64,14 +76,4 @@ void editCalibLowScreenView::setValArray(uint16_t val)
  	}
  }
 
- void editCalibLowScreenView::toggleCursor()
- {
- 	//-fno-inline-functions
- 	bool vis = cursor.isVisible();
- 	if (vis == true) {
- 		cursor.setVisible(false);
- 	}  else {
- 		cursor.setVisible(true);
- 	}
- 	cursor.invalidate();
- }
+

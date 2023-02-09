@@ -12,6 +12,7 @@ public:
     virtual void setupScreen();
     virtual void tearDownScreen();
     virtual void buttonPressed(uint8_t val);
+    void	toggleCursor();
 protected:
     void      printCurrentCalibValuesOnScreen(bool first);
     uint8_t   valPos;
@@ -20,7 +21,6 @@ protected:
     void      setValArray(uint16_t val);
     void      recalcVal();
     void      printCurrentValuesTimeOnScreen();
-    void	toggleCursor();
 };
 
 #endif // EDITCALIBHIGHSCREENVIEW_HPP
