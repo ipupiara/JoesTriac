@@ -13,6 +13,7 @@
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
 #include <touchgfx/widgets/canvas/Line.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB565.hpp>
+#include <touchgfx/mixins/ClickListener.hpp>
 
 class setAmpereScreenViewBase : public touchgfx::View<setAmpereScreenPresenter>
 {
@@ -44,7 +45,7 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Box box1;
-    touchgfx::TextAreaWithOneWildcard setAmpereText;
+    touchgfx::ClickListener< touchgfx::TextAreaWithOneWildcard > setAmpereText;
     numericKeyPad numericKeyPad1;
     touchgfx::ButtonWithLabel backNSaveButton;
     touchgfx::Line cursor;

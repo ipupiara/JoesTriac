@@ -79,12 +79,12 @@
           },
           {
             "Type": "TextArea",
-            "Name": "ampsGaugeTitle",
+            "Name": "textArea1",
             "X": 349,
             "Y": 299,
             "Width": 83,
             "Height": 26,
-            "TextId": "ampsGaugeTitle",
+            "TextId": "__SingleUse_I2PH",
             "TextRotation": "0"
           },
           {
@@ -94,10 +94,10 @@
             "Y": 11,
             "Width": 137,
             "Height": 49,
-            "TextId": "setTimeText",
+            "TextId": "__SingleUse_TLLQ",
             "TextRotation": "0",
             "Wildcard1": {
-              "TextId": "setTimeWildcard",
+              "TextId": "__SingleUse_7HA7",
               "UseBuffer": true,
               "BufferSize": 20
             }
@@ -110,7 +110,7 @@
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
             "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "TextId": "setTimeMSButtonText",
+            "TextId": "__SingleUse_LR0V",
             "ReleasedColor": {
               "Red": 255,
               "Green": 255,
@@ -163,7 +163,7 @@
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
             "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "TextId": "setAmpereButtonText",
+            "TextId": "__SingleUse_ZCVA",
             "ReleasedColor": {
               "Red": 255,
               "Green": 255,
@@ -184,11 +184,11 @@
             "Y": 12,
             "Width": 144,
             "Height": 46,
-            "TextId": "ampereText",
+            "TextId": "__SingleUse_DEJR",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
-              "TextId": "ampereWildcard",
+              "TextId": "__SingleUse_9X4F",
               "UseBuffer": true,
               "BufferSize": 10
             }
@@ -369,8 +369,8 @@
             "X": 428,
             "Y": 72,
             "Width": 288,
-            "Height": 22,
-            "TextId": "autoCalibText",
+            "Height": 23,
+            "TextId": "__SingleUse_ON4B",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -380,8 +380,8 @@
             "X": 428,
             "Y": 166,
             "Width": 288,
-            "Height": 22,
-            "TextId": "enterCalibValuesText",
+            "Height": 23,
+            "TextId": "__SingleUse_8CTH",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -391,8 +391,8 @@
             "X": 428,
             "Y": 259,
             "Width": 228,
-            "Height": 22,
-            "TextId": "configBehaviorText",
+            "Height": 23,
+            "TextId": "__SingleUse_1T1P",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -402,8 +402,8 @@
             "X": 241,
             "Y": 396,
             "Width": 408,
-            "Height": 46,
-            "TextId": "needsCalibrationText",
+            "Height": 45,
+            "TextId": "__SingleUse_TOZG",
             "TextRotation": "0",
             "AutoSize": true
           }
@@ -491,7 +491,7 @@
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
             "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "TextId": "backNSaveButtonText",
+            "TextId": "__SingleUse_UF7D",
             "ReleasedColor": {
               "Red": 255,
               "Green": 255,
@@ -532,10 +532,10 @@
             "Y": 11,
             "Width": 137,
             "Height": 55,
-            "TextId": "setTimeText",
+            "TextId": "__SingleUse_EUXQ",
             "TextRotation": "0",
             "Wildcard1": {
-              "TextId": "setTimeWildcard",
+              "TextId": "__SingleUse_IBA0",
               "UseBuffer": true,
               "BufferSize": 10
             },
@@ -589,7 +589,7 @@
             "Y": 27,
             "Width": 168,
             "Height": 22,
-            "TextId": "calibDesiredAmpsTitle",
+            "TextId": "__SingleUse_JIYE",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -600,7 +600,7 @@
             "Y": 15,
             "Width": 72,
             "Height": 46,
-            "TextId": "desiredAmpereText",
+            "TextId": "__SingleUse_8TPJ",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
@@ -616,7 +616,7 @@
             "Y": 169,
             "Width": 132,
             "Height": 22,
-            "TextId": "calibTriacDelayTitle",
+            "TextId": "__SingleUse_ASW4",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -627,7 +627,7 @@
             "Y": 169,
             "Width": 48,
             "Height": 22,
-            "TextId": "triacDelayTexz",
+            "TextId": "__SingleUse_ZGP7",
             "TextRotation": "0",
             "Color": {
               "Red": 13,
@@ -788,7 +788,7 @@
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
             "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "TextId": "abortButtonText",
+            "TextId": "__SingleUse_J3DJ",
             "ReleasedColor": {
               "Red": 255,
               "Green": 255,
@@ -809,7 +809,7 @@
             "Y": 290,
             "Width": 60,
             "Height": 22,
-            "TextId": "adcVoltsText",
+            "TextId": "__SingleUse_1KAN",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
@@ -825,7 +825,7 @@
             "Y": 290,
             "Width": 108,
             "Height": 22,
-            "TextId": "calibAdcVoltsTitle",
+            "TextId": "__SingleUse_X3FF",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -836,7 +836,7 @@
             "Y": 329,
             "Width": 108,
             "Height": 22,
-            "TextId": "calibAdcValueTitle",
+            "TextId": "__SingleUse_I5ZJ",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -845,11 +845,13 @@
             "Name": "adcValueText",
             "X": 190,
             "Y": 329,
+            "Width": 48,
             "Height": 22,
-            "TextId": "adcValueText",
+            "TextId": "__SingleUse_14SY",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
+              "TextId": "__SingleUse_STEN",
               "UseBuffer": true,
               "BufferSize": 10
             }
@@ -863,7 +865,7 @@
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
             "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "TextId": "continueButtonText",
+            "TextId": "__SingleUse_EB81",
             "ReleasedColor": {
               "Red": 255,
               "Green": 255,
@@ -886,7 +888,7 @@
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
             "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "TextId": "skipButtonText",
+            "TextId": "__SingleUse_T7E7",
             "ReleasedColor": {
               "Red": 255,
               "Green": 255,
@@ -1033,7 +1035,7 @@
             "Y": 60,
             "Width": 120,
             "Height": 22,
-            "TextId": "alarmTimeTitle",
+            "TextId": "__SingleUse_TPKG",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -1044,7 +1046,7 @@
             "Y": 48,
             "Width": 48,
             "Height": 46,
-            "TextId": "AlarmMinutesText",
+            "TextId": "__SingleUse_Y4IF",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
@@ -1060,7 +1062,7 @@
             "Y": 141,
             "Width": 60,
             "Height": 22,
-            "TextId": "alarmTitle",
+            "TextId": "__SingleUse_MZQ4",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -1093,7 +1095,7 @@
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
             "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "TextId": "backNSaveButtonText",
+            "TextId": "__SingleUse_ORQ0",
             "ReleasedColor": {
               "Red": 255,
               "Green": 255,
@@ -1116,7 +1118,7 @@
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
             "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "TextId": "cancelButtonText",
+            "TextId": "__SingleUse_M4Y7",
             "ReleasedColor": {
               "Red": 255,
               "Green": 255,
@@ -1165,7 +1167,7 @@
             "Y": 108,
             "Width": 24,
             "Height": 22,
-            "TextId": "OnTitle",
+            "TextId": "__SingleUse_EHX2",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -1176,7 +1178,7 @@
             "Y": 108,
             "Width": 36,
             "Height": 22,
-            "TextId": "OffTitle",
+            "TextId": "__SingleUse_CDHX",
             "TextRotation": "0",
             "AutoSize": true
           }
@@ -1328,7 +1330,7 @@
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
             "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "TextId": "backNSaveButtonText",
+            "TextId": "__SingleUse_E0C8",
             "ReleasedColor": {
               "Red": 255,
               "Green": 255,
@@ -1351,7 +1353,7 @@
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
             "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "TextId": "cancelButtonText",
+            "TextId": "__SingleUse_R6ZB",
             "ReleasedColor": {
               "Red": 255,
               "Green": 255,
@@ -1473,17 +1475,18 @@
             "Type": "TextArea",
             "Name": "setAmpereText",
             "X": 465,
-            "Y": 23,
+            "Y": 12,
             "Width": 144,
             "Height": 46,
-            "TextId": "ampereText",
+            "TextId": "__SingleUse_EKBE",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
-              "TextId": "ampereWildcard",
+              "TextId": "__SingleUse_ZSPQ",
               "UseBuffer": true,
               "BufferSize": 10
-            }
+            },
+            "Clickable": true
           },
           {
             "Type": "CustomContainerInstance",
@@ -1502,7 +1505,7 @@
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
             "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "TextId": "backNSaveButtonText",
+            "TextId": "__SingleUse_NX94",
             "ReleasedColor": {
               "Red": 255,
               "Green": 255,
@@ -1584,7 +1587,7 @@
             "Y": 45,
             "Width": 264,
             "Height": 46,
-            "TextId": "fatalErrorText",
+            "TextId": "__SingleUse_EJIV",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -1595,7 +1598,7 @@
             "Y": 147,
             "Width": 168,
             "Height": 46,
-            "TextId": "reasonTitle",
+            "TextId": "__SingleUse_25II",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -1606,7 +1609,7 @@
             "Y": 228,
             "Width": 240,
             "Height": 46,
-            "TextId": "reasonText",
+            "TextId": "__SingleUse_ZIV2",
             "TextRotation": "0",
             "AutoSize": true
           }
@@ -1635,10 +1638,10 @@
             "Y": 11,
             "Width": 137,
             "Height": 49,
-            "TextId": "setTimeText",
+            "TextId": "__SingleUse_XHDS",
             "TextRotation": "0",
             "Wildcard1": {
-              "TextId": "setTimeWildcard",
+              "TextId": "__SingleUse_0QML",
               "UseBuffer": true,
               "BufferSize": 20
             }
@@ -1680,11 +1683,11 @@
             "Y": 12,
             "Width": 144,
             "Height": 46,
-            "TextId": "ampereText",
+            "TextId": "__SingleUse_X5Q9",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
-              "TextId": "ampereWildcard",
+              "TextId": "__SingleUse_OJB3",
               "UseBuffer": true,
               "BufferSize": 10
             }
@@ -1696,7 +1699,7 @@
             "Y": 94,
             "Width": 60,
             "Height": 22,
-            "TextId": "runScreenTimeTitle",
+            "TextId": "__SingleUse_K159",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -1707,7 +1710,7 @@
             "Y": 94,
             "Width": 96,
             "Height": 22,
-            "TextId": "runScreenAmpsTitle",
+            "TextId": "__SingleUse_FEL2",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -1718,10 +1721,10 @@
             "Y": 81,
             "Width": 137,
             "Height": 49,
-            "TextId": "setTimeText",
+            "TextId": "__SingleUse_LPIR",
             "TextRotation": "0",
             "Wildcard1": {
-              "TextId": "setTimeWildcard",
+              "TextId": "__SingleUse_J99Y",
               "UseBuffer": true,
               "BufferSize": 20
             }
@@ -1733,11 +1736,11 @@
             "Y": 82,
             "Width": 144,
             "Height": 46,
-            "TextId": "ampereText",
+            "TextId": "__SingleUse_GCRP",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
-              "TextId": "ampereWildcard",
+              "TextId": "__SingleUse_6OBZ",
               "UseBuffer": true,
               "BufferSize": 10
             }
@@ -1837,7 +1840,7 @@
             "X": 652,
             "Y": 51,
             "Width": 96,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_3Y75",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1853,7 +1856,7 @@
             "X": 652,
             "Y": 150,
             "Width": 96,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_U3U4",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1895,7 +1898,7 @@
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
             "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "TextId": "backButtonText",
+            "TextId": "__SingleUse_07BE",
             "ReleasedColor": {
               "Red": 255,
               "Green": 255,
@@ -1998,7 +2001,7 @@
             "X": 652,
             "Y": 51,
             "Width": 96,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_3T7H",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2014,7 +2017,7 @@
             "X": 652,
             "Y": 150,
             "Width": 96,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_ZV9Z",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2056,7 +2059,7 @@
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
             "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "TextId": "backButtonText",
+            "TextId": "__SingleUse_1RV2",
             "ReleasedColor": {
               "Red": 255,
               "Green": 255,
@@ -2198,10 +2201,10 @@
             "Y": 11,
             "Width": 137,
             "Height": 49,
-            "TextId": "setTimeText",
+            "TextId": "__SingleUse_IPRE",
             "TextRotation": "0",
             "Wildcard1": {
-              "TextId": "setTimeWildcard",
+              "TextId": "__SingleUse_W7D7",
               "UseBuffer": true,
               "BufferSize": 20
             }
@@ -2228,11 +2231,11 @@
             "Y": 12,
             "Width": 144,
             "Height": 46,
-            "TextId": "ampereText",
+            "TextId": "__SingleUse_EEDJ",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
-              "TextId": "ampereWildcard",
+              "TextId": "__SingleUse_GL4G",
               "UseBuffer": true,
               "BufferSize": 10
             }
@@ -2244,7 +2247,7 @@
             "Y": 94,
             "Width": 60,
             "Height": 22,
-            "TextId": "runScreenTimeTitle1",
+            "TextId": "__SingleUse_3JKB",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -2255,7 +2258,7 @@
             "Y": 94,
             "Width": 96,
             "Height": 22,
-            "TextId": "runScreenAmpsTitle2",
+            "TextId": "__SingleUse_9JDU",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -2266,10 +2269,10 @@
             "Y": 81,
             "Width": 137,
             "Height": 49,
-            "TextId": "setTimeText",
+            "TextId": "__SingleUse_72RI",
             "TextRotation": "0",
             "Wildcard1": {
-              "TextId": "setTimeWildcard",
+              "TextId": "__SingleUse_8VJ0",
               "UseBuffer": true,
               "BufferSize": 20
             }
@@ -2281,11 +2284,11 @@
             "Y": 82,
             "Width": 144,
             "Height": 46,
-            "TextId": "ampereText",
+            "TextId": "__SingleUse_RXFU",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
-              "TextId": "ampereWildcard",
+              "TextId": "__SingleUse_RHX6",
               "UseBuffer": true,
               "BufferSize": 10
             }
@@ -2333,7 +2336,7 @@
             "Y": 281,
             "Width": 252,
             "Height": 22,
-            "TextId": "secondsB4ReturnTitle",
+            "TextId": "__SingleUse_3974",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -2344,11 +2347,11 @@
             "Y": 316,
             "Width": 48,
             "Height": 46,
-            "TextId": "secondsb4text",
+            "TextId": "__SingleUse_1D86",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
-              "TextId": "secsB4ReturnWildcard",
+              "TextId": "__SingleUse_N9A8",
               "UseBuffer": true,
               "BufferSize": 10
             }
@@ -2399,8 +2402,8 @@
             "X": 65,
             "Y": 111,
             "Width": 288,
-            "Height": 46,
-            "TextId": "jobCompleteText",
+            "Height": 45,
+            "TextId": "__SingleUse_EJ31",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -2413,7 +2416,7 @@
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
             "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "TextId": "returnButtonText",
+            "TextId": "__SingleUse_0ZCT",
             "ReleasedColor": {
               "Red": 255,
               "Green": 255,
@@ -2433,8 +2436,8 @@
             "X": 71,
             "Y": 217,
             "Width": 120,
-            "Height": 46,
-            "TextId": "sinceText",
+            "Height": 45,
+            "TextId": "__SingleUse_Y76B",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -2444,8 +2447,8 @@
             "X": 400,
             "Y": 217,
             "Width": 168,
-            "Height": 46,
-            "TextId": "minSecDescriptor",
+            "Height": 45,
+            "TextId": "__SingleUse_UCEI",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -2455,8 +2458,8 @@
             "X": 233,
             "Y": 217,
             "Width": 120,
-            "Height": 46,
-            "TextId": "sinceTimeText",
+            "Height": 45,
+            "TextId": "__SingleUse_4I0G",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
@@ -2501,7 +2504,7 @@
             "Y": 133,
             "Width": 360,
             "Height": 46,
-            "TextId": "TriacRegulatorStartupText",
+            "TextId": "__SingleUse_NW6D",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -2512,7 +2515,7 @@
             "Y": 240,
             "Width": 264,
             "Height": 46,
-            "TextId": "startupText",
+            "TextId": "__SingleUse_P107",
             "TextRotation": "0",
             "AutoSize": true
           }
@@ -2702,8 +2705,8 @@
             "X": 33,
             "Y": 36,
             "Width": 276,
-            "Height": 22,
-            "TextId": "calibZeroPosTitle",
+            "Height": 23,
+            "TextId": "__SingleUse_INHC",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -2713,8 +2716,8 @@
             "X": 33,
             "Y": 92,
             "Width": 180,
-            "Height": 22,
-            "TextId": "pleaseWaitText",
+            "Height": 23,
+            "TextId": "__SingleUse_96OR",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -2724,8 +2727,8 @@
             "X": 33,
             "Y": 156,
             "Width": 156,
-            "Height": 22,
-            "TextId": "zPotiPosText",
+            "Height": 23,
+            "TextId": "__SingleUse_CSK5",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -2735,8 +2738,8 @@
             "X": 297,
             "Y": 147,
             "Width": 72,
-            "Height": 46,
-            "TextId": "zeroPotiPos",
+            "Height": 45,
+            "TextId": "__SingleUse_TOWM",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
@@ -2751,8 +2754,8 @@
             "X": 33,
             "Y": 237,
             "Width": 204,
-            "Height": 22,
-            "TextId": "deviationVoltageTexg",
+            "Height": 23,
+            "TextId": "__SingleUse_Z80T",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -2762,8 +2765,8 @@
             "X": 273,
             "Y": 225,
             "Width": 96,
-            "Height": 46,
-            "TextId": "devVoltage",
+            "Height": 45,
+            "TextId": "__SingleUse_0Q2U",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
@@ -2781,7 +2784,7 @@
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
             "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "TextId": "abortButtonText",
+            "TextId": "__SingleUse_KE25",
             "ReleasedColor": {
               "Red": 255,
               "Green": 255,
@@ -2801,8 +2804,8 @@
             "X": 33,
             "Y": 301,
             "Width": 72,
-            "Height": 22,
-            "TextId": "stateTitle",
+            "Height": 23,
+            "TextId": "__SingleUse_9F6T",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -2812,8 +2815,8 @@
             "X": 273,
             "Y": 301,
             "Width": 120,
-            "Height": 22,
-            "TextId": "waitingText",
+            "Height": 23,
+            "TextId": "__SingleUse_THPN",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
@@ -2828,8 +2831,8 @@
             "X": 273,
             "Y": 397,
             "Width": 288,
-            "Height": 22,
-            "TextId": "fineTuneText",
+            "Height": 23,
+            "TextId": "__SingleUse_Z53N",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -2868,8 +2871,8 @@
             "X": 598,
             "Y": 356,
             "Width": 24,
-            "Height": 22,
-            "TextId": "OnTitle",
+            "Height": 23,
+            "TextId": "__SingleUse_MQ6Q",
             "TextRotation": "0",
             "AutoSize": true
           },
@@ -2879,8 +2882,8 @@
             "X": 675,
             "Y": 356,
             "Width": 36,
-            "Height": 22,
-            "TextId": "OffTitle",
+            "Height": 23,
+            "TextId": "__SingleUse_VTJB",
             "TextRotation": "0",
             "AutoSize": true
           }
@@ -3169,7 +3172,7 @@
       "Height": 480
     },
     "SelectedColorDepth": 16,
-    "StartupScreenName": "mainScreen",
+    "StartupScreenName": "startupScreen",
     "SelectedStartupLanguage": "GB",
     "Skin": "Blue",
     "TouchGfxPath": "../Middlewares/ST/touchgfx",
