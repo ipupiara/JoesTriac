@@ -5,78 +5,6 @@
   </Languages>
   <Texts>
     <TextGroup Id="TrIacTitleTexts">
-      <Text Id="calibAdcValueTitle" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">adc Value</Translation>
-      </Text>
-      <Text Id="fineTuneText" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">auto finetune &amp; continue</Translation>
-      </Text>
-      <Text Id="stateTitle" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">state:</Translation>
-      </Text>
-      <Text Id="calibAdcVoltsTitle" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">adc Volts</Translation>
-      </Text>
-      <Text Id="deviationVoltageText" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">deviation Voltage</Translation>
-      </Text>
-      <Text Id="zPotiPosText" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">zero poti pos</Translation>
-      </Text>
-      <Text Id="pleaseWaitText" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">please wait ...</Translation>
-      </Text>
-      <Text Id="calibZeroPosTitle" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">calibrate zero position</Translation>
-      </Text>
-      <Text Id="needsCalibrationText" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">needs calibration</Translation>
-      </Text>
-      <Text Id="startupText" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">startup....</Translation>
-      </Text>
-      <Text Id="TriacRegulatorStartupText" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">Triac Regulator</Translation>
-      </Text>
-      <Text Id="jobCompleteText" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">job complete</Translation>
-      </Text>
-      <Text Id="runScreenAmpsTitle" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">ampere: </Translation>
-      </Text>
-      <Text Id="runScreenTimeTitle" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">time:</Translation>
-      </Text>
-      <Text Id="reasonText" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">reasonText</Translation>
-      </Text>
-      <Text Id="reasonTitle" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">reason:</Translation>
-      </Text>
-      <Text Id="fatalErrorText" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">fatal error</Translation>
-      </Text>
-      <Text Id="alarmTitle" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">alarm</Translation>
-      </Text>
-      <Text Id="alarmTimeTitle" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">alarm Time</Translation>
-      </Text>
-      <Text Id="calibTriacDelayTitle" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">triac delay</Translation>
-      </Text>
-      <Text Id="calibDesiredAmpsTitle" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">desired ampere</Translation>
-      </Text>
-      <Text Id="configBehaviorText" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">configure behaviour</Translation>
-      </Text>
-      <Text Id="enterCalibValuesText" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">enter calibration values</Translation>
-      </Text>
-      <Text Id="autoCalibText" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">auto calibration process</Translation>
-      </Text>
       <Text Id="OffTitle" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">off</Translation>
       </Text>
@@ -88,42 +16,6 @@
       </Text>
     </TextGroup>
     <TextGroup Id="TriacButtonTexts">
-      <Text Id="calibBtnText" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">calibrate</Translation>
-      </Text>
-      <Text Id="editCalibBtnText" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">edit calib</Translation>
-      </Text>
-      <Text Id="configBtnText" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">config</Translation>
-      </Text>
-      <Text Id="calibHighBtnText" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">calib High</Translation>
-      </Text>
-      <Text Id="calibLowBtnText" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">calib Low</Translation>
-      </Text>
-      <Text Id="p100BtnText" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">plus 100</Translation>
-      </Text>
-      <Text Id="p10BtnText" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">plus 10</Translation>
-      </Text>
-      <Text Id="p1BtnText" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">plus 1</Translation>
-      </Text>
-      <Text Id="m100BtnText" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">minus 100</Translation>
-      </Text>
-      <Text Id="nx10BtnText" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">minus 10</Translation>
-      </Text>
-      <Text Id="m1BtnText" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">minus 1</Translation>
-      </Text>
-      <Text Id="minSecDescriptor" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">min:sec</Translation>
-      </Text>
       <Text Id="continueButtonText" Alignment="Center" TypographyId="Default">
         <Translation Language="GB">continue</Translation>
       </Text>
@@ -153,66 +45,6 @@
       </Text>
     </TextGroup>
     <TextGroup Id="TriacValueTexts">
-      <Text Id="ResourceId1" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">New Text</Translation>
-      </Text>
-      <Text Id="currentAmpsValText" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">&lt;value&gt;</Translation>
-      </Text>
-      <Text Id="currentTimeValText" Alignment="Center" TypographyId="Large">
-        <Translation Language="GB">&lt;value&gt;</Translation>
-      </Text>
-      <Text Id="zdzzzWcText" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">0.000</Translation>
-      </Text>
-      <Text Id="sinceText" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">since</Translation>
-      </Text>
-      <Text Id="waitingWcText" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">waiting ....</Translation>
-      </Text>
-      <Text Id="zzWcText" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">00</Translation>
-      </Text>
-      <Text Id="zzzzWcText" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">0000</Translation>
-      </Text>
-      <Text Id="calibValueText" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">&lt;value&gt;</Translation>
-      </Text>
-      <Text Id="secondsb4text" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">&lt;value&gt;</Translation>
-      </Text>
-      <Text Id="sinceTimeText" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">&lt;value&gt;</Translation>
-      </Text>
-      <Text Id="adcValueText" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">&lt;value&gt;</Translation>
-      </Text>
-      <Text Id="calibStateText" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">&lt;value&gt;</Translation>
-      </Text>
-      <Text Id="adcVoltsText" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">&lt;adcvoltage&gt;</Translation>
-      </Text>
-      <Text Id="AlarmMinutesText" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">&lt;alarmTime&gt;</Translation>
-      </Text>
-      <Text Id="triacDelayText" Alignment="Right" TypographyId="Default">
-        <Translation Language="GB">&lt;delay&gt;</Translation>
-      </Text>
-      <Text Id="desiredAmpereText" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">&lt;amps&gt;</Translation>
-      </Text>
-      <Text Id="devVoltage" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">&lt;devVoltage&gt;</Translation>
-      </Text>
-      <Text Id="zeroPotiPos" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">&lt;potipos&gt;</Translation>
-      </Text>
-      <Text Id="ampsInitialValue" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">000.00</Translation>
-      </Text>
       <Text Id="secondsB4ReturnTitle" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">seconds before return</Translation>
       </Text>
@@ -232,7 +64,277 @@
         <Translation Language="GB">000.00</Translation>
       </Text>
     </TextGroup>
-    <TextGroup Id="Unsorted" />
+    <TextGroup Id="TriacRecoTexts">
+      <Text Id="ResourceId1" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">New Text</Translation>
+      </Text>
+      <Text Id="ampsInitialValue" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">000.00</Translation>
+      </Text>
+      <Text Id="zeroPotiPos" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;potipos&gt;</Translation>
+      </Text>
+      <Text Id="devVoltage" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;devVoltage&gt;</Translation>
+      </Text>
+      <Text Id="setTimeText2" Alignment="Center" TypographyId="Large">
+        <Translation Language="GB">&lt;weldingTime&gt;</Translation>
+      </Text>
+      <Text Id="autoCalibText" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">auto calibration process</Translation>
+      </Text>
+      <Text Id="enterCalibValuesText" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">enter calibration values</Translation>
+      </Text>
+      <Text Id="configBehaviorText" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">configure behaviour</Translation>
+      </Text>
+      <Text Id="calibDesiredAmpsTitle" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">desired ampere</Translation>
+      </Text>
+      <Text Id="desiredAmpereText" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;amps&gt;</Translation>
+      </Text>
+      <Text Id="calibTriacDelayTitle" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">triac delay</Translation>
+      </Text>
+      <Text Id="triacDelayTexz" Alignment="Right" TypographyId="Default">
+        <Translation Language="GB">&lt;delay&gt;</Translation>
+      </Text>
+      <Text Id="ampsText1" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="ampsText2" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="alarmTimeTitle" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">alarm Time</Translation>
+      </Text>
+      <Text Id="AlarmMinutesText" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;alarmTime&gt;</Translation>
+      </Text>
+      <Text Id="alarmTitle" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">alarm</Translation>
+      </Text>
+      <Text Id="fatalErrorText" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">fatal error</Translation>
+      </Text>
+      <Text Id="reasonTitle" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">reason:</Translation>
+      </Text>
+      <Text Id="reasonText" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">reasonText</Translation>
+      </Text>
+      <Text Id="runScreenTimeTitle" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">time:</Translation>
+      </Text>
+      <Text Id="runScreenAmpsTitle" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">ampere: </Translation>
+      </Text>
+      <Text Id="timeText5" Alignment="Center" TypographyId="Large">
+        <Translation Language="GB">&lt;weldingTime&gt;</Translation>
+      </Text>
+      <Text Id="ampereText5" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="runScreenTimeTitle1" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">time:</Translation>
+      </Text>
+      <Text Id="runScreenAmpsTitle2" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">ampere: </Translation>
+      </Text>
+      <Text Id="timeText6" Alignment="Center" TypographyId="Large">
+        <Translation Language="GB">&lt;weldingTime&gt;</Translation>
+      </Text>
+      <Text Id="ampereText4" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="jobCompleteText" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">job complete</Translation>
+      </Text>
+      <Text Id="TriacRegulatorStartupText" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Triac Regulator</Translation>
+      </Text>
+      <Text Id="startupText" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">startup....</Translation>
+      </Text>
+      <Text Id="needsCalibrationText" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">needs calibration</Translation>
+      </Text>
+      <Text Id="adcVoltsText" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">&lt;adcvoltage&gt;</Translation>
+      </Text>
+      <Text Id="calibZeroPosTitle" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">calibrate zero position</Translation>
+      </Text>
+      <Text Id="pleaseWaitText" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">please wait ...</Translation>
+      </Text>
+      <Text Id="zPotiPosText" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">zero poti pos</Translation>
+      </Text>
+      <Text Id="deviationVoltageTexg" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">deviation Voltage</Translation>
+      </Text>
+      <Text Id="calibAdcVoltsTitle" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">adc Volts</Translation>
+      </Text>
+      <Text Id="stateTitle" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">state:</Translation>
+      </Text>
+      <Text Id="waitingText" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="fineTuneText" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">auto finetune &amp; continue</Translation>
+      </Text>
+      <Text Id="calibAdcValueTitle" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">adc Value</Translation>
+      </Text>
+      <Text Id="adcValueText" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="sinceText" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">since</Translation>
+      </Text>
+      <Text Id="minSecDescriptor" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">min:sec</Translation>
+      </Text>
+      <Text Id="sinceTimeText" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="secondsb4text" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="ampsText" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB" />
+      </Text>
+    </TextGroup>
+    <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_CH8X" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">00:00</Translation>
+      </Text>
+      <Text Id="__SingleUse_0C4U" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">waiting...</Translation>
+      </Text>
+      <Text Id="__SingleUse_OGN3" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_MZOD" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;potiPos&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_6WAP" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">poti pos</Translation>
+      </Text>
+      <Text Id="__SingleUse_AM4Z" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0.00</Translation>
+      </Text>
+      <Text Id="__SingleUse_FFOK" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_PYBL" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0000</Translation>
+      </Text>
+      <Text Id="__SingleUse_C8ZW" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_HMNH" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0.000</Translation>
+      </Text>
+      <Text Id="__SingleUse_XBBM" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0000</Translation>
+      </Text>
+      <Text Id="__SingleUse_MA31" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0000</Translation>
+      </Text>
+      <Text Id="__SingleUse_9K8A" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0000</Translation>
+      </Text>
+      <Text Id="__SingleUse_PO5I" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0000</Translation>
+      </Text>
+      <Text Id="__SingleUse_YOH3" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0000</Translation>
+      </Text>
+      <Text Id="__SingleUse_03KX" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0000</Translation>
+      </Text>
+      <Text Id="__SingleUse_5Y1P" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">00</Translation>
+      </Text>
+      <Text Id="__SingleUse_J1FN" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">calib Low</Translation>
+      </Text>
+      <Text Id="__SingleUse_ZV9Z" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_3T7H" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_ALJ6" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">calib High</Translation>
+      </Text>
+      <Text Id="__SingleUse_U3U4" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_3Y75" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_YFOC" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">calib High</Translation>
+      </Text>
+      <Text Id="__SingleUse_FXNH" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">calib Low</Translation>
+      </Text>
+      <Text Id="__SingleUse_96UQ" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_4WZ3" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_UKCC" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">minus 1</Translation>
+      </Text>
+      <Text Id="__SingleUse_NDG8" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">minus 10</Translation>
+      </Text>
+      <Text Id="__SingleUse_K3SN" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">minus 100</Translation>
+      </Text>
+      <Text Id="__SingleUse_F55U" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">plus 1</Translation>
+      </Text>
+      <Text Id="__SingleUse_E6CS" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">plus 10</Translation>
+      </Text>
+      <Text Id="__SingleUse_J3K9" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">plus 100</Translation>
+      </Text>
+      <Text Id="__SingleUse_AOKD" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">config</Translation>
+      </Text>
+      <Text Id="__SingleUse_GX36" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">edit calib</Translation>
+      </Text>
+      <Text Id="__SingleUse_ET61" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">edit Alarm Configuration</Translation>
+      </Text>
+      <Text Id="__SingleUse_RBBE" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">edit calibration values</Translation>
+      </Text>
+      <Text Id="__SingleUse_M81V" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">calibration procedure</Translation>
+      </Text>
+      <Text Id="__SingleUse_13RF" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">edit Alarm</Translation>
+      </Text>
+      <Text Id="__SingleUse_102R" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">edit calib</Translation>
+      </Text>
+      <Text Id="__SingleUse_VXN9" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">calibrate</Translation>
+      </Text>
+    </TextGroup>
   </Texts>
   <Typographies>
     <Typography Id="Default" Font="cour.ttf" Size="20" Bpp="4" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0x30-0x39,0x3A" />

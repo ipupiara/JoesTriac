@@ -13,8 +13,6 @@
 #include <gui/containers/numericKeyPad.hpp>
 #include <touchgfx/widgets/canvas/Line.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB565.hpp>
-#include <touchgfx/widgets/TextArea.hpp>
-#include <touchgfx/mixins/ClickListener.hpp>
 
 class editCalibLowScreenViewBase : public touchgfx::View<editCalibLowScreenPresenter>
 {
@@ -41,14 +39,13 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Box box1;
-    touchgfx::ClickListener< touchgfx::TextAreaWithOneWildcard > calibLowText;
+    touchgfx::TextAreaWithOneWildcard calibLowText;
     touchgfx::TextAreaWithOneWildcard calibHighText;
     touchgfx::ButtonWithLabel calibHighButton;
     touchgfx::ButtonWithLabel backButton;
     numericKeyPad numericKeyPad1;
     touchgfx::Line cursor;
     touchgfx::PainterRGB565 cursorPainter;
-    touchgfx::TextArea textArea1;
 
     /*
      * Wildcard Buffers

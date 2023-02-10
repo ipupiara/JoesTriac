@@ -17,17 +17,17 @@ fatalErrorScreenViewBase::fatalErrorScreenViewBase()
     textArea1.setXY(42, 45);
     textArea1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea1.setLinespacing(0);
-    textArea1.setTypedText(touchgfx::TypedText(T_FATALERRORTEXT));
+    textArea1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_EJIV));
 
     textArea2.setXY(42, 147);
     textArea2.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea2.setLinespacing(0);
-    textArea2.setTypedText(touchgfx::TypedText(T_REASONTITLE));
+    textArea2.setTypedText(touchgfx::TypedText(T___SINGLEUSE_25II));
 
     reasonText.setXY(42, 228);
     reasonText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     reasonText.setLinespacing(0);
-    reasonText.setTypedText(touchgfx::TypedText(T_REASONTEXT));
+    reasonText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_ZIV2));
 
     add(__background);
     add(box1);

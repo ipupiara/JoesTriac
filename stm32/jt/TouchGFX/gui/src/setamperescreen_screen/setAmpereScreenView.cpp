@@ -9,8 +9,8 @@
 
 typedef unsigned long uint32_t;
 
-setAmpereScreenView::setAmpereScreenView():
-	textClickedCallback(this, &setAmpereScreenView::textClickHandler)
+setAmpereScreenView::setAmpereScreenView()
+//:textClickedCallback(this, &setAmpereScreenView::textClickHandler)
 {
 
 }
@@ -22,37 +22,37 @@ void setAmpereScreenView::setupScreen()
      ampsValue = presenter->getWeldingAmps();
      setValArray(ampsValue);
      printCurrentValueTimeOnScreen();
-     setAmpereText.setClickAction(textClickedCallback);
+//     setAmpereText.setClickAction(textClickedCallback);
 }
 
-void setAmpereScreenView::textClickHandler(const TextAreaWithOneWildcard& txt, const ClickEvent& evt )
-{
-	uint32_t relXPos = evt.getX() - txt.getX();
-	uint32_t amtFields = 5;
-	uint32_t valuePos;
-	uint32_t nonEditibles [] = {3};
-	uint32_t goalFieldPos;
-	uint32_t txtWidth = txt.getWidth();
-	uint32_t fieldXOffset = 2;
-    if (&txt == &setAmpereText)
-    {
-    	goalFieldPos = (txtWidth / amtFields);
-    	valuePos = (txtWidth / amtFields);
-    	for (uint32_t cnt = 0; cnt < amtFields;  cnt++)  {
-    		if (goalFieldPos == nonEditibles[cnt]) {
-    			if (( txtWidth % amtFields) < (txtWidth / (2* amtFields)))  {
-    				-- goalFieldPos;
-    			} else {
-    				++ goalFieldPos;
-    				-- valuePos;
-    			}
-    		}
-    	}
-    	valuePos = goalFieldPos;
-    	cursor.setX(txt.getX()+ (goalFieldPos * (txtWidth / amtFields)) + fieldXOffset);
-    }
-    cursor.invalidate();
-}
+//void setAmpereScreenView::textClickHandler(const TextAreaWithOneWildcard& txt, const ClickEvent& evt )
+//{
+//	uint32_t relXPos = evt.getX() - txt.getX();
+//	uint32_t amtFields = 5;
+//	uint32_t valuePos;
+//	uint32_t nonEditibles [] = {3};
+//	uint32_t goalFieldPos;
+//	uint32_t txtWidth = txt.getWidth();
+//	uint32_t fieldXOffset = 2;
+//    if (&txt == &setAmpereText)
+//    {
+//    	goalFieldPos = (txtWidth / amtFields);
+//    	valuePos = (txtWidth / amtFields);
+//    	for (uint32_t cnt = 0; cnt < amtFields;  cnt++)  {
+//    		if (goalFieldPos == nonEditibles[cnt]) {
+//    			if (( txtWidth % amtFields) < (txtWidth / (2* amtFields)))  {
+//    				-- goalFieldPos;
+//    			} else {
+//    				++ goalFieldPos;
+//    				-- valuePos;
+//    			}
+//    		}
+//    	}
+//    	valuePos = goalFieldPos;
+//    	cursor.setX(txt.getX()+ (goalFieldPos * (txtWidth / amtFields)) + fieldXOffset);
+//    }
+//    cursor.invalidate();
+//}
 
 void setAmpereScreenView::tearDownScreen()
 {

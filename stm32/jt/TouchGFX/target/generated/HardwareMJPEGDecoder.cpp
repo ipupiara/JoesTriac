@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2023 STMicroelectronics.
+  * Copyright (c) 2022 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -20,20 +20,22 @@
 
 extern "C"
 {
-  #include <main.h>
-  #include <string.h>
-  #include <jpeg_utils.h>
-  #include <stm32f7xx_hal.h>
+#include <main.h>
+#include <string.h>
+#include <jpeg_utils.h>
+#include <stm32f7xx_hal.h>
 
-  uint32_t JPEG_Decode_DMA(JPEG_HandleTypeDef *hjpeg, uint8_t* input, uint32_t chunkSizeIn, uint8_t* output);
-  uint32_t JPEG_OutputHandler(JPEG_HandleTypeDef *hjpeg);
-  void HAL_JPEG_DecodeCpltCallback(JPEG_HandleTypeDef *hjpeg);
-  void HAL_JPEG_ErrorCallback(JPEG_HandleTypeDef *hjpeg);
+#define UNUSED(X) (void)X
 
-  HAL_StatusTypeDef TGFX_JPEG_GetDecodeColorConvertFunc(JPEG_ConfTypeDef *pJpegInfo, JPEG_YCbCrToRGB_Convert_Function *pFunction, uint32_t *ImageNbMCUs);
-  void TGFX_JPEG_InitColorTables(void);
-  namespace
-  {
+    uint32_t JPEG_Decode_DMA(JPEG_HandleTypeDef* hjpeg, uint8_t* input, uint32_t chunkSizeIn, uint8_t* output);
+    uint32_t JPEG_OutputHandler(JPEG_HandleTypeDef* hjpeg);
+    void HAL_JPEG_DecodeCpltCallback(JPEG_HandleTypeDef* hjpeg);
+    void HAL_JPEG_ErrorCallback(JPEG_HandleTypeDef* hjpeg);
+
+    HAL_StatusTypeDef TGFX_JPEG_GetDecodeColorConvertFunc(JPEG_ConfTypeDef* pJpegInfo, JPEG_YCbCrToRGB_Convert_Function* pFunction, uint32_t* ImageNbMCUs);
+    void TGFX_JPEG_InitColorTables(void);
+    namespace
+    {
     uint8_t* FrameBufferAddress;
     uint32_t JPEG_InputImageIndex;
     uint32_t JPEG_InputImageSize_Bytes;
@@ -49,7 +51,7 @@ extern "C"
     volatile uint32_t JpegProcessing_End = 0;
     uint32_t MCU_TotalNb = 0;
     JPEG_YCbCrToRGB_Convert_Function pConvert_Function;
-  }
+    }
 }
 
 #define MCU_WIDTH_PIXELS            ((uint32_t)16)
@@ -65,14 +67,14 @@ extern "C"
 
 typedef struct
 {
-  uint8_t State;
-  uint8_t *DataBuffer;
-  uint32_t DataBufferSize;
+    uint8_t State;
+    uint8_t* DataBuffer;
+    uint32_t DataBufferSize;
 } JPEG_Data_BufferTypeDef;
 
 #ifdef __GNUC__
-uint8_t MCU_Data_OutBuffer0[CHUNK_SIZE_OUT] __attribute__ ((section ("CCMRAM")));
-uint8_t MCU_Data_OutBuffer1[CHUNK_SIZE_OUT] __attribute__ ((section ("CCMRAM")));
+uint8_t MCU_Data_OutBuffer0[CHUNK_SIZE_OUT] __attribute__((section("CCMRAM")));
+uint8_t MCU_Data_OutBuffer1[CHUNK_SIZE_OUT] __attribute__((section("CCMRAM")));
 #else
 #pragma location="CCMRAM"
 uint8_t MCU_Data_OutBuffer0[CHUNK_SIZE_OUT];
@@ -82,8 +84,8 @@ uint8_t MCU_Data_OutBuffer1[CHUNK_SIZE_OUT];
 // Zero initialize YCbCr buffers
 JPEG_Data_BufferTypeDef Jpeg_OUT_BufferTab[NB_OUTPUT_DATA_BUFFERS] =
 {
-  {JPEG_BUFFER_EMPTY , MCU_Data_OutBuffer0 , 0},
-  {JPEG_BUFFER_EMPTY , MCU_Data_OutBuffer1 , 0},
+    {JPEG_BUFFER_EMPTY, MCU_Data_OutBuffer0, 0},
+    {JPEG_BUFFER_EMPTY, MCU_Data_OutBuffer1, 0},
 };
 
 extern JPEG_ConfTypeDef*    JPEG_Info;
@@ -93,12 +95,13 @@ __IO uint32_t MCU_BlockIndex = 0;
 
 SEM_TYPE semDecodingDone;
 
-static struct JPEG_MCU_RGB_Converter {
-  uint32_t WidthExtend;
-  uint32_t ScaledWidth;
-  uint32_t LastLineHeight;
-  uint32_t MCU_pr_line;
-  uint32_t bytes_pr_pixel;
+static struct JPEG_MCU_RGB_Converter
+{
+    uint32_t WidthExtend;
+    uint32_t ScaledWidth;
+    uint32_t LastLineHeight;
+    uint32_t MCU_pr_line;
+    uint32_t bytes_pr_pixel;
 } JPEG_ConvertorParams;
 
 HardwareMJPEGDecoder::HardwareMJPEGDecoder()
@@ -139,7 +142,7 @@ inline uint32_t HardwareMJPEGDecoder::getU32(const uint32_t offset)
     {
         // Assuming data is in buffer!
         const uint32_t index = offset - aviBufferStartOffset;
-        return aviBuffer[index+0] | (aviBuffer[index+1]<<8) | (aviBuffer[index+2]<<16) | (aviBuffer[index+3]<<24);
+        return aviBuffer[index + 0] | (aviBuffer[index + 1] << 8) | (aviBuffer[index + 2] << 16) | (aviBuffer[index + 3] << 24);
     }
     else
     {
@@ -154,7 +157,7 @@ inline uint32_t HardwareMJPEGDecoder::getU16(const uint32_t offset)
     {
         // Assuming data is in buffer!
         const uint32_t index = offset - aviBufferStartOffset;
-        return aviBuffer[index+0] | (aviBuffer[index+1]<<8);
+        return aviBuffer[index + 0] | (aviBuffer[index + 1] << 8);
     }
     else
     {
@@ -218,7 +221,7 @@ bool HardwareMJPEGDecoder::decodeNextFrame(uint8_t* buffer, uint16_t buffer_widt
         currentMovieOffset += chunkSize;
         if (chunkSize == 0) // Empty frame - Skip
         {
-          currentMovieOffset += 8;
+            currentMovieOffset += 8;
         }
         currentMovieOffset = (currentMovieOffset + 1) & 0xFFFFFFFE; //pad to next word
 
@@ -354,7 +357,7 @@ void HardwareMJPEGDecoder::readVideoHeader()
     if (foundFrame)
     {
         offset += 8; //skip fourcc and cb in AVIMAINHEADER
-        videoInfo.ms_between_frames = getU32(offset)/1000;
+        videoInfo.ms_between_frames = getU32(offset) / 1000;
         videoInfo.number_of_frames = getU32(offset + 16);
         videoInfo.frame_width = getU32(offset + 32);
         videoInfo.frame_height = getU32(offset + 36);
@@ -382,7 +385,7 @@ void HardwareMJPEGDecoder::readVideoHeader()
     lastFrameEnd = listOffset + 8 + getU32(listOffset + 4);
 
     //find idx
-    const uint32_t listSize = getU32(listOffset+4)+8;
+    const uint32_t listSize = getU32(listOffset + 4) + 8;
     listOffset += listSize;
     readData(listOffset, 4);
     if (!compare(listOffset, "idx1", 4))
@@ -409,35 +412,34 @@ void HardwareMJPEGDecoder::decodeMJPEGFrame(const uint8_t* const mjpgdata, const
 
     if (outputBuffer) //only decode if buffers are assigned.
     {
-      // Update JPEG conversion parameters
-      JPEG_ConvertorParams.bytes_pr_pixel = 2;
-      JPEG_ConvertorParams.WidthExtend = videoInfo.frame_width;
-      if((JPEG_ConvertorParams.WidthExtend % 16) != 0)
-      {
-          JPEG_ConvertorParams.WidthExtend += 16 - (JPEG_ConvertorParams.WidthExtend % 16);
-      }
-      JPEG_ConvertorParams.ScaledWidth = 800 * JPEG_ConvertorParams.bytes_pr_pixel;
-      JPEG_ConvertorParams.MCU_pr_line = JPEG_ConvertorParams.WidthExtend / MCU_WIDTH_PIXELS;
-      JPEG_ConvertorParams.LastLineHeight = 16 - (videoInfo.frame_height % MCU_HEIGHT_PIXELS);
-
-      JPEG_Decode_DMA(&hjpeg, const_cast<uint8_t*>(mjpgdata), length, outputBuffer);
-      do
-      {
-        JpegProcessing_End = JPEG_OutputHandler(&hjpeg);
-
-        //If nothing to do, allow other tasks
-        if (JpegProcessing_End == 2)
+        // Update JPEG conversion parameters
+        JPEG_ConvertorParams.bytes_pr_pixel = 2;
+        JPEG_ConvertorParams.WidthExtend = videoInfo.frame_width;
+        if ((JPEG_ConvertorParams.WidthExtend % 16) != 0)
         {
-          SEM_WAIT(semDecodingDone);
+            JPEG_ConvertorParams.WidthExtend += 16 - (JPEG_ConvertorParams.WidthExtend % 16);
         }
-      }
-      while(JpegProcessing_End != 1);
+        JPEG_ConvertorParams.ScaledWidth = 800 * JPEG_ConvertorParams.bytes_pr_pixel;
+        JPEG_ConvertorParams.MCU_pr_line = JPEG_ConvertorParams.WidthExtend / MCU_WIDTH_PIXELS;
+        JPEG_ConvertorParams.LastLineHeight = 16 - (videoInfo.frame_height % MCU_HEIGHT_PIXELS);
+
+        JPEG_Decode_DMA(&hjpeg, const_cast<uint8_t*>(mjpgdata), length, outputBuffer);
+        do
+        {
+            JpegProcessing_End = JPEG_OutputHandler(&hjpeg);
+
+            //If nothing to do, allow other tasks
+            if (JpegProcessing_End == 2)
+            {
+                SEM_WAIT(semDecodingDone);
+            }
+        } while (JpegProcessing_End != 1);
     }
 }
 
 bool HardwareMJPEGDecoder::decodeFrame(const touchgfx::Rect& area, uint8_t* frameBuffer, uint32_t framebuffer_width)
 {
-     // Assuming that chunk is available and streamNo and chunkType is correct.
+    // Assuming that chunk is available and streamNo and chunkType is correct.
     // Check by gotoNextFrame
 
     readData(currentMovieOffset, 8);
@@ -448,13 +450,12 @@ bool HardwareMJPEGDecoder::decodeFrame(const touchgfx::Rect& area, uint8_t* fram
 
     if (frameBuffer) //only decode if buffers are assigned.
     {
-      JPEG_Decode_DMA(&hjpeg, const_cast<uint8_t*>(mjpgdata), length, frameBuffer);
+        JPEG_Decode_DMA(&hjpeg, const_cast<uint8_t*>(mjpgdata), length, frameBuffer);
 
-      do
-      {
-        JpegProcessing_End = JPEG_OutputHandler(&hjpeg);
-      }
-      while(JpegProcessing_End == 0);
+        do
+        {
+            JpegProcessing_End = JPEG_OutputHandler(&hjpeg);
+        } while (JpegProcessing_End == 0);
 
     }
     return true;
@@ -468,7 +469,7 @@ bool HardwareMJPEGDecoder::decodeThumbnail(uint32_t frameno, uint8_t* buffer, ui
 
 void HardwareMJPEGDecoder::gotoFrame(uint32_t frameNumber)
 {
-    if (frameNumber==0)
+    if (frameNumber == 0)
     {
         frameNumber = 1;
     }
@@ -478,7 +479,7 @@ void HardwareMJPEGDecoder::gotoFrame(uint32_t frameNumber)
         frameNumber = getNumberOfFrames();
     }
 
-    uint32_t offset = indexOffset + 8 + (frameNumber-1)*16;
+    uint32_t offset = indexOffset + 8 + (frameNumber - 1) * 16;
 
     readData(offset, 16);
 
@@ -505,157 +506,169 @@ void HardwareMJPEGDecoder::getVideoInfo(touchgfx::VideoInformation* data)
 
 extern "C"
 {
-/**
-  * @brief  Decode_DMA
-  * @param hjpeg: JPEG handle pointer
-  * @param  JPEGImageBufferAddress : jpg image buffer Address.
-  * @param  JPEGImageSize_Bytes    : jpg image size in bytes.
-  * @param  DestAddress : ARGB8888 destination Frame Buffer Address.
-  * @retval None
-  */
-uint32_t JPEG_Decode_DMA(JPEG_HandleTypeDef *hjpeg, uint8_t* input, uint32_t chunkSizeIn /* length */, uint8_t* output)
-{
-    FrameBufferAddress = output;
-    Output_Is_Paused = 0;
-    JPEG_OUT_Read_BufferIndex = 0;
-    JPEG_OUT_Write_BufferIndex = 0;
-    JPEG_InputImageIndex = 0;
-    JPEG_InputImageAddress = (uint32_t)input;
-    JPEG_InputImageSize_Bytes = chunkSizeIn;
-    MCU_BlockIndex = 0;
-
-    //Init buffers
-    for(uint32_t i = 0; i < NB_OUTPUT_DATA_BUFFERS; ++i)
+    /**
+      * @brief  Decode_DMA
+      * @param hjpeg: JPEG handle pointer
+      * @param  JPEGImageBufferAddress : jpg image buffer Address.
+      * @param  JPEGImageSize_Bytes    : jpg image size in bytes.
+      * @param  DestAddress : ARGB8888 destination Frame Buffer Address.
+      * @retval None
+      */
+    uint32_t JPEG_Decode_DMA(JPEG_HandleTypeDef* hjpeg, uint8_t* input, uint32_t chunkSizeIn /* length */, uint8_t* output)
     {
-      Jpeg_OUT_BufferTab[i].State = JPEG_BUFFER_EMPTY;
-      Jpeg_OUT_BufferTab[i].DataBufferSize = 0;
+        FrameBufferAddress = output;
+        Output_Is_Paused = 0;
+        JPEG_OUT_Read_BufferIndex = 0;
+        JPEG_OUT_Write_BufferIndex = 0;
+        JPEG_InputImageIndex = 0;
+        JPEG_InputImageAddress = (uint32_t)input;
+        JPEG_InputImageSize_Bytes = chunkSizeIn;
+        MCU_BlockIndex = 0;
+
+        //Init buffers
+        for (uint32_t i = 0; i < NB_OUTPUT_DATA_BUFFERS; ++i)
+        {
+            Jpeg_OUT_BufferTab[i].State = JPEG_BUFFER_EMPTY;
+            Jpeg_OUT_BufferTab[i].DataBufferSize = 0;
+        }
+
+        //Do not return from this function until done with decoding all chunks.
+        HAL_JPEG_Decode_DMA(hjpeg, input, CHUNK_SIZE_IN, Jpeg_OUT_BufferTab[JPEG_OUT_Write_BufferIndex].DataBuffer, MCU_CHROMA_420_SIZE_BYTES * JPEG_ConvertorParams.MCU_pr_line);
+
+        return 0;
     }
 
-    //Do not return from this function until done with decoding all chunks.
-    HAL_JPEG_Decode_DMA(hjpeg, input, CHUNK_SIZE_IN, Jpeg_OUT_BufferTab[JPEG_OUT_Write_BufferIndex].DataBuffer, MCU_CHROMA_420_SIZE_BYTES * JPEG_ConvertorParams.MCU_pr_line);
-
-    return 0;
-}
-
-/**
-  * @brief  JPEG Info ready callback
-  * @param hjpeg: JPEG handle pointer
-  * @param pInfo: JPEG Info Struct pointer
-  * @retval None
-  */
-void HAL_JPEG_InfoReadyCallback(JPEG_HandleTypeDef *hjpeg, JPEG_ConfTypeDef *pInfo)
-{
-  if(pInfo->ChromaSubsampling == JPEG_420_SUBSAMPLING)
-  {
-    if((pInfo->ImageWidth % 16) != 0)
-      pInfo->ImageWidth += (16 - (pInfo->ImageWidth % 16));
-
-    if((pInfo->ImageHeight % 16) != 0)
-      pInfo->ImageHeight += (16 - (pInfo->ImageHeight % 16));
-
-    HAL_StatusTypeDef status = TGFX_JPEG_GetDecodeColorConvertFunc(pInfo, &pConvert_Function, &MCU_TotalNb);
-    if(status != HAL_OK)
+    /**
+      * @brief  JPEG Info ready callback
+      * @param hjpeg: JPEG handle pointer
+      * @param pInfo: JPEG Info Struct pointer
+      * @retval None
+      */
+    void HAL_JPEG_InfoReadyCallback(JPEG_HandleTypeDef* hjpeg, JPEG_ConfTypeDef* pInfo)
     {
-      assert(status == HAL_OK);
-    }
-  }
-  else
-  {
-    if(pInfo->ChromaSubsampling == JPEG_422_SUBSAMPLING)
-    {
-      if((pInfo->ImageWidth % 16) != 0)
-        pInfo->ImageWidth += (16 - (pInfo->ImageWidth % 16));
+        if (pInfo->ChromaSubsampling == JPEG_420_SUBSAMPLING)
+        {
+            if ((pInfo->ImageWidth % 16) != 0)
+            {
+                pInfo->ImageWidth += (16 - (pInfo->ImageWidth % 16));
+            }
 
-      if((pInfo->ImageHeight % 8) != 0)
-        pInfo->ImageHeight += (8 - (pInfo->ImageHeight % 8));
-    }
+            if ((pInfo->ImageHeight % 16) != 0)
+            {
+                pInfo->ImageHeight += (16 - (pInfo->ImageHeight % 16));
+            }
 
-    if(pInfo->ChromaSubsampling == JPEG_444_SUBSAMPLING)
-    {
-      if((pInfo->ImageWidth % 8) != 0)
-        pInfo->ImageWidth += (8 - (pInfo->ImageWidth % 8));
+            HAL_StatusTypeDef status = TGFX_JPEG_GetDecodeColorConvertFunc(pInfo, &pConvert_Function, &MCU_TotalNb);
+            if (status != HAL_OK)
+            {
+                assert(status == HAL_OK);
+            }
+        }
+        else
+        {
+            if (pInfo->ChromaSubsampling == JPEG_422_SUBSAMPLING)
+            {
+                if ((pInfo->ImageWidth % 16) != 0)
+                {
+                    pInfo->ImageWidth += (16 - (pInfo->ImageWidth % 16));
+                }
 
-      if((pInfo->ImageHeight % 8) != 0)
-        pInfo->ImageHeight += (8 - (pInfo->ImageHeight % 8));
-    }
+                if ((pInfo->ImageHeight % 8) != 0)
+                {
+                    pInfo->ImageHeight += (8 - (pInfo->ImageHeight % 8));
+                }
+            }
 
-    HAL_StatusTypeDef status = JPEG_GetDecodeColorConvertFunc(pInfo, &pConvert_Function, &MCU_TotalNb);
-    if(status != HAL_OK)
-    {
-      assert(status == HAL_OK);
-    }
-  }
-}
+            if (pInfo->ChromaSubsampling == JPEG_444_SUBSAMPLING)
+            {
+                if ((pInfo->ImageWidth % 8) != 0)
+                {
+                    pInfo->ImageWidth += (8 - (pInfo->ImageWidth % 8));
+                }
 
-/**
-  * @brief  JPEG Get Data callback.
-  * @param hjpeg: JPEG handle pointer
-  * @param NbDecodedData: Number of decoded (consummed) bytes from input buffer
-  * @retval None
-  */
-void HAL_JPEG_GetDataCallback(JPEG_HandleTypeDef *hjpeg, uint32_t NbDecodedData)
-{
-  //Input buffer has been consumed by the peripheral and to ask for a new data chunk if the operation (encoding/decoding) has not been complete yet.
-  JPEG_InputImageIndex += NbDecodedData;
-  if(JPEG_InputImageIndex < JPEG_InputImageSize_Bytes)
-  {
-    JPEG_InputImageAddress = JPEG_InputImageAddress + NbDecodedData;
-    uint32_t inDataLength = JPEG_InputImageSize_Bytes - JPEG_InputImageIndex;
-    HAL_JPEG_ConfigInputBuffer(hjpeg,(uint8_t *)JPEG_InputImageAddress, inDataLength >= CHUNK_SIZE_IN ? CHUNK_SIZE_IN : inDataLength);
-  }
-}
+                if ((pInfo->ImageHeight % 8) != 0)
+                {
+                    pInfo->ImageHeight += (8 - (pInfo->ImageHeight % 8));
+                }
+            }
 
-/**
-  * @brief  JPEG Data Ready callback. Data has been converted from JPEG to YCbCr.
-  * @param hjpeg: JPEG handle pointer
-  * @param pDataOut: pointer to the output data buffer
-  * @param OutDataLength: length of output buffer in bytes
-  * @retval None
-  */
-void HAL_JPEG_DataReadyCallback (JPEG_HandleTypeDef *hjpeg, uint8_t *pDataOut, uint32_t OutDataLength)
-{
-    Jpeg_OUT_BufferTab[JPEG_OUT_Write_BufferIndex].State = JPEG_BUFFER_FULL;
-    Jpeg_OUT_BufferTab[JPEG_OUT_Write_BufferIndex].DataBufferSize = OutDataLength;
-
-    JPEG_OUT_Write_BufferIndex++;
-    if(JPEG_OUT_Write_BufferIndex >= NB_OUTPUT_DATA_BUFFERS)
-    {
-      JPEG_OUT_Write_BufferIndex = 0;
+            HAL_StatusTypeDef status = JPEG_GetDecodeColorConvertFunc(pInfo, &pConvert_Function, &MCU_TotalNb);
+            if (status != HAL_OK)
+            {
+                assert(status == HAL_OK);
+            }
+        }
     }
 
-    //if the other buffer is full, then ui thread might be converting it
-    if(Jpeg_OUT_BufferTab[JPEG_OUT_Write_BufferIndex].State != JPEG_BUFFER_EMPTY)
+    /**
+      * @brief  JPEG Get Data callback.
+      * @param hjpeg: JPEG handle pointer
+      * @param NbDecodedData: Number of decoded (consummed) bytes from input buffer
+      * @retval None
+      */
+    void HAL_JPEG_GetDataCallback(JPEG_HandleTypeDef* hjpeg, uint32_t NbDecodedData)
     {
-      HAL_JPEG_Pause(hjpeg, JPEG_PAUSE_RESUME_OUTPUT);
-      Output_Is_Paused = 1;
+        //Input buffer has been consumed by the peripheral and to ask for a new data chunk if the operation (encoding/decoding) has not been complete yet.
+        JPEG_InputImageIndex += NbDecodedData;
+        if (JPEG_InputImageIndex < JPEG_InputImageSize_Bytes)
+        {
+            JPEG_InputImageAddress = JPEG_InputImageAddress + NbDecodedData;
+            uint32_t inDataLength = JPEG_InputImageSize_Bytes - JPEG_InputImageIndex;
+            HAL_JPEG_ConfigInputBuffer(hjpeg, (uint8_t*)JPEG_InputImageAddress, inDataLength >= CHUNK_SIZE_IN ? CHUNK_SIZE_IN : inDataLength);
+        }
     }
-    HAL_JPEG_ConfigOutputBuffer(hjpeg, Jpeg_OUT_BufferTab[JPEG_OUT_Write_BufferIndex].DataBuffer, MCU_CHROMA_420_SIZE_BYTES * JPEG_ConvertorParams.MCU_pr_line);
 
-    // Signal Hardware Decoding to wake up
-    SEM_POST(semDecodingDone);
-}
+    /**
+      * @brief  JPEG Data Ready callback. Data has been converted from JPEG to YCbCr.
+      * @param hjpeg: JPEG handle pointer
+      * @param pDataOut: pointer to the output data buffer
+      * @param OutDataLength: length of output buffer in bytes
+      * @retval None
+      */
+    void HAL_JPEG_DataReadyCallback(JPEG_HandleTypeDef* hjpeg, uint8_t* pDataOut, uint32_t OutDataLength)
+    {
+        Jpeg_OUT_BufferTab[JPEG_OUT_Write_BufferIndex].State = JPEG_BUFFER_FULL;
+        Jpeg_OUT_BufferTab[JPEG_OUT_Write_BufferIndex].DataBufferSize = OutDataLength;
 
-/**
-  * @brief  JPEG Error callback
-  * @param hjpeg: JPEG handle pointer
-  * @retval None
-  */
-void HAL_JPEG_ErrorCallback(JPEG_HandleTypeDef *hjpeg)
-{
-  HAL_JPEG_STATETypeDef  state = HAL_JPEG_GetState(hjpeg);
-  uint32_t error = HAL_JPEG_GetError(hjpeg);
-  while(1){}
-}
+        JPEG_OUT_Write_BufferIndex++;
+        if (JPEG_OUT_Write_BufferIndex >= NB_OUTPUT_DATA_BUFFERS)
+        {
+            JPEG_OUT_Write_BufferIndex = 0;
+        }
 
-/**
-  * @brief  JPEG Decode complete callback
-  * @param hjpeg: JPEG handle pointer
-  * @retval None
-  */
-void HAL_JPEG_DecodeCpltCallback(JPEG_HandleTypeDef *hjpeg)
-{
-  Jpeg_HWDecodingEnd = 1;
-}
+        //if the other buffer is full, then ui thread might be converting it
+        if (Jpeg_OUT_BufferTab[JPEG_OUT_Write_BufferIndex].State != JPEG_BUFFER_EMPTY)
+        {
+            HAL_JPEG_Pause(hjpeg, JPEG_PAUSE_RESUME_OUTPUT);
+            Output_Is_Paused = 1;
+        }
+        HAL_JPEG_ConfigOutputBuffer(hjpeg, Jpeg_OUT_BufferTab[JPEG_OUT_Write_BufferIndex].DataBuffer, MCU_CHROMA_420_SIZE_BYTES * JPEG_ConvertorParams.MCU_pr_line);
+
+        // Signal Hardware Decoding to wake up
+        SEM_POST(semDecodingDone);
+    }
+
+    /**
+      * @brief  JPEG Error callback
+      * @param hjpeg: JPEG handle pointer
+      * @retval None
+      */
+    void HAL_JPEG_ErrorCallback(JPEG_HandleTypeDef* hjpeg)
+    {
+        HAL_JPEG_STATETypeDef  state = HAL_JPEG_GetState(hjpeg);  UNUSED(state);
+        uint32_t error = HAL_JPEG_GetError(hjpeg); UNUSED(error);
+        while (1) {}
+    }
+
+    /**
+      * @brief  JPEG Decode complete callback
+      * @param hjpeg: JPEG handle pointer
+      * @retval None
+      */
+    void HAL_JPEG_DecodeCpltCallback(JPEG_HandleTypeDef* hjpeg)
+    {
+        Jpeg_HWDecodingEnd = 1;
+    }
 }
 
 /**
@@ -663,51 +676,50 @@ void HAL_JPEG_DecodeCpltCallback(JPEG_HandleTypeDef *hjpeg)
   * @param hjpeg: JPEG handle pointer
   * @retval 1 : if JPEG processing has finished, 0 : if JPEG processing still ongoing
   */
-uint32_t JPEG_OutputHandler(JPEG_HandleTypeDef *hjpeg)
+uint32_t JPEG_OutputHandler(JPEG_HandleTypeDef* hjpeg)
 {
-  uint32_t ConvertedDataCount;
+    uint32_t ConvertedDataCount;
 
-  if(Jpeg_OUT_BufferTab[JPEG_OUT_Read_BufferIndex].State == JPEG_BUFFER_FULL)
-  {
-    /* Invalidate DCache prior to YCbCr/RGB software conversion. */
-    if (SCB->CCR & SCB_CCR_DC_Msk)
+    if (Jpeg_OUT_BufferTab[JPEG_OUT_Read_BufferIndex].State == JPEG_BUFFER_FULL)
     {
-      SCB_CleanInvalidateDCache();
+        /* Invalidate DCache prior to YCbCr/RGB software conversion. */
+        if (SCB->CCR & SCB_CCR_DC_Msk)
+        {
+            SCB_CleanInvalidateDCache();
+        }
+
+        MCU_BlockIndex += pConvert_Function(Jpeg_OUT_BufferTab[JPEG_OUT_Read_BufferIndex].DataBuffer, FrameBufferAddress, MCU_BlockIndex, Jpeg_OUT_BufferTab[JPEG_OUT_Read_BufferIndex].DataBufferSize, &ConvertedDataCount);
+
+        Jpeg_OUT_BufferTab[JPEG_OUT_Read_BufferIndex].State = JPEG_BUFFER_EMPTY;
+        Jpeg_OUT_BufferTab[JPEG_OUT_Read_BufferIndex].DataBufferSize = 0;
+
+        JPEG_OUT_Read_BufferIndex++;
+        if (JPEG_OUT_Read_BufferIndex >= NB_OUTPUT_DATA_BUFFERS)
+        {
+            JPEG_OUT_Read_BufferIndex = 0;
+        }
+
+        if (MCU_BlockIndex == MCU_TotalNb)
+        {
+            return 1;
+        }
+    }
+    else if ((Output_Is_Paused == 1) && \
+             (Jpeg_OUT_BufferTab[JPEG_OUT_Write_BufferIndex].State == JPEG_BUFFER_EMPTY) && \
+             (Jpeg_OUT_BufferTab[JPEG_OUT_Read_BufferIndex].State == JPEG_BUFFER_EMPTY))
+    {
+        Output_Is_Paused = 0;
+        HAL_JPEG_Resume(hjpeg, JPEG_PAUSE_RESUME_OUTPUT);
+    }
+    else
+    {
+        return 2;
     }
 
-    MCU_BlockIndex += pConvert_Function(Jpeg_OUT_BufferTab[JPEG_OUT_Read_BufferIndex].DataBuffer, FrameBufferAddress, MCU_BlockIndex, Jpeg_OUT_BufferTab[JPEG_OUT_Read_BufferIndex].DataBufferSize, &ConvertedDataCount);
-
-    Jpeg_OUT_BufferTab[JPEG_OUT_Read_BufferIndex].State = JPEG_BUFFER_EMPTY;
-    Jpeg_OUT_BufferTab[JPEG_OUT_Read_BufferIndex].DataBufferSize = 0;
-
-    JPEG_OUT_Read_BufferIndex++;
-    if(JPEG_OUT_Read_BufferIndex >= NB_OUTPUT_DATA_BUFFERS)
+    if ((MCU_BlockIndex == MCU_TotalNb) && (Jpeg_HWDecodingEnd)) // decode completed
     {
-      JPEG_OUT_Read_BufferIndex = 0;
+        return 1;
     }
 
-    if(MCU_BlockIndex == MCU_TotalNb)
-    {
-      return 1;
-    }
-  }
-  else if((Output_Is_Paused == 1) && \
-          (Jpeg_OUT_BufferTab[JPEG_OUT_Write_BufferIndex].State == JPEG_BUFFER_EMPTY) &&\
-          (Jpeg_OUT_BufferTab[JPEG_OUT_Read_BufferIndex].State == JPEG_BUFFER_EMPTY))
-  {
-    Output_Is_Paused = 0;
-    HAL_JPEG_Resume(hjpeg, JPEG_PAUSE_RESUME_OUTPUT);
-  }
-  else
-  {
-    return 2;
-  }
-
-  if((MCU_BlockIndex == MCU_TotalNb) && (Jpeg_HWDecodingEnd))// decode completed
-  {
-    return 1;
-  }
-
-  return 0;
+    return 0;
 }
-

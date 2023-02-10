@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2023 STMicroelectronics.
+  * Copyright (c) 2022 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -38,8 +38,8 @@ void OSWrappers::initialize()
     // Create a queue of length 1
     frame_buffer_sem = osSemaphoreNew(1, 1, NULL); // Binary semaphore
     assert((frame_buffer_sem != NULL) && "Creation of framebuffer semaphore failed");
-
-    // Create a queue of length 1
+//
+//    // Create a queue of length 1
     vsync_queue = osMessageQueueNew(1, 4, NULL);
     assert((vsync_queue != NULL) && "Creation of vsync message queue failed");
 }
@@ -113,7 +113,7 @@ void OSWrappers::signalRenderingDone()
 void OSWrappers::waitForVSync()
 {
     uint32_t dummyGet;
-    // First make sure the queue is empty, by trying to remove an element with 0 timeout.
+//     First make sure the queue is empty, by trying to remove an element with 0 timeout.
     osMessageQueueGet(vsync_queue, &dummyGet, 0, 0);
 
     // Then, wait for next VSYNC to occur.
@@ -154,4 +154,3 @@ void OSWrappers::taskYield()
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-

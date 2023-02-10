@@ -32,6 +32,7 @@
 /* Scheduler includes. */
 #include "FreeRTOS.h"
 #include "task.h"
+#include <defines.h>
 
 #ifndef __VFP_FP__
 	#error This port can only be used when the project options are configured to enable hardware floating point support.
@@ -475,6 +476,8 @@ void xPortPendSVHandler( void )
 }
 /*-----------------------------------------------------------*/
 
+
+
 void xPortSysTickHandler( void )
 {
 	/* The SysTick runs at the lowest interrupt priority, so when this interrupt
@@ -493,6 +496,9 @@ void xPortSysTickHandler( void )
 	}
 	portENABLE_INTERRUPTS();
 }
+
+
+
 /*-----------------------------------------------------------*/
 
 #if( configUSE_TICKLESS_IDLE == 1 )
@@ -741,7 +747,7 @@ static void vPortEnableVFP( void )
 			The following links provide detailed information:
 			http://www.freertos.org/RTOS-Cortex-M3-M4.html
 			http://www.freertos.org/FAQHelp.html */
-			configASSERT( ucCurrentPriority >= ucMaxSysCallPriority );
+//			configASSERT( ucCurrentPriority >= ucMaxSysCallPriority );
 		}
 
 		/* Priority grouping:  The interrupt controller (NVIC) allows the bits

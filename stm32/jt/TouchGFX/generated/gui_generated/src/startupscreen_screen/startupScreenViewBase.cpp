@@ -17,12 +17,12 @@ startupScreenViewBase::startupScreenViewBase()
     textArea1.setXY(120, 133);
     textArea1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea1.setLinespacing(0);
-    textArea1.setTypedText(touchgfx::TypedText(T_TRIACREGULATORSTARTUPTEXT));
+    textArea1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_NW6D));
 
     textArea2.setXY(120, 240);
     textArea2.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea2.setLinespacing(0);
-    textArea2.setTypedText(touchgfx::TypedText(T_STARTUPTEXT));
+    textArea2.setTypedText(touchgfx::TypedText(T___SINGLEUSE_P107));
 
     add(__background);
     add(box1);

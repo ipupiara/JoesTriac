@@ -19,46 +19,60 @@ editCalibValuesScreenViewBase::editCalibValuesScreenViewBase() :
     calibLowText.setXY(652, 51);
     calibLowText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     calibLowText.setLinespacing(0);
-    Unicode::snprintf(calibLowTextBuffer, CALIBLOWTEXT_SIZE, "%s", touchgfx::TypedText(T_ZZZZWCTEXT).getText());
+    Unicode::snprintf(calibLowTextBuffer, CALIBLOWTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_03KX).getText());
     calibLowText.setWildcard(calibLowTextBuffer);
     calibLowText.resizeToCurrentText();
-    calibLowText.setTypedText(touchgfx::TypedText(T_CALIBVALUETEXT));
+    calibLowText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_4WZ3));
 
     calibHighText.setXY(652, 150);
     calibHighText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     calibHighText.setLinespacing(0);
-    Unicode::snprintf(calibHighTextBuffer, CALIBHIGHTEXT_SIZE, "%s", touchgfx::TypedText(T_ZZZZWCTEXT).getText());
+    Unicode::snprintf(calibHighTextBuffer, CALIBHIGHTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_YOH3).getText());
     calibHighText.setWildcard(calibHighTextBuffer);
     calibHighText.resizeToCurrentText();
-    calibHighText.setTypedText(touchgfx::TypedText(T_CALIBVALUETEXT));
+    calibHighText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_96UQ));
 
     calibLowButton.setXY(439, 44);
     calibLowButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
-    calibLowButton.setLabelText(touchgfx::TypedText(T_CALIBLOWBTNTEXT));
+    calibLowButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_FXNH));
     calibLowButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     calibLowButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     calibLowButton.setAction(buttonCallback);
 
     calibHighButton.setXY(439, 143);
     calibHighButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
-    calibHighButton.setLabelText(touchgfx::TypedText(T_CALIBHIGHBTNTEXT));
+    calibHighButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_YFOC));
     calibHighButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     calibHighButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     calibHighButton.setAction(buttonCallback);
 
     backNSaveButton.setXY(439, 345);
     backNSaveButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
-    backNSaveButton.setLabelText(touchgfx::TypedText(T_BACKNSAVEBUTTONTEXT));
+    backNSaveButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_E0C8));
     backNSaveButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     backNSaveButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     backNSaveButton.setAction(buttonCallback);
 
     cancelButton.setXY(223, 345);
     cancelButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
-    cancelButton.setLabelText(touchgfx::TypedText(T_CANCELBUTTONTEXT));
+    cancelButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_R6ZB));
     cancelButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     cancelButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     cancelButton.setAction(buttonCallback);
+
+    buttonWithLabel1.setXY(439, 240);
+    buttonWithLabel1.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
+    buttonWithLabel1.setLabelText(touchgfx::TypedText(T___SINGLEUSE_6WAP));
+    buttonWithLabel1.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    buttonWithLabel1.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
+
+    textArea1.setXY(676, 254);
+    textArea1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea1.setLinespacing(0);
+    Unicode::snprintf(textArea1Buffer, TEXTAREA1_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_OGN3).getText());
+    textArea1.setWildcard(textArea1Buffer);
+    textArea1.resizeToCurrentText();
+    textArea1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_MZOD));
 
     add(__background);
     add(box1);
@@ -68,6 +82,8 @@ editCalibValuesScreenViewBase::editCalibValuesScreenViewBase() :
     add(calibHighButton);
     add(backNSaveButton);
     add(cancelButton);
+    add(buttonWithLabel1);
+    add(textArea1);
 }
 
 void editCalibValuesScreenViewBase::setupScreen()
