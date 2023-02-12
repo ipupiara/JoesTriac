@@ -35,17 +35,21 @@ void setAmpereScreenView::setupScreen()
 void setAmpereScreenView::textClickHandler(const TextAreaWithOneWildcard& txt, const ClickEvent& evt )
 {
 	uint8_t fieldPattern [] = {0,0,0,0xFF,0,0};
-	uint16_t fieldXOffset = 2;
+	Event::EventType typ =   evt.getEventType();
+	uint16_t stringOffset = txt.getX();
 	int16_t xPos = evt.getX();
 	uint8_t amtFields = 5;
-	uint16_t txtWidth = txt.getWidth();
-	int16_t fieldWidth = (txtWidth / amtFields);
+//	uint16_t txtWidth = txt.getWidth();
+//	int16_t fieldWidth = (txtWidth / amtFields);
+	int16_t fieldWidth = 24;
 	int16_t clickedField =  (xPos / fieldWidth);
+
+
 
     if (&txt == &setAmpereText)
     {
-    	uint16_t remXPos = (xPos % fieldWidth);
     	if (fieldPattern[clickedField] == 0xFF)  {
+    		uint16_t remXPos = (xPos % fieldWidth);
     		if (remXPos >  (fieldWidth / 2) ) {
     			clickedField ++;
     		}
@@ -54,7 +58,12 @@ void setAmpereScreenView::textClickHandler(const TextAreaWithOneWildcard& txt, c
     		}
     	}
     }
-    cursor.setX((clickedField * fieldWidth) + fieldXOffset);
+    int16_t newPos = (clickedField * fieldWidth);
+    int16_t ps0 = cursor.getX();
+    cursor.invalidate();
+    cursor.setX(newPos + stringOffset);
+    int16_t ps1 = cursor.getX();
+    valPos = clickedField;
     cursor.invalidate();
 }
 
@@ -95,7 +104,7 @@ void setAmpereScreenView::buttonPressed(uint8_t val)
 		valPos = 0;
 //		backSaveButtonPressed();
 	}  else {
-		if (valPos== 3)  {
+		if (valPos== 3)  {  // todo here valpos  [0..4] ,above [0..5], need be the same
 			cursor.moveRelative(48, 0);
 
 		} else  {
