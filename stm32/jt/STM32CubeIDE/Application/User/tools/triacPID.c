@@ -163,7 +163,7 @@ void stopTriacPidRun()
 
 real nextCorrection(real err)
 {
-    real iFact = 1.0;
+    real iFact = 1.0;  //  todo check if fp and art, icache and dchace are running (fp =float processor) ?
 	real pFact = 1.0;
 	real dFact = 1.0;
 	real res;
@@ -235,12 +235,7 @@ void calcNextTriacDelay()
 
 	newDelay = getTriacTriggerDelay() + delayCorrectionI;
 	setTriacTriggerDelay(newDelay);
-//#ifdef printfPID
-//	double corrD = corr;
-//	double carryCorrD = corrCarryOver;
-//	double ampsD  = currentAmps();
-//	printf(" corr %f corrI %i cry %f delay %x  amps %f\n",corrD,corrInt, carryCorrD, newDelay, ampsD);
-//#endif
+
 }
 
 void InitPID()

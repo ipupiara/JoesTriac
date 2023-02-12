@@ -25,32 +25,36 @@ void setAmpereScreenView::setupScreen()
      setAmpereText.setClickAction(textClickedCallback);
 }
 
+//uint8_t amtFields;
+//
+//void initClickValues()
+//{
+//	amtFields = 5;
+//}
+
 void setAmpereScreenView::textClickHandler(const TextAreaWithOneWildcard& txt, const ClickEvent& evt )
 {
-	uint32_t relXPos = evt.getX() - txt.getX();
-	uint32_t amtFields = 5;
-	uint32_t valuePos;
-	uint32_t nonEditibles [] = {3};
-	uint32_t goalFieldPos;
-	uint32_t txtWidth = txt.getWidth();
-	uint32_t fieldXOffset = 2;
+	uint8_t fieldPattern [] = {0,0,0,0xFF,0,0};
+	uint16_t fieldXOffset = 2;
+	int16_t xPos = evt.getX();
+	uint8_t amtFields = 5;
+	uint16_t txtWidth = txt.getWidth();
+	int16_t fieldWidth = (txtWidth / amtFields);
+	int16_t clickedField =  (xPos / fieldWidth);
+
     if (&txt == &setAmpereText)
     {
-    	goalFieldPos = (txtWidth / amtFields);
-    	valuePos = (txtWidth / amtFields);
-    	for (uint32_t cnt = 0; cnt < amtFields;  cnt++)  {
-    		if (goalFieldPos == nonEditibles[cnt]) {
-    			if (( txtWidth % amtFields) < (txtWidth / (2* amtFields)))  {
-    				-- goalFieldPos;
-    			} else {
-    				++ goalFieldPos;
-    				-- valuePos;
-    			}
+    	uint16_t remXPos = (xPos % fieldWidth);
+    	if (fieldPattern[clickedField] == 0xFF)  {
+    		if (remXPos >  (fieldWidth / 2) ) {
+    			clickedField ++;
+    		}
+    		else  {
+    			clickedField --;
     		}
     	}
-    	valuePos = goalFieldPos;
-    	cursor.setX(txt.getX()+ (goalFieldPos * (txtWidth / amtFields)) + fieldXOffset);
     }
+    cursor.setX((clickedField * fieldWidth) + fieldXOffset);
     cursor.invalidate();
 }
 
