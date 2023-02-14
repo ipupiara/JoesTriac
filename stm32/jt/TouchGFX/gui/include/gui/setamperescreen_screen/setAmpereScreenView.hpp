@@ -25,7 +25,8 @@ protected:
     void      setValArray(float ampsF);
     void      recalcAmps();
     void      printCurrentValueTimeOnScreen();
-   uint8_t   valPos = 0;
+    int16_t xOffset;
+   uint8_t   valPos;
    uint8_t   valArray[5];
 
    Callback<setAmpereScreenView, const TextAreaWithOneWildcard&, const ClickEvent&> textClickedCallback;

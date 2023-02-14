@@ -12,7 +12,8 @@ typedef unsigned long uint32_t;
 setAmpereScreenView::setAmpereScreenView():
 	textClickedCallback(this, &setAmpereScreenView::textClickHandler)
 {
-
+	xOffset = 3;
+	valPos = 0;
 }
 
 void setAmpereScreenView::setupScreen()
@@ -32,17 +33,21 @@ void setAmpereScreenView::setupScreen()
 //	amtFields = 5;
 //}
 
+
+
 void setAmpereScreenView::textClickHandler(const TextAreaWithOneWildcard& txt, const ClickEvent& evt )
 {
 	uint8_t fieldPattern [] = {0,0,0,0xFF,0,0};
-	Event::EventType typ =   evt.getEventType();
-	uint16_t stringOffset = txt.getX();
+	uint8_t valPosPattern []  = {0,1,2,0xFF,3,4};
 	int16_t xPos = evt.getX();
+	int16_t fieldOffset = txt.getX();
 	uint8_t amtFields = 5;
-//	uint16_t txtWidth = txt.getWidth();
-//	int16_t fieldWidth = (txtWidth / amtFields);
 	int16_t fieldWidth = 24;
 	int16_t clickedField =  (xPos / fieldWidth);
+
+
+	//	uint16_t txtWidth = txt.getWidth();
+	//	int16_t fieldWidth = (txtWidth / amtFields);
 
 
 
@@ -61,9 +66,9 @@ void setAmpereScreenView::textClickHandler(const TextAreaWithOneWildcard& txt, c
     int16_t newPos = (clickedField * fieldWidth);
     int16_t ps0 = cursor.getX();
     cursor.invalidate();
-    cursor.setX(newPos + stringOffset);
+    cursor.setX(newPos + fieldOffset + xOffset);
     int16_t ps1 = cursor.getX();
-    valPos = clickedField;
+    valPos = valPosPattern[clickedField];
     cursor.invalidate();
 }
 
@@ -102,11 +107,11 @@ void setAmpereScreenView::buttonPressed(uint8_t val)
 
 	if (valPos > 4)  {
 		valPos = 0;
+		cursor.setX(setAmpereText.getX() + xOffset);
 //		backSaveButtonPressed();
 	}  else {
-		if (valPos== 3)  {  // todo here valpos  [0..4] ,above [0..5], need be the same
+		if (valPos== 3)  {
 			cursor.moveRelative(48, 0);
-
 		} else  {
 			cursor.moveRelative(24, 0);
 		}
@@ -120,7 +125,8 @@ void setAmpereScreenView::numButtonPressed(uint8_t value)
 
 void setAmpereScreenView::setValArray(float ampsF)
 {
-	uint32_t ampsI =  (ampsF * 100.0);  // evtl + 0.1 or so... to prevent rounding loss
+	uint32_t ampsI =  (ampsF * 100.0);  // todo evtl + 0.1 or so... to prevent rounding loss
+//	double ampsI = (ampsF * 100.0) + 1E-6;
 	valArray[0] =  (uint8_t) (ampsI/10000);
 	valArray[1] =  (uint8_t) ((ampsI % 10000)/1000);
 	valArray[2] =  (uint8_t) ((ampsI % 1000)/100);
