@@ -20,7 +20,7 @@ void setAmpereScreenView::setupScreen()
 {
     setAmpereScreenViewBase::setupScreen();
 
-     ampsValue = presenter->getWeldingAmps();
+     ampsValue = presenter->getWeldingAmps() + 0.005;
      setValArray(ampsValue);
      printCurrentValueTimeOnScreen();
      setAmpereText.setClickAction(textClickedCallback);
@@ -125,8 +125,8 @@ void setAmpereScreenView::numButtonPressed(uint8_t value)
 
 void setAmpereScreenView::setValArray(float ampsF)
 {
-	uint32_t ampsI =  (ampsF * 100.0);  // todo evtl + 0.1 or so... to prevent rounding loss
-//	double ampsI = (ampsF * 100.0) + 1E-6;
+	uint32_t ampsI =  ((ampsF * 100.0) + 0.1);  // todo evtl + 0.1 or so... to prevent rounding loss
+//	double ampsI = (ampsF * 100.0) + 0.5;
 	valArray[0] =  (uint8_t) (ampsI/10000);
 	valArray[1] =  (uint8_t) ((ampsI % 10000)/1000);
 	valArray[2] =  (uint8_t) ((ampsI % 1000)/100);
@@ -137,7 +137,7 @@ void setAmpereScreenView::setValArray(float ampsF)
  {
 	 uint32_t ampsIntValue = (valArray[0] * 10000) + (valArray[1] * 1000) +
 			 	 	 	 (valArray[2] * 100) + (valArray[3] *10 ) + valArray[4];
-	 float ampsV =  ampsIntValue;
+	 double ampsV =  ampsIntValue +0.1;
 	 ampsValue = ampsV / 100.0;
  }
  void setAmpereScreenView::printCurrentValueTimeOnScreen()
