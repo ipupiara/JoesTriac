@@ -31,7 +31,7 @@ setTimeScreenViewBase::setTimeScreenViewBase() :
     backSaveButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     backSaveButton.setAction(buttonCallback);
 
-    cursor.setPosition(185, 24, 23, 39);
+    cursor.setPosition(174, 23, 23, 39);
     cursorPainter.setColor(touchgfx::Color::getColorFromRGB(247, 212, 15));
     cursor.setPainter(cursorPainter);
     cursor.setStart(5, 5);

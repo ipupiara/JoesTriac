@@ -508,8 +508,8 @@
           {
             "Type": "Line",
             "Name": "cursor",
-            "X": 185,
-            "Y": 24,
+            "X": 174,
+            "Y": 23,
             "Width": 23,
             "Height": 39,
             "Color": {

@@ -21,6 +21,7 @@ void setTimeScreenView::setupScreen()
     timeValueSec = presenter->getWeldingTimeSec();
     setValArray(timeValueSec);
     printCurrentValueTimeOnScreen();
+    timeValueText.setClickAction(textClickedCallback);
 }
 
 void setTimeScreenView::tearDownScreen()
