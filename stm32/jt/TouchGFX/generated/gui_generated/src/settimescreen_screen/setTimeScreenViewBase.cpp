@@ -40,11 +40,12 @@ setTimeScreenViewBase::setTimeScreenViewBase() :
     cursor.setLineEndingStyle(touchgfx::Line::ROUND_CAP_ENDING);
     cursor.setAlpha(138);
 
-    timeValueText.setPosition(172, 11, 137, 55);
+    timeValueText.setXY(172, 11);
     timeValueText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     timeValueText.setLinespacing(0);
     Unicode::snprintf(timeValueTextBuffer, TIMEVALUETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_IBA0).getText());
     timeValueText.setWildcard(timeValueTextBuffer);
+    timeValueText.resizeToCurrentText();
     timeValueText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_EUXQ));
 
     add(__background);

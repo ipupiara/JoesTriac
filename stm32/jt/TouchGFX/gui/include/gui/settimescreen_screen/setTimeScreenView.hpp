@@ -17,6 +17,8 @@ public:
     void buttonPressed(uint8_t val);
     virtual void numButtonPressed(uint8_t value);
 
+    void textClickHandler(const TextAreaWithOneWildcard& txt, const ClickEvent& ev);
+
 protected:
 
     uint16_t  timeValueSec;
@@ -25,6 +27,9 @@ protected:
     void      printCurrentValueTimeOnScreen();
    uint8_t   valPos = 0;
    uint8_t   valArray[4];
+   int16_t xOffset;
+
+   Callback<setTimeScreenView, const TextAreaWithOneWildcard&, const ClickEvent&> textClickedCallback;
 };
 
 #endif // SETTIMESCREENVIEW_HPP

@@ -530,10 +530,11 @@
             "Name": "timeValueText",
             "X": 172,
             "Y": 11,
-            "Width": 137,
-            "Height": 55,
+            "Width": 120,
+            "Height": 46,
             "TextId": "__SingleUse_EUXQ",
             "TextRotation": "0",
+            "AutoSize": true,
             "Wildcard1": {
               "TextId": "__SingleUse_IBA0",
               "UseBuffer": true,

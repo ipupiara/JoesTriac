@@ -7,9 +7,11 @@
 ////  ATTENTION  urgently set    -fno-inline-functions  in C++ and G++   plus -O0   no optimization, else code goes to loony bin and booby hatch
 
 
-setTimeScreenView::setTimeScreenView()
+setTimeScreenView::setTimeScreenView():
+	textClickedCallback(this, &setTimeScreenView::textClickHandler)
 {
-
+	xOffset = 3;
+	valPos = 0;
 }
 
 void setTimeScreenView::setupScreen()
@@ -55,7 +57,9 @@ void setTimeScreenView::buttonPressed(uint8_t val)
 	++valPos;
 
 	if (valPos > 3)  {
-		backSaveButtonPressed();
+		valPos = 0;
+		cursor.setX(timeValueText.getX() + xOffset);
+//		backSaveButtonPressed();
 	}  else {
 		if (valPos== 2)  {
 			numericKeyPad1.setEnable7to9forInput(false);
@@ -75,15 +79,42 @@ void setTimeScreenView::numButtonPressed(uint8_t value)
 	buttonPressed(value);
 }
 
-//void      setTimeScreenView::setValArray(uint16_t val)
-//{
-//	valArray[0] = getWeldingTime();
-//}
-//
-//void      setTimeScreenView::charPressedRecalcData(uint8_t val, uint8_t pos)
-//{
-//
-//}
+//  todo if more such string input is needed -> implement textClickHandeled Text into one or more components with a textfield
+void setTimeScreenView::textClickHandler(const TextAreaWithOneWildcard& txt, const ClickEvent& evt )
+{
+   if (&txt == &timeValueText)
+	{
+		uint8_t fieldPattern [] = {0,0,0xFF,0,0};
+		uint8_t valPosPattern []  = {0,1,0xFF,2,3};
+		int16_t xPos = evt.getX();
+		int16_t fieldOffset = txt.getX();
+		int16_t fieldWidth = 24;
+		int16_t clickedField =  (xPos / fieldWidth);
+
+		if (fieldPattern[clickedField] == 0xFF)  {
+			uint16_t remXPos = (xPos % fieldWidth);
+			if (remXPos >  (fieldWidth / 2) ) {
+				clickedField ++;
+			}
+			else  {
+				clickedField --;
+			}
+		}
+
+		int16_t newPos = (clickedField * fieldWidth);
+		cursor.invalidate();
+		cursor.setX(newPos + fieldOffset + xOffset);
+		valPos = valPosPattern[clickedField];
+		cursor.invalidate();
+
+		if (valPos== 2)  {
+			numericKeyPad1.setEnable7to9forInput(false);
+		} else  {
+			numericKeyPad1.setEnable7to9forInput(true);
+		}
+	}
+}
+
 
 void setTimeScreenView::setValArray(uint16_t val)
 {

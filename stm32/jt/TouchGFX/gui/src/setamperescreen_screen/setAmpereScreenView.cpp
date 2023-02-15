@@ -37,39 +37,30 @@ void setAmpereScreenView::setupScreen()
 
 void setAmpereScreenView::textClickHandler(const TextAreaWithOneWildcard& txt, const ClickEvent& evt )
 {
-	uint8_t fieldPattern [] = {0,0,0,0xFF,0,0};
-	uint8_t valPosPattern []  = {0,1,2,0xFF,3,4};
-	int16_t xPos = evt.getX();
-	int16_t fieldOffset = txt.getX();
-	uint8_t amtFields = 5;
-	int16_t fieldWidth = 24;
-	int16_t clickedField =  (xPos / fieldWidth);
+   if (&txt == &setAmpereText)
+	{
+		uint8_t fieldPattern [] = {0,0,0,0xFF,0,0};
+		uint8_t valPosPattern []  = {0,1,2,0xFF,3,4};
+		int16_t xPos = evt.getX();
+		int16_t fieldOffset = txt.getX();
+		int16_t fieldWidth = 24;
+		int16_t clickedField =  (xPos / fieldWidth);
 
-
-	//	uint16_t txtWidth = txt.getWidth();
-	//	int16_t fieldWidth = (txtWidth / amtFields);
-
-
-
-    if (&txt == &setAmpereText)
-    {
-    	if (fieldPattern[clickedField] == 0xFF)  {
-    		uint16_t remXPos = (xPos % fieldWidth);
-    		if (remXPos >  (fieldWidth / 2) ) {
-    			clickedField ++;
-    		}
-    		else  {
-    			clickedField --;
-    		}
-    	}
-    }
-    int16_t newPos = (clickedField * fieldWidth);
-    int16_t ps0 = cursor.getX();
-    cursor.invalidate();
-    cursor.setX(newPos + fieldOffset + xOffset);
-    int16_t ps1 = cursor.getX();
-    valPos = valPosPattern[clickedField];
-    cursor.invalidate();
+		if (fieldPattern[clickedField] == 0xFF)  {
+			uint16_t remXPos = (xPos % fieldWidth);
+			if (remXPos >  (fieldWidth / 2) ) {
+				clickedField ++;
+			}
+			else  {
+				clickedField --;
+			}
+		}
+		int16_t newPos = (clickedField * fieldWidth);
+		cursor.invalidate();
+		cursor.setX(newPos + fieldOffset + xOffset);
+		valPos = valPosPattern[clickedField];
+		cursor.invalidate();
+	}
 }
 
 void setAmpereScreenView::tearDownScreen()
