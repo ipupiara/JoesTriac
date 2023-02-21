@@ -290,16 +290,16 @@ void startCircReceiver()
 //
 //  /* DMA interrupt init */
 //  /* DMA1_Stream5_IRQn interrupt configuration */
-//  HAL_NVIC_SetPriority(DMA1_Stream5_IRQn, 0, 0);
+//  HAL_NVIC_SetPriority(DMA1_Stream5_IRQn, triacTriggerIsrPrio, 0);
 //  HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
 //  /* DMA1_Stream6_IRQn interrupt configuration */
-//  HAL_NVIC_SetPriority(DMA1_Stream6_IRQn, 0, 0);
+//  HAL_NVIC_SetPriority(DMA1_Stream6_IRQn, triacTriggerIsrPrio, 0);
 //  HAL_NVIC_EnableIRQ(DMA1_Stream6_IRQn);
 //  /* DMA2_Stream3_IRQn interrupt configuration */
-//  HAL_NVIC_SetPriority(DMA2_Stream3_IRQn, 0, 0);
+//  HAL_NVIC_SetPriority(DMA2_Stream3_IRQn, triacTriggerIsrPrio, 0);
 //  HAL_NVIC_EnableIRQ(DMA2_Stream3_IRQn);
 //  /* DMA2_Stream6_IRQn interrupt configuration */
-//  HAL_NVIC_SetPriority(DMA2_Stream6_IRQn, 0, 0);
+//  HAL_NVIC_SetPriority(DMA2_Stream6_IRQn, triacTriggerIsrPrio, 0);
 //  HAL_NVIC_EnableIRQ(DMA2_Stream6_IRQn);
 //
 //}
@@ -444,9 +444,8 @@ uint8_t initUartHw()
 //		  huart2.Instance->CR1 |= USART_CR1_TCIE_Msk;
 	huart.Instance->CR3 |= USART_CR3_EIE_Msk;
 
-//	HAL_NVIC_SetPriority(DMA1_Stream5_IRQn, 0, 0);
-	HAL_NVIC_SetPriority(txDMA_Stream_IRQn, 0, 0);
-	HAL_NVIC_SetPriority(USART_IRQn, 0, 0);
+	HAL_NVIC_SetPriority(txDMA_Stream_IRQn, triacApplicationIsrPrio, 0);
+	HAL_NVIC_SetPriority(USART_IRQn, triacApplicationIsrPrio, 0);
 
 	disableUartInterrupts();
 
