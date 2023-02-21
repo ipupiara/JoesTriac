@@ -183,7 +183,7 @@
             "X": 465,
             "Y": 12,
             "Width": 144,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_DEJR",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1683,7 +1683,7 @@
             "X": 465,
             "Y": 12,
             "Width": 144,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_X5Q9",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1699,7 +1699,7 @@
             "X": 14,
             "Y": 94,
             "Width": 60,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_K159",
             "TextRotation": "0",
             "AutoSize": true
@@ -1710,7 +1710,7 @@
             "X": 352,
             "Y": 94,
             "Width": 96,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_FEL2",
             "TextRotation": "0",
             "AutoSize": true
@@ -1736,7 +1736,7 @@
             "X": 465,
             "Y": 82,
             "Width": 144,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_GCRP",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1804,6 +1804,29 @@
             "ArcRadius": 94.0,
             "ArcLineWidth": 14.0,
             "ArcCapStyle": "Butt"
+          },
+          {
+            "Type": "Box",
+            "Name": "dirtyBox",
+            "X": 315,
+            "Y": 289,
+            "Width": 150,
+            "Height": 36,
+            "Color": {
+              "Red": 229,
+              "Green": 229,
+              "Blue": 229
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_1",
+            "X": 349,
+            "Y": 299,
+            "Width": 83,
+            "Height": 26,
+            "TextId": "__SingleUse_MXBE",
+            "TextRotation": "0"
           }
         ],
         "Interactions": [
@@ -2231,7 +2254,7 @@
             "X": 465,
             "Y": 12,
             "Width": 144,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_EEDJ",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2247,7 +2270,7 @@
             "X": 14,
             "Y": 94,
             "Width": 60,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_3JKB",
             "TextRotation": "0",
             "AutoSize": true
@@ -2258,7 +2281,7 @@
             "X": 352,
             "Y": 94,
             "Width": 96,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_9JDU",
             "TextRotation": "0",
             "AutoSize": true
@@ -2284,7 +2307,7 @@
             "X": 465,
             "Y": 82,
             "Width": 144,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_RXFU",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2336,7 +2359,7 @@
             "X": 526,
             "Y": 281,
             "Width": 252,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_3974",
             "TextRotation": "0",
             "AutoSize": true
@@ -2347,7 +2370,7 @@
             "X": 526,
             "Y": 316,
             "Width": 48,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_1D86",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2356,6 +2379,29 @@
               "UseBuffer": true,
               "BufferSize": 10
             }
+          },
+          {
+            "Type": "Box",
+            "Name": "dirtyBox",
+            "X": 315,
+            "Y": 289,
+            "Width": 150,
+            "Height": 36,
+            "Color": {
+              "Red": 229,
+              "Green": 229,
+              "Blue": 229
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_1",
+            "X": 349,
+            "Y": 299,
+            "Width": 83,
+            "Height": 26,
+            "TextId": "__SingleUse_4K8G",
+            "TextRotation": "0"
           }
         ],
         "Interactions": [

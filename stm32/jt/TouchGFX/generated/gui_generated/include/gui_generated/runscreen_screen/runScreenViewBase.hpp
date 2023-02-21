@@ -51,6 +51,8 @@ protected:
     touchgfx::BoxProgress boxProgress1;
     touchgfx::Gauge ampGauge;
     touchgfx::PainterRGB565Bitmap ampGaugePainter;
+    touchgfx::Box dirtyBox;
+    touchgfx::TextArea textArea1_1;
 
     /*
      * Wildcard Buffers

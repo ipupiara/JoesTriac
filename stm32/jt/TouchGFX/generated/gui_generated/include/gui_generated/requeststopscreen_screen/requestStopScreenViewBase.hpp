@@ -58,6 +58,8 @@ protected:
     touchgfx::ButtonWithIcon continueButton;
     touchgfx::TextArea textArea4;
     touchgfx::TextAreaWithOneWildcard secondsb4ReturnText;
+    touchgfx::Box dirtyBox;
+    touchgfx::TextArea textArea1_1;
 
     /*
      * Wildcard Buffers
