@@ -40,6 +40,16 @@ dummyScreenViewBase::dummyScreenViewBase() :
     button7.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
     button7.setAction(buttonCallback);
 
+    gauge1.setBackground(touchgfx::Bitmap(BITMAP_BLUE_GAUGES_ORIGINAL_GAUGE_BACKGROUND_STYLE_00_ID));
+    gauge1.setPosition(490, 145, 251, 251);
+    gauge1.setCenter(125, 125);
+    gauge1.setStartEndAngle(-90, 90);
+    gauge1.setRange(0, 100);
+    gauge1.setValue(50);
+    gauge1.setNeedle(BITMAP_RED_NEEDLES_GOAL_GAUGE_NEEDLE_STYLE_01_ID, 11, 115);
+    gauge1.setMovingNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
+    gauge1.setSteadyNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
+
     add(__background);
     add(button1);
     add(button2);
@@ -48,6 +58,7 @@ dummyScreenViewBase::dummyScreenViewBase() :
     add(button5);
     add(button6);
     add(button7);
+    add(gauge1);
 }
 
 void dummyScreenViewBase::setupScreen()

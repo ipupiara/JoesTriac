@@ -9,6 +9,7 @@
 #include <gui/dummyscreen_screen/dummyScreenPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
 #include <touchgfx/widgets/Button.hpp>
+#include <touchgfx/widgets/Gauge.hpp>
 
 class dummyScreenViewBase : public touchgfx::View<dummyScreenPresenter>
 {
@@ -33,6 +34,7 @@ protected:
     touchgfx::Button button5;
     touchgfx::Button button6;
     touchgfx::Button button7;
+    touchgfx::Gauge gauge1;
 
 private:
 

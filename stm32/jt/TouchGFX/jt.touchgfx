@@ -2643,6 +2643,34 @@
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
             "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
             "Style": "Style4"
+          },
+          {
+            "Type": "Gauge",
+            "Name": "gauge1",
+            "X": 490,
+            "Y": 145,
+            "Width": 251,
+            "Height": 251,
+            "FileNameBackground": "__designer\\Blue_Gauges_original_gauge_background_style_00.png",
+            "RotationCenterX": 125.0,
+            "RotationCenterY": 125.0,
+            "StartAngle": -90.0,
+            "EndAngle": 90.0,
+            "RangeMax": 100.0,
+            "InitialValue": 50.0,
+            "Easing": "Linear",
+            "EasingOption": "In",
+            "FileNameNeedle": "Red_Needles_goal_gauge_needle_style_01.png",
+            "NeedleRotationCenterX": 11.0,
+            "NeedleRotationCenterY": 115.0,
+            "NeedleMovingRenderingAlgorithm": "Bilinear Interpolation",
+            "NeedleSteadyRenderingAlgorithm": "Bilinear Interpolation",
+            "ArcColor": {
+              "Red": 20,
+              "Green": 151,
+              "Blue": 197
+            },
+            "ArcCapStyle": "Butt"
           }
         ],
         "Interactions": [

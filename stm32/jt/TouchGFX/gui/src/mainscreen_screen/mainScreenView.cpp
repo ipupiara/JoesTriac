@@ -1,9 +1,19 @@
 #include <gui/mainscreen_screen/mainScreenView.hpp>
+#include <BitmapDatabase.hpp>
 #include <mainJt.h>
 
 mainScreenView::mainScreenView()
 {
 
+}
+
+void mainScreenView::paintGoalNeedle(int16_t val)   //  todo tobe tested
+{
+	ampGauge.setNeedle(BITMAP_RED_NEEDLES_GOAL_GAUGE_NEEDLE_STYLE_01_ID, 11, 115);
+    ampGauge.setValue(val);
+    ampGauge.invalidateContent();
+ //   ampGauge.invalidate();
+    ampGauge.setNeedle(BITMAP_BLUE_NEEDLES_ORIGINAL_GAUGE_NEEDLE_STYLE_01_ID, 11, 55);
 }
 
 void mainScreenView::setupScreen()
@@ -24,6 +34,8 @@ void mainScreenView::setupScreen()
 	Unicode::snprintfFloat(ampereTextBuffer, 7, "%06.2f", ampsValue );
 	ampereText.setWildcard(ampereTextBuffer);
 	ampereText.invalidate();
+	int16_t ampsValue16 = ampsValue;
+	paintGoalNeedle(ampsValue16);
 }
 
 void mainScreenView::tearDownScreen()
