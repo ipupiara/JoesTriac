@@ -225,11 +225,6 @@
 			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_uart_ex.c</locationURI>
 		</link>
 		<link>
-			<name>Drivers/STM32F7xx_HAL_Driver/stm32f7xx_hal_can.c</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_can.c</locationURI>
-		</link>
-		<link>
 			<name>Drivers/STM32F7xx_HAL_Driver/stm32f7xx_ll_fmc.c</name>
 			<type>1</type>
 			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_ll_fmc.c</locationURI>
@@ -945,11 +940,6 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__designer/image_Blue_Buttons_Round_Edge_small_pressed.cpp</locationURI>
 		</link>
 		<link>
-			<name>Application/User/generated/image_Blue_Gauges_original_gauge_background_style_00.cpp</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__designer/image_Blue_Gauges_original_gauge_background_style_00.cpp</locationURI>
-		</link>
-		<link>
 			<name>Application/User/generated/image_Blue_Gauges_original_gauge_background_style_01.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__designer/image_Blue_Gauges_original_gauge_background_style_01.cpp</locationURI>
@@ -993,11 +983,6 @@
 			<name>Application/User/generated/image_Blue_Radio_buttons_Radio_Round_button_pressed.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__designer/image_Blue_Radio_buttons_Radio_Round_button_pressed.cpp</locationURI>
-		</link>
-		<link>
-			<name>Application/User/generated/image_Red_Needles_goal_gauge_needle_style_01.cpp</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_Red_Needles_goal_gauge_needle_style_01.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_abortBtn.cpp</name>

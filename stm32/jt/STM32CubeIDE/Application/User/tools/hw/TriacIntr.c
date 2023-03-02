@@ -231,7 +231,7 @@ void initTriacDelayTimer()
 	}
 
 	htim5.Instance->CR1 &= (~TIM_CR1_OPM_Msk);
-	HAL_NVIC_SetPriority(TIM5_IRQn, triacTriggerIsrPrio, 0);
+	HAL_NVIC_SetPriority(TIM5_IRQn, 0, 0);
 	HAL_NVIC_EnableIRQ(TIM5_IRQn);
 	disableDelayTimer();
 }
@@ -247,7 +247,7 @@ void initTriacRailPwmTimer()
 	  htim12.Instance = TIM12;
 	  htim12.Init.Prescaler = 10;
 	  htim12.Init.CounterMode = TIM_COUNTERMODE_UP;
-	  htim12.Init.Period = 600;
+	  htim12.Init.Period = 370;
 	  htim12.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
 	  htim12.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
 	  if (HAL_TIM_Base_Init(&htim12) != HAL_OK)
@@ -306,7 +306,7 @@ void initZeroPassDetector()
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(zeroPassPin_GPIO_Port, &GPIO_InitStruct);
 
-	HAL_NVIC_SetPriority(EXTI15_10_IRQn, triacTriggerIsrPrio, 0);
+	HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
 	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
 }
 

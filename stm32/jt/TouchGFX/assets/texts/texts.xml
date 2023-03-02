@@ -6,12 +6,6 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
-      <Text Id="__SingleUse_MXBE" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">amps</Translation>
-      </Text>
-      <Text Id="__SingleUse_4K8G" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">amps</Translation>
-      </Text>
       <Text Id="__SingleUse_GL4G" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">000.00</Translation>
       </Text>

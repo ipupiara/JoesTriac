@@ -94,14 +94,6 @@ runScreenViewBase::runScreenViewBase() :
     ampGauge.getArc().setCapPrecision(180);
     ampGauge.setArcPosition(28, 30, 196, 88);
 
-    dirtyBox.setPosition(315, 289, 150, 36);
-    dirtyBox.setColor(touchgfx::Color::getColorFromRGB(229, 229, 229));
-
-    textArea1_1.setPosition(349, 299, 83, 26);
-    textArea1_1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    textArea1_1.setLinespacing(0);
-    textArea1_1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_MXBE));
-
     add(__background);
     add(box1);
     add(timeValueText);
@@ -114,8 +106,6 @@ runScreenViewBase::runScreenViewBase() :
     add(currentAmpereText);
     add(boxProgress1);
     add(ampGauge);
-    add(dirtyBox);
-    add(textArea1_1);
 }
 
 void runScreenViewBase::setupScreen()

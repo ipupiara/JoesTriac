@@ -160,7 +160,7 @@ static void MX_ADC1_currentSensor_Init(void)
   }
 
   __HAL_ADC_ENABLE_IT(&currentSensorADC,ADC_IT_EOC);
-  HAL_NVIC_SetPriority(ADC_IRQn, triacApplicationIsrPrio, 0);
+  HAL_NVIC_SetPriority(ADC_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(ADC_IRQn);
 }
 

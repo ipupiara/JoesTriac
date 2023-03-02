@@ -183,7 +183,7 @@
             "X": 465,
             "Y": 12,
             "Width": 144,
-            "Height": 45,
+            "Height": 46,
             "TextId": "__SingleUse_DEJR",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1683,7 +1683,7 @@
             "X": 465,
             "Y": 12,
             "Width": 144,
-            "Height": 45,
+            "Height": 46,
             "TextId": "__SingleUse_X5Q9",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1699,7 +1699,7 @@
             "X": 14,
             "Y": 94,
             "Width": 60,
-            "Height": 23,
+            "Height": 22,
             "TextId": "__SingleUse_K159",
             "TextRotation": "0",
             "AutoSize": true
@@ -1710,7 +1710,7 @@
             "X": 352,
             "Y": 94,
             "Width": 96,
-            "Height": 23,
+            "Height": 22,
             "TextId": "__SingleUse_FEL2",
             "TextRotation": "0",
             "AutoSize": true
@@ -1736,7 +1736,7 @@
             "X": 465,
             "Y": 82,
             "Width": 144,
-            "Height": 45,
+            "Height": 46,
             "TextId": "__SingleUse_GCRP",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1804,29 +1804,6 @@
             "ArcRadius": 94.0,
             "ArcLineWidth": 14.0,
             "ArcCapStyle": "Butt"
-          },
-          {
-            "Type": "Box",
-            "Name": "dirtyBox",
-            "X": 315,
-            "Y": 289,
-            "Width": 150,
-            "Height": 36,
-            "Color": {
-              "Red": 229,
-              "Green": 229,
-              "Blue": 229
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea1_1",
-            "X": 349,
-            "Y": 299,
-            "Width": 83,
-            "Height": 26,
-            "TextId": "__SingleUse_MXBE",
-            "TextRotation": "0"
           }
         ],
         "Interactions": [
@@ -2254,7 +2231,7 @@
             "X": 465,
             "Y": 12,
             "Width": 144,
-            "Height": 45,
+            "Height": 46,
             "TextId": "__SingleUse_EEDJ",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2270,7 +2247,7 @@
             "X": 14,
             "Y": 94,
             "Width": 60,
-            "Height": 23,
+            "Height": 22,
             "TextId": "__SingleUse_3JKB",
             "TextRotation": "0",
             "AutoSize": true
@@ -2281,7 +2258,7 @@
             "X": 352,
             "Y": 94,
             "Width": 96,
-            "Height": 23,
+            "Height": 22,
             "TextId": "__SingleUse_9JDU",
             "TextRotation": "0",
             "AutoSize": true
@@ -2307,7 +2284,7 @@
             "X": 465,
             "Y": 82,
             "Width": 144,
-            "Height": 45,
+            "Height": 46,
             "TextId": "__SingleUse_RXFU",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2359,7 +2336,7 @@
             "X": 526,
             "Y": 281,
             "Width": 252,
-            "Height": 23,
+            "Height": 22,
             "TextId": "__SingleUse_3974",
             "TextRotation": "0",
             "AutoSize": true
@@ -2370,7 +2347,7 @@
             "X": 526,
             "Y": 316,
             "Width": 48,
-            "Height": 45,
+            "Height": 46,
             "TextId": "__SingleUse_1D86",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2379,29 +2356,6 @@
               "UseBuffer": true,
               "BufferSize": 10
             }
-          },
-          {
-            "Type": "Box",
-            "Name": "dirtyBox",
-            "X": 315,
-            "Y": 289,
-            "Width": 150,
-            "Height": 36,
-            "Color": {
-              "Red": 229,
-              "Green": 229,
-              "Blue": 229
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea1_1",
-            "X": 349,
-            "Y": 299,
-            "Width": 83,
-            "Height": 26,
-            "TextId": "__SingleUse_4K8G",
-            "TextRotation": "0"
           }
         ],
         "Interactions": [
@@ -2643,34 +2597,6 @@
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
             "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
             "Style": "Style4"
-          },
-          {
-            "Type": "Gauge",
-            "Name": "gauge1",
-            "X": 490,
-            "Y": 145,
-            "Width": 251,
-            "Height": 251,
-            "FileNameBackground": "__designer\\Blue_Gauges_original_gauge_background_style_00.png",
-            "RotationCenterX": 125.0,
-            "RotationCenterY": 125.0,
-            "StartAngle": -90.0,
-            "EndAngle": 90.0,
-            "RangeMax": 100.0,
-            "InitialValue": 50.0,
-            "Easing": "Linear",
-            "EasingOption": "In",
-            "FileNameNeedle": "Red_Needles_goal_gauge_needle_style_01.png",
-            "NeedleRotationCenterX": 11.0,
-            "NeedleRotationCenterY": 115.0,
-            "NeedleMovingRenderingAlgorithm": "Bilinear Interpolation",
-            "NeedleSteadyRenderingAlgorithm": "Bilinear Interpolation",
-            "ArcColor": {
-              "Red": 20,
-              "Green": 151,
-              "Blue": 197
-            },
-            "ArcCapStyle": "Butt"
           }
         ],
         "Interactions": [

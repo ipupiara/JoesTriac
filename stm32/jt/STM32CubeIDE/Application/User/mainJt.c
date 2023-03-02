@@ -12,7 +12,6 @@
 #include <adcControl.h>
 #include <i2c.h>
 #include <uart-comms.h>
-#include <canComms.h>
 #include <defines.h>
 
 union  {
@@ -102,7 +101,6 @@ void mainJt(void *argument)
 	fsmTriacEvent fsmEv;
 //	init_printf();
 	initI2c();
-//	initCanComms();
 	initDefines();
 	InitPID();
 	initAdc();

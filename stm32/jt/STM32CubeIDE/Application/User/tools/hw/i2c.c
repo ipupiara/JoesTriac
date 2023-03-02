@@ -466,8 +466,8 @@ void initI2c()
   {
 	  i2cError(0x89);
   }
-  HAL_NVIC_SetPriority(I2C1_EV_IRQn, triacApplicationIsrPrio, 0);
-  HAL_NVIC_SetPriority(I2C1_ER_IRQn, triacApplicationIsrPrio, 0);
+  HAL_NVIC_SetPriority(I2C1_EV_IRQn, 0, 0);
+  HAL_NVIC_SetPriority(I2C1_ER_IRQn, 0, 0);
   enableI2cInterrupts();
 
   __HAL_I2C_ENABLE_IT(&hi2c1,(I2C_IT_ERRI | I2C_IT_TCI));

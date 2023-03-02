@@ -108,14 +108,6 @@ requestStopScreenViewBase::requestStopScreenViewBase() :
     secondsb4ReturnText.resizeToCurrentText();
     secondsb4ReturnText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_1D86));
 
-    dirtyBox.setPosition(315, 289, 150, 36);
-    dirtyBox.setColor(touchgfx::Color::getColorFromRGB(229, 229, 229));
-
-    textArea1_1.setPosition(349, 299, 83, 26);
-    textArea1_1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    textArea1_1.setLinespacing(0);
-    textArea1_1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_4K8G));
-
     add(__background);
     add(box1);
     add(ampGauge);
@@ -130,8 +122,6 @@ requestStopScreenViewBase::requestStopScreenViewBase() :
     add(continueButton);
     add(textArea4);
     add(secondsb4ReturnText);
-    add(dirtyBox);
-    add(textArea1_1);
 }
 
 void requestStopScreenViewBase::setupScreen()
