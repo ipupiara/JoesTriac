@@ -231,7 +231,7 @@ void initTriacDelayTimer()
 	}
 
 	htim5.Instance->CR1 &= (~TIM_CR1_OPM_Msk);
-	HAL_NVIC_SetPriority(TIM5_IRQn, 0, 0);
+	HAL_NVIC_SetPriority(TIM5_IRQn, triacTriggerIsrPrio, 0);
 	HAL_NVIC_EnableIRQ(TIM5_IRQn);
 	disableDelayTimer();
 }
@@ -306,7 +306,7 @@ void initZeroPassDetector()
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(zeroPassPin_GPIO_Port, &GPIO_InitStruct);
 
-	HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+	HAL_NVIC_SetPriority(EXTI15_10_IRQn, triacTriggerIsrPrio, 0);
 	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
 }
 

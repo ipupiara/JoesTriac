@@ -26,6 +26,16 @@ git add ATtinyJT/*
 git add eagle/*
 git add ATmega644p/*
 git add stm32/jt/
+git add -f stm32/jt/tempixActuator/
+git add stm32/tempixActuator/Core/Startup/ 
+git add stm32/jt/tempixActuator/*
+git add stm32/tempixActuator/STM32F103C8TX_FLASH.ld
+git add stm32/tempixActuator/tempixActuator.cfg
+git add  stm32/tempixActuator/tempixActuator.launch
+git add stm32/tempixActuator/.gitignore
+git add  stm32/tempixActuator/.project
+git add stm32/tempixActuator/.cproject
+git add stm32/tempixActuator/.settings/
 git add stm32/.project
 git add stm32/.gitignore
 git add stm32/jt/.gitignore
