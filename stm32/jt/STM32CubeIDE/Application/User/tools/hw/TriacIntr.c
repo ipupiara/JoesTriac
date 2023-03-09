@@ -313,7 +313,7 @@ void initZeroPassDetector()
 void startTriacRun()
 {
 	enableZeroPassDetector();
-	checkInterrupts();
+//	checkInterrupts();
 }
 
 void stopTriacRun()
