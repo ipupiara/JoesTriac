@@ -13,15 +13,33 @@
 //#define printfPid
 //#define printfAmps
 
-enum adcScopeEnum
+//#define kTotal  0.8
+//#define kPartial   2.0
+//#define kIntegral    6.0
+//#define kDerivativ    0.01
+//#define error_thresh 4.0
+//#define step_time  pidStepDelays
+
+
+#define kTotal  0.8
+#define kPartial   2.0
+#define kIntegral    0.0
+#define kDerivativ    0.0
+#define error_thresh 4.0
+#define step_time  pidStepDelays
+
+
+
+typedef enum
 {
 	nearScope,
 	farScope
-};
+} errorScopeEnum;
+
+errorScopeEnum  errorScope;
 
 float currentAmpsValue;
 uint16_t currentAmpsADCValue;
-//int8_t stableZeroAdjReached;
 
 int8_t m_started;
 real m_kPTot, m_kP, m_kI, m_kD, m_stepTime, m_inv_stepTime, m_prev_error, m_integral_thresh, m_integral;
@@ -77,8 +95,6 @@ float adcVoltage()
 
 	return Vf;
 }
-
-void InitializePID(real kpTot,real kpP, real ki, real kd, real integral_thresh, real step_time);
 
 void updateGradAmps()
 {
@@ -163,34 +179,46 @@ void stopTriacPidRun()
 
 real nextCorrection(real err)
 {
-    real iFact = 1.0;  //  todo check if fp and art, icache and dchace are running (fp =float processor) ?
-	real pFact = 1.0;
-	real dFact = 1.0;
+	//  todo check if fp and art, icache and dchace are running (fp =float processor) ?
+//    real iFact = 1.0;  //  todo check if fp and art, icache and dchace are running (fp =float processor) ?
+//	real pFact = 1.0;
+//	real dFact = 1.0;
 	real res;
-    if (fabs(err) < m_integral_thresh) {
-        iFact = 1.0;
-        pFact = 0.0;
-        dFact = 0.0;
-    } else  {
-        iFact = 0.0;
-		m_integral = 0.0;
-	}
-    if (signum(err) != signum(m_prev_error))  {
-    	m_integral = 0.0;
-    }
 
-
-    m_integral += m_stepTime*iFact*err;
-
+//    if (fabs(err) < m_integral_thresh) {
+//    	if (errorScope != nearScope )  {
+//    		m_kPTot = kpTot / 2.0  ;
+//    		m_kI = ki *  kStepUnitsFactor ;
+//    		m_kP = (kpP *  kStepUnitsFactor) / 2.0;
+//    		m_kD = (kd  *  kStepUnitsFactor) / 2.0;
+//			m_integral = 0.0;
+//			errorScope = nearScope;
+//    	}
+//        if (signum(err) != signum(m_prev_error))  {
+//        	m_integral = 0.0;
+//        }
+//
+//        m_integral += m_stepTime*iFact*err;
+//    } else  {
+//    	if (errorScope != farScope) {
+//    		m_kPTot = kpTot  ;
+//    		m_kI = 0.0;
+//    	    m_kP   = kpP *  kStepUnitsFactor ;
+//    	    m_kD = kd  *  kStepUnitsFactor ;
+//			m_integral = 0.0;
+//			errorScope = farScope;
+//    	}
+//	}
+//
     if (!m_started)
     {
         m_started = 1;
         deriv = 0;
     }
     else  {
-        deriv = dFact* ((err - m_prev_error) * m_inv_stepTime);
+        deriv =  ((err - m_prev_error) * m_inv_stepTime);
     }
-    partial  = pFact* err;
+    partial  =  err;
     m_prev_error = err;
 #ifdef printfPid
     real mk, mi, md;
@@ -240,25 +268,20 @@ void calcNextTriacDelay()
 
 void InitPID()
 {
-	real step = pidStepDelays;
-	real maxV = 1000.0;
-	real stepf = step / maxV;
-	InitializePID( 0.8, 2.0, 6.0, 0.01, 4, stepf);
-
-	//	InitializePID(real kpTot, real kpP, real ki, real kd, real error_thresh, real step_time);
 	currentAmpsValue = 0.0;
-}
 
-void InitializePID(real kpTot,real kpP, real ki, real kd, real integral_thresh, real step_time)
-{
-	m_kPTot = kpTot  ;
-    m_kI = ki *  kStepUnitsFactor ;
-    m_kP   = kpP *  kStepUnitsFactor ;
-    m_kD = kd  *  kStepUnitsFactor ;
-    m_integral_thresh = integral_thresh;
+	m_kPTot = kTotal  ;
+    m_kI = kIntegral *  kStepUnitsFactor ;
+    m_kP   = kPartial *  kStepUnitsFactor ;
+    m_kD = kDerivativ  *  kStepUnitsFactor ;
+    m_integral_thresh = error_thresh;
 
-    m_stepTime = step_time;
-    m_inv_stepTime = 1 / step_time;
+    errorScope = farScope;
+
+	real thousand = 1000.0;
+
+	m_stepTime = (step_time / thousand)  ;
+    m_inv_stepTime = 1 / m_stepTime;
 
     m_integral = 0;
     m_started = 0;

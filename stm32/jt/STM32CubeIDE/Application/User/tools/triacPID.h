@@ -14,7 +14,9 @@ typedef double real;
 
 //#define pidStepDelays  787  // unit is 1/1000 sec = 1 mSec,
 //#define pidStepDelays pidStepDelays337
-#define pidStepDelays 251
+//#define pidStepDelays 251
+
+#define pidStepDelays 101
 
 //extern float zeroAdjustDiffVoltage;
 
