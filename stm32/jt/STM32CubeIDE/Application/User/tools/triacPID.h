@@ -18,6 +18,14 @@ typedef double real;
 
 #define pidStepDelays 101
 
+#define kTotal  0.2
+#define kPartial   0.3
+#define kIntegral    0.01
+#define kDerivativ    0.0
+#define error_thresh 8.0
+#define step_time  pidStepDelays
+
+
 //extern float zeroAdjustDiffVoltage;
 
 float getCurrentAmpsValue();

@@ -13,22 +13,6 @@
 //#define printfPid
 //#define printfAmps
 
-//#define kTotal  0.8
-//#define kPartial   2.0
-//#define kIntegral    6.0
-//#define kDerivativ    0.01
-//#define error_thresh 4.0
-//#define step_time  pidStepDelays
-
-
-#define kTotal  0.8
-#define kPartial   2.0
-#define kIntegral    0.0
-#define kDerivativ    0.0
-#define error_thresh 4.0
-#define step_time  pidStepDelays
-
-
 
 typedef enum
 {
@@ -43,7 +27,9 @@ uint16_t currentAmpsADCValue;
 
 int8_t m_started;
 real m_kPTot, m_kP, m_kI, m_kD, m_stepTime, m_inv_stepTime, m_prev_error, m_integral_thresh, m_integral;
-real deriv, error, partial;
+real error;
+real debPart, debDeriv, debInteg;
+
 
 float gradAmps; //   (delta amperes) / (delta adc)   ....
 float gradAdc;  
@@ -184,31 +170,33 @@ real nextCorrection(real err)
 //	real pFact = 1.0;
 //	real dFact = 1.0;
 	real res;
+	real deriv;
 
-//    if (fabs(err) < m_integral_thresh) {
-//    	if (errorScope != nearScope )  {
+    if (fabs(err) < m_integral_thresh) {
+    	if (errorScope != nearScope )  {
 //    		m_kPTot = kpTot / 2.0  ;
-//    		m_kI = ki *  kStepUnitsFactor ;
-//    		m_kP = (kpP *  kStepUnitsFactor) / 2.0;
-//    		m_kD = (kd  *  kStepUnitsFactor) / 2.0;
-//			m_integral = 0.0;
-//			errorScope = nearScope;
-//    	}
-//        if (signum(err) != signum(m_prev_error))  {
-//        	m_integral = 0.0;
-//        }
-//
-//        m_integral += m_stepTime*iFact*err;
-//    } else  {
-//    	if (errorScope != farScope) {
+    		m_kI = kIntegral *  kStepUnitsFactor ;
+    		m_kP   =  ( kPartial *  kStepUnitsFactor) / 100.0;
+//    		m_kP  = 0;
+//    		m_kD = (kDerivativ  *  kStepUnitsFactor) / 2.0;
+			m_integral = 0.0;
+			errorScope = nearScope;
+    	}
+        if (signum(err) != signum(m_prev_error))  {
+        	m_integral = 0.0;
+        }
+
+        m_integral += m_stepTime * err;
+    } else  {
+    	if (errorScope != farScope) {
 //    		m_kPTot = kpTot  ;
-//    		m_kI = 0.0;
-//    	    m_kP   = kpP *  kStepUnitsFactor ;
-//    	    m_kD = kd  *  kStepUnitsFactor ;
-//			m_integral = 0.0;
-//			errorScope = farScope;
-//    	}
-//	}
+    		m_kI = 0.0;
+    	    m_kP   = kPartial *  kStepUnitsFactor ;
+//    	    m_kD = kDerivativ  *  kStepUnitsFactor ;
+			m_integral = 0.0;
+			errorScope = farScope;
+    	}
+	}
 //
     if (!m_started)
     {
@@ -218,13 +206,12 @@ real nextCorrection(real err)
     else  {
         deriv =  ((err - m_prev_error) * m_inv_stepTime);
     }
-    partial  =  err;
     m_prev_error = err;
 #ifdef printfPid
     real mk, mi, md;
-	res = m_kPTot*((mk=(m_kP*partial)) + (mi=(m_kI*m_integral)) - (md=(m_kD*deriv)));
+	res = m_kPTot*((mk=(m_kP*err)) + (mi=(m_kI*m_integral)) - (md=(m_kD*deriv)));
 #else
-	res = m_kPTot*((m_kP*err) + (m_kI*m_integral) + (m_kD*deriv));
+	res = m_kPTot*((debPart =(m_kP*err)) + (debInteg = (m_kI*m_integral)) + ( debDeriv = (m_kD*deriv)));
 #endif
 	if (res > correctionThreshold) {
 		res = correctionThreshold;
@@ -269,14 +256,13 @@ void calcNextTriacDelay()
 void InitPID()
 {
 	currentAmpsValue = 0.0;
+	errorScope = farScope;
 
 	m_kPTot = kTotal  ;
     m_kI = kIntegral *  kStepUnitsFactor ;
     m_kP   = kPartial *  kStepUnitsFactor ;
     m_kD = kDerivativ  *  kStepUnitsFactor ;
-    m_integral_thresh = error_thresh;
-
-    errorScope = farScope;
+    m_integral_thresh = error_thresh ;
 
 	real thousand = 1000.0;
 
@@ -285,7 +271,6 @@ void InitPID()
 
     m_integral = 0;
     m_started = 0;
-    deriv = 0;
     corrCarryOver = 0;
 
 	updateGradAmps();
