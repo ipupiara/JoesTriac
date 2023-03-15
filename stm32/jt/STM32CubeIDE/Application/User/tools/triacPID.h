@@ -20,7 +20,7 @@ typedef double real;
 
 #define kTotal  0.2
 #define kPartial   0.3
-#define kIntegral    0.01
+#define kIntegral    0.05
 #define kDerivativ    0.0
 #define error_thresh 8.0
 #define step_time  pidStepDelays

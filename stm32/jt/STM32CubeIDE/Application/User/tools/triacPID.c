@@ -28,7 +28,7 @@ uint16_t currentAmpsADCValue;
 int8_t m_started;
 real m_kPTot, m_kP, m_kI, m_kD, m_stepTime, m_inv_stepTime, m_prev_error, m_integral_thresh, m_integral;
 real error;
-real debPart, debDeriv, debInteg;
+real debPart, debDeriv, debInteg, debZXcnt;
 
 
 float gradAmps; //   (delta amperes) / (delta adc)   ....
@@ -183,6 +183,7 @@ real nextCorrection(real err)
 			errorScope = nearScope;
     	}
         if (signum(err) != signum(m_prev_error))  {
+        	++debZXcnt;
         	m_integral = 0.0;
         }
 
@@ -255,6 +256,8 @@ void calcNextTriacDelay()
 
 void InitPID()
 {
+	debZXcnt = 0;
+
 	currentAmpsValue = 0.0;
 	errorScope = farScope;
 
