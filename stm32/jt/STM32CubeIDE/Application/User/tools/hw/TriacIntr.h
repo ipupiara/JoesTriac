@@ -34,7 +34,7 @@ extern "C"
 	#ifdef  stmTriggerDelayMax5000
 		#define stmTriggerDelayMax  5000
 		#define kStepUnitsFactor  5
-		#define triacDelayPsc  200   // (defaultTriacDelayPsc / kStepUnitsFactor)
+		#define triacDelayPsc  197   // (defaultTriacDelayPsc / kStepUnitsFactor)
 												// effectively used max psc
 								// currently not in use, zx-detect makes the job
 

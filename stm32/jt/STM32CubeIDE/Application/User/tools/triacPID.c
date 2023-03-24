@@ -13,12 +13,16 @@
 //#define printfPid
 //#define printfAmps
 
+void initTwa();
 
 typedef enum
 {
 	nearScope,
 	farScope
 } errorScopeEnum;
+
+
+
 
 errorScopeEnum  errorScope;
 
@@ -256,6 +260,7 @@ void calcNextTriacDelay()
 
 void InitPID()
 {
+//	initTwa();
 	debZXcnt = 0;
 
 	currentAmpsValue = 0.0;
@@ -307,3 +312,64 @@ void printPIDState()
 //	checkEEPOROM();
 }
 
+
+/*
+////////////////////////////////////////////////   twa   code  ///////////////////
+
+#define amtTwaValues   20
+#define twaWeight  (amtTwaValues *  (amtTwaValues + 1) / 2)
+
+
+typedef struct twaValue  {
+	float   val;
+	float   sub;
+} twaValue  ;
+
+twaValue twaValues [amtTwaValues] ;
+
+float  twaAveridgeValue;
+uint32_t amtAdded;
+
+
+void addTwaValue(float newValue)
+{
+	float newRes = 0.0;
+	int16_t cnt;
+	int16_t amtTwa = amtTwaValues;
+	uint32_t  weight;
+	if (amtAdded >20 ) {weight = ((amtAdded * (amtAdded + 1)) / 2);}  else {weight = twaWeight}
+
+	for (cnt = 0; cnt < amtTwaValues - 1; ++ cnt)  {
+		newRes += twaValues[cnt + 1].val  = twaValues[cnt].val - twaValues[cnt].sub;
+	}
+	newRes += twaValues[0].val = newValue;
+	twaValues [0].sub = newValue / amtTwaValues;
+	twaValues[0].sub = newValue /  twaWeight;
+	++ amtAdded
+}
+
+float getTwaAveridgeValue()
+{
+    if  amtAdd < amtTwaElement  return twaVal[0]  else twaAveridgeValue;
+	return twaAveridgeValue;
+}
+
+void testTwa()
+{
+	uint16_t cnt;
+	float res;
+	for (cnt = 0; cnt < amtTwaValues; ++ cnt) {
+		addTwaValue(1.2345);
+	}
+	res = getTwaAveridgeValue();
+}
+
+
+void initTwa()
+{
+	amtAdded = 0;
+	twaAveridgeValue = 0.0;
+	memset(twaValues,0, sizeof(twaValues));
+	testTwa();
+}
+*/

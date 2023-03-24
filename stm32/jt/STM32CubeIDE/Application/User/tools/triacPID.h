@@ -16,10 +16,10 @@ typedef double real;
 //#define pidStepDelays pidStepDelays337
 //#define pidStepDelays 251
 
-#define pidStepDelays 101
+#define pidStepDelays 101  //53
 
 #define kTotal  0.2
-#define kPartial   0.3
+#define kPartial   0.3     //  0.15
 #define kIntegral    0.05
 #define kDerivativ    0.0
 #define error_thresh 8.0
