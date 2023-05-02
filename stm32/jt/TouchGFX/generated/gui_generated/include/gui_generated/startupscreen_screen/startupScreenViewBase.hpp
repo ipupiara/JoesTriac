@@ -14,7 +14,7 @@ class startupScreenViewBase : public touchgfx::View<startupScreenPresenter>
 {
 public:
     startupScreenViewBase();
-    virtual ~startupScreenViewBase() {}
+    virtual ~startupScreenViewBase();
     virtual void setupScreen();
 
 protected:

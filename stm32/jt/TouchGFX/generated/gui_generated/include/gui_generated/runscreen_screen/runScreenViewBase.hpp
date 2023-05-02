@@ -19,7 +19,7 @@ class runScreenViewBase : public touchgfx::View<runScreenPresenter>
 {
 public:
     runScreenViewBase();
-    virtual ~runScreenViewBase() {}
+    virtual ~runScreenViewBase();
     virtual void setupScreen();
 
     /*
@@ -67,6 +67,12 @@ protected:
 private:
 
     /*
+     * Canvas Buffer Size
+     */
+    static const uint32_t CANVAS_BUFFER_SIZE = 12000;
+    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
+
+    /*
      * Callback Declarations
      */
     touchgfx::Callback<runScreenViewBase, const touchgfx::AbstractButton&> buttonCallback;
@@ -76,11 +82,6 @@ private:
      */
     void buttonCallbackHandler(const touchgfx::AbstractButton& src);
 
-    /*
-     * Canvas Buffer Size
-     */
-    static const uint16_t CANVAS_BUFFER_SIZE = 12000;
-    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
 };
 
 #endif // RUNSCREENVIEWBASE_HPP

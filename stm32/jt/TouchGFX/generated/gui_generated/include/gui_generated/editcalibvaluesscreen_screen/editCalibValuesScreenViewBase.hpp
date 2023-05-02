@@ -15,7 +15,7 @@ class editCalibValuesScreenViewBase : public touchgfx::View<editCalibValuesScree
 {
 public:
     editCalibValuesScreenViewBase();
-    virtual ~editCalibValuesScreenViewBase() {}
+    virtual ~editCalibValuesScreenViewBase();
     virtual void setupScreen();
 
     /*
@@ -25,7 +25,6 @@ public:
     {
         // Override and implement this function in editCalibValuesScreen
     }
-
     virtual void cancelPressed()
     {
         // Override and implement this function in editCalibValuesScreen

@@ -19,7 +19,7 @@ class requestStopScreenViewBase : public touchgfx::View<requestStopScreenPresent
 {
 public:
     requestStopScreenViewBase();
-    virtual ~requestStopScreenViewBase() {}
+    virtual ~requestStopScreenViewBase();
     virtual void setupScreen();
 
     /*
@@ -29,7 +29,6 @@ public:
     {
         // Override and implement this function in requestStopScreen
     }
-
     virtual void abortButtonPressed()
     {
         // Override and implement this function in requestStopScreen
@@ -76,6 +75,12 @@ protected:
 private:
 
     /*
+     * Canvas Buffer Size
+     */
+    static const uint32_t CANVAS_BUFFER_SIZE = 12000;
+    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
+
+    /*
      * Callback Declarations
      */
     touchgfx::Callback<requestStopScreenViewBase, const touchgfx::AbstractButton&> buttonCallback;
@@ -85,11 +90,6 @@ private:
      */
     void buttonCallbackHandler(const touchgfx::AbstractButton& src);
 
-    /*
-     * Canvas Buffer Size
-     */
-    static const uint16_t CANVAS_BUFFER_SIZE = 12000;
-    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
 };
 
 #endif // REQUESTSTOPSCREENVIEWBASE_HPP

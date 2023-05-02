@@ -273,6 +273,6 @@ touchgfx::GeneratedFont& getFont_cour_20_4bpp();
 
 touchgfx::GeneratedFont& getFont_cour_20_4bpp()
 {
-    static touchgfx::GeneratedFont cour_20_4bpp(glyphs_cour_20_4bpp, 44, 20, 4, 4, 1, 0, 0, unicodes_cour_20_4bpp, kerning_cour_20_4bpp, 63, 0, 0, &cour_contextualFormsTable);
+    static touchgfx::GeneratedFont cour_20_4bpp(glyphs_cour_20_4bpp, 44, 24, 20, 0, 0, 4, 1, 0, 0, unicodes_cour_20_4bpp, kerning_cour_20_4bpp, 63, 0, 0, &cour_contextualFormsTable);
     return cour_20_4bpp;
 }

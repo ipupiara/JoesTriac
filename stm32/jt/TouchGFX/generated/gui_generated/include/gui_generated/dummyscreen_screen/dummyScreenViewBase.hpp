@@ -14,7 +14,7 @@ class dummyScreenViewBase : public touchgfx::View<dummyScreenPresenter>
 {
 public:
     dummyScreenViewBase();
-    virtual ~dummyScreenViewBase() {}
+    virtual ~dummyScreenViewBase();
     virtual void setupScreen();
 
 protected:

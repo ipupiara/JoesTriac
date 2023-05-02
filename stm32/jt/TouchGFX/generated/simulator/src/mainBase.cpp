@@ -5,12 +5,24 @@
 #include <platform/hal/simulator/sdl2/HALSDL2.hpp>
 #include <common/TouchGFXInit.hpp>
 #include <platform/driver/lcd/LCD16bpp.hpp>
+#include <touchgfx/widgets/canvas/CWRVectorRenderer.hpp>
+#include <touchgfx/widgets/canvas/PainterRGB565.hpp>
+#include <touchgfx/canvas_widget_renderer/CanvasWidgetRenderer.hpp>
 #include <string.h>
 
 #ifdef __GNUC__
 #define fopen_s(pFile, filename, mode) (((*(pFile)) = fopen((filename), (mode))) == NULL)
 #endif
 touchgfx::LCD16bpp lcd;
+
+namespace touchgfx
+{
+    VectorRenderer* VectorRenderer::getInstance()
+    {
+        static CWRVectorRendererRGB565 renderer;
+        return &renderer;
+    }
+}
 
 void setupSimulator(int argc, char** argv, touchgfx::HAL& hal)
 {

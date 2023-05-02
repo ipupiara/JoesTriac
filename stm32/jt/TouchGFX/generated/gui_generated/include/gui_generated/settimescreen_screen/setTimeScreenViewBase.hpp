@@ -8,19 +8,19 @@
 #include <mvp/View.hpp>
 #include <gui/settimescreen_screen/setTimeScreenPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
+#include <touchgfx/mixins/Draggable.hpp>
 #include <gui/containers/numericKeyPad.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
 #include <touchgfx/widgets/canvas/Line.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB565.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
-#include <touchgfx/mixins/Draggable.hpp>
 #include <touchgfx/mixins/ClickListener.hpp>
 
 class setTimeScreenViewBase : public touchgfx::View<setTimeScreenPresenter>
 {
 public:
     setTimeScreenViewBase();
-    virtual ~setTimeScreenViewBase() {}
+    virtual ~setTimeScreenViewBase();
     virtual void setupScreen();
 
     /*
@@ -30,7 +30,6 @@ public:
     {
         // Override and implement this function in setTimeScreen
     }
-
     virtual void numButtonPressed(uint8_t value)
     {
         // Override and implement this function in setTimeScreen
@@ -61,6 +60,12 @@ protected:
 private:
 
     /*
+     * Canvas Buffer Size
+     */
+    static const uint32_t CANVAS_BUFFER_SIZE = 12000;
+    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
+
+    /*
      * Callback Declarations
      */
     touchgfx::Callback<setTimeScreenViewBase, const touchgfx::AbstractButton&> buttonCallback;
@@ -72,11 +77,6 @@ private:
     void buttonCallbackHandler(const touchgfx::AbstractButton& src);
     void numericKeyPad1NumPressedCallbackHandler(uint8_t value);
 
-    /*
-     * Canvas Buffer Size
-     */
-    static const uint16_t CANVAS_BUFFER_SIZE = 12000;
-    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
 };
 
 #endif // SETTIMESCREENVIEWBASE_HPP

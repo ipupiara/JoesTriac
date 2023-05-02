@@ -69,7 +69,7 @@ void CAN1_TX_IRQHandler(void)
 //	CPU_CRITICAL_EXIT();
 
 
-	uint8_t err;
+//	uint8_t err;
 
 	if ((tsrflags & CAN_TSR_RQCP0) != 0)		{
 		// Clear the Transmission Complete flag (and TXOK0,ALST0,TERR0 bits)

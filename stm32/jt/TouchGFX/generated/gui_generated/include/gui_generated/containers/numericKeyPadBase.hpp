@@ -31,47 +31,38 @@ public:
     {
         // Override and implement this function in numericKeyPad
     }
-
     virtual void button1Pressed()
     {
         // Override and implement this function in numericKeyPad
     }
-
     virtual void button2Pressed()
     {
         // Override and implement this function in numericKeyPad
     }
-
     virtual void button3Pressed()
     {
         // Override and implement this function in numericKeyPad
     }
-
     virtual void button4Pressed()
     {
         // Override and implement this function in numericKeyPad
     }
-
     virtual void button5Pressed()
     {
         // Override and implement this function in numericKeyPad
     }
-
     virtual void button6Pressed()
     {
         // Override and implement this function in numericKeyPad
     }
-
     virtual void button7Pressed()
     {
         // Override and implement this function in numericKeyPad
     }
-
     virtual void button8Pressed()
     {
         // Override and implement this function in numericKeyPad
     }
-
     virtual void button9Pressed()
     {
         // Override and implement this function in numericKeyPad
@@ -89,7 +80,7 @@ protected:
     {
         if (numPressedCallback && numPressedCallback->isValid())
         {
-            this->numPressedCallback->execute(value);
+            this->numPressedCallback->execute( value);
         }
     }
 
@@ -111,14 +102,14 @@ protected:
 private:
 
     /*
-     * Callback Declarations
-     */
-    touchgfx::Callback<numericKeyPadBase, const touchgfx::AbstractButton&> buttonCallback;
-
-    /*
      * Custom Trigger Callback Declarations
      */
     touchgfx::GenericCallback<uint8_t>* numPressedCallback;
+
+    /*
+     * Callback Declarations
+     */
+    touchgfx::Callback<numericKeyPadBase, const touchgfx::AbstractButton&> buttonCallback;
 
     /*
      * Callback Handler Declarations

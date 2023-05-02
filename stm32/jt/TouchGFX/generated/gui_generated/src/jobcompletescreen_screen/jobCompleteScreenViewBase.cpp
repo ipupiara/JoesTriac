@@ -4,22 +4,24 @@
 #include <gui_generated/jobcompletescreen_screen/jobCompleteScreenViewBase.hpp>
 #include <touchgfx/Color.hpp>
 #include <texts/TextKeysAndLanguages.hpp>
-#include <BitmapDatabase.hpp>
+#include <images/BitmapDatabase.hpp>
 
 jobCompleteScreenViewBase::jobCompleteScreenViewBase() :
     buttonCallback(this, &jobCompleteScreenViewBase::buttonCallbackHandler)
 {
-
     __background.setPosition(0, 0, 800, 480);
     __background.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    add(__background);
 
     box1.setPosition(0, 0, 800, 480);
     box1.setColor(touchgfx::Color::getColorFromRGB(190, 226, 247));
+    add(box1);
 
     textArea1.setXY(65, 111);
     textArea1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea1.setLinespacing(0);
     textArea1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_EJ31));
+    add(textArea1);
 
     returnButton.setXY(65, 343);
     returnButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
@@ -27,16 +29,19 @@ jobCompleteScreenViewBase::jobCompleteScreenViewBase() :
     returnButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     returnButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     returnButton.setAction(buttonCallback);
+    add(returnButton);
 
     textArea2.setXY(71, 217);
     textArea2.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea2.setLinespacing(0);
     textArea2.setTypedText(touchgfx::TypedText(T___SINGLEUSE_Y76B));
+    add(textArea2);
 
     textArea3.setXY(400, 217);
     textArea3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea3.setLinespacing(0);
     textArea3.setTypedText(touchgfx::TypedText(T___SINGLEUSE_UCEI));
+    add(textArea3);
 
     timeText.setXY(233, 217);
     timeText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
@@ -45,14 +50,12 @@ jobCompleteScreenViewBase::jobCompleteScreenViewBase() :
     timeText.setWildcard(timeTextBuffer);
     timeText.resizeToCurrentText();
     timeText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_4I0G));
-
-    add(__background);
-    add(box1);
-    add(textArea1);
-    add(returnButton);
-    add(textArea2);
-    add(textArea3);
     add(timeText);
+}
+
+jobCompleteScreenViewBase::~jobCompleteScreenViewBase()
+{
+
 }
 
 void jobCompleteScreenViewBase::setupScreen()

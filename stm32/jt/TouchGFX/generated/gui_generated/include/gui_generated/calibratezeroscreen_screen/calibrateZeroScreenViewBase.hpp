@@ -18,7 +18,7 @@ class calibrateZeroScreenViewBase : public touchgfx::View<calibrateZeroScreenPre
 {
 public:
     calibrateZeroScreenViewBase();
-    virtual ~calibrateZeroScreenViewBase() {}
+    virtual ~calibrateZeroScreenViewBase();
     virtual void setupScreen();
 
     /*
@@ -28,12 +28,10 @@ public:
     {
         // Override and implement this function in calibrateZeroScreen
     }
-
     virtual void autoButtonOn()
     {
         // Override and implement this function in calibrateZeroScreen
     }
-
     virtual void autoButtonOff()
     {
         // Override and implement this function in calibrateZeroScreen
@@ -59,11 +57,11 @@ protected:
     touchgfx::TextArea textArea5;
     touchgfx::TextAreaWithOneWildcard stateText;
     touchgfx::TextArea textArea6;
+    touchgfx::RadioButtonGroup<2> radioButtonGroup1;
     touchgfx::RadioButton onRadioButton;
     touchgfx::RadioButton offRadioButton;
     touchgfx::TextArea textArea7;
     touchgfx::TextArea textArea8;
-    touchgfx::RadioButtonGroup<2> radioButtonGroup1;
 
     /*
      * Wildcard Buffers

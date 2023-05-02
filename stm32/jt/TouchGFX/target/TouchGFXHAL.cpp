@@ -30,8 +30,8 @@
 #include "../otm8009a/otm8009a.h"
 #include <CortexMMCUInstrumentation.hpp>
 #include <KeySampler.hpp>
-//#include "FreeRTOS.h"
-//#include "task.h"
+#include "FreeRTOS.h"
+#include "task.h"
 /* USER CODE END Includes */
 
 /* USER CODE BEGIN private defines */
@@ -556,8 +556,7 @@ extern "C" {
         // }
     }
 
-//    portBASE_TYPE IdleTaskHook(void* p)
-    long IdleTaskHook(void* p)
+    portBASE_TYPE IdleTaskHook(void* p)
     {
         if ((int)p) //idle task sched out
         {
@@ -567,8 +566,7 @@ extern "C" {
         {
             touchgfx::HAL::getInstance()->setMCUActive(false);
         }
-//        return pdTRUE;
-        return 1;
+        return pdTRUE;
     }
 }
 /* USER CODE END extern C functions */

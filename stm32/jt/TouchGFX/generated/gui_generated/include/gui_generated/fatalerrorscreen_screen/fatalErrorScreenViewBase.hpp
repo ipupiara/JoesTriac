@@ -14,7 +14,7 @@ class fatalErrorScreenViewBase : public touchgfx::View<fatalErrorScreenPresenter
 {
 public:
     fatalErrorScreenViewBase();
-    virtual ~fatalErrorScreenViewBase() {}
+    virtual ~fatalErrorScreenViewBase();
     virtual void setupScreen();
 
 protected:

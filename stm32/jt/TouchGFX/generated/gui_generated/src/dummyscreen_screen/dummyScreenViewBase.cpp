@@ -3,51 +3,54 @@
 /*********************************************************************************/
 #include <gui_generated/dummyscreen_screen/dummyScreenViewBase.hpp>
 #include <touchgfx/Color.hpp>
-#include <BitmapDatabase.hpp>
+#include <images/BitmapDatabase.hpp>
 
 dummyScreenViewBase::dummyScreenViewBase() :
     buttonCallback(this, &dummyScreenViewBase::buttonCallbackHandler)
 {
-
     __background.setPosition(0, 0, 800, 480);
     __background.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    add(__background);
 
     button1.setXY(0, 7);
     button1.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
     button1.setAction(buttonCallback);
+    add(button1);
 
     button2.setXY(0, 133);
     button2.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
     button2.setAction(buttonCallback);
+    add(button2);
 
     button3.setXY(189, 67);
     button3.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
     button3.setAction(buttonCallback);
+    add(button3);
 
     button4.setXY(189, 0);
     button4.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
     button4.setAction(buttonCallback);
+    add(button4);
 
     button5.setXY(0, 67);
     button5.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
     button5.setAction(buttonCallback);
+    add(button5);
 
     button6.setXY(189, 133);
     button6.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
     button6.setAction(buttonCallback);
+    add(button6);
 
     button7.setXY(0, 210);
     button7.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
     button7.setAction(buttonCallback);
-
-    add(__background);
-    add(button1);
-    add(button2);
-    add(button3);
-    add(button4);
-    add(button5);
-    add(button6);
     add(button7);
+}
+
+dummyScreenViewBase::~dummyScreenViewBase()
+{
+
 }
 
 void dummyScreenViewBase::setupScreen()
@@ -64,42 +67,42 @@ void dummyScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& 
         //Go to requestStopScreen with no screen transition
         application().gotorequestStopScreenScreenNoTransition();
     }
-    else if (&src == &button2)
+    if (&src == &button2)
     {
         //Interaction2
         //When button2 clicked change screen to runScreen
         //Go to runScreen with no screen transition
         application().gotorunScreenScreenNoTransition();
     }
-    else if (&src == &button3)
+    if (&src == &button3)
     {
         //Interaction3
         //When button3 clicked change screen to mainScreen
         //Go to mainScreen with no screen transition
         application().gotomainScreenScreenNoTransition();
     }
-    else if (&src == &button4)
+    if (&src == &button4)
     {
         //Interaction4
         //When button4 clicked change screen to configScreen
         //Go to configScreen with no screen transition
         application().gotoconfigScreenScreenNoTransition();
     }
-    else if (&src == &button5)
+    if (&src == &button5)
     {
         //Interaction5
         //When button5 clicked change screen to calibrateZeroScreen
         //Go to calibrateZeroScreen with no screen transition
         application().gotocalibrateZeroScreenScreenNoTransition();
     }
-    else if (&src == &button6)
+    if (&src == &button6)
     {
         //Interaction6
         //When button6 clicked change screen to jobCompleteScreen
         //Go to jobCompleteScreen with no screen transition
         application().gotojobCompleteScreenScreenNoTransition();
     }
-    else if (&src == &button7)
+    if (&src == &button7)
     {
         //Interaction7
         //When button7 clicked change screen to calibrationScreen

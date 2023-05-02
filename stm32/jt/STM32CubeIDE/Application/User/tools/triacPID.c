@@ -234,7 +234,6 @@ int16_t delayCorrectionI;
 
 void calcNextTriacDelay()
 {  
-	float err;
 	float delayCorrectionF;
 	int16_t newDelay;
 

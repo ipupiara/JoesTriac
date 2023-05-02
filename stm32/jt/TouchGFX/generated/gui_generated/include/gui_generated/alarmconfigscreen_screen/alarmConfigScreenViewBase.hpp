@@ -21,7 +21,7 @@ class alarmConfigScreenViewBase : public touchgfx::View<alarmConfigScreenPresent
 {
 public:
     alarmConfigScreenViewBase();
-    virtual ~alarmConfigScreenViewBase() {}
+    virtual ~alarmConfigScreenViewBase();
     virtual void setupScreen();
 
     /*
@@ -31,12 +31,10 @@ public:
     {
         // Override and implement this function in alarmConfigScreen
     }
-
     virtual void cancelButtonPressed()
     {
         // Override and implement this function in alarmConfigScreen
     }
-
     virtual void numPressed(uint8_t value)
     {
         // Override and implement this function in alarmConfigScreen
@@ -60,11 +58,11 @@ protected:
     touchgfx::PainterRGB565 cursorPainter;
     touchgfx::ButtonWithLabel backNSaveButton;
     touchgfx::ButtonWithLabel cancelButton;
+    touchgfx::RadioButtonGroup<2> radioButtonGroup1;
     touchgfx::RadioButton radioButtonAlarmOn;
     touchgfx::RadioButton radioButtonAlarmOff;
     touchgfx::TextArea textArea3;
     touchgfx::TextArea textArea4;
-    touchgfx::RadioButtonGroup<2> radioButtonGroup1;
 
     /*
      * Wildcard Buffers
@@ -73,6 +71,12 @@ protected:
     touchgfx::Unicode::UnicodeChar alarmTimeTextBuffer[ALARMTIMETEXT_SIZE];
 
 private:
+
+    /*
+     * Canvas Buffer Size
+     */
+    static const uint32_t CANVAS_BUFFER_SIZE = 12000;
+    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
 
     /*
      * Callback Declarations
@@ -86,11 +90,6 @@ private:
     void buttonCallbackHandler(const touchgfx::AbstractButton& src);
     void numericKeyPad1NumPressedCallbackHandler(uint8_t value);
 
-    /*
-     * Canvas Buffer Size
-     */
-    static const uint16_t CANVAS_BUFFER_SIZE = 12000;
-    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
 };
 
 #endif // ALARMCONFIGSCREENVIEWBASE_HPP

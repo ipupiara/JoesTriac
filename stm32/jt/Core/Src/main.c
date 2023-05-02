@@ -19,6 +19,8 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "cmsis_os.h"
+
 //#ifndef debugTriac
 #include "libjpeg.h"
 #include "app_touchgfx.h"
@@ -71,7 +73,6 @@
 
 /* Private variables ---------------------------------------------------------*/
 
-//#ifndef debugTriac
 
 CRC_HandleTypeDef hcrc;
 
@@ -89,27 +90,29 @@ LTDC_HandleTypeDef hltdc;
 
 QSPI_HandleTypeDef hqspi;
 
+UART_HandleTypeDef huart6;
+
 SDRAM_HandleTypeDef hsdram1;
 
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
-  .stack_size = 128 * 8,
+  .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for TouchGFXTask */
 osThreadId_t TouchGFXTaskHandle;
 const osThreadAttr_t TouchGFXTask_attributes = {
   .name = "TouchGFXTask",
-  .stack_size = 4096 * 6,
+  .stack_size = 4096 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for videoTask */
 osThreadId_t videoTaskHandle;
 const osThreadAttr_t videoTask_attributes = {
   .name = "videoTask",
-  .stack_size = 1000 * 8,
+  .stack_size = 1000 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
 /* USER CODE BEGIN PV */
@@ -120,14 +123,17 @@ const osThreadAttr_t videoTask_attributes = {
 void SystemClock_Config(void);
 static void MPU_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_CRC_Init(void);
+static void MX_DMA_Init(void);
 static void MX_DSIHOST_DSI_Init(void);
 static void MX_LTDC_Init(void);
 static void MX_FMC_Init(void);
 static void MX_QUADSPI_Init(void);
 static void MX_DMA2D_Init(void);
-static void MX_DMA_Init(void);
+static void MX_CRC_Init(void);
 static void MX_JPEG_Init(void);
+//static void MX_ADC1_Init(void);
+//static void MX_CAN1_Init(void);
+//static void MX_USART6_UART_Init(void);
 void StartDefaultTask(void *argument);
 extern void TouchGFX_Task(void *argument);
 extern void videoTaskFunc(void *argument);
@@ -144,9 +150,6 @@ static uint8_t QSPI_WriteEnable(QSPI_HandleTypeDef *hqspi);
 static uint8_t QSPI_AutoPollingMemReady  (QSPI_HandleTypeDef *hqspi, uint32_t Timeout);
 static uint8_t BSP_QSPI_EnableMemoryMappedMode(QSPI_HandleTypeDef *hqspi);
 /* USER CODE END PFP */
-
-//#endif
-
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
@@ -192,7 +195,7 @@ int main(void)
 #ifndef debugTriac
 
   MX_GPIO_Init();
-  MX_CRC_Init();
+  MX_DMA_Init();
   MX_DSIHOST_DSI_Init();
   MX_LTDC_Init();
   MX_FMC_Init();
@@ -200,9 +203,14 @@ int main(void)
   MX_DMA2D_Init();
   MX_I2C4_Init();
   MX_LIBJPEG_Init();
-  MX_DMA_Init();
+  MX_CRC_Init();
   MX_JPEG_Init();
+//  MX_ADC1_Init();
+//  MX_CAN1_Init();
+//  MX_USART6_UART_Init();
   MX_TouchGFX_Init();
+  /* Call PreOsInit function */
+  MX_TouchGFX_PreOSInit();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -224,12 +232,12 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
+  /* USER CODE END RTOS_QUEUES */
+
 #endif
 
   initJt();
 
-#ifndef debugTriac
-  /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
   /* creation of defaultTask */
@@ -239,10 +247,10 @@ int main(void)
   TouchGFXTaskHandle = osThreadNew(TouchGFX_Task, NULL, &TouchGFXTask_attributes);
 
   /* creation of videoTask */
-  videoTaskHandle = osThreadNew(videoTaskFunc, NULL, &videoTask_attributes);
+  videoTaskHandle = osThreadNew(videoTaskFunc, NULL, &videoTask_attributes);  //  todo is this needed?
 
   /* USER CODE BEGIN RTOS_THREADS */
-
+  /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -251,11 +259,9 @@ int main(void)
 
   /* Start scheduler */
   osKernelStart();
-
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-#endif
   while (1)
   {
     /* USER CODE END WHILE */
@@ -316,10 +322,96 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-
 }
 
-//#ifndef debugTriac
+/**
+  * @brief ADC1 Initialization Function
+  * @param None
+  * @retval None
+  */
+//static void MX_ADC1_Init(void)
+//{
+//
+//  /* USER CODE BEGIN ADC1_Init 0 */
+//
+//  /* USER CODE END ADC1_Init 0 */
+//
+//  ADC_ChannelConfTypeDef sConfig = {0};
+//
+//  /* USER CODE BEGIN ADC1_Init 1 */
+//
+//  /* USER CODE END ADC1_Init 1 */
+//
+//  /** Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion)
+//  */
+//  hadc1.Instance = ADC1;
+//  hadc1.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV4;
+//  hadc1.Init.Resolution = ADC_RESOLUTION_12B;
+//  hadc1.Init.ScanConvMode = ADC_SCAN_DISABLE;
+//  hadc1.Init.ContinuousConvMode = DISABLE;
+//  hadc1.Init.DiscontinuousConvMode = DISABLE;
+//  hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
+//  hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
+//  hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+//  hadc1.Init.NbrOfConversion = 1;
+//  hadc1.Init.DMAContinuousRequests = DISABLE;
+//  hadc1.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
+//  if (HAL_ADC_Init(&hadc1) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
+//
+//  /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
+//  */
+//  sConfig.Channel = ADC_CHANNEL_0;
+//  sConfig.Rank = ADC_REGULAR_RANK_1;
+//  sConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
+//  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
+//  /* USER CODE BEGIN ADC1_Init 2 */
+//
+//  /* USER CODE END ADC1_Init 2 */
+//
+//}
+//
+///**
+//  * @brief CAN1 Initialization Function
+//  * @param None
+//  * @retval None
+//  */
+//static void MX_CAN1_Init(void)
+//{
+//
+//  /* USER CODE BEGIN CAN1_Init 0 */
+//
+//  /* USER CODE END CAN1_Init 0 */
+//
+//  /* USER CODE BEGIN CAN1_Init 1 */
+//
+//  /* USER CODE END CAN1_Init 1 */
+//  hcan1.Instance = CAN1;
+//  hcan1.Init.Prescaler = 16;
+//  hcan1.Init.Mode = CAN_MODE_NORMAL;
+//  hcan1.Init.SyncJumpWidth = CAN_SJW_1TQ;
+//  hcan1.Init.TimeSeg1 = CAN_BS1_1TQ;
+//  hcan1.Init.TimeSeg2 = CAN_BS2_1TQ;
+//  hcan1.Init.TimeTriggeredMode = DISABLE;
+//  hcan1.Init.AutoBusOff = DISABLE;
+//  hcan1.Init.AutoWakeUp = DISABLE;
+//  hcan1.Init.AutoRetransmission = DISABLE;
+//  hcan1.Init.ReceiveFifoLocked = DISABLE;
+//  hcan1.Init.TransmitFifoPriority = DISABLE;
+//  if (HAL_CAN_Init(&hcan1) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
+//  /* USER CODE BEGIN CAN1_Init 2 */
+//
+//  /* USER CODE END CAN1_Init 2 */
+//
+//}
 
 /**
   * @brief CRC Initialization Function
@@ -753,6 +845,41 @@ static void MX_QUADSPI_Init(void)
 }
 
 /**
+  * @brief USART6 Initialization Function
+  * @param None
+  * @retval None
+  */
+//static void MX_USART6_UART_Init(void)
+//{
+//
+//  /* USER CODE BEGIN USART6_Init 0 */
+//
+//  /* USER CODE END USART6_Init 0 */
+//
+//  /* USER CODE BEGIN USART6_Init 1 */
+//
+//  /* USER CODE END USART6_Init 1 */
+//  huart6.Instance = USART6;
+//  huart6.Init.BaudRate = 115200;
+//  huart6.Init.WordLength = UART_WORDLENGTH_8B;
+//  huart6.Init.StopBits = UART_STOPBITS_1;
+//  huart6.Init.Parity = UART_PARITY_NONE;
+//  huart6.Init.Mode = UART_MODE_TX_RX;
+//  huart6.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+//  huart6.Init.OverSampling = UART_OVERSAMPLING_16;
+//  huart6.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+//  huart6.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+//  if (HAL_UART_Init(&huart6) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
+//  /* USER CODE BEGIN USART6_Init 2 */
+//
+//  /* USER CODE END USART6_Init 2 */
+//
+//}
+
+/**
   * Enable DMA controller clock
   */
 static void MX_DMA_Init(void)
@@ -833,17 +960,20 @@ static void MX_FMC_Init(void)
 static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
+/* USER CODE BEGIN MX_GPIO_Init_1 */
+/* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOE_CLK_ENABLE();
-  __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOG_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOI_CLK_ENABLE();
   __HAL_RCC_GPIOF_CLK_ENABLE();
   __HAL_RCC_GPIOJ_CLK_ENABLE();
   __HAL_RCC_GPIOH_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(DSI_RESET_GPIO_Port, DSI_RESET_Pin, GPIO_PIN_SET);
@@ -885,6 +1015,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   HAL_GPIO_Init(FRAME_RATE_GPIO_Port, &GPIO_InitStruct);
 
+/* USER CODE BEGIN MX_GPIO_Init_2 */
+/* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
@@ -1524,31 +1656,6 @@ void StartDefaultTask(void *argument)
   /* USER CODE END 5 */
 }
 
-/**
-  * @brief  Period elapsed callback in non blocking mode
-  * @note   This function is called  when TIM6 interrupt took place, inside
-  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
-  * a global variable "uwTick" used as application time base.
-  * @param  htim : TIM handle
-  * @retval None
-  */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-  /* USER CODE BEGIN Callback 0 */
-
-  /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM6) {
-    HAL_IncTick();
-  }
-  /* USER CODE BEGIN Callback 1 */
-
-  /* USER CODE END Callback 1 */
-}
-
-
-//#endif
-
-
 /* MPU Configuration */
 
 void MPU_Config(void)
@@ -1620,6 +1727,26 @@ void MPU_Config(void)
 
 }
 
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM6 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM6) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
+}
 
 /**
   * @brief  This function is executed in case of error occurrence.

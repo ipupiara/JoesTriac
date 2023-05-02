@@ -27,8 +27,6 @@
  */
 /* USER CODE END Header */
 
-#include <defines.h>
-
 #ifndef FREERTOS_CONFIG_H
 #define FREERTOS_CONFIG_H
 
@@ -55,8 +53,6 @@
 #endif
 #define configENABLE_FPU                         0
 #define configENABLE_MPU                         0
-
-#define configUSE_NEWLIB_REENTRANT 1
 
 #define configUSE_PREEMPTION                     1
 #define configSUPPORT_STATIC_ALLOCATION          1
@@ -91,6 +87,9 @@
 #define configTIMER_TASK_PRIORITY                ( 2 )
 #define configTIMER_QUEUE_LENGTH                 10
 #define configTIMER_TASK_STACK_DEPTH             256
+
+/* The following flag must be enabled only when using newlib */
+#define configUSE_NEWLIB_REENTRANT          1
 
 /* Set the following definitions to 1 to include the API function, or zero
 to exclude the API function. */
@@ -152,11 +151,7 @@ standard names. */
 /* IMPORTANT: This define is commented when used with STM32Cube firmware, when the timebase source is SysTick,
               to prevent overwriting SysTick_Handler defined within STM32Cube HAL */
 
-#ifndef debugTriac
-
 #define xPortSysTickHandler SysTick_Handler
-
-#endif
 
 /* USER CODE BEGIN Defines */
 /* Section where parameter definitions can be added (for instance, to override default ones in FreeRTOS.h) */

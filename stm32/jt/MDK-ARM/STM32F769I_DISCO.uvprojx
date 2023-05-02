@@ -334,7 +334,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls />
-              <Define>USE_HAL_DRIVER,STM32F769xx</Define>
+              <Define>USE_HAL_DRIVER,STM32F769xx,USE_BPP=16</Define>
               <Undefine />
               <IncludePath>../Core/Inc;../TouchGFX/App;../TouchGFX/target/generated;../TouchGFX/target;../Drivers/STM32F7xx_HAL_Driver/Inc;../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM7/r0p1;../Drivers/CMSIS/Device/ST/STM32F7xx/Include;../Drivers/CMSIS/Include;../Drivers/BSP/Components/Common;../LIBJPEG/App;../LIBJPEG/Target;../Utilities/JPEG;../Middlewares/Third_Party/LibJPEG/include</IncludePath>
             </VariousControls>
@@ -354,7 +354,7 @@
               <MiscControls />
               <Define />
               <Undefine />
-              <IncludePath>..\Core\Inc</IncludePath>
+              <IncludePath>..\Core\Inc;../Core/Inc</IncludePath>
             </VariousControls>
           </Aads>
           <LDads>

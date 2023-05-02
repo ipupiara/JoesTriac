@@ -16,7 +16,7 @@ class jobCompleteScreenViewBase : public touchgfx::View<jobCompleteScreenPresent
 {
 public:
     jobCompleteScreenViewBase();
-    virtual ~jobCompleteScreenViewBase() {}
+    virtual ~jobCompleteScreenViewBase();
     virtual void setupScreen();
 
     /*

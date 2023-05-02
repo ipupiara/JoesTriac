@@ -33,7 +33,6 @@
             "Y": 133,
             "Width": 251,
             "Height": 251,
-            "Style": "Style2",
             "FileNameBackground": "__designer\\Blue_Gauges_original_gauge_background_style_01.png",
             "RotationCenterX": 125.0,
             "RotationCenterY": 125.0,
@@ -121,8 +120,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithIcon",
@@ -136,8 +134,7 @@
             "IconPressed": "startBtnPressed.png",
             "IconReleased": "startBtn.png",
             "IconHeight": 60,
-            "IconWidth": 170,
-            "ButtonStyle": "Style4"
+            "IconWidth": 170
           },
           {
             "Type": "ButtonWithIcon",
@@ -151,8 +148,7 @@
             "IconPressed": "stopBtnInactive.png",
             "IconReleased": "stopBtnInactive.png",
             "IconHeight": 60,
-            "IconWidth": 170,
-            "ButtonStyle": "Style4"
+            "IconWidth": 170
           },
           {
             "Type": "ButtonWithLabel",
@@ -174,8 +170,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "TextArea",
@@ -296,8 +291,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithIcon",
@@ -313,9 +307,7 @@
             "IconX": 77,
             "IconY": 15,
             "IconHeight": 30,
-            "IconWidth": 17,
-            "ButtonStyle": "Style4",
-            "IconStyle": "Icon5"
+            "IconWidth": 17
           },
           {
             "Type": "ButtonWithLabel",
@@ -337,8 +329,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -360,8 +351,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "TextArea",
@@ -402,7 +392,7 @@
             "X": 241,
             "Y": 396,
             "Width": 408,
-            "Height": 45,
+            "Height": 46,
             "TextId": "__SingleUse_TOZG",
             "TextRotation": "0",
             "AutoSize": true
@@ -502,8 +492,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "Line",
@@ -589,7 +578,7 @@
             "X": 26,
             "Y": 27,
             "Width": 168,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_JIYE",
             "TextRotation": "0",
             "AutoSize": true
@@ -616,7 +605,7 @@
             "X": 26,
             "Y": 169,
             "Width": 132,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_ASW4",
             "TextRotation": "0",
             "AutoSize": true
@@ -627,7 +616,7 @@
             "X": 190,
             "Y": 169,
             "Width": 48,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_ZGP7",
             "TextRotation": "0",
             "Color": {
@@ -662,8 +651,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -685,8 +673,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -708,8 +695,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -731,8 +717,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -754,8 +739,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -777,8 +761,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -800,8 +783,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "TextArea",
@@ -809,7 +791,7 @@
             "X": 178,
             "Y": 290,
             "Width": 60,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_1KAN",
             "TextRotation": "0",
             "AutoSize": true,
@@ -825,7 +807,7 @@
             "X": 26,
             "Y": 290,
             "Width": 108,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_X3FF",
             "TextRotation": "0",
             "AutoSize": true
@@ -836,7 +818,7 @@
             "X": 26,
             "Y": 329,
             "Width": 108,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_I5ZJ",
             "TextRotation": "0",
             "AutoSize": true
@@ -847,7 +829,7 @@
             "X": 190,
             "Y": 329,
             "Width": 48,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_14SY",
             "TextRotation": "0",
             "AutoSize": true,
@@ -877,8 +859,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -900,8 +881,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           }
         ],
         "Interactions": [
@@ -1107,8 +1087,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -1130,8 +1109,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "RadioButton",
@@ -1145,8 +1123,7 @@
             "FileNameSelectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_normal.png",
             "FileNameUnselected": "__designer\\Blue_Radio_buttons_Radio_Round_button_inactive.png",
             "FileNameUnselectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_pressed.png",
-            "RadioButtonGroup": "radioButtonGroup1",
-            "Style": "Style3"
+            "RadioButtonGroup": "radioButtonGroup1"
           },
           {
             "Type": "RadioButton",
@@ -1296,8 +1273,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -1319,8 +1295,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -1342,8 +1317,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -1365,8 +1339,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -1388,8 +1361,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "TextArea",
@@ -1517,8 +1489,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "Line",
@@ -1659,8 +1630,7 @@
             "IconPressed": "startBtnInactive.png",
             "IconReleased": "startBtnInactive.png",
             "IconHeight": 60,
-            "IconWidth": 170,
-            "ButtonStyle": "Style4"
+            "IconWidth": 170
           },
           {
             "Type": "ButtonWithIcon",
@@ -1674,8 +1644,7 @@
             "IconPressed": "stopBtnPressed.png",
             "IconReleased": "stopBtn.png",
             "IconHeight": 60,
-            "IconWidth": 170,
-            "ButtonStyle": "Style4"
+            "IconWidth": 170
           },
           {
             "Type": "TextArea",
@@ -1699,7 +1668,7 @@
             "X": 14,
             "Y": 94,
             "Width": 60,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_K159",
             "TextRotation": "0",
             "AutoSize": true
@@ -1710,7 +1679,7 @@
             "X": 352,
             "Y": 94,
             "Width": 96,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_FEL2",
             "TextRotation": "0",
             "AutoSize": true
@@ -1758,7 +1727,6 @@
               "Blue": 255
             },
             "Direction": "Right",
-            "Style": "Style3",
             "FileNameBackground": "__designer\\Blue_ProgressIndicators_bg_medium_progress_indicator_bg_square_0_degrees.png",
             "IndicatorPositionX": 2,
             "IndicatorPositionY": 2,
@@ -1774,7 +1742,6 @@
             "Y": 133,
             "Width": 251,
             "Height": 251,
-            "Style": "Style2",
             "FileNameBackground": "__designer\\Blue_Gauges_original_gauge_background_style_01.png",
             "RotationCenterX": 125.0,
             "RotationCenterY": 125.0,
@@ -1887,8 +1854,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -1910,8 +1876,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "CustomContainerInstance",
@@ -2048,8 +2013,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -2071,8 +2035,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "CustomContainerInstance",
@@ -2164,7 +2127,6 @@
             "Y": 133,
             "Width": 251,
             "Height": 251,
-            "Style": "Style2",
             "FileNameBackground": "__designer\\Blue_Gauges_original_gauge_background_style_01.png",
             "RotationCenterX": 125.0,
             "RotationCenterY": 125.0,
@@ -2222,8 +2184,7 @@
             "IconPressed": "abortBtnPressed.png",
             "IconReleased": "abortBtn.png",
             "IconHeight": 60,
-            "IconWidth": 170,
-            "ButtonStyle": "Style4"
+            "IconWidth": 170
           },
           {
             "Type": "TextArea",
@@ -2247,7 +2208,7 @@
             "X": 14,
             "Y": 94,
             "Width": 60,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_3JKB",
             "TextRotation": "0",
             "AutoSize": true
@@ -2258,7 +2219,7 @@
             "X": 352,
             "Y": 94,
             "Width": 96,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_9JDU",
             "TextRotation": "0",
             "AutoSize": true
@@ -2306,7 +2267,6 @@
               "Blue": 255
             },
             "Direction": "Right",
-            "Style": "Style3",
             "FileNameBackground": "__designer\\Blue_ProgressIndicators_bg_medium_progress_indicator_bg_square_0_degrees.png",
             "IndicatorPositionX": 2,
             "IndicatorPositionY": 2,
@@ -2327,8 +2287,7 @@
             "IconPressed": "continueBtnPressed.png",
             "IconReleased": "continueBtn.png",
             "IconHeight": 60,
-            "IconWidth": 170,
-            "ButtonStyle": "Style4"
+            "IconWidth": 170
           },
           {
             "Type": "TextArea",
@@ -2336,7 +2295,7 @@
             "X": 526,
             "Y": 281,
             "Width": 252,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_3974",
             "TextRotation": "0",
             "AutoSize": true
@@ -2428,8 +2387,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "TextArea",
@@ -2533,8 +2491,7 @@
             "Width": 170,
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
-            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "Style": "Style4"
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png"
           },
           {
             "Type": "Button",
@@ -2543,8 +2500,7 @@
             "Width": 170,
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
-            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "Style": "Style4"
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png"
           },
           {
             "Type": "Button",
@@ -2554,8 +2510,7 @@
             "Width": 170,
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
-            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "Style": "Style4"
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png"
           },
           {
             "Type": "Button",
@@ -2564,8 +2519,7 @@
             "Width": 170,
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
-            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "Style": "Style4"
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png"
           },
           {
             "Type": "Button",
@@ -2574,8 +2528,7 @@
             "Width": 170,
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
-            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "Style": "Style4"
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png"
           },
           {
             "Type": "Button",
@@ -2585,8 +2538,7 @@
             "Width": 170,
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
-            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "Style": "Style4"
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png"
           },
           {
             "Type": "Button",
@@ -2595,8 +2547,7 @@
             "Width": 170,
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
-            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "Style": "Style4"
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png"
           }
         ],
         "Interactions": [
@@ -2796,8 +2747,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "TextArea",
@@ -2848,8 +2798,7 @@
             "FileNameSelectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_normal.png",
             "FileNameUnselected": "__designer\\Blue_Radio_buttons_Radio_Round_button_inactive.png",
             "FileNameUnselectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_pressed.png",
-            "RadioButtonGroup": "radioButtonGroup1",
-            "Style": "Style3"
+            "RadioButtonGroup": "radioButtonGroup1"
           },
           {
             "Type": "RadioButton",
@@ -2863,8 +2812,7 @@
             "FileNameSelectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_normal.png",
             "FileNameUnselected": "__designer\\Blue_Radio_buttons_Radio_Round_button_inactive.png",
             "FileNameUnselectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_pressed.png",
-            "RadioButtonGroup": "radioButtonGroup1",
-            "Style": "Style3"
+            "RadioButtonGroup": "radioButtonGroup1"
           },
           {
             "Type": "TextArea",
@@ -3175,7 +3123,6 @@
     "SelectedColorDepth": 16,
     "StartupScreenName": "startupScreen",
     "SelectedStartupLanguage": "GB",
-    "Skin": "Blue",
     "TouchGfxPath": "../Middlewares/ST/touchgfx",
     "UIPath": ".",
     "AvailableColorDepths": [
@@ -3245,11 +3192,16 @@
     "PortraitSkinY": 0,
     "DisplayOrientation": "Landscape",
     "Family": "STM32F7",
+    "SubFamily": "STM32F7x9",
+    "Toolchain": "STM32CubeIDE",
     "Platform": "m7",
     "ProjectFile": "../STM32F769I_DISCO.ioc",
     "OptionalComponentsRoot": "../Middlewares/ST/touchgfx_components",
-    "OptionalComponents": []
+    "OptionalComponents": [],
+    "AdditionalFeatures": [
+      "Vector"
+    ]
   },
-  "Version": "4.20.0",
+  "Version": "4.21.3",
   "CreatedBy": "4.20.0"
 }

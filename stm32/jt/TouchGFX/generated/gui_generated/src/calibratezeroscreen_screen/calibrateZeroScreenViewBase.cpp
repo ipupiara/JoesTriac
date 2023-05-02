@@ -4,34 +4,38 @@
 #include <gui_generated/calibratezeroscreen_screen/calibrateZeroScreenViewBase.hpp>
 #include <touchgfx/Color.hpp>
 #include <texts/TextKeysAndLanguages.hpp>
-#include <BitmapDatabase.hpp>
+#include <images/BitmapDatabase.hpp>
 
 calibrateZeroScreenViewBase::calibrateZeroScreenViewBase() :
     buttonCallback(this, &calibrateZeroScreenViewBase::buttonCallbackHandler),
     radioButtonSelectedCallback(this, &calibrateZeroScreenViewBase::radioButtonSelectedCallbackHandler),
     radioButtonDeselectedCallback(this, &calibrateZeroScreenViewBase::radioButtonDeselectedCallbackHandler)
 {
-
     __background.setPosition(0, 0, 800, 480);
     __background.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    add(__background);
 
     box1.setPosition(0, 0, 800, 480);
     box1.setColor(touchgfx::Color::getColorFromRGB(176, 247, 191));
+    add(box1);
 
     textArea1.setXY(33, 36);
     textArea1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea1.setLinespacing(0);
     textArea1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_INHC));
+    add(textArea1);
 
     textArea2.setXY(33, 92);
     textArea2.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea2.setLinespacing(0);
     textArea2.setTypedText(touchgfx::TypedText(T___SINGLEUSE_96OR));
+    add(textArea2);
 
     textArea3.setXY(33, 156);
     textArea3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea3.setLinespacing(0);
     textArea3.setTypedText(touchgfx::TypedText(T___SINGLEUSE_CSK5));
+    add(textArea3);
 
     zeroPotiPosText.setXY(297, 147);
     zeroPotiPosText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
@@ -40,11 +44,13 @@ calibrateZeroScreenViewBase::calibrateZeroScreenViewBase() :
     zeroPotiPosText.setWildcard(zeroPotiPosTextBuffer);
     zeroPotiPosText.resizeToCurrentText();
     zeroPotiPosText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_TOWM));
+    add(zeroPotiPosText);
 
     textArea4.setXY(33, 237);
     textArea4.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea4.setLinespacing(0);
     textArea4.setTypedText(touchgfx::TypedText(T___SINGLEUSE_Z80T));
+    add(textArea4);
 
     devVoltageText.setXY(273, 225);
     devVoltageText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
@@ -53,6 +59,7 @@ calibrateZeroScreenViewBase::calibrateZeroScreenViewBase() :
     devVoltageText.setWildcard(devVoltageTextBuffer);
     devVoltageText.resizeToCurrentText();
     devVoltageText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_0Q2U));
+    add(devVoltageText);
 
     abortButton.setXY(33, 378);
     abortButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
@@ -60,11 +67,13 @@ calibrateZeroScreenViewBase::calibrateZeroScreenViewBase() :
     abortButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     abortButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     abortButton.setAction(buttonCallback);
+    add(abortButton);
 
     textArea5.setXY(33, 301);
     textArea5.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea5.setLinespacing(0);
     textArea5.setTypedText(touchgfx::TypedText(T___SINGLEUSE_9F6T));
+    add(textArea5);
 
     stateText.setXY(273, 301);
     stateText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
@@ -73,52 +82,48 @@ calibrateZeroScreenViewBase::calibrateZeroScreenViewBase() :
     stateText.setWildcard(stateTextBuffer);
     stateText.resizeToCurrentText();
     stateText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_THPN));
+    add(stateText);
 
     textArea6.setXY(273, 397);
     textArea6.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea6.setLinespacing(0);
     textArea6.setTypedText(touchgfx::TypedText(T___SINGLEUSE_Z53N));
+    add(textArea6);
 
+    radioButtonGroup1.setRadioButtonSelectedHandler(radioButtonSelectedCallback);
+    
+    radioButtonGroup1.setRadioButtonDeselectedHandler(radioButtonDeselectedCallback);
+    
     onRadioButton.setXY(588, 386);
     onRadioButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_INACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_ACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_NORMAL_ID));
     onRadioButton.setSelected(false);
     onRadioButton.setDeselectionEnabled(false);
+    radioButtonGroup1.add(onRadioButton);
+    add(onRadioButton);
 
     offRadioButton.setXY(671, 386);
     offRadioButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_INACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_ACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_NORMAL_ID));
     offRadioButton.setSelected(true);
     offRadioButton.setDeselectionEnabled(false);
+    radioButtonGroup1.add(offRadioButton);
+    add(offRadioButton);
 
     textArea7.setXY(598, 356);
     textArea7.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea7.setLinespacing(0);
     textArea7.setTypedText(touchgfx::TypedText(T___SINGLEUSE_MQ6Q));
+    add(textArea7);
 
     textArea8.setXY(675, 356);
     textArea8.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea8.setLinespacing(0);
     textArea8.setTypedText(touchgfx::TypedText(T___SINGLEUSE_VTJB));
-
-    add(__background);
-    add(box1);
-    add(textArea1);
-    add(textArea2);
-    add(textArea3);
-    add(zeroPotiPosText);
-    add(textArea4);
-    add(devVoltageText);
-    add(abortButton);
-    add(textArea5);
-    add(stateText);
-    add(textArea6);
-    add(onRadioButton);
-    add(offRadioButton);
-    add(textArea7);
     add(textArea8);
-    radioButtonGroup1.add(onRadioButton);
-    radioButtonGroup1.add(offRadioButton);
-    radioButtonGroup1.setRadioButtonSelectedHandler(radioButtonSelectedCallback);
-    radioButtonGroup1.setRadioButtonDeselectedHandler(radioButtonDeselectedCallback);
+}
+
+calibrateZeroScreenViewBase::~calibrateZeroScreenViewBase()
+{
+
 }
 
 void calibrateZeroScreenViewBase::setupScreen()

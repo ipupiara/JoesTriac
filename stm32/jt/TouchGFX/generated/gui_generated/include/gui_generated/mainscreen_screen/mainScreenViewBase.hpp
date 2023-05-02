@@ -20,7 +20,7 @@ class mainScreenViewBase : public touchgfx::View<mainScreenPresenter>
 {
 public:
     mainScreenViewBase();
-    virtual ~mainScreenViewBase() {}
+    virtual ~mainScreenViewBase();
     virtual void setupScreen();
 
     /*
@@ -30,7 +30,6 @@ public:
     {
         // Override and implement this function in mainScreen
     }
-
     virtual void startButtonPressed()
     {
         // Override and implement this function in mainScreen
@@ -69,6 +68,12 @@ protected:
 private:
 
     /*
+     * Canvas Buffer Size
+     */
+    static const uint32_t CANVAS_BUFFER_SIZE = 12000;
+    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
+
+    /*
      * Callback Declarations
      */
     touchgfx::Callback<mainScreenViewBase, const touchgfx::AbstractButton&> buttonCallback;
@@ -78,11 +83,6 @@ private:
      */
     void buttonCallbackHandler(const touchgfx::AbstractButton& src);
 
-    /*
-     * Canvas Buffer Size
-     */
-    static const uint16_t CANVAS_BUFFER_SIZE = 12000;
-    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
 };
 
 #endif // MAINSCREENVIEWBASE_HPP

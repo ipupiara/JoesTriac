@@ -18,7 +18,7 @@ class editCalibHighScreenViewBase : public touchgfx::View<editCalibHighScreenPre
 {
 public:
     editCalibHighScreenViewBase();
-    virtual ~editCalibHighScreenViewBase() {}
+    virtual ~editCalibHighScreenViewBase();
     virtual void setupScreen();
 
     /*
@@ -58,6 +58,12 @@ protected:
 private:
 
     /*
+     * Canvas Buffer Size
+     */
+    static const uint32_t CANVAS_BUFFER_SIZE = 12000;
+    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
+
+    /*
      * Callback Declarations
      */
     touchgfx::Callback<editCalibHighScreenViewBase, const touchgfx::AbstractButton&> buttonCallback;
@@ -69,11 +75,6 @@ private:
     void buttonCallbackHandler(const touchgfx::AbstractButton& src);
     void numericKeyPad1NumPressedCallbackHandler(uint8_t value);
 
-    /*
-     * Canvas Buffer Size
-     */
-    static const uint16_t CANVAS_BUFFER_SIZE = 12000;
-    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
 };
 
 #endif // EDITCALIBHIGHSCREENVIEWBASE_HPP

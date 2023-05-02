@@ -16,7 +16,7 @@ class calibrationScreenViewBase : public touchgfx::View<calibrationScreenPresent
 {
 public:
     calibrationScreenViewBase();
-    virtual ~calibrationScreenViewBase() {}
+    virtual ~calibrationScreenViewBase();
     virtual void setupScreen();
 
     /*
@@ -26,42 +26,34 @@ public:
     {
         // Override and implement this function in calibrationScreen
     }
-
     virtual void plus10ButtonPressed()
     {
         // Override and implement this function in calibrationScreen
     }
-
     virtual void plus1ButtonPressed()
     {
         // Override and implement this function in calibrationScreen
     }
-
     virtual void minus100ButtonPressed()
     {
         // Override and implement this function in calibrationScreen
     }
-
     virtual void minus10ButtonPressed()
     {
         // Override and implement this function in calibrationScreen
     }
-
     virtual void minus1ButtonPressed()
     {
         // Override and implement this function in calibrationScreen
     }
-
     virtual void abortButtonPressed()
     {
         // Override and implement this function in calibrationScreen
     }
-
     virtual void continueButtonPressed()
     {
         // Override and implement this function in calibrationScreen
     }
-
     virtual void skipButtonPressed()
     {
         // Override and implement this function in calibrationScreen

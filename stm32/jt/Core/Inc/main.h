@@ -26,9 +26,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f7xx_hal.h"
-#include "cmsis_os.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -51,14 +52,13 @@ extern "C" {
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
+void MX_I2C4_Init(void);
 
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-
-
 #define DSI_RESET_Pin GPIO_PIN_15
 #define DSI_RESET_GPIO_Port GPIOJ
 #define RENDER_TIME_Pin GPIO_PIN_7
@@ -69,7 +69,7 @@ void Error_Handler(void);
 #define MCU_ACTIVE_GPIO_Port GPIOF
 #define FRAME_RATE_Pin GPIO_PIN_1
 #define FRAME_RATE_GPIO_Port GPIOJ
-void   MX_I2C4_Init(void);
+
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

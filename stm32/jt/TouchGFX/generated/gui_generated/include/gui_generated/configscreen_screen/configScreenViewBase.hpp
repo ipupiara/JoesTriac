@@ -16,7 +16,7 @@ class configScreenViewBase : public touchgfx::View<configScreenPresenter>
 {
 public:
     configScreenViewBase();
-    virtual ~configScreenViewBase() {}
+    virtual ~configScreenViewBase();
     virtual void setupScreen();
 
     /*
@@ -26,7 +26,6 @@ public:
     {
         // Override and implement this function in configScreen
     }
-
     virtual void backPressed()
     {
         // Override and implement this function in configScreen

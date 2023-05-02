@@ -57,6 +57,6 @@ touchgfx::GeneratedFont& getFont_cour_40_4bpp();
 
 touchgfx::GeneratedFont& getFont_cour_40_4bpp()
 {
-    static touchgfx::GeneratedFont cour_40_4bpp(glyphs_cour_40_4bpp, 35, 40, 8, 4, 1, 0, 0, unicodes_cour_40_4bpp, kerning_cour_40_4bpp, 63, 0, 0, &cour_contextualFormsTable);
+    static touchgfx::GeneratedFont cour_40_4bpp(glyphs_cour_40_4bpp, 35, 48, 40, 0, 0, 4, 1, 0, 0, unicodes_cour_40_4bpp, kerning_cour_40_4bpp, 63, 0, 0, &cour_contextualFormsTable);
     return cour_40_4bpp;
 }
