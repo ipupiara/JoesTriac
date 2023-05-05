@@ -65,6 +65,9 @@ public:
     // behaviourConfigScreen
     void gotobehaviourConfigScreenScreenNoTransition();
 
+    // switchPressureConfigScreen
+    void gotoswitchPressureConfigScreenScreenNoTransition();
+
 protected:
     touchgfx::Callback<FrontendApplicationBase> transitionCallback;
     FrontendHeap& frontendHeap;
@@ -114,6 +117,9 @@ protected:
 
     // behaviourConfigScreen
     void gotobehaviourConfigScreenScreenNoTransitionImpl();
+
+    // switchPressureConfigScreen
+    void gotoswitchPressureConfigScreenScreenNoTransitionImpl();
 };
 
 #endif // FRONTENDAPPLICATIONBASE_HPP

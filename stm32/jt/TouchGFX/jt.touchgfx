@@ -3003,6 +3003,18 @@
               "ScreenTransitionType": "ScreenTransitionNone",
               "ActionComponent": "configScreen"
             }
+          },
+          {
+            "InteractionName": "switchPressureButtonPressedInteraction",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "switchPressureConfigButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "switchPressureConfigScreen"
+            }
           }
         ]
       },
@@ -3114,7 +3126,7 @@
             "Selected": true,
             "FileNameSelected": "__designer\\Blue_Radio_buttons_Radio_Round_button_active.png",
             "FileNameSelectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_pressed.png",
-            "FileNameUnselected": "__designer\\Blue_Radio_buttons_Radio_Round_button_active.png",
+            "FileNameUnselected": "__designer\\Blue_Radio_buttons_Radio_Round_button_inactive.png",
             "FileNameUnselectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_pressed.png",
             "RadioButtonGroup": "radioButtonGroup1"
           },
@@ -3125,7 +3137,6 @@
             "Y": 121,
             "Width": 44,
             "Height": 44,
-            "Deselectable": true,
             "FileNameSelected": "__designer\\Blue_Radio_buttons_Radio_Round_button_active.png",
             "FileNameSelectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_pressed.png",
             "FileNameUnselected": "__designer\\Blue_Radio_buttons_Radio_Round_button_inactive.png",

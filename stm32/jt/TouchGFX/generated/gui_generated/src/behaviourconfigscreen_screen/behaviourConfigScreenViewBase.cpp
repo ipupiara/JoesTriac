@@ -30,6 +30,7 @@ behaviourConfigScreenViewBase::behaviourConfigScreenViewBase() :
     switchPressureConfigButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_6TSM));
     switchPressureConfigButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     switchPressureConfigButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    switchPressureConfigButton.setAction(buttonCallback);
     add(switchPressureConfigButton);
 
     textArea1.setXY(315, 55);
@@ -78,5 +79,12 @@ void behaviourConfigScreenViewBase::buttonCallbackHandler(const touchgfx::Abstra
         //When backButton clicked change screen to configScreen
         //Go to configScreen with no screen transition
         application().gotoconfigScreenScreenNoTransition();
+    }
+    if (&src == &switchPressureConfigButton)
+    {
+        //switchPressureButtonPressedInteraction
+        //When switchPressureConfigButton clicked change screen to switchPressureConfigScreen
+        //Go to switchPressureConfigScreen with no screen transition
+        application().gotoswitchPressureConfigScreenScreenNoTransition();
     }
 }

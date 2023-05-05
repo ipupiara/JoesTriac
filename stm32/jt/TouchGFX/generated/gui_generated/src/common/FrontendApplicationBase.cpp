@@ -262,3 +262,16 @@ void FrontendApplicationBase::gotobehaviourConfigScreenScreenNoTransitionImpl()
 {
     touchgfx::makeTransition<behaviourConfigScreenView, behaviourConfigScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
+
+// switchPressureConfigScreen
+
+void FrontendApplicationBase::gotoswitchPressureConfigScreenScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplication::gotoswitchPressureConfigScreenScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotoswitchPressureConfigScreenScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<switchPressureConfigScreenView, switchPressureConfigScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}

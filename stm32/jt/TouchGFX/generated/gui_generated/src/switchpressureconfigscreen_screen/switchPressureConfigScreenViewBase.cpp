@@ -58,7 +58,7 @@ switchPressureConfigScreenViewBase::switchPressureConfigScreenViewBase() :
     add(textArea1);
 
     switchPressureOnRadiobutton.setXY(580, 121);
-    switchPressureOnRadiobutton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_ACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_ACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID));
+    switchPressureOnRadiobutton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_INACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_ACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID));
     switchPressureOnRadiobutton.setSelected(true);
     switchPressureOnRadiobutton.setDeselectionEnabled(false);
     radioButtonGroup1.add(switchPressureOnRadiobutton);
@@ -67,7 +67,7 @@ switchPressureConfigScreenViewBase::switchPressureConfigScreenViewBase() :
     switchPressureOffRadiobutton.setXY(672, 121);
     switchPressureOffRadiobutton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_INACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_ACTIVE_ID), touchgfx::Bitmap(BITMAP_BLUE_RADIO_BUTTONS_RADIO_ROUND_BUTTON_PRESSED_ID));
     switchPressureOffRadiobutton.setSelected(false);
-    switchPressureOffRadiobutton.setDeselectionEnabled(true);
+    switchPressureOffRadiobutton.setDeselectionEnabled(false);
     radioButtonGroup1.add(switchPressureOffRadiobutton);
     add(switchPressureOffRadiobutton);
 
