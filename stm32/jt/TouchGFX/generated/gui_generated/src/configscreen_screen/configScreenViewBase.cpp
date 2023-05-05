@@ -39,13 +39,13 @@ configScreenViewBase::configScreenViewBase() :
     editCalibButton.setAction(buttonCallback);
     add(editCalibButton);
 
-    alarmEditButton.setXY(230, 240);
-    alarmEditButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
-    alarmEditButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_AOKD));
-    alarmEditButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    alarmEditButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    alarmEditButton.setAction(buttonCallback);
-    add(alarmEditButton);
+    configButton.setXY(230, 240);
+    configButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
+    configButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_AOKD));
+    configButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    configButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    configButton.setAction(buttonCallback);
+    add(configButton);
 
     textArea1.setXY(428, 72);
     textArea1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
@@ -105,11 +105,11 @@ void configScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton&
         //Go to editCalibValuesScreen with no screen transition
         application().gotoeditCalibValuesScreenScreenNoTransition();
     }
-    if (&src == &alarmEditButton)
+    if (&src == &configButton)
     {
-        //alarmConfigPressedInteraction
-        //When alarmEditButton clicked change screen to alarmConfigScreen
-        //Go to alarmConfigScreen with no screen transition
-        application().gotoalarmConfigScreenScreenNoTransition();
+        //behaviourPressedInteraction
+        //When configButton clicked change screen to behaviourConfigScreen
+        //Go to behaviourConfigScreen with no screen transition
+        application().gotobehaviourConfigScreenScreenNoTransition();
     }
 }

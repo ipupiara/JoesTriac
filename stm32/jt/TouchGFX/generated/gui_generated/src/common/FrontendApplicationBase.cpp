@@ -41,6 +41,10 @@
 #include <gui/dummyscreen_screen/dummyScreenPresenter.hpp>
 #include <gui/calibratezeroscreen_screen/calibrateZeroScreenView.hpp>
 #include <gui/calibratezeroscreen_screen/calibrateZeroScreenPresenter.hpp>
+#include <gui/behaviourconfigscreen_screen/behaviourConfigScreenView.hpp>
+#include <gui/behaviourconfigscreen_screen/behaviourConfigScreenPresenter.hpp>
+#include <gui/switchpressureconfigscreen_screen/switchPressureConfigScreenView.hpp>
+#include <gui/switchpressureconfigscreen_screen/switchPressureConfigScreenPresenter.hpp>
 
 using namespace touchgfx;
 
@@ -244,4 +248,17 @@ void FrontendApplicationBase::gotocalibrateZeroScreenScreenNoTransition()
 void FrontendApplicationBase::gotocalibrateZeroScreenScreenNoTransitionImpl()
 {
     touchgfx::makeTransition<calibrateZeroScreenView, calibrateZeroScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+// behaviourConfigScreen
+
+void FrontendApplicationBase::gotobehaviourConfigScreenScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplication::gotobehaviourConfigScreenScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotobehaviourConfigScreenScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<behaviourConfigScreenView, behaviourConfigScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }

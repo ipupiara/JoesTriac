@@ -44,7 +44,7 @@ protected:
     touchgfx::ButtonWithLabel calibrationButton;
     touchgfx::ButtonWithIcon backButton;
     touchgfx::ButtonWithLabel editCalibButton;
-    touchgfx::ButtonWithLabel alarmEditButton;
+    touchgfx::ButtonWithLabel configButton;
     touchgfx::TextArea textArea1;
     touchgfx::TextArea textArea2;
     touchgfx::TextArea textArea3;

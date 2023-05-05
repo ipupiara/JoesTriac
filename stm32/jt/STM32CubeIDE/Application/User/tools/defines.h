@@ -69,6 +69,11 @@ uint32_t getDefinesCalibLowAdc();
 
 uint32_t getDefinesZeroPotiPos();
 
+uint8_t getDefinesSwitchPressureNeeded();
+
+uint16_t getDefinesSwitchPressureTime();
+tStatus  storeDefinesSwitchPressureData(uint32_t spTime, uint8_t spNeeded);
+
 tStatus saveWeldingTime(uint32_t wTime);
 tStatus saveWeldingAmps(float wAmps);
 

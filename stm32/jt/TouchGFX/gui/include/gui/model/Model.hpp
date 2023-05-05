@@ -165,6 +165,10 @@ public:
     void   saveCalibValues();
     void   resetCalibValues();
 
+
+    uint8_t getSwitchPressureNeeded();
+    uint16_t getSwitchPressureTime();
+    void storeSwitchPressureData(uint32_t spTime, uint8_t spNeeded);
 protected:
 //    int16_t weldingTime;
 //    uint32_t weldingAmps;

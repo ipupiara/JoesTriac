@@ -71,6 +71,12 @@
     <ClCompile Include="..\..\gui\src\startupscreen_screen\startupScreenPresenter.cpp"/>
     <ClCompile Include="..\..\gui\src\startupscreen_screen\startupScreenView.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\startupscreen_screen\startupScreenViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\behaviourconfigscreen_screen\behaviourConfigScreenPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\behaviourconfigscreen_screen\behaviourConfigScreenView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\behaviourconfigscreen_screen\behaviourConfigScreenViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\switchpressureconfigscreen_screen\switchPressureConfigScreenPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\switchpressureconfigscreen_screen\switchPressureConfigScreenView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\switchpressureconfigscreen_screen\switchPressureConfigScreenViewBase.cpp"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xml"/>
@@ -271,6 +277,12 @@
     <ClInclude Include="..\..\gui\include\gui\startupscreen_screen\startupScreenPresenter.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\startupscreen_screen\startupScreenView.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\startupscreen_screen\startupScreenViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\behaviourconfigscreen_screen\behaviourConfigScreenPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\behaviourconfigscreen_screen\behaviourConfigScreenView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\behaviourconfigscreen_screen\behaviourConfigScreenViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\switchpressureconfigscreen_screen\switchPressureConfigScreenPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\switchpressureconfigscreen_screen\switchPressureConfigScreenView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\switchpressureconfigscreen_screen\switchPressureConfigScreenViewBase.hpp"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>

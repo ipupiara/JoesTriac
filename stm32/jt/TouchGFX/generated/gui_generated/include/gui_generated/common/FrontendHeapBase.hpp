@@ -44,6 +44,10 @@
 #include <gui/dummyscreen_screen/dummyScreenPresenter.hpp>
 #include <gui/calibratezeroscreen_screen/calibrateZeroScreenView.hpp>
 #include <gui/calibratezeroscreen_screen/calibrateZeroScreenPresenter.hpp>
+#include <gui/behaviourconfigscreen_screen/behaviourConfigScreenView.hpp>
+#include <gui/behaviourconfigscreen_screen/behaviourConfigScreenPresenter.hpp>
+#include <gui/switchpressureconfigscreen_screen/switchPressureConfigScreenView.hpp>
+#include <gui/switchpressureconfigscreen_screen/switchPressureConfigScreenPresenter.hpp>
 
 
 /**
@@ -82,7 +86,9 @@ public:
             touchgfx::meta::TypeList< startupScreenView,
             touchgfx::meta::TypeList< dummyScreenView,
             touchgfx::meta::TypeList< calibrateZeroScreenView,
-            touchgfx::meta::Nil > > > > > > > > > > > > > > >
+            touchgfx::meta::TypeList< behaviourConfigScreenView,
+            touchgfx::meta::TypeList< switchPressureConfigScreenView,
+            touchgfx::meta::Nil > > > > > > > > > > > > > > > > >
             > GeneratedViewTypes;
 
     /**
@@ -110,7 +116,9 @@ public:
             touchgfx::meta::TypeList< startupScreenPresenter,
             touchgfx::meta::TypeList< dummyScreenPresenter,
             touchgfx::meta::TypeList< calibrateZeroScreenPresenter,
-            touchgfx::meta::Nil > > > > > > > > > > > > > > >
+            touchgfx::meta::TypeList< behaviourConfigScreenPresenter,
+            touchgfx::meta::TypeList< switchPressureConfigScreenPresenter,
+            touchgfx::meta::Nil > > > > > > > > > > > > > > > > >
             > GeneratedPresenterTypes;
 
     /**

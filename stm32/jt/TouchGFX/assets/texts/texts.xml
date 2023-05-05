@@ -6,6 +6,48 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_UV0W" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">cancel</Translation>
+      </Text>
+      <Text Id="__SingleUse_PCPV" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">back &amp; save</Translation>
+      </Text>
+      <Text Id="__SingleUse_TOOL" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">back</Translation>
+      </Text>
+      <Text Id="__SingleUse_NDVA" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">00</Translation>
+      </Text>
+      <Text Id="__SingleUse_SAF4" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_9H0N" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">switch pressure time</Translation>
+      </Text>
+      <Text Id="__SingleUse_0Y8O" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">off</Translation>
+      </Text>
+      <Text Id="__SingleUse_LTQX" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">on</Translation>
+      </Text>
+      <Text Id="__SingleUse_F7T3" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">switch pressure</Translation>
+      </Text>
+      <Text Id="__SingleUse_CTH6" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">set switch pressure behaviour</Translation>
+      </Text>
+      <Text Id="__SingleUse_YTFD" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">set alarm behaviour</Translation>
+      </Text>
+      <Text Id="__SingleUse_6TSM" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">switch pressure</Translation>
+      </Text>
+      <Text Id="s" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">New Text</Translation>
+      </Text>
+      <Text Id="__SingleUse_JM3H" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">alarm</Translation>
+      </Text>
       <Text Id="__SingleUse_GL4G" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">000.00</Translation>
       </Text>
@@ -340,7 +382,7 @@
         <Translation Language="GB">auto calibration process</Translation>
       </Text>
       <Text Id="__SingleUse_AOKD" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">config</Translation>
+        <Translation Language="GB">behaviour</Translation>
       </Text>
       <Text Id="__SingleUse_GX36" Alignment="Center" TypographyId="Default">
         <Translation Language="GB">edit calib</Translation>

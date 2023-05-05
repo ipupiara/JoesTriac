@@ -28,10 +28,10 @@ uint16_t alarmConfigScreenPresenter::getAlarmTime()
 	return model->getAlarmTime();
 }
 
-uint32_t alarmConfigScreenPresenter::getZCalibOn()
-{
-	return model->getZCalibOn();
-}
+//uint32_t alarmConfigScreenPresenter::getZCalibOn()
+//{
+//	return model->getZCalibOn();
+//}
 
 void  alarmConfigScreenPresenter::storeAlarmData(uint32_t aTime, uint8_t aNeeded, uint32_t zCalibOn)
 {

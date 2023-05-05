@@ -117,7 +117,7 @@ void Model::storeAlarm(uint8_t alNeeded, uint16_t alTime, uint32_t zCalibOn)
 	sendEventToMainJtMessageQ(&evt,isNotFromIsr);
 }
 
-void Model::restoreData()
+void Model::restoreData()  // check if this method is in use somewhere
 {
 //	weldingTime = (uint16_t) getDefinesWeldingTime();
 //	weldingAmps=  getDefinesWeldingAmps();
@@ -190,6 +190,22 @@ void Model::CalibCache::storeZeroPotiPos()
 	evt.evType = saveZPotiPos;
 	evt.mainUnion.zPotiPos = zeroPotiPosCache;
 	sendEventToMainJtMessageQ(&evt,isNotFromIsr);
+}
+
+
+uint8_t Model::getSwitchPressureNeeded()
+{
+	return getDefinesSwitchPressureNeeded();
+}
+
+uint16_t Model::getSwitchPressureTime()
+{
+	return getDefinesSwitchPressureTime();
+}
+
+void  Model::storeSwitchPressureData(uint32_t spTime, uint8_t spNeeded)
+{
+	storeDefinesSwitchPressureData(spTime,  spNeeded);
 }
 
 

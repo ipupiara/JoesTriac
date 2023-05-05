@@ -46,6 +46,10 @@ dummyScreenViewBase::dummyScreenViewBase() :
     button7.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
     button7.setAction(buttonCallback);
     add(button7);
+
+    image1.setXY(644, 344);
+    image1.setBitmap(touchgfx::Bitmap(BITMAP_RED_NEEDLES_GOAL_GAUGE_NEEDLE_STYLE_01_ID));
+    add(image1);
 }
 
 dummyScreenViewBase::~dummyScreenViewBase()

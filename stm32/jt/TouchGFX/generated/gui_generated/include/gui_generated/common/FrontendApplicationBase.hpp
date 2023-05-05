@@ -62,6 +62,9 @@ public:
     // calibrateZeroScreen
     void gotocalibrateZeroScreenScreenNoTransition();
 
+    // behaviourConfigScreen
+    void gotobehaviourConfigScreenScreenNoTransition();
+
 protected:
     touchgfx::Callback<FrontendApplicationBase> transitionCallback;
     FrontendHeap& frontendHeap;
@@ -108,6 +111,9 @@ protected:
 
     // calibrateZeroScreen
     void gotocalibrateZeroScreenScreenNoTransitionImpl();
+
+    // behaviourConfigScreen
+    void gotobehaviourConfigScreenScreenNoTransitionImpl();
 };
 
 #endif // FRONTENDAPPLICATIONBASE_HPP
