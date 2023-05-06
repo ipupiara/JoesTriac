@@ -29,7 +29,7 @@
           {
             "Type": "Gauge",
             "Name": "ampGauge",
-            "X": 263,
+            "X": 265,
             "Y": 133,
             "Width": 251,
             "Height": 251,
@@ -187,6 +187,24 @@
               "UseBuffer": true,
               "BufferSize": 10
             }
+          },
+          {
+            "Type": "TextureMapper",
+            "Name": "textureMapper1",
+            "X": 265,
+            "Y": 133,
+            "Width": 251,
+            "Height": 136,
+            "RenderingAlgorithm": "Nearest-neighbor",
+            "FileNameImage": "Red_Needles_goal_gauge_needle_style_01-removebg-preview.png",
+            "LockBitmapToCenter": true,
+            "XBitmapPosition": 115.5,
+            "YBitmapPosition": 18.0,
+            "Scale": 1.0,
+            "XOrigo": 125.5,
+            "YOrigo": 127.0,
+            "ZOrigo": 1000.0,
+            "CameraDistance": 1000.0
           }
         ],
         "Interactions": [
