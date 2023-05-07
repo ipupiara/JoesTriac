@@ -15,6 +15,7 @@
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
 #include <touchgfx/widgets/ButtonWithIcon.hpp>
+#include <touchgfx/widgets/TextureMapper.hpp>
 
 class mainScreenViewBase : public touchgfx::View<mainScreenPresenter>
 {
@@ -56,6 +57,7 @@ protected:
     touchgfx::ButtonWithIcon stopButton;
     touchgfx::ButtonWithLabel setAmpereButton;
     touchgfx::TextAreaWithOneWildcard ampereText;
+    touchgfx::TextureMapper goalTextureMapper;
 
     /*
      * Wildcard Buffers

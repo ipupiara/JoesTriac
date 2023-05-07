@@ -190,7 +190,7 @@
           },
           {
             "Type": "TextureMapper",
-            "Name": "textureMapper1",
+            "Name": "goalTextureMapper",
             "X": 265,
             "Y": 133,
             "Width": 251,

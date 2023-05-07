@@ -4,7 +4,7 @@
 
 mainScreenView::mainScreenView()
 {
-	gaugeWithGoal.setGauge(ampGauge);
+	gaugeWithGoal.setGauge(ampGauge, &goalTextureMapper);
 }
 
 void mainScreenView::paintGoalNeedle(int16_t val)   //  todo tobe tested

@@ -26,7 +26,7 @@ mainScreenViewBase::mainScreenViewBase() :
     add(configButton);
 
     ampGauge.setBackground(touchgfx::Bitmap(BITMAP_BLUE_GAUGES_ORIGINAL_GAUGE_BACKGROUND_STYLE_01_ID));
-    ampGauge.setPosition(263, 133, 251, 251);
+    ampGauge.setPosition(265, 133, 251, 251);
     ampGauge.setCenter(125, 125);
     ampGauge.setStartEndAngle(-85, 85);
     ampGauge.setRange(0, 100);
@@ -96,6 +96,19 @@ mainScreenViewBase::mainScreenViewBase() :
     ampereText.resizeToCurrentText();
     ampereText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_DEJR));
     add(ampereText);
+
+    goalTextureMapper.setXY(265, 133);
+    goalTextureMapper.setBitmap(touchgfx::Bitmap(BITMAP_RED_NEEDLES_GOAL_GAUGE_NEEDLE_STYLE_01_REMOVEBG_PREVIEW_ID));
+    goalTextureMapper.setWidth(251);
+    goalTextureMapper.setHeight(136);
+    goalTextureMapper.setBitmapPosition(115.5f, 18.0f);
+    goalTextureMapper.setScale(1.0f);
+    goalTextureMapper.setCameraDistance(1000.0f);
+    goalTextureMapper.setOrigo(125.5f, 127.0f, 1000.0f);
+    goalTextureMapper.setCamera(125.5f, 68.0f);
+    goalTextureMapper.setAngles(0.0f, 0.0f, 0.0f);
+    goalTextureMapper.setRenderingAlgorithm(touchgfx::TextureMapper::NEAREST_NEIGHBOR);
+    add(goalTextureMapper);
 }
 
 mainScreenViewBase::~mainScreenViewBase()

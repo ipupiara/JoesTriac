@@ -8,15 +8,16 @@
 
 #include <gui/mainscreen_screen/mainScreenPresenter.hpp>
 
+	int32_t GaugeWithGoal::cacheInt = 0;
 
 	GaugeWithGoal::GaugeWithGoal()
 	{
 
 	}
 
-	GaugeWithGoal::GaugeWithGoal(Gauge aGauge)
+	GaugeWithGoal::GaugeWithGoal(Gauge aGauge,TextureMapper* apTexture )
 	{
-		setGauge(aGauge);
+		setGauge(aGauge, apTexture);
 	}
 
 	GaugeWithGoal::~GaugeWithGoal()
@@ -24,15 +25,18 @@
 
 	}
 
-	void GaugeWithGoal::setGauge(Gauge aGauge)
+	void GaugeWithGoal::setGauge(Gauge aGauge,TextureMapper* apTexture )
 	{
 		gauge = aGauge;
+		pTexture = apTexture;
 	}
 
 	void GaugeWithGoal::setGoalValue(float aValue)
 	{
-
+		pTexture->setAngles(0, 0, aValue);
 	}
+
+	void GaugeWithGoal::setGoalAngle(float angle)
 
 	void GaugeWithGoal::paintGoalNeedle(float val)   //  todo tobe tested
 	{
