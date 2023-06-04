@@ -11267,7 +11267,7 @@ Source: &lt;a href="http://www.bourns.com/pdfs/3314.pdf"&gt; Data sheet&lt;/a&gt
 <plain>
 <text x="-53.34" y="38.1" size="1.778" layer="91">220V 50Hz AC</text>
 <text x="10.16" y="-5.08" size="1.778" layer="91">  +2.5V</text>
-<text x="81.28" y="-48.26" size="2.54" layer="91">Ventilator</text>
+<text x="111.76" y="-22.86" size="2.54" layer="91">Ventilator</text>
 <text x="5.08" y="-50.8" size="1.778" layer="91">  -2.5V</text>
 <text x="-50.8" y="-2.54" size="1.778" layer="91">/+16V</text>
 <text x="-53.34" y="-53.34" size="1.778" layer="91">/-16V</text>
