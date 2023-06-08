@@ -11046,22 +11046,23 @@ Precision, Low Power</description>
 <part name="IC3" library="linear" deviceset="TLC251" device="P" value="TLC251_or_311"/>
 <part name="R3" library="resistor" deviceset="R-EU_" device="0207/10" value="approx._1k"/>
 <part name="SUPPLY26" library="supply2" deviceset="GND" device=""/>
-<part name="R4" library="resistor" deviceset="R-EU_" device="0207/10" value="approx_50k"/>
 <part name="SUPPLY27" library="supply2" deviceset="-4.1V" device="" value="-2.5V"/>
+<part name="R4" library="pot" deviceset="TRIM_EU-" device="B90P" value="100k"/>
 </parts>
 <sheets>
 <sheet>
 <plain>
 <text x="83.82" y="68.58" size="1.778" layer="91">AD637</text>
 <text x="-27.94" y="104.14" size="1.778" layer="91" rot="R90">AC or DC high ampere current </text>
-<text x="-35.56" y="-33.02" size="1.778" layer="91">SENS+, SENS- are connected to sensor (see sheet 1)</text>
+<text x="-22.86" y="101.6" size="1.778" layer="91">SENS+, SENS- are connected to sensor (see sheet 1)</text>
 <text x="182.88" y="116.84" size="3.302" layer="91">to powerboard</text>
 <text x="185.42" y="22.86" size="3.302" layer="91">to cpuboard</text>
 <text x="0" y="93.98" size="1.778" layer="91">gnd_in/out</text>
 <text x="-17.78" y="78.74" size="2.54" layer="91">vss</text>
-<text x="83.82" y="-12.7" size="2.54" layer="91">currentZeroPass</text>
+<text x="83.82" y="-12.7" size="2.54" layer="91">currentSensor</text>
 <text x="66.04" y="63.5" size="1.778" layer="91">WIP - work in progress in 637 part</text>
-<text x="43.18" y="-22.86" size="1.778" layer="91">important: isr only if moving towards GND</text>
+<text x="35.56" y="-40.64" size="1.778" layer="91">important: isr only if moving towards GND</text>
+<text x="73.66" y="-17.78" size="1.778" layer="91">idea: calculate the holding currents adc value from calibration and signal when falling under if possible... ???</text>
 </plain>
 <instances>
 <instance part="IC1" gate="G$1" x="86.36" y="86.36"/>
@@ -11126,11 +11127,11 @@ Precision, Low Power</description>
 <instance part="IC2" gate="A" x="5.08" y="0"/>
 <instance part="SUPPLY24" gate="G$1" x="2.54" y="10.16"/>
 <instance part="SUPPLY25" gate="G$1" x="2.54" y="-10.16"/>
-<instance part="IC3" gate="A" x="58.42" y="-2.54"/>
-<instance part="R3" gate="G$1" x="58.42" y="-15.24"/>
-<instance part="SUPPLY26" gate="GND" x="38.1" y="-27.94"/>
-<instance part="R4" gate="G$1" x="38.1" y="-20.32" rot="R270"/>
+<instance part="IC3" gate="A" x="50.8" y="-20.32"/>
+<instance part="R3" gate="G$1" x="50.8" y="-33.02"/>
+<instance part="SUPPLY26" gate="GND" x="22.86" y="-45.72"/>
 <instance part="SUPPLY27" gate="P" x="27.94" y="66.04" rot="MR180"/>
+<instance part="R4" gate="1" x="30.48" y="-38.1" rot="R180"/>
 </instances>
 <busses>
 </busses>
@@ -11179,12 +11180,14 @@ Precision, Low Power</description>
 <wire x1="12.7" y1="45.72" x2="17.78" y2="45.72" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="SUPPLY26" gate="GND" pin="GND"/>
-<pinref part="R4" gate="G$1" pin="2"/>
-</segment>
-<segment>
 <wire x1="25.4" y1="91.44" x2="27.94" y2="91.44" width="0.1524" layer="91"/>
 <pinref part="SUPPLY9" gate="GND" pin="GND"/>
+</segment>
+<segment>
+<pinref part="R4" gate="1" pin="S"/>
+<wire x1="25.4" y1="-38.1" x2="22.86" y2="-38.1" width="0.1524" layer="91"/>
+<pinref part="SUPPLY26" gate="GND" pin="GND"/>
+<wire x1="22.86" y1="-38.1" x2="22.86" y2="-43.18" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$8" class="0">
@@ -11490,19 +11493,6 @@ Precision, Low Power</description>
 <wire x1="-22.86" y1="50.8" x2="-22.86" y2="48.26" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$16" class="0">
-<segment>
-<wire x1="71.12" y1="-15.24" x2="71.12" y2="-2.54" width="0.1524" layer="91"/>
-<wire x1="71.12" y1="-15.24" x2="187.96" y2="-15.24" width="0.1524" layer="91"/>
-<wire x1="187.96" y1="-15.24" x2="187.96" y2="-10.16" width="0.1524" layer="91"/>
-<pinref part="X5" gate="-6" pin="1"/>
-<wire x1="187.96" y1="-10.16" x2="193.04" y2="-10.16" width="0.1524" layer="91"/>
-<pinref part="IC3" gate="A" pin="OUT"/>
-<wire x1="66.04" y1="-2.54" x2="71.12" y2="-2.54" width="0.1524" layer="91"/>
-<pinref part="R3" gate="G$1" pin="2"/>
-<wire x1="71.12" y1="-15.24" x2="63.5" y2="-15.24" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="N$4" class="0">
 <segment>
 <pinref part="X6" gate="-2" pin="K"/>
@@ -11529,30 +11519,38 @@ Precision, Low Power</description>
 <pinref part="R9" gate="1" pin="A"/>
 <wire x1="53.34" y1="109.22" x2="53.34" y2="106.68" width="0.1524" layer="91"/>
 <wire x1="53.34" y1="109.22" x2="45.72" y2="109.22" width="0.1524" layer="91"/>
-<wire x1="45.72" y1="109.22" x2="45.72" y2="0" width="0.1524" layer="91"/>
+<wire x1="45.72" y1="109.22" x2="45.72" y2="10.16" width="0.1524" layer="91"/>
 <label x="35.56" y="76.2" size="1.6764" layer="95"/>
-<wire x1="12.7" y1="-15.24" x2="-5.08" y2="-15.24" width="0.1524" layer="91"/>
-<wire x1="-5.08" y1="-15.24" x2="-5.08" y2="-2.54" width="0.1524" layer="91"/>
-<pinref part="IC2" gate="A" pin="-IN"/>
-<wire x1="-5.08" y1="-2.54" x2="-2.54" y2="-2.54" width="0.1524" layer="91"/>
-<pinref part="IC2" gate="A" pin="OUT"/>
-<wire x1="12.7" y1="0" x2="12.7" y2="-15.24" width="0.1524" layer="91"/>
-<wire x1="12.7" y1="0" x2="45.72" y2="0" width="0.1524" layer="91"/>
-<pinref part="IC3" gate="A" pin="+IN"/>
-<wire x1="45.72" y1="0" x2="50.8" y2="0" width="0.1524" layer="91"/>
+<wire x1="45.72" y1="10.16" x2="71.12" y2="10.16" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="-15.24" x2="187.96" y2="-15.24" width="0.1524" layer="91"/>
+<wire x1="187.96" y1="-15.24" x2="187.96" y2="-10.16" width="0.1524" layer="91"/>
+<pinref part="X5" gate="-6" pin="1"/>
+<wire x1="187.96" y1="-10.16" x2="193.04" y2="-10.16" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="10.16" x2="71.12" y2="-15.24" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$17" class="0">
 <segment>
 <pinref part="R3" gate="G$1" pin="1"/>
-<wire x1="53.34" y1="-15.24" x2="45.72" y2="-15.24" width="0.1524" layer="91"/>
-<wire x1="45.72" y1="-15.24" x2="45.72" y2="-5.08" width="0.1524" layer="91"/>
+<wire x1="45.72" y1="-33.02" x2="38.1" y2="-33.02" width="0.1524" layer="91"/>
+<wire x1="38.1" y1="-33.02" x2="38.1" y2="-22.86" width="0.1524" layer="91"/>
 <pinref part="IC3" gate="A" pin="-IN"/>
-<wire x1="45.72" y1="-5.08" x2="50.8" y2="-5.08" width="0.1524" layer="91"/>
-<wire x1="45.72" y1="-5.08" x2="38.1" y2="-5.08" width="0.1524" layer="91"/>
-<pinref part="R4" gate="G$1" pin="1"/>
-<wire x1="38.1" y1="-15.24" x2="38.1" y2="-17.78" width="0.1524" layer="91"/>
-<wire x1="38.1" y1="-5.08" x2="38.1" y2="-15.24" width="0.1524" layer="91"/>
+<wire x1="38.1" y1="-22.86" x2="43.18" y2="-22.86" width="0.1524" layer="91"/>
+<wire x1="38.1" y1="-22.86" x2="30.48" y2="-22.86" width="0.1524" layer="91"/>
+<wire x1="30.48" y1="-22.86" x2="30.48" y2="-33.02" width="0.1524" layer="91"/>
+<pinref part="R4" gate="1" pin="A"/>
+<wire x1="30.48" y1="-33.02" x2="30.48" y2="-35.56" width="0.1524" layer="91"/>
+<junction x="30.48" y="-33.02"/>
+</segment>
+</net>
+<net name="N$28" class="0">
+<segment>
+<pinref part="IC2" gate="A" pin="-IN"/>
+<wire x1="-5.08" y1="-2.54" x2="-2.54" y2="-2.54" width="0.1524" layer="91"/>
+<wire x1="-5.08" y1="-15.24" x2="-5.08" y2="-2.54" width="0.1524" layer="91"/>
+<wire x1="12.7" y1="-15.24" x2="-5.08" y2="-15.24" width="0.1524" layer="91"/>
+<pinref part="IC2" gate="A" pin="OUT"/>
+<wire x1="12.7" y1="0" x2="12.7" y2="-15.24" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>

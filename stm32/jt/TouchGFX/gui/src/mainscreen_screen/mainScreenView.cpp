@@ -16,6 +16,12 @@ void mainScreenView::paintGoalNeedle(int16_t val)   //  todo tobe tested
 //    ampGauge.setValue(oldVal);
 //    //   ampGauge.invalidateContent();
 //        ampGauge.invalidate();
+	/*
+	 *
+	 * next idea: copy all the clock code from base, set the same values except the red needle
+	 * set all but the needle invisible....
+	 *
+	 */
 }
 
 void mainScreenView::setupScreen()
