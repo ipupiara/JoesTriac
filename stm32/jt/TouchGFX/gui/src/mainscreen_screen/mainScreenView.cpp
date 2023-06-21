@@ -4,7 +4,7 @@
 
 mainScreenView::mainScreenView()
 {
-	gaugeWithGoal.setGauge(ampGauge, &goalTextureMapper);
+//	gaugeWithGoal.setGauge(ampGauge, &goalTextureMapper);
 }
 
 void mainScreenView::paintGoalNeedle(int16_t val)   //  todo tobe tested
@@ -48,7 +48,7 @@ void mainScreenView::setupScreen()
 
 //	int16_t ampsValue16 = ampsValue;
 //	paintGoalNeedle(ampsValue16);
-	gaugeWithGoal.setGoalValue(ampsValue);
+//	gaugeWithGoal.setGoalValue(ampsValue);
 }
 
 void mainScreenView::tearDownScreen()

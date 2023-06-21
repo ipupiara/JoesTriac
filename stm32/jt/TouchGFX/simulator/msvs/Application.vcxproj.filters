@@ -130,275 +130,275 @@
     <Filter Include="Source Files\generated\simulator">
       <UniqueIdentifier>{C07B02B9-A55E-47AA-AD61-59A6AAD754E6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\gui">
-      <UniqueIdentifier>93184870-35FA-88FB-1B11-4C01EBD1F732</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\gui">
-      <UniqueIdentifier>C58B5A7D-1639-676B-F206-30D0CB7B09DB</UniqueIdentifier>
+      <UniqueIdentifier>DE62B4A2-59C3-D26E-1A4A-BD723E23CC6F</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\gui\mainscreen_screen">
-      <UniqueIdentifier>5FD87137-BF2A-B994-1E19-E59F32138885</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\generated\gui_generated">
-      <UniqueIdentifier>A11E5CDB-51BD-DE17-6366-4EAC026E67E5</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generated\gui_generated">
-      <UniqueIdentifier>96A85313-C3E6-8E5D-770F-AE22817E5562</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\gui\mainscreen_screen">
-      <UniqueIdentifier>AFDA2DBE-4E03-769D-073C-149378F40856</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\gui\configscreen_screen">
-      <UniqueIdentifier>A7CBCBE7-C9E7-6591-1E3F-F87E32CA91D7</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\gui\jobcompletescreen_screen">
-      <UniqueIdentifier>DAF8CFD6-5672-34FA-F608-5FFBBB22EE16</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\gui\jobcompletescreen_screen">
-      <UniqueIdentifier>74FC661E-E1D9-2623-9976-F0AB5216A657</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\gui\configscreen_screen">
-      <UniqueIdentifier>4542AA67-656F-02DF-9055-9EB64A4BF79C</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\gui\alarmconfigscreen_screen">
-      <UniqueIdentifier>FB3365FE-78FE-8498-28DF-3DB4A0B43741</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\gui\editcalibhighscreen_screen">
-      <UniqueIdentifier>A0C40476-E39A-FDF5-1331-AC6EFCACABB6</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\gui\common">
-      <UniqueIdentifier>391E6015-5A60-5F26-61D4-C2A5D3971A08</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\gui\model">
-      <UniqueIdentifier>8265D29A-2054-373E-4AB8-F28481AB425C</UniqueIdentifier>
+    <Filter Include="Source Files\gui">
+      <UniqueIdentifier>8323A779-5DCC-01D2-9CC7-7918733259EC</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\gui\model">
-      <UniqueIdentifier>004A37E7-3593-8E62-1866-E8B52FF90E33</UniqueIdentifier>
+      <UniqueIdentifier>4FE30E71-CB93-0BBD-BACC-96C6D12FFCDF</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\gui\calibrationscreen_screen">
-      <UniqueIdentifier>486D3E28-DF3E-50C3-06DA-4E25ED6BFFC2</UniqueIdentifier>
+    <Filter Include="Source Files\gui\model">
+      <UniqueIdentifier>9584A9E4-54F1-733B-96B5-9C701A85F6CF</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\gui\alarmconfigscreen_screen">
-      <UniqueIdentifier>1D478D0A-DDB7-71C4-709D-F7E14BD1B85B</UniqueIdentifier>
+    <Filter Include="Header Files\generated\gui_generated">
+      <UniqueIdentifier>20E557AB-D041-F3E9-9118-2C6B71884E29</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\gui\containers">
-      <UniqueIdentifier>600D237D-BC10-D977-E498-DF81D2B017FF</UniqueIdentifier>
+    <Filter Include="Header Files\gui\common">
+      <UniqueIdentifier>2431FDB3-FBDD-7031-92C9-61B66A3FF3EE</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\gui\calibrationscreen_screen">
-      <UniqueIdentifier>3A2DBA39-31E3-1E70-F904-EA12FAA0791C</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\gui\containers">
-      <UniqueIdentifier>C14F1971-90C0-E5DB-0AEE-200B7CF338EF</UniqueIdentifier>
+    <Filter Include="Source Files\generated\gui_generated">
+      <UniqueIdentifier>95DC46AF-2EBB-4AD5-9130-E820365A7A14</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\gui\common">
-      <UniqueIdentifier>78FFAF39-34C4-CD7C-15B6-DF5C58D095D2</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\gui\startupscreen_screen">
-      <UniqueIdentifier>9AE49D64-0D13-0173-24EA-E5C867308BAA</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\gui\fatalerrorscreen_screen">
-      <UniqueIdentifier>582DACA4-482D-BB42-290D-C424612FA559</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\gui\requeststopscreen_screen">
-      <UniqueIdentifier>24BECA10-1B1C-A84A-D046-FE3E18073FC8</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\gui\fatalerrorscreen_screen">
-      <UniqueIdentifier>6D9B7AAA-31FD-32D9-88D0-529612727104</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\gui\requeststopscreen_screen">
-      <UniqueIdentifier>9E5725D4-D817-B8EF-8C33-9D22EB2204DC</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\gui\dummyscreen_screen">
-      <UniqueIdentifier>0800B464-AD0F-0E95-2E87-1E667F0961F4</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\gui\dummyscreen_screen">
-      <UniqueIdentifier>B4713C05-66CF-2F9A-FD69-48E99C623EE0</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\gui\startupscreen_screen">
-      <UniqueIdentifier>13D05B9A-F478-322F-DBF0-0E2354971E8C</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\gui\settimescreen_screen">
-      <UniqueIdentifier>ED0CE544-A982-2C02-ACE3-B575069AFF0B</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\gui\editcalibvaluesscreen_screen">
-      <UniqueIdentifier>E281D6F1-9778-4036-F146-0172D86A03F2</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\gui\runscreen_screen">
-      <UniqueIdentifier>FC05D55C-7BB0-E7DD-4996-0DBE280117F3</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\gui\editcalibvaluesscreen_screen">
-      <UniqueIdentifier>AF1F3AC2-C238-97D0-DDAA-2281EEBE9976</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\gui\runscreen_screen">
-      <UniqueIdentifier>CBC7769F-5C6A-E4BC-9E4E-81203BB91E46</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\gui\calibratezeroscreen_screen">
-      <UniqueIdentifier>D6D7B39C-32CE-6938-64A8-463DD1130F4B</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\gui\calibratezeroscreen_screen">
-      <UniqueIdentifier>A1A3E420-E8DF-7CA2-5936-32891F11CE64</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\gui\editcaliblowscreen_screen">
-      <UniqueIdentifier>1266C9D7-169B-0E2B-59C7-9B2A778D48F2</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\gui\setamperescreen_screen">
-      <UniqueIdentifier>F3BDF323-D6DE-07E4-8A12-637B7A5853CA</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\gui\setamperescreen_screen">
-      <UniqueIdentifier>D71DE2B1-8024-2D4B-B045-52A1B0A4FFAB</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\gui\editcaliblowscreen_screen">
-      <UniqueIdentifier>48FACC10-6B8D-618B-4068-DB752E128269</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\gui\settimescreen_screen">
-      <UniqueIdentifier>45F3A988-9C4B-6162-7582-729862961B40</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\gui\editcalibhighscreen_screen">
-      <UniqueIdentifier>8270DAB2-474E-255C-7C24-E94305C766BB</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generated\gui_generated\alarmconfigscreen_screen">
-      <UniqueIdentifier>232C75F4-171B-7B49-004C-68C3C701B935</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\generated\gui_generated\alarmconfigscreen_screen">
-      <UniqueIdentifier>214E7D51-A391-3F78-F2B1-2962093B37F7</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generated\gui_generated\setamperescreen_screen">
-      <UniqueIdentifier>F98BFBC9-E0A4-3D08-A26F-2BA5C49FE67E</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\generated\gui_generated\runscreen_screen">
-      <UniqueIdentifier>9B5496F7-376A-B0F2-F97B-C7EDD8EFD601</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generated\gui_generated\runscreen_screen">
-      <UniqueIdentifier>ADDDE48F-284C-D4E8-F96A-925C02ED0858</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generated\gui_generated\calibratezeroscreen_screen">
-      <UniqueIdentifier>4FF691C5-53EC-A606-1F0D-6163E7EBC926</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\generated\gui_generated\requeststopscreen_screen">
-      <UniqueIdentifier>A83CF5C5-F9E9-4A55-C5A6-10193B0D4AD2</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generated\gui_generated\requeststopscreen_screen">
-      <UniqueIdentifier>AA6F9521-9F29-D510-7DD2-4645464CDE52</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\generated\gui_generated\calibratezeroscreen_screen">
-      <UniqueIdentifier>4F9E2479-484D-D47B-71C2-4935C6DADE8F</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generated\gui_generated\settimescreen_screen">
-      <UniqueIdentifier>5933533F-49A3-E475-7063-7BF83F29CA67</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\generated\gui_generated\containers">
-      <UniqueIdentifier>A1D5C44A-D293-AF31-FE6D-1480E7832EA1</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generated\gui_generated\containers">
-      <UniqueIdentifier>BF94C963-1BF5-7F37-1834-29F53888642F</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generated\gui_generated\startupscreen_screen">
-      <UniqueIdentifier>ADBC8367-DF1F-A440-B350-1C39039671F0</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\generated\gui_generated\settimescreen_screen">
-      <UniqueIdentifier>E9CDD658-156C-7567-ACFC-3DE98283A78A</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generated\gui_generated\calibrationscreen_screen">
-      <UniqueIdentifier>FCB776D4-E393-69C0-F232-851A2022CEDB</UniqueIdentifier>
+      <UniqueIdentifier>BAAB6FEB-8CB0-80F3-52A7-3649DD783C26</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\generated\simulator\include">
-      <UniqueIdentifier>67997AF9-0160-72B0-2466-6CBBE450D76C</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\generated\gui_generated\mainscreen_screen">
-      <UniqueIdentifier>073314C9-5343-A008-7564-06715CD8EDF0</UniqueIdentifier>
+      <UniqueIdentifier>0417E64C-C733-964F-10BB-774CAE99F3AD</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\generated\gui_generated\common">
-      <UniqueIdentifier>13DE76CD-DF5E-C5CE-645F-D8151509F94C</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generated\gui_generated\mainscreen_screen">
-      <UniqueIdentifier>3F1DA0F7-1139-4308-0250-E2829D3A5FF0</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\generated\gui_generated\calibrationscreen_screen">
-      <UniqueIdentifier>49AC8B92-8330-3B43-E814-D2EBAC5A8C91</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\generated\gui_generated\jobcompletescreen_screen">
-      <UniqueIdentifier>1A90192B-9260-1BB4-7848-52FC74870AD7</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generated\simulator\video">
-      <UniqueIdentifier>A4E179F2-A290-74F8-869F-E1541E80D04D</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generated\gui_generated\jobcompletescreen_screen">
-      <UniqueIdentifier>BD2A2B1F-0F86-5B8B-DB0D-A0149B1C9EF6</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generated\gui_generated\configscreen_screen">
-      <UniqueIdentifier>2EA15543-743E-9E95-4E52-AE19F6CBAAF5</UniqueIdentifier>
+      <UniqueIdentifier>6CD39F4E-60D5-6F18-5D66-4FCBD9C9AE92</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\generated\gui_generated\common">
-      <UniqueIdentifier>C195CB5C-B4F9-4E15-9C2D-A6D54FD1C55C</UniqueIdentifier>
+      <UniqueIdentifier>B1D9F98F-5112-2618-B3D4-926D8E8F5305</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\generated\gui_generated\configscreen_screen">
-      <UniqueIdentifier>B868E17A-15EB-8808-F801-1F61CC2664B1</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\generated\gui_generated\fatalerrorscreen_screen">
-      <UniqueIdentifier>CFB3628F-0091-381D-42E3-3DB913285BC1</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generated\gui_generated\fatalerrorscreen_screen">
-      <UniqueIdentifier>D481141E-D036-BD6F-0BEC-CC5948F01C9C</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\generated\gui_generated\editcalibvaluesscreen_screen">
-      <UniqueIdentifier>7C4FDA0A-34DF-AE44-96F5-7A5794C02876</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generated\gui_generated\editcalibvaluesscreen_screen">
-      <UniqueIdentifier>46B80611-2AA8-F45C-08C0-77E6AAB5D747</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\generated\gui_generated\editcaliblowscreen_screen">
-      <UniqueIdentifier>8CED7314-8876-0725-7C65-0C74A023342C</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generated\gui_generated\dummyscreen_screen">
-      <UniqueIdentifier>EDDB0290-D3E3-E1CE-6346-8C183144659B</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generated\gui_generated\editcaliblowscreen_screen">
-      <UniqueIdentifier>141C88AF-1644-C5F2-6AC1-65D4B6FEB0B5</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\generated\gui_generated\dummyscreen_screen">
-      <UniqueIdentifier>ABD83144-24FD-6F4E-09B6-DCA984E137C4</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\generated\gui_generated\editcalibhighscreen_screen">
-      <UniqueIdentifier>9F28CBC3-B903-2A71-E53A-295AFE475DA3</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generated\gui_generated\editcalibhighscreen_screen">
-      <UniqueIdentifier>F523F8D3-ADEF-2E07-94A3-8E3BEB3C065D</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\generated\gui_generated\setamperescreen_screen">
-      <UniqueIdentifier>98C86827-94FD-4AC7-C6EE-7B47FA3819AC</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\generated\gui_generated\startupscreen_screen">
-      <UniqueIdentifier>8C73E612-8E8F-A0A3-5EE7-CEB4CA74B33F</UniqueIdentifier>
+    <Filter Include="Source Files\generated\simulator\video">
+      <UniqueIdentifier>06F675DE-AE26-85C5-2A06-FA6A85FB058E</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\generated\simulator\include\simulator">
-      <UniqueIdentifier>CB9C689B-4030-2642-14A1-FE9857EB1A72</UniqueIdentifier>
+      <UniqueIdentifier>ABB40BA4-E607-C7FC-43C0-C11E2DD772AB</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\generated\simulator\include\simulator\video">
-      <UniqueIdentifier>D8C728AF-3117-D70D-87CB-D842EEEB6EA2</UniqueIdentifier>
+      <UniqueIdentifier>F69570A5-551A-D5DE-A577-CCADA767AA5C</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\mainscreen_screen">
+      <UniqueIdentifier>9E480D8E-BA03-1C92-4763-5C120AC597EB</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\calibrationscreen_screen">
+      <UniqueIdentifier>9CEC1190-4D9A-A260-69ED-CB57AE941953</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\startupscreen_screen">
+      <UniqueIdentifier>BCF00110-1743-D01D-30AA-324D43AB5B21</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\mainscreen_screen">
+      <UniqueIdentifier>D4389F4C-2436-C975-86A4-2F48B2105799</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\calibrationscreen_screen">
+      <UniqueIdentifier>16171D3C-C4DC-A2B2-29BC-71EE3917AEA0</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\alarmconfigscreen_screen">
+      <UniqueIdentifier>A4183C8F-3860-4E29-A3CD-DD4AAA28FC86</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\jobcompletescreen_screen">
+      <UniqueIdentifier>F2D2B915-9A8E-CE23-A05E-83F2942A0093</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\jobcompletescreen_screen">
+      <UniqueIdentifier>004E459C-0E91-732A-D0B0-070512F69EAF</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\startupscreen_screen">
+      <UniqueIdentifier>7C149EC0-53E9-517F-22D7-3F168F246C51</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\configscreen_screen">
+      <UniqueIdentifier>40546679-DC5F-7D27-6CBA-9577063241C5</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\alarmconfigscreen_screen">
+      <UniqueIdentifier>FC2BF720-AEB1-318F-C6C3-53B8A97FE763</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\configscreen_screen">
+      <UniqueIdentifier>FA4F4B72-B9A3-819C-C319-B86E13CFCA96</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\containers">
+      <UniqueIdentifier>8E1FC693-FD1B-7586-8077-B6EDAB4D71ED</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\containers">
+      <UniqueIdentifier>28D53681-8896-430C-7BC0-FE01EEC9AE3F</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\requeststopscreen_screen">
+      <UniqueIdentifier>A84B40E0-7759-46F0-1A6D-C592C2C2E370</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\calibratezeroscreen_screen">
+      <UniqueIdentifier>E8501173-2AB3-5181-5765-DE1467ED05D6</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\requeststopscreen_screen">
+      <UniqueIdentifier>867F9DB3-D97A-5B67-8378-8DEEE2E0DFF2</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\gui\switchpressureconfigscreen_screen">
-      <UniqueIdentifier>F5AA9398-853A-79E1-9208-33DD478BA742</UniqueIdentifier>
+      <UniqueIdentifier>1D13B709-2A7C-5882-96F3-592BD2355DDA</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\calibratezeroscreen_screen">
+      <UniqueIdentifier>C70A99C9-9F1B-DEB7-785B-28857374829D</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\fatalerrorscreen_screen">
+      <UniqueIdentifier>BF99DE9B-6039-35C8-C44B-BE71F98EECE6</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\fatalerrorscreen_screen">
+      <UniqueIdentifier>9988533C-29B4-DC28-9910-D733E47D08F7</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\runscreen_screen">
+      <UniqueIdentifier>7BCB6E80-8E37-365A-95D4-EB9D6FCCD3D4</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\gui\switchpressureconfigscreen_screen">
-      <UniqueIdentifier>8BCA0D4A-283E-2EE6-2725-DBEC2A8038A5</UniqueIdentifier>
+      <UniqueIdentifier>6DD1E8C4-6423-BCE0-B26B-B600C93E964A</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\runscreen_screen">
+      <UniqueIdentifier>AF3DDCC7-E694-CCA5-C628-F426536683F2</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\editcalibvaluesscreen_screen">
+      <UniqueIdentifier>606D974A-3C14-5A73-9624-3720B2173326</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\editcalibvaluesscreen_screen">
+      <UniqueIdentifier>60B46947-80BB-0532-722A-84D091AB2120</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\dummyscreen_screen">
+      <UniqueIdentifier>0B72BBE9-9250-06C1-4A7A-7A752822F174</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\setamperescreen_screen">
+      <UniqueIdentifier>DC45831E-0F6F-27DA-65E8-5DAF3C656546</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\setamperescreen_screen">
+      <UniqueIdentifier>8BBB6EF3-748B-7C96-B6F7-FA53F97377F6</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\gui\behaviourconfigscreen_screen">
-      <UniqueIdentifier>9E57AB68-6886-1F31-87F4-486EED6F47D2</UniqueIdentifier>
+      <UniqueIdentifier>7A1FDA12-E0E9-5629-41DA-4993C40F3EAA</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\dummyscreen_screen">
+      <UniqueIdentifier>1307F51C-8A08-3579-1C82-AADD69CF2FC1</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\editcaliblowscreen_screen">
+      <UniqueIdentifier>CF59B5B1-89BE-A8CF-FFDD-DFAFE96012A8</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\editcaliblowscreen_screen">
+      <UniqueIdentifier>F5E90210-24FB-05E1-E285-EEA599DDB824</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\gui\behaviourconfigscreen_screen">
-      <UniqueIdentifier>FA557626-E008-0C28-C527-AA5F00820773</UniqueIdentifier>
+      <UniqueIdentifier>12C105CC-7C37-A3DC-2A79-DF178B8598D6</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\settimescreen_screen">
+      <UniqueIdentifier>A00C0E01-429D-4530-522A-4E03F7BD4B3E</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\settimescreen_screen">
+      <UniqueIdentifier>96D6F9A8-1F98-FFFF-D772-AF3EE2F645B3</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\editcalibhighscreen_screen">
+      <UniqueIdentifier>4407F350-93C7-BEE9-6008-E200EF0D8935</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\editcalibhighscreen_screen">
+      <UniqueIdentifier>1643EF25-C9E6-FD1C-31A8-70AE40C16069</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\settimescreen_screen">
+      <UniqueIdentifier>A961F300-5CA7-8030-8F1D-1D1070ED73BF</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\alarmconfigscreen_screen">
+      <UniqueIdentifier>B60532C8-5D4D-9C96-3537-BA25E80D8C1B</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\settimescreen_screen">
+      <UniqueIdentifier>DA126774-34C0-CFAA-4CD2-550D0C86DE5D</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\setamperescreen_screen">
+      <UniqueIdentifier>261866FB-A91C-F49A-B86C-036C6856092B</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\alarmconfigscreen_screen">
+      <UniqueIdentifier>1B40C80B-CD08-CAB2-68B6-CF6A94AD5D34</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\setamperescreen_screen">
+      <UniqueIdentifier>2A4863D2-DF6E-9135-6150-5DF7582A30E5</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\generated\gui_generated\behaviourconfigscreen_screen">
-      <UniqueIdentifier>4702EBEB-6DE4-6323-EE19-9ADE3472EC49</UniqueIdentifier>
+      <UniqueIdentifier>0ABD08BB-3ED4-169E-93E5-CC873B0B4040</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\runscreen_screen">
+      <UniqueIdentifier>47D4BCEC-2577-12B0-1332-CCD6856694A4</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\runscreen_screen">
+      <UniqueIdentifier>56143B62-2398-06C0-E1E9-CAEF7657C7DD</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\generated\gui_generated\behaviourconfigscreen_screen">
-      <UniqueIdentifier>DD9FC4DB-6065-D831-49E6-D6EFB6018AF8</UniqueIdentifier>
+      <UniqueIdentifier>1DBF13DE-5295-5622-2F27-0A61D01AD53E</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\requeststopscreen_screen">
+      <UniqueIdentifier>15EB6D8B-E2C5-6CE6-871B-153D8D467D0C</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\requeststopscreen_screen">
+      <UniqueIdentifier>18EEFFBA-8ACC-C09F-57B2-F0E4EA4F8F0C</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\containers">
+      <UniqueIdentifier>8C7B7CA3-831E-F034-F7D7-A2523D7A236C</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\containers">
+      <UniqueIdentifier>FBA712A2-6710-8829-CE5E-EA5E06E5C41A</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\calibratezeroscreen_screen">
+      <UniqueIdentifier>1CA7E651-58AC-30E2-4583-B8283A52006F</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\calibratezeroscreen_screen">
+      <UniqueIdentifier>F5A82C63-7B3D-F255-3F47-7B0D85B22891</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\generated\gui_generated\switchpressureconfigscreen_screen">
-      <UniqueIdentifier>82F770E5-ECB2-AFFF-DEC8-60B02E056268</UniqueIdentifier>
+      <UniqueIdentifier>038D911A-5A5E-0531-1070-2CE8F262D6E4</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\mainscreen_screen">
+      <UniqueIdentifier>66878C3C-0F57-193A-87EA-2050142036AA</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\mainscreen_screen">
+      <UniqueIdentifier>C7BABA6B-87CD-BA60-9CF1-DE2678B25239</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\jobcompletescreen_screen">
+      <UniqueIdentifier>B0D0F8EA-ADC8-0F7C-A18C-157DA8C4BAF2</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\calibrationscreen_screen">
+      <UniqueIdentifier>88924E1D-5B12-ED42-485F-115168BD9FDB</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\jobcompletescreen_screen">
+      <UniqueIdentifier>F9405B84-F6E3-FD14-2E24-63D338ACA744</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\calibrationscreen_screen">
+      <UniqueIdentifier>8BBA67E7-88A9-4ED4-8209-5F7B9D30E5F8</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\startupscreen_screen">
+      <UniqueIdentifier>EBE29216-A24A-F280-0318-325D47038825</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\startupscreen_screen">
+      <UniqueIdentifier>60F4911E-E7FD-9F24-83ED-1223357D1E71</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\fatalerrorscreen_screen">
+      <UniqueIdentifier>EAFD97DB-6DDF-2C86-FCC5-13DEFD8DD7DE</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\fatalerrorscreen_screen">
+      <UniqueIdentifier>2F9945FA-43F5-F17F-2AF9-428E08841C39</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\configscreen_screen">
+      <UniqueIdentifier>AFF6F322-621D-5F36-569E-636BA14A5F8E</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\configscreen_screen">
+      <UniqueIdentifier>23D1F83E-2430-4639-4371-5417F8D3041F</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\editcalibvaluesscreen_screen">
+      <UniqueIdentifier>EEC6DD74-92C5-663E-1FFB-A0A1B93F9552</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\editcalibvaluesscreen_screen">
+      <UniqueIdentifier>63BEF23A-E525-2F8A-A2E6-229477D1F539</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\editcaliblowscreen_screen">
+      <UniqueIdentifier>B488B757-E167-DBE9-AA85-881D2243D090</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\editcaliblowscreen_screen">
+      <UniqueIdentifier>74A60ADC-A4E2-3F98-FD77-D11E4114BCB9</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\editcalibhighscreen_screen">
+      <UniqueIdentifier>5ABD7B7B-4E4B-765C-E6D7-5E311B4754EE</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\editcalibhighscreen_screen">
+      <UniqueIdentifier>2241DCB7-AF65-A454-B4A2-33544FE0E63F</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\dummyscreen_screen">
+      <UniqueIdentifier>D275320D-C6F6-866F-8358-2EC4086CBB28</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\dummyscreen_screen">
+      <UniqueIdentifier>161C73F6-830A-5799-F06E-654D02566490</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\generated\gui_generated\switchpressureconfigscreen_screen">
-      <UniqueIdentifier>95BCF741-1610-6BB7-FB47-58F1218D0B9F</UniqueIdentifier>
+      <UniqueIdentifier>72DEE960-BF34-A065-E196-45F77C20AC7A</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -420,6 +420,18 @@
     <ClCompile Include="$(ApplicationRoot)\generated\simulator\src\mainBase.cpp">
       <Filter>Source Files\generated\simulator</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\gui\src\common\FrontendApplication.cpp">
+      <Filter>Source Files\gui\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\common\FrontendApplicationBase.cpp">
+      <Filter>Source Files\generated\gui_generated\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\model\Model.cpp">
+      <Filter>Source Files\gui\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\simulator\src\video\SoftwareMJPEGDecoder.cpp">
+      <Filter>Source Files\generated\simulator\video</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\gui\src\alarmconfigscreen_screen\alarmConfigScreenPresenter.cpp">
       <Filter>Source Files\gui\alarmconfigscreen_screen</Filter>
     </ClCompile>
@@ -428,6 +440,15 @@
     </ClCompile>
     <ClCompile Include="..\..\generated\gui_generated\src\alarmconfigscreen_screen\alarmConfigScreenViewBase.cpp">
       <Filter>Source Files\generated\gui_generated\alarmconfigscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\behaviourconfigscreen_screen\behaviourConfigScreenPresenter.cpp">
+      <Filter>Source Files\gui\behaviourconfigscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\behaviourconfigscreen_screen\behaviourConfigScreenView.cpp">
+      <Filter>Source Files\gui\behaviourconfigscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\behaviourconfigscreen_screen\behaviourConfigScreenViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\behaviourconfigscreen_screen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\gui\src\calibratezeroscreen_screen\calibrateZeroScreenPresenter.cpp">
       <Filter>Source Files\gui\calibratezeroscreen_screen</Filter>
@@ -501,12 +522,6 @@
     <ClCompile Include="..\..\generated\gui_generated\src\fatalerrorscreen_screen\fatalErrorScreenViewBase.cpp">
       <Filter>Source Files\generated\gui_generated\fatalerrorscreen_screen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\gui\src\common\FrontendApplication.cpp">
-      <Filter>Source Files\gui\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\generated\gui_generated\src\common\FrontendApplicationBase.cpp">
-      <Filter>Source Files\generated\gui_generated\common</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\gui\src\jobcompletescreen_screen\jobCompleteScreenPresenter.cpp">
       <Filter>Source Files\gui\jobcompletescreen_screen</Filter>
     </ClCompile>
@@ -524,9 +539,6 @@
     </ClCompile>
     <ClCompile Include="..\..\generated\gui_generated\src\mainscreen_screen\mainScreenViewBase.cpp">
       <Filter>Source Files\generated\gui_generated\mainscreen_screen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\gui\src\model\Model.cpp">
-      <Filter>Source Files\gui\model</Filter>
     </ClCompile>
     <ClCompile Include="..\..\gui\src\containers\numericKeyPad.cpp">
       <Filter>Source Files\gui\containers</Filter>
@@ -570,9 +582,6 @@
     <ClCompile Include="..\..\generated\gui_generated\src\settimescreen_screen\setTimeScreenViewBase.cpp">
       <Filter>Source Files\generated\gui_generated\settimescreen_screen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\generated\simulator\src\video\SoftwareMJPEGDecoder.cpp">
-      <Filter>Source Files\generated\simulator\video</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\gui\src\startupscreen_screen\startupScreenPresenter.cpp">
       <Filter>Source Files\gui\startupscreen_screen</Filter>
     </ClCompile>
@@ -581,15 +590,6 @@
     </ClCompile>
     <ClCompile Include="..\..\generated\gui_generated\src\startupscreen_screen\startupScreenViewBase.cpp">
       <Filter>Source Files\generated\gui_generated\startupscreen_screen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\gui\src\behaviourconfigscreen_screen\behaviourConfigScreenPresenter.cpp">
-      <Filter>Source Files\gui\behaviourconfigscreen_screen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\gui\src\behaviourconfigscreen_screen\behaviourConfigScreenView.cpp">
-      <Filter>Source Files\gui\behaviourconfigscreen_screen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\generated\gui_generated\src\behaviourconfigscreen_screen\behaviourConfigScreenViewBase.cpp">
-      <Filter>Source Files\generated\gui_generated\behaviourconfigscreen_screen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\gui\src\switchpressureconfigscreen_screen\switchPressureConfigScreenPresenter.cpp">
       <Filter>Source Files\gui\switchpressureconfigscreen_screen</Filter>
@@ -1012,6 +1012,36 @@
     <ClInclude Include="$(ApplicationRoot)\generated\simulator\include\simulator\mainBase.hpp">
       <Filter>Header Files\generated\simulator</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\generated\simulator\include\simulator\video\DirectFrameBufferVideoController.hpp">
+      <Filter>Header Files\generated\simulator\include\simulator\video</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\common\FrontendApplication.hpp">
+      <Filter>Header Files\gui\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\FrontendApplicationBase.hpp">
+      <Filter>Header Files\generated\gui_generated\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\common\FrontendHeap.hpp">
+      <Filter>Header Files\gui\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\FrontendHeapBase.hpp">
+      <Filter>Header Files\generated\gui_generated\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\simulator\include\simulator\video\MJPEGDecoder.hpp">
+      <Filter>Header Files\generated\simulator\include\simulator\video</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\model\Model.hpp">
+      <Filter>Header Files\gui\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\model\ModelListener.hpp">
+      <Filter>Header Files\gui\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\SimConstants.hpp">
+      <Filter>Header Files\generated\gui_generated\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\simulator\include\simulator\video\SoftwareMJPEGDecoder.hpp">
+      <Filter>Header Files\generated\simulator\include\simulator\video</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\gui\include\gui\alarmconfigscreen_screen\alarmConfigScreenPresenter.hpp">
       <Filter>Header Files\gui\alarmconfigscreen_screen</Filter>
     </ClInclude>
@@ -1020,6 +1050,15 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\alarmconfigscreen_screen\alarmConfigScreenViewBase.hpp">
       <Filter>Header Files\generated\gui_generated\alarmconfigscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\behaviourconfigscreen_screen\behaviourConfigScreenPresenter.hpp">
+      <Filter>Header Files\gui\behaviourconfigscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\behaviourconfigscreen_screen\behaviourConfigScreenView.hpp">
+      <Filter>Header Files\gui\behaviourconfigscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\behaviourconfigscreen_screen\behaviourConfigScreenViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\behaviourconfigscreen_screen</Filter>
     </ClInclude>
     <ClInclude Include="..\..\gui\include\gui\calibratezeroscreen_screen\calibrateZeroScreenPresenter.hpp">
       <Filter>Header Files\gui\calibratezeroscreen_screen</Filter>
@@ -1047,9 +1086,6 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\configscreen_screen\configScreenViewBase.hpp">
       <Filter>Header Files\generated\gui_generated\configscreen_screen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\generated\simulator\include\simulator\video\DirectFrameBufferVideoController.hpp">
-      <Filter>Header Files\generated\simulator\include\simulator\video</Filter>
     </ClInclude>
     <ClInclude Include="..\..\gui\include\gui\dummyscreen_screen\dummyScreenPresenter.hpp">
       <Filter>Header Files\gui\dummyscreen_screen</Filter>
@@ -1096,18 +1132,6 @@
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\fatalerrorscreen_screen\fatalErrorScreenViewBase.hpp">
       <Filter>Header Files\generated\gui_generated\fatalerrorscreen_screen</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\gui\include\gui\common\FrontendApplication.hpp">
-      <Filter>Header Files\gui\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\FrontendApplicationBase.hpp">
-      <Filter>Header Files\generated\gui_generated\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\gui\include\gui\common\FrontendHeap.hpp">
-      <Filter>Header Files\gui\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\FrontendHeapBase.hpp">
-      <Filter>Header Files\generated\gui_generated\common</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\gui\include\gui\jobcompletescreen_screen\jobCompleteScreenPresenter.hpp">
       <Filter>Header Files\gui\jobcompletescreen_screen</Filter>
     </ClInclude>
@@ -1125,15 +1149,6 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\mainscreen_screen\mainScreenViewBase.hpp">
       <Filter>Header Files\generated\gui_generated\mainscreen_screen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\generated\simulator\include\simulator\video\MJPEGDecoder.hpp">
-      <Filter>Header Files\generated\simulator\include\simulator\video</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\gui\include\gui\model\Model.hpp">
-      <Filter>Header Files\gui\model</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\gui\include\gui\model\ModelListener.hpp">
-      <Filter>Header Files\gui\model</Filter>
     </ClInclude>
     <ClInclude Include="..\..\gui\include\gui\containers\numericKeyPad.hpp">
       <Filter>Header Files\gui\containers</Filter>
@@ -1177,12 +1192,6 @@
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\settimescreen_screen\setTimeScreenViewBase.hpp">
       <Filter>Header Files\generated\gui_generated\settimescreen_screen</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\SimConstants.hpp">
-      <Filter>Header Files\generated\gui_generated\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\generated\simulator\include\simulator\video\SoftwareMJPEGDecoder.hpp">
-      <Filter>Header Files\generated\simulator\include\simulator\video</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\gui\include\gui\startupscreen_screen\startupScreenPresenter.hpp">
       <Filter>Header Files\gui\startupscreen_screen</Filter>
     </ClInclude>
@@ -1191,15 +1200,6 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\startupscreen_screen\startupScreenViewBase.hpp">
       <Filter>Header Files\generated\gui_generated\startupscreen_screen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\gui\include\gui\behaviourconfigscreen_screen\behaviourConfigScreenPresenter.hpp">
-      <Filter>Header Files\gui\behaviourconfigscreen_screen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\gui\include\gui\behaviourconfigscreen_screen\behaviourConfigScreenView.hpp">
-      <Filter>Header Files\gui\behaviourconfigscreen_screen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\behaviourconfigscreen_screen\behaviourConfigScreenViewBase.hpp">
-      <Filter>Header Files\generated\gui_generated\behaviourconfigscreen_screen</Filter>
     </ClInclude>
     <ClInclude Include="..\..\gui\include\gui\switchpressureconfigscreen_screen\switchPressureConfigScreenPresenter.hpp">
       <Filter>Header Files\gui\switchpressureconfigscreen_screen</Filter>

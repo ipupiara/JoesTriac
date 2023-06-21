@@ -29,11 +29,10 @@
           {
             "Type": "Gauge",
             "Name": "ampGauge",
-            "X": 263,
+            "X": 265,
             "Y": 133,
             "Width": 251,
             "Height": 251,
-            "Style": "Style2",
             "FileNameBackground": "__designer\\Blue_Gauges_original_gauge_background_style_01.png",
             "RotationCenterX": 125.0,
             "RotationCenterY": 125.0,
@@ -121,8 +120,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithIcon",
@@ -136,8 +134,7 @@
             "IconPressed": "startBtnPressed.png",
             "IconReleased": "startBtn.png",
             "IconHeight": 60,
-            "IconWidth": 170,
-            "ButtonStyle": "Style4"
+            "IconWidth": 170
           },
           {
             "Type": "ButtonWithIcon",
@@ -151,8 +148,7 @@
             "IconPressed": "stopBtnInactive.png",
             "IconReleased": "stopBtnInactive.png",
             "IconHeight": 60,
-            "IconWidth": 170,
-            "ButtonStyle": "Style4"
+            "IconWidth": 170
           },
           {
             "Type": "ButtonWithLabel",
@@ -174,8 +170,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "TextArea",
@@ -192,6 +187,24 @@
               "UseBuffer": true,
               "BufferSize": 10
             }
+          },
+          {
+            "Type": "TextureMapper",
+            "Name": "goalTextureMapper",
+            "X": 265,
+            "Y": 133,
+            "Width": 251,
+            "Height": 136,
+            "RenderingAlgorithm": "Nearest-neighbor",
+            "FileNameImage": "Red_Needles_goal_gauge_needle_style_01-removebg-preview.png",
+            "LockBitmapToCenter": true,
+            "XBitmapPosition": 115.5,
+            "YBitmapPosition": 18.0,
+            "Scale": 1.0,
+            "XOrigo": 125.5,
+            "YOrigo": 127.0,
+            "ZOrigo": 1000.0,
+            "CameraDistance": 1000.0
           }
         ],
         "Interactions": [
@@ -296,8 +309,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithIcon",
@@ -313,9 +325,7 @@
             "IconX": 77,
             "IconY": 15,
             "IconHeight": 30,
-            "IconWidth": 17,
-            "ButtonStyle": "Style4",
-            "IconStyle": "Icon5"
+            "IconWidth": 17
           },
           {
             "Type": "ButtonWithLabel",
@@ -337,12 +347,11 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
-            "Name": "alarmEditButton",
+            "Name": "configButton",
             "X": 230,
             "Y": 240,
             "Width": 170,
@@ -360,8 +369,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "TextArea",
@@ -402,7 +410,7 @@
             "X": 241,
             "Y": 396,
             "Width": 408,
-            "Height": 45,
+            "Height": 46,
             "TextId": "__SingleUse_TOZG",
             "TextRotation": "0",
             "AutoSize": true
@@ -444,15 +452,15 @@
             }
           },
           {
-            "InteractionName": "alarmConfigPressedInteraction",
+            "InteractionName": "behaviourPressedInteraction",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "alarmEditButton"
+              "TriggerComponent": "configButton"
             },
             "Action": {
               "Type": "ActionGotoScreen",
               "ScreenTransitionType": "ScreenTransitionNone",
-              "ActionComponent": "alarmConfigScreen"
+              "ActionComponent": "behaviourConfigScreen"
             }
           }
         ]
@@ -502,8 +510,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "Line",
@@ -589,7 +596,7 @@
             "X": 26,
             "Y": 27,
             "Width": 168,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_JIYE",
             "TextRotation": "0",
             "AutoSize": true
@@ -616,7 +623,7 @@
             "X": 26,
             "Y": 169,
             "Width": 132,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_ASW4",
             "TextRotation": "0",
             "AutoSize": true
@@ -627,7 +634,7 @@
             "X": 190,
             "Y": 169,
             "Width": 48,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_ZGP7",
             "TextRotation": "0",
             "Color": {
@@ -662,8 +669,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -685,8 +691,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -708,8 +713,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -731,8 +735,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -754,8 +757,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -777,8 +779,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -800,8 +801,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "TextArea",
@@ -809,7 +809,7 @@
             "X": 178,
             "Y": 290,
             "Width": 60,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_1KAN",
             "TextRotation": "0",
             "AutoSize": true,
@@ -825,7 +825,7 @@
             "X": 26,
             "Y": 290,
             "Width": 108,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_X3FF",
             "TextRotation": "0",
             "AutoSize": true
@@ -836,7 +836,7 @@
             "X": 26,
             "Y": 329,
             "Width": 108,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_I5ZJ",
             "TextRotation": "0",
             "AutoSize": true
@@ -847,7 +847,7 @@
             "X": 190,
             "Y": 329,
             "Width": 48,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_14SY",
             "TextRotation": "0",
             "AutoSize": true,
@@ -877,8 +877,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -900,8 +899,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           }
         ],
         "Interactions": [
@@ -1035,7 +1033,7 @@
             "X": 466,
             "Y": 60,
             "Width": 120,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_TPKG",
             "TextRotation": "0",
             "AutoSize": true
@@ -1062,7 +1060,7 @@
             "X": 466,
             "Y": 141,
             "Width": 60,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_MZQ4",
             "TextRotation": "0",
             "AutoSize": true
@@ -1107,8 +1105,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -1130,8 +1127,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "RadioButton",
@@ -1145,8 +1141,7 @@
             "FileNameSelectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_normal.png",
             "FileNameUnselected": "__designer\\Blue_Radio_buttons_Radio_Round_button_inactive.png",
             "FileNameUnselectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_pressed.png",
-            "RadioButtonGroup": "radioButtonGroup1",
-            "Style": "Style3"
+            "RadioButtonGroup": "radioButtonGroup1"
           },
           {
             "Type": "RadioButton",
@@ -1167,7 +1162,7 @@
             "X": 586,
             "Y": 108,
             "Width": 24,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_EHX2",
             "TextRotation": "0",
             "AutoSize": true
@@ -1178,7 +1173,7 @@
             "X": 653,
             "Y": 108,
             "Width": 36,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_CDHX",
             "TextRotation": "0",
             "AutoSize": true
@@ -1217,15 +1212,6 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "numPressed"
-            }
-          },
-          {
-            "InteractionName": "Interaction2",
-            "Trigger": {
-              "Type": "TriggerNone"
-            },
-            "Action": {
-              "Type": "ActionNone"
             }
           }
         ]
@@ -1296,8 +1282,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -1319,8 +1304,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -1342,8 +1326,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -1365,8 +1348,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -1388,8 +1370,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "TextArea",
@@ -1517,8 +1498,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "Line",
@@ -1659,8 +1639,7 @@
             "IconPressed": "startBtnInactive.png",
             "IconReleased": "startBtnInactive.png",
             "IconHeight": 60,
-            "IconWidth": 170,
-            "ButtonStyle": "Style4"
+            "IconWidth": 170
           },
           {
             "Type": "ButtonWithIcon",
@@ -1674,8 +1653,7 @@
             "IconPressed": "stopBtnPressed.png",
             "IconReleased": "stopBtn.png",
             "IconHeight": 60,
-            "IconWidth": 170,
-            "ButtonStyle": "Style4"
+            "IconWidth": 170
           },
           {
             "Type": "TextArea",
@@ -1699,7 +1677,7 @@
             "X": 14,
             "Y": 94,
             "Width": 60,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_K159",
             "TextRotation": "0",
             "AutoSize": true
@@ -1710,7 +1688,7 @@
             "X": 352,
             "Y": 94,
             "Width": 96,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_FEL2",
             "TextRotation": "0",
             "AutoSize": true
@@ -1758,7 +1736,6 @@
               "Blue": 255
             },
             "Direction": "Right",
-            "Style": "Style3",
             "FileNameBackground": "__designer\\Blue_ProgressIndicators_bg_medium_progress_indicator_bg_square_0_degrees.png",
             "IndicatorPositionX": 2,
             "IndicatorPositionY": 2,
@@ -1774,7 +1751,6 @@
             "Y": 133,
             "Width": 251,
             "Height": 251,
-            "Style": "Style2",
             "FileNameBackground": "__designer\\Blue_Gauges_original_gauge_background_style_01.png",
             "RotationCenterX": 125.0,
             "RotationCenterY": 125.0,
@@ -1887,8 +1863,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -1910,8 +1885,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "CustomContainerInstance",
@@ -2048,8 +2022,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
@@ -2071,8 +2044,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "CustomContainerInstance",
@@ -2164,7 +2136,6 @@
             "Y": 133,
             "Width": 251,
             "Height": 251,
-            "Style": "Style2",
             "FileNameBackground": "__designer\\Blue_Gauges_original_gauge_background_style_01.png",
             "RotationCenterX": 125.0,
             "RotationCenterY": 125.0,
@@ -2222,8 +2193,7 @@
             "IconPressed": "abortBtnPressed.png",
             "IconReleased": "abortBtn.png",
             "IconHeight": 60,
-            "IconWidth": 170,
-            "ButtonStyle": "Style4"
+            "IconWidth": 170
           },
           {
             "Type": "TextArea",
@@ -2247,7 +2217,7 @@
             "X": 14,
             "Y": 94,
             "Width": 60,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_3JKB",
             "TextRotation": "0",
             "AutoSize": true
@@ -2258,7 +2228,7 @@
             "X": 352,
             "Y": 94,
             "Width": 96,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_9JDU",
             "TextRotation": "0",
             "AutoSize": true
@@ -2306,7 +2276,6 @@
               "Blue": 255
             },
             "Direction": "Right",
-            "Style": "Style3",
             "FileNameBackground": "__designer\\Blue_ProgressIndicators_bg_medium_progress_indicator_bg_square_0_degrees.png",
             "IndicatorPositionX": 2,
             "IndicatorPositionY": 2,
@@ -2327,8 +2296,7 @@
             "IconPressed": "continueBtnPressed.png",
             "IconReleased": "continueBtn.png",
             "IconHeight": 60,
-            "IconWidth": 170,
-            "ButtonStyle": "Style4"
+            "IconWidth": 170
           },
           {
             "Type": "TextArea",
@@ -2336,7 +2304,7 @@
             "X": 526,
             "Y": 281,
             "Width": 252,
-            "Height": 22,
+            "Height": 23,
             "TextId": "__SingleUse_3974",
             "TextRotation": "0",
             "AutoSize": true
@@ -2428,8 +2396,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "TextArea",
@@ -2533,8 +2500,7 @@
             "Width": 170,
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
-            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "Style": "Style4"
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png"
           },
           {
             "Type": "Button",
@@ -2543,8 +2509,7 @@
             "Width": 170,
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
-            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "Style": "Style4"
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png"
           },
           {
             "Type": "Button",
@@ -2554,8 +2519,7 @@
             "Width": 170,
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
-            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "Style": "Style4"
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png"
           },
           {
             "Type": "Button",
@@ -2564,8 +2528,7 @@
             "Width": 170,
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
-            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "Style": "Style4"
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png"
           },
           {
             "Type": "Button",
@@ -2574,8 +2537,7 @@
             "Width": 170,
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
-            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "Style": "Style4"
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png"
           },
           {
             "Type": "Button",
@@ -2585,8 +2547,7 @@
             "Width": 170,
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
-            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "Style": "Style4"
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png"
           },
           {
             "Type": "Button",
@@ -2595,8 +2556,16 @@
             "Width": 170,
             "Height": 60,
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
-            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "Style": "Style4"
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "image1",
+            "X": 644,
+            "Y": 344,
+            "Width": 20,
+            "Height": 100,
+            "RelativeFilename": "Red_Needles_goal_gauge_needle_style_01.png"
           }
         ],
         "Interactions": [
@@ -2739,7 +2708,7 @@
             "X": 297,
             "Y": 147,
             "Width": 72,
-            "Height": 45,
+            "Height": 46,
             "TextId": "__SingleUse_TOWM",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2766,7 +2735,7 @@
             "X": 273,
             "Y": 225,
             "Width": 96,
-            "Height": 45,
+            "Height": 46,
             "TextId": "__SingleUse_0Q2U",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2796,8 +2765,7 @@
               "Green": 255,
               "Blue": 255
             },
-            "TextRotation": "0",
-            "Style": "Style4"
+            "TextRotation": "0"
           },
           {
             "Type": "TextArea",
@@ -2848,8 +2816,7 @@
             "FileNameSelectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_normal.png",
             "FileNameUnselected": "__designer\\Blue_Radio_buttons_Radio_Round_button_inactive.png",
             "FileNameUnselectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_pressed.png",
-            "RadioButtonGroup": "radioButtonGroup1",
-            "Style": "Style3"
+            "RadioButtonGroup": "radioButtonGroup1"
           },
           {
             "Type": "RadioButton",
@@ -2863,8 +2830,7 @@
             "FileNameSelectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_normal.png",
             "FileNameUnselected": "__designer\\Blue_Radio_buttons_Radio_Round_button_inactive.png",
             "FileNameUnselectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_pressed.png",
-            "RadioButtonGroup": "radioButtonGroup1",
-            "Style": "Style3"
+            "RadioButtonGroup": "radioButtonGroup1"
           },
           {
             "Type": "TextArea",
@@ -2921,6 +2887,363 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "autoButtonOff"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "behaviourConfigScreen",
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "box1",
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 176,
+              "Green": 247,
+              "Blue": 191
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "alarmConfigButton",
+            "X": 36,
+            "Y": 41,
+            "Width": 240,
+            "Height": 50,
+            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
+            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
+            "TextId": "__SingleUse_JM3H",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "switchPressureConfigButton",
+            "X": 36,
+            "Y": 113,
+            "Width": 240,
+            "Height": 50,
+            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
+            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
+            "TextId": "__SingleUse_6TSM",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 315,
+            "Y": 55,
+            "Width": 228,
+            "Height": 23,
+            "TextId": "__SingleUse_YTFD",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea2",
+            "X": 315,
+            "Y": 127,
+            "Width": 348,
+            "Height": 23,
+            "TextId": "__SingleUse_CTH6",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "backButton",
+            "X": 36,
+            "Y": 295,
+            "Width": 240,
+            "Height": 50,
+            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
+            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
+            "TextId": "__SingleUse_TOOL",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "alarmButtonPressedInteraction",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "alarmConfigButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "alarmConfigScreen"
+            }
+          },
+          {
+            "InteractionName": "backButtonPressedInteraction",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "backButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "configScreen"
+            }
+          },
+          {
+            "InteractionName": "switchPressureButtonPressedInteraction",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "switchPressureConfigButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "switchPressureConfigScreen"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "switchPressureConfigScreen",
+        "CanvasBufferSize": 12000,
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "box1",
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 176,
+              "Green": 247,
+              "Blue": 191
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "cancelButton",
+            "X": 381,
+            "Y": 363,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "TextId": "__SingleUse_UV0W",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "backNSaveButton",
+            "X": 586,
+            "Y": 363,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "TextId": "__SingleUse_PCPV",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "Line",
+            "Name": "cursor",
+            "X": 672,
+            "Y": 250,
+            "Width": 23,
+            "Height": 39,
+            "Color": {
+              "Red": 247,
+              "Green": 212,
+              "Blue": 15
+            },
+            "Alpha": 138,
+            "StartX": 5.0,
+            "StartY": 5.0,
+            "EndX": 5.0,
+            "EndY": 20.0,
+            "LineWidth": 20.0,
+            "LineEndingStyle": "Round"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "numericKeyPad1",
+            "Y": 23,
+            "Width": 346,
+            "Height": 457,
+            "CustomContainerDefinitionName": "numericKeyPad"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 379,
+            "Y": 132,
+            "Width": 180,
+            "Height": 23,
+            "TextId": "__SingleUse_F7T3",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "RadioButton",
+            "Name": "switchPressureOnRadiobutton",
+            "X": 580,
+            "Y": 121,
+            "Width": 44,
+            "Height": 44,
+            "Selected": true,
+            "FileNameSelected": "__designer\\Blue_Radio_buttons_Radio_Round_button_active.png",
+            "FileNameSelectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_pressed.png",
+            "FileNameUnselected": "__designer\\Blue_Radio_buttons_Radio_Round_button_inactive.png",
+            "FileNameUnselectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_pressed.png",
+            "RadioButtonGroup": "radioButtonGroup1"
+          },
+          {
+            "Type": "RadioButton",
+            "Name": "switchPressureOffRadiobutton",
+            "X": 672,
+            "Y": 121,
+            "Width": 44,
+            "Height": 44,
+            "FileNameSelected": "__designer\\Blue_Radio_buttons_Radio_Round_button_active.png",
+            "FileNameSelectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_pressed.png",
+            "FileNameUnselected": "__designer\\Blue_Radio_buttons_Radio_Round_button_inactive.png",
+            "FileNameUnselectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_pressed.png",
+            "RadioButtonGroup": "radioButtonGroup1"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea2",
+            "X": 590,
+            "Y": 84,
+            "Width": 24,
+            "Height": 23,
+            "TextId": "__SingleUse_LTQX",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea3",
+            "X": 674,
+            "Y": 84,
+            "Width": 36,
+            "Height": 23,
+            "TextId": "__SingleUse_0Y8O",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea4",
+            "X": 379,
+            "Y": 251,
+            "Width": 240,
+            "Height": 23,
+            "TextId": "__SingleUse_9H0N",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "switchPressureTimeText",
+            "X": 668,
+            "Y": 243,
+            "Width": 48,
+            "Height": 46,
+            "TextId": "__SingleUse_SAF4",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_NDVA",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "cancelButtonPressedInteraction",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "cancelButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "cancelButtonPressed"
+            }
+          },
+          {
+            "InteractionName": "backNSaveButtonPressedInteraction",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "backNSaveButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "backNSaveButtonPressed"
+            }
+          },
+          {
+            "InteractionName": "numPressedInteraction",
+            "Trigger": {
+              "Type": "TriggerCustom",
+              "TriggerCustomTypeName": "numericKeyPad numPressed happens",
+              "TriggerComponent": "numericKeyPad1"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "numPressed"
             }
           }
         ]
@@ -3175,7 +3498,6 @@
     "SelectedColorDepth": 16,
     "StartupScreenName": "startupScreen",
     "SelectedStartupLanguage": "GB",
-    "Skin": "Blue",
     "TouchGfxPath": "../Middlewares/ST/touchgfx",
     "UIPath": ".",
     "AvailableColorDepths": [
@@ -3245,11 +3567,16 @@
     "PortraitSkinY": 0,
     "DisplayOrientation": "Landscape",
     "Family": "STM32F7",
+    "SubFamily": "STM32F7x9",
+    "Toolchain": "STM32CubeIDE",
     "Platform": "m7",
     "ProjectFile": "../STM32F769I_DISCO.ioc",
     "OptionalComponentsRoot": "../Middlewares/ST/touchgfx_components",
-    "OptionalComponents": []
+    "OptionalComponents": [],
+    "AdditionalFeatures": [
+      "Vector"
+    ]
   },
-  "Version": "4.20.0",
+  "Version": "4.21.3",
   "CreatedBy": "4.20.0"
 }

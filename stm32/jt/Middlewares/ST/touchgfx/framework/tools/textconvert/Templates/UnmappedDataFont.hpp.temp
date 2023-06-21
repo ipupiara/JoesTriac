@@ -107,6 +107,7 @@ protected:
         : Font(0, 0, 0, 0, 0, 0, 0, 0, 0, 0), glyphList(0), unicodes(0), glyphDataList(0), kerningData(0), gsubTable(0)
     {
     }
+
     int lookupUnicode(uint16_t unicode) const;
 
     const GlyphNode* glyphList;     ///< The list of glyphs

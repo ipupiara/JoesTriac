@@ -9,13 +9,12 @@
 #include <gui/mainscreen_screen/mainScreenPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
 #include <touchgfx/widgets/Button.hpp>
-#include <touchgfx/widgets/Gauge.hpp>
-#include <touchgfx/widgets/canvas/PainterRGB565Bitmap.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
 #include <touchgfx/widgets/ButtonWithIcon.hpp>
 #include <touchgfx/widgets/TextureMapper.hpp>
+#include <touchgfx/widgets/Gauge.hpp>
 
 class mainScreenViewBase : public touchgfx::View<mainScreenPresenter>
 {
@@ -47,8 +46,6 @@ protected:
     touchgfx::Box __background;
     touchgfx::Box box1;
     touchgfx::Button configButton;
-    touchgfx::Gauge ampGauge;
-    touchgfx::PainterRGB565Bitmap ampGaugePainter;
     touchgfx::Box dirtyBox;
     touchgfx::TextArea textArea1;
     touchgfx::TextAreaWithOneWildcard timeValueText;
@@ -58,6 +55,7 @@ protected:
     touchgfx::ButtonWithLabel setAmpereButton;
     touchgfx::TextAreaWithOneWildcard ampereText;
     touchgfx::TextureMapper goalTextureMapper;
+    touchgfx::Gauge ampGauge;
 
     /*
      * Wildcard Buffers
@@ -68,12 +66,6 @@ protected:
     touchgfx::Unicode::UnicodeChar ampereTextBuffer[AMPERETEXT_SIZE];
 
 private:
-
-    /*
-     * Canvas Buffer Size
-     */
-    static const uint32_t CANVAS_BUFFER_SIZE = 12000;
-    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
 
     /*
      * Callback Declarations

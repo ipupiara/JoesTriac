@@ -15,9 +15,6 @@ struct JPEG_RGB
     uint8_t B;
     uint8_t G;
     uint8_t R;
-#if VIDEO_DECODE_FORMAT == 32
-    uint8_t X;
-#endif
 };
 } // namespace
 
@@ -478,7 +475,13 @@ bool SoftwareMJPEGDecoder::decodeFrame(const touchgfx::Rect& area, uint8_t* fram
         memcpy(lineptr + startX * 3, lineBuffer + startX * 3, (endX - startX) * 3);
         lineptr += framebuffer_width * 3; //move to next line
 #else
-        memcpy(lineptr + startX, lineBuffer + startX * 4, (endX - startX) * 4);
+        JPEG_RGB* RGB_matrix = (JPEG_RGB*)lineBuffer;
+        //loop row RGB888->ARGB8888 for required line part
+        for (uint32_t counter = startX; counter < endX; counter++)
+        {
+            const uint32_t pix = (0xFF << 24) | (RGB_matrix[counter].R << 16) | (RGB_matrix[counter].G << 8) | RGB_matrix[counter].B;
+            *(lineptr + counter) = pix;
+        }
         lineptr += framebuffer_width; //move to next line
 #endif
     }

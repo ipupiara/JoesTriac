@@ -3,7 +3,6 @@
     "Screens": [
       {
         "Name": "mainScreen",
-        "CanvasBufferSize": 12000,
         "Components": [
           {
             "Type": "Box",
@@ -25,43 +24,6 @@
             "Height": 48,
             "Pressed": "configuration.png",
             "Released": "configuration.png"
-          },
-          {
-            "Type": "Gauge",
-            "Name": "ampGauge",
-            "X": 265,
-            "Y": 133,
-            "Width": 251,
-            "Height": 251,
-            "FileNameBackground": "__designer\\Blue_Gauges_original_gauge_background_style_01.png",
-            "RotationCenterX": 125.0,
-            "RotationCenterY": 125.0,
-            "StartAngle": -85.0,
-            "EndAngle": 85.0,
-            "RangeMax": 100.0,
-            "InitialValue": 50.0,
-            "Easing": "Linear",
-            "EasingOption": "In",
-            "FileNameNeedle": "__designer\\Blue_Needles_original_gauge_needle_style_01.png",
-            "NeedleRotationCenterX": 11.0,
-            "NeedleRotationCenterY": 55.0,
-            "NeedleMovingRenderingAlgorithm": "Bilinear Interpolation",
-            "NeedleSteadyRenderingAlgorithm": "Bilinear Interpolation",
-            "UseArc": true,
-            "FileNameArc": "__designer\\Blue_Gauges_original_gauge_fill_style_01.png",
-            "ArcColor": {
-              "Red": 20,
-              "Green": 151,
-              "Blue": 197
-            },
-            "SetArcPosition": true,
-            "ArcX": 28.0,
-            "ArcY": 30.0,
-            "ArcWidth": 196.0,
-            "ArcHeight": 88.0,
-            "ArcRadius": 94.0,
-            "ArcLineWidth": 14.0,
-            "ArcCapStyle": "Butt"
           },
           {
             "Type": "Box",
@@ -178,7 +140,7 @@
             "X": 465,
             "Y": 12,
             "Width": 144,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_DEJR",
             "TextRotation": "0",
             "AutoSize": true,
@@ -191,8 +153,8 @@
           {
             "Type": "TextureMapper",
             "Name": "goalTextureMapper",
-            "X": 265,
-            "Y": 133,
+            "X": 531,
+            "Y": 116,
             "Width": 251,
             "Height": 136,
             "RenderingAlgorithm": "Nearest-neighbor",
@@ -205,6 +167,34 @@
             "YOrigo": 127.0,
             "ZOrigo": 1000.0,
             "CameraDistance": 1000.0
+          },
+          {
+            "Type": "Gauge",
+            "Name": "ampGauge",
+            "X": 270,
+            "Y": 144,
+            "Width": 240,
+            "Height": 240,
+            "FileNameBackground": "__generated\\alternate_theme_images_widgets_gauge_medium_backgrounds_active_precision.png",
+            "RotationCenterX": 120.0,
+            "RotationCenterY": 120.0,
+            "StartAngle": -113.0,
+            "EndAngle": 112.0,
+            "RangeMax": 100.0,
+            "InitialValue": 50.0,
+            "Easing": "Linear",
+            "EasingOption": "In",
+            "FileNameNeedle": "__generated\\alternate_theme_images_widgets_gauge_medium_needles_smooth.png",
+            "NeedleRotationCenterX": 7.0,
+            "NeedleRotationCenterY": 67.0,
+            "NeedleMovingRenderingAlgorithm": "Bilinear Interpolation",
+            "NeedleSteadyRenderingAlgorithm": "Bilinear Interpolation",
+            "ArcColor": {
+              "Red": 20,
+              "Green": 151,
+              "Blue": 197
+            },
+            "ArcCapStyle": "Butt"
           }
         ],
         "Interactions": [
@@ -410,7 +400,7 @@
             "X": 241,
             "Y": 396,
             "Width": 408,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_TOZG",
             "TextRotation": "0",
             "AutoSize": true
@@ -538,7 +528,7 @@
             "X": 172,
             "Y": 11,
             "Width": 120,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_EUXQ",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1236,7 +1226,7 @@
             "X": 652,
             "Y": 51,
             "Width": 96,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_4WZ3",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1252,7 +1242,7 @@
             "X": 652,
             "Y": 150,
             "Width": 96,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_96UQ",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1378,7 +1368,7 @@
             "X": 676,
             "Y": 254,
             "Width": 72,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_MZOD",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1567,7 +1557,7 @@
             "X": 42,
             "Y": 45,
             "Width": 264,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_EJIV",
             "TextRotation": "0",
             "AutoSize": true
@@ -1578,7 +1568,7 @@
             "X": 42,
             "Y": 147,
             "Width": 168,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_25II",
             "TextRotation": "0",
             "AutoSize": true
@@ -1589,7 +1579,7 @@
             "X": 42,
             "Y": 228,
             "Width": 240,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_ZIV2",
             "TextRotation": "0",
             "AutoSize": true
@@ -1661,7 +1651,7 @@
             "X": 465,
             "Y": 12,
             "Width": 144,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_X5Q9",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1714,7 +1704,7 @@
             "X": 465,
             "Y": 82,
             "Width": 144,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_GCRP",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2201,7 +2191,7 @@
             "X": 465,
             "Y": 12,
             "Width": 144,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_EEDJ",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2254,7 +2244,7 @@
             "X": 465,
             "Y": 82,
             "Width": 144,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_RXFU",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2315,7 +2305,7 @@
             "X": 526,
             "Y": 316,
             "Width": 48,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_1D86",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2471,7 +2461,7 @@
             "X": 120,
             "Y": 133,
             "Width": 360,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_NW6D",
             "TextRotation": "0",
             "AutoSize": true
@@ -2482,7 +2472,7 @@
             "X": 120,
             "Y": 240,
             "Width": 264,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_P107",
             "TextRotation": "0",
             "AutoSize": true
@@ -2708,7 +2698,7 @@
             "X": 297,
             "Y": 147,
             "Width": 72,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_TOWM",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2735,7 +2725,7 @@
             "X": 273,
             "Y": 225,
             "Width": 96,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_0Q2U",
             "TextRotation": "0",
             "AutoSize": true,
@@ -3523,33 +3513,38 @@
         "Id": "LCD16bpp",
         "Features": [
           {
-            "Id": "RGB565",
-            "IsEnabled": true
-          },
-          {
-            "Id": "ARGB8888",
-            "IsEnabled": true
-          },
-          {
-            "Id": "L8_RGB565",
+            "Id": "TextureMapperImageFormats",
             "Features": [
               {
-                "Id": "BilinearInterpolation",
+                "Id": "RGB565",
+                "IsEnabled": true
+              },
+              {
+                "Id": "ARGB8888",
+                "IsEnabled": true
+              },
+              {
+                "Id": "L8_RGB565",
+                "Features": [
+                  {
+                    "Id": "BilinearInterpolation",
+                    "IsEnabled": true
+                  }
+                ]
+              },
+              {
+                "Id": "L8_RGB888",
+                "IsEnabled": true
+              },
+              {
+                "Id": "L8_ARGB888",
+                "IsEnabled": true
+              },
+              {
+                "Id": "A4",
                 "IsEnabled": true
               }
             ]
-          },
-          {
-            "Id": "L8_RGB888",
-            "IsEnabled": true
-          },
-          {
-            "Id": "L8_ARGB888",
-            "IsEnabled": true
-          },
-          {
-            "Id": "A4",
-            "IsEnabled": true
           }
         ]
       }
@@ -3574,9 +3569,10 @@
     "OptionalComponentsRoot": "../Middlewares/ST/touchgfx_components",
     "OptionalComponents": [],
     "AdditionalFeatures": [
-      "Vector"
+      "Vector",
+      "Video"
     ]
   },
-  "Version": "4.21.3",
+  "Version": "4.22.0",
   "CreatedBy": "4.20.0"
 }

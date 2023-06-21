@@ -41,4 +41,19 @@ int8_t GeneratedFont::getKerning(Unicode::UnicodeChar prevChar, const GlyphNode*
     }
     return 0;
 }
+
+const GlyphNode* FusedFont::getGlyph(Unicode::UnicodeChar unicode, const uint8_t*& pixelData, uint8_t& bitsPerPixel) const
+{
+    if (unicode < 0xAC00 || unicode > 0xD7A3)
+    {
+        return GeneratedFont::getGlyph(unicode, pixelData, bitsPerPixel);
+    }
+    else
+    {
+        fusedNode.unicode = unicode;
+        bitsPerPixel = 1;
+        pixelData = 0;
+        return const_cast<const GlyphNode*>(&fusedNode);
+    }
+}
 } // namespace touchgfx

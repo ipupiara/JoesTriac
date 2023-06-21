@@ -37,6 +37,9 @@
 	}
 
 	void GaugeWithGoal::setGoalAngle(float angle)
+	{
+
+	}
 
 	void GaugeWithGoal::paintGoalNeedle(float val)   //  todo tobe tested
 	{

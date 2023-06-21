@@ -42,6 +42,21 @@ protected:
     const FontContextualFormsTable* arabicTable; ///< Contextual forms
 };
 
+class FusedFont : public GeneratedFont
+{
+public:
+    FusedFont(const GlyphNode* glyphs, uint16_t numGlyphs, uint16_t height, uint16_t baseline, uint8_t pixAboveTop, uint8_t pixBelowBottom, uint8_t bitsPerPixel, uint8_t byteAlignRow, uint8_t maxLeft, uint8_t maxRight, const uint8_t* const* glyphDataInternalFlash, const KerningNode* kerningList, const Unicode::UnicodeChar fallbackChar, const Unicode::UnicodeChar ellipsisChar, const uint16_t* const gsubData, const FontContextualFormsTable* formsTable, GlyphNode& fontFusedNode)
+        : GeneratedFont(glyphs, numGlyphs, height, baseline, pixAboveTop, pixBelowBottom, bitsPerPixel, byteAlignRow,
+                        maxLeft, maxRight, glyphDataInternalFlash, kerningList, fallbackChar, ellipsisChar,
+                        gsubData, formsTable), fusedNode(fontFusedNode)
+    { }
+
+    using GeneratedFont::getGlyph;
+    virtual const GlyphNode* getGlyph(Unicode::UnicodeChar unicode, const uint8_t*& pixelData, uint8_t& bitsPerPixel) const;
+private:
+    GlyphNode& fusedNode;
+};
+
 struct BinaryFontData
 {
     uint32_t fontIndex;                // The font index (as used by TypedTextDatabase)
@@ -110,6 +125,7 @@ protected:
 private:
     typedef const Unicode::UnicodeChar (*array5ptr)[5];
     typedef const Unicode::UnicodeChar (*array4ptr)[4];
+
     void setupContextualTable(const struct touchgfx::BinaryFontData* data)
     {
         const uint16_t* const base = (const uint16_t*)(((const uint8_t*)data) + data->offsetToArabicTable);

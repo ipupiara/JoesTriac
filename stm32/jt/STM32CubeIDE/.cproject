@@ -49,10 +49,10 @@
                   <listOptionValue builtIn="false" value="DEBUG"/>
                 </option>
                 <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.includepaths.1890188396" name="Include paths (-I)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.includepaths" useByScannerDiscovery="false" valueType="includePath">
+                  <listOptionValue builtIn="false" value="../../STM32CubeIDE/Application/User"/>
+                  <listOptionValue builtIn="false" value="../../STM32CubeIDE/Application/User/tools"/>
+                  <listOptionValue builtIn="false" value="../../STM32CubeIDE/Application/User/tools/hw"/>
                   <listOptionValue builtIn="false" value="../../Core/Inc"/>
-                  <listOptionValue builtIn="false" value="../Application/User"/>
-                  <listOptionValue builtIn="false" value="../Application/User/tools"/>
-                  <listOptionValue builtIn="false" value="../Application/User/tools/hw"/>
                   <listOptionValue builtIn="false" value="../../Drivers/CMSIS/Include"/>
                   <listOptionValue builtIn="false" value="../../TouchGFX/target"/>
                   <listOptionValue builtIn="false" value="../../Drivers/STM32F7xx_HAL_Driver/Inc"/>
@@ -89,9 +89,9 @@
                 </option>
                 <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.includepaths.1946588243" name="Include paths (-I)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.includepaths" useByScannerDiscovery="false" valueType="includePath">
                   <listOptionValue builtIn="false" value="../../Core/Inc"/>
-                  <listOptionValue builtIn="false" value="../Application/User"/>
-                  <listOptionValue builtIn="false" value="../Application/User/tools"/>
-                  <listOptionValue builtIn="false" value="../Application/User/tools/hw"/>
+                  <listOptionValue builtIn="false" value="../../STM32CubeIDE/Application/User/tools/hw"/>
+                  <listOptionValue builtIn="false" value="../../STM32CubeIDE/Application/User/tools"/>
+                  <listOptionValue builtIn="false" value="../../STM32CubeIDE/Application/User"/>
                   <listOptionValue builtIn="false" value="../../Drivers/CMSIS/Include"/>
                   <listOptionValue builtIn="false" value="../../TouchGFX/target"/>
                   <listOptionValue builtIn="false" value="../../Drivers/STM32F7xx_HAL_Driver/Inc"/>
@@ -128,8 +128,7 @@
               <tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.1769738201" name="MCU G++ Linker" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker">
                 <option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.option.script.1702428719" name="Linker Script (-T)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.option.script" useByScannerDiscovery="false" value="${workspace_loc:/${ProjName}/STM32F769NIHX_FLASH.ld}" valueType="string"/>
                 <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.option.directories.0798473674" name="Library search path (-L)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.option.directories" useByScannerDiscovery="false" valueType="libPaths">
-                  <listOptionValue builtIn="false" value="C:/dev/strangerthings/test_ats/unknown_aecbb7dcce63/target/at/stm32f769i_disco/STM32F769I_DISCO/Middlewares/ST/touchgfx/lib/core/cortex_m7/gcc"/>
-                  <listOptionValue builtIn="false" value="D:/petersData/downloads/electronics/projects/JoesTriac/stm32/jt/Middlewares/ST/touchgfx/lib/core/cortex_m7/gcc"/>
+                  <listOptionValue builtIn="false" value="D:/petersData/downloads/electronics/projects/jt/Middlewares/ST/touchgfx/lib/core/cortex_m7/gcc"/>
                 </option>
                 <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.option.libraries.8981689553" name="Libraries (-l)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.option.libraries" useByScannerDiscovery="false" valueType="libs">
                   <listOptionValue builtIn="false" value=":libtouchgfx-float-abi-hard.a"/>
@@ -270,7 +269,7 @@
                 </option>
                 <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.option.directories.6129772043" name="Library search path (-L)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.option.directories" valueType="libPaths">
                   <listOptionValue builtIn="false" value="C:/dev/strangerthings/test_ats/unknown_aecbb7dcce63/target/at/stm32f769i_disco/STM32F769I_DISCO/Middlewares/ST/touchgfx/lib/core/cortex_m7/gcc"/>
-                  <listOptionValue builtIn="false" value="D:/petersData/downloads/electronics/projects/JoesTriac/stm32/jt/Middlewares/ST/touchgfx/lib/core/cortex_m7/gcc"/>
+                  <listOptionValue builtIn="false" value="D:/petersData/downloads/electronics/projects/jt/Middlewares/ST/touchgfx/lib/core/cortex_m7/gcc"/>
                 </option>
                 <inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.input.470872232" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.input">
                   <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
