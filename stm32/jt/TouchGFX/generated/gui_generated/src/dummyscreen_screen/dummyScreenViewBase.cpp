@@ -50,6 +50,10 @@ dummyScreenViewBase::dummyScreenViewBase() :
     image1.setXY(644, 344);
     image1.setBitmap(touchgfx::Bitmap(BITMAP_RED_NEEDLES_GOAL_GAUGE_NEEDLE_STYLE_01_ID));
     add(image1);
+
+    image2.setXY(524, 344);
+    image2.setBitmap(touchgfx::Bitmap(BITMAP_RED_NEEDLES_GOAL_GAUGE_NEEDLE_STYLE_01_REMOVEBG_PREVIEW_ID));
+    add(image2);
 }
 
 dummyScreenViewBase::~dummyScreenViewBase()

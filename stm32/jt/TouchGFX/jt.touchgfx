@@ -151,24 +151,6 @@
             }
           },
           {
-            "Type": "TextureMapper",
-            "Name": "goalTextureMapper",
-            "X": 531,
-            "Y": 116,
-            "Width": 251,
-            "Height": 136,
-            "RenderingAlgorithm": "Nearest-neighbor",
-            "FileNameImage": "Red_Needles_goal_gauge_needle_style_01-removebg-preview.png",
-            "LockBitmapToCenter": true,
-            "XBitmapPosition": 115.5,
-            "YBitmapPosition": 18.0,
-            "Scale": 1.0,
-            "XOrigo": 125.5,
-            "YOrigo": 127.0,
-            "ZOrigo": 1000.0,
-            "CameraDistance": 1000.0
-          },
-          {
             "Type": "Gauge",
             "Name": "ampGauge",
             "X": 270,
@@ -187,6 +169,34 @@
             "FileNameNeedle": "__generated\\alternate_theme_images_widgets_gauge_medium_needles_smooth.png",
             "NeedleRotationCenterX": 7.0,
             "NeedleRotationCenterY": 67.0,
+            "NeedleMovingRenderingAlgorithm": "Bilinear Interpolation",
+            "NeedleSteadyRenderingAlgorithm": "Bilinear Interpolation",
+            "ArcColor": {
+              "Red": 20,
+              "Green": 151,
+              "Blue": 197
+            },
+            "ArcCapStyle": "Butt"
+          },
+          {
+            "Type": "Gauge",
+            "Name": "goalGauge",
+            "X": 270,
+            "Y": 144,
+            "Width": 240,
+            "Height": 240,
+            "FileNameBackground": "invisible.png",
+            "RotationCenterX": 120.0,
+            "RotationCenterY": 120.0,
+            "StartAngle": -113.0,
+            "EndAngle": 112.0,
+            "RangeMax": 100.0,
+            "InitialValue": 50.0,
+            "Easing": "Linear",
+            "EasingOption": "In",
+            "FileNameNeedle": "Red_Needles_goal_gauge_needle_style_01-removebg-preview.png",
+            "NeedleRotationCenterX": 9.3,
+            "NeedleRotationCenterY": 110.0,
             "NeedleMovingRenderingAlgorithm": "Bilinear Interpolation",
             "NeedleSteadyRenderingAlgorithm": "Bilinear Interpolation",
             "ArcColor": {
@@ -2556,6 +2566,15 @@
             "Width": 20,
             "Height": 100,
             "RelativeFilename": "Red_Needles_goal_gauge_needle_style_01.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "image2",
+            "X": 524,
+            "Y": 344,
+            "Width": 20,
+            "Height": 100,
+            "RelativeFilename": "Red_Needles_goal_gauge_needle_style_01-removebg-preview.png"
           }
         ],
         "Interactions": [
@@ -3478,6 +3497,66 @@
             "ValueType": "uint8_t"
           }
         ]
+      },
+      {
+        "Name": "GaugeWithGoal",
+        "Width": 240,
+        "Height": 240,
+        "Components": [
+          {
+            "Type": "Gauge",
+            "Name": "valGauge",
+            "Width": 240,
+            "Height": 240,
+            "FileNameBackground": "__generated\\alternate_theme_images_widgets_gauge_medium_backgrounds_active_precision.png",
+            "RotationCenterX": 120.0,
+            "RotationCenterY": 120.0,
+            "StartAngle": -113.0,
+            "EndAngle": 112.0,
+            "RangeMax": 100.0,
+            "InitialValue": 50.0,
+            "Easing": "Linear",
+            "EasingOption": "In",
+            "FileNameNeedle": "__generated\\alternate_theme_images_widgets_gauge_medium_needles_smooth.png",
+            "NeedleRotationCenterX": 7.0,
+            "NeedleRotationCenterY": 67.0,
+            "NeedleMovingRenderingAlgorithm": "Bilinear Interpolation",
+            "NeedleSteadyRenderingAlgorithm": "Bilinear Interpolation",
+            "ArcColor": {
+              "Red": 20,
+              "Green": 151,
+              "Blue": 197
+            },
+            "ArcCapStyle": "Butt"
+          },
+          {
+            "Type": "Gauge",
+            "Name": "goalGauge",
+            "Width": 240,
+            "Height": 240,
+            "FileNameBackground": "invisible.png",
+            "RotationCenterX": 120.0,
+            "RotationCenterY": 120.0,
+            "StartAngle": -113.0,
+            "EndAngle": 112.0,
+            "RangeMax": 100.0,
+            "InitialValue": 50.0,
+            "Easing": "Linear",
+            "EasingOption": "In",
+            "FileNameNeedle": "Red_Needles_goal_gauge_needle_style_01-removebg-preview.png",
+            "NeedleRotationCenterX": 9.4,
+            "NeedleRotationCenterY": 110.0,
+            "NeedleMovingRenderingAlgorithm": "Bilinear Interpolation",
+            "NeedleSteadyRenderingAlgorithm": "Bilinear Interpolation",
+            "ArcColor": {
+              "Red": 20,
+              "Green": 151,
+              "Blue": 197
+            },
+            "ArcCapStyle": "Butt"
+          }
+        ],
+        "Interactions": []
       }
     ],
     "Name": "jt",

@@ -645,6 +645,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/configscreen_screen/configScreenView.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/gui/GaugeWithGoal.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/containers/GaugeWithGoal.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/gui/numericKeyPad.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/containers/numericKeyPad.cpp</locationURI>
@@ -885,6 +890,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/configscreen_screen/configScreenViewBase.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/GaugeWithGoalBase.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/containers/GaugeWithGoalBase.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/numericKeyPadBase.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/containers/numericKeyPadBase.cpp</locationURI>
@@ -1040,6 +1050,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__generated/image_alternate_theme_images_widgets_gauge_medium_needles_smooth.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/image_Red_Needles_goal_gauge_needle_style_01-removebg-preview-outer.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_Red_Needles_goal_gauge_needle_style_01-removebg-preview-outer.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/image_Red_Needles_goal_gauge_needle_style_01-removebg-preview.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_Red_Needles_goal_gauge_needle_style_01-removebg-preview.cpp</locationURI>
@@ -1128,6 +1143,11 @@
 			<name>Application/User/generated/image_continueBtnPressed.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_continueBtnPressed.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_invisible.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_invisible.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_startBtn.cpp</name>

@@ -76,19 +76,6 @@ mainScreenViewBase::mainScreenViewBase() :
     ampereText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_DEJR));
     add(ampereText);
 
-    goalTextureMapper.setXY(531, 116);
-    goalTextureMapper.setBitmap(touchgfx::Bitmap(BITMAP_RED_NEEDLES_GOAL_GAUGE_NEEDLE_STYLE_01_REMOVEBG_PREVIEW_ID));
-    goalTextureMapper.setWidth(251);
-    goalTextureMapper.setHeight(136);
-    goalTextureMapper.setBitmapPosition(115.5f, 18.0f);
-    goalTextureMapper.setScale(1.0f);
-    goalTextureMapper.setCameraDistance(1000.0f);
-    goalTextureMapper.setOrigo(125.5f, 127.0f, 1000.0f);
-    goalTextureMapper.setCamera(125.5f, 68.0f);
-    goalTextureMapper.setAngles(0.0f, 0.0f, 0.0f);
-    goalTextureMapper.setRenderingAlgorithm(touchgfx::TextureMapper::NEAREST_NEIGHBOR);
-    add(goalTextureMapper);
-
     ampGauge.setBackground(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_GAUGE_MEDIUM_BACKGROUNDS_ACTIVE_PRECISION_ID));
     ampGauge.setPosition(270, 144, 240, 240);
     ampGauge.setCenter(120, 120);
@@ -99,6 +86,17 @@ mainScreenViewBase::mainScreenViewBase() :
     ampGauge.setMovingNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
     ampGauge.setSteadyNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
     add(ampGauge);
+
+    goalGauge.setBackground(touchgfx::Bitmap(BITMAP_INVISIBLE_ID));
+    goalGauge.setPosition(270, 144, 240, 240);
+    goalGauge.setCenter(120, 120);
+    goalGauge.setStartEndAngle(-113, 112);
+    goalGauge.setRange(0, 100);
+    goalGauge.setValue(50);
+    goalGauge.setNeedle(BITMAP_RED_NEEDLES_GOAL_GAUGE_NEEDLE_STYLE_01_REMOVEBG_PREVIEW_ID, 9.3f, 110.0f);
+    goalGauge.setMovingNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
+    goalGauge.setSteadyNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
+    add(goalGauge);
 }
 
 mainScreenViewBase::~mainScreenViewBase()

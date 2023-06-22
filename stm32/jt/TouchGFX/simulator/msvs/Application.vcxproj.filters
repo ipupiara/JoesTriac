@@ -600,6 +600,12 @@
     <ClCompile Include="..\..\generated\gui_generated\src\switchpressureconfigscreen_screen\switchPressureConfigScreenViewBase.cpp">
       <Filter>Source Files\generated\gui_generated\switchpressureconfigscreen_screen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\gui\src\containers\GaugeWithGoal.cpp">
+      <Filter>Source Files\gui\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\containers\GaugeWithGoalBase.cpp">
+      <Filter>Source Files\generated\gui_generated\containers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xml">
@@ -1209,6 +1215,12 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\switchpressureconfigscreen_screen\switchPressureConfigScreenViewBase.hpp">
       <Filter>Header Files\generated\gui_generated\switchpressureconfigscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\containers\GaugeWithGoal.hpp">
+      <Filter>Header Files\gui\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\GaugeWithGoalBase.hpp">
+      <Filter>Header Files\generated\gui_generated\containers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

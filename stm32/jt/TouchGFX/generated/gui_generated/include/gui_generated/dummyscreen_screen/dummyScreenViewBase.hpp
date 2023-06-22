@@ -35,6 +35,7 @@ protected:
     touchgfx::Button button6;
     touchgfx::Button button7;
     touchgfx::Image image1;
+    touchgfx::Image image2;
 
 private:
 
