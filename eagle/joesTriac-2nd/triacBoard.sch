@@ -3855,10 +3855,9 @@ naming: grid - package width</description>
 <part name="R5" library="resistor" deviceset="R-EU_" device="0309/12" value="22"/>
 <part name="OK1" library="optocoupler" deviceset="TIL196" device=""/>
 <part name="R7" library="resistor" deviceset="R-EU_" device="0207/15" value="70k"/>
-<part name="R8" library="resistor" deviceset="R-EU_" device="0207/15" value="1k"/>
-<part name="R9" library="resistor" deviceset="R-EU_" device="0207/15" value="30k"/>
-<part name="SUPPLY1" library="supply2" deviceset="GND" device=""/>
+<part name="R8" library="resistor" deviceset="R-EU_" device="0207/15" value="3k"/>
 <part name="R3" library="resistor" deviceset="R-EU_" device="0207/15" value="360"/>
+<part name="SUPPLY4" library="supply2" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -3892,9 +3891,8 @@ naming: grid - package width</description>
 <instance part="OK1" gate="A" x="5.08" y="119.38"/>
 <instance part="R7" gate="G$1" x="-17.78" y="121.92"/>
 <instance part="R8" gate="G$1" x="30.48" y="121.92"/>
-<instance part="R9" gate="G$1" x="30.48" y="111.76" rot="R270"/>
-<instance part="SUPPLY1" gate="GND" x="30.48" y="104.14"/>
 <instance part="R3" gate="G$1" x="-10.16" y="63.5" rot="R180"/>
+<instance part="SUPPLY4" gate="GND" x="20.32" y="114.3"/>
 </instances>
 <busses>
 </busses>
@@ -3910,8 +3908,9 @@ naming: grid - package width</description>
 <pinref part="SUPPLY2" gate="GND" pin="GND"/>
 </segment>
 <segment>
-<pinref part="R9" gate="G$1" pin="2"/>
-<pinref part="SUPPLY1" gate="GND" pin="GND"/>
+<pinref part="OK1" gate="A" pin="E"/>
+<pinref part="SUPPLY4" gate="GND" pin="GND"/>
+<wire x1="17.78" y1="116.84" x2="20.32" y2="116.84" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$4" class="0">
@@ -4050,17 +4049,13 @@ naming: grid - package width</description>
 <pinref part="OK1" gate="A" pin="C"/>
 <pinref part="R8" gate="G$1" pin="1"/>
 <wire x1="17.78" y1="121.92" x2="25.4" y2="121.92" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$17" class="0">
-<segment>
-<pinref part="OK1" gate="A" pin="E"/>
-<wire x1="17.78" y1="116.84" x2="129.54" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="25.4" y1="121.92" x2="25.4" y2="116.84" width="0.1524" layer="91"/>
 <wire x1="129.54" y1="116.84" x2="129.54" y2="25.4" width="0.1524" layer="91"/>
 <wire x1="129.54" y1="25.4" x2="43.18" y2="25.4" width="0.1524" layer="91"/>
 <wire x1="43.18" y1="25.4" x2="43.18" y2="35.56" width="0.1524" layer="91"/>
 <pinref part="X2" gate="-2" pin="K"/>
 <wire x1="43.18" y1="35.56" x2="48.26" y2="35.56" width="0.1524" layer="91"/>
+<wire x1="25.4" y1="116.84" x2="129.54" y2="116.84" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
