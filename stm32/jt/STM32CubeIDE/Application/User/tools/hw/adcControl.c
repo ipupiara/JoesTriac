@@ -77,6 +77,7 @@ void ADC_IRQ_(ADC_HandleTypeDef* hadc)
 {
 	uint32_t tmp1 = 0, tmp2 = 0;
 
+	// end of conversion
 	tmp1 = __HAL_ADC_GET_FLAG(hadc, ADC_FLAG_EOC);
 	tmp2 = __HAL_ADC_GET_IT_SOURCE(hadc, ADC_IT_EOC);
 	if(tmp1 && tmp2)
@@ -85,13 +86,15 @@ void ADC_IRQ_(ADC_HandleTypeDef* hadc)
 		__HAL_ADC_CLEAR_FLAG(hadc, ADC_FLAG_STRT | ADC_FLAG_EOC);
 
 	}
-	tmp1 = __HAL_ADC_GET_FLAG(hadc, ADC_FLAG_AWD);
-	tmp2 = __HAL_ADC_GET_IT_SOURCE(hadc, ADC_IT_AWD);
-	if(tmp1 && tmp2)
-	{
-		awdIrqHandler(hadc);
-		__HAL_ADC_CLEAR_FLAG(hadc, ADC_FLAG_AWD);
-	}
+
+	// analog watchdog
+//	tmp1 = __HAL_ADC_GET_FLAG(hadc, ADC_FLAG_AWD);
+//	tmp2 = __HAL_ADC_GET_IT_SOURCE(hadc, ADC_IT_AWD);
+//	if(tmp1 && tmp2)
+//	{
+//		awdIrqHandler(hadc);
+//		__HAL_ADC_CLEAR_FLAG(hadc, ADC_FLAG_AWD);
+//	}
 //	if (hadc->Instance->SR & ADC_FLAG_OVR)  {   // EOCS currently not set, so no OVR checked
 //
 //		__HAL_ADC_CLEAR_FLAG(hadc, ADC_FLAG_OVR);

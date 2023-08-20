@@ -8,12 +8,11 @@
 #include <mvp/View.hpp>
 #include <gui/requeststopscreen_screen/requestStopScreenPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
-#include <touchgfx/widgets/Gauge.hpp>
-#include <touchgfx/widgets/canvas/PainterRGB565Bitmap.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/ButtonWithIcon.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/containers/progress_indicators/BoxProgress.hpp>
+#include <gui/containers/GaugeWithGoal.hpp>
 
 class requestStopScreenViewBase : public touchgfx::View<requestStopScreenPresenter>
 {
@@ -44,8 +43,6 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Box box1;
-    touchgfx::Gauge ampGauge;
-    touchgfx::PainterRGB565Bitmap ampGaugePainter;
     touchgfx::TextAreaWithOneWildcard timeValueText;
     touchgfx::ButtonWithIcon abortButton;
     touchgfx::TextAreaWithOneWildcard setAmpereText;
@@ -57,6 +54,7 @@ protected:
     touchgfx::ButtonWithIcon continueButton;
     touchgfx::TextArea textArea4;
     touchgfx::TextAreaWithOneWildcard secondsb4ReturnText;
+    GaugeWithGoal ampGauge;
 
     /*
      * Wildcard Buffers
@@ -73,12 +71,6 @@ protected:
     touchgfx::Unicode::UnicodeChar secondsb4ReturnTextBuffer[SECONDSB4RETURNTEXT_SIZE];
 
 private:
-
-    /*
-     * Canvas Buffer Size
-     */
-    static const uint32_t CANVAS_BUFFER_SIZE = 12000;
-    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
 
     /*
      * Callback Declarations

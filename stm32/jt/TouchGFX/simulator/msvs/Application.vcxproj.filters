@@ -606,6 +606,18 @@
     <ClCompile Include="..\..\generated\gui_generated\src\containers\GaugeWithGoalBase.cpp">
       <Filter>Source Files\generated\gui_generated\containers</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\gui\src\containers\GaugeWithGoalOld.cpp">
+      <Filter>Source Files\gui\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\mainscreen_screen\mainScreenViewold.cpp">
+      <Filter>Source Files\gui\mainscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\requeststopscreen_screen\requestStopScreenViewold.cpp">
+      <Filter>Source Files\gui\requeststopscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\runscreen_screen\runScreenViewold.cpp">
+      <Filter>Source Files\gui\runscreen_screen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xml">
@@ -1221,6 +1233,9 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\GaugeWithGoalBase.hpp">
       <Filter>Header Files\generated\gui_generated\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\containers\GaugeWithGoaOldl.hpp">
+      <Filter>Header Files\gui\containers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

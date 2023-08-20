@@ -25,7 +25,7 @@ GaugeWithGoalBase::GaugeWithGoalBase()
     goalGauge.setStartEndAngle(-113, 112);
     goalGauge.setRange(0, 100);
     goalGauge.setValue(50);
-    goalGauge.setNeedle(BITMAP_RED_NEEDLES_GOAL_GAUGE_NEEDLE_STYLE_01_REMOVEBG_PREVIEW_ID, 9.4f, 110.0f);
+    goalGauge.setNeedle(BITMAP_RED_NEEDLES_GOAL_GAUGE_NEEDLE_STYLE_01_REMOVEBG_PREVIEW_OUTER_REMOVEBG_PREVIEW_ID, 9.4f, 110.0f);
     goalGauge.setMovingNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
     goalGauge.setSteadyNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
     add(goalGauge);

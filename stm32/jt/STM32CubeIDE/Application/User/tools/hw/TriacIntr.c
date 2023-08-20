@@ -17,6 +17,7 @@
 
 
 //#define nvic_enaIrq( IRQn)  NVIC->ISER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL))
+
 //#define nvic_disaIrq( IRQn)  \
 	do {  \
 		NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL)); __DSB(); 	__ISB(); \
@@ -65,7 +66,7 @@ typedef enum {
 } tim5RunStateType;
 
 tim5RunStateType tim5RunState;
-uint16_t tim5UsedDelay;
+//uint16_t tim5UsedDelay;
 
 TIM_HandleTypeDef htim5;
 //TIM_HandleTypeDef htim4;
@@ -85,6 +86,8 @@ uint16_t triacTriggerDelay;
 uint32_t secondsDurationTimerRemaining;
 
 uint32_t secondsInDurationTimer;
+
+
 
 
 void checkInterrupts()
@@ -147,6 +150,7 @@ uint16_t getTriacTriggerDelay()
 }
 
 
+
 uint32_t  delayCnt0, delayCnt1, extiCnt1 , extiCnt0 ;
 
 
@@ -161,7 +165,8 @@ void TIM5_IRQHandler(void)
 	  		++ delayCnt1;
 	  		enableRailTimerPwm();
 			triacDelayTimer.Instance->CNT = 0;
-			triacDelayTimer.Instance->ARR = stmTriggerDelayMax - tim5UsedDelay; // -debugTimerDelta;
+//			triacDelayTimer.Instance->ARR = stmTriggerDelayMax - tim5UsedDelay; // -debugTimerDelta;
+			triacDelayTimer.Instance->ARR = stmTriggerDelayMax - getTriacTriggerDelay(); // -debugTimerDelta;
 			tim5RunState = tim5RailPwmPhase;   //  approx 10
 	  	}  else {
 	  		++ delayCnt0;
@@ -179,7 +184,7 @@ void EXTI15_10_IRQHandler(void)
 		__HAL_GPIO_EXTI_CLEAR_IT(zeroPassPin_Pin);
 		if (HAL_GPIO_ReadPin(zeroPassPin_GPIO_Port,zeroPassPin_Pin))  {
 //			if ((extiCnt1 & 0x1) == 1)  {
-				tim5UsedDelay =  triacDelayTimer.Instance->ARR =triacTriggerDelay;
+//				tim5UsedDelay =  triacDelayTimer.Instance->ARR =getTriggerDelay();
 				triacDelayTimer.Instance->CNT =0;
 				tim5RunState = tim5DelayPhase;
 				startDelayTimer();
@@ -332,15 +337,15 @@ void stopTimersWhenDebugHalt()
 	DBGMCU->APB2FZ |= DBGMCU_APB2_FZ_DBG_TIM11_STOP;
 }
 
-void startDebuggingTriacRun()
-{
-	stopTimersWhenDebugHalt();
-
-	checkInterrupts();
-	float multi = 5.0 / 8.0;
-	triacTriggerDelay = stmTriggerDelayMax*  multi;
-	startTriacRun();
-}
+//void startDebuggingTriacRun()
+//{
+//	stopTimersWhenDebugHalt();
+//
+//	checkInterrupts();
+//	float multi = 5.0 / 8.0;
+//	triacTriggerDelay = stmTriggerDelayMax*  multi;
+//	startTriacRun();
+//}
 
 
 

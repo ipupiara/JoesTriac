@@ -1050,6 +1050,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__generated/image_alternate_theme_images_widgets_gauge_medium_needles_smooth.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/image_Red_Needles_goal_gauge_needle_style_01-removebg-preview-outer-removebg-preview.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_Red_Needles_goal_gauge_needle_style_01-removebg-preview-outer-removebg-preview.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/image_Red_Needles_goal_gauge_needle_style_01-removebg-preview-outer.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_Red_Needles_goal_gauge_needle_style_01-removebg-preview-outer.cpp</locationURI>

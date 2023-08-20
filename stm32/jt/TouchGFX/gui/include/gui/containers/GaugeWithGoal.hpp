@@ -9,6 +9,9 @@ public:
     GaugeWithGoal();
     virtual ~GaugeWithGoal() {}
 
+    void setValue(float val);
+    void setGoalValue(float val);
+
     virtual void initialize();
 protected:
 };

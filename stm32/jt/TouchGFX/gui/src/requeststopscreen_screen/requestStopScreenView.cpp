@@ -6,11 +6,17 @@ requestStopScreenView::requestStopScreenView()
 
 }
 
+
+
 void requestStopScreenView::setupScreen()
 {
     requestStopScreenViewBase::setupScreen();
     weldingTimeSec = presenter->getWeldingTimeSec();
     weldingAmps    = presenter->getWeldingAmps();
+
+	ampGauge.setValue(0);
+	ampGauge.setGoalValue(weldingAmps);
+	ampGauge.invalidate();
 
 	uint8_t  minVal = uint8_t( weldingTimeSec / 60);
 	uint8_t  secVal = (uint8_t) ( weldingTimeSec % 60);
@@ -35,9 +41,10 @@ void requestStopScreenView::update(float amps,uint32_t secRemain, uint16_t secon
 	currentAmpereText.setWildcard(currentAmpereTextBuffer);
 	currentAmpereText.invalidate();
 
-	 int ampValue = ((int)( amps  ));
-	 ampGauge.setValue(ampValue);
-	 ampGauge.invalidate();
+	ampGauge.setValue(amps );
+	ampGauge.setGoalValue(weldingAmps);
+	ampGauge.invalidate();
+
 
 	 uint8_t  minVal = uint8_t( secRemain / 60);
 	 uint8_t  secVal = (uint8_t) ( secRemain % 60);

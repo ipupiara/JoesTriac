@@ -13,6 +13,7 @@ void runScreenView::setupScreen()
     weldingAmps    = presenter->getWeldingAmps();
 
 	ampGauge.setValue(0);
+	ampGauge.setGoalValue(weldingAmps);
 	ampGauge.invalidate();
 
 	Unicode::snprintfFloat(setAmpereTextBuffer, 7, "%06.2f", weldingAmps);
@@ -51,9 +52,10 @@ void runScreenView::update(float amps,uint32_t secRemain )
 	currentAmpereText.setWildcard(currentAmpereTextBuffer);
 	currentAmpereText.invalidate();
 
-	 int ampValue = ((int)( amps  ));
-	 ampGauge.setValue(ampValue);
-	 ampGauge.invalidate();
+//	 int ampValue = ((int)( amps  ));
+
+		ampGauge.setValue(amps);
+		ampGauge.invalidate();
 
 	 uint8_t  minVal = uint8_t( secRemain / 60);
 	 uint8_t  secVal = (uint8_t) ( secRemain % 60);

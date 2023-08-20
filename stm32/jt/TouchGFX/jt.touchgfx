@@ -151,60 +151,13 @@
             }
           },
           {
-            "Type": "Gauge",
+            "Type": "CustomContainerInstance",
             "Name": "ampGauge",
-            "X": 270,
-            "Y": 144,
+            "X": 280,
+            "Y": 145,
             "Width": 240,
             "Height": 240,
-            "FileNameBackground": "__generated\\alternate_theme_images_widgets_gauge_medium_backgrounds_active_precision.png",
-            "RotationCenterX": 120.0,
-            "RotationCenterY": 120.0,
-            "StartAngle": -113.0,
-            "EndAngle": 112.0,
-            "RangeMax": 100.0,
-            "InitialValue": 50.0,
-            "Easing": "Linear",
-            "EasingOption": "In",
-            "FileNameNeedle": "__generated\\alternate_theme_images_widgets_gauge_medium_needles_smooth.png",
-            "NeedleRotationCenterX": 7.0,
-            "NeedleRotationCenterY": 67.0,
-            "NeedleMovingRenderingAlgorithm": "Bilinear Interpolation",
-            "NeedleSteadyRenderingAlgorithm": "Bilinear Interpolation",
-            "ArcColor": {
-              "Red": 20,
-              "Green": 151,
-              "Blue": 197
-            },
-            "ArcCapStyle": "Butt"
-          },
-          {
-            "Type": "Gauge",
-            "Name": "goalGauge",
-            "X": 270,
-            "Y": 144,
-            "Width": 240,
-            "Height": 240,
-            "FileNameBackground": "invisible.png",
-            "RotationCenterX": 120.0,
-            "RotationCenterY": 120.0,
-            "StartAngle": -113.0,
-            "EndAngle": 112.0,
-            "RangeMax": 100.0,
-            "InitialValue": 50.0,
-            "Easing": "Linear",
-            "EasingOption": "In",
-            "FileNameNeedle": "Red_Needles_goal_gauge_needle_style_01-removebg-preview.png",
-            "NeedleRotationCenterX": 9.3,
-            "NeedleRotationCenterY": 110.0,
-            "NeedleMovingRenderingAlgorithm": "Bilinear Interpolation",
-            "NeedleSteadyRenderingAlgorithm": "Bilinear Interpolation",
-            "ArcColor": {
-              "Red": 20,
-              "Green": 151,
-              "Blue": 197
-            },
-            "ArcCapStyle": "Butt"
+            "CustomContainerDefinitionName": "GaugeWithGoal"
           }
         ],
         "Interactions": [
@@ -1599,7 +1552,6 @@
       },
       {
         "Name": "runScreen",
-        "CanvasBufferSize": 12000,
         "Components": [
           {
             "Type": "Box",
@@ -1745,41 +1697,13 @@
             "ProgressInitialValue": 60
           },
           {
-            "Type": "Gauge",
+            "Type": "CustomContainerInstance",
             "Name": "ampGauge",
-            "X": 263,
-            "Y": 133,
-            "Width": 251,
-            "Height": 251,
-            "FileNameBackground": "__designer\\Blue_Gauges_original_gauge_background_style_01.png",
-            "RotationCenterX": 125.0,
-            "RotationCenterY": 125.0,
-            "StartAngle": -85.0,
-            "EndAngle": 85.0,
-            "RangeMax": 100.0,
-            "InitialValue": 50.0,
-            "Easing": "Linear",
-            "EasingOption": "In",
-            "FileNameNeedle": "__designer\\Blue_Needles_original_gauge_needle_style_01.png",
-            "NeedleRotationCenterX": 11.0,
-            "NeedleRotationCenterY": 55.0,
-            "NeedleMovingRenderingAlgorithm": "Bilinear Interpolation",
-            "NeedleSteadyRenderingAlgorithm": "Bilinear Interpolation",
-            "UseArc": true,
-            "FileNameArc": "__designer\\Blue_Gauges_original_gauge_fill_style_01.png",
-            "ArcColor": {
-              "Red": 20,
-              "Green": 151,
-              "Blue": 197
-            },
-            "SetArcPosition": true,
-            "ArcX": 28.0,
-            "ArcY": 30.0,
-            "ArcWidth": 196.0,
-            "ArcHeight": 88.0,
-            "ArcRadius": 94.0,
-            "ArcLineWidth": 14.0,
-            "ArcCapStyle": "Butt"
+            "X": 280,
+            "Y": 145,
+            "Width": 240,
+            "Height": 240,
+            "CustomContainerDefinitionName": "GaugeWithGoal"
           }
         ],
         "Interactions": [
@@ -2116,7 +2040,6 @@
       },
       {
         "Name": "requestStopScreen",
-        "CanvasBufferSize": 12000,
         "Components": [
           {
             "Type": "Box",
@@ -2128,43 +2051,6 @@
               "Green": 226,
               "Blue": 247
             }
-          },
-          {
-            "Type": "Gauge",
-            "Name": "ampGauge",
-            "X": 263,
-            "Y": 133,
-            "Width": 251,
-            "Height": 251,
-            "FileNameBackground": "__designer\\Blue_Gauges_original_gauge_background_style_01.png",
-            "RotationCenterX": 125.0,
-            "RotationCenterY": 125.0,
-            "StartAngle": -85.0,
-            "EndAngle": 85.0,
-            "RangeMax": 100.0,
-            "InitialValue": 50.0,
-            "Easing": "Linear",
-            "EasingOption": "In",
-            "FileNameNeedle": "__designer\\Blue_Needles_original_gauge_needle_style_01.png",
-            "NeedleRotationCenterX": 11.0,
-            "NeedleRotationCenterY": 55.0,
-            "NeedleMovingRenderingAlgorithm": "Bilinear Interpolation",
-            "NeedleSteadyRenderingAlgorithm": "Bilinear Interpolation",
-            "UseArc": true,
-            "FileNameArc": "__designer\\Blue_Gauges_original_gauge_fill_style_01.png",
-            "ArcColor": {
-              "Red": 20,
-              "Green": 151,
-              "Blue": 197
-            },
-            "SetArcPosition": true,
-            "ArcX": 28.0,
-            "ArcY": 30.0,
-            "ArcWidth": 196.0,
-            "ArcHeight": 88.0,
-            "ArcRadius": 94.0,
-            "ArcLineWidth": 14.0,
-            "ArcCapStyle": "Butt"
           },
           {
             "Type": "TextArea",
@@ -2324,6 +2210,15 @@
               "UseBuffer": true,
               "BufferSize": 10
             }
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "ampGauge",
+            "X": 280,
+            "Y": 145,
+            "Width": 240,
+            "Height": 240,
+            "CustomContainerDefinitionName": "GaugeWithGoal"
           }
         ],
         "Interactions": [
@@ -3543,7 +3438,7 @@
             "InitialValue": 50.0,
             "Easing": "Linear",
             "EasingOption": "In",
-            "FileNameNeedle": "Red_Needles_goal_gauge_needle_style_01-removebg-preview.png",
+            "FileNameNeedle": "Red_Needles_goal_gauge_needle_style_01-removebg-preview-outer-removebg-preview.png",
             "NeedleRotationCenterX": 9.4,
             "NeedleRotationCenterY": 110.0,
             "NeedleMovingRenderingAlgorithm": "Bilinear Interpolation",

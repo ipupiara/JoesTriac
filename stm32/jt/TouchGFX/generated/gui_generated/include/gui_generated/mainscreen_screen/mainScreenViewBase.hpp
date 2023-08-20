@@ -13,7 +13,7 @@
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
 #include <touchgfx/widgets/ButtonWithIcon.hpp>
-#include <touchgfx/widgets/Gauge.hpp>
+#include <gui/containers/GaugeWithGoal.hpp>
 
 class mainScreenViewBase : public touchgfx::View<mainScreenPresenter>
 {
@@ -53,8 +53,7 @@ protected:
     touchgfx::ButtonWithIcon stopButton;
     touchgfx::ButtonWithLabel setAmpereButton;
     touchgfx::TextAreaWithOneWildcard ampereText;
-    touchgfx::Gauge ampGauge;
-    touchgfx::Gauge goalGauge;
+    GaugeWithGoal ampGauge;
 
     /*
      * Wildcard Buffers

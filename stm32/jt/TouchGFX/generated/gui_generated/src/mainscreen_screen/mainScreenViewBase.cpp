@@ -76,27 +76,8 @@ mainScreenViewBase::mainScreenViewBase() :
     ampereText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_DEJR));
     add(ampereText);
 
-    ampGauge.setBackground(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_GAUGE_MEDIUM_BACKGROUNDS_ACTIVE_PRECISION_ID));
-    ampGauge.setPosition(270, 144, 240, 240);
-    ampGauge.setCenter(120, 120);
-    ampGauge.setStartEndAngle(-113, 112);
-    ampGauge.setRange(0, 100);
-    ampGauge.setValue(50);
-    ampGauge.setNeedle(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_GAUGE_MEDIUM_NEEDLES_SMOOTH_ID, 7, 67);
-    ampGauge.setMovingNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
-    ampGauge.setSteadyNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
+    ampGauge.setXY(280, 145);
     add(ampGauge);
-
-    goalGauge.setBackground(touchgfx::Bitmap(BITMAP_INVISIBLE_ID));
-    goalGauge.setPosition(270, 144, 240, 240);
-    goalGauge.setCenter(120, 120);
-    goalGauge.setStartEndAngle(-113, 112);
-    goalGauge.setRange(0, 100);
-    goalGauge.setValue(50);
-    goalGauge.setNeedle(BITMAP_RED_NEEDLES_GOAL_GAUGE_NEEDLE_STYLE_01_REMOVEBG_PREVIEW_ID, 9.3f, 110.0f);
-    goalGauge.setMovingNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
-    goalGauge.setSteadyNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
-    add(goalGauge);
 }
 
 mainScreenViewBase::~mainScreenViewBase()
@@ -106,7 +87,7 @@ mainScreenViewBase::~mainScreenViewBase()
 
 void mainScreenViewBase::setupScreen()
 {
-
+    ampGauge.initialize();
 }
 
 void mainScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)

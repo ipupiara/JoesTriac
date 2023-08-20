@@ -12,8 +12,7 @@
 #include <touchgfx/widgets/ButtonWithIcon.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/containers/progress_indicators/BoxProgress.hpp>
-#include <touchgfx/widgets/Gauge.hpp>
-#include <touchgfx/widgets/canvas/PainterRGB565Bitmap.hpp>
+#include <gui/containers/GaugeWithGoal.hpp>
 
 class runScreenViewBase : public touchgfx::View<runScreenPresenter>
 {
@@ -49,8 +48,7 @@ protected:
     touchgfx::TextAreaWithOneWildcard currentTimeText;
     touchgfx::TextAreaWithOneWildcard currentAmpereText;
     touchgfx::BoxProgress boxProgress1;
-    touchgfx::Gauge ampGauge;
-    touchgfx::PainterRGB565Bitmap ampGaugePainter;
+    GaugeWithGoal ampGauge;
 
     /*
      * Wildcard Buffers
@@ -65,12 +63,6 @@ protected:
     touchgfx::Unicode::UnicodeChar currentAmpereTextBuffer[CURRENTAMPERETEXT_SIZE];
 
 private:
-
-    /*
-     * Canvas Buffer Size
-     */
-    static const uint32_t CANVAS_BUFFER_SIZE = 12000;
-    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
 
     /*
      * Callback Declarations
