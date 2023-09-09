@@ -156,6 +156,10 @@ uint32_t  delayCnt0, delayCnt1, extiCnt1 , extiCnt0 ;
 
 //  #define debugTimerDelta  0   //  todo test works with 0
 
+
+
+//   triac delay timer
+
 void TIM5_IRQHandler(void)
 {
   	if (__HAL_TIM_GET_FLAG(&triacDelayTimer, TIM_FLAG_UPDATE) != 0)  {
@@ -176,7 +180,7 @@ void TIM5_IRQHandler(void)
 	}
 }
 
-
+//  zero pass pin irq
 void EXTI15_10_IRQHandler(void)
 {
 //	uint32_t ena;
@@ -201,9 +205,6 @@ void EXTI15_10_IRQHandler(void)
 		}
 	}
 }
-
-
-
 
 
 void initTriacDelayTimer()
@@ -239,6 +240,17 @@ void initTriacDelayTimer()
 	HAL_NVIC_SetPriority(TIM5_IRQn, triacTriggerIsrPrio, 0);
 	HAL_NVIC_EnableIRQ(TIM5_IRQn);
 	disableDelayTimer();
+}
+
+void TIM8_BRK_TIM12_IRQHandler(void)
+{
+	if (__HAL_TIM_GET_FLAG(&htim12, TIM_FLAG_UPDATE) != 0)
+	{
+		__HAL_TIM_CLEAR_IT(&htim12, TIM_IT_UPDATE);
+
+		//  todo set pulse len
+	}
+
 }
 
 void initTriacRailPwmTimer()
@@ -287,8 +299,12 @@ void initTriacRailPwmTimer()
 	    GPIO_InitStruct.Alternate = GPIO_AF9_TIM12;
 	    HAL_GPIO_Init(GPIOH, &GPIO_InitStruct);
 
-	    disableRailTimerPwm();
+		htim12.Instance->CR1 &= (~TIM_CR1_OPM_Msk);
+		htim12.Instance->CR1 &= (~TIM_CR1_UDIS_Msk);
+	    HAL_NVIC_SetPriority(TIM8_BRK_TIM12_IRQn, triacTriggerIsrPrio, 0);
+	    HAL_NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);
 
+	    disableRailTimerPwm();
 }
 
 
