@@ -14,6 +14,11 @@
 #define triacDelayTimer_IRQn TIM5_IRQn
 #define triacRailPwmTimer htim12
 
+#define ampsHigherPort  GPIOB
+#define ampsHigherPin   GPIO_PIN_14
+#define ampsLowerPort   GPIOB
+#define ampsLowerPin    GPIO_PIN_15    // all 2 above port/pins just dummy for develop/compile
+
 
 
 //#define nvic_enaIrq( IRQn)  NVIC->ISER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL))
@@ -22,6 +27,28 @@
 	do {  \
 		NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL)); __DSB(); 	__ISB(); \
 	while (0)
+
+#define isPinSet(portx, pinx)  ((portx->IDR & pinx) != 0) ? 1:0
+
+//GPIO_PinState HAL_GPIO_ReadPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
+//{
+//  GPIO_PinState bitstatus;
+//
+//  /* Check the parameters */
+//  assert_param(IS_GPIO_PIN(GPIO_Pin));
+//
+//  if((GPIOx->IDR & GPIO_Pin) != (uint32_t)GPIO_PIN_RESET)
+//  {
+//    bitstatus = GPIO_PIN_SET;
+//  }
+//  else
+//  {
+//    bitstatus = GPIO_PIN_RESET;
+//  }
+//  return bitstatus;
+//}
+
+#define isAmpsZero() ((isPinSet(ampsLowerPort, ampsLowerPin)) && (!(isPinSet(ampsHigherPort,ampsHigherPin))  ))
 
 
 #define TIM_CCxChannelCommand(TIMx , Channel , ChannelState) \
@@ -248,7 +275,11 @@ void TIM8_BRK_TIM12_IRQHandler(void)
 	{
 		__HAL_TIM_CLEAR_IT(&htim12, TIM_IT_UPDATE);
 
-		//  todo set pulse len
+		if (isAmpsZero()) {
+			htim12.Instance->CCR1 = 70;
+		}  else {
+			htim12.Instance->CCR1 = 0;
+		}
 	}
 
 }
@@ -331,6 +362,20 @@ void initZeroPassDetector()
 	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
 }
 
+void initAmpsZeroPassDetect()
+{
+	  __HAL_RCC_GPIOH_CLK_ENABLE();  // ??
+	  __HAL_RCC_GPIOB_CLK_ENABLE();
+
+	GPIO_InitTypeDef GPIO_InitStruct = {0};
+	GPIO_InitStruct.Pin = ampsHigherPin | ampsLowerPin;
+	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(ampsHigherPort, &GPIO_InitStruct);
+
+}
+
+
 void startTriacRun()
 {
 	enableZeroPassDetector();
@@ -375,6 +420,7 @@ void initInterruptsNPorts()
 	initTriacDelayTimer();
 	initTriacRailPwmTimer();
 	initBuzzerTimerPWM();
+	initAmpsZeroPassDetect();
 }
 
 
