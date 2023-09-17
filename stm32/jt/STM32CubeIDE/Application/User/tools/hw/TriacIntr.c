@@ -17,36 +17,17 @@
 #define ampsHigherPort  GPIOB
 #define ampsHigherPin   GPIO_PIN_14
 #define ampsLowerPort   GPIOB
-#define ampsLowerPin    GPIO_PIN_15    // all 2 above port/pins just dummy for develop/compile
+#define ampsLowerPin    GPIO_PIN_15
 
 
 
 //#define nvic_enaIrq( IRQn)  NVIC->ISER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL))
-
-//#define nvic_disaIrq( IRQn)  \
-	do {  \
-		NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL)); __DSB(); 	__ISB(); \
-	while (0)
+////#define nvic_disaIrq( IRQn)  \
+//	do {  \
+//		NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL)); __DSB(); 	__ISB(); \
+//	while (0)
 
 #define isPinSet(portx, pinx)  ((portx->IDR & pinx) != 0) ? 1:0
-
-//GPIO_PinState HAL_GPIO_ReadPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
-//{
-//  GPIO_PinState bitstatus;
-//
-//  /* Check the parameters */
-//  assert_param(IS_GPIO_PIN(GPIO_Pin));
-//
-//  if((GPIOx->IDR & GPIO_Pin) != (uint32_t)GPIO_PIN_RESET)
-//  {
-//    bitstatus = GPIO_PIN_SET;
-//  }
-//  else
-//  {
-//    bitstatus = GPIO_PIN_RESET;
-//  }
-//  return bitstatus;
-//}
 
 #define isAmpsZero() ((isPinSet(ampsLowerPort, ampsLowerPin)) && (!(isPinSet(ampsHigherPort,ampsHigherPin))  ))
 
@@ -271,17 +252,26 @@ void initTriacDelayTimer()
 
 void TIM8_BRK_TIM12_IRQHandler(void)
 {
-	if (__HAL_TIM_GET_FLAG(&htim12, TIM_FLAG_UPDATE) != 0)
-	{
-		__HAL_TIM_CLEAR_IT(&htim12, TIM_IT_UPDATE);
-
-		if (isAmpsZero()) {
-			htim12.Instance->CCR1 = 70;
-		}  else {
-			htim12.Instance->CCR1 = 0;
-		}
-	}
-
+//	if (__HAL_TIM_GET_FLAG(&htim12, TIM_FLAG_UPDATE) != 0)
+//	{
+//		__HAL_TIM_CLEAR_IT(&htim12, TIM_IT_UPDATE);
+//
+//		if (isAmpsZero()) {
+//			htim12.Instance->CCR1 = 70;
+//		}  else {
+//			htim12.Instance->CCR1 = 0;
+//		}
+//	}
+	//	if (__HAL_TIM_GET_FLAG(&htim12, TIM_FLAG_CC1) != 0)
+	//	{
+	//		__HAL_TIM_CLEAR_IT(&htim12, TIM_IT_CC1);
+	//
+	//		if (isAmpsZero()) {
+	//			htim12.Instance->CCR1 = 70;
+	//		}  else {
+	//			htim12.Instance->CCR1 = 0;
+	//		}
+	//	}
 }
 
 void initTriacRailPwmTimer()
@@ -332,8 +322,11 @@ void initTriacRailPwmTimer()
 
 		htim12.Instance->CR1 &= (~TIM_CR1_OPM_Msk);
 		htim12.Instance->CR1 &= (~TIM_CR1_UDIS_Msk);
-	    HAL_NVIC_SetPriority(TIM8_BRK_TIM12_IRQn, triacTriggerIsrPrio, 0);
-	    HAL_NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);
+
+//	    HAL_NVIC_SetPriority(TIM8_BRK_TIM12_IRQn, triacTriggerIsrPrio, 0);
+//	    HAL_NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);
+//	    htim12.Instance->DIER |= TIM_DIER_UIE;
+//		htim12.Instance->DIER |= TIM_DIER_CC1IE;
 
 	    disableRailTimerPwm();
 }
@@ -364,14 +357,14 @@ void initZeroPassDetector()
 
 void initAmpsZeroPassDetect()
 {
-	  __HAL_RCC_GPIOH_CLK_ENABLE();  // ??
-	  __HAL_RCC_GPIOB_CLK_ENABLE();
-
-	GPIO_InitTypeDef GPIO_InitStruct = {0};
-	GPIO_InitStruct.Pin = ampsHigherPin | ampsLowerPin;
-	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-	GPIO_InitStruct.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init(ampsHigherPort, &GPIO_InitStruct);
+//	  __HAL_RCC_GPIOH_CLK_ENABLE();  // ??
+//	  __HAL_RCC_GPIOB_CLK_ENABLE();
+//
+//	GPIO_InitTypeDef GPIO_InitStruct = {0};
+//	GPIO_InitStruct.Pin = ampsHigherPin | ampsLowerPin;
+//	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+//	GPIO_InitStruct.Pull = GPIO_NOPULL;
+//	HAL_GPIO_Init(ampsHigherPort, &GPIO_InitStruct);
 
 }
 
