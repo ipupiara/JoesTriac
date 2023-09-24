@@ -157,16 +157,13 @@ uint16_t getTriacTriggerDelay()
 	return res;
 }
 
-
-
-uint32_t  delayCnt0, delayCnt1, extiCnt1 , extiCnt0 ;
-
-
 //  #define debugTimerDelta  0   //  todo test works with 0
 
 
 
 //   triac delay timer
+
+uint32_t tim5UsedDelay; //  todo put to other global variables
 
 void TIM5_IRQHandler(void)
 {
@@ -174,14 +171,13 @@ void TIM5_IRQHandler(void)
 		__HAL_TIM_CLEAR_IT(&triacDelayTimer, TIM_IT_UPDATE);
 
 		if (tim5RunState == tim5DelayPhase)  {
-	  		++ delayCnt1;
+//	  		++ delayCnt1;
 	  		enableRailTimerPwm();
 			triacDelayTimer.Instance->CNT = 0;
-//			triacDelayTimer.Instance->ARR = stmTriggerDelayMax - tim5UsedDelay; // -debugTimerDelta;
-			triacDelayTimer.Instance->ARR = stmTriggerDelayMax - getTriacTriggerDelay(); // -debugTimerDelta;
+			triacDelayTimer.Instance->ARR = (stmTriggerDelayMax - tim5UsedDelay); // -debugTimerDelta;
 			tim5RunState = tim5RailPwmPhase;   //  approx 10
 	  	}  else {
-	  		++ delayCnt0;
+//	  		++ delayCnt0;
 	  		disableDelayTimer();
 	  		disableRailTimerPwm();
 	  	}
@@ -191,27 +187,19 @@ void TIM5_IRQHandler(void)
 //  zero pass pin irq
 void EXTI15_10_IRQHandler(void)
 {
-//	uint32_t ena;
 	  if(__HAL_GPIO_EXTI_GET_IT(zeroPassPin_Pin) != 0) {
 		__HAL_GPIO_EXTI_CLEAR_IT(zeroPassPin_Pin);
 		if (HAL_GPIO_ReadPin(zeroPassPin_GPIO_Port,zeroPassPin_Pin))  {
-//			if ((extiCnt1 & 0x1) == 1)  {
-//				tim5UsedDelay =  triacDelayTimer.Instance->ARR =getTriggerDelay();
+				tim5UsedDelay =	triacDelayTimer.Instance->ARR =getTriacTriggerDelay();
 				triacDelayTimer.Instance->CNT =0;
 				tim5RunState = tim5DelayPhase;
 				startDelayTimer();
 				disableRailTimerPwm();
-				++extiCnt1;
-//			}
-
 		}  else  {
-//			if ((extiCnt1 & 0x1) == 1)  {
 				disableRailTimerPwm();
-//				disableDelayTimer();  // with this line it does not run, dunnowhy
-				++extiCnt0;
-//			}
+//				disableDelayTimer();  // with this line it did not run, dunnowhy  TODO TEST AGAIN
 		}
-	}
+	  }
 }
 
 
@@ -252,26 +240,23 @@ void initTriacDelayTimer()
 
 void TIM8_BRK_TIM12_IRQHandler(void)
 {
-//	if (__HAL_TIM_GET_FLAG(&htim12, TIM_FLAG_UPDATE) != 0)
-//	{
-//		__HAL_TIM_CLEAR_IT(&htim12, TIM_IT_UPDATE);
-//
-//		if (isAmpsZero()) {
-//			htim12.Instance->CCR1 = 70;
-//		}  else {
-//			htim12.Instance->CCR1 = 0;
-//		}
-//	}
-	//	if (__HAL_TIM_GET_FLAG(&htim12, TIM_FLAG_CC1) != 0)
-	//	{
-	//		__HAL_TIM_CLEAR_IT(&htim12, TIM_IT_CC1);
-	//
-	//		if (isAmpsZero()) {
-	//			htim12.Instance->CCR1 = 70;
-	//		}  else {
-	//			htim12.Instance->CCR1 = 0;
-	//		}
-	//	}
+	uint8_t doit = 0;
+	if (__HAL_TIM_GET_FLAG(&htim12, TIM_FLAG_UPDATE) != 0)       {
+		__HAL_TIM_CLEAR_IT(&htim12, TIM_IT_UPDATE);
+		doit = 1;
+	}
+	if (__HAL_TIM_GET_FLAG(&htim12, TIM_FLAG_CC1) != 0)   {
+		__HAL_TIM_CLEAR_IT(&htim12, TIM_IT_CC1);
+		doit = 1;
+	}
+
+	if (doit == 1) {
+		if (isAmpsZero()) {
+			htim12.Instance->CCR1 = 70;
+		}  else {
+			htim12.Instance->CCR1 = 0;
+		}
+	}
 }
 
 void initTriacRailPwmTimer()
@@ -323,10 +308,9 @@ void initTriacRailPwmTimer()
 		htim12.Instance->CR1 &= (~TIM_CR1_OPM_Msk);
 		htim12.Instance->CR1 &= (~TIM_CR1_UDIS_Msk);
 
-//	    HAL_NVIC_SetPriority(TIM8_BRK_TIM12_IRQn, triacTriggerIsrPrio, 0);
-//	    HAL_NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);
-//	    htim12.Instance->DIER |= TIM_DIER_UIE;
-//		htim12.Instance->DIER |= TIM_DIER_CC1IE;
+	    HAL_NVIC_SetPriority(TIM8_BRK_TIM12_IRQn, triacTriggerIsrPrio, 0);
+	    HAL_NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);
+	    htim12.Instance->DIER |= (TIM_DIER_UIE |TIM_DIER_CC1IE) ;
 
 	    disableRailTimerPwm();
 }
@@ -357,14 +341,14 @@ void initZeroPassDetector()
 
 void initAmpsZeroPassDetect()
 {
-//	  __HAL_RCC_GPIOH_CLK_ENABLE();  // ??
-//	  __HAL_RCC_GPIOB_CLK_ENABLE();
-//
-//	GPIO_InitTypeDef GPIO_InitStruct = {0};
-//	GPIO_InitStruct.Pin = ampsHigherPin | ampsLowerPin;
-//	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-//	GPIO_InitStruct.Pull = GPIO_NOPULL;
-//	HAL_GPIO_Init(ampsHigherPort, &GPIO_InitStruct);
+	  __HAL_RCC_GPIOH_CLK_ENABLE();  // ex cubemx
+	  __HAL_RCC_GPIOB_CLK_ENABLE();
+
+	GPIO_InitTypeDef GPIO_InitStruct = {0};
+	GPIO_InitStruct.Pin = ampsHigherPin | ampsLowerPin;
+	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(ampsHigherPort, &GPIO_InitStruct);
 
 }
 
@@ -419,8 +403,8 @@ void initInterruptsNPorts()
 
 void initTriacIntr()
 {
-	stopTimersWhenDebugHalt();
-	delayCnt0 = delayCnt1 =  extiCnt1 = extiCnt0 =0;
+//	stopTimersWhenDebugHalt();
+
 	durationTimerOn = 0;
 	triacTriggerDelay = stmTriggerDelayMax;
 	initInterruptsNPorts();

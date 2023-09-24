@@ -129,13 +129,26 @@ void mainJt(void *argument)
 //								setZCalibAuto(mJtEv.mainUnion.zAuto);
 //								break;
 //						}
-						case calibTriacDelayDelta: {
-							calibTriacDelayChange(mJtEv.mainUnion.calibTriDelayCorrection);
+						case adcTick: {
+							adcValueReceived(mJtEv.mainUnion.advV);
+							fsmEv.evType=evAdcTick;
+
+							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
 							break;
 						}
-						case storeAlarmData: {
-							saveAlarmData(mJtEv.mainUnion.alarmData.alarmTime,mJtEv.mainUnion.alarmData.alarmNeeded,
-													mJtEv.mainUnion.alarmData.zCalibOn);
+						case runButtonClicked: {
+							fsmEv.evType=evStartPressed;
+							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
+							break;
+						}
+						case stopButtonClicked: {
+							fsmEv.evType=evStopPressed;
+							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
+							break;
+						}
+						case continueButtonClicked: {
+							fsmEv.evType=evContinuePressed;
+							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
 							break;
 						}
 						case storeWeldingTime: {
@@ -144,6 +157,20 @@ void mainJt(void *argument)
 						}
 						case storeWeldingAmpere: {
 							saveWeldingAmps(mJtEv.mainUnion.weldingAmps);
+							break;
+						}
+						case okPressed: {
+							fsmEv.evType=evOkPressed;
+							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
+							break;
+						}
+						case calibTriacDelayDelta: {
+							calibTriacDelayChange(mJtEv.mainUnion.calibTriDelayCorrection);
+							break;
+						}
+						case storeAlarmData: {
+							saveAlarmData(mJtEv.mainUnion.alarmData.alarmTime,mJtEv.mainUnion.alarmData.alarmNeeded,
+													mJtEv.mainUnion.alarmData.zCalibOn);
 							break;
 						}
 //						case saveZPotiPos: {
@@ -188,35 +215,8 @@ void mainJt(void *argument)
 							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
 							break;
 						}
-						case okPressed: {
-							fsmEv.evType=evOkPressed;
-							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
-							break;
-						}
 						case calibScreenReady: {
 							fsmEv.evType=evCalibScreenReady;
-							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
-							break;
-						}
-						case runButtonClicked: {
-							fsmEv.evType=evStartPressed;
-							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
-							break;
-						}
-						case stopButtonClicked: {
-							fsmEv.evType=evStopPressed;
-							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
-							break;
-						}
-						case continueButtonClicked: {
-							fsmEv.evType=evContinuePressed;
-							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
-							break;
-						}
-						case adcTick: {
-							adcValueReceived(mJtEv.mainUnion.advV);
-							fsmEv.evType=evAdcTick;
-
 							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
 							break;
 						}
