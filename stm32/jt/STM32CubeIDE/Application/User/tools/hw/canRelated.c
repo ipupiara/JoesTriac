@@ -41,7 +41,7 @@ uint8_t addTxMessage(CAN_HandleTypeDef *hcan, CAN_TxHeaderTypeDef *pHeader, uint
                                                            pHeader->IDE |
                                                            pHeader->RTR);
       }
-//  todo check debug follow macro / display macro
+
       /* Set up the DLC */
       hcan->Instance->sTxMailBox[transmitmailbox].TDTR = (pHeader->DLC);
 

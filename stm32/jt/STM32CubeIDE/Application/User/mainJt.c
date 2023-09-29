@@ -67,8 +67,6 @@ osStatus_t sendEventToMainJtMessageQ(pMainJtEventT pEv, fromIsrParameterType  fr
 
 void mainJtSecondTickCallback(void *argument)
 {
-//   todo check argument  and timer duration of one tick
-
 	CMainJtEventT  ev;
 	memset(&ev, 0x0, sizeof(ev));
 	ev.evType = secondTick;

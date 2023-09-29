@@ -240,23 +240,23 @@ void initTriacDelayTimer()
 
 void TIM8_BRK_TIM12_IRQHandler(void)
 {
-	uint8_t doit = 0;
-	if (__HAL_TIM_GET_FLAG(&htim12, TIM_FLAG_UPDATE) != 0)       {
-		__HAL_TIM_CLEAR_IT(&htim12, TIM_IT_UPDATE);
-		doit = 1;
-	}
-	if (__HAL_TIM_GET_FLAG(&htim12, TIM_FLAG_CC1) != 0)   {
-		__HAL_TIM_CLEAR_IT(&htim12, TIM_IT_CC1);
-		doit = 1;
-	}
-
-	if (doit == 1) {
-		if (isAmpsZero()) {
-			htim12.Instance->CCR1 = 70;
-		}  else {
-			htim12.Instance->CCR1 = 0;
-		}
-	}
+//	uint8_t doit = 0;
+//	if (__HAL_TIM_GET_FLAG(&htim12, TIM_FLAG_UPDATE) != 0)       {
+//		__HAL_TIM_CLEAR_IT(&htim12, TIM_IT_UPDATE);
+//		doit = 1;
+//	}
+//	if (__HAL_TIM_GET_FLAG(&htim12, TIM_FLAG_CC1) != 0)   {
+//		__HAL_TIM_CLEAR_IT(&htim12, TIM_IT_CC1);
+//		doit = 1;
+//	}
+//
+//	if (doit == 1) {
+//		if (isAmpsZero()) {
+//			htim12.Instance->CCR1 = 70;
+//		}  else {
+//			htim12.Instance->CCR1 = 0;
+//		}
+//	}
 }
 
 void initTriacRailPwmTimer()
@@ -308,9 +308,9 @@ void initTriacRailPwmTimer()
 		htim12.Instance->CR1 &= (~TIM_CR1_OPM_Msk);
 		htim12.Instance->CR1 &= (~TIM_CR1_UDIS_Msk);
 
-	    HAL_NVIC_SetPriority(TIM8_BRK_TIM12_IRQn, triacTriggerIsrPrio, 0);
-	    HAL_NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);
-	    htim12.Instance->DIER |= (TIM_DIER_UIE |TIM_DIER_CC1IE) ;
+//	    HAL_NVIC_SetPriority(TIM8_BRK_TIM12_IRQn, triacTriggerIsrPrio, 0);
+//	    HAL_NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);
+//	    htim12.Instance->DIER |= (TIM_DIER_UIE |TIM_DIER_CC1IE) ;
 
 	    disableRailTimerPwm();
 }

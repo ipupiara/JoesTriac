@@ -170,7 +170,7 @@ void stopTriacPidRun()
 real nextCorrection(real err)
 {
 	//  todo check if fp and art, icache and dchace are running (fp =float processor) ?
-//    real iFact = 1.0;  //  todo check if fp and art, icache and dchace are running (fp =float processor) ?
+//    real iFact = 1.0;
 //	real pFact = 1.0;
 //	real dFact = 1.0;
 	real res;
