@@ -79,10 +79,6 @@
     <ClCompile Include="..\..\generated\gui_generated\src\switchpressureconfigscreen_screen\switchPressureConfigScreenViewBase.cpp"/>
     <ClCompile Include="..\..\gui\src\containers\GaugeWithGoal.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\containers\GaugeWithGoalBase.cpp"/>
-    <ClCompile Include="..\..\gui\src\containers\GaugeWithGoalOld.cpp"/>
-    <ClCompile Include="..\..\gui\src\mainscreen_screen\mainScreenViewold.cpp"/>
-    <ClCompile Include="..\..\gui\src\requeststopscreen_screen\requestStopScreenViewold.cpp"/>
-    <ClCompile Include="..\..\gui\src\runscreen_screen\runScreenViewold.cpp"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xml"/>
@@ -291,7 +287,6 @@
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\switchpressureconfigscreen_screen\switchPressureConfigScreenViewBase.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\containers\GaugeWithGoal.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\GaugeWithGoalBase.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\containers\GaugeWithGoaOldl.hpp"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>

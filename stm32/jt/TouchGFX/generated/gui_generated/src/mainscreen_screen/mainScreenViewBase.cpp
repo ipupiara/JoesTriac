@@ -76,8 +76,8 @@ mainScreenViewBase::mainScreenViewBase() :
     ampereText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_DEJR));
     add(ampereText);
 
-    ampGauge.setXY(280, 145);
-    add(ampGauge);
+    gaugeWithGoal.setXY(280, 145);
+    add(gaugeWithGoal);
 }
 
 mainScreenViewBase::~mainScreenViewBase()
@@ -87,7 +87,7 @@ mainScreenViewBase::~mainScreenViewBase()
 
 void mainScreenViewBase::setupScreen()
 {
-    ampGauge.initialize();
+    gaugeWithGoal.initialize();
 }
 
 void mainScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)

@@ -11,6 +11,7 @@ public:
 
     void setValue(float val);
     void setGoalValue(float val);
+    virtual void invalidate();
 
     virtual void initialize();
 protected:

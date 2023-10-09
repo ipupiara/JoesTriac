@@ -15,8 +15,7 @@ public:
     virtual void configButtonPressed();
     virtual void startButtonPressed();
 protected:
-    void paintGoalNeedle(int16_t val);
- //   GaugeWithGoal gaugeWithGoal;
+
 };
 
 #endif // MAINSCREENVIEW_HPP

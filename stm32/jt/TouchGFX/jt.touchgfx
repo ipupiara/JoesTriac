@@ -152,7 +152,7 @@
           },
           {
             "Type": "CustomContainerInstance",
-            "Name": "ampGauge",
+            "Name": "gaugeWithGoal",
             "X": 280,
             "Y": 145,
             "Width": 240,

@@ -7,22 +7,6 @@ mainScreenView::mainScreenView()
 //	gaugeWithGoal.setGauge(ampGauge, &goalTextureMapper);
 }
 
-void mainScreenView::paintGoalNeedle(int16_t val)   //  todo tobe tested
-{
-//	uint16_t oldVal = ampGauge.getValue();
-//	ampGauge.setNeedle(BITMAP_RED_NEEDLES_GOAL_GAUGE_NEEDLE_STYLE_01_ID, 11, 115);
-//    ampGauge.setValue(val);
-//    ampGauge.setNeedle(BITMAP_BLUE_NEEDLES_ORIGINAL_GAUGE_NEEDLE_STYLE_01_ID, 11, 55);
-//    ampGauge.setValue(oldVal);
-//    //   ampGauge.invalidateContent();
-//        ampGauge.invalidate();
-	/*
-	 *
-	 * next idea: copy all the clock code from base, set the same values except the red needle
-	 * set all but the needle invisible....
-	 *
-	 */
-}
 
 void mainScreenView::setupScreen()
 {
@@ -33,9 +17,6 @@ void mainScreenView::setupScreen()
 	Unicode::snprintf(timeValueTextBuffer, 6, "%02d:%02d", minVal, secVal);
 	timeValueText.setWildcard(timeValueTextBuffer);
 	timeValueText.invalidate();
-
-	ampGauge.setValue(0);
-	ampGauge.invalidate();
 
 	float ampsValue = presenter->getWeldingAmps();
 //	 uint32_t  ampsI =  (ampsValue *100 ); // evtl + 0.1 or so... to prevent rounding loss
@@ -48,7 +29,9 @@ void mainScreenView::setupScreen()
 
 //	int16_t ampsValue16 = ampsValue;
 //	paintGoalNeedle(ampsValue16);
-//	gaugeWithGoal.setGoalValue(ampsValue);
+	gaugeWithGoal.setValue(0);
+	gaugeWithGoal.setGoalValue(ampsValue);
+	gaugeWithGoal.invalidate();
 }
 
 void mainScreenView::tearDownScreen()

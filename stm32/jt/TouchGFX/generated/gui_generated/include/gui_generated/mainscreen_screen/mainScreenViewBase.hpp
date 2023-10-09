@@ -53,7 +53,7 @@ protected:
     touchgfx::ButtonWithIcon stopButton;
     touchgfx::ButtonWithLabel setAmpereButton;
     touchgfx::TextAreaWithOneWildcard ampereText;
-    GaugeWithGoal ampGauge;
+    GaugeWithGoal gaugeWithGoal;
 
     /*
      * Wildcard Buffers
