@@ -108,7 +108,7 @@ void ADC_IRQHandler(void)
 }
 
 
-static void MX_ADC1_currentSensor_Init(void)
+static void ADC1_currentSensor_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
 //  ADC_AnalogWDGConfTypeDef AnalogWDGConfig = {0};
@@ -163,7 +163,7 @@ static void MX_ADC1_currentSensor_Init(void)
   }
 
   __HAL_ADC_ENABLE_IT(&currentSensorADC,ADC_IT_EOC);
-  HAL_NVIC_SetPriority(ADC_IRQn, triacTriggerIsrPrio, 0);
+  HAL_NVIC_SetPriority(ADC_IRQn, triacApplicationIsrPrio, 0);
   HAL_NVIC_EnableIRQ(ADC_IRQn);
 }
 
@@ -197,7 +197,7 @@ void initAdc()
 		errorHandler((uint32_t)mainJtAdcTimer ,stop,"mainJtAdcTimer ","initAdc");
 	}
 
-	MX_ADC1_currentSensor_Init();
+	ADC1_currentSensor_Init();
 
 
 //  todo eventually set adon to 0 when not executing triac regulation (save energy ) tobe tested !

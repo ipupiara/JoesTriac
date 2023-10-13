@@ -11152,7 +11152,7 @@ diameter 2.54 mm, horizontal, grid 10.16 mm</description>
 <text x="66.04" y="63.5" size="1.778" layer="91">WIP - work in progress in 637 part</text>
 <text x="91.44" y="-2.54" size="1.778" layer="91">ampHigherDown</text>
 <text x="60.96" y="-30.48" size="1.778" layer="91">ampLowerDown / if ok, divider as above</text>
-<text x="139.7" y="58.42" size="1.778" layer="91">ventually aplifier can be ommitted</text>
+<text x="139.7" y="58.42" size="1.778" layer="91">eventually aplifier can be ommitted</text>
 <text x="91.44" y="-7.62" size="1.778" layer="91">0V .. 3.3V tobe tested</text>
 </plain>
 <instances>

@@ -286,6 +286,8 @@ uStInt evCalibrateZeroSignalChecker(void)
 }
 
 
+//  todo handle error if adc not available, currently just hangs, should lead to fatal error
+
 void entryCalibrateScaleState(void)
 {
 	info_printf("entryCalibrateScaleState\n");

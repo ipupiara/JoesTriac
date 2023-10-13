@@ -134,7 +134,7 @@ void checkInterrupts()
 
 void setTriacTriggerDelay(int32_t durationTcnt)
 {
-	taskENTER_CRITICAL();
+//	taskENTER_CRITICAL();
 	if (durationTcnt < stmTriggerDelayMax) {
 		if (durationTcnt > 0) {
 			triacTriggerDelay = durationTcnt;
@@ -144,16 +144,16 @@ void setTriacTriggerDelay(int32_t durationTcnt)
 	} else {
 		triacTriggerDelay = stmTriggerDelayMax;
 	}
-	taskEXIT_CRITICAL();
+//	taskEXIT_CRITICAL();
 }
 
 
 uint16_t getTriacTriggerDelay()
 {
 	uint32_t res = 0;
-	taskENTER_CRITICAL();
-	res = triacTriggerDelay;
-	taskEXIT_CRITICAL();
+//	taskENTER_CRITICAL();
+	res = triacTriggerDelay;  // anyhow atomic access
+//	taskEXIT_CRITICAL();
 	return res;
 }
 
