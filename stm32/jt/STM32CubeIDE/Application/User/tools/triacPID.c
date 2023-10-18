@@ -165,7 +165,7 @@ void stopTriacPidRun()
 //}
 
 
-#define correctionThreshold  20 * kStepUnitsFactor
+#define correctionThreshold  10 * kStepUnitsFactor
 
 real nextCorrection(real err)
 {
@@ -230,12 +230,12 @@ real nextCorrection(real err)
     return res;
 }
 
-int16_t delayCorrectionI;
+int32_t delayCorrectionI;
 
 void calcNextTriacDelay()
 {  
 	float delayCorrectionF;
-	int16_t newDelay;
+	int32_t newDelay;
 
 
 	float amps;

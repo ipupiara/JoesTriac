@@ -27,16 +27,14 @@ extern "C"
 #define stmTriggerDelayMax  1000
 #define kStepUnitsFactor  1
 #define triacDelayPsc  995   // (defaultTriacDelayPsc / kStepUnitsFactor)
-										// effectively used max psc
 
 #else
 
 	#ifdef  stmTriggerDelayMax5000
-		#define stmTriggerDelayMax  5000
+//		#define stmTriggerDelayMax  5000
+		#define stmTriggerDelayMax  4950
 		#define kStepUnitsFactor  5
 		#define triacDelayPsc  197   // (defaultTriacDelayPsc / kStepUnitsFactor)
-												// effectively used max psc
-								// currently not in use, zx-detect makes the job
 
 	#else
 		#ifdef  stmTriggerDelayMax2000
@@ -79,9 +77,9 @@ void setBuzzerOn();
 void setBuzzerOff();
 void toggleBuzzer();
 
-extern uint16_t triacTriggerDelay;
+extern int32_t triacTriggerDelay;
 void setTriacTriggerDelay(int32_t cmsecs);
-uint16_t getTriacTriggerDelay();
+int32_t getTriacTriggerDelay();
 
 void startTriacRun();
 void stopTriacRun();

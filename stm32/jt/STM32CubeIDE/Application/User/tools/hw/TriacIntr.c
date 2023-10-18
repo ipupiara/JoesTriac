@@ -19,10 +19,18 @@
 #define ampsLowerPort   GPIOB
 #define ampsLowerPin    GPIO_PIN_15
 
-
+void assureInt32Between(int32_t* pVar,int32_t mini, int32_t maxi)
+{
+	if (*pVar > maxi) {
+		*pVar = maxi;
+	}
+	if (*pVar < mini ) {
+		*pVar = mini;
+	}
+}
 
 //#define nvic_enaIrq( IRQn)  NVIC->ISER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL))
-////#define nvic_disaIrq( IRQn)  \
+//#define nvic_disaIrq( IRQn)  \
 //	do {  \
 //		NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL)); __DSB(); 	__ISB(); \
 //	while (0)
@@ -89,7 +97,7 @@ void setTriggerPinOff();
 uint8_t isTriggerPinOn();
 void initBuzzerTimerPWM();
 
-uint16_t triacTriggerDelay;
+int32_t triacTriggerDelay;
 
 uint32_t secondsDurationTimerRemaining;
 
@@ -144,13 +152,13 @@ void setTriacTriggerDelay(int32_t durationTcnt)
 	} else {
 		triacTriggerDelay = stmTriggerDelayMax;
 	}
-//	taskEXIT_CRITICAL();
+//	taskEXIT_CRITICAL();  // omitted due to isr problems with freertos, should be no problem here due to atomicity, and 1 changer and 1 consumer-only
 }
 
 
-uint16_t getTriacTriggerDelay()
+int32_t getTriacTriggerDelay()
 {
-	uint32_t res = 0;
+	int32_t res = 0;
 //	taskENTER_CRITICAL();
 	res = triacTriggerDelay;  // anyhow atomic access
 //	taskEXIT_CRITICAL();
@@ -160,10 +168,10 @@ uint16_t getTriacTriggerDelay()
 //  #define debugTimerDelta  0   //  todo test works with 0
 
 
-
+//int32_t debugTimerDelta;
 //   triac delay timer
 
-uint32_t tim5UsedDelay; //  todo put to other global variables
+int32_t tim5UsedDelay; //  todo put to other global variables
 
 void TIM5_IRQHandler(void)
 {
@@ -174,8 +182,10 @@ void TIM5_IRQHandler(void)
 //	  		++ delayCnt1;
 	  		enableRailTimerPwm();
 			triacDelayTimer.Instance->CNT = 0;
-			triacDelayTimer.Instance->ARR = (stmTriggerDelayMax - tim5UsedDelay); // -debugTimerDelta;
-			tim5RunState = tim5RailPwmPhase;   //  approx 10
+			int32_t arr = (stmTriggerDelayMax - tim5UsedDelay) ; //-debugTimerDelta;
+			assureInt32Between(&arr, 1 * kStepUnitsFactor, stmTriggerDelayMax);
+			triacDelayTimer.Instance->ARR = arr;
+			tim5RunState = tim5RailPwmPhase;
 	  	}  else {
 //	  		++ delayCnt0;
 	  		disableDelayTimer();
@@ -236,6 +246,7 @@ void initTriacDelayTimer()
 	HAL_NVIC_SetPriority(TIM5_IRQn, triacTriggerIsrPrio, 0);
 	HAL_NVIC_EnableIRQ(TIM5_IRQn);
 	disableDelayTimer();
+//	debugTimerDelta = 0;
 }
 
 void TIM8_BRK_TIM12_IRQHandler(void)

@@ -516,7 +516,6 @@ tStatus initDefines()
 	waitSemaphoreDef.cb_size = 0;
 	waitSema=  osSemaphoreNew(1,0,&waitSemaphoreDef);
 
-	triacTriggerDelay = 0;
 	tStatus success =  tFailed;
 	success = restorePersistenData();
 
