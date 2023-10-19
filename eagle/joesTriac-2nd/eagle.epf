@@ -350,7 +350,7 @@ UsedLibrary="D:/petersData/eagle/lbr/zilog.lbr"
 [Win_1]
 Type="Schematic Editor"
 Loc="651 317 1250 716"
-State=1
+State=3
 Number=1
 File="AmmeterBoard-2nd.sch"
 View="-55.9927 -57.4456 222.832 129.628"
