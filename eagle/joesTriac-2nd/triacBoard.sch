@@ -6161,7 +6161,7 @@ naming: grid - package width</description>
 <part name="OK1" library="optocoupler" deviceset="TIL196" device=""/>
 <part name="R7" library="resistor" deviceset="R-EU_" device="0207/15" value="70k"/>
 <part name="R8" library="resistor" deviceset="R-EU_" device="0207/15" value="3k"/>
-<part name="R3" library="resistor" deviceset="R-EU_" device="0207/15" value="360"/>
+<part name="R3" library="resistor" deviceset="R-EU_" device="0207/15" value="220"/>
 <part name="SUPPLY4" library="supply2" deviceset="GND" device=""/>
 <part name="SUPPLY1" library="supply2" deviceset="GND" device=""/>
 <part name="C2" library="resistor" deviceset="C-EU" device="025-040X050" value="0.05U"/>
@@ -6174,8 +6174,8 @@ naming: grid - package width</description>
 <text x="45.72" y="83.82" size="1.778" layer="91">L</text>
 <text x="45.72" y="71.12" size="1.778" layer="91">N</text>
 <text x="35.56" y="60.96" size="1.778" layer="91">triac-trig</text>
-<text x="-86.36" y="58.42" size="1.778" layer="91">MOC3021</text>
-<text x="-86.36" y="60.96" size="1.778" layer="91">=====</text>
+<text x="-93.98" y="58.42" size="1.778" layer="91">MOC3021</text>
+<text x="-93.98" y="60.96" size="1.778" layer="91">=====</text>
 <text x="-88.9" y="60.96" size="1.778" layer="91">=====</text>
 </plain>
 <instances>
@@ -6191,7 +6191,7 @@ naming: grid - package width</description>
 </instance>
 <instance part="X2" gate="-1" x="50.8" y="43.18"/>
 <instance part="X2" gate="-2" x="50.8" y="35.56"/>
-<instance part="U$1" gate="G$1" x="-86.36" y="71.12" rot="MR0"/>
+<instance part="U$1" gate="G$1" x="-86.36" y="71.12"/>
 <instance part="R1" gate="G$1" x="-68.58" y="88.9"/>
 <instance part="R2" gate="G$1" x="-48.26" y="88.9" rot="MR0"/>
 <instance part="FRAME1" gate="G$1" x="-116.84" y="-12.7"/>
@@ -6204,7 +6204,7 @@ naming: grid - package width</description>
 <instance part="R8" gate="G$1" x="30.48" y="121.92"/>
 <instance part="R3" gate="G$1" x="-104.14" y="76.2" rot="R180"/>
 <instance part="SUPPLY4" gate="GND" x="20.32" y="114.3"/>
-<instance part="SUPPLY1" gate="GND" x="-96.52" y="55.88"/>
+<instance part="SUPPLY1" gate="GND" x="-99.06" y="55.88"/>
 <instance part="C2" gate="G$1" x="-60.96" y="66.04"/>
 <instance part="R4" gate="G$1" x="-40.64" y="60.96" rot="R270"/>
 </instances>
@@ -6222,9 +6222,10 @@ naming: grid - package width</description>
 <wire x1="17.78" y1="116.84" x2="20.32" y2="116.84" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="A1"/>
-<wire x1="-96.52" y1="66.04" x2="-96.52" y2="58.42" width="0.1524" layer="91"/>
+<pinref part="U$1" gate="G$1" pin="C"/>
+<wire x1="-96.52" y1="66.04" x2="-99.06" y2="66.04" width="0.1524" layer="91"/>
 <pinref part="SUPPLY1" gate="GND" pin="GND"/>
+<wire x1="-99.06" y1="66.04" x2="-99.06" y2="58.42" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="+5V" class="0">
@@ -6316,12 +6317,6 @@ naming: grid - package width</description>
 <wire x1="-40.64" y1="55.88" x2="-40.64" y2="50.8" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$3" class="0">
-<segment>
-<pinref part="R3" gate="G$1" pin="1"/>
-<wire x1="-99.06" y1="76.2" x2="-93.98" y2="76.2" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="N$6" class="0">
 <segment>
 <pinref part="R3" gate="G$1" pin="2"/>
@@ -6334,10 +6329,10 @@ naming: grid - package width</description>
 </net>
 <net name="N$7" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="A"/>
+<pinref part="U$1" gate="G$1" pin="A2"/>
+<wire x1="-76.2" y1="76.2" x2="-76.2" y2="88.9" width="0.1524" layer="91"/>
 <pinref part="R1" gate="G$1" pin="1"/>
-<wire x1="-76.2" y1="76.2" x2="-73.66" y2="76.2" width="0.1524" layer="91"/>
-<wire x1="-73.66" y1="76.2" x2="-73.66" y2="88.9" width="0.1524" layer="91"/>
+<wire x1="-76.2" y1="88.9" x2="-73.66" y2="88.9" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$5" class="0">
@@ -6383,15 +6378,24 @@ naming: grid - package width</description>
 <wire x1="-40.64" y1="78.74" x2="-38.1" y2="78.74" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$11" class="0">
+<net name="N$12" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="C"/>
-<wire x1="-76.2" y1="66.04" x2="-76.2" y2="71.12" width="0.1524" layer="91"/>
-<wire x1="-76.2" y1="71.12" x2="-63.5" y2="71.12" width="0.1524" layer="91"/>
+<pinref part="U$1" gate="G$1" pin="A1"/>
+<wire x1="-76.2" y1="66.04" x2="-68.58" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="-68.58" y1="66.04" x2="-68.58" y2="71.12" width="0.1524" layer="91"/>
 <wire x1="-63.5" y1="71.12" x2="-58.42" y2="71.12" width="0.1524" layer="91" curve="-180"/>
 <wire x1="-58.42" y1="71.12" x2="-40.64" y2="71.12" width="0.1524" layer="91"/>
 <pinref part="R4" gate="G$1" pin="1"/>
 <wire x1="-40.64" y1="71.12" x2="-40.64" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="-68.58" y1="71.12" x2="-66.04" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="-63.5" y1="71.12" x2="-66.04" y2="71.12" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$13" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="A"/>
+<pinref part="R3" gate="G$1" pin="1"/>
+<wire x1="-99.06" y1="76.2" x2="-96.52" y2="76.2" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>

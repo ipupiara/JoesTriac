@@ -71,21 +71,6 @@ void adcValueReceived(uint16_t adcVal)
 	taskEXIT_CRITICAL();
 }
 
-float adcVoltage()
-{
-	int16_t ampsAdcHex;
-	float   ampsAdcF;
-	float   adcMaxF = 0x0FFF;
-
-	float    Vf;
-
-	ampsAdcHex = getCurrentAmpsADCValue();
-	ampsAdcF  = ampsAdcHex;
-	Vf = (ampsAdcF * 3.3) / adcMaxF;  //  todo set final ref voltage here
-
-	return Vf;
-}
-
 void updateGradAmps()
 {
 	float dADC;
@@ -107,6 +92,22 @@ uint8_t  sendMessageBuffer [4];
 uint8_t  receiveMessageBuffer[8];
 
 
+
+
+float adcVoltage()
+{
+	int16_t ampsAdcHex;
+	float   ampsAdcF;
+	float   adcMaxF = 0x0FFF;
+
+	float    Vf;
+
+	ampsAdcHex = getCurrentAmpsADCValue();
+	ampsAdcF  = ampsAdcHex;
+	Vf = (ampsAdcF * 3.3) / adcMaxF;  //  todo set final ref voltage here
+
+	return Vf;
+}
 
 
 float currentAmps()
@@ -256,6 +257,9 @@ void calcNextTriacDelay()
 	setTriacTriggerDelay(newDelay);
 
 }
+
+
+//todo  introduce maxDelay  and maxTriger  to prevent current to Load when it should switch off compltely
 
 void InitPID()
 {
