@@ -142,7 +142,7 @@ void checkInterrupts()
 
 void setTriacTriggerDelay(int32_t durationTcnt)
 {
-//	taskENTER_CRITICAL();
+	taskENTER_CRITICAL();
 	if (durationTcnt < stmTriggerDelayMax) {
 		if (durationTcnt > 0) {
 			triacTriggerDelay = durationTcnt;
@@ -152,15 +152,40 @@ void setTriacTriggerDelay(int32_t durationTcnt)
 	} else {
 		triacTriggerDelay = stmTriggerDelayMax;
 	}
-//	taskEXIT_CRITICAL();  // omitted due to isr problems with freertos, should be no problem here due to atomicity, and 1 changer and 1 consumer-only
+	taskEXIT_CRITICAL();  // omitted due to isr problems with freertos, should be no problem here due to atomicity, and 1 changer and 1 consumer-only
 }
 
 
+/*
+ *
+todo make this text human readable :-)
+
+	variable triacTriggerDelay is used and calculated by mainJt thread, running at highest possible freeRtos thread priority.
+	So it can can use taskEnter/Exit_CRITICAL  methods, but it is used also by the triac interrupts, which can not use
+	freeRtos methods.
+
+	on the other hand triacInterrupts (exti, triacDelay and triggerPWM) run at even higher priority than freeRtod for
+	not being delayed by methods of freeRtos and touchGfx. therefore they can not use any freeRtos methods like taskEnter/Exit_CRITICAL.
+	(without causing a hanger on an assert(....) method)
+
+	now we have the advantage that on 32-bit processors accesses to 32 bit variables as triacTriggerdelay are atomic.
+	so any read or write methods can not be interrupted.
+
+	all settings of this variable are done exclusively by mainJt thread, so do not need concurrency protection
+	as on good old real programming under DOSxy.
+
+	as long as all settings of this variable are done with above method  (for setting all changes in a single step !),
+	we can be sure that read accesses from the interrupts return a valid value. of
+	course the interrupts may not do any other access than read on this variable.
+	(if this isrs would do writes, these writes could happen during calculating a new value  or above setTriacDuration method.
+	 this could end up in a mess.
+*/
 int32_t getTriacTriggerDelay()
 {
 	int32_t res = 0;
 //	taskENTER_CRITICAL();
-	res = triacTriggerDelay;  // anyhow atomic access
+	res = triacTriggerDelay;
+						//
 //	taskEXIT_CRITICAL();
 	return res;
 }
@@ -199,7 +224,7 @@ void EXTI15_10_IRQHandler(void)
 {
 	  if(__HAL_GPIO_EXTI_GET_IT(zeroPassPin_Pin) != 0) {
 		__HAL_GPIO_EXTI_CLEAR_IT(zeroPassPin_Pin);
-		if (HAL_GPIO_ReadPin(zeroPassPin_GPIO_Port,zeroPassPin_Pin))  {
+		if (HAL_GPIO_ReadPin(zeroPassPin_GPIO_Port,zeroPassPin_Pin) == 0)  {
 				tim5UsedDelay =	triacDelayTimer.Instance->ARR =getTriacTriggerDelay();
 				triacDelayTimer.Instance->CNT =0;
 				tim5RunState = tim5DelayPhase;
