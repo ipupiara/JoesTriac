@@ -350,10 +350,10 @@ UsedLibrary="D:/petersData/eagle/lbr/zilog.lbr"
 [Win_1]
 Type="Schematic Editor"
 Loc="651 317 1250 716"
-State=1
+State=3
 Number=1
 File="powerBoard-2nd.sch"
-View="-186.137 -20.2191 74.9067 102.651"
+View="-73.0488 22.637 89.0386 98.9294"
 WireWidths=" 0 0.3048 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0.4064 0.1524"
 PadDiameters=" 0.254 0.3048 0.4064 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0"
 PadDrills=" 0.5 0.6 0.7 0.9 1 1.1 1.2 1.3 1.4 1.5 1.6 2 2.2 2.8 3.2 0.8"
@@ -392,6 +392,7 @@ ArcDirection=0
 AddLevel=2
 PadsSameType=0
 Layer=91
+Views=" 1: -73.0488 22.637 89.0386 98.9294"
 Sheet="1"
 
 [Win_2]

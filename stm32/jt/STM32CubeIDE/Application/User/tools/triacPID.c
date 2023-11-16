@@ -165,6 +165,17 @@ void stopTriacPidRun()
 //	return res;
 //}
 
+void resetPID()
+{
+	corrCarryOver = 0;
+ 	m_integral =0;
+	m_prev_error = 0;
+	m_started = 0;
+	updateGradAmps();
+}
+
+#ifdef  newPid
+
 
 #define correctionThreshold  10 * kStepUnitsFactor
 
@@ -287,14 +298,6 @@ void InitPID()
 	updateGradAmps();
 }
 
-void resetPID()
-{
-	corrCarryOver = 0;
- 	m_integral =0;
-	m_prev_error = 0;
-	m_started = 0;
-	updateGradAmps();
-}
 
 void printPIDState()
 {
@@ -315,11 +318,146 @@ void printPIDState()
 //	checkEEPOROM();
 }
 
+#else
+
+
+
+
+
+void InitPID()
+{
+
+	//	initTwa();
+		debZXcnt = 0;
+
+		currentAmpsValue = 0.0;
+		errorScope = farScope;
+//		m_kPTot = -0.45
+//		m_kPTot = -0.45 *(5000.0 /810.0 );
+		m_kPTot = - 2.777;
+
+
+
+		 m_kP   = 1.1 ;
+	    m_kI = 0.2 ;
+	    m_kD = 0.2 ;
+	    m_integral_thresh = 5 ;
+
+		real thousand = 1000.0;
+
+		m_stepTime = (step_time / thousand)  ;
+	    m_inv_stepTime = 1 / m_stepTime;
+
+	    m_integral = 0;
+	    m_started = 0;
+	    corrCarryOver = 0.0;
+
+		updateGradAmps();
+}
+
+#define correctionThreshold  100
+
+real nextCorrection(real error)
+{
+    // Set q_fact to 1 if the error magnitude is below
+    // the threshold and 0 otherwise
+    real q_fact;
+	real res;
+    if (fabs(error) < m_integral_thresh)
+        q_fact = 1.0;
+    else  {
+        q_fact = 0.0;
+		m_integral = 0.0;
+	}
+
+    // Update the error integral
+    m_integral += m_stepTime*q_fact*error;
+
+    // Compute the error derivative
+    real deriv;
+    if (!m_started)
+    {
+        m_started = 1;
+        deriv = 0;
+    }
+    else
+        deriv = (error - m_prev_error) * m_inv_stepTime;
+
+    m_prev_error = error;
+
+    // Return the PID controller actuator command
+	res = m_kPTot*(m_kP*error + m_kI*m_integral + m_kD*deriv);  //  todo multiply with time factor, so that correction does not mucn depend from stepwidth
+	if (res > correctionThreshold) {
+		res = correctionThreshold;
+	} else if (res < -1*correctionThreshold) {
+		res = -1* correctionThreshold;
+	}
+
+#ifdef printfPID
+	double errD = error;
+	double intD = m_integral;
+	double derivD = deriv;
+	printf("err %f int %f deriv %f \n",errD, intD, derivD);
+#endif
+    return res;
+}
+
+
+void calcNextTriacDelay()
+{
+	float err;
+	float corr;
+	int16_t newDelay;
+	int16_t corrInt;
+	err = currentAmps()  - getDefinesWeldingAmps();
+	corr = nextCorrection(err) + corrCarryOver;
+//	float fact = (5000.0 /810.0 );
+//	corr = corr *fact;
+	corrInt = corr;
+	corrCarryOver = corr - corrInt;
+	newDelay = getTriacTriggerDelay() + corrInt;
+	setTriacTriggerDelay(newDelay);
+
+#ifdef printfPID
+	double corrD = corr;
+	double carryCorrD = corrCarryOver;
+	double ampsD  = currentAmps();
+	printf(" corr %f corrI %i cry %f delay %x  amps %f\n",corrD,corrInt, carryCorrD, newDelay, ampsD);
+#endif
+}
+
+
+
+
+void printPIDState()
+{
+//	int16_t adcAmps;
+//	float res;
+//	double resD;
+//	double gradD = gradAmps;
+//
+//	adcAmps = 0;
+//
+//	res = calibLowAmps +  (gradAmps * ((int16_t) adcAmps - (int16_t) calibLowADC  ));
+//	resD = res;
+//
+//	printf("\nPID State\n");
+//	printf("calLowA %i calHighA %i caLowDelay %i caHiDelay %i\n",calibLowAmps,calibHighAmps, calibLowTriacFireDuration, calibHighTriacFireDuration);
+//	printf("calLowAdc %i caHiAdc %i \n",calibLowADC, calibHighADC);
+//	printf("shows at 0 ADC : %f A  grad %f zeroPotiPos %i\n",resD, gradD,zeroPotiPos);
+////	checkEEPOROM();
+}
+
+
+
+
+
+#endif
 
 /*
 ////////////////////////////////////////////////   twa   code  ///////////////////
 
-#define amtTwaValues   20
+define amtTwaValues   20
 #define twaWeight  (amtTwaValues *  (amtTwaValues + 1) / 2)
 
 

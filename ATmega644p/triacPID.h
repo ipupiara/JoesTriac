@@ -10,7 +10,7 @@
 typedef double real;
 
 
-#define pidStepDelays  30  // unit is 1/42.18 sec, 
+#define pidStepDelays  30  // unit is (1/42.18) sec, 
 							// eg. 20 means approx 2 per second, 80 means 1 all 2 seconds
 
 
