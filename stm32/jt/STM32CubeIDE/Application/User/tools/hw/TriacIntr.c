@@ -193,8 +193,7 @@ int32_t getTriacTriggerDelay()
 //  #define debugTimerDelta  0   //  todo test works with 0
 
 
-//int32_t debugTimerDelta;
-//   triac delay timer
+
 
 int32_t tim5UsedDelay; //  todo put to other global variables
 
@@ -207,7 +206,7 @@ void TIM5_IRQHandler(void)
 //	  		++ delayCnt1;
 	  		enableRailTimerPwm();
 			triacDelayTimer.Instance->CNT = 0;
-			int32_t arr = (stmTriggerDelayMax - tim5UsedDelay) ; //-debugTimerDelta;
+			int32_t arr = (stmTriggerDelayMax - tim5UsedDelay) ;
 			assureInt32Between(&arr, 1 * kStepUnitsFactor, stmTriggerDelayMax);
 			triacDelayTimer.Instance->ARR = arr;
 			tim5RunState = tim5RailPwmPhase;
@@ -232,7 +231,7 @@ void EXTI15_10_IRQHandler(void)
 				disableRailTimerPwm();
 		}  else  {
 				disableRailTimerPwm();
-//				disableDelayTimer();  // with this line it did not run, dunnowhy  TODO TEST AGAIN
+				disableDelayTimer();
 		}
 	  }
 }
@@ -429,6 +428,8 @@ void initInterruptsNPorts()
 	__HAL_RCC_GPIOH_CLK_ENABLE();
 	__HAL_RCC_GPIOB_CLK_ENABLE();
 
+	printf("inside initInterruptsNPorts\n");
+
 	initZeroPassDetector();
 	initTriacDelayTimer();
 	initTriacRailPwmTimer();
@@ -439,7 +440,7 @@ void initInterruptsNPorts()
 
 void initTriacIntr()
 {
-//	stopTimersWhenDebugHalt();
+	stopTimersWhenDebugHalt();
 
 	durationTimerOn = 0;
 	triacTriggerDelay = stmTriggerDelayMax;

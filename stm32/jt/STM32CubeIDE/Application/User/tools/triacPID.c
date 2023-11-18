@@ -31,6 +31,7 @@ uint16_t currentAmpsADCValue;
 
 int8_t m_started;
 real m_kPTot, m_kP, m_kI, m_kD, m_stepTime, m_inv_stepTime, m_prev_error, m_integral_thresh, m_integral;
+real m_correctionThresh;
 real error;
 real debPart, debDeriv, debInteg, debZXcnt;
 
@@ -321,54 +322,20 @@ void printPIDState()
 #else
 
 
-
-
-
-void InitPID()
-{
-
-	//	initTwa();
-		debZXcnt = 0;
-
-		currentAmpsValue = 0.0;
-		errorScope = farScope;
-//		m_kPTot = -0.45
-//		m_kPTot = -0.45 *(5000.0 /810.0 );
-		m_kPTot = - 2.777;
-
-
-
-		 m_kP   = 1.1 ;
-	    m_kI = 0.2 ;
-	    m_kD = 0.2 ;
-	    m_integral_thresh = 5 ;
-
-		real thousand = 1000.0;
-
-		m_stepTime = (step_time / thousand)  ;
-	    m_inv_stepTime = 1 / m_stepTime;
-
-	    m_integral = 0;
-	    m_started = 0;
-	    corrCarryOver = 0.0;
-
-		updateGradAmps();
-}
-
-#define correctionThreshold  100
-
 real nextCorrection(real error)
 {
     // Set q_fact to 1 if the error magnitude is below
     // the threshold and 0 otherwise
     real q_fact;
 	real res;
-    if (fabs(error) < m_integral_thresh)
-        q_fact = 1.0;
-    else  {
-        q_fact = 0.0;
-		m_integral = 0.0;
-	}
+//    if (fabs(error) < m_integral_thresh)
+//        q_fact = 1.0;
+//    else  {
+//        q_fact = 0.0;
+//		m_integral = 0.0;
+//	}
+
+    q_fact = 1.0;
 
     // Update the error integral
     m_integral += m_stepTime*q_fact*error;
@@ -386,11 +353,12 @@ real nextCorrection(real error)
     m_prev_error = error;
 
     // Return the PID controller actuator command
-	res = m_kPTot*(m_kP*error + m_kI*m_integral + m_kD*deriv);  //  todo multiply with time factor, so that correction does not mucn depend from stepwidth
-	if (res > correctionThreshold) {
-		res = correctionThreshold;
-	} else if (res < -1*correctionThreshold) {
-		res = -1* correctionThreshold;
+	res = m_kPTot*(m_kP*error + m_kI*m_integral + m_kD*deriv);
+			//  todo multiply with time factor, so that correction does not so much depend from stepwidth
+	if (res > m_correctionThresh) {
+		res = m_correctionThresh;
+	} else if (res < -1*m_correctionThresh) {
+		res = -1* m_correctionThresh;
 	}
 
 #ifdef printfPID
@@ -409,7 +377,7 @@ void calcNextTriacDelay()
 	float corr;
 	int16_t newDelay;
 	int16_t corrInt;
-	err = currentAmps()  - getDefinesWeldingAmps();
+	err = getDefinesWeldingAmps() - currentAmps() ;
 	corr = nextCorrection(err) + corrCarryOver;
 //	float fact = (5000.0 /810.0 );
 //	corr = corr *fact;
@@ -427,6 +395,35 @@ void calcNextTriacDelay()
 }
 
 
+
+void InitPID()
+{
+
+	//	initTwa();
+		debZXcnt = 0;
+
+		currentAmpsValue = 0.0;
+		errorScope = farScope;
+//		m_kPTot = -0.45
+//		m_kPTot = -0.45 *(5000.0 /810.0 );
+
+		m_kPTot = kTotal;
+		m_kP   = kPartial ;
+	    m_kI = kIntegral ;
+	    m_kD = kDerivativ ;
+	    m_integral_thresh =  integral_thres ;
+	    m_correctionThresh = correctionThreshold;
+		real thousand = 1000.0;
+
+		m_stepTime = (pidStepDelays / thousand)  ;
+	    m_inv_stepTime = 1 / m_stepTime;
+
+	    m_integral = 0;
+	    m_started = 0;
+	    corrCarryOver = 0.0;
+
+		updateGradAmps();
+}
 
 
 void printPIDState()

@@ -299,6 +299,7 @@ void entryCalibrateScaleState(void)
 	if(status != osOK)  {
 		errorHandler(status,goOn," status ","entryCalibrateScaleState");
 	}
+	setTriacTriggerDelay(stmTriggerDelayMax);
 	startTriacPidRun();
 }
 
