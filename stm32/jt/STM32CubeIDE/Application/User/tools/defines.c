@@ -473,8 +473,9 @@ void errorHandler(uint32_t  code, errorSeverity severity, char* errorString, cha
 
 void calibTriacDelayChange(int32_t diff)
 {
+	printf("calibTriacDelayChange\n");
    int16_t res = getTriacTriggerDelay();
-   if ( diff != 1)  {
+   if ( abs (diff) != 1)  {
 	   res += diff * kStepUnitsFactor;   //  todo change also on ui
    } else  {
 	   res +=1;

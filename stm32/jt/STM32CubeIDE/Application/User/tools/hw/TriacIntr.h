@@ -17,37 +17,12 @@ extern "C"
 
 //extern int64_t  secondCount;
 
-//#define stmTriggerDelayMax1000     //  measures 10 ms, +- crystal tolerance
-//#define stmTriggerDelayMax2000    // not yet available
-#define stmTriggerDelayMax5000     // not yet available
 
+//	#define stmTriggerDelayMax  5000
+	#define stmTriggerDelayMax  4950
+	#define kStepUnitsFactor  5
+	#define triacDelayPsc  197   // (defaultTriacDelayPsc / kStepUnitsFactor)
 
-#ifdef stmTriggerDelayMax1000
-
-#define stmTriggerDelayMax  1000
-#define kStepUnitsFactor  1
-#define triacDelayPsc  995   // (defaultTriacDelayPsc / kStepUnitsFactor)
-
-#else
-
-	#ifdef  stmTriggerDelayMax5000
-//		#define stmTriggerDelayMax  5000
-		#define stmTriggerDelayMax  4950
-		#define kStepUnitsFactor  5
-		#define triacDelayPsc  197   // (defaultTriacDelayPsc / kStepUnitsFactor)
-
-	#else
-		#ifdef  stmTriggerDelayMax2000
-
-			#define stmTriggerDelayMax  2000
-			#define kStepUnitsFactor  2
-			#define triacDelayPsc  470   // (defaultTriacDelayPsc / kStepUnitsFactor
-
-	#else)
-
-		#endif
-	#endif
-#endif
 
 
 

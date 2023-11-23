@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "TriacIntr.h"
 #include <StateClass.h>
 #include <defines.h>
@@ -8,8 +9,8 @@
 #define zeroPassPin_EXTI_IRQn EXTI15_10_IRQn
 
 #define buzzerTimer htim11
-#define debugTimer htim6
 
+#define triacStopTimer htim2
 #define triacDelayTimer htim5
 #define triacDelayTimer_IRQn TIM5_IRQn
 #define triacRailPwmTimer htim12
@@ -75,17 +76,30 @@ void assureInt32Between(int32_t* pVar,int32_t mini, int32_t maxi)
         triacDelayTimer.Instance->CR1 |= (TIM_CR1_CEN);  \
   } while(0)
 
+#define disableStopTimer() \
+  do { \
+        triacStopTimer.Instance->CR1 &= ~(TIM_CR1_CEN);  \
+        __HAL_TIM_DISABLE_IT(&triacStopTimer, TIM_IT_UPDATE);\
+  } while(0)
+
+
+#define startStopTimer() \
+  do { \
+        __HAL_TIM_ENABLE_IT(&triacStopTimer, TIM_IT_UPDATE);  \
+        triacStopTimer.Instance->CR1 |= (TIM_CR1_CEN);  \
+  } while(0)
+
 
 typedef enum {
 	tim5RailPwmPhase,
 	tim5DelayPhase
 } tim5RunStateType;
+// TODO  after introducing and using triacStopTimer check if this will be obvious (and remove it)
 
 tim5RunStateType tim5RunState;
-//uint16_t tim5UsedDelay;
 
+TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim5;
-//TIM_HandleTypeDef htim4;
 TIM_HandleTypeDef htim11;
 TIM_HandleTypeDef htim12;
 uint8_t durationTimerOn;
@@ -190,11 +204,6 @@ int32_t getTriacTriggerDelay()
 	return res;
 }
 
-//  #define debugTimerDelta  0   //  todo test works with 0
-
-
-
-
 int32_t tim5UsedDelay; //  todo put to other global variables
 
 void TIM5_IRQHandler(void)
@@ -205,18 +214,32 @@ void TIM5_IRQHandler(void)
 		if (tim5RunState == tim5DelayPhase)  {
 //	  		++ delayCnt1;
 	  		enableRailTimerPwm();
-			triacDelayTimer.Instance->CNT = 0;
-			int32_t arr = (stmTriggerDelayMax - tim5UsedDelay) ;
-			assureInt32Between(&arr, 1 * kStepUnitsFactor, stmTriggerDelayMax);
-			triacDelayTimer.Instance->ARR = arr;
-			tim5RunState = tim5RailPwmPhase;
-	  	}  else {
-//	  		++ delayCnt0;
 	  		disableDelayTimer();
-	  		disableRailTimerPwm();
+
+//			triacDelayTimer.Instance->CNT = 0;
+//			int32_t arr = (stmTriggerDelayMax - tim5UsedDelay) ;
+//			assureInt32Between(&arr, 1 * kStepUnitsFactor, stmTriggerDelayMax);
+//			triacDelayTimer.Instance->ARR = arr;
+//			tim5RunState = tim5RailPwmPhase;
+		}  else {
+//	  		++ delayCnt0;
+//	  		disableDelayTimer();
+//	  		disableRailTimerPwm();
 	  	}
 	}
 }
+
+void TIM2_IRQHandler(void)
+{
+  	if (__HAL_TIM_GET_FLAG(&triacStopTimer, TIM_FLAG_UPDATE) != 0)  {
+		__HAL_TIM_CLEAR_IT(&triacStopTimer, TIM_IT_UPDATE);
+
+		disableDelayTimer();
+		disableRailTimerPwm();
+		disableStopTimer();
+	}
+}
+
 
 //  zero pass pin irq
 void EXTI15_10_IRQHandler(void)
@@ -227,6 +250,9 @@ void EXTI15_10_IRQHandler(void)
 				tim5UsedDelay =	triacDelayTimer.Instance->ARR =getTriacTriggerDelay();
 				triacDelayTimer.Instance->CNT =0;
 				tim5RunState = tim5DelayPhase;
+				triacStopTimer.Instance->ARR=stmTriggerDelayMax;
+				triacStopTimer.Instance->CNT = 0;
+				startStopTimer();
 				startDelayTimer();
 				disableRailTimerPwm();
 		}  else  {
@@ -270,7 +296,41 @@ void initTriacDelayTimer()
 	HAL_NVIC_SetPriority(TIM5_IRQn, triacTriggerIsrPrio, 0);
 	HAL_NVIC_EnableIRQ(TIM5_IRQn);
 	disableDelayTimer();
-//	debugTimerDelta = 0;
+}
+
+void initTriacStopTimer()
+{
+	TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+	TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+	__HAL_RCC_TIM2_CLK_ENABLE();
+
+	htim2.Instance = TIM2;
+	htim2.Init.Prescaler = triacDelayPsc;
+	htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+	htim2.Init.Period = 0;
+	htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+	htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+	if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
+	{
+		errorHandler(1,stop," HAL_TIM_Base_Init ","initTriacTimer");
+	}
+	sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+	if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
+	{
+		errorHandler(2,stop," HAL_TIM_ConfigClockSource ","initTriacTimer");
+	}
+	sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+	sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+	if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
+	{
+		errorHandler(3,stop," HAL_TIMEx_MasterConfigSynchronization ","initTriacTimer");
+	}
+
+	htim2.Instance->CR1 &= (~TIM_CR1_OPM_Msk);
+	HAL_NVIC_SetPriority(TIM2_IRQn, triacTriggerIsrPrio, 0);
+	HAL_NVIC_EnableIRQ(TIM2_IRQn);
+	disableStopTimer();
 }
 
 void TIM8_BRK_TIM12_IRQHandler(void)
@@ -432,6 +492,7 @@ void initInterruptsNPorts()
 
 	initZeroPassDetector();
 	initTriacDelayTimer();
+	initTriacStopTimer();
 	initTriacRailPwmTimer();
 	initBuzzerTimerPWM();
 	initAmpsZeroPassDetect();
@@ -440,7 +501,7 @@ void initInterruptsNPorts()
 
 void initTriacIntr()
 {
-	stopTimersWhenDebugHalt();
+//	stopTimersWhenDebugHalt();
 
 	durationTimerOn = 0;
 	triacTriggerDelay = stmTriggerDelayMax;
