@@ -30,11 +30,15 @@ void assureInt32Between(int32_t* pVar,int32_t mini, int32_t maxi)
 	}
 }
 
-//#define nvic_enaIrq( IRQn)  NVIC->ISER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL))
-//#define nvic_disaIrq( IRQn)  \
-//	do {  \
-//		NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL)); __DSB(); 	__ISB(); \
-//	while (0)
+/*
+
+#define nvic_enaIrq( IRQn)  NVIC->ISER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL))
+#define nvic_disaIrq( IRQn)  \
+	do {  \
+		NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL)); __DSB(); 	__ISB(); \
+	while (0)
+
+*/
 
 #define isPinSet(portx, pinx)  ((portx->IDR & pinx) != 0) ? 1:0
 

@@ -104,6 +104,8 @@ void definesWait(uint32_t ms);
 
 void setCurrentAdcValAsCalibLow();
 void setCurrentAdcValAsCalibHigh();
+
+int32_t i32abs(int32_t val);
 #ifdef  __cplusplus
 }
 #endif

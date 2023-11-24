@@ -31,8 +31,8 @@ uint16_t currentAmpsADCValue;
 
 int8_t m_started;
 real m_kPTot, m_kP, m_kI, m_kD, m_stepTime, m_inv_stepTime, m_prev_error, m_integral_thresh, m_integral;
-real m_correctionThresh;
-real error;
+real m_correctionThresh, q_fact;
+real error , correction;
 real debPart, debDeriv, debInteg, debZXcnt;
 
 
@@ -326,16 +326,16 @@ real nextCorrection(real error)
 {
     // Set q_fact to 1 if the error magnitude is below
     // the threshold and 0 otherwise
-    real q_fact;
-	real res;
-//    if (fabs(error) < m_integral_thresh)
-//        q_fact = 1.0;
-//    else  {
-//        q_fact = 0.0;
-//		m_integral = 0.0;
-//	}
 
-    q_fact = 1.0;
+	real res;
+    if (fabs(error) < m_integral_thresh) {
+		q_fact = 1.0;
+		m_kI = 	kIntegral;
+    } else  {
+		m_kI = 0.0;
+		q_fact = 0.0;
+		m_integral = 0.0;
+	}
 
     // Update the error integral
     m_integral += m_stepTime*q_fact*error;
@@ -374,17 +374,16 @@ real nextCorrection(real error)
 void calcNextTriacDelay()
 {
 	float err;
-	float corr;
 	int16_t newDelay;
 	int16_t corrInt;
 	err = getDefinesWeldingAmps() - currentAmps() ;
-	corr = nextCorrection(err) + corrCarryOver;
-//	float fact = (5000.0 /810.0 );
-//	corr = corr *fact;
-	corrInt = corr;
-	corrCarryOver = corr - corrInt;
-	newDelay = getTriacTriggerDelay() + corrInt;
+	correction = nextCorrection(err) + corrCarryOver;
+	corrInt = correction;
+	corrCarryOver = correction - corrInt;
+	newDelay = getTriacTriggerDelay() - corrInt;
 	setTriacTriggerDelay(newDelay);
+
+	printf("calcNextTriacDelay\n");
 
 #ifdef printfPID
 	double corrD = corr;
@@ -400,29 +399,26 @@ void InitPID()
 {
 
 	//	initTwa();
-		debZXcnt = 0;
 
-		currentAmpsValue = 0.0;
-		errorScope = farScope;
-//		m_kPTot = -0.45
-//		m_kPTot = -0.45 *(5000.0 /810.0 );
+	q_fact = 0.0;
+	currentAmpsValue = 0.0;
 
-		m_kPTot = kTotal;
-		m_kP   = kPartial ;
-	    m_kI = kIntegral ;
-	    m_kD = kDerivativ ;
-	    m_integral_thresh =  integral_thres ;
-	    m_correctionThresh = correctionThreshold;
-		real thousand = 1000.0;
+	m_kPTot = kTotal;
+	m_kP   = kPartial ;
+	m_kI = kIntegral ;
+	m_kD = kDerivativ ;
+	m_integral_thresh =  integral_thres ;
+	m_correctionThresh = correctionThreshold;
+	real thousand = 1000.0;
 
-		m_stepTime = (pidStepDelays / thousand)  ;
-	    m_inv_stepTime = 1 / m_stepTime;
+	m_stepTime = (pidStepDelays / thousand)  ;
+	m_inv_stepTime = 1 / m_stepTime;
 
-	    m_integral = 0;
-	    m_started = 0;
-	    corrCarryOver = 0.0;
+	m_integral = 0;
+	m_started = 0;
+	corrCarryOver = 0.0;
 
-		updateGradAmps();
+	updateGradAmps();
 }
 
 

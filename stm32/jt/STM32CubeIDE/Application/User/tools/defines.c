@@ -470,12 +470,18 @@ void errorHandler(uint32_t  code, errorSeverity severity, char* errorString, cha
 	if (severity == stop) {  do {} while (1);}
 }
 
+int32_t i32abs(int32_t val)
+{
+	int32_t res = val;
+	if (res < 0) { res = -res; }
+	return res;
+}
 
 void calibTriacDelayChange(int32_t diff)
 {
 	printf("calibTriacDelayChange\n");
    int16_t res = getTriacTriggerDelay();
-   if ( abs (diff) != 1)  {
+   if ( i32abs (diff) != 1)  {
 	   res += diff * kStepUnitsFactor;   //  todo change also on ui
    } else  {
 	   res +=1;
@@ -486,6 +492,8 @@ void calibTriacDelayChange(int32_t diff)
 	msg.messageType = calibTriacDelay;
 	msg.evData.calibTriacDelay =res;
 	sendPresenterMessage(&msg);
+
+	printf("calibTriacDelayChange\n");
 }
 
 tStatus isCalibrationReady()

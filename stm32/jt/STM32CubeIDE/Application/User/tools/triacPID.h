@@ -35,9 +35,9 @@ typedef double real;
 #define kTotal   2           //  used to compensate a changes in cycle time pidStepDelays,
 								// the higher cycle frequency the lower kTotal
 #define kPartial   1.0     //  0.15
-#define kIntegral    0.0       //  0.2
+#define kIntegral  0.33  // 1.0       //  0.2
 #define kDerivativ    0.0      //  0.2
-#define integral_thres 8.0    //  5.0
+#define integral_thres 4.0    //  5.0
 #define correctionThreshold  10000.0   //10 .0   // good to use at least for inductive loads where too high changes can lead to short-circuit
 
 #endif
