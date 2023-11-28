@@ -12,7 +12,7 @@ public:
     virtual ~runScreenView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
-    void update(float amps,uint32_t secRemain, int32_t adcVal, int32_triacD, float adcVolts );
+    void update(float amps,uint32_t secRemain, int32_t adcVal, int32_t triacDelay, float adcVolts  );
     virtual void stopButtonPressed();
 protected:
     uint32_t weldingTimeSec;
@@ -20,6 +20,7 @@ protected:
     void setAstroVisible(bool vis);
     void hideAstro();
     void showAstro();
+    void toggleAstro();
     bool astroVisible;
     virtual void astroButtonPressed();
     int32_t triacDelay;

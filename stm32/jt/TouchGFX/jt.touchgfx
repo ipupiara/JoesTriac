@@ -140,7 +140,7 @@
             "X": 465,
             "Y": 12,
             "Width": 144,
-            "Height": 45,
+            "Height": 48,
             "TextId": "__SingleUse_DEJR",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1784,7 +1784,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "adcadcVoltageTextVText",
+            "Name": "adcVoltageText",
             "X": 660,
             "Y": 192,
             "Width": 120,

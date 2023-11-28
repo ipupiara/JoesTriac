@@ -60,7 +60,7 @@ protected:
     touchgfx::TextArea textArea4;
     touchgfx::TextArea textArea5;
     touchgfx::TextAreaWithOneWildcard adcValueText;
-    touchgfx::TextAreaWithOneWildcard adcadcVoltageTextVText;
+    touchgfx::TextAreaWithOneWildcard adcVoltageText;
     touchgfx::TextAreaWithOneWildcard delayText;
 
     /*
@@ -76,8 +76,8 @@ protected:
     touchgfx::Unicode::UnicodeChar currentAmpereTextBuffer[CURRENTAMPERETEXT_SIZE];
     static const uint16_t ADCVALUETEXT_SIZE = 10;
     touchgfx::Unicode::UnicodeChar adcValueTextBuffer[ADCVALUETEXT_SIZE];
-    static const uint16_t ADCADCVOLTAGETEXTVTEXT_SIZE = 10;
-    touchgfx::Unicode::UnicodeChar adcadcVoltageTextVTextBuffer[ADCADCVOLTAGETEXTVTEXT_SIZE];
+    static const uint16_t ADCVOLTAGETEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar adcVoltageTextBuffer[ADCVOLTAGETEXT_SIZE];
     static const uint16_t DELAYTEXT_SIZE = 10;
     touchgfx::Unicode::UnicodeChar delayTextBuffer[DELAYTEXT_SIZE];
 

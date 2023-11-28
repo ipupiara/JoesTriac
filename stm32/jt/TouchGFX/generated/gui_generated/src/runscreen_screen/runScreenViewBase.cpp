@@ -124,14 +124,14 @@ runScreenViewBase::runScreenViewBase() :
     adcValueText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_CAPG));
     add(adcValueText);
 
-    adcadcVoltageTextVText.setXY(660, 192);
-    adcadcVoltageTextVText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    adcadcVoltageTextVText.setLinespacing(0);
-    Unicode::snprintf(adcadcVoltageTextVTextBuffer, ADCADCVOLTAGETEXTVTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_V5TZ).getText());
-    adcadcVoltageTextVText.setWildcard(adcadcVoltageTextVTextBuffer);
-    adcadcVoltageTextVText.resizeToCurrentText();
-    adcadcVoltageTextVText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_HJ2X));
-    add(adcadcVoltageTextVText);
+    adcVoltageText.setXY(660, 192);
+    adcVoltageText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    adcVoltageText.setLinespacing(0);
+    Unicode::snprintf(adcVoltageTextBuffer, ADCVOLTAGETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_V5TZ).getText());
+    adcVoltageText.setWildcard(adcVoltageTextBuffer);
+    adcVoltageText.resizeToCurrentText();
+    adcVoltageText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_HJ2X));
+    add(adcVoltageText);
 
     delayText.setXY(663, 251);
     delayText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));

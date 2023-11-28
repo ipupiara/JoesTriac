@@ -44,7 +44,7 @@ void runScreenView::tearDownScreen()
     runScreenViewBase::tearDownScreen();
 }
 
-void runScreenView::update(float amps,uint32_t secRemain, int32_t adcVal, int32_triacD, float adcVolts  )
+void runScreenView::update(float amps,uint32_t secRemain, int32_t adcVal, int32_t triacDelay, float adcVolts  )
 {
 
 	// todo bug: amps does not show / calculate delay decimal places in setamperetext
@@ -71,11 +71,11 @@ void runScreenView::update(float amps,uint32_t secRemain, int32_t adcVal, int32_
 	 boxProgress1.setValue(boxPro);
 	 boxProgress1.invalidate();
 
-	 Unicode::snprintfFloat(adcVoltageTextBuffer, 6, "%01.3f", adcV);
+	 Unicode::snprintfFloat(adcVoltageTextBuffer, 6, "%01.3f", adcVolts);
 	adcVoltageText.setWildcard(adcVoltageTextBuffer);
 	adcVoltageText.invalidate();
 
-	Unicode::snprintf(adcValueTextBuffer, 5, "%4d", adc);
+	Unicode::snprintf(adcValueTextBuffer, 5, "%4d", adcVal);
 	adcValueText.setWildcard(adcValueTextBuffer);
 	adcValueText.invalidate();
 
@@ -95,9 +95,9 @@ void runScreenView::setAstroVisible(bool vis)
     textArea3.setVisible(vis);
     textArea4.setVisible(vis);
     textArea5.setVisible(vis);
-    adcText.setVisible(vis);
-    adcVText.setVisible(vis);
-    dlyText.setVisible(vis);
+    adcVoltageText.setVisible(vis);
+    adcValueText.setVisible(vis);
+    delayText.setVisible(vis);
 
 }
 
@@ -118,7 +118,7 @@ void runScreenView::hideAstro()
 
 void runScreenView::showAstro()
 {
-	setAstroVisible(true);¨
+	setAstroVisible(true);
 	astroVisible = true;
 }
 
