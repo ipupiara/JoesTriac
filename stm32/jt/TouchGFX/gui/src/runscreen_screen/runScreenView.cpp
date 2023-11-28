@@ -2,12 +2,13 @@
 
 runScreenView::runScreenView()
 {
-
 }
 
 void runScreenView::setupScreen()
 {
     runScreenViewBase::setupScreen();
+
+    hideAstro();
 
     weldingTimeSec = presenter->getWeldingTimeSec();
     weldingAmps    = presenter->getWeldingAmps();
@@ -43,7 +44,7 @@ void runScreenView::tearDownScreen()
     runScreenViewBase::tearDownScreen();
 }
 
-void runScreenView::update(float amps,uint32_t secRemain )
+void runScreenView::update(float amps,uint32_t secRemain, int32_t adcVal, int32_triacD, float adcVolts  )
 {
 
 	// todo bug: amps does not show / calculate delay decimal places in setamperetext
@@ -69,9 +70,59 @@ void runScreenView::update(float amps,uint32_t secRemain )
 	 uint32_t boxPro = 100 * remain;
 	 boxProgress1.setValue(boxPro);
 	 boxProgress1.invalidate();
+
+	 Unicode::snprintfFloat(adcVoltageTextBuffer, 6, "%01.3f", adcV);
+	adcVoltageText.setWildcard(adcVoltageTextBuffer);
+	adcVoltageText.invalidate();
+
+	Unicode::snprintf(adcValueTextBuffer, 5, "%4d", adc);
+	adcValueText.setWildcard(adcValueTextBuffer);
+	adcValueText.invalidate();
+
+	Unicode::snprintf(delayTextBuffer,5, "%4d", triacDelay);
+	delayText.setWildcard(delayTextBuffer);
+	delayText.invalidate();
 }
 
 void runScreenView::stopButtonPressed()
 {
 	presenter->stopButtonPressed();
+}
+
+void runScreenView::setAstroVisible(bool vis)
+{
+    astroBorder.setVisible(vis);
+    textArea3.setVisible(vis);
+    textArea4.setVisible(vis);
+    textArea5.setVisible(vis);
+    adcText.setVisible(vis);
+    adcVText.setVisible(vis);
+    dlyText.setVisible(vis);
+
+}
+
+void runScreenView::toggleAstro()
+{
+	if (astroVisible == true) {
+		hideAstro();
+	} else {
+		showAstro();
+	}
+}
+
+void runScreenView::hideAstro()
+{
+	setAstroVisible(false);
+	astroVisible = false;
+}
+
+void runScreenView::showAstro()
+{
+	setAstroVisible(true);¨
+	astroVisible = true;
+}
+
+void runScreenView::astroButtonPressed()
+{
+	toggleAstro();
 }

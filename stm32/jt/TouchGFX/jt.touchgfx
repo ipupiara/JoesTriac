@@ -1613,7 +1613,7 @@
             "X": 465,
             "Y": 12,
             "Width": 144,
-            "Height": 45,
+            "Height": 48,
             "TextId": "__SingleUse_X5Q9",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1629,7 +1629,7 @@
             "X": 14,
             "Y": 94,
             "Width": 60,
-            "Height": 23,
+            "Height": 24,
             "TextId": "__SingleUse_K159",
             "TextRotation": "0",
             "AutoSize": true
@@ -1640,7 +1640,7 @@
             "X": 352,
             "Y": 94,
             "Width": 96,
-            "Height": 23,
+            "Height": 24,
             "TextId": "__SingleUse_FEL2",
             "TextRotation": "0",
             "AutoSize": true
@@ -1666,7 +1666,7 @@
             "X": 465,
             "Y": 82,
             "Width": 144,
-            "Height": 45,
+            "Height": 48,
             "TextId": "__SingleUse_GCRP",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1704,6 +1704,115 @@
             "Width": 240,
             "Height": 240,
             "CustomContainerDefinitionName": "GaugeWithGoal"
+          },
+          {
+            "Type": "ButtonWithIcon",
+            "Name": "astroButton",
+            "X": 743,
+            "Y": 4,
+            "Width": 50,
+            "Height": 63,
+            "Pressed": "astro-1-rem.png",
+            "Released": "astro-1-rem.png",
+            "IconPressed": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconReleased": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconX": 97,
+            "IconHeight": 50,
+            "IconWidth": 50
+          },
+          {
+            "Type": "BoxWithBorder",
+            "Name": "astroBorder",
+            "X": 508,
+            "Y": 136,
+            "Width": 292,
+            "Height": 242,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "BorderSize": 2
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea3",
+            "X": 520,
+            "Y": 136,
+            "Width": 72,
+            "Height": 48,
+            "TextId": "__SingleUse_WO37",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea4",
+            "X": 520,
+            "Y": 192,
+            "Width": 120,
+            "Height": 48,
+            "TextId": "__SingleUse_WCEJ",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea5",
+            "X": 520,
+            "Y": 251,
+            "Width": 72,
+            "Height": 48,
+            "TextId": "__SingleUse_826A",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "adcValueText",
+            "X": 660,
+            "Y": 136,
+            "Width": 72,
+            "Height": 48,
+            "TextId": "__SingleUse_CAPG",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_8LLG",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "adcadcVoltageTextVText",
+            "X": 660,
+            "Y": 192,
+            "Width": 120,
+            "Height": 48,
+            "TextId": "__SingleUse_HJ2X",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_V5TZ",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "delayText",
+            "X": 663,
+            "Y": 251,
+            "Width": 96,
+            "Height": 48,
+            "TextId": "__SingleUse_LP5B",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_KAL2",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
           }
         ],
         "Interactions": [
@@ -1716,6 +1825,17 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "stopButtonPressed"
+            }
+          },
+          {
+            "InteractionName": "astroButtonInteraction",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "astroButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "astroButtonPressed"
             }
           }
         ]

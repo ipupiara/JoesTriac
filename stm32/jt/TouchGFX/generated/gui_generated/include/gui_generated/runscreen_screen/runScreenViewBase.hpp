@@ -13,6 +13,7 @@
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/containers/progress_indicators/BoxProgress.hpp>
 #include <gui/containers/GaugeWithGoal.hpp>
+#include <touchgfx/widgets/BoxWithBorder.hpp>
 
 class runScreenViewBase : public touchgfx::View<runScreenPresenter>
 {
@@ -25,6 +26,10 @@ public:
      * Virtual Action Handlers
      */
     virtual void stopButtonPressed()
+    {
+        // Override and implement this function in runScreen
+    }
+    virtual void astroButtonPressed()
     {
         // Override and implement this function in runScreen
     }
@@ -49,6 +54,14 @@ protected:
     touchgfx::TextAreaWithOneWildcard currentAmpereText;
     touchgfx::BoxProgress boxProgress1;
     GaugeWithGoal ampGauge;
+    touchgfx::ButtonWithIcon astroButton;
+    touchgfx::BoxWithBorder astroBorder;
+    touchgfx::TextArea textArea3;
+    touchgfx::TextArea textArea4;
+    touchgfx::TextArea textArea5;
+    touchgfx::TextAreaWithOneWildcard adcValueText;
+    touchgfx::TextAreaWithOneWildcard adcadcVoltageTextVText;
+    touchgfx::TextAreaWithOneWildcard delayText;
 
     /*
      * Wildcard Buffers
@@ -61,6 +74,12 @@ protected:
     touchgfx::Unicode::UnicodeChar currentTimeTextBuffer[CURRENTTIMETEXT_SIZE];
     static const uint16_t CURRENTAMPERETEXT_SIZE = 10;
     touchgfx::Unicode::UnicodeChar currentAmpereTextBuffer[CURRENTAMPERETEXT_SIZE];
+    static const uint16_t ADCVALUETEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar adcValueTextBuffer[ADCVALUETEXT_SIZE];
+    static const uint16_t ADCADCVOLTAGETEXTVTEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar adcadcVoltageTextVTextBuffer[ADCADCVOLTAGETEXTVTEXT_SIZE];
+    static const uint16_t DELAYTEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar delayTextBuffer[DELAYTEXT_SIZE];
 
 private:
 

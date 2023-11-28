@@ -116,6 +116,9 @@ typedef struct  {
 //			uint16_t  potiPos;
 			uint16_t  secondsRemaining;
 			uint16_t secondsBeforeReturn;
+			int32_t triacDelay;
+			int32_t adcValue;
+			float adcVoltage;
 		} runScreenData;
 		struct {
 			float   	 devV;

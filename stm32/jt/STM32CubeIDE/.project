@@ -1050,6 +1050,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__generated/image_alternate_theme_images_widgets_gauge_medium_needles_smooth.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/image_icon_theme_images_action_done_50_50_E8F6FB.svg.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__generated/image_icon_theme_images_action_done_50_50_E8F6FB.svg.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/image_Red_Needles_goal_gauge_needle_style_01-removebg-preview-outer-removebg-preview.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_Red_Needles_goal_gauge_needle_style_01-removebg-preview-outer-removebg-preview.cpp</locationURI>
@@ -1078,6 +1083,11 @@
 			<name>Application/User/generated/image_abortBtnPressed.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_abortBtnPressed.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_astro-1-rem.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_astro-1-rem.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_blueNormal-0.cpp</name>

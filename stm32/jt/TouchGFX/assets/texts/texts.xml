@@ -6,6 +6,33 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_KAL2" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0000</Translation>
+      </Text>
+      <Text Id="__SingleUse_LP5B" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_V5TZ" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0.000</Translation>
+      </Text>
+      <Text Id="__SingleUse_HJ2X" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_8LLG" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_CAPG" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_826A" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">dly</Translation>
+      </Text>
+      <Text Id="__SingleUse_WCEJ" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">adcVo</Translation>
+      </Text>
+      <Text Id="__SingleUse_WO37" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">adc</Translation>
+      </Text>
       <Text Id="__SingleUse_UV0W" Alignment="Center" TypographyId="Default">
         <Translation Language="GB">cancel</Translation>
       </Text>
@@ -429,8 +456,8 @@
     </TextGroup>
   </Texts>
   <Typographies>
-    <Typography Id="Default" Font="cour.ttf" Size="20" Bpp="4" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0x30-0x39,0x3A" />
-    <Typography Id="Large" Font="cour.ttf" Size="40" Bpp="4" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0x30-0x39,0x3A" />
+    <Typography Id="Default" Font="cour.ttf" Size="20" Bpp="4" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0x30-0x39,0x3A,0x2D" />
+    <Typography Id="Large" Font="cour.ttf" Size="40" Bpp="4" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0x30-0x39,0x3A,0x2D" />
     <Typography Id="Small" Font="verdana.ttf" Size="10" Bpp="4" Direction="LTR" FallbackCharacter="?" />
   </Typographies>
 </TextDatabase>

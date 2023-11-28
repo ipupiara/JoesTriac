@@ -85,6 +85,62 @@ runScreenViewBase::runScreenViewBase() :
 
     ampGauge.setXY(280, 145);
     add(ampGauge);
+
+    astroButton.setXY(743, 4);
+    astroButton.setBitmaps(touchgfx::Bitmap(BITMAP_ASTRO_1_REM_ID), touchgfx::Bitmap(BITMAP_ASTRO_1_REM_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID));
+    astroButton.setIconXY(97, 0);
+    astroButton.setAction(buttonCallback);
+    add(astroButton);
+
+    astroBorder.setPosition(508, 136, 292, 242);
+    astroBorder.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    astroBorder.setBorderColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    astroBorder.setBorderSize(2);
+    add(astroBorder);
+
+    textArea3.setXY(520, 136);
+    textArea3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea3.setLinespacing(0);
+    textArea3.setTypedText(touchgfx::TypedText(T___SINGLEUSE_WO37));
+    add(textArea3);
+
+    textArea4.setXY(520, 192);
+    textArea4.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea4.setLinespacing(0);
+    textArea4.setTypedText(touchgfx::TypedText(T___SINGLEUSE_WCEJ));
+    add(textArea4);
+
+    textArea5.setXY(520, 251);
+    textArea5.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea5.setLinespacing(0);
+    textArea5.setTypedText(touchgfx::TypedText(T___SINGLEUSE_826A));
+    add(textArea5);
+
+    adcValueText.setPosition(660, 136, 72, 48);
+    adcValueText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    adcValueText.setLinespacing(0);
+    Unicode::snprintf(adcValueTextBuffer, ADCVALUETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_8LLG).getText());
+    adcValueText.setWildcard(adcValueTextBuffer);
+    adcValueText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_CAPG));
+    add(adcValueText);
+
+    adcadcVoltageTextVText.setXY(660, 192);
+    adcadcVoltageTextVText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    adcadcVoltageTextVText.setLinespacing(0);
+    Unicode::snprintf(adcadcVoltageTextVTextBuffer, ADCADCVOLTAGETEXTVTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_V5TZ).getText());
+    adcadcVoltageTextVText.setWildcard(adcadcVoltageTextVTextBuffer);
+    adcadcVoltageTextVText.resizeToCurrentText();
+    adcadcVoltageTextVText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_HJ2X));
+    add(adcadcVoltageTextVText);
+
+    delayText.setXY(663, 251);
+    delayText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    delayText.setLinespacing(0);
+    Unicode::snprintf(delayTextBuffer, DELAYTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_KAL2).getText());
+    delayText.setWildcard(delayTextBuffer);
+    delayText.resizeToCurrentText();
+    delayText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_LP5B));
+    add(delayText);
 }
 
 runScreenViewBase::~runScreenViewBase()
@@ -105,5 +161,12 @@ void runScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& sr
         //When stopButton clicked call virtual function
         //Call stopButtonPressed
         stopButtonPressed();
+    }
+    if (&src == &astroButton)
+    {
+        //astroButtonInteraction
+        //When astroButton clicked call virtual function
+        //Call astroButtonPressed
+        astroButtonPressed();
     }
 }

@@ -12,11 +12,19 @@ public:
     virtual ~runScreenView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
-    void update(float amps,uint32_t secRemain);
+    void update(float amps,uint32_t secRemain, int32_t adcVal, int32_triacD, float adcVolts );
     virtual void stopButtonPressed();
 protected:
     uint32_t weldingTimeSec;
     float     weldingAmps;
+    void setAstroVisible(bool vis);
+    void hideAstro();
+    void showAstro();
+    bool astroVisible;
+    virtual void astroButtonPressed();
+    int32_t triacDelay;
+    int32_t adcValue;
+    float adcVoltage;
 };
 
 #endif // RUNSCREENVIEW_HPP
