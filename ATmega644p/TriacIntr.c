@@ -11,8 +11,6 @@
 
 int16_t lastAmpsADCVal;
 
-uint16_t  shortCircuitAlarmAmpsADCValue;
-
 int16_t remainingTriacTriggerDelayCounts;
 
 int16_t triacTriggerTimeTcnt2;
@@ -22,8 +20,6 @@ int16_t secondsDurationTimerRemaining;
 int16_t secondsInDurationTimer;
 
 int8_t adcCnt;
-
-int16_t amtInductiveRepetitions;
 
 int16_t getSecondsDurationTimerRemaining()
 {
@@ -114,21 +110,6 @@ void setTriacFireDuration(int16_t durationTcnt2)
 	sei();
 }
 
-void calcAmtInductiveRepetitions(int16_t triacFireDurationTcnt2)
-{
-	if ( inductiveLoad)  {
-		float amtInductiveRepetitionsF = 0.0;
-		float triacFireDurationTcnt2F = triacFireDurationTcnt2;
-//		amtInductiveRepetitions = ((triacFireDurationTcnt2 * ( 1  /(11.0592e+6  /128) )) * 1.0e+6  ) /  measuredRepetitionIntervalus; 
-		amtInductiveRepetitionsF = (triacFireDurationTcnt2F * 11.63  )  /  measuredRepetitionIntervalus; 
-		// always cut off modulo part when converting to int
-		amtInductiveRepetitions = amtInductiveRepetitionsF;   // tobe  debugged
-	} else {
-		amtInductiveRepetitions = 1;
-	}
-	
-}
-
 ISR(TIMER2_COMPA_vect)
 {
 	cli();
@@ -140,7 +121,6 @@ ISR(TIMER2_COMPA_vect)
 			stopTimer2();
 		} else {
 			startTriacTriggerDelay(delayBetweenTriacTriggers);
-			// --amtInductiveRepetitions;
 		}
 	} else {
 		setTriacTriggerDelayValues();
@@ -153,10 +133,7 @@ ISR(ADC_vect)
 	cli();
 	lastAmpsADCVal = ADC;
 	sei();
-	++ adcCnt;
-#ifdef shortCircuitAlarmSupported	
-	checkShortCircuitCondition();
-#endif	
+	++ adcCnt;	
 	if (adcCnt == pidStepDelays)  {     
 		adcCnt = 0;
 		adcTick = 1;
@@ -183,49 +160,14 @@ ISR(TIMER0_COMPA_vect)
 }
 
 int8_t sec10Counter;
-int8_t shortCircuitSec10Counter;
-uint8_t  shortCircuitAlarmOn;
+//int8_t shortCircuitSec10Counter;
+//uint8_t  shortCircuitAlarmOn;
 int16_t  dValueSec10Counter;
 uint8_t  dValueAlarmOn;
 
 
 ISR(TIMER1_COMPA_vect)
 {
-#ifdef shortCircuitAlarmSupported
-
-		cli();
-		if (shortCircuitSec10Counter > 0)  {
-			-- shortCircuitSec10Counter;
-			if (shortCircuitSec10Counter == 0)  {
-				shortCircuitSec10Counter = -1;
-				shortCircuitAlarmOn = 1;
-				sprintf((char *) &lastFatalErrorString,"short circuit");
-				fatalErrorOccurred = 1;
-			}
-		}
-		if (dValueSec10Counter > 0)  {
-			-- dValueSec10Counter;
-			if (dValueSec10Counter == 0)  {
-				dValueSec10Counter = -1;
-				if (dValueAlarmFatal > 0) {
-					sprintf((char *) &lastFatalErrorString,"DValue low/high");
-					fatalErrorOccurred = 1;
-				} else {
-					dValueAlarmOn = 1;
-				}
-			}
-		}
-		sei();
-		if ((shortCircuitAlarmOn > 0) || (dValueAlarmOn > 0)) {
-//			if ((sec10Counter == 5) || (sec10Counter ==  10 ) || (sec10Counter == 3) || (sec10Counter ==  8 )) {sec
-			if ((sec10Counter & 0x1) == 0 )  {
-				toggleCompletionAlarm();
-			}
-		}  else {
-			setCompletionAlarmOff();
-		}
-	
-#endif	
 	if ( sec10Counter >= 10)  {
 		sec10Counter = 1;
 		secondsDurationTimerRemaining --;
@@ -268,7 +210,7 @@ void initInterrupts()
 	  
 			runningSecondsTick = 0;
 			sec10Counter = 0;
-			resetCircuitAlarms();
+//			resetCircuitAlarms();
 	  
 		TCCR1A = 0x00;  // normal mode or CTC dep.on TCCR1B
 		//TCCR1B = 0b00001101  ; // CTC on CC1A , set clk / 1024, timer started
@@ -359,7 +301,6 @@ void stopAmpsADC()
 void startTriacRun()
 {
 	resetPID();
-	resetCircuitAlarms();
 	startAmpsADC();
 	EIFR = 0x00;
 	EIMSK = 0x01;  				// start external interrupt (zero pass detection)
@@ -367,7 +308,6 @@ void startTriacRun()
 
 void stopTriacRun()
 {
-	resetCircuitAlarms();    // stops also circuit alarms (shortCircuit, DValue)
 	EIMSK = 0x00;				// stop external interrupt
 	cli();
 	stopTimer2();
@@ -454,65 +394,3 @@ void toggleCompletionAlarm()
 	}
 }
 
-void resetCircuitAlarms()
-{
-	shortCircuitAlarmAmpsADCValue = adcValueForAmps(shortCircuitAlarmAmps);
-	shortCircuitAlarmOn = 0;
-	dValueAlarmOn = 0;
-	shortCircuitSec10Counter = 0;
-	dValueSec10Counter = 0;
-	setCompletionAlarmOff();
-}
-
-//  checkShortCircuitCondition, pn 27oct2016
-//  due to recent events in jo's production, we created
-//  this method which should be able to detect a behaviour that indicates a "short circuit" abnormality 
-//  on the load side of the triac. compared to a not regulated power source it is much more difficult
-//  to find such an abnormality on a regulated one, because our triac application immediately starts regulating the 
-//  current down as soon as a short circuit takes place, ie. a drastically reduction of the 
-//  load resistance. Anyhow some indicator might show such a situation, but there will be always
-//  some uncertainty in the determination of such situation and wrong alerts have to be minimized
-//  as far as anyhow possible, because each interrupt of the welding process due to wrong alert 
-//  means a high risk of material loss.
-//  indicators might be:
-//  - low triac delay value  - rapid increase of current to high level for short time before regulation down
-//  - hardware problems on triac regulation resulting in regulation loss
-
-#ifdef shortCircuitAlarmSupported
-void checkShortCircuitCondition()
-{
-	cli();
-	if (lastAmpsADCVal > shortCircuitAlarmAmpsADCValue) {
-		if (shortCircuitSec10Counter == 0)  {
-			shortCircuitSec10Counter = shortCircuitAlarmSecond10;
-		} 
-	
-	} else {
-		shortCircuitSec10Counter = 0;
-		shortCircuitAlarmOn = 0;
-	}
-	if ((triacFireDurationTcnt2 > dValueAlarmHigh) || (triacFireDurationTcnt2 < dValueAlarmLow)) {
-			if (dValueSec10Counter == 0)  {
-				dValueSec10Counter = dValueAlarmSec10;
-		}
-			
-	} else {
-		dValueSec10Counter = 0;
-		dValueAlarmOn = 0;
-	}
-	sei();
-}
-#endif
-
-void printDValueVars()
-{
-	int16_t   sec10Counter;
-	int16_t	  alarmSec10;
-	int16_t   fireDuration;
-	cli();
-		sec10Counter = dValueSec10Counter;
-		alarmSec10 = dValueAlarmSec10;
-		fireDuration = triacFireDurationTcnt2;  
-	sei();
-	printf("dValueSec10 Counter: %i,  alarmSec10: %i, fire Dur: %i\n",sec10Counter,alarmSec10,fireDuration);
-}

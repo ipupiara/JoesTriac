@@ -42,7 +42,7 @@ void toggleCompletionAlarm();
 void checkShortCircuitCondition();  // see comments at implementation in .c file
 void resetCircuitAlarms();
 
-void printDValueVars();
+//void printDValueVars();
 
 /*
 opto coupler based 0x (zerocross) handling. optocoupler based diode opens at 
