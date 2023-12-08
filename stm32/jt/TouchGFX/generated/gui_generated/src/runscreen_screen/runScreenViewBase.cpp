@@ -92,13 +92,13 @@ runScreenViewBase::runScreenViewBase() :
     astroButton.setAction(buttonCallback);
     add(astroButton);
 
-    astroBorder.setPosition(508, 136, 292, 242);
-    astroBorder.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    astroBorder.setPosition(501, 136, 292, 242);
+    astroBorder.setColor(touchgfx::Color::getColorFromRGB(24, 237, 74));
     astroBorder.setBorderColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     astroBorder.setBorderSize(2);
     add(astroBorder);
 
-    textArea3.setXY(520, 136);
+    textArea3.setXY(520, 143);
     textArea3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea3.setLinespacing(0);
     textArea3.setTypedText(touchgfx::TypedText(T___SINGLEUSE_WO37));
@@ -116,7 +116,7 @@ runScreenViewBase::runScreenViewBase() :
     textArea5.setTypedText(touchgfx::TypedText(T___SINGLEUSE_826A));
     add(textArea5);
 
-    adcValueText.setPosition(660, 136, 72, 48);
+    adcValueText.setPosition(660, 140, 99, 51);
     adcValueText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     adcValueText.setLinespacing(0);
     Unicode::snprintf(adcValueTextBuffer, ADCVALUETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_8LLG).getText());

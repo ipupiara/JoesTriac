@@ -4,8 +4,8 @@
 #include <defines.h>
 #include <mainJt.h>
 
-#define zeroPassPin_Pin GPIO_PIN_12
-#define zeroPassPin_GPIO_Port GPIOA
+#define zeroPass_Pin GPIO_PIN_12
+#define zeroPass_Port GPIOA
 #define zeroPassPin_EXTI_IRQn EXTI15_10_IRQn
 
 #define buzzerTimer htim11
@@ -248,9 +248,9 @@ void TIM2_IRQHandler(void)
 //  zero pass pin irq
 void EXTI15_10_IRQHandler(void)
 {
-	  if(__HAL_GPIO_EXTI_GET_IT(zeroPassPin_Pin) != 0) {
-		__HAL_GPIO_EXTI_CLEAR_IT(zeroPassPin_Pin);
-		if (HAL_GPIO_ReadPin(zeroPassPin_GPIO_Port,zeroPassPin_Pin) == 0)  {
+	  if(__HAL_GPIO_EXTI_GET_IT(zeroPass_Pin) != 0) {
+		__HAL_GPIO_EXTI_CLEAR_IT(zeroPass_Pin);
+		if (HAL_GPIO_ReadPin(zeroPass_Port,zeroPass_Pin) == 1)  {
 				tim5UsedDelay =	triacDelayTimer.Instance->ARR =getTriacTriggerDelay();
 				triacDelayTimer.Instance->CNT =0;
 				tim5RunState = tim5DelayPhase;
@@ -429,10 +429,10 @@ void enableZeroPassDetector()
 void initZeroPassDetector()
 {
 	GPIO_InitTypeDef GPIO_InitStruct = {0};
-	GPIO_InitStruct.Pin = zeroPassPin_Pin;
+	GPIO_InitStruct.Pin = zeroPass_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
-	GPIO_InitStruct.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init(zeroPassPin_GPIO_Port, &GPIO_InitStruct);
+	GPIO_InitStruct.Pull = GPIO_PULLUP;
+	HAL_GPIO_Init(zeroPass_Port, &GPIO_InitStruct);
 
 	HAL_NVIC_SetPriority(EXTI15_10_IRQn, triacTriggerIsrPrio, 0);
 	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);

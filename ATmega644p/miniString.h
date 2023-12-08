@@ -29,7 +29,8 @@ typedef int16_t (*miniStringCalcMenthodType)(void);
 
 typedef void(*miniStringDisplayMethodType)(int8_t);
 
-#define amtMiniStringEditPages  4
+#define amtMiniStringEditPages  1
+//#define amtMiniStringEditPages  4
 
 // contains every information needed to edit the miniString
 typedef struct SetupMiniStringConfigurationStruct {

@@ -140,7 +140,7 @@
             "X": 465,
             "Y": 12,
             "Width": 144,
-            "Height": 48,
+            "Height": 45,
             "TextId": "__SingleUse_DEJR",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1723,14 +1723,14 @@
           {
             "Type": "BoxWithBorder",
             "Name": "astroBorder",
-            "X": 508,
+            "X": 501,
             "Y": 136,
             "Width": 292,
             "Height": 242,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 24,
+              "Green": 237,
+              "Blue": 74
             },
             "BorderSize": 2
           },
@@ -1738,7 +1738,7 @@
             "Type": "TextArea",
             "Name": "textArea3",
             "X": 520,
-            "Y": 136,
+            "Y": 143,
             "Width": 72,
             "Height": 48,
             "TextId": "__SingleUse_WO37",
@@ -1771,9 +1771,9 @@
             "Type": "TextArea",
             "Name": "adcValueText",
             "X": 660,
-            "Y": 136,
-            "Width": 72,
-            "Height": 48,
+            "Y": 140,
+            "Width": 99,
+            "Height": 51,
             "TextId": "__SingleUse_CAPG",
             "TextRotation": "0",
             "Wildcard1": {

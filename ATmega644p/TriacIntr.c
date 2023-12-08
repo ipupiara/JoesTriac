@@ -149,7 +149,6 @@ ISR(INT0_vect)
 		triacTriggerTimeTcnt2 = 0;
 		if (triacFireDurationTcnt2 > 0)  {
 			startTriacTriggerDelay(  triggerDelayMaxTcnt2 - triacFireDurationTcnt2);
-//			calcAmtInductiveRepetitions(triacFireDurationTcnt2);
 		}
 	}
 	sei();		  
@@ -160,8 +159,6 @@ ISR(TIMER0_COMPA_vect)
 }
 
 int8_t sec10Counter;
-//int8_t shortCircuitSec10Counter;
-//uint8_t  shortCircuitAlarmOn;
 int16_t  dValueSec10Counter;
 uint8_t  dValueAlarmOn;
 

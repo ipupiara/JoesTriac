@@ -89,6 +89,17 @@ void runScreenView::stopButtonPressed()
 	presenter->stopButtonPressed();
 }
 
+void runScreenView::doAstroInvalidate()
+{
+	   astroBorder.invalidate();
+	    textArea3.invalidate();
+	    textArea4.invalidate();
+	    textArea5.invalidate();
+	    adcVoltageText.invalidate();
+	    adcValueText.invalidate();
+	    delayText.invalidate();
+}
+
 void runScreenView::setAstroVisible(bool vis)
 {
     astroBorder.setVisible(vis);
@@ -98,7 +109,7 @@ void runScreenView::setAstroVisible(bool vis)
     adcVoltageText.setVisible(vis);
     adcValueText.setVisible(vis);
     delayText.setVisible(vis);
-
+    doAstroInvalidate();
 }
 
 void runScreenView::toggleAstro()

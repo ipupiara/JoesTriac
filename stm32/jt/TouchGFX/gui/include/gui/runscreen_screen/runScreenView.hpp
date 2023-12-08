@@ -21,6 +21,7 @@ protected:
     void hideAstro();
     void showAstro();
     void toggleAstro();
+    void doAstroInvalidate();
     bool astroVisible;
     virtual void astroButtonPressed();
     int32_t triacDelay;

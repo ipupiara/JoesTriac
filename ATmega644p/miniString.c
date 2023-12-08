@@ -216,21 +216,22 @@ SetupPageConfigurationStruct   setupPageConfiguration[amtMiniStringEditPages] =
 			showCompletionAlarmSetup,
 			{1,completionAlarmMinsArrPos, writeCompletionAlarmMinutes  },
 			{1,completionAlarmOnArrPos, writeCompletionAlarmOn }
-		},
-		{	showShortCircuitAlarmSetup,
-			{1,shortCircuitAlarmAmpsArrPos, writeShortCircuitAlarmAmps },
-			{1,shortCircuitAlarmSecs10ArrPos, writeShortCircuitAlarmSec10 }	
-		},
-		{
-			showDValueAlarmLowHighSetup,
-			{1,dValueAlarmLowArrPos,writeDValueLow},
-			{1,dValueAlarmHighArrPos,writeDValueHigh}
-		},
-		{
-			showDValueAlarmSec10FatalSetup,
-			{1,dValueAlarmSec10ArrPos,writeDValueAlarmSec10},
-			{1,dValueAlarmFatalArrPos,writeDValueAlarmFatal}	
 		}
+		//,
+		//{	showShortCircuitAlarmSetup,
+			//{1,shortCircuitAlarmAmpsArrPos, writeShortCircuitAlarmAmps },
+			//{1,shortCircuitAlarmSecs10ArrPos, writeShortCircuitAlarmSec10 }	
+		//},
+		//{
+			//showDValueAlarmLowHighSetup,
+			//{1,dValueAlarmLowArrPos,writeDValueLow},
+			//{1,dValueAlarmHighArrPos,writeDValueHigh}
+		//},
+		//{
+			//showDValueAlarmSec10FatalSetup,
+			//{1,dValueAlarmSec10ArrPos,writeDValueAlarmSec10},
+			//{1,dValueAlarmFatalArrPos,writeDValueAlarmFatal}	
+		//}
 	};
 	
 int8_t nextMiniStringPage()
