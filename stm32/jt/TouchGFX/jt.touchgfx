@@ -1302,44 +1302,6 @@
               "Blue": 255
             },
             "TextRotation": "0"
-          },
-          {
-            "Type": "ButtonWithLabel",
-            "Name": "buttonWithLabel1",
-            "X": 439,
-            "Y": 240,
-            "Width": 170,
-            "Height": 60,
-            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
-            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "TextId": "__SingleUse_6WAP",
-            "ReleasedColor": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "PressedColor": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "TextRotation": "0"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea1",
-            "X": 676,
-            "Y": 254,
-            "Width": 72,
-            "Height": 45,
-            "TextId": "__SingleUse_MZOD",
-            "TextRotation": "0",
-            "AutoSize": true,
-            "Wildcard1": {
-              "TextId": "__SingleUse_OGN3",
-              "UseBuffer": true,
-              "BufferSize": 10
-            }
           }
         ],
         "Interactions": [

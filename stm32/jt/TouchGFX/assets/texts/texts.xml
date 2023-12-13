@@ -144,15 +144,6 @@
       <Text Id="__SingleUse_6OBZ" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">000.00</Translation>
       </Text>
-      <Text Id="__SingleUse_OGN3" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">000</Translation>
-      </Text>
-      <Text Id="__SingleUse_MZOD" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">&lt;potiPos&gt;</Translation>
-      </Text>
-      <Text Id="__SingleUse_6WAP" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">poti pos</Translation>
-      </Text>
       <Text Id="__SingleUse_KE25" Alignment="Center" TypographyId="Default">
         <Translation Language="GB">abort</Translation>
       </Text>

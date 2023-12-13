@@ -165,10 +165,10 @@ void setTriacTriggerDelay(int32_t durationTcnt)
 		if (durationTcnt > 0) {
 			triacTriggerDelay = durationTcnt;
 		}  else {
-			triacTriggerDelay = 1 * kStepUnitsFactor;
+			triacTriggerDelay = 1;
 		}
 	} else {
-		triacTriggerDelay = stmTriggerDelayMax - 1* kStepUnitsFactor;
+		triacTriggerDelay = stmTriggerDelayMax - 1;
 	}
 	taskEXIT_CRITICAL();  // omitted due to isr problems with freertos, should be no problem here due to atomicity, and 1 changer and 1 consumer-only
 }

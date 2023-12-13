@@ -486,7 +486,7 @@ void calibTriacDelayChange(int32_t diff)
    if ( i32abs (diff) != 1)  {
 	   res += diff * kStepUnitsFactor;   //  todo change also on ui
    } else  {
-	   res +=1;
+	   res += diff;
    }
    setTriacTriggerDelay(res);
    CJoesPresenterEventT msg;

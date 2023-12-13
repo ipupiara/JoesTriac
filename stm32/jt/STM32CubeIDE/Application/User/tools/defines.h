@@ -19,11 +19,9 @@ extern "C"
 #define triacApplicationIsrPrio    5
 #define triacTriggerIsrPrio   0
 
-#define calibHighAmps  80.0
-#define calibLowAmps   30.0
-#define avrTriggerDelayMaxTcnt  810
+#define calibHighAmps  60.0
+#define calibLowAmps   20.0
 
-#define errorStringLen  20
 #define eepromI2cAddr   0xA0
 
 typedef enum{
