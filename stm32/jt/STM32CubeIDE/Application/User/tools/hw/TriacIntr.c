@@ -454,6 +454,7 @@ void initAmpsZeroPassDetect()
 
 void startTriacRun()
 {
+	setTriacTriggerDelay(stmTriggerDelayMax);
 	enableZeroPassDetector();
 //	checkInterrupts();
 }
@@ -474,15 +475,15 @@ void stopTimersWhenDebugHalt()
 	DBGMCU->APB2FZ |= DBGMCU_APB2_FZ_DBG_TIM11_STOP;
 }
 
-//void startDebuggingTriacRun()
-//{
-//	stopTimersWhenDebugHalt();
-//
-//	checkInterrupts();
-//	float multi = 5.0 / 8.0;
-//	triacTriggerDelay = stmTriggerDelayMax*  multi;
-//	startTriacRun();
-//}
+void startDebuggingTriacRun()
+{
+	stopTimersWhenDebugHalt();
+
+	checkInterrupts();
+	float multi = 5.0 / 8.0;
+	triacTriggerDelay = stmTriggerDelayMax*  multi;
+	startTriacRun();
+}
 
 
 

@@ -309,8 +309,8 @@ void initJt()
 #else
 
 
-		initTriacIntr();
-//		initUartHw();
+//		initTriacIntr();
+		initUartHw();
 #endif
 }
 

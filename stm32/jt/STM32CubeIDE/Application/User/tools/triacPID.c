@@ -175,153 +175,6 @@ void resetPID()
 	updateGradAmps();
 }
 
-#ifdef  newPid
-
-
-#define correctionThreshold  10 * kStepUnitsFactor
-
-real nextCorrection(real err)
-{
-	//  todo check if fp and art, icache and dchace are running (fp =float processor) ?
-//    real iFact = 1.0;
-//	real pFact = 1.0;
-//	real dFact = 1.0;
-	real res;
-	real deriv;
-
-    if (fabs(err) < m_integral_thresh) {
-    	if (errorScope != nearScope )  {
-//    		m_kPTot = kpTot / 2.0  ;
-    		m_kI = kIntegral *  kStepUnitsFactor ;
-    		m_kP   =  ( kPartial *  kStepUnitsFactor) / 100.0;
-//    		m_kP  = 0;
-//    		m_kD = (kDerivativ  *  kStepUnitsFactor) / 2.0;
-			m_integral = 0.0;
-			errorScope = nearScope;
-    	}
-        if (signum(err) != signum(m_prev_error))  {
-        	++debZXcnt;
-        	m_integral = 0.0;
-        }
-
-        m_integral += m_stepTime * err;
-    } else  {
-    	if (errorScope != farScope) {
-//    		m_kPTot = kpTot  ;
-    		m_kI = 0.0;
-    	    m_kP   = kPartial *  kStepUnitsFactor ;
-//    	    m_kD = kDerivativ  *  kStepUnitsFactor ;
-			m_integral = 0.0;
-			errorScope = farScope;
-    	}
-	}
-//
-    if (!m_started)
-    {
-        m_started = 1;
-        deriv = 0;
-    }
-    else  {
-        deriv =  ((err - m_prev_error) * m_inv_stepTime);
-    }
-    m_prev_error = err;
-#ifdef printfPid
-    real mk, mi, md;
-	res = m_kPTot*((mk=(m_kP*err)) + (mi=(m_kI*m_integral)) - (md=(m_kD*deriv)));
-#else
-	res = m_kPTot*((debPart =(m_kP*err)) + (debInteg = (m_kI*m_integral)) + ( debDeriv = (m_kD*deriv)));
-#endif
-	if (res > correctionThreshold) {
-		res = correctionThreshold;
-	} else if (res < -1*correctionThreshold) {
-		res = -1* correctionThreshold;
-	}
-#ifdef printfPid
-	info_printf("m_kPTot*tot %10.3f, m_kP*e %10.3f,m_kI*i %10.3f, m_kD*d %10.3f\n",\
-					res, mk, mi, md);
-#endif
-    return res;
-}
-
-int32_t delayCorrectionI;
-
-void calcNextTriacDelay()
-{  
-	float delayCorrectionF;
-	int32_t newDelay;
-
-
-	float amps;
-	error = (amps = currentAmps()) - getDefinesWeldingAmps();
-	taskENTER_CRITICAL();
-	currentAmpsValue = amps;
-	taskEXIT_CRITICAL();
-	delayCorrectionF = nextCorrection(error);
-	delayCorrectionF += corrCarryOver;
-	delayCorrectionI = delayCorrectionF;
-	corrCarryOver = delayCorrectionF - delayCorrectionI;
-
-	if (((error > 0)  && (delayCorrectionI < 0)) || ((error < 0)  && (delayCorrectionI > 0)))   {
-		delayCorrectionI = 0;  //  do not go into the wrong direction
-	}
-
-	newDelay = getTriacTriggerDelay() + delayCorrectionI;
-	setTriacTriggerDelay(newDelay);
-
-}
-
-
-//todo  introduce maxDelay  and maxTriger  to prevent current to Load when it should switch off compltely
-
-void InitPID()
-{
-//	initTwa();
-	debZXcnt = 0;
-
-	currentAmpsValue = 0.0;
-	errorScope = farScope;
-
-	m_kPTot = kTotal  ;
-    m_kI = kIntegral *  kStepUnitsFactor ;
-    m_kP   = kPartial *  kStepUnitsFactor ;
-    m_kD = kDerivativ  *  kStepUnitsFactor ;
-    m_integral_thresh = error_thresh ;
-
-	real thousand = 1000.0;
-
-	m_stepTime = (step_time / thousand)  ;
-    m_inv_stepTime = 1 / m_stepTime;
-
-    m_integral = 0;
-    m_started = 0;
-    corrCarryOver = 0;
-
-	updateGradAmps();
-}
-
-
-void printPIDState()
-{
-//	int16_t adcAmps;
-//	float res;
-//	double resD;
-//	double gradD = gradAmps;
-//
-//	adcAmps = 0;
-//
-//	res = calibLowAmps +  (gradAmps * ((int16_t) adcAmps - (int16_t) calibLowADC  ));
-//	resD = res;
-
-//	printf("\nPID State\n");
-//	printf("calLowA %i calHighA %i caLowDelay %i caHiDelay %i\n",calibLowAmps,calibHighAmps, calibLowTriacFireDuration, calibHighTriacFireDuration);
-//	printf("calLowAdc %i caHiAdc %i \n",calibLowADC, calibHighADC);
-//	printf("shows at 0 ADC : %f A  grad %f zeroPotiPos %i\n",resD, gradD,zeroPotiPos);
-//	checkEEPOROM();
-}
-
-#else
-
-
 real nextCorrection(real error)
 {
     // Set q_fact to 1 if the error magnitude is below
@@ -360,6 +213,10 @@ real nextCorrection(real error)
 	} else if (res < -1*m_correctionThresh) {
 		res = -1* m_correctionThresh;
 	}
+
+//	if (getCurrentAmpsADCValue() < 500  )  {   //  todo add global constants  for introduced values
+//		res= res/4;
+//	}
 
 #ifdef printfPID
 	double errD = error;
@@ -445,7 +302,7 @@ void printPIDState()
 
 
 
-#endif
+
 
 /*
 ////////////////////////////////////////////////   twa   code  ///////////////////

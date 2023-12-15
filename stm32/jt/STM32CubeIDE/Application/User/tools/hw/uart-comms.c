@@ -31,6 +31,7 @@ osMessageQueueId_t    serialMessageQ;
 char receiveBuffer [maxSerialStringSz+1];
 //char transmitBuffer  [maxSerialStringSz+1];
 
+void private_printf( char *emsg, ...);
 
 void OnPrintError()
 {
@@ -85,26 +86,32 @@ void init_printf()
 	}
 }
 
-
 void info_printf( char *emsg, ...)
 {
-//	char transmitBuffer  [maxSerialStringSz+1];
-//	osStatus_t status;
-//	va_list ap;
-//
-//	va_start(ap, emsg);
-//
-//	if (serialOn == 1) {
-//
-//		vsnprintf((char *)&transmitBuffer, maxSerialStringSz-1,  emsg, ap);
-//		transmitBuffer[maxSerialStringSz-1] = 0;
-//
-//		status = osMessageQueuePut(serialMessageQ,&transmitBuffer,0,0);
-//		if (status != osOK)  {
-//			errorHandler(status ,goOn," osMessageQueuePut ","info_printf");
-//		}
-//	}
-//	va_end(ap);
+	va_list ap;
+	va_start(ap, emsg);
+	private_printf(emsg, ap);
+	va_end(ap);
+}
+
+void private_printf( char *emsg, ...)
+{
+	char transmitBuffer  [maxSerialStringSz+1];
+	osStatus_t status;
+	va_list ap;
+	va_start(ap, emsg);
+
+	if (serialOn == 1) {
+
+		vsnprintf((char *)&transmitBuffer, maxSerialStringSz-1,  emsg, ap);
+		transmitBuffer[maxSerialStringSz-1] = 0;
+
+		status = osMessageQueuePut(serialMessageQ,&transmitBuffer,0,0);
+		if (status != osOK)  {
+			errorHandler(status ,goOn," osMessageQueuePut ","info_printf");
+		}
+	}
+	va_end(ap);
 //	//	printf(emsg, ap);
 }
 
@@ -112,10 +119,9 @@ void info_printf( char *emsg, ...)
 void  err_printf ( char *emsg, ...)
 {
 	va_list ap;
-
 	va_start(ap, emsg);
 	++ amtErr;
-	info_printf(emsg, ap);
+	private_printf(emsg, ap);
 	va_end(ap);
 }
 

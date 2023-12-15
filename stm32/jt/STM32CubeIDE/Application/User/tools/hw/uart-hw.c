@@ -15,9 +15,9 @@ UART_HandleTypeDef huart;
 DMA_HandleTypeDef hdma_usart_tx;
 DMA_HandleTypeDef hdma_usart_rx;
 
-UART_HandleTypeDef huart2;
-DMA_HandleTypeDef hdma_usart2_tx;
-DMA_HandleTypeDef hdma_usart2_rx;
+//UART_HandleTypeDef huart2;
+//DMA_HandleTypeDef hdma_usart2_tx;
+//DMA_HandleTypeDef hdma_usart2_rx;
 
 extern uint16_t  feCounter;
 extern uint16_t  teCounter;
@@ -192,62 +192,62 @@ void setUartJobSemaQ()
 }
 
 
-//void USART_IRQHandler(void)
-//{
-//    if (__HAL_UART_GET_FLAG(&huart,USART_ISR_TXE)  )  {
-//    	__HAL_UART_CLEAR_IT(&huart,USART_ISR_TXE);
-//
-//    	huart.Instance->TDR= txStringBuffer[txStringBufferPos];
-//        ++ 	txStringBufferPos;
-//
-//        if (txStringBufferPos == txStringBufferLen) {
-//            disableUartInterrupts();
-//            setUartJobSemaQ();
-//        }
-//        //  todo handle errors
-//    }
-//
-//	uint8_t idleDetected = 0;
-//
-//    if (__HAL_UART_GET_FLAG(&huart,USART_ISR_IDLE_Msk)  )  {
-//    	__HAL_UART_CLEAR_IT(&huart,USART_ISR_IDLE_Msk);
-//    	idleDetected = 1;
-//    	++ debugIdleCounter;
-//     }
-//    if (__HAL_UART_GET_FLAG(&huart,USART_ICR_TCCF_Msk)  )  {
-//        	//  copy rest of data to receive buffer and signal received event
-//    	__HAL_UART_CLEAR_IT(&huart,USART_ICR_TCCF_Msk);
-//    }
-//
-//     /* --------------- HANDLER YOUR ISR HERE --------------- */
-//     if (idleDetected == 1)   {
-//	    transferBuffer(fromUartIsr);
-//     }
-//}
-//
-//void txDMA_Stream_IRQHandler(void)   // TX
-//{
-//	if (__HAL_DMA_GET_FLAG(&hdma_usart_tx,txDMA_FLAG_TCIF) != 0)  {
-//		setUartJobSemaQ();
-//		__HAL_DMA_CLEAR_FLAG(&hdma_usart_tx,txDMA_FLAG_TCIF);
-//	}
-//
-//    if (__HAL_DMA_GET_FLAG(&hdma_usart_tx,txDMA_FLAG_HTIF) != 0)  {
-//    	__HAL_DMA_CLEAR_FLAG(&hdma_usart_tx,txDMA_FLAG_HTIF);
-//    }
-//
-//	if ((__HAL_DMA_GET_FLAG(&hdma_usart_tx,txDMA_FLAG_TEIF))
-//								| (__HAL_DMA_GET_FLAG(&hdma_usart_tx,txDMA_FLAG_FEIF))
-//								| (__HAL_DMA_GET_FLAG(&hdma_usart_tx,txDMA_FLAG_DMEIF))) {
-//		errorHandler((uint32_t)1 ,goOn," DMA_FLAG_TEIF2_6 "," txDMA_Stream_IRQHandler ");
-//	  //   todo carefully abort job and deinit if possible
-//
-//		__HAL_DMA_CLEAR_FLAG(&hdma_usart_tx,txDMA_FLAG_TEIF);
-//		__HAL_DMA_CLEAR_FLAG(&hdma_usart_tx,txDMA_FLAG_FEIF);
-//		__HAL_DMA_CLEAR_FLAG(&hdma_usart_tx,txDMA_FLAG_DMEIF);
-//	}
-//}
-//
+void USART_IRQHandler(void)
+{
+    if (__HAL_UART_GET_FLAG(&huart,USART_ISR_TXE)  )  {
+    	__HAL_UART_CLEAR_IT(&huart,USART_ISR_TXE);
+
+    	huart.Instance->TDR= txStringBuffer[txStringBufferPos];
+        ++ 	txStringBufferPos;
+
+        if (txStringBufferPos == txStringBufferLen) {
+            disableUartInterrupts();
+            setUartJobSemaQ();
+        }
+        //  todo handle errors
+    }
+
+	uint8_t idleDetected = 0;
+
+    if (__HAL_UART_GET_FLAG(&huart,USART_ISR_IDLE_Msk)  )  {
+    	__HAL_UART_CLEAR_IT(&huart,USART_ISR_IDLE_Msk);
+    	idleDetected = 1;
+    	++ debugIdleCounter;
+     }
+    if (__HAL_UART_GET_FLAG(&huart,USART_ICR_TCCF_Msk)  )  {
+        	//  copy rest of data to receive buffer and signal received event
+    	__HAL_UART_CLEAR_IT(&huart,USART_ICR_TCCF_Msk);
+    }
+
+     /* --------------- HANDLER YOUR ISR HERE --------------- */
+     if (idleDetected == 1)   {
+	    transferBuffer(fromUartIsr);
+     }
+}
+
+void txDMA_Stream_IRQHandler(void)   // TX
+{
+	if (__HAL_DMA_GET_FLAG(&hdma_usart_tx,txDMA_FLAG_TCIF) != 0)  {
+		setUartJobSemaQ();
+		__HAL_DMA_CLEAR_FLAG(&hdma_usart_tx,txDMA_FLAG_TCIF);
+	}
+
+    if (__HAL_DMA_GET_FLAG(&hdma_usart_tx,txDMA_FLAG_HTIF) != 0)  {
+    	__HAL_DMA_CLEAR_FLAG(&hdma_usart_tx,txDMA_FLAG_HTIF);
+    }
+
+	if ((__HAL_DMA_GET_FLAG(&hdma_usart_tx,txDMA_FLAG_TEIF))
+								| (__HAL_DMA_GET_FLAG(&hdma_usart_tx,txDMA_FLAG_FEIF))
+								| (__HAL_DMA_GET_FLAG(&hdma_usart_tx,txDMA_FLAG_DMEIF))) {
+		errorHandler((uint32_t)1 ,goOn," DMA_FLAG_TEIF2_6 "," txDMA_Stream_IRQHandler ");
+	  //   todo carefully abort job and deinit if possible
+
+		__HAL_DMA_CLEAR_FLAG(&hdma_usart_tx,txDMA_FLAG_TEIF);
+		__HAL_DMA_CLEAR_FLAG(&hdma_usart_tx,txDMA_FLAG_FEIF);
+		__HAL_DMA_CLEAR_FLAG(&hdma_usart_tx,txDMA_FLAG_DMEIF);
+	}
+}
+
 
 //void DMA1_Stream5_IRQHandler(void)  // RX
 //{
@@ -484,7 +484,7 @@ osStatus_t sendUartString(char* sndStr)
 void uartTriacTest()
 {
 	uint32_t lastUwTick  = uwTick;
-	char * teststr  = "hello you there";
+	char * teststr  = "hello you there, hee duu tettä\n";
 
 	do {
 		do {} while (((uwTick - lastUwTick) < 100 ) || (uwTick == 0xffffffff) );
