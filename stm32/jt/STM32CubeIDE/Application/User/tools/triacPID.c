@@ -6,11 +6,11 @@
 #include <defines.h>
 #include <TriacIntr.h>
 #include <adcControl.h>
-//#include <uart-comms.h>
+#include <uart-comms.h>
 #include <mainJt.h>
 
 
-//#define printfPid
+#define printfPid
 //#define printfAmps
 
 void initTwa();
@@ -134,17 +134,17 @@ float getCurrentAmpsValue()
 	return res;
 }
 
-void startAmpsADC()
-{
-	setCurrentAmpsADCValueNonIsr( 0);
-	startADC();
-}
-
-void stopAmpsADC()
-{
-	stopADC();
-	setCurrentAmpsADCValueNonIsr(0);
-}
+//void startAmpsADC()
+//{
+//	setCurrentAmpsADCValueNonIsr( 0);
+//	startADC();
+//}
+//
+//void stopAmpsADC()
+//{
+//	stopADC();
+//	setCurrentAmpsADCValueNonIsr(0);
+//}
 
 void startTriacPidRun()
 {
@@ -218,11 +218,11 @@ real nextCorrection(real error)
 //		res= res/4;
 //	}
 
-#ifdef printfPID
+#ifdef printfPid
 	double errD = error;
 	double intD = m_integral;
 	double derivD = deriv;
-	printf("err %f int %f deriv %f \n",errD, intD, derivD);
+	pid_printf("err %f int %f deriv %f \n",errD, intD, derivD);
 #endif
     return res;
 }
@@ -240,13 +240,12 @@ void calcNextTriacDelay()
 	newDelay = getTriacTriggerDelay() - corrInt;
 	setTriacTriggerDelay(newDelay);
 
-	printf("calcNextTriacDelay\n");
-
-#ifdef printfPID
-	double corrD = corr;
+#ifdef printfPid
+	double corrD = correction;
 	double carryCorrD = corrCarryOver;
 	double ampsD  = currentAmps();
-	printf(" corr %f corrI %i cry %f delay %x  amps %f\n",corrD,corrInt, carryCorrD, newDelay, ampsD);
+	uint32_t adcVal =  getCurrentAmpsADCValue();
+	pid_printf(" corr %f corrI %i cry %f delay %x  amps %f adc %i\n",corrD,corrInt, carryCorrD, newDelay, ampsD, adcVal);
 #endif
 }
 

@@ -94,6 +94,14 @@ void info_printf( char *emsg, ...)
 	va_end(ap);
 }
 
+void pid_printf( char *emsg, ...)
+{
+	va_list ap;
+	va_start(ap, emsg);
+	private_printf(emsg, ap);
+	va_end(ap);
+}
+
 void private_printf( char *emsg, ...)
 {
 	char transmitBuffer  [maxSerialStringSz+1];
