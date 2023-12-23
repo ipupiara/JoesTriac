@@ -19,7 +19,8 @@ extern "C"
 
 #define charWidth sizeof(char)
 
-#define dmaTxAvailable  0x01       //  rx dma stream occupied by touchgfx, only tx possible
+#define dmaTxAvailable         //  rx dma stream occupied by touchgfx, only tx possible
+								// for dma changes still tobe tested, just made it runnable with tx without dma
 
 #define useUsart1
 //#define useUsart2
@@ -37,7 +38,7 @@ extern "C"
 
 #define  txDMA_Stream  DMA2_Stream7
 #define	 txDMA_CHANNEL DMA_CHANNEL_4
-#define USART_IRQHandler USART_IRQHandler
+#define USART_IRQHandler USART1_IRQHandler
 
 #define txDMA_Stream_IRQn DMA2_Stream7_IRQn
 #define USART_IRQn USART1_IRQn

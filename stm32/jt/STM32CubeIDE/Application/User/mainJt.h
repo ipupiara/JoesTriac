@@ -13,14 +13,16 @@ extern "C" {
 #endif
 
 #include <stdint.h>
-//#ifndef debugTriac
+#include <defines.h>
+#include <string.h>
+#include "stm32f7xx_hal.h"
+
+//#ifndef debugApp   // not yet completely implemented to exclude these libs
 #include "cmsis_os.h"
 #include <task.h>
 #include <FreeRTOS.h>
 //#endif
-#include <defines.h>
-#include <string.h>
-#include "stm32f7xx_hal.h"
+
 
 
 

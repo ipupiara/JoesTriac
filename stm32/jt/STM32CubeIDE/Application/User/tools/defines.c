@@ -481,7 +481,7 @@ int32_t i32abs(int32_t val)
 
 void calibTriacDelayChange(int32_t diff)
 {
-	printf("calibTriacDelayChange\n");
+//	printf("calibTriacDelayChange\n");
    int16_t res = getTriacTriggerDelay();
    if ( i32abs (diff) != 1)  {
 	   res += diff * kStepUnitsFactor;   //  todo change also on ui
@@ -495,7 +495,7 @@ void calibTriacDelayChange(int32_t diff)
 	msg.evData.calibTriacDelay =res;
 	sendPresenterMessage(&msg);
 
-	printf("calibTriacDelayChange\n");
+//	printf("calibTriacDelayChange\n");
 }
 
 tStatus isCalibrationReady()

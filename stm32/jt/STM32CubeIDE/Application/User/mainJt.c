@@ -11,7 +11,7 @@
 #include <TriacIntr.h>
 #include <adcControl.h>
 #include <i2c.h>
-#include <uart-comms.h>
+//#include <uart-comms.h>
 #include <canComms.h>
 #include <defines.h>
 
@@ -98,7 +98,7 @@ void mainJt(void *argument)
 	osStatus_t status;
 	CMainJtEventT  mJtEv;
 	fsmTriacEvent fsmEv;
-	init_printf();
+//	init_printf();
 	initI2c();
 //	initCanComms();
 	initDefines();
@@ -273,7 +273,7 @@ osStatus_t sendModelMessage(pJoesModelEventT  pMsg)
 
 void initJt()
 {
-#ifndef debugTriac
+#ifndef debugApp
 	mainJtTaskHandle = osThreadNew(mainJt, NULL, &mainJt_attributes);
 	if (mainJtTaskHandle  == NULL)   {
 		errorHandler((uint32_t)mainJtTaskHandle ,stop," mainJtTaskHandle ","initJt");
@@ -314,7 +314,7 @@ void initJt()
 #endif
 }
 
-#ifdef debugTriac
+#ifdef debugApp
 
 void SysTick_Handler(void)
 {

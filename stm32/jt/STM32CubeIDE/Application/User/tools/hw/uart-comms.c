@@ -20,11 +20,12 @@ uint32_t  amtErr;			// amt calls to err_printf
 uint32_t  amtPrintErr;   // errors during print out, where err_printf should not be called
 
 uint8_t  serialOn;
+char transmitBuffer  [maxSerialStringSz+1];
 
 osThreadId_t serialQMethodThread;
 const osThreadAttr_t serialQMethod_attributes = {
   .name = "SerialQMethod",
-  .stack_size = 512 * 2,
+  .stack_size = 512 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
 osMessageQueueId_t    serialMessageQ;
@@ -48,7 +49,7 @@ void  SerialQMethod (void *p_arg)
 		if ((status = osMessageQueueGet(serialMessageQ,(void *) &receiveBuffer, 0, osWaitForever)) == osOK )  {
 			osMessageQueueGet(uartSendSemaphoreQ, &dummyGet, 0, osWaitForever);
 			if (status == osOK) {
-				sendUartString((char*)&receiveBuffer);
+			sendUartString((char*)&receiveBuffer);
 			}  else {
 				errorHandler((uint32_t)status ,goOn," osSemaphoreAcquire "," SerialQMethod ");
 			}
@@ -88,58 +89,62 @@ void init_printf()
 
 void info_printf( char *emsg, ...)
 {
-	va_list ap;
-	va_start(ap, emsg);
-	private_printf(emsg, ap);
-	va_end(ap);
+//	va_list ap;
+//	va_start(ap, emsg);
+////	private_printf(emsg, ap);
+//	va_end(ap);
 }
 
 void pid_printf( char *emsg, ...)
 {
-	va_list ap;
-	va_start(ap, emsg);
-	private_printf(emsg, ap);
-	va_end(ap);
+//	va_list ap;
+//	va_start(ap, emsg);
+//	private_printf(emsg, ap);
+//	va_end(ap);
 }
 
 void private_printf( char *emsg, ...)
 {
-	char transmitBuffer  [maxSerialStringSz+1];
-	osStatus_t status;
-	va_list ap;
-	va_start(ap, emsg);
 
-	if (serialOn == 1) {
+	//  todo did not work using touchgfx and freertos ????????   but worked with testmethod in uarthw.c and under debugApp definition
+	//  crashed into an ??? wwdg ??? loop in startup.s  why what how ?????
+	//  todo further debug bug
 
-		vsnprintf((char *)&transmitBuffer, maxSerialStringSz-1,  emsg, ap);
-		transmitBuffer[maxSerialStringSz-1] = 0;
-
-		status = osMessageQueuePut(serialMessageQ,&transmitBuffer,0,0);
-		if (status != osOK)  {
-			errorHandler(status ,goOn," osMessageQueuePut ","info_printf");
-		}
-	}
-	va_end(ap);
-//	//	printf(emsg, ap);
+//	osStatus_t status;
+//	va_list ap;
+//	va_start(ap, emsg);
+//
+//	if (serialOn == 1) {
+//
+//		vsnprintf((char *)&transmitBuffer, maxSerialStringSz-1,  emsg, ap);
+//		transmitBuffer[maxSerialStringSz-1] = 0;
+//
+//		status = osMessageQueuePut(serialMessageQ,&transmitBuffer,0,0);
+//		if (status != osOK)  {
+//			errorHandler(status ,goOn," osMessageQueuePut ","info_printf");
+//		}
+//	}
+//	va_end(ap);
+////	//	printf(emsg, ap);
 }
 
 // just for usage with short strings, otherwise sizes of buffers need to be increased
 void  err_printf ( char *emsg, ...)
 {
-	va_list ap;
-	va_start(ap, emsg);
-	++ amtErr;
-	private_printf(emsg, ap);
-	va_end(ap);
+//	va_list ap;
+//	va_start(ap, emsg);
+//	++ amtErr;
+//	private_printf(emsg, ap);
+//	va_end(ap);
 }
 
-void printStartMessage()
-{
-	info_printf("serial print ready for use\n");
-	info_printf("second test ok\n");
-	info_printf("third test ok\n");
-//	info_printf("12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890\n");
-}
+//void printStartMessage()
+//{
+//	info_printf("serial print ready for use\n");
+//	info_printf("second test ok\n");
+//	info_printf("third test ok\n");
+////	info_printf("12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890\n");
+//}
 
 
 

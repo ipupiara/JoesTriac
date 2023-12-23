@@ -12,22 +12,25 @@ enum {
 };
 
 UART_HandleTypeDef huart;
+
+#ifdef dmaTxAvailable
 DMA_HandleTypeDef hdma_usart_tx;
 DMA_HandleTypeDef hdma_usart_rx;
-
-//UART_HandleTypeDef huart2;
-//DMA_HandleTypeDef hdma_usart2_tx;
-//DMA_HandleTypeDef hdma_usart2_rx;
 
 extern uint16_t  feCounter;
 extern uint16_t  teCounter;
 extern uint16_t  dmeCounter;
+#endif
 
 
 uint8_t  commsError;
 osMessageQueueId_t uartSendSemaphoreQ;
 uint32_t  rxMsgCounter;
 uint32_t  txMsgCounter;
+
+char txStringBuffer [maxSerialStringSz+1];
+uint8_t  txStringBufferPos;
+uint8_t  txStringBufferLen;
 
 uint32_t debugIdleCounter;
 uint8_t  uartJobSemSet;
@@ -44,14 +47,15 @@ uint8_t enableUartInterrupts()
 {
 	uint8_t res = 0;
 	clearUartInterruptFlags(&huart);
+#ifdef dmaTxAvailable
 	enableAllDmaInterrupts(&hdma_usart_tx,withoutHT);
+	HAL_NVIC_EnableIRQ(txDMA_Stream_IRQn);
+//	HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
+#endif
 	huart.Instance->CR1 |= USART_CR1_IDLEIE_Msk;
 //		  huart2.Instance->CR1 |= USART_CR1_TCIE_Msk;
 	huart.Instance->CR3 |= USART_CR3_EIE_Msk;
-
 	HAL_NVIC_EnableIRQ(USART_IRQn);
-	HAL_NVIC_EnableIRQ(txDMA_Stream_IRQn);
-//	HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
 	return res;
 }
 
@@ -59,23 +63,14 @@ uint8_t disableUartInterrupts()
 {
 	uint8_t res = 0;
 	HAL_NVIC_DisableIRQ(USART_IRQn);
+#ifdef dmaTxAvailable
 	HAL_NVIC_DisableIRQ(txDMA_Stream_IRQn);
 //	HAL_NVIC_DisableIRQ(DMA1_Stream5_IRQn);
+#endif
 	return res;
 }
 
 
-
-
-#define bufferCounterType uint8_t
-#define halfDmaRxBufferSize   0x20
-#define fullDmaRxBufferSize 2 * halfDmaRxBufferSize
-#define endBufferPosition ( fullDmaRxBufferSize - 1 )
-
-
-#define debugArraySize 0xFF
-uint8_t  debugArray [debugArraySize];
-uint8_t  debugArrayCnt;
 
 void resetDebugArray()
 {
@@ -93,6 +88,18 @@ void resetDebugArray()
 //}
 uint8_t  receiveStringBuffer  [maxUartReceiveDmaStringSize + 1];
 
+#ifdef dmaTxAvailable
+
+#define bufferCounterType uint8_t
+#define halfDmaRxBufferSize   0x20
+#define fullDmaRxBufferSize 2 * halfDmaRxBufferSize
+#define endBufferPosition ( fullDmaRxBufferSize - 1 )
+
+
+#define debugArraySize 0xFF
+uint8_t  debugArray [debugArraySize];
+uint8_t  debugArrayCnt;
+
 typedef struct
 {
   uint8_t firsthalf[halfDmaRxBufferSize];
@@ -109,20 +116,6 @@ DMA_Buffer_Type dmaBuffer;
 
 bufferCounterType lastNdtr;
 bufferCounterType amtWrittenStringChars;
-
-
-
-
-char txStringBuffer [maxSerialStringSz+1];
-uint8_t  txStringBufferPos;
-uint8_t  txStringBufferLen;
-
-
-void resetStringBuffer()
-{
-	amtWrittenStringChars = 0;
-	memset(receiveStringBuffer,0x00,sizeof(receiveStringBuffer));
-}
 
 void resetDmaBuffer()
 {
@@ -174,55 +167,6 @@ void transferBuffer(uint8_t  tobeForwardedFrom)
 			resetStringBuffer();
 		}
 	}
-}
-
-
-
-void setUartJobSemaQ()
-{
-#ifndef debugTriac
-	uint32_t dummy = 0x5a;
-	if (uartJobSemSet == 0)  {    // prevent multiple events by irqs
-		osMessageQueuePut(uartSendSemaphoreQ, &dummy, 0, 0);   //  after semaphores do not work from isr ?????  replaced by queue as done in OSWrappers.cpp
-		uartJobSemSet = 1;
-	} else  {
-			uartJobSemSet = 2;  //  just for debugging
-	}
-#endif
-}
-
-
-void USART_IRQHandler(void)
-{
-    if (__HAL_UART_GET_FLAG(&huart,USART_ISR_TXE)  )  {
-    	__HAL_UART_CLEAR_IT(&huart,USART_ISR_TXE);
-
-    	huart.Instance->TDR= txStringBuffer[txStringBufferPos];
-        ++ 	txStringBufferPos;
-
-        if (txStringBufferPos == txStringBufferLen) {
-            disableUartInterrupts();
-            setUartJobSemaQ();
-        }
-        //  todo handle errors
-    }
-
-	uint8_t idleDetected = 0;
-
-    if (__HAL_UART_GET_FLAG(&huart,USART_ISR_IDLE_Msk)  )  {
-    	__HAL_UART_CLEAR_IT(&huart,USART_ISR_IDLE_Msk);
-    	idleDetected = 1;
-    	++ debugIdleCounter;
-     }
-    if (__HAL_UART_GET_FLAG(&huart,USART_ICR_TCCF_Msk)  )  {
-        	//  copy rest of data to receive buffer and signal received event
-    	__HAL_UART_CLEAR_IT(&huart,USART_ICR_TCCF_Msk);
-    }
-
-     /* --------------- HANDLER YOUR ISR HERE --------------- */
-     if (idleDetected == 1)   {
-	    transferBuffer(fromUartIsr);
-     }
 }
 
 void txDMA_Stream_IRQHandler(void)   // TX
@@ -281,61 +225,129 @@ void startCircReceiver()
 	__HAL_DMA_ENABLE(&hdma_usart_rx);
 }
 
-//static void MX_DMA_Init(void)
-//{
-//
-//  /* DMA controller clock enable */
-//  __HAL_RCC_DMA2_CLK_ENABLE();
-//  __HAL_RCC_DMA1_CLK_ENABLE();
-//
-//  /* DMA interrupt init */
-//  /* DMA1_Stream5_IRQn interrupt configuration */
-//  HAL_NVIC_SetPriority(DMA1_Stream5_IRQn,triacApplicationIsrPrio, 0);
-//  HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
-//  /* DMA1_Stream6_IRQn interrupt configuration */
-//  HAL_NVIC_SetPriority(DMA1_Stream6_IRQn, triacApplicationIsrPrio, 0);
-//  HAL_NVIC_EnableIRQ(DMA1_Stream6_IRQn);
-//  /* DMA2_Stream3_IRQn interrupt configuration */
-//  HAL_NVIC_SetPriority(DMA2_Stream3_IRQn, triacApplicationIsrPrio, 0);
-//  HAL_NVIC_EnableIRQ(DMA2_Stream3_IRQn);
-//  /* DMA2_Stream6_IRQn interrupt configuration */
-//  HAL_NVIC_SetPriority(DMA2_Stream6_IRQn, triacApplicationIsrPrio, 0);
-//  HAL_NVIC_EnableIRQ(DMA2_Stream6_IRQn);
-//
-//}
-//
-//
-//static void MX_USART2_UART_Init(void)
-//{
-//
-//  /* USER CODE BEGIN USART2_Init 0 */
-//
-//  /* USER CODE END USART2_Init 0 */
-//
-//  /* USER CODE BEGIN USART2_Init 1 */
-//
-//  /* USER CODE END USART2_Init 1 */
-//  huart2.Instance = USART2;
-//  huart2.Init.BaudRate = 115200;
-//  huart2.Init.WordLength = UART_WORDLENGTH_8B;
-//  huart2.Init.StopBits = UART_STOPBITS_1;
-//  huart2.Init.Parity = UART_PARITY_NONE;
-//  huart2.Init.Mode = UART_MODE_TX_RX;
-//  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-//  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
-//  huart2.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
-//  huart2.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-//  if (HAL_UART_Init(&huart2) != HAL_OK)
-//  {
-//	  errorHandler(0xff ,stop," HAL_UART_Init ","MX_USART2_UART_Init");
-//  }
-//  /* USER CODE BEGIN USART2_Init 2 */
-//
-//  /* USER CODE END USART2_Init 2 */
-//
-//}
-//
-//
+
+void usartDmaInit()
+{
+	usart__HAL_RCC_DMA_CLK_ENABLE();
+	//	    hdma_usart2_rx.Instance = DMA1_Stream5;
+	//	    hdma_usart2_rx.Init.Channel = DMA_CHANNEL_4;
+	//	    hdma_usart2_rx.Init.Direction = DMA_PERIPH_TO_MEMORY;
+	//	    hdma_usart2_rx.Init.PeriphInc = DMA_PINC_DISABLE;
+	//	    hdma_usart2_rx.Init.MemInc = DMA_MINC_ENABLE;
+	//	    hdma_usart2_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+	//	    hdma_usart2_rx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+	//	    hdma_usart2_rx.Init.Mode = DMA_NORMAL;
+	//	    hdma_usart2_rx.Init.Priority = DMA_PRIORITY_LOW;
+	//	    hdma_usart2_rx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+	//	    if (HAL_DMA_Init(&hdma_usart2_rx) != HAL_OK)
+	//	    {
+	//	      errorHandler(0xfe,goOn," HAL_DMA_Init 1 ","initUartHw");
+	//	    }
+	//
+	//	    __HAL_LINKDMA(huart,hdmarx,hdma_usart2_rx);
+
+
+	/* USART2_TX Init */
+	hdma_usart_tx.Instance = txDMA_Stream;
+	hdma_usart_tx.Init.Channel = txDMA_CHANNEL;
+	hdma_usart_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
+	hdma_usart_tx.Init.PeriphInc = DMA_PINC_DISABLE;
+	hdma_usart_tx.Init.MemInc = DMA_MINC_ENABLE;
+	hdma_usart_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+	hdma_usart_tx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+	hdma_usart_tx.Init.Mode = DMA_NORMAL;
+	hdma_usart_tx.Init.Priority = DMA_PRIORITY_LOW;
+	hdma_usart_tx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+	if (HAL_DMA_Init(&hdma_usart_tx) != HAL_OK)
+	{
+		errorHandler(0xfe,goOn," HAL_DMA_Init 2 ","initUartHw");
+	}
+	__HAL_LINKDMA(&huart,hdmatx,hdma_usart_tx);
+
+	//	huart2.Instance->CR3 |= (USART_CR3_DMAR_Msk | USART_CR3_DMAT_Msk);
+		huart.Instance->CR3 |=  USART_CR3_DMAT_Msk;
+
+	//	HAL_NVIC_SetPriority(DMA1_Stream5_IRQn, 0, 0);
+		HAL_NVIC_SetPriority(txDMA_Stream_IRQn, triacApplicationIsrPrio, 0);
+}
+
+#endif
+
+
+void resetStringBuffer()
+{
+	amtWrittenStringChars = 0;
+	memset(receiveStringBuffer,0x00,sizeof(receiveStringBuffer));
+}
+
+
+
+void setUartJobSemaQ()
+{
+#ifndef debugApp
+	uint32_t dummy = 0x5a;
+	if (uartJobSemSet == 0)  {    // prevent multiple events by irqs
+		osMessageQueuePut(uartSendSemaphoreQ, &dummy, 0, 0);   //  after semaphores do not work from isr ?????  replaced by queue as done in OSWrappers.cpp
+		uartJobSemSet = 1;
+	} else  {
+			uartJobSemSet = 2;  //  just for debugging
+	}
+#endif
+}
+
+
+void USART_IRQHandler(void)
+{
+
+
+	uint32_t isrflags   = READ_REG(huart->Instance->ISR);
+//	uint32_t cr1its     = READ_REG(huart->Instance->CR1);
+//	uint32_t cr3its     = READ_REG(huart->Instance->CR3);
+
+	uint32_t errorflags;
+	uint32_t errorcode;
+	errorflags = (isrflags & (uint32_t)(USART_ISR_PE | USART_ISR_FE | USART_ISR_ORE | USART_ISR_NE | USART_ISR_RTOF));
+
+	if (errorflags != 0)   {
+		// todo continue implementation
+	}
+
+    if (__HAL_UART_GET_FLAG(&huart,USART_ISR_TXE)  )  {
+    	__HAL_UART_CLEAR_IT(&huart,USART_ISR_TXE);
+
+    	huart.Instance->TDR= txStringBuffer[txStringBufferPos];
+        ++ 	txStringBufferPos;
+
+        if (txStringBufferPos == txStringBufferLen) {
+            disableUartInterrupts();
+            setUartJobSemaQ();
+        }
+    }
+
+    if (__HAL_UART_GET_FLAG(&huart,USART_ISR_IDLE_Msk)  )  {
+        	__HAL_UART_CLEAR_IT(&huart,USART_ISR_IDLE_Msk);
+        	idleDetected = 1;
+        	++ debugIdleCounter;
+    }
+
+	uint8_t idleDetected = 0;
+
+    if (__HAL_UART_GET_FLAG(&huart,USART_ISR_IDLE_Msk)  )  {
+    	__HAL_UART_CLEAR_IT(&huart,USART_ISR_IDLE_Msk);
+    	idleDetected = 1;
+    	++ debugIdleCounter;
+     }
+    if (__HAL_UART_GET_FLAG(&huart,USART_ICR_TCCF_Msk)  )  {
+    	idleDetected = 1;
+    	__HAL_UART_CLEAR_IT(&huart,USART_ICR_TCCF_Msk);   // for timing reasons so far only tx without dma, rx tobe implemented later
+    }
+
+     if (idleDetected == 1) {
+#ifdef dmaTxAvailable
+	    transferBuffer(fromUartIsr);
+#endif
+     }
+}
 
 
 uint32_t debugIdleCounter;
@@ -346,16 +358,12 @@ uint8_t initUartHw()
 	GPIO_InitTypeDef GPIO_InitStruct = {0};
 	RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
 
-//	MX_DMA_Init();
-//	MX_USART2_UART_Init();
-
-
 	debugIdleCounter = 0;
 	 commsError = 0;
 	rxMsgCounter = 0;
 	txMsgCounter = 0;
 	uartJobSemSet = 0;
-#ifndef debugTriac
+#ifndef debugApp
 	uartSendSemaphoreQ =  osMessageQueueNew(3,4, NULL);
 	if (uartSendSemaphoreQ  == NULL)   {
 		errorHandler(0xff ,stop," osMessageQueueNew ","initUartHw");
@@ -364,7 +372,9 @@ uint8_t initUartHw()
 #endif
 	resetStringBuffer();
 
-
+#ifdef dmaTxAvailable
+	usartDmaInit();
+#endif
 
 	PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_USART;
 	PeriphClkInitStruct.UsartClockSelection = RCC_USARTCLKSOURCE_PCLK;
@@ -384,46 +394,8 @@ uint8_t initUartHw()
 	GPIO_InitStruct.Alternate = GPIO_AF_USART;
 	HAL_GPIO_Init(uartPort, &GPIO_InitStruct);
 
-
-
-//	    hdma_usart2_rx.Instance = DMA1_Stream5;
-//	    hdma_usart2_rx.Init.Channel = DMA_CHANNEL_4;
-//	    hdma_usart2_rx.Init.Direction = DMA_PERIPH_TO_MEMORY;
-//	    hdma_usart2_rx.Init.PeriphInc = DMA_PINC_DISABLE;
-//	    hdma_usart2_rx.Init.MemInc = DMA_MINC_ENABLE;
-//	    hdma_usart2_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-//	    hdma_usart2_rx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-//	    hdma_usart2_rx.Init.Mode = DMA_NORMAL;
-//	    hdma_usart2_rx.Init.Priority = DMA_PRIORITY_LOW;
-//	    hdma_usart2_rx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
-//	    if (HAL_DMA_Init(&hdma_usart2_rx) != HAL_OK)
-//	    {
-//	      errorHandler(0xfe,goOn," HAL_DMA_Init 1 ","initUartHw");
-//	    }
-//
-//	    __HAL_LINKDMA(huart,hdmarx,hdma_usart2_rx);
-
-	usart__HAL_RCC_DMA_CLK_ENABLE();
-
-	/* USART2_TX Init */
-	hdma_usart_tx.Instance = txDMA_Stream;
-	hdma_usart_tx.Init.Channel = txDMA_CHANNEL;
-	hdma_usart_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
-	hdma_usart_tx.Init.PeriphInc = DMA_PINC_DISABLE;
-	hdma_usart_tx.Init.MemInc = DMA_MINC_ENABLE;
-	hdma_usart_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-	hdma_usart_tx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-	hdma_usart_tx.Init.Mode = DMA_NORMAL;
-	hdma_usart_tx.Init.Priority = DMA_PRIORITY_LOW;
-	hdma_usart_tx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
-	if (HAL_DMA_Init(&hdma_usart_tx) != HAL_OK)
-	{
-		errorHandler(0xfe,goOn," HAL_DMA_Init 2 ","initUartHw");
-	}
-	__HAL_LINKDMA(&huart,hdmatx,hdma_usart_tx);
-
 	huart.Instance = USART_Number;
-	huart.Init.BaudRate = 57600;
+	huart.Init.BaudRate = 115200;  // 57600;      //   115200;
 	huart.Init.WordLength = UART_WORDLENGTH_8B;
 	huart.Init.StopBits = UART_STOPBITS_1;
 	huart.Init.Parity = UART_PARITY_NONE;
@@ -437,20 +409,17 @@ uint8_t initUartHw()
 		errorHandler(0xfe,goOn," HAL_UART_Init","initUartHw");
 	}
 
-//	huart2.Instance->CR3 |= (USART_CR3_DMAR_Msk | USART_CR3_DMAT_Msk);
-	huart.Instance->CR3 |=  USART_CR3_DMAT_Msk;
-
 	huart.Instance->CR1 |= USART_CR1_IDLEIE_Msk;
-//		  huart2.Instance->CR1 |= USART_CR1_TCIE_Msk;
+#ifndef dmaTxAvailable
+	huart2.Instance->CR1 |= USART_CR1_TCIE_Msk;
+#endif
 	huart.Instance->CR3 |= USART_CR3_EIE_Msk;
 
-//	HAL_NVIC_SetPriority(DMA1_Stream5_IRQn, 0, 0);
-	HAL_NVIC_SetPriority(txDMA_Stream_IRQn, triacApplicationIsrPrio, 0);
 	HAL_NVIC_SetPriority(USART_IRQn, triacApplicationIsrPrio, 0);
 
 	disableUartInterrupts();
 
-#ifdef debugTriac
+#ifdef debugApp
 	startUartHw();
 	uartTriacTest();
 #endif
@@ -465,13 +434,9 @@ uint8_t startUartHw()
 	return res;
 }
 
-osStatus_t sendUartString(char* sndStr)
+osStatus_t sendUartStringDma(char* sndStr)
 {
 	uint8_t res = 0;
-	++ txMsgCounter;
-//	commsError = 0;
-
-	enableUartInterrupts();
 
 	DMA_SetTransferConfig(&hdma_usart_tx, (uint32_t)sndStr, (uint32_t)&huart.Instance->TDR, strlen(sndStr));
 	clearDmaInterruptFlags(&hdma_usart_tx);
@@ -480,7 +445,30 @@ osStatus_t sendUartString(char* sndStr)
 	return res;
 }
 
-#ifdef debugTriac
+osStatus_t sendUartStringIsrtx(char* sndStr) {
+	uint8_t res = 0;
+
+	// todo complete implementation
+
+	return res;
+}
+
+osStatus_t sendUartString(char* sndStr) {
+	uint8_t res;
+	++ txMsgCounter;
+	commsError = 0;
+	enableUartInterrupts();
+
+#ifdef dmaTxAvailable
+	res = sendUartStringDma(sndStr);
+#else
+	res = sendUartStringIsrtx(sndStr);
+#endif
+
+	return res;
+}
+
+#ifdef debugApp
 void uartTriacTest()
 {
 	uint32_t lastUwTick  = uwTick;
@@ -490,8 +478,6 @@ void uartTriacTest()
 		do {} while (((uwTick - lastUwTick) < 100 ) || (uwTick == 0xffffffff) );
 		lastUwTick = uwTick;
 		sendUartString(teststr);
-//		HAL_UART_Transmit_DMA(&huart, (uint8_t*) teststr, sizeof(teststr));
-
 	}   while (1);
 }
 #endif

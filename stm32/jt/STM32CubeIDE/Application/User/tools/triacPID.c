@@ -10,7 +10,7 @@
 #include <mainJt.h>
 
 
-#define printfPid
+//#define printfPid
 //#define printfAmps
 
 void initTwa();
@@ -134,17 +134,6 @@ float getCurrentAmpsValue()
 	return res;
 }
 
-//void startAmpsADC()
-//{
-//	setCurrentAmpsADCValueNonIsr( 0);
-//	startADC();
-//}
-//
-//void stopAmpsADC()
-//{
-//	stopADC();
-//	setCurrentAmpsADCValueNonIsr(0);
-//}
 
 void startTriacPidRun()
 {
@@ -158,6 +147,7 @@ void stopTriacPidRun()
 	stopADC();
 	stopTriacRun();
 }
+
 //uint16_t  adcValueForAmps (float amps)
 //{
 //	uint16_t res = 0;
@@ -177,23 +167,17 @@ void resetPID()
 
 real nextCorrection(real error)
 {
-    // Set q_fact to 1 if the error magnitude is below
-    // the threshold and 0 otherwise
-
 	real res;
     if (fabs(error) < m_integral_thresh) {
 		q_fact = 1.0;
 		m_kI = 	kIntegral;
+		m_integral += m_stepTime*q_fact*error;
     } else  {
 		m_kI = 0.0;
 		q_fact = 0.0;
 		m_integral = 0.0;
 	}
 
-    // Update the error integral
-    m_integral += m_stepTime*q_fact*error;
-
-    // Compute the error derivative
     real deriv;
     if (!m_started)
     {
@@ -205,7 +189,6 @@ real nextCorrection(real error)
 
     m_prev_error = error;
 
-    // Return the PID controller actuator command
 	res = m_kPTot*(m_kP*error + m_kI*m_integral + m_kD*deriv);
 			//  todo multiply with time factor, so that correction does not so much depend from stepwidth
 	if (res > m_correctionThresh) {
@@ -219,10 +202,11 @@ real nextCorrection(real error)
 //	}
 
 #ifdef printfPid
-	double errD = error;
-	double intD = m_integral;
+	double errD = m_kD * error;
+	double parD = m_kP * error;
+	double intD = m_kI * m_integral;
 	double derivD = deriv;
-	pid_printf("err %f int %f deriv %f \n",errD, intD, derivD);
+	pid_printf("err %f par %f int %f deriv %f corr %f\n",errD, parD, intD, derivD, res);
 #endif
     return res;
 }
@@ -291,7 +275,7 @@ void printPIDState()
 //	resD = res;
 //
 //	printf("\nPID State\n");
-//	printf("calLowA %i calHighA %i caLowDelay %i caHiDelay %i\n",calibLowAmps,calibHighAmps, calibLowTriacFireDuration, calibHighTriacFireDuration);
+//	printf("calLowA %i calHighA %i\n",calibLowAmps,calibHighAmps);
 //	printf("calLowAdc %i caHiAdc %i \n",calibLowADC, calibHighADC);
 //	printf("shows at 0 ADC : %f A  grad %f zeroPotiPos %i\n",resD, gradD,zeroPotiPos);
 ////	checkEEPOROM();
