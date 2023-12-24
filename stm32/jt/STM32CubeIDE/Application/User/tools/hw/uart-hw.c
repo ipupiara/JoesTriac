@@ -37,38 +37,38 @@ uint8_t  uartJobSemSet;
 
 void uartTriacTest();
 
-void clearUartInterruptFlags(UART_HandleTypeDef * phuart)
-{
-	__HAL_UART_CLEAR_IT(phuart,USART_ICR_TCCF_Msk);
-	__HAL_UART_CLEAR_IT(phuart,USART_ICR_IDLECF_Msk);
-}
+//void clearUartInterruptFlags(UART_HandleTypeDef * phuart)
+//{
+//	__HAL_UART_CLEAR_IT(phuart,USART_ICR_TCCF_Msk);
+//	__HAL_UART_CLEAR_IT(phuart,USART_ICR_IDLECF_Msk);
+//}
 
-uint8_t enableUartInterrupts()
-{
-	uint8_t res = 0;
-	clearUartInterruptFlags(&huart);
-#ifdef dmaTxAvailable
-	enableAllDmaInterrupts(&hdma_usart_tx,withoutHT);
-	HAL_NVIC_EnableIRQ(txDMA_Stream_IRQn);
-//	HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
-#endif
-	huart.Instance->CR1 |= USART_CR1_IDLEIE_Msk;
-//		  huart2.Instance->CR1 |= USART_CR1_TCIE_Msk;
-	huart.Instance->CR3 |= USART_CR3_EIE_Msk;
-	HAL_NVIC_EnableIRQ(USART_IRQn);
-	return res;
-}
+//uint8_t enableUartInterrupts()
+//{
+//	uint8_t res = 0;
+//	clearUartInterruptFlags(&huart);
+//#ifdef dmaTxAvailable
+//	enableAllDmaInterrupts(&hdma_usart_tx,withoutHT);
+//	HAL_NVIC_EnableIRQ(txDMA_Stream_IRQn);
+////	HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
+//#endif
+//	huart.Instance->CR1 |= USART_CR1_IDLEIE_Msk;
+//	huart.Instance->CR1 |= USART_CR1_TCIE_Msk;
+//	huart.Instance->CR3 |= USART_CR3_EIE_Msk;      // error interrupt endable
+//	HAL_NVIC_EnableIRQ(USART_IRQn);
+//	return res;
+//}
 
-uint8_t disableUartInterrupts()
-{
-	uint8_t res = 0;
-	HAL_NVIC_DisableIRQ(USART_IRQn);
-#ifdef dmaTxAvailable
-	HAL_NVIC_DisableIRQ(txDMA_Stream_IRQn);
-//	HAL_NVIC_DisableIRQ(DMA1_Stream5_IRQn);
-#endif
-	return res;
-}
+//uint8_t disableUartInterrupts()
+//{
+//	uint8_t res = 0;
+//	HAL_NVIC_DisableIRQ(USART_IRQn);
+//#ifdef dmaTxAvailable
+//	HAL_NVIC_DisableIRQ(txDMA_Stream_IRQn);
+////	HAL_NVIC_DisableIRQ(DMA1_Stream5_IRQn);
+//#endif
+//	return res;
+//}
 
 
 
@@ -310,6 +310,23 @@ void USART_IRQHandler(void)
 
 	if (errorflags != 0)   {
 		// todo continue implementation
+		commsError = 1;
+	    if (__HAL_UART_GET_FLAG(&huart,USART_ISR_PE_Msk)  )  {
+	       	__HAL_UART_CLEAR_IT(&huart,USART_ISR_PE_Msk);
+		}
+	    if (__HAL_UART_GET_FLAG(&huart,USART_ISR_FE_Msk)  )  {
+	   	       	__HAL_UART_CLEAR_IT(&huart,USART_ISR_FE_Msk);
+	   	}
+	    if (__HAL_UART_GET_FLAG(&huart,USART_ISR_ORE_Msk)  )  {
+	   	       	__HAL_UART_CLEAR_IT(&huart,USART_ISR_ORE_Msk);
+	   	}
+
+	    if (__HAL_UART_GET_FLAG(&huart,USART_ISR_NE_Msk)  )  {
+	    	__HAL_UART_CLEAR_IT(&huart,USART_ISR_NE_Msk);
+	    }
+	    if (__HAL_UART_GET_FLAG(&huart,USART_ISR_RTOF_Msk)  )  {
+	    	__HAL_UART_CLEAR_IT(&huart,USART_ISR_RTOF_Msk);
+	    }
 	}
 
     if (__HAL_UART_GET_FLAG(&huart,USART_ISR_TXE)  )  {
@@ -319,15 +336,9 @@ void USART_IRQHandler(void)
         ++ 	txStringBufferPos;
 
         if (txStringBufferPos == txStringBufferLen) {
-            disableUartInterrupts();
+        	huart.Instance->CR1 &=  ~USART_CR1_TXEIE_Msk;
             setUartJobSemaQ();
         }
-    }
-
-    if (__HAL_UART_GET_FLAG(&huart,USART_ISR_IDLE_Msk)  )  {
-        	__HAL_UART_CLEAR_IT(&huart,USART_ISR_IDLE_Msk);
-        	idleDetected = 1;
-        	++ debugIdleCounter;
     }
 
 	uint8_t idleDetected = 0;
@@ -342,11 +353,13 @@ void USART_IRQHandler(void)
     	__HAL_UART_CLEAR_IT(&huart,USART_ICR_TCCF_Msk);   // for timing reasons so far only tx without dma, rx tobe implemented later
     }
 
-     if (idleDetected == 1) {
+    if (idleDetected == 1) {
+
 #ifdef dmaTxAvailable
 	    transferBuffer(fromUartIsr);
 #endif
-     }
+    }
+
 }
 
 
@@ -416,8 +429,8 @@ uint8_t initUartHw()
 	huart.Instance->CR3 |= USART_CR3_EIE_Msk;
 
 	HAL_NVIC_SetPriority(USART_IRQn, triacApplicationIsrPrio, 0);
+	HAL_NVIC_EnableIRQ(USART_IRQn);
 
-	disableUartInterrupts();
 
 #ifdef debugApp
 	startUartHw();
@@ -434,39 +447,25 @@ uint8_t startUartHw()
 	return res;
 }
 
-osStatus_t sendUartStringDma(char* sndStr)
-{
-	uint8_t res = 0;
-
-	DMA_SetTransferConfig(&hdma_usart_tx, (uint32_t)sndStr, (uint32_t)&huart.Instance->TDR, strlen(sndStr));
-	clearDmaInterruptFlags(&hdma_usart_tx);
-	__HAL_DMA_ENABLE(&hdma_usart_tx);
-
-	return res;
-}
-
-osStatus_t sendUartStringIsrtx(char* sndStr) {
-	uint8_t res = 0;
-
-	// todo complete implementation
-
-	return res;
-}
 
 osStatus_t sendUartString(char* sndStr) {
 	uint8_t res;
 	++ txMsgCounter;
 	commsError = 0;
-	enableUartInterrupts();
-
 #ifdef dmaTxAvailable
-	res = sendUartStringDma(sndStr);
+	DMA_SetTransferConfig(&hdma_usart_tx, (uint32_t)sndStr, (uint32_t)&huart.Instance->TDR, strlen(sndStr));
+	clearDmaInterruptFlags(&hdma_usart_tx);
+	__HAL_DMA_ENABLE(&hdma_usart_tx);
 #else
-	res = sendUartStringIsrtx(sndStr);
+	txStringBufferLen = strlen(sndStr);
+	txStringBufferPos = 1;
+	huart.Instance->TDR = sndStr[0];
+	huart.Instance->CR1 |=  USART_CR1_TXEIE_Msk;
 #endif
-
 	return res;
 }
+
+
 
 #ifdef debugApp
 void uartTriacTest()

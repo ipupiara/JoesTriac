@@ -19,8 +19,8 @@ extern "C"
 
 #define charWidth sizeof(char)
 
-#define dmaTxAvailable         //  rx dma stream occupied by touchgfx, only tx possible
-								// for dma changes still tobe tested, just made it runnable with tx without dma
+//#define dmaTxAvailable         //  rx dma stream occupied by touchgfx, only tx possible, but did also not work under touchGfx, freertos, dunno why
+
 
 #define useUsart1
 //#define useUsart2
