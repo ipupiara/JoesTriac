@@ -12,6 +12,7 @@ enum {
 };
 
 UART_HandleTypeDef huart;
+UART_HandleTypeDef* phuart =  &huart;
 
 #ifdef dmaTxAvailable
 DMA_HandleTypeDef hdma_usart_tx;
@@ -34,6 +35,9 @@ uint8_t  txStringBufferLen;
 
 uint32_t debugIdleCounter;
 uint8_t  uartJobSemSet;
+
+#define bufferCounterType uint8_t
+bufferCounterType amtWrittenStringChars;
 
 void uartTriacTest();
 
@@ -72,11 +76,11 @@ void uartTriacTest();
 
 
 
-void resetDebugArray()
-{
-	memset(debugArray,0x00,sizeof(debugArray));
-	debugArrayCnt = 0;
-}
+//void resetDebugArray()
+//{
+//	memset(debugArray,0x00,sizeof(debugArray));
+//	debugArrayCnt = 0;
+//}
 
 //void addToDebugArray(uint8_t from,uint8_t val)
 //{
@@ -90,7 +94,7 @@ uint8_t  receiveStringBuffer  [maxUartReceiveDmaStringSize + 1];
 
 #ifdef dmaTxAvailable
 
-#define bufferCounterType uint8_t
+
 #define halfDmaRxBufferSize   0x20
 #define fullDmaRxBufferSize 2 * halfDmaRxBufferSize
 #define endBufferPosition ( fullDmaRxBufferSize - 1 )
@@ -115,7 +119,7 @@ typedef union
 DMA_Buffer_Type dmaBuffer;
 
 bufferCounterType lastNdtr;
-bufferCounterType amtWrittenStringChars;
+
 
 void resetDmaBuffer()
 {
@@ -271,6 +275,7 @@ void usartDmaInit()
 		HAL_NVIC_SetPriority(txDMA_Stream_IRQn, triacApplicationIsrPrio, 0);
 }
 
+
 #endif
 
 
@@ -279,6 +284,7 @@ void resetStringBuffer()
 	amtWrittenStringChars = 0;
 	memset(receiveStringBuffer,0x00,sizeof(receiveStringBuffer));
 }
+
 
 
 
@@ -296,16 +302,18 @@ void setUartJobSemaQ()
 }
 
 
-void USART_IRQHandler(void)
+//void USART_IRQHandler(void)
+void USART1_IRQHandler(void)
 {
+//	UART_HandleTypeDef *huart
+//uint32_t isrflags   = READ_REG(huart->Instance->ISR);
 
-
-	uint32_t isrflags   = READ_REG(huart->Instance->ISR);
+	uint32_t isrflags   = READ_REG(phuart->Instance->ISR);
 //	uint32_t cr1its     = READ_REG(huart->Instance->CR1);
 //	uint32_t cr3its     = READ_REG(huart->Instance->CR3);
 
 	uint32_t errorflags;
-	uint32_t errorcode;
+//	uint32_t errorcode;
 	errorflags = (isrflags & (uint32_t)(USART_ISR_PE | USART_ISR_FE | USART_ISR_ORE | USART_ISR_NE | USART_ISR_RTOF));
 
 	if (errorflags != 0)   {
@@ -337,7 +345,7 @@ void USART_IRQHandler(void)
 
         if (txStringBufferPos == txStringBufferLen) {
         	huart.Instance->CR1 &=  ~USART_CR1_TXEIE_Msk;
-            setUartJobSemaQ();
+        	setUartJobSemaQ();
         }
     }
 
@@ -383,11 +391,26 @@ uint8_t initUartHw()
 	}
 	setUartJobSemaQ();
 #endif
-	resetStringBuffer();
 
 #ifdef dmaTxAvailable
+	resetStringBuffer();
 	usartDmaInit();
 #endif
+
+	huart.Instance = USART_Number;
+	huart.Init.BaudRate = 115200;  // 57600;      //   115200;
+	huart.Init.WordLength = UART_WORDLENGTH_8B;
+	huart.Init.StopBits = UART_STOPBITS_1;
+	huart.Init.Parity = UART_PARITY_NONE;
+	huart.Init.Mode = UART_MODE_TX;
+	huart.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+	huart.Init.OverSampling = UART_OVERSAMPLING_16;
+	huart.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+	huart.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+	if (HAL_UART_Init(&huart) != HAL_OK)
+	{
+		errorHandler(0xfe,goOn," HAL_UART_Init","initUartHw");
+	}
 
 	PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_USART;
 	PeriphClkInitStruct.UsartClockSelection = RCC_USARTCLKSOURCE_PCLK;
@@ -407,49 +430,30 @@ uint8_t initUartHw()
 	GPIO_InitStruct.Alternate = GPIO_AF_USART;
 	HAL_GPIO_Init(uartPort, &GPIO_InitStruct);
 
-	huart.Instance = USART_Number;
-	huart.Init.BaudRate = 115200;  // 57600;      //   115200;
-	huart.Init.WordLength = UART_WORDLENGTH_8B;
-	huart.Init.StopBits = UART_STOPBITS_1;
-	huart.Init.Parity = UART_PARITY_NONE;
-	huart.Init.Mode = UART_MODE_TX;
-	huart.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-	huart.Init.OverSampling = UART_OVERSAMPLING_16;
-	huart.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
-	huart.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-	if (HAL_UART_Init(&huart) != HAL_OK)
-	{
-		errorHandler(0xfe,goOn," HAL_UART_Init","initUartHw");
-	}
-
-	huart.Instance->CR1 |= USART_CR1_IDLEIE_Msk;
-#ifndef dmaTxAvailable
-	huart2.Instance->CR1 |= USART_CR1_TCIE_Msk;
-#endif
-	huart.Instance->CR3 |= USART_CR3_EIE_Msk;
-
 	HAL_NVIC_SetPriority(USART_IRQn, triacApplicationIsrPrio, 0);
 	HAL_NVIC_EnableIRQ(USART_IRQn);
 
+	 __HAL_UART_DISABLE(&huart);
+
+	huart.Instance->CR1 |= USART_CR1_IDLEIE_Msk;
+#ifndef dmaTxAvailable
+	huart.Instance->CR1 |= USART_CR1_TCIE_Msk;
+#endif
+	huart.Instance->CR3 |= USART_CR3_EIE_Msk;
+
+
+	__HAL_UART_ENABLE(&huart);  // todo check that this and will be done during HAL_UART_Init
+								// or if it must be done here again to set registers so that the whole shit works finalllyyy.....
 
 #ifdef debugApp
-	startUartHw();
 	uartTriacTest();
 #endif
 	return res;
 }
 
-uint8_t startUartHw()
-{
-	uint8_t res = 0;
-//	enableUartInterrupts();
-//	startCircReceiver();
-	return res;
-}
-
 
 osStatus_t sendUartString(char* sndStr) {
-	uint8_t res;
+	uint8_t res = 0;
 	++ txMsgCounter;
 	commsError = 0;
 #ifdef dmaTxAvailable
@@ -458,8 +462,10 @@ osStatus_t sendUartString(char* sndStr) {
 	__HAL_DMA_ENABLE(&hdma_usart_tx);
 #else
 	txStringBufferLen = strlen(sndStr);
-	txStringBufferPos = 1;
-	huart.Instance->TDR = sndStr[0];
+	txStringBufferPos = 0;
+//	txStringBufferPos = 1;
+//	huart.Instance->TDR = sndStr[0];
+	uint32_t statusOfIrq = __NVIC_GetEnableIRQ(USART_IRQn);
 	huart.Instance->CR1 |=  USART_CR1_TXEIE_Msk;
 #endif
 	return res;
@@ -475,8 +481,8 @@ void uartTriacTest()
 
 	do {
 		do {} while (((uwTick - lastUwTick) < 100 ) || (uwTick == 0xffffffff) );
-		lastUwTick = uwTick;
 		sendUartString(teststr);
+		lastUwTick = uwTick;
 	}   while (1);
 }
 #endif

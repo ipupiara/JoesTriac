@@ -130,6 +130,8 @@ int main(void)
   HAL_Init();
   SystemClock_Config();
 
+
+
 #ifndef debugApp
 
   MX_GPIO_Init();
@@ -155,11 +157,14 @@ int main(void)
 #endif
 
   initJt();
+#ifndef debugApp    //  this code is currently never reached when debugging
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
   TouchGFXTaskHandle = osThreadNew(TouchGFX_Task, NULL, &TouchGFXTask_attributes);
   videoTaskHandle = osThreadNew(videoTaskFunc, NULL, &videoTask_attributes);  //  todo is this needed?
 
   osKernelStart();
+#endif
+
 
   while (1)
   {

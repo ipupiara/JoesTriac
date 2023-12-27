@@ -83,7 +83,6 @@ void init_printf()
 
 	if (err == osOK)  {
 		serialOn = 1;
-		startUartHw();
 	}
 }
 
@@ -148,13 +147,17 @@ void  err_printf ( char *emsg, ...)
 
 
 
+//  todo forwardReceivedStringBuffer happens within interrupt may not use
+//  the put to queue method of info_printf which waits for ever if no place in queue available
+//  might be done with an own queue for forwarding if ever needed
+//  currently (25. dez 2003) not used code
 void forwardReceivedStringBuffer(char* strBuffer)
 {
 	if (strlen(strBuffer) > 4) {
 		if (strncmp(strBuffer,"@ping:",6) == 0) {
-			info_printf("tempixController ping received: %s \n",strBuffer);
+//			info_printf("tempixController ping received: %s \n",strBuffer);
 		}  else {
-			info_printf("tempixController received unknown String %s\n",strBuffer);
+//			info_printf("tempixController received unknown String %s\n",strBuffer);
 		}
 	}
 }
