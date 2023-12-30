@@ -20,15 +20,16 @@
 #define ampsLowerPort   GPIOB
 #define ampsLowerPin    GPIO_PIN_15
 
-void assureInt32Between(int32_t* pVar,int32_t mini, int32_t maxi)
-{
-	if (*pVar > maxi) {
-		*pVar = maxi;
-	}
-	if (*pVar < mini ) {
-		*pVar = mini;
-	}
-}
+
+//void assureInt32Between(int32_t* pVar,int32_t mini, int32_t maxi)
+//{
+//	if (*pVar > maxi) {
+//		*pVar = maxi;
+//	}
+//	if (*pVar < mini ) {
+//		*pVar = mini;
+//	}
+//}
 
 /*
 
@@ -244,6 +245,106 @@ void TIM2_IRQHandler(void)
 	}
 }
 
+/*
+ *
+ *
+ *
+ * amtMissedTotal
+ * maxMissed
+ * uwTickSinceLastOk
+ *
+ * amtCountedMissed
+ * amtPassed = ((TickSinceLast+2)/10 );
+ * amtMissed = amtPassed -1;
+ *
+* if (amtMissed == 0) { normalPrc}  else  {
+* amtMissedTotal +=  amtMissed - amtCountedMissed;
+* amtCountedMissed = amtMissed;
+* if (amtMissed > maxMissed {maxMissed = amtMissed}
+*
+* if (amtPassed & 0x01) {notmalProc)
+*
+*normalProc
+*amtMissed = 0; amtCountedMissed = 0; uwTickSinceLast = 0;
+* fire();
+*
+*
+ *
+ *
+ *
+ *
+ */
+
+uint32_t uwTickSinceLastOk;
+uint32_t lastUwTick;
+uint32_t amtMissedTotal;
+uint32_t   maxMissed;
+
+uint32_t amtCountedMissed;
+uint32_t lastOkUwTick;
+
+void startHandleMissed()
+{
+	uwTickSinceLastOk = 10;
+	amtMissedTotal = 0;
+	maxMissed = 0;
+	amtCountedMissed = 0;
+	lastOkUwTick = uwTick;
+}
+
+void resumeDurationTimer()
+{
+	durationTimerOn = 1;
+}
+
+//void resetHandleMissed()   // todo implement as a #define to save isr cpu usage
+//{
+//	uwTickSinceLastOk = 0;
+//	lastOkUwTick = uwTick;
+//}
+
+#define maxInt32  0xFFFFFFFF
+
+#define resetHandleMissed() \
+  do { \
+	  amtCountedMissed = 0; \
+	  	lastOkUwTick = uwTick; \
+  } while(0)
+
+uint8_t handleMissed()
+{
+	uint8_t res = 1;
+
+	return res; //  todo needs be tested first
+
+//	if (uwTick >=  lastOkUwTick ) {
+		uwTickSinceLastOk = uwTick - lastOkUwTick;
+//	} else {
+//		uwTickSinceLastOk =  uwTick +  ( maxInt32 - lastOkUwTick) + 1;  // overflow start at 0, so needs 1 more for difference
+//	}   //  todo test handle overflow of 32 bit counter
+//		//  or ignore overflow since it will happen first time after 49.710...  days (4294967295 / (1000 * 60 * 60 * 24))
+
+	uint32_t  amtPassed = ((uwTickSinceLastOk +2 )/10 );
+	uint32_t  amtMissed = amtPassed - 1;
+
+	 if (amtMissed == 0) {
+		 resetHandleMissed();
+		 res = 1;
+	 }  else  {
+		amtMissedTotal +=  amtMissed - amtCountedMissed;
+		amtCountedMissed = amtMissed;
+		if (amtMissed > maxMissed) {maxMissed = amtMissed;}
+
+		if (amtPassed & (uint32_t) 0x01) {  //  odd number
+			resetHandleMissed();
+			res = 1;
+		}  else {
+			res = 0;    //  prevent short circuit
+		}
+	 }
+	return res;
+}
+
 
 //  zero pass pin irq
 void EXTI15_10_IRQHandler(void)
@@ -251,6 +352,7 @@ void EXTI15_10_IRQHandler(void)
 	  if(__HAL_GPIO_EXTI_GET_IT(zeroPass_Pin) != 0) {
 		__HAL_GPIO_EXTI_CLEAR_IT(zeroPass_Pin);
 		if (HAL_GPIO_ReadPin(zeroPass_Port,zeroPass_Pin) == 1)  {
+			if (handleMissed()) {
 				tim5UsedDelay =	triacDelayTimer.Instance->ARR =getTriacTriggerDelay();
 				triacDelayTimer.Instance->CNT =0;
 				tim5RunState = tim5DelayPhase;
@@ -258,10 +360,11 @@ void EXTI15_10_IRQHandler(void)
 				triacStopTimer.Instance->CNT = 0;
 				startStopTimer();
 				startDelayTimer();
+			}
 				disableRailTimerPwm();
 		}  else  {
-				disableRailTimerPwm();
 				disableDelayTimer();
+				disableRailTimerPwm();
 		}
 	  }
 }
@@ -454,6 +557,7 @@ void initAmpsZeroPassDetect()
 
 void startTriacRun()
 {
+	startHandleMissed();
 	setTriacTriggerDelay(stmTriggerDelayMax);
 	enableZeroPassDetector();
 //	checkInterrupts();
@@ -641,11 +745,6 @@ void stopDurationTimer()
 	durationTimerOn = 0;
 	secondsDurationTimerRemaining = 0;
 	secondsInDurationTimer = 0;
-}
-
-void resumeDurationTimer()
-{
-	durationTimerOn = 1;
 }
 
 void haltDurationTimer()
