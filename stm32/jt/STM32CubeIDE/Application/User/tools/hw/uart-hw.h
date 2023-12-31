@@ -204,6 +204,8 @@ uint8_t startUartHw();
 
 osStatus_t sendUartString(char* sndStr);
 
+extern  void USART1_IRQHandler(void);
+
 #ifdef  __cplusplus
 }
 #endif

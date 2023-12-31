@@ -98,7 +98,6 @@ void mainJt(void *argument)
 	osStatus_t status;
 	CMainJtEventT  mJtEv;
 	fsmTriacEvent fsmEv;
-	uint32_t halVersion = HAL_GetHalVersion();
 //	init_printf();
 	initI2c();
 //	initCanComms();
