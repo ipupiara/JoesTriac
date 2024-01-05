@@ -10,6 +10,9 @@ uint8_t * txBufferPtr  ;
 
 UART_HandleTypeDef huart1;
 
+osMessageQueueId_t uartSendSemaphoreQ;
+uint8_t  uartJobSemSet;
+
 void setUartJobSemaQ()
 {
 #ifndef debugApp
@@ -80,7 +83,7 @@ void USART1_IRQHandler(void)
 			   // todo open question why does this get called twice just during first transmit
 			 ATOMIC_CLEAR_BIT(huart1.Instance->CR1, USART_CR1_TXEIE);
 			 ATOMIC_SET_BIT(huart1.Instance->CR1, USART_CR1_TCIE);
-			 setUartJobSemaQ();
+//			 setUartJobSemaQ();
 	   }
 	   else {
 			 huart1.Instance->TDR = *txBufferPtr ;
@@ -97,12 +100,13 @@ void USART1_IRQHandler(void)
 	}
 
 	if (__HAL_UART_GET_FLAG(&huart1,USART_ICR_TCCF_Msk)  )  {
-		idleDetected = 1;
 		__HAL_UART_CLEAR_IT(&huart1,USART_ICR_TCCF_Msk);
+		idleDetected = 1;
+		ATOMIC_CLEAR_BIT(huart1.Instance->CR1, USART_CR1_TCIE);
 	}
 
 	if (idleDetected == 1) {
-
+		 setUartJobSemaQ();
 	}
 }
 
@@ -150,6 +154,15 @@ void uartTest()
 uint8_t initUartHw()
 {
 	uint8_t res = 0;
+
+	uartJobSemSet = 0;
+	#ifndef debugApp
+		uartSendSemaphoreQ =  osMessageQueueNew(3,4, NULL);
+		if (uartSendSemaphoreQ  == NULL)   {
+			errorHandler(0xff ,stop," osMessageQueueNew ","initUartHw");
+		}
+		setUartJobSemaQ();
+	#endif
 
 //	UART_HandleTypeDef* huart = &huart1;
 	 GPIO_InitTypeDef GPIO_InitStruct = {0};

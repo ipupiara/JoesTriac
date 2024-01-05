@@ -15,6 +15,7 @@
 #include <mainJt.h>
 #include <uart-comms.h>
 
+#define debugPid
 
 uint32_t  amtErr;			// amt calls to err_printf
 uint32_t  amtPrintErr;   // errors during print out, where err_printf should not be called
@@ -63,10 +64,10 @@ void init_printf()
 {
 
 	serialOn = 0;
-//	amtErr = 0;
-//	amtPrintErr = 0;
+	amtErr = 0;
+	amtPrintErr = 0;
 	uint8_t err = osOK;
-//
+
 
 	serialMessageQ =  osMessageQueueNew(5,maxSerialStringSz * charWidth, NULL);
 	if (serialMessageQ  == NULL)   {
@@ -88,18 +89,22 @@ void init_printf()
 
 void info_printf( char *emsg, ...)
 {
-//	va_list ap;
-//	va_start(ap, emsg);
-////	private_printf(emsg, ap);
-//	va_end(ap);
+#ifndef debugPid
+	va_list ap;
+	va_start(ap, emsg);
+	private_printf(emsg, ap);
+	va_end(ap);
+#endif
 }
 
 void pid_printf( char *emsg, ...)
 {
-//	va_list ap;
-//	va_start(ap, emsg);
-//	private_printf(emsg, ap);
-//	va_end(ap);
+#ifdef debugPid
+	va_list ap;
+	va_start(ap, emsg);
+	private_printf(emsg, ap);
+	va_end(ap);
+#endif
 }
 
 void private_printf( char *emsg, ...)
@@ -109,32 +114,32 @@ void private_printf( char *emsg, ...)
 	//  crashed into an ??? wwdg ??? loop in startup.s  why what how ?????
 	//  todo further debug bug
 
-//	osStatus_t status;
-//	va_list ap;
-//	va_start(ap, emsg);
-//
-//	if (serialOn == 1) {
-//
-//		vsnprintf((char *)&transmitBuffer, maxSerialStringSz-1,  emsg, ap);
-//		transmitBuffer[maxSerialStringSz-1] = 0;
-//
-//		status = osMessageQueuePut(serialMessageQ,&transmitBuffer,0,0);
-//		if (status != osOK)  {
-//			errorHandler(status ,goOn," osMessageQueuePut ","info_printf");
-//		}
-//	}
-//	va_end(ap);
+	osStatus_t status;
+	va_list ap;
+	va_start(ap, emsg);
+
+	if (serialOn == 1) {
+
+		vsnprintf((char *)&transmitBuffer, maxSerialStringSz-1,  emsg, ap);
+		transmitBuffer[maxSerialStringSz-1] = 0;
+
+		status = osMessageQueuePut(serialMessageQ,&transmitBuffer,0,0);
+		if (status != osOK)  {
+			errorHandler(status ,goOn," osMessageQueuePut ","info_printf");
+		}
+	}
+	va_end(ap);
 ////	//	printf(emsg, ap);
 }
 
 // just for usage with short strings, otherwise sizes of buffers need to be increased
 void  err_printf ( char *emsg, ...)
 {
-//	va_list ap;
-//	va_start(ap, emsg);
-//	++ amtErr;
-//	private_printf(emsg, ap);
-//	va_end(ap);
+	va_list ap;
+	va_start(ap, emsg);
+	++ amtErr;
+	private_printf(emsg, ap);
+	va_end(ap);
 }
 
 //void printStartMessage()
@@ -151,6 +156,7 @@ void  err_printf ( char *emsg, ...)
 //  the put to queue method of info_printf which waits for ever if no place in queue available
 //  might be done with an own queue for forwarding if ever needed
 //  currently (25. dez 2003) not used code
+
 void forwardReceivedStringBuffer(char* strBuffer)
 {
 	if (strlen(strBuffer) > 4) {

@@ -10,8 +10,8 @@
 #include <mainJt.h>
 
 
-//#define printfPid
-//#define printfAmps
+#define printfPid
+#define printfAmps
 
 void initTwa();
 
@@ -230,6 +230,7 @@ void calcNextTriacDelay()
 	double ampsD  = currentAmps();
 	uint32_t adcVal =  getCurrentAmpsADCValue();
 	pid_printf(" corr %f corrI %i cry %f delay %x  amps %f adc %i\n",corrD,corrInt, carryCorrD, newDelay, ampsD, adcVal);
+	pid_printf("amtMissedTotal %i  maxMissed %i\n",amtMissedTotal, maxMissed);
 #endif
 }
 
@@ -277,7 +278,7 @@ void printPIDState()
 //	printf("\nPID State\n");
 //	printf("calLowA %i calHighA %i\n",calibLowAmps,calibHighAmps);
 //	printf("calLowAdc %i caHiAdc %i \n",calibLowADC, calibHighADC);
-//	printf("shows at 0 ADC : %f A  grad %f zeroPotiPos %i\n",resD, gradD,zeroPotiPos);
+//	printf("shows at 0 ADC : %f A  grad %f \n",resD, gradD);
 ////	checkEEPOROM();
 }
 

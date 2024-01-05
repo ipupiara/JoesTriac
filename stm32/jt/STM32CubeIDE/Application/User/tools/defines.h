@@ -14,7 +14,7 @@ extern "C"
 
 #include <stdio.h>
 
-#define debugApp
+//#define debugApp
 
 #define triacApplicationIsrPrio    5
 #define triacTriggerIsrPrio   0
