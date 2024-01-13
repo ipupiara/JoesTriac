@@ -5,6 +5,7 @@ git add *.h
 git add *.c
 git add *.atsln
 git add *.cproj
+git add .gitignore
 git add gitAddFiles.bat
 git add default/joesTriac.hex
 git add ATtinyJT/ATtinyJT.aps

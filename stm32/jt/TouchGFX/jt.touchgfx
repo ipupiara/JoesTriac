@@ -1701,8 +1701,8 @@
             "Name": "textArea3",
             "X": 520,
             "Y": 143,
-            "Width": 72,
-            "Height": 48,
+            "Width": 36,
+            "Height": 24,
             "TextId": "__SingleUse_WO37",
             "TextRotation": "0",
             "AutoSize": true
@@ -1710,10 +1710,10 @@
           {
             "Type": "TextArea",
             "Name": "textArea4",
-            "X": 520,
-            "Y": 192,
-            "Width": 120,
-            "Height": 48,
+            "X": 633,
+            "Y": 141,
+            "Width": 36,
+            "Height": 24,
             "TextId": "__SingleUse_WCEJ",
             "TextRotation": "0",
             "AutoSize": true
@@ -1722,9 +1722,9 @@
             "Type": "TextArea",
             "Name": "textArea5",
             "X": 520,
-            "Y": 251,
-            "Width": 72,
-            "Height": 48,
+            "Y": 167,
+            "Width": 48,
+            "Height": 24,
             "TextId": "__SingleUse_826A",
             "TextRotation": "0",
             "AutoSize": true
@@ -1732,10 +1732,10 @@
           {
             "Type": "TextArea",
             "Name": "adcValueText",
-            "X": 660,
-            "Y": 140,
-            "Width": 99,
-            "Height": 51,
+            "X": 573,
+            "Y": 143,
+            "Width": 57,
+            "Height": 23,
             "TextId": "__SingleUse_CAPG",
             "TextRotation": "0",
             "Wildcard1": {
@@ -1747,10 +1747,10 @@
           {
             "Type": "TextArea",
             "Name": "adcVoltageText",
-            "X": 660,
-            "Y": 192,
-            "Width": 120,
-            "Height": 48,
+            "X": 687,
+            "Y": 143,
+            "Width": 60,
+            "Height": 24,
             "TextId": "__SingleUse_HJ2X",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1763,15 +1763,69 @@
           {
             "Type": "TextArea",
             "Name": "delayText",
-            "X": 663,
-            "Y": 251,
-            "Width": 96,
-            "Height": 48,
+            "X": 578,
+            "Y": 167,
+            "Width": 48,
+            "Height": 24,
             "TextId": "__SingleUse_LP5B",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
               "TextId": "__SingleUse_KAL2",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea6",
+            "X": 520,
+            "Y": 191,
+            "Width": 48,
+            "Height": 24,
+            "TextId": "__SingleUse_Z6K7",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea7",
+            "X": 633,
+            "Y": 191,
+            "Width": 48,
+            "Height": 24,
+            "TextId": "__SingleUse_ORKO",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "amtMissedExti",
+            "X": 577,
+            "Y": 191,
+            "Width": 48,
+            "Height": 24,
+            "TextId": "__SingleUse_EWD7",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_WH5L",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "maxMissedExti",
+            "X": 711,
+            "Y": 191,
+            "Width": 36,
+            "Height": 24,
+            "TextId": "__SingleUse_XHZM",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_OO01",
               "UseBuffer": true,
               "BufferSize": 10
             }

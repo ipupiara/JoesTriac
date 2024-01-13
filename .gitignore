@@ -1,3 +1,4 @@
 .metadata/
 jt/TouchGFX/build
 testsd/
+**/generated/

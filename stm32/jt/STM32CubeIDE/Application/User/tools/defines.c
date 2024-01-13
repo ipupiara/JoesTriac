@@ -65,6 +65,8 @@ void sendActualValuesToRunNStopScreen(uint16_t secondsRemaining, uint16_t second
 	presenterMessage.evData.runScreenData.adcValue = getCurrentAmpsADCValue();
 	presenterMessage.evData.runScreenData.adcVoltage = getCurrentAmpsValue();
 	presenterMessage.evData.runScreenData.triacDelay = getTriacTriggerDelay();
+	presenterMessage.evData.runScreenData.amtExtiM =  amtExtiMissedTotal;
+	presenterMessage.evData.runScreenData.maxExtiM = maxMissedExti;
 	sendPresenterMessage(&presenterMessage);
 }
 

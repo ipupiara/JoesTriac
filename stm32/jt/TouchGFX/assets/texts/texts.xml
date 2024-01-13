@@ -6,31 +6,49 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_OO01" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_XHZM" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_WH5L" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0000</Translation>
+      </Text>
+      <Text Id="__SingleUse_EWD7" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_ORKO" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">/max</Translation>
+      </Text>
+      <Text Id="__SingleUse_Z6K7" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">amtM</Translation>
+      </Text>
       <Text Id="__SingleUse_KAL2" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">0000</Translation>
       </Text>
-      <Text Id="__SingleUse_LP5B" Alignment="Left" TypographyId="Large">
+      <Text Id="__SingleUse_LP5B" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_V5TZ" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">0.000</Translation>
       </Text>
-      <Text Id="__SingleUse_HJ2X" Alignment="Left" TypographyId="Large">
+      <Text Id="__SingleUse_HJ2X" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_8LLG" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">0000</Translation>
       </Text>
-      <Text Id="__SingleUse_CAPG" Alignment="Left" TypographyId="Large">
+      <Text Id="__SingleUse_CAPG" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="__SingleUse_826A" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">dly</Translation>
+      <Text Id="__SingleUse_826A" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">TDly</Translation>
       </Text>
-      <Text Id="__SingleUse_WCEJ" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">adcVo</Translation>
+      <Text Id="__SingleUse_WCEJ" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">/Vo</Translation>
       </Text>
-      <Text Id="__SingleUse_WO37" Alignment="Left" TypographyId="Large">
+      <Text Id="__SingleUse_WO37" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">adc</Translation>
       </Text>
       <Text Id="__SingleUse_UV0W" Alignment="Center" TypographyId="Default">

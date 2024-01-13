@@ -44,7 +44,7 @@ void runScreenView::tearDownScreen()
     runScreenViewBase::tearDownScreen();
 }
 
-void runScreenView::update(float amps,uint32_t secRemain, int32_t adcVal, int32_t triacDelay, float adcVolts  )
+void runScreenView::update(float amps,uint32_t secRemain, int32_t adcVal, int32_t triacDelay, float adcVolts, uint32_t amtExtiM, uint32_t maxExtiM  )
 {
 
 	// todo bug: amps does not show / calculate delay decimal places in setamperetext
@@ -82,6 +82,15 @@ void runScreenView::update(float amps,uint32_t secRemain, int32_t adcVal, int32_
 	Unicode::snprintf(delayTextBuffer,5, "%4d", triacDelay);
 	delayText.setWildcard(delayTextBuffer);
 	delayText.invalidate();
+/////////////////////////////////////////////////////////////////////////////////
+	Unicode::snprintf(amtMissedExtiBuffer,5, "%4d", amtExtiM);
+	amtMissedExti.setWildcard(amtMissedExtiBuffer);
+	amtMissedExti.invalidate();
+
+	Unicode::snprintf(maxMissedExtiBuffer,4, "%3d", maxExtiM);
+	maxMissedExti.setWildcard(maxMissedExtiBuffer);
+	maxMissedExti.invalidate();
+////////////////////////////////////////////////////////////////////////
 }
 
 void runScreenView::stopButtonPressed()

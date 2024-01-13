@@ -219,7 +219,7 @@ void mainJt(void *argument)
 							break;
 						}
 						default : {
-								errorHandler(mJtEv.evType ,goOn," osMessageQueueGet unknown event "," mainJt ");
+							errorHandler(mJtEv.evType ,goOn," osMessageQueueGet unknown event "," mainJt ");
 						}
 			}
 		} else {
@@ -296,7 +296,7 @@ void initJt()
 		errorHandler((uint32_t)mainJtMessageQ ,stop," mainJtMessageQ ","initJt");
 	}
 
-	presenterMessageQ =  osMessageQueueNew(5,sizeof(CJoesPresenterEventT)*memoryMultiplier, NULL);
+	presenterMessageQ =  osMessageQueueNew(5,((sizeof(CJoesPresenterEventT)*memoryMultiplier) +4) , NULL);
 	if (presenterMessageQ  == NULL)   {
 		errorHandler((uint32_t)NULL, stop," presenterMessageQ ", "initJt");
 	}

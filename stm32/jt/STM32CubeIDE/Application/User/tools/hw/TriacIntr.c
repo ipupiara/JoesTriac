@@ -277,24 +277,34 @@ void TIM2_IRQHandler(void)
 
 uint32_t uwTickSinceLastOk;
 uint32_t lastUwTick;
-uint32_t amtMissedTotal;
-uint32_t   maxMissed;
+uint32_t amtExtiMissedTotal;
+uint32_t maxMissedExti;
+uint32_t amtSyncMissedPlusOne;
 
 uint32_t amtCountedMissed;
 uint32_t lastOkUwTick;
+uint32_t syncMissedPeriodStartTick;
+
 
 void startHandleMissed()
 {
 	uwTickSinceLastOk = 10;
-	amtMissedTotal = 0;
-	maxMissed = 0;
+	amtExtiMissedTotal = 0;
+	maxMissedExti = 0;
 	amtCountedMissed = 0;
 	lastOkUwTick = uwTick;
+	syncMissedPeriodStartTick = 5; //  initialization can only be done by Exti (iE. zeroPass)
+	amtMissed = 0;								//
 }
 
 void resumeDurationTimer()
 {
 	durationTimerOn = 1;
+}
+
+uint32_t amtSyncMissed()
+{
+	return amtSyncMissedPlusOne -1;
 }
 
 //void resetHandleMissed()   // todo implement as a #define to save isr cpu usage
@@ -308,7 +318,7 @@ void resumeDurationTimer()
 #define resetHandleMissed() \
   do { \
 	  amtCountedMissed = 0; \
-	  	lastOkUwTick = uwTick; \
+	  lastOkUwTick = uwTick; \
   } while(0)
 
 uint8_t handleMissed()
@@ -331,15 +341,19 @@ uint8_t handleMissed()
 		 resetHandleMissed();
 		 res = 1;
 	 }  else  {
-		amtMissedTotal +=  amtMissed - amtCountedMissed;
+		amtExtiMissedTotal +=  amtMissed - amtCountedMissed;
 		amtCountedMissed = amtMissed;
-		if (amtMissed > maxMissed) {maxMissed = amtMissed;}
+		if (amtMissed > maxMissedExti) {maxMissedExti = amtMissed;}
 
 		if (amtPassed & (uint32_t) 0x01) {  //  odd number
 			resetHandleMissed();
 			res = 1;
 		}  else {
 			res = 0;    //  prevent short circuit
+		}
+		if (((uwTick - syncMissedPeriodStartTick ) % 10) >= 2 ) {
+			amtSyncMissedPlusOne += 1;
+			syncMissedPeriodStartTick = uwTick;
 		}
 	 }
 	return res;

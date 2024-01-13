@@ -39,7 +39,8 @@ void runScreenPresenter::tick()
 				if (presenterMessage.messageType ==  runScreenUpdate) {
 					view.update(presenterMessage.evData.runScreenData.amps, presenterMessage.evData.runScreenData.secondsRemaining
 							, presenterMessage.evData.runScreenData.adcValue,presenterMessage.evData.runScreenData.triacDelay
-							, presenterMessage.evData.runScreenData.adcVoltage);
+							, presenterMessage.evData.runScreenData.adcVoltage,presenterMessage.evData.runScreenData.amtExtiM
+							, presenterMessage.evData.runScreenData.maxExtiM);
 				}
 			}
 		}

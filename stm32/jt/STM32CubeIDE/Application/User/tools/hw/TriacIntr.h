@@ -28,8 +28,9 @@ extern "C"
 
 extern uint32_t secondsDurationTimerRemaining;  // todo check this memory direct access
 
-extern uint32_t amtMissedTotal;
-extern uint32_t   maxMissed;
+extern uint32_t amtExtiMissedTotal;
+extern uint32_t   maxMissedExti;
+void amtSyncMissed();
 
 //int8_t adcTick;
 
