@@ -11137,6 +11137,7 @@ diameter 2.54 mm, horizontal, grid 10.16 mm</description>
 <part name="R19" library="resistor" deviceset="R-EU_" device="0207/10"/>
 <part name="SUPPLY31" library="supply2" deviceset="GND" device=""/>
 <part name="SUPPLY32" library="supply2" deviceset="GND" device=""/>
+<part name="X3" library="con-phoenix-350" deviceset="1751264" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -11154,6 +11155,8 @@ diameter 2.54 mm, horizontal, grid 10.16 mm</description>
 <text x="60.96" y="-30.48" size="1.778" layer="91">ampLowerDown / if ok, divider as above</text>
 <text x="139.7" y="58.42" size="1.778" layer="91">eventually aplifier can be ommitted</text>
 <text x="91.44" y="-7.62" size="1.778" layer="91">0V .. 3.3V tobe tested</text>
+<text x="35.56" y="48.26" size="1.778" layer="91">.   -9</text>
+<text x="35.56" y="53.34" size="1.778" layer="91">.   +9</text>
 </plain>
 <instances>
 <instance part="IC1" gate="G$1" x="86.36" y="86.36"/>
@@ -11239,6 +11242,8 @@ diameter 2.54 mm, horizontal, grid 10.16 mm</description>
 <instance part="R19" gate="G$1" x="83.82" y="-12.7" rot="R90"/>
 <instance part="SUPPLY31" gate="GND" x="20.32" y="-12.7"/>
 <instance part="SUPPLY32" gate="GND" x="83.82" y="-20.32"/>
+<instance part="X3" gate="-2" x="22.86" y="53.34"/>
+<instance part="X3" gate="-3" x="22.86" y="48.26"/>
 </instances>
 <busses>
 </busses>
@@ -11638,10 +11643,10 @@ diameter 2.54 mm, horizontal, grid 10.16 mm</description>
 <segment>
 <pinref part="IC2" gate="A" pin="+IN"/>
 <wire x1="-35.56" y1="2.54" x2="-25.4" y2="2.54" width="0.1524" layer="91"/>
-<wire x1="25.4" y1="76.2" x2="38.1" y2="76.2" width="0.1524" layer="91"/>
-<wire x1="38.1" y1="76.2" x2="38.1" y2="22.86" width="0.1524" layer="91"/>
-<wire x1="38.1" y1="22.86" x2="-35.56" y2="22.86" width="0.1524" layer="91"/>
+<wire x1="43.18" y1="22.86" x2="-35.56" y2="22.86" width="0.1524" layer="91"/>
 <wire x1="-35.56" y1="22.86" x2="-35.56" y2="2.54" width="0.1524" layer="91"/>
+<wire x1="43.18" y1="76.2" x2="43.18" y2="22.86" width="0.1524" layer="91"/>
+<wire x1="25.4" y1="76.2" x2="43.18" y2="76.2" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$16" class="0">
