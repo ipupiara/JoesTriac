@@ -9016,6 +9016,74 @@ NS Package M08A</description>
 </deviceset>
 </devicesets>
 </library>
+<library name="inductors">
+<description>&lt;b&gt;Inductors and Filters&lt;/b&gt;&lt;p&gt;
+Based on the previous library ind-a.lbr&lt;p&gt;
+&lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
+<packages>
+<package name="SMCC12">
+<description>&lt;B&gt;INDUCTOR&lt;/B&gt;&lt;p&gt;
+manufacturer Siemens</description>
+<wire x1="6.35" y1="0" x2="5.588" y2="0" width="0.6096" layer="51"/>
+<wire x1="-6.35" y1="0" x2="-5.588" y2="0" width="0.6096" layer="51"/>
+<wire x1="-4.826" y1="1.778" x2="-4.572" y2="2.032" width="0.1524" layer="21" curve="-90"/>
+<wire x1="-4.826" y1="-1.778" x2="-4.572" y2="-2.032" width="0.1524" layer="21" curve="90"/>
+<wire x1="4.572" y1="-2.032" x2="4.826" y2="-1.778" width="0.1524" layer="21" curve="90"/>
+<wire x1="4.572" y1="2.032" x2="4.826" y2="1.778" width="0.1524" layer="21" curve="-90"/>
+<wire x1="-4.826" y1="-1.778" x2="-4.826" y2="1.778" width="0.1524" layer="21"/>
+<wire x1="-4.572" y1="2.032" x2="-3.302" y2="2.032" width="0.1524" layer="21"/>
+<wire x1="-3.175" y1="1.905" x2="-3.302" y2="2.032" width="0.1524" layer="21"/>
+<wire x1="-4.572" y1="-2.032" x2="-3.302" y2="-2.032" width="0.1524" layer="21"/>
+<wire x1="-3.175" y1="-1.905" x2="-3.302" y2="-2.032" width="0.1524" layer="21"/>
+<wire x1="3.175" y1="1.905" x2="3.302" y2="2.032" width="0.1524" layer="21"/>
+<wire x1="3.175" y1="1.905" x2="-3.175" y2="1.905" width="0.1524" layer="21"/>
+<wire x1="3.175" y1="-1.905" x2="3.302" y2="-2.032" width="0.1524" layer="21"/>
+<wire x1="3.175" y1="-1.905" x2="-3.175" y2="-1.905" width="0.1524" layer="21"/>
+<wire x1="4.572" y1="2.032" x2="3.302" y2="2.032" width="0.1524" layer="21"/>
+<wire x1="4.572" y1="-2.032" x2="3.302" y2="-2.032" width="0.1524" layer="21"/>
+<wire x1="4.826" y1="-1.778" x2="4.826" y2="1.778" width="0.1524" layer="21"/>
+<wire x1="-3.302" y1="1.651" x2="-3.302" y2="-1.651" width="0.0508" layer="21"/>
+<wire x1="-4.572" y1="1.651" x2="-4.572" y2="-1.651" width="0.0508" layer="21"/>
+<wire x1="4.572" y1="1.651" x2="4.572" y2="-1.651" width="0.0508" layer="21"/>
+<wire x1="3.302" y1="1.651" x2="3.302" y2="-1.651" width="0.0508" layer="21"/>
+<pad name="1" x="-6.35" y="0" drill="0.8128" shape="long"/>
+<pad name="2" x="6.35" y="0" drill="0.8128" shape="long"/>
+<text x="-4.699" y="2.286" size="1.27" layer="25" ratio="10">&gt;NAME</text>
+<text x="-2.921" y="-0.4318" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
+<rectangle x1="4.826" y1="-0.3048" x2="5.4864" y2="0.3048" layer="21"/>
+<rectangle x1="-5.4864" y1="-0.3048" x2="-4.826" y2="0.3048" layer="21"/>
+</package>
+</packages>
+<symbols>
+<symbol name="DRK">
+<wire x1="-3.81" y1="1.651" x2="3.81" y2="1.651" width="0.254" layer="94"/>
+<text x="-3.81" y="2.286" size="1.778" layer="95">&gt;NAME</text>
+<text x="-3.937" y="-3.048" size="1.778" layer="96">&gt;VALUE</text>
+<rectangle x1="-3.81" y1="-0.889" x2="3.81" y2="0.889" layer="94"/>
+<pin name="2" x="7.62" y="0" visible="pad" length="middle" direction="pas" swaplevel="1" rot="R180"/>
+<pin name="1" x="-7.62" y="0" visible="pad" length="middle" direction="pas" swaplevel="1"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="SMCC12" prefix="L">
+<description>&lt;B&gt;INDUCTOR&lt;/B&gt;</description>
+<gates>
+<gate name="1" symbol="DRK" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="SMCC12">
+<connects>
+<connect gate="1" pin="1" pad="1"/>
+<connect gate="1" pin="2" pad="2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -9055,6 +9123,10 @@ NS Package M08A</description>
 <part name="SUPPLY11" library="supply2" deviceset="GND" device=""/>
 <part name="R7" library="resistor" deviceset="R-EU_" device="0309/12" value="2.2k"/>
 <part name="R8" library="resistor" deviceset="R-EU_" device="0309/12" value="330k"/>
+<part name="L1" library="inductors" deviceset="SMCC12" device=""/>
+<part name="C2" library="resistor" deviceset="C-EU" device="050-030X075" value="10uF"/>
+<part name="C3" library="resistor" deviceset="C-EU" device="050-030X075" value="10uF"/>
+<part name="SUPPLY12" library="supply2" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -9142,6 +9214,10 @@ NS Package M08A</description>
 <instance part="SUPPLY11" gate="GND" x="7.62" y="-5.08"/>
 <instance part="R7" gate="G$1" x="12.7" y="12.7" rot="R90"/>
 <instance part="R8" gate="G$1" x="-5.08" y="17.78" rot="R90"/>
+<instance part="L1" gate="1" x="-5.08" y="-17.78"/>
+<instance part="C2" gate="G$1" x="5.08" y="-22.86"/>
+<instance part="C3" gate="G$1" x="-15.24" y="-22.86"/>
+<instance part="SUPPLY12" gate="GND" x="12.7" y="-35.56"/>
 </instances>
 <busses>
 </busses>
@@ -9233,6 +9309,18 @@ NS Package M08A</description>
 <wire x1="2.54" y1="-2.54" x2="7.62" y2="-2.54" width="0.1524" layer="91"/>
 <pinref part="SUPPLY11" gate="GND" pin="GND"/>
 </segment>
+<segment>
+<wire x1="-25.4" y1="-33.02" x2="-15.24" y2="-33.02" width="0.1524" layer="91" style="shortdash"/>
+<pinref part="SUPPLY12" gate="GND" pin="GND"/>
+<wire x1="-15.24" y1="-33.02" x2="5.08" y2="-33.02" width="0.1524" layer="91" style="shortdash"/>
+<wire x1="5.08" y1="-33.02" x2="12.7" y2="-33.02" width="0.1524" layer="91" style="shortdash"/>
+<wire x1="12.7" y1="-33.02" x2="17.78" y2="-33.02" width="0.1524" layer="91" style="shortdash"/>
+<junction x="12.7" y="-33.02"/>
+<pinref part="C3" gate="G$1" pin="2"/>
+<wire x1="-15.24" y1="-27.94" x2="-15.24" y2="-33.02" width="0.1524" layer="91" style="shortdash"/>
+<pinref part="C2" gate="G$1" pin="2"/>
+<wire x1="5.08" y1="-27.94" x2="5.08" y2="-33.02" width="0.1524" layer="91" style="shortdash"/>
+</segment>
 </net>
 <net name="N$2" class="0">
 <segment>
@@ -9318,6 +9406,8 @@ NS Package M08A</description>
 <segment>
 <pinref part="IC2" gate="A" pin="-IN"/>
 <wire x1="-2.54" y1="2.54" x2="-22.86" y2="2.54" width="0.1524" layer="91"/>
+<wire x1="-22.86" y1="2.54" x2="-22.86" y2="-17.78" width="0.1524" layer="91"/>
+<wire x1="-22.86" y1="-17.78" x2="-20.32" y2="-17.78" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$11" class="0">
@@ -9373,6 +9463,24 @@ NS Package M08A</description>
 <segment>
 <pinref part="J3" gate="-1" pin="MSV"/>
 <wire x1="157.48" y1="-27.94" x2="152.4" y2="-27.94" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$19" class="0">
+<segment>
+<pinref part="L1" gate="1" pin="1"/>
+<wire x1="-17.78" y1="-17.78" x2="-15.24" y2="-17.78" width="0.1524" layer="91" style="shortdash"/>
+<wire x1="-12.7" y1="-17.78" x2="-15.24" y2="-17.78" width="0.1524" layer="91" style="shortdash"/>
+<pinref part="C3" gate="G$1" pin="1"/>
+<wire x1="-15.24" y1="-17.78" x2="-15.24" y2="-20.32" width="0.1524" layer="91" style="shortdash"/>
+</segment>
+</net>
+<net name="N$20" class="0">
+<segment>
+<pinref part="L1" gate="1" pin="2"/>
+<wire x1="2.54" y1="-17.78" x2="5.08" y2="-17.78" width="0.1524" layer="91" style="shortdash"/>
+<wire x1="12.7" y1="-17.78" x2="5.08" y2="-17.78" width="0.1524" layer="91" style="shortdash"/>
+<pinref part="C2" gate="G$1" pin="1"/>
+<wire x1="5.08" y1="-17.78" x2="5.08" y2="-20.32" width="0.1524" layer="91" style="shortdash"/>
 </segment>
 </net>
 </nets>
