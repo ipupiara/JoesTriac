@@ -22,6 +22,7 @@ uint8_t extiCheckCnt ;
 
 // TODO not only missed would be a problem  also to much (emi) is a more probable case
 // introduce a eventcounter in exti (additional states) and add short delays therefore
+// todo make this file shorter by splitting it in more files eg. one for triacControl, one for all the rest (buzzer, secondTick, durationtimer, alarm  )
 
 #define buzzerTimer htim11
 
@@ -405,23 +406,23 @@ void EXTI15_10_IRQHandler(void)
 	  if(__HAL_GPIO_EXTI_GET_IT(zeroPass_Pin) != 0) {
 		__HAL_GPIO_EXTI_CLEAR_IT(zeroPass_Pin);
 
-		extiCheckCnt = 0;
+//		extiCheckCnt = 0;
 //  START checkExtiTimer
 
 
-//		if (isExtiPinSet() == 1)   {
-//				tim5UsedDelay =	triacDelayTimer.Instance->ARR =getTriacTriggerDelay();
-//				triacDelayTimer.Instance->CNT =0;
-////				delayTimerRunState = delayTimerDelayPhase;
-//				triacStopTimer.Instance->ARR=stmTriggerDelayMax;
-//				triacStopTimer.Instance->CNT = 0;
-//				startStopTimer();
-//				startDelayTimer();
-//				disableRailTimerPwm();
-//		}  else  {
-//				disableDelayTimer();
-//				disableRailTimerPwm();
-//		}
+		if (isExtiPinSet() == 1)   {
+				tim5UsedDelay =	triacDelayTimer.Instance->ARR =getTriacTriggerDelay();
+				triacDelayTimer.Instance->CNT =0;
+//				delayTimerRunState = delayTimerDelayPhase;
+				triacStopTimer.Instance->ARR=stmTriggerDelayMax;
+				triacStopTimer.Instance->CNT = 0;
+				startStopTimer();
+				startDelayTimer();
+				disableRailTimerPwm();
+		}  else  {
+				disableDelayTimer();
+				disableRailTimerPwm();
+		}
 	  }
 }
 
