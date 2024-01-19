@@ -15,7 +15,7 @@ typedef enum {
 	delayTimerDelayPhase
 } delayTimerRunStateType;
 
-#define amtExtiCheckCnt  3
+#define extiCheckAmt  3
 #define extiCheckDelay  10
 uint8_t extiCheckCnt ;
 
@@ -47,6 +47,8 @@ uint8_t extiCheckCnt ;
 	while (0)
 
 */
+
+uint8_t handleMissed();
 
 #define isPinSet(portx, pinx)  (((portx->IDR) & pinx) != 0) ? 1:0
 
@@ -316,85 +318,121 @@ uint32_t amtSyncMissed()
 	  lastOkUwTick = uwTick; \
   } while(0)
 
-//uint8_t handleMissed()
-//{
-//	uint8_t res = 1;
-//
-//	return res; //  todo needs be tested first and
-//}
-////	if (uwTick >=  lastOkUwTick ) {
-//		uwTickSinceLastOk = uwTick - lastOkUwTick;
-////	} else {
-////		uwTickSinceLastOk =  uwTick +  ( maxInt32 - lastOkUwTick) + 1;  // overflow start at 0, so needs 1 more for difference
-////	}   //  todo test handle overflow of 32 bit counter
-////		//  or ignore overflow since it will happen first time after 49.710...  days (4294967295 / (1000 * 60 * 60 * 24))
-//
-//	uint32_t  amtPassed = ((uwTickSinceLastOk +2 )/10 );
-//	uint32_t  amtMissed = amtPassed - 1;
-//
-//	 if (amtMissed == 0) {
-//		 resetHandleMissed();
-//		 res = 1;
-//	 }  else  {
-//		amtExtiMissedTotal +=  amtMissed - amtCountedMissed;
-//		amtCountedMissed = amtMissed;
-//		if (amtMissed > maxMissedExti) {maxMissedExti = amtMissed;}
-//
-//		if (amtPassed & (uint32_t) 0x01) {  //  odd number
-//			resetHandleMissed();
-//			res = 1;
-//		}  else {
-//			res = 0;    //  prevent short circuit
-//		}
-//		if (((uwTick - syncMissedPeriodStartTick ) % 10) >= 2 ) {
-//			amtSyncMissedPlusOne += 1;
-//			syncMissedPeriodStartTick = uwTick;
-//		}
-//	 }
-//	return res;
-//}
-//
+uint8_t handleMissed()
+{
+	uint8_t res = 1;
+
+	return res; //  todo needs be tested first and
+
+//	if (uwTick >=  lastOkUwTick ) {
+		uwTickSinceLastOk = uwTick - lastOkUwTick;
+//	} else {
+//		uwTickSinceLastOk =  uwTick +  ( maxInt32 - lastOkUwTick) + 1;  // overflow start at 0, so needs 1 more for difference
+//	}   //  todo test handle overflow of 32 bit counter
+//		//  or ignore overflow since it will happen first time after 49.710...  days (4294967295 / (1000 * 60 * 60 * 24))
+
+	uint32_t  amtPassed = ((uwTickSinceLastOk +2 )/10 );
+	uint32_t  amtMissed = amtPassed - 1;
+
+	 if (amtMissed == 0) {
+		 resetHandleMissed();
+		 res = 1;
+	 }  else  {
+		amtExtiMissedTotal +=  amtMissed - amtCountedMissed;
+		amtCountedMissed = amtMissed;
+		if (amtMissed > maxMissedExti) {maxMissedExti = amtMissed;}
+
+		if (amtPassed & (uint32_t) 0x01) {  //  odd number
+			resetHandleMissed();
+			res = 1;
+		}  else {
+			res = 0;    //  prevent short circuit
+		}
+		if (((uwTick - syncMissedPeriodStartTick ) % 10) >= 2 ) {
+			amtSyncMissedPlusOne += 1;
+			syncMissedPeriodStartTick = uwTick;
+		}
+	 }
+	return res;
+}
+
 
 
 //  zero pass pin irq
 
 uint8_t currentExtiState;
 
+//void startExtiCheck()
+//{
+//
+//}
+//
+//void stopExtiCheck()
+//{
+//
+//}
+
+#define startExtiCheck()
+
+#define stopExtiCheck()
+
+//#define isAmpsZero() ((isPinSet(ampsLowerPort, ampsLowerPin)) && (!(isPinSet(ampsHigherPort,ampsHigherPin))  ))
+//
+//
+
+//#define TIM_CCxChannelCommand(TIMx , Channel , ChannelState) \
+//	do {  \
+//	  uint32_t  tmp;   \
+//	  tmp = ~(TIM_CCER_CC1E << Channel);          \
+//	  TIMx->CCER &=  tmp; \
+//	  TIMx->CCER |= (uint32_t)(ChannelState << Channel); \
+//	} while (0)
+
+
+void enableExtiCheckTimer()
+{
+
+}
+
+void disableExtiCheckTimer()
+{
+
+}
+
+//  tobe tested, reduces the probability of wrong event, increases it for lost event slightly
+
 void  extiCheckTimerIRQHandler (void)
 {
 	uint8_t extiValid = 0;
-
 	if (extiCheckCnt == 0) {
 		currentExtiState=isExtiPinSet();
 	} else {
-		if (extiCheckCnt < amtExtiCheckCnt) {
+		extiValid = (currentExtiState == isExtiPinSet());
+		if (extiCheckCnt < extiCheckAmt) {
 			++ extiCheckCnt;
-			if (extiValid = (currentExtiState == isExtiPinSet())) {   // initExtiState is very well initialized here
-				// restart timer
-			}
-		}  else {
-			// stop timer
-			if ((extiValid) ) {
+			if (extiValid == 0) {
+				stopExtiCheck();
+				}
+			}  else {
+				stopExtiCheck();
+				if ((extiValid) ) {
 				extiCheckCnt = 0;
-
-				if (isExtiPinSet() == 1)   {
-					tim5UsedDelay =	triacDelayTimer.Instance->ARR =getTriacTriggerDelay();
-					triacDelayTimer.Instance->CNT =0;
-					delayTimerRunState = delayTimerDelayPhase;
-					triacStopTimer.Instance->ARR=stmTriggerDelayMax;
-					triacStopTimer.Instance->CNT = 0;
-					startStopTimer();
-					startDelayTimer();
-					disableRailTimerPwm();
-				}  else  {
-					disableDelayTimer();
-					disableRailTimerPwm();
+				if(handleMissed()) {
+					if (isExtiPinSet() == 1)   {
+						tim5UsedDelay =	triacDelayTimer.Instance->ARR =getTriacTriggerDelay();
+						triacDelayTimer.Instance->CNT =0;
+						delayTimerRunState = delayTimerDelayPhase;
+						triacStopTimer.Instance->ARR=stmTriggerDelayMax;
+						triacStopTimer.Instance->CNT = 0;
+						startStopTimer();
+						startDelayTimer();
+						disableRailTimerPwm();
+					} else {
+						disableDelayTimer();
+						disableRailTimerPwm();
+					}
 				}
 			}
-		}
-		if(!extiValid)  {
-			extiCheckCnt = 0;
-			// stop timer(s?)
 		}
 	}
 }
@@ -403,26 +441,32 @@ void  extiCheckTimerIRQHandler (void)
 
 void EXTI15_10_IRQHandler(void)
 {
+	uint8_t res = 0;
+	UNUSED(res);
 	  if(__HAL_GPIO_EXTI_GET_IT(zeroPass_Pin) != 0) {
 		__HAL_GPIO_EXTI_CLEAR_IT(zeroPass_Pin);
 
-//		extiCheckCnt = 0;
-//  START checkExtiTimer
-
-
-		if (isExtiPinSet() == 1)   {
-				tim5UsedDelay =	triacDelayTimer.Instance->ARR =getTriacTriggerDelay();
-				triacDelayTimer.Instance->CNT =0;
-//				delayTimerRunState = delayTimerDelayPhase;
-				triacStopTimer.Instance->ARR=stmTriggerDelayMax;
-				triacStopTimer.Instance->CNT = 0;
-				startStopTimer();
-				startDelayTimer();
-				disableRailTimerPwm();
-		}  else  {
-				disableDelayTimer();
-				disableRailTimerPwm();
+		if (extiCheckCnt > 0 )   {
+			stopExtiCheck();
+			res = 1;
+			extiCheckCnt = 0;
+		}  else {
+			startExtiCheck();
 		}
+
+//		if (isExtiPinSet() == 1)   {
+//				tim5UsedDelay =	triacDelayTimer.Instance->ARR =getTriacTriggerDelay();
+//				triacDelayTimer.Instance->CNT =0;
+////				delayTimerRunState = delayTimerDelayPhase;
+//				triacStopTimer.Instance->ARR=stmTriggerDelayMax;
+//				triacStopTimer.Instance->CNT = 0;
+//				startStopTimer();
+//				startDelayTimer();
+//				disableRailTimerPwm();
+//		}  else  {
+//				disableDelayTimer();
+//				disableRailTimerPwm();
+//		}
 	  }
 }
 
