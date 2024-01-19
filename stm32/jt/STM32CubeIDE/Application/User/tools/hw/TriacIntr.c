@@ -7,6 +7,7 @@
 #define zeroPass_Pin GPIO_PIN_12
 #define zeroPass_Port GPIOA
 #define zeroPassPin_EXTI_IRQn EXTI15_10_IRQn
+#define extiZeroPassValue 1
 
 
 typedef enum {
@@ -348,7 +349,7 @@ uint8_t handleMissed()
 		}  else {
 			res = 0;    //  prevent short circuit
 		}
-		if (((uwTick - syncMissedPeriodStartTick ) % 10) >= 2 ) {
+		if ( (isExtiPinSet() == extiZeroPassValue) &&  ((((uwTick - syncMissedPeriodStartTick ) % 10) >= 2 ))) {
 			amtSyncMissedPlusOne += 1;
 			syncMissedPeriodStartTick = uwTick;
 		}
@@ -418,7 +419,8 @@ void  extiCheckTimerIRQHandler (void)
 				if ((extiValid) ) {
 				extiCheckCnt = 0;
 				if(handleMissed()) {
-					if (isExtiPinSet() == 1)   {
+					if (isExtiPinSet() == extiZeroPassValue)   {
+						syncMissedPeriodStartTick = 0;
 						tim5UsedDelay =	triacDelayTimer.Instance->ARR =getTriacTriggerDelay();
 						triacDelayTimer.Instance->CNT =0;
 						delayTimerRunState = delayTimerDelayPhase;
@@ -436,9 +438,7 @@ void  extiCheckTimerIRQHandler (void)
 		}
 	}
 }
-
-
-
+#define extiZeroPassValue 1
 void EXTI15_10_IRQHandler(void)
 {
 	uint8_t res = 0;
@@ -454,7 +454,7 @@ void EXTI15_10_IRQHandler(void)
 			startExtiCheck();
 		}
 
-//		if (isExtiPinSet() == 1)   {
+//		if (isExtiPinSet() == extiZeroPassValue)   {
 //				tim5UsedDelay =	triacDelayTimer.Instance->ARR =getTriacTriggerDelay();
 //				triacDelayTimer.Instance->CNT =0;
 ////				delayTimerRunState = delayTimerDelayPhase;
