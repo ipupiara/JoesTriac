@@ -19,6 +19,7 @@ typedef enum {
 #define extiCheckAmt  3
 #define extiCheckDelay  10
 uint8_t extiCheckCnt ;
+uint32_t amtIllegalExti;
 
 
 // TODO not only missed would be a problem  also to much (emi) is a more probable case
@@ -294,12 +295,6 @@ void startHandleMissed()
 }
 
 
-
-void resumeDurationTimer()
-{
-	durationTimerOn = 1;
-}
-
 uint32_t amtSyncMissed()
 {
 	return amtSyncMissedPlusOne -1;
@@ -314,6 +309,12 @@ uint32_t amtSyncMissed()
 #define maxInt32  0xFFFFFFFF
 
 #define resetHandleMissed() \
+  do { \
+	  amtCountedMissed = 0; \
+	  lastOkUwTick = uwTick; \
+  } while(0)
+
+#define resetExtiTimer() \
   do { \
 	  amtCountedMissed = 0; \
 	  lastOkUwTick = uwTick; \
@@ -373,6 +374,13 @@ uint8_t currentExtiState;
 //
 //}
 
+
+void startExtiCheck()
+{
+	extiCheckCnt = 0;
+}
+
+
 #define startExtiCheck()
 
 #define stopExtiCheck()
@@ -390,17 +398,14 @@ uint8_t currentExtiState;
 //	} while (0)
 
 
-void enableExtiCheckTimer()
-{
-
-}
-
-void disableExtiCheckTimer()
-{
-
-}
-
 //  tobe tested, reduces the probability of wrong event, increases it for lost event slightly
+//  but accompained by handleMissed
+
+void initExtiTimer()
+{
+	amtIllegalExti = 0;
+	extiCheckCnt= 0;
+}
 
 void  extiCheckTimerIRQHandler (void)
 {
@@ -412,7 +417,8 @@ void  extiCheckTimerIRQHandler (void)
 		if (extiCheckCnt < extiCheckAmt) {
 			++ extiCheckCnt;
 			if (extiValid == 0) {
-				stopExtiCheck();
+					stopExtiCheck();
+					++amtExtiMissedTotal;
 				}
 			}  else {
 				stopExtiCheck();
@@ -706,6 +712,7 @@ void initInterruptsNPorts()
 	initTriacRailPwmTimer();
 	initBuzzerTimerPWM();
 	initAmpsZeroPassDetect();
+	initExtiTimer();
 }
 
 

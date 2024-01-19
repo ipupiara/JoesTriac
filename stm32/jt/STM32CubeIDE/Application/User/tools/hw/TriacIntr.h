@@ -30,6 +30,8 @@ extern uint32_t secondsDurationTimerRemaining;  // todo check this memory direct
 
 extern uint32_t amtExtiMissedTotal;
 extern uint32_t   maxMissedExti;
+extern uint32_t  amtIllegalExti;
+
 uint32_t amtSyncMissed();
 
 //int8_t adcTick;

@@ -67,6 +67,7 @@ void sendActualValuesToRunNStopScreen(uint16_t secondsRemaining, uint16_t second
 	presenterMessage.evData.runScreenData.triacDelay = getTriacTriggerDelay();
 	presenterMessage.evData.runScreenData.amtExtiM =  amtExtiMissedTotal;
 	presenterMessage.evData.runScreenData.maxExtiM = maxMissedExti;
+	presenterMessage.evData.runScreenData.amtIllegalExti = amtIllegalExti;
 	sendPresenterMessage(&presenterMessage);
 }
 

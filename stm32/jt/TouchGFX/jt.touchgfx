@@ -1829,6 +1829,33 @@
               "UseBuffer": true,
               "BufferSize": 10
             }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea8",
+            "X": 520,
+            "Y": 216,
+            "Width": 36,
+            "Height": 24,
+            "TextId": "__SingleUse_KL4V",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "amtSpk",
+            "X": 578,
+            "Y": 216,
+            "Width": 48,
+            "Height": 24,
+            "TextId": "__SingleUse_KY6O",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_FM99",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
           }
         ],
         "Interactions": [
