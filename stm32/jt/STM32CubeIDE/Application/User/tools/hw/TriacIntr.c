@@ -249,36 +249,15 @@ void TIM2_IRQHandler(void)
 
 
 
-
-//  amtMissedTotal
-//  maxMissed
-//  uwTickSinceLastOk
-//
-//  amtCountedMissed
-//  amtPassed = ((TickSinceLast+2)/10 );
-//  amtMissed = amtPassed -1;
-//
-// if (amtMissed == 0) { normalPrc}  else  {
-// amtMissedTotal +=  amtMissed - amtCountedMissed;
-// amtCountedMissed = amtMissed;
-// if (amtMissed > maxMissed {maxMissed = amtMissed}
-//
-// if (amtPassed & 0x01) {notmalProc)
-//
-//normalProc
-//amtMissed = 0; amtCountedMissed = 0; uwTickSinceLast = 0;
-// fire();
-
-
 uint32_t uwTickSinceLastOk;
 uint32_t lastUwTick;
 uint32_t amtExtiMissedTotal;
 uint32_t maxMissedExti;
-uint32_t amtSyncMissedPlusOne;
 
 uint32_t amtCountedMissed;
 uint32_t lastOkUwTick;
 uint32_t syncMissedPeriodStartTick;
+uint32_t amtSyncMissed;  //  todo add to astrolabium
 
 uint32_t amtMissed;
 
@@ -292,13 +271,14 @@ void startHandleMissed()
 	syncMissedPeriodStartTick = 5; //  initialization can only be done by Exti (iE. zeroPass)
 	amtMissed = 0;
 	extiCheckCnt=0;
+	amtSyncMissed = 0;
 }
 
 
-uint32_t amtSyncMissed()
-{
-	return amtSyncMissedPlusOne -1;
-}
+//uint32_t amtSyncMissed()
+//{
+//	return amtSyncMissedPlusOne -1;
+//}
 
 //void resetHandleMissed()
 //{
@@ -319,6 +299,7 @@ uint32_t amtSyncMissed()
 	  amtCountedMissed = 0; \
 	  lastOkUwTick = uwTick; \
   } while(0)
+
 
 uint8_t handleMissed()
 {
@@ -351,7 +332,6 @@ uint8_t handleMissed()
 			res = 0;    //  prevent short circuit
 		}
 		if ( (isExtiPinSet() == extiZeroPassValue) &&  ((((uwTick - syncMissedPeriodStartTick ) % 10) >= 2 ))) {
-			amtSyncMissedPlusOne += 1;
 			syncMissedPeriodStartTick = uwTick;
 		}
 	 }
@@ -377,6 +357,7 @@ uint8_t currentExtiState;
 
 void startExtiCheck()
 {
+	currentExtiState=isExtiPinSet();
 	extiCheckCnt = 0;
 }
 
@@ -401,8 +382,14 @@ void startExtiCheck()
 //  tobe tested, reduces the probability of wrong event, increases it for lost event slightly
 //  but accompained by handleMissed
 
+void initHandleMissed()
+{
+
+}
+
 void initExtiTimer()
 {
+	initHandleMissed();
 	amtIllegalExti = 0;
 	extiCheckCnt= 0;
 }
@@ -410,40 +397,40 @@ void initExtiTimer()
 void  extiCheckTimerIRQHandler (void)
 {
 	uint8_t extiValid = 0;
-	if (extiCheckCnt == 0) {
-		currentExtiState=isExtiPinSet();
-	} else {
-		extiValid = (currentExtiState == isExtiPinSet());
-		if (extiCheckCnt < extiCheckAmt) {
-			++ extiCheckCnt;
-			if (extiValid == 0) {
-					stopExtiCheck();
-					++amtExtiMissedTotal;
-				}
-			}  else {
+
+	extiValid = (currentExtiState == isExtiPinSet());
+	if (extiCheckCnt < extiCheckAmt) {
+		++ extiCheckCnt;
+		if (extiValid == 0) {
 				stopExtiCheck();
-				if ((extiValid) ) {
-				extiCheckCnt = 0;
-				if(handleMissed()) {
-					if (isExtiPinSet() == extiZeroPassValue)   {
-						syncMissedPeriodStartTick = 0;
-						tim5UsedDelay =	triacDelayTimer.Instance->ARR =getTriacTriggerDelay();
-						triacDelayTimer.Instance->CNT =0;
-						delayTimerRunState = delayTimerDelayPhase;
-						triacStopTimer.Instance->ARR=stmTriggerDelayMax;
-						triacStopTimer.Instance->CNT = 0;
-						startStopTimer();
-						startDelayTimer();
-						disableRailTimerPwm();
-					} else {
-						disableDelayTimer();
-						disableRailTimerPwm();
-					}
+				++amtExtiMissedTotal;
+			}
+		}  else {
+			stopExtiCheck();
+			if ((extiValid)== 1 ) {
+			extiCheckCnt = 0;
+			if(handleMissed()) {
+				if (isExtiPinSet() == extiZeroPassValue)   {
+					syncMissedPeriodStartTick = 0;
+					tim5UsedDelay =	triacDelayTimer.Instance->ARR =getTriacTriggerDelay();
+					triacDelayTimer.Instance->CNT =0;
+					delayTimerRunState = delayTimerDelayPhase;
+					triacStopTimer.Instance->ARR=stmTriggerDelayMax;
+					triacStopTimer.Instance->CNT = 0;
+					startStopTimer();
+					startDelayTimer();
+					disableRailTimerPwm();
+				} else {
+					disableDelayTimer();
+					disableRailTimerPwm();
 				}
 			}
 		}
 	}
+
 }
+
+
 #define extiZeroPassValue 1
 void EXTI15_10_IRQHandler(void)
 {

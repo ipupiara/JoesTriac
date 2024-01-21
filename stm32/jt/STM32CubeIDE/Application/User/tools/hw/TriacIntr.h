@@ -31,19 +31,7 @@ extern uint32_t secondsDurationTimerRemaining;  // todo check this memory direct
 extern uint32_t amtExtiMissedTotal;
 extern uint32_t   maxMissedExti;
 extern uint32_t  amtIllegalExti;
-
-uint32_t amtSyncMissed();
-
-//int8_t adcTick;
-
-
-
-////void setDiffADC();
-////void closeDiffADC();
-//void startSingleADC();
-//int16_t ampsADCValue();
-//int16_t diffADCValue();
-//double adcVoltage();
+extern uint32_t amtSyncMissed;
 
 
 void startDurationTimer(uint32_t secs);
