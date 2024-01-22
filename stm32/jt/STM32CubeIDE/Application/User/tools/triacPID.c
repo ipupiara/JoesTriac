@@ -8,6 +8,7 @@
 #include <adcControl.h>
 #include <uart-comms.h>
 #include <mainJt.h>
+#include <extiCheck.h>
 
 
 #define printfPid

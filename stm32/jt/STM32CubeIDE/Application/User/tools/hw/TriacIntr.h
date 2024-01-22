@@ -19,21 +19,22 @@ extern "C"
 
 
 //	#define stmTriggerDelayMax  5000
-	#define stmTriggerDelayMax  4950
-	#define kStepUnitsFactor  5
-	#define triacDelayPsc  197   // (defaultTriacDelayPsc / kStepUnitsFactor)
+#define stmTriggerDelayMax  4950
+#define kStepUnitsFactor  5
+#define triacDelayPsc  197   // (defaultTriacDelayPsc / kStepUnitsFactor)
 
+#define zeroPass_Pin GPIO_PIN_12
+#define zeroPass_Port GPIOA
+
+#define isPinSet(portx, pinx)  (((portx->IDR) & pinx) != 0) ? 1:0
+#define  isExtiPinSet()  isPinSet (zeroPass_Port,zeroPass_Pin)
 
 
 
 extern uint32_t secondsDurationTimerRemaining;  // todo check this memory direct access
 
-extern uint32_t amtExtiMissedTotal;
-extern uint32_t   maxMissedExti;
-extern uint32_t  amtIllegalExti;
-extern uint32_t amtSyncMissed;
 
-
+void setJobOnZeroPassEvent();
 void startDurationTimer(uint32_t secs);
 uint32_t getSecondsDurationTimerRemaining();
 uint32_t getSecondsInDurationTimer();
