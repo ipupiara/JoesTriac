@@ -16,11 +16,6 @@ typedef enum {
 	delayTimerDelayPhase
 } delayTimerRunStateType;
 
-#define extiCheckAmt  3
-#define extiCheckDelay  10
-uint8_t extiCheckCnt ;
-uint32_t amtIllegalExti;
-
 
 // TODO not only missed would be a problem  also to much (emi) is a more probable case
 // introduce a eventcounter in exti (additional states) and add short delays therefore
@@ -32,6 +27,11 @@ uint32_t amtIllegalExti;
 #define triacDelayTimer htim5
 #define triacDelayTimer_IRQn TIM5_IRQn
 #define triacRailPwmTimer htim12
+#define triacExtiCheckTimer  htim4
+#define extiCheckTimerIRQHandler  TIM4_IRQHandler
+#define extiCheckTimerIRQn   TIM4_IRQn
+#define triacExtiCheckTimerInstance  TIM4;
+
 
 #define ampsHigherPort  GPIOB
 #define ampsHigherPin   GPIO_PIN_14
@@ -119,6 +119,7 @@ TIM_HandleTypeDef htim11;
 TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim5;
 TIM_HandleTypeDef htim12;
+TIM_HandleTypeDef triacExtiCheckTimer;
 uint8_t durationTimerOn;
 
 
@@ -355,16 +356,13 @@ uint8_t currentExtiState;
 //}
 
 
-void startExtiCheck()
-{
-	currentExtiState=isExtiPinSet();
-	extiCheckCnt = 0;
-}
+//void startExtiCheck()
+//{
+//	currentExtiState=isExtiPinSet();
+//	extiCheckCnt = 0;
+//}
 
 
-#define startExtiCheck()
-
-#define stopExtiCheck()
 
 //#define isAmpsZero() ((isPinSet(ampsLowerPort, ampsLowerPin)) && (!(isPinSet(ampsHigherPort,ampsHigherPin))  ))
 //
@@ -387,11 +385,43 @@ void initHandleMissed()
 
 }
 
-void initExtiTimer()
+void initExtiCheckTimer()
 {
 	initHandleMissed();
 	amtIllegalExti = 0;
 	extiCheckCnt= 0;
+
+	TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+	TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+	enableExtiCheckTimer();
+
+	triacExtiCheckTimer.Instance = triacExtiCheckTimerInstance;
+	triacExtiCheckTimer.Init.Prescaler = triacDelayPsc;
+	triacExtiCheckTimer.Init.CounterMode = TIM_COUNTERMODE_UP;
+	triacExtiCheckTimer.Init.Period = 0;
+	triacExtiCheckTimer.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+	triacExtiCheckTimer.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+	if (HAL_TIM_Base_Init(&triacExtiCheckTimer) != HAL_OK)
+	{
+		errorHandler(1,stop," HAL_TIM_Base_Init ","initTriacTimer");
+	}
+	sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+	if (HAL_TIM_ConfigClockSource(&triacExtiCheckTimer, &sClockSourceConfig) != HAL_OK)
+	{
+		errorHandler(2,stop," HAL_TIM_ConfigClockSource ","initTriacTimer");
+	}
+	sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+	sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+	if (HAL_TIMEx_MasterConfigSynchronization(&triacExtiCheckTimer, &sMasterConfig) != HAL_OK)
+	{
+		errorHandler(3,stop," HAL_TIMEx_MasterConfigSynchronization ","initTriacTimer");
+	}
+
+	triacExtiCheckTimer.Instance->CR1 &= (~TIM_CR1_OPM_Msk);
+	HAL_NVIC_SetPriority(extiCheckTimerIRQn, triacTriggerIsrPrio, 0);
+	HAL_NVIC_EnableIRQ(extiCheckTimerIRQn);
+	stopExtiCheck();
 }
 
 void  extiCheckTimerIRQHandler (void)
@@ -699,7 +729,7 @@ void initInterruptsNPorts()
 	initTriacRailPwmTimer();
 	initBuzzerTimerPWM();
 	initAmpsZeroPassDetect();
-	initExtiTimer();
+	initExtiCheckTimer();
 }
 
 
@@ -840,6 +870,7 @@ void stopDurationTimer()
 	durationTimerOn = 0;
 	secondsDurationTimerRemaining = 0;
 	secondsInDurationTimer = 0;
+
 }
 
 void haltDurationTimer()
