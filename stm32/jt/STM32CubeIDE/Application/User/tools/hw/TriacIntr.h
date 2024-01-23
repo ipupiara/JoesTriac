@@ -34,7 +34,7 @@ extern "C"
 extern uint32_t secondsDurationTimerRemaining;  // todo check this memory direct access
 
 
-void setJobOnZeroPassEvent();
+void doJobOnZeroPassEvent();
 void startDurationTimer(uint32_t secs);
 uint32_t getSecondsDurationTimerRemaining();
 uint32_t getSecondsInDurationTimer();

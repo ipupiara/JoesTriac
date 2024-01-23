@@ -23,6 +23,7 @@ extern void stopExtiCheck();
 extern void startExtiCheck();
 
 void startHandleMissed();
+uint8_t handleMissed();
 
 
 #ifdef  __cplusplus

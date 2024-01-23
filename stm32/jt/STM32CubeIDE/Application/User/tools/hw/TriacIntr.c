@@ -11,11 +11,11 @@
 
 
 
-typedef enum {
-	delayTimerRailPwmPhase,
-	delayTimerExtiEvCnt,
-	delayTimerDelayPhase
-} delayTimerRunStateType;
+//typedef enum {
+//	delayTimerRailPwmPhase,
+//	delayTimerExtiEvCnt,
+//	delayTimerDelayPhase
+//} delayTimerRunStateType;
 
 
 // TODO not only missed would be a problem  also to much (emi) is a more probable case
@@ -78,10 +78,13 @@ typedef enum {
 
 #define startDelayTimer() \
   do { \
-	    delayTimerRunState = delayTimerDelayPhase; \
         __HAL_TIM_ENABLE_IT(&triacDelayTimer, TIM_IT_UPDATE);  \
         triacDelayTimer.Instance->CR1 |= (TIM_CR1_CEN);  \
   } while(0)
+
+ //  ex startDelayTimer:   delayTimerRunState = delayTimerDelayPhase; \
+
+
 
 #define disableStopTimer() \
   do { \
@@ -98,7 +101,7 @@ typedef enum {
 
 
 
-delayTimerRunStateType delayTimerRunState;
+//delayTimerRunStateType delayTimerRunState;
 
 TIM_HandleTypeDef htim11;
 TIM_HandleTypeDef htim2;
@@ -434,13 +437,10 @@ void EXTI15_10_IRQHandler(void)
 	  if(__HAL_GPIO_EXTI_GET_IT(zeroPass_Pin) != 0) {
 		__HAL_GPIO_EXTI_CLEAR_IT(zeroPass_Pin);
 
-		if (extiCheckCnt > 0 )   {
-			stopExtiCheck();
-			res = 1;
-			extiCheckCnt = 0;
-		}  else {
-			startExtiCheck();
+		if (handleMissed()) {
+
 		}
+
 
 //		if (isExtiPinSet() == extiZeroPassValue)   {
 //				tim5UsedDelay =	triacDelayTimer.Instance->ARR =getTriacTriggerDelay();
@@ -458,13 +458,13 @@ void EXTI15_10_IRQHandler(void)
 	  }
 }
 
-void setJobOnZeroPassEvent()
+void doJobOnZeroPassEvent()
 {
 	if (isExtiPinSet() == extiZeroPassValue)   {
 		syncMissedPeriodStartTick = 0;
 		tim5UsedDelay =	triacDelayTimer.Instance->ARR =getTriacTriggerDelay();
 		triacDelayTimer.Instance->CNT =0;
-		delayTimerRunState = delayTimerDelayPhase;
+//		delayTimerRunState = delayTimerDelayPhase;
 		triacStopTimer.Instance->ARR=stmTriggerDelayMax;
 		triacStopTimer.Instance->CNT = 0;
 		startStopTimer();

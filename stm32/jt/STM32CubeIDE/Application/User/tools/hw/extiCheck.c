@@ -99,7 +99,7 @@ uint8_t handleMissed()
 	uint32_t  amtPassed = ((uwTickSinceLastOk +2 )/10 );
 	uint32_t  amtMissed = amtPassed - 1;
 
-	 if (amtMissed == 0) {
+	 if (amtMissed == 0) {  //  todo review/fix this. amtMissed == 0 is also the case on a "spike" event.
 		 resetHandleMissed();
 		 res = 1;
 	 }  else  {
@@ -116,6 +116,9 @@ uint8_t handleMissed()
 		if ( (isExtiPinSet() == extiZeroPassValue) &&  ((((uwTick - syncMissedPeriodStartTick ) % 10) >= 2 ))) {
 			syncMissedPeriodStartTick = uwTick;
 		}
+	 }
+	 if (res == 1 ) {
+		 doJobOnZeroPassEvent();
 	 }
 	return res;
 }
@@ -222,7 +225,7 @@ void  extiCheckTimerIRQHandler (void)
 			if ((extiValid)== 1 ) {
 			extiCheckCnt = 0;
 			if(handleMissed()) {
-				setJobOnZeroPassEvent();
+				doJobOnZeroPassEvent();
 			}
 		}
 	}
