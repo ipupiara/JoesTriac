@@ -7,7 +7,7 @@
 
 
 #include <stdlib.h>
-//#include "TriacIntr.h"
+#include "TriacIntr.h"
 //#include <StateClass.h>
 #include <defines.h>
 #include <mainJt.h>

@@ -6,6 +6,14 @@
 #include <extiCheck.h>
 #include <stm32f7xx_hal.h>
 
+//#include <stdlib.h>
+//#include "TriacIntr.h"
+//#include <StateClass.h>
+//#include <defines.h>
+//#include <mainJt.h>
+//#include <extiCheck.h>
+
+
 //#define zeroPass_Pin GPIO_PIN_12   moved to TriacIntr.h filet
 //#define zeroPass_Port GPIOA
 #define zeroPassPin_EXTI_IRQn EXTI15_10_IRQn
