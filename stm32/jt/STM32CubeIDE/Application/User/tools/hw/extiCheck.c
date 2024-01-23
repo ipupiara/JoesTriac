@@ -21,13 +21,13 @@
 #define extiCheckTimerIRQHandler  TIM4_IRQHandler
 #define extiCheckTimerIRQn   TIM4_IRQn
 #define triacExtiCheckTimerInstance  TIM4
+#define  enableExtiCheckTimer()  __HAL_RCC_TIM4_CLK_ENABLE()
 #define amtExtiEvChecks   3
 
-
+uint8_t handleMissed();
 
 TIM_HandleTypeDef triacExtiCheckTimer;
 uint8_t extiEvCnt;
-uint8_t handleMissed();
 uint8_t extiCheckCnt ;
 uint32_t amtIllegalExti;
 uint32_t uwTickSinceLastOk;
@@ -87,7 +87,10 @@ uint8_t handleMissed()
 {
 	uint8_t res = 1;
 
+	// todo check and if one already running (cnt > 0
+
 	return res; //  todo needs be tested first and
+
 
 //	if (uwTick >=  lastOkUwTick ) {
 		uwTickSinceLastOk = uwTick - lastOkUwTick;
@@ -115,6 +118,7 @@ uint8_t handleMissed()
 		}
 		if ( (isExtiPinSet() == extiZeroPassValue) &&  ((((uwTick - syncMissedPeriodStartTick ) % 10) >= 2 ))) {
 			syncMissedPeriodStartTick = uwTick;
+			++amtSyncMissed;
 		}
 	 }
 	 if (res == 1 ) {
@@ -138,31 +142,20 @@ void stopExtiCheck()
 
 void startExtiCheck()
 {
-	currentExtiState=isExtiPinSet();
-	triacExtiCheckTimer.Instance->CR1 |= (TIM_CR1_CEN);
-	extiCheckCnt = 0;
+	uint8_t anyInt = 0;
+	if (extiCheckCnt > 0) {
+		stopExtiCheck();
+		extiCheckCnt = 0;
+	} else {
+		currentExtiState=isExtiPinSet();
+		triacExtiCheckTimer.Instance->CR1 |= (TIM_CR1_CEN);
+		triacExtiCheckTimer.Instance->ARR = anyInt;
+		triacExtiCheckTimer.Instance->CNT = 0;
+		extiCheckCnt = 1;
+	}
 }
 
 
-
-#define  enableExtiCheckTimer()  __HAL_RCC_TIM4_CLK_ENABLE()
-
-//#define startExtiCheck()\
-//	do { \
-//		extiCheckCnt = 0; \
-//		triacExtiCheckTimer.Instance->CR1 &= ~(TIM_CR1_CEN);  \
-//	} while(0)
-//
-//
-//
-//#define stopExtiCheck()  \
-//	do { \
-//		currentExtiState=isExtiPinSet(); \
-//		extiCheckCnt = 0; \
-//		triacExtiCheckTimer.Instance->CR1 |= (TIM_CR1_CEN);  \
-//	} while(0)
-//
-//
 
 
 void initHandleMissed()
@@ -209,27 +202,28 @@ void initExtiCheckTimer()
 	stopExtiCheck();
 }
 
-void  extiCheckTimerIRQHandler (void)
+uint8_t  extiCheckTimerIRQHandler (void)
 {
-	uint8_t extiValid = 0;
+	uint8_t extiPinSet = 0;
+	uint8_t res = 0;
 
-	extiValid = (currentExtiState == isExtiPinSet());
+	extiPinSet = (currentExtiState == isExtiPinSet());
 	if (extiCheckCnt < extiCheckAmt) {
 		++ extiCheckCnt;
-		if (extiValid == 0) {
+		if (extiPinSet == 0) {  //  todo ???? why only when pin set. first finish all when etixCheckCnt >0
 				stopExtiCheck();
 				++amtExtiMissedTotal;
 			}
 		}  else {
 			stopExtiCheck();
-			if ((extiValid)== 1 ) {
+			if ((extiPinSet)== 1 ) {
 			extiCheckCnt = 0;
 			if(handleMissed()) {
 				doJobOnZeroPassEvent();
 			}
 		}
 	}
-
+	return res;
 }
 
 

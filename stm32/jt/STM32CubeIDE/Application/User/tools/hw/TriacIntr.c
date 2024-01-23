@@ -4,6 +4,7 @@
 #include <defines.h>
 #include <mainJt.h>
 #include <extiCheck.h>
+#include <stm32f7xx_hal.h>
 
 //#define zeroPass_Pin GPIO_PIN_12   moved to TriacIntr.h filet
 //#define zeroPass_Port GPIOA
@@ -75,12 +76,21 @@
         __HAL_TIM_DISABLE_IT(&triacDelayTimer, TIM_IT_UPDATE);\
   } while(0)
 
+void startDelayTimer ()
+{
+    __HAL_TIM_ENABLE_IT(&triacDelayTimer, TIM_IT_UPDATE);
+     triacDelayTimer.Instance->CR1 |= (TIM_CR1_CEN);
+     triacDelayTimer.Instance->ARR =	getTriacTriggerDelay();
+     triacDelayTimer.Instance->CNT = 0;
+}
 
-#define startDelayTimer() \
-  do { \
-        __HAL_TIM_ENABLE_IT(&triacDelayTimer, TIM_IT_UPDATE);  \
-        triacDelayTimer.Instance->CR1 |= (TIM_CR1_CEN);  \
-  } while(0)
+//#define startDelayTimer() \
+//  do { \
+//        __HAL_TIM_ENABLE_IT(&triacDelayTimer, TIM_IT_UPDATE);  \
+//        triacDelayTimer.Instance->CR1 |= (TIM_CR1_CEN);  \
+//
+
+//  } while(0)
 
  //  ex startDelayTimer:   delayTimerRunState = delayTimerDelayPhase; \
 
@@ -105,7 +115,6 @@
 
 TIM_HandleTypeDef htim11;
 TIM_HandleTypeDef htim2;
-TIM_HandleTypeDef htim5;
 TIM_HandleTypeDef htim12;
 
 uint8_t durationTimerOn;
@@ -437,9 +446,7 @@ void EXTI15_10_IRQHandler(void)
 	  if(__HAL_GPIO_EXTI_GET_IT(zeroPass_Pin) != 0) {
 		__HAL_GPIO_EXTI_CLEAR_IT(zeroPass_Pin);
 
-		if (handleMissed()) {
-
-		}
+		startExtiCheck();
 
 
 //		if (isExtiPinSet() == extiZeroPassValue)   {
