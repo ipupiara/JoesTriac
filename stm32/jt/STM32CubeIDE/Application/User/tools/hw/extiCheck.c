@@ -14,8 +14,7 @@
 #include <extiCheck.h>
 #include <TriacIntr.h>
 
-#define extiZeroPassValue 1
-#define extiCheckAmt  3
+#define extiCheckAmt  4
 #define extiCheckDelay  10
 #define triacExtiCheckTimer  htim4
 #define extiCheckTimerIRQHandler  TIM4_IRQHandler
@@ -27,20 +26,21 @@
 uint8_t handleMissed();
 
 TIM_HandleTypeDef triacExtiCheckTimer;
-uint8_t extiEvCnt;
-uint8_t extiCheckCnt ;
-uint32_t amtIllegalExti;
+
+
+
 uint32_t uwTickSinceLastOk;
-uint32_t lastUwTick;
 uint32_t amtCountedMissed;
 uint32_t lastOkUwTick;
 uint32_t syncMissedPeriodStartTick;
 uint32_t amtSyncMissed;  //  todo add to astrolabium
-
 uint32_t amtMissed;
+
+uint8_t extiEvTotalCnt;
 uint32_t   maxMissedExti;
 uint32_t  amtExtiMissedTotal;
-uint8_t extiEvCnt;
+uint32_t amtIllegalExti;
+uint8_t extiCheckCnt ;
 
 
 void startHandleMissed()
@@ -68,15 +68,14 @@ void startHandleMissed()
 //	lastOkUwTick = uwTick;
 //}
 
+void incExtiMissed()
+{
+
+}
+
 #define maxInt32  0xFFFFFFFF
 
 #define resetHandleMissed() \
-  do { \
-	  amtCountedMissed = 0; \
-	  lastOkUwTick = uwTick; \
-  } while(0)
-
-#define resetExtiTimer() \
   do { \
 	  amtCountedMissed = 0; \
 	  lastOkUwTick = uwTick; \
@@ -87,84 +86,150 @@ uint8_t handleMissed()
 {
 	uint8_t res = 1;
 
-	// todo check and if one already running (cnt > 0
+	return res;
 
-	return res; //  todo needs be tested first and
+	uint8_t currentExtiPinState = isExtiPinSet();
 
+	if (currentExtiPinState == extiZeroPassTriggerStartValue)
+	{
+		//	if (uwTick >=  lastOkUwTick ) {
+				uwTickSinceLastOk = uwTick - lastOkUwTick;
+		//	} else {
+		//		uwTickSinceLastOk =  uwTick +  ( maxInt32 - lastOkUwTick) + 1;  // overflow start at 0, so needs 1 more for difference
+		//	}   //  todo test handle overflow of 32 bit counter
+		//		//  or ignore overflow since it will happen first time after 49.710...  days (4294967295 / (1000 * 60 * 60 * 24))
 
-//	if (uwTick >=  lastOkUwTick ) {
-		uwTickSinceLastOk = uwTick - lastOkUwTick;
-//	} else {
-//		uwTickSinceLastOk =  uwTick +  ( maxInt32 - lastOkUwTick) + 1;  // overflow start at 0, so needs 1 more for difference
-//	}   //  todo test handle overflow of 32 bit counter
-//		//  or ignore overflow since it will happen first time after 49.710...  days (4294967295 / (1000 * 60 * 60 * 24))
+		uint32_t  amtPassed = ((uwTickSinceLastOk +2 )/10 );
+		uint32_t  amtMissed = amtPassed - 1;
 
-	uint32_t  amtPassed = ((uwTickSinceLastOk +2 )/10 );
-	uint32_t  amtMissed = amtPassed - 1;
+		 if (amtMissed == 0) {
+			 resetHandleMissed();
+			 res = 1;
+		 }  else  {
+			amtExtiMissedTotal +=  amtMissed - amtCountedMissed;
+			amtCountedMissed = amtMissed;
+			if (amtMissed > maxMissedExti) {maxMissedExti = amtMissed;}
 
-	 if (amtMissed == 0) {  //  todo review/fix this. amtMissed == 0 is also the case on a "spike" event.
-		 resetHandleMissed();
-		 res = 1;
-	 }  else  {
-		amtExtiMissedTotal +=  amtMissed - amtCountedMissed;
-		amtCountedMissed = amtMissed;
-		if (amtMissed > maxMissedExti) {maxMissedExti = amtMissed;}
+			if (amtPassed & (uint32_t) 0x01) {  //  odd number
+				resetHandleMissed();
+				res = 1;
+			}  else {
+				res = 0;    //  prevent short circuit
+			}
+			if (((uwTick - syncMissedPeriodStartTick ) % 10) >= 2 ) {  //  time difference between measured 10ms (220V) and measured
+																	// 10ms (uwTick) > 1ms, should not happen too often. todo make period shorter
+				syncMissedPeriodStartTick = uwTick;
+				++amtSyncMissed;
+			}
+		 }
+	 }  else {
 
-		if (amtPassed & (uint32_t) 0x01) {  //  odd number
-			resetHandleMissed();
-			res = 1;
-		}  else {
-			res = 0;    //  prevent short circuit
-		}
-		if ( (isExtiPinSet() == extiZeroPassValue) &&  ((((uwTick - syncMissedPeriodStartTick ) % 10) >= 2 ))) {
-			syncMissedPeriodStartTick = uwTick;
-			++amtSyncMissed;
-		}
 	 }
 	 if (res == 1 ) {
-		 doJobOnZeroPassEvent();
+		 syncMissedPeriodStartTick = 0;
 	 }
 	return res;
 }
-
-
-
-//  zero pass pin irq
-
-uint8_t currentExtiState;
-
-
-void stopExtiCheck()
-{
-	triacExtiCheckTimer.Instance->CR1 &= ~(TIM_CR1_CEN);
-}
-
-
-void startExtiCheck()
-{
-	uint8_t anyInt = 0;
-	if (extiCheckCnt > 0) {
-		stopExtiCheck();
-		extiCheckCnt = 0;
-	} else {
-		currentExtiState=isExtiPinSet();
-		triacExtiCheckTimer.Instance->CR1 |= (TIM_CR1_CEN);
-		triacExtiCheckTimer.Instance->ARR = anyInt;
-		triacExtiCheckTimer.Instance->CNT = 0;
-		extiCheckCnt = 1;
-	}
-}
-
-
-
 
 void initHandleMissed()
 {
 
 }
 
+//  zero pass pin irq
+
+uint8_t currentExtiState;
+
+//#define resetExtiTimer() \
+//  do { \
+//	  amtCountedMissed = 0; \
+//	  lastOkUwTick = uwTick; \
+//  } while(0)
+
+
+void stopExtiCheck()
+{
+	extiCheckCnt = 0;
+	triacExtiCheckTimer.Instance->CNT = 0;
+	triacExtiCheckTimer.Instance->CR1 &= ~(TIM_CR1_CEN);
+}
+
+void startExtiTimer()
+{
+	currentExtiState=isExtiPinSet();
+	extiCheckCnt = 1;
+	triacExtiCheckTimer.Instance->CNT = 0;
+	triacExtiCheckTimer.Instance->CR1 |= (TIM_CR1_CEN);
+
+}
+
+void startExtiCheck()
+{
+	uint8_t res = 1;
+	++ extiEvTotalCnt;   // maybe later on astrolabium
+	if (extiCheckCnt > 0) {
+								// an exti happened within short time, probable not valid
+								// but maybe a spike within  we loose a valid one.
+								// therefor the handleMissed
+		stopExtiCheck();
+		incExtiMissed();
+		res = 0;
+	} else {
+		if  (currentExtiState == extiZeroPassTriggerStartValue) {
+				if 	(((uwTick- syncMissedPeriodStartTick ) % 10) >= 2 ) {
+											//  time difference between measured 10ms (220V) and measured	(uwtick)
+											// 10ms (uwTick) > 1ms, should not happen too often. todo make shorter
+											//  prevent starting outside the time
+				++amtSyncMissed;
+				res = 0;
+			}  else {
+				syncMissedPeriodStartTick = uwTick;
+			}
+		}
+		if (res == 1)  {
+			startExtiTimer();
+		}
+	}
+}
+
+
+
+/*
+ zero pass exti events allways have some hundred usec time difference.
+ max measured spike time were approx 10 usec so far approx. what makes the max exitCheck duration
+ in case of spikes. A zero pass event in this time could cause problems.
+ neglect the case where a 0xEvent happend during this spike- extiCheckTime ?
+ else handle Missed might help
+*/
+uint8_t  extiCheckTimerIRQHandler (void)
+{
+	uint8_t extiPinOk = 0;
+	uint8_t res = 0;
+
+	extiPinOk = (currentExtiState == isExtiPinSet());
+	if (extiCheckCnt < extiCheckAmt) {
+		++ extiCheckCnt;
+		if (extiPinOk == 0) {
+				stopExtiCheck();
+				++amtExtiMissedTotal;
+			}
+		}  else {
+			stopExtiCheck();
+			if ((extiPinOk)== 1 ) {
+			extiCheckCnt = 0;
+			if(handleMissed()) {
+				doJobOnZeroPassEvent(currentExtiState);
+			}
+		}
+	}
+	return res;
+}
+
+
 void initExtiCheckTimer()
 {
+	// todo measure period time on oscilloscope and leave possibility to do so
+
 	initHandleMissed();
 	amtIllegalExti = 0;
 	extiCheckCnt= 0;
@@ -175,11 +240,11 @@ void initExtiCheckTimer()
 	enableExtiCheckTimer();
 
 	triacExtiCheckTimer.Instance = triacExtiCheckTimerInstance;
-	triacExtiCheckTimer.Init.Prescaler = triacDelayPsc;
+	triacExtiCheckTimer.Init.Prescaler = 10;
 	triacExtiCheckTimer.Init.CounterMode = TIM_COUNTERMODE_UP;
-	triacExtiCheckTimer.Init.Period = 0;
+	triacExtiCheckTimer.Init.Period = 20;
 	triacExtiCheckTimer.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-	triacExtiCheckTimer.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+	triacExtiCheckTimer.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
 	if (HAL_TIM_Base_Init(&triacExtiCheckTimer) != HAL_OK)
 	{
 		errorHandler(1,stop," HAL_TIM_Base_Init ","initTriacTimer");
@@ -201,61 +266,4 @@ void initExtiCheckTimer()
 	HAL_NVIC_EnableIRQ(extiCheckTimerIRQn);
 	stopExtiCheck();
 }
-
-uint8_t  extiCheckTimerIRQHandler (void)
-{
-	uint8_t extiPinSet = 0;
-	uint8_t res = 0;
-
-	extiPinSet = (currentExtiState == isExtiPinSet());
-	if (extiCheckCnt < extiCheckAmt) {
-		++ extiCheckCnt;
-		if (extiPinSet == 0) {  //  todo ???? why only when pin set. first finish all when etixCheckCnt >0
-				stopExtiCheck();
-				++amtExtiMissedTotal;
-			}
-		}  else {
-			stopExtiCheck();
-			if ((extiPinSet)== 1 ) {
-			extiCheckCnt = 0;
-			if(handleMissed()) {
-				doJobOnZeroPassEvent();
-			}
-		}
-	}
-	return res;
-}
-
-
-//#define extiZeroPassValue 1
-//void EXTI15_10_IRQHandler(void)
-//{
-//	uint8_t res = 0;
-//	UNUSED(res);
-//	  if(__HAL_GPIO_EXTI_GET_IT(zeroPass_Pin) != 0) {
-//		__HAL_GPIO_EXTI_CLEAR_IT(zeroPass_Pin);
-//
-//		if (extiCheckCnt > 0 )   {
-//			stopExtiCheck();
-//			res = 1;
-//			extiCheckCnt = 0;
-//		}  else {
-//			startExtiCheck();
-//		}
-//
-////		if (isExtiPinSet() == extiZeroPassValue)   {
-////				tim5UsedDelay =	triacDelayTimer.Instance->ARR =getTriacTriggerDelay();
-////				triacDelayTimer.Instance->CNT =0;
-//////				delayTimerRunState = delayTimerDelayPhase;
-////				triacStopTimer.Instance->ARR=stmTriggerDelayMax;
-////				triacStopTimer.Instance->CNT = 0;
-////				startStopTimer();
-////				startDelayTimer();
-////				disableRailTimerPwm();
-////		}  else  {
-////				disableDelayTimer();
-////				disableRailTimerPwm();
-////		}
-//	  }
-//}
 

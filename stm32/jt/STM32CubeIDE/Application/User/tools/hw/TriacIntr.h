@@ -28,6 +28,8 @@ extern "C"
 #define zeroPass_Pin GPIO_PIN_12
 #define zeroPass_Port GPIOA
 
+
+#define extiZeroPassTriggerStartValue 1
 #define isPinSet(portx, pinx)  (((portx->IDR) & pinx) != 0) ? 1:0
 #define  isExtiPinSet()  isPinSet (zeroPass_Port,zeroPass_Pin)
 
@@ -36,7 +38,7 @@ extern "C"
 extern uint32_t secondsDurationTimerRemaining;  // todo check this memory direct access
 
 
-void doJobOnZeroPassEvent();
+void doJobOnZeroPassEvent(uint8_t ev);
 void startDurationTimer(uint32_t secs);
 uint32_t getSecondsDurationTimerRemaining();
 uint32_t getSecondsInDurationTimer();

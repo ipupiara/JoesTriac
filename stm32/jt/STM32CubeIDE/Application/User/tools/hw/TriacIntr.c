@@ -446,8 +446,6 @@ void initZeroPassDetector()
 }
 
 
-
-#define extiZeroPassValue 1
 void EXTI15_10_IRQHandler(void)
 {
 	uint8_t res = 0;
@@ -455,32 +453,18 @@ void EXTI15_10_IRQHandler(void)
 	  if(__HAL_GPIO_EXTI_GET_IT(zeroPass_Pin) != 0) {
 		__HAL_GPIO_EXTI_CLEAR_IT(zeroPass_Pin);
 
-		startExtiCheck();
+	//	startExtiCheck();
+	//  todo needs be tested first and
 
-
-//		if (isExtiPinSet() == extiZeroPassValue)   {
-//				tim5UsedDelay =	triacDelayTimer.Instance->ARR =getTriacTriggerDelay();
-//				triacDelayTimer.Instance->CNT =0;
-////				delayTimerRunState = delayTimerDelayPhase;
-//				triacStopTimer.Instance->ARR=stmTriggerDelayMax;
-//				triacStopTimer.Instance->CNT = 0;
-//				startStopTimer();
-//				startDelayTimer();
-//				disableRailTimerPwm();
-//		}  else  {
-//				disableDelayTimer();
-//				disableRailTimerPwm();
-//		}
+		doJobOnZeroPassEvent(isExtiPinSet());
 	  }
 }
 
-void doJobOnZeroPassEvent()
+void doJobOnZeroPassEvent(uint8_t ev)
 {
-	if (isExtiPinSet() == extiZeroPassValue)   {
-		syncMissedPeriodStartTick = 0;
+	if (ev == extiZeroPassTriggerStartValue)   {
 		tim5UsedDelay =	triacDelayTimer.Instance->ARR =getTriacTriggerDelay();
 		triacDelayTimer.Instance->CNT =0;
-//		delayTimerRunState = delayTimerDelayPhase;
 		triacStopTimer.Instance->ARR=stmTriggerDelayMax;
 		triacStopTimer.Instance->CNT = 0;
 		startStopTimer();
