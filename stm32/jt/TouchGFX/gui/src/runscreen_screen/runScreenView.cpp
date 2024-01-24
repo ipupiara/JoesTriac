@@ -2,13 +2,12 @@
 
 runScreenView::runScreenView()
 {
+
 }
 
 void runScreenView::setupScreen()
 {
     runScreenViewBase::setupScreen();
-
-    hideAstro();
 
     weldingTimeSec = presenter->getWeldingTimeSec();
     weldingAmps    = presenter->getWeldingAmps();
@@ -44,7 +43,7 @@ void runScreenView::tearDownScreen()
     runScreenViewBase::tearDownScreen();
 }
 
-void runScreenView::update(float amps,uint32_t secRemain, int32_t adcVal, int32_t triacDelay, float adcVolts, uint32_t amtExtiM, uint32_t maxExtiM, uint32_t amtSpks  )
+void runScreenView::update(float amps,uint32_t secRemain )
 {
 
 	// todo bug: amps does not show / calculate delay decimal places in setamperetext
@@ -70,83 +69,9 @@ void runScreenView::update(float amps,uint32_t secRemain, int32_t adcVal, int32_
 	 uint32_t boxPro = 100 * remain;
 	 boxProgress1.setValue(boxPro);
 	 boxProgress1.invalidate();
-
-	 Unicode::snprintfFloat(adcVoltageTextBuffer, 6, "%01.3f", adcVolts);
-	adcVoltageText.setWildcard(adcVoltageTextBuffer);
-	adcVoltageText.invalidate();
-
-	Unicode::snprintf(adcValueTextBuffer, 5, "%4d", adcVal);
-	adcValueText.setWildcard(adcValueTextBuffer);
-	adcValueText.invalidate();
-
-	Unicode::snprintf(delayTextBuffer,5, "%4d", triacDelay);
-	delayText.setWildcard(delayTextBuffer);
-	delayText.invalidate();
-/////////////////////////////////////////////////////////////////////////////////
-	Unicode::snprintf(amtMissedExtiBuffer,5, "%4d", amtExtiM);
-	amtMissedExti.setWildcard(amtMissedExtiBuffer);
-	amtMissedExti.invalidate();
-
-	Unicode::snprintf(maxMissedExtiBuffer,4, "%3d", maxExtiM);
-	maxMissedExti.setWildcard(maxMissedExtiBuffer);
-	maxMissedExti.invalidate();
-
-	Unicode::snprintf(amtSpkBuffer,4, "%4d", amtSpks);
-	amtSpk.setWildcard(amtSpkBuffer);
-	amtSpk.invalidate();
-////////////////////////////////////////////////////////////////////////
 }
 
 void runScreenView::stopButtonPressed()
 {
 	presenter->stopButtonPressed();
-}
-
-void runScreenView::doAstroInvalidate()
-{
-	   astroBorder.invalidate();
-	    textArea3.invalidate();
-	    textArea4.invalidate();
-	    textArea5.invalidate();
-	    adcVoltageText.invalidate();
-	    adcValueText.invalidate();
-	    delayText.invalidate();
-}
-
-void runScreenView::setAstroVisible(bool vis)
-{
-    astroBorder.setVisible(vis);
-    textArea3.setVisible(vis);
-    textArea4.setVisible(vis);
-    textArea5.setVisible(vis);
-    adcVoltageText.setVisible(vis);
-    adcValueText.setVisible(vis);
-    delayText.setVisible(vis);
-    doAstroInvalidate();
-}
-
-void runScreenView::toggleAstro()
-{
-	if (astroVisible == true) {
-		hideAstro();
-	} else {
-		showAstro();
-	}
-}
-
-void runScreenView::hideAstro()
-{
-	setAstroVisible(false);
-	astroVisible = false;
-}
-
-void runScreenView::showAstro()
-{
-	setAstroVisible(true);
-	astroVisible = true;
-}
-
-void runScreenView::astroButtonPressed()
-{
-	toggleAstro();
 }

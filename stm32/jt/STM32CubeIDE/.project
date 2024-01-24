@@ -35,6 +35,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>STM32F769I_DISCO.ioc</name>
+			<type>1</type>
+			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/STM32F769I_DISCO.ioc</locationURI>
+		</link>
+		<link>
 			<name>Utilities/jpeg_utils.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Utilities/JPEG/jpeg_utils.c</locationURI>

@@ -18,7 +18,10 @@
 //#define zeroPass_Port GPIOA
 #define zeroPassPin_EXTI_IRQn EXTI15_10_IRQn
 
-
+TIM_HandleTypeDef htim11;
+TIM_HandleTypeDef htim5;
+TIM_HandleTypeDef htim2;
+TIM_HandleTypeDef htim12;
 
 //typedef enum {
 //	delayTimerRailPwmPhase,
@@ -121,9 +124,7 @@ void startDelayTimer ()
 
 //delayTimerRunStateType delayTimerRunState;
 
-TIM_HandleTypeDef htim11;
-TIM_HandleTypeDef htim2;
-TIM_HandleTypeDef htim12;
+
 
 uint8_t durationTimerOn;
 
