@@ -23,83 +23,78 @@
 #define  enableExtiCheckTimer()  __HAL_RCC_TIM4_CLK_ENABLE()
 #define amtExtiEvChecks   3
 
-uint8_t handleMissed();
 
 TIM_HandleTypeDef triacExtiCheckTimer;
 
 
 
-uint32_t uwTickSinceLastOk;
 uint32_t amtCountedMissed;
 uint32_t lastOkUwTick;
-uint32_t syncMissedPeriodStartTick;
+uint32_t uwTickSinceLastOk;
+
+//uint32_t syncMissedPeriodStartTick;
 uint32_t amtSyncMissed;  //  todo add to astrolabium
 uint32_t amtMissed;
 
 uint8_t extiEvTotalCnt;
 uint32_t   maxMissedExti;
 uint32_t  amtExtiMissedTotal;
-uint32_t amtIllegalExti;
+uint32_t amountIllegalExti;
 uint8_t extiCheckCnt ;
+// uint8_t extiStarting;
 
 
-void startHandleMissed()
+void startExtiChecking()
 {
 	uwTickSinceLastOk = 10;
 	amtExtiMissedTotal = 0;
 	maxMissedExti = 0;
 	amtCountedMissed = 0;
-	lastOkUwTick = uwTick;
-	syncMissedPeriodStartTick = 5; //  initialization can only be done by Exti (iE. zeroPass)
+
+//	syncMissedPeriodStartTick = 5; //  initialization can only be done by Exti (iE. zeroPass)
 	amtMissed = 0;
 	extiCheckCnt=0;
 	amtSyncMissed = 0;
+
+//	extiStarting= 1;
 }
 
 
-//uint32_t amtSyncMissed()
-//{
-//	return amtSyncMissedPlusOne -1;
-//}
-
-//void resetHandleMissed()
-//{
-//	uwTickSinceLastOk = 0;
-//	lastOkUwTick = uwTick;
-//}
-
-void incExtiMissed()
+void prepareExtiRun()  // todo check if needed
 {
 
 }
+
 
 #define maxInt32  0xFFFFFFFF
 
 #define resetHandleMissed() \
   do { \
 	  amtCountedMissed = 0; \
-	  lastOkUwTick = uwTick; \
+	  uwTickSinceLastOk = uwTick; \
   } while(0)
+
+#define incAmtIllegalExti() \
+  do { \
+	  amountIllegalExti += 1; \
+  } while(0)
+
+
+void initHandleMissed()
+{
+
+}
 
 
 uint8_t handleMissed()
 {
-	uint8_t res = 1;
-
-	return res;
+	uint8_t res = 0;
 
 	uint8_t currentExtiPinState = isExtiPinSet();
 
-	if (currentExtiPinState == extiZeroPassTriggerStartValue)
-	{
-		//	if (uwTick >=  lastOkUwTick ) {
-				uwTickSinceLastOk = uwTick - lastOkUwTick;
-		//	} else {
-		//		uwTickSinceLastOk =  uwTick +  ( maxInt32 - lastOkUwTick) + 1;  // overflow start at 0, so needs 1 more for difference
-		//	}   //  todo test handle overflow of 32 bit counter
-		//		//  or ignore overflow since it will happen first time after 49.710...  days (4294967295 / (1000 * 60 * 60 * 24))
+	if (currentExtiPinState == extiZeroPassTriggerStartValue) {
 
-		uint32_t  amtPassed = ((uwTickSinceLastOk +2 )/10 );
+		uint32_t  amtPassed = ((uwTickSinceLastOk +1 )/10 );
 		uint32_t  amtMissed = amtPassed - 1;
 
 		 if (amtMissed == 0) {
@@ -116,24 +111,11 @@ uint8_t handleMissed()
 			}  else {
 				res = 0;    //  prevent short circuit
 			}
-			if (((uwTick - syncMissedPeriodStartTick ) % 10) >= 2 ) {  //  time difference between measured 10ms (220V) and measured
-																	// 10ms (uwTick) > 1ms, should not happen too often. todo make period shorter
-				syncMissedPeriodStartTick = uwTick;
-				++amtSyncMissed;
-			}
 		 }
 	 }  else {
-
-	 }
-	 if (res == 1 ) {
-		 syncMissedPeriodStartTick = 0;
+		 res = 1;
 	 }
 	return res;
-}
-
-void initHandleMissed()
-{
-
 }
 
 //  zero pass pin irq
@@ -143,7 +125,7 @@ uint8_t currentExtiState;
 //#define resetExtiTimer() \
 //  do { \
 //	  amtCountedMissed = 0; \
-//	  lastOkUwTick = uwTick; \
+
 //  } while(0)
 
 
@@ -163,33 +145,41 @@ void startExtiTimer()
 
 }
 
-void startExtiCheck()
+void startExtiCheckTimer()
 {
-	uint8_t res = 1;
+//	uint8_t res = 0;
+//	uint8_t extiState=isExtiPinSet();
+
 	++ extiEvTotalCnt;   // maybe later on astrolabium
 	if (extiCheckCnt > 0) {
-								// an exti happened within short time, probable not valid
+								// another exti happened within short time, probable not valid
 								// but maybe a spike within  we loose a valid one.
 								// therefor the handleMissed
 		stopExtiCheck();
-		incExtiMissed();
-		res = 0;
+		incAmtIllegalExti();
 	} else {
-		if  (currentExtiState == extiZeroPassTriggerStartValue) {
-				if 	(((uwTick- syncMissedPeriodStartTick ) % 10) >= 2 ) {
-											//  time difference between measured 10ms (220V) and measured	(uwtick)
-											// 10ms (uwTick) > 1ms, should not happen too often. todo make shorter
-											//  prevent starting outside the time
-				++amtSyncMissed;
-				res = 0;
-			}  else {
-				syncMissedPeriodStartTick = uwTick;
-			}
+//		if  (currentExtiState == extiZeroPassTriggerStartValue) {
+//				if 	((((uwTick- syncMissedPeriodStartTick  ) % 10) >= 2 ) && (extiStarting != 1)) {
+//							//  prevent starting outside this time
+//							//  time difference between externally measured 10ms (220V) and internally ones
+//							//  (uwTick) > 1ms. todo make shorter duration window.
+//							//  todo handle first event of run to evaluate correctly
+//				++amtSyncMissed;
+//					res = 0;
+//			}  else {
+//				syncMissedPeriodStartTick = uwTick;
+//				extiStarting = 1;
+//				res = 1;
+//			}
+//		}  else {
+//			res =1;   //  todo check that there is only one stop event, but due to timer
+						//testing should not+
+//			happen, only let legal events happen
 		}
-		if (res == 1)  {
+//		if (res == 1)  {
 			startExtiTimer();
-		}
-	}
+//		}
+//	}
 }
 
 
@@ -201,28 +191,23 @@ void startExtiCheck()
  neglect the case where a 0xEvent happend during this spike- extiCheckTime ?
  else handle Missed might help
 */
-uint8_t  extiCheckTimerIRQHandler (void)
+void  extiCheckTimerIRQHandler (void)
 {
-	uint8_t extiPinOk = 0;
-	uint8_t res = 0;
-
-	extiPinOk = (currentExtiState == isExtiPinSet());
+	uint8_t extiPinOk  = (currentExtiState == isExtiPinSet());
 	if (extiCheckCnt < extiCheckAmt) {
 		++ extiCheckCnt;
 		if (extiPinOk == 0) {
-				stopExtiCheck();
-				++amtExtiMissedTotal;
-			}
-		}  else {
 			stopExtiCheck();
-			if ((extiPinOk)== 1 ) {
-			extiCheckCnt = 0;
+			incAmtIllegalExti();
+		}
+	}  else {
+		stopExtiCheck();
+		if ((extiPinOk)== 1 ) {
 			if(handleMissed()) {
 				doJobOnZeroPassEvent(currentExtiState);
 			}
 		}
 	}
-	return res;
 }
 
 
@@ -231,7 +216,7 @@ void initExtiCheckTimer()
 	// todo measure period time on oscilloscope and leave possibility to do so
 
 	initHandleMissed();
-	amtIllegalExti = 0;
+	amountIllegalExti = 0;
 	extiCheckCnt= 0;
 
 	TIM_ClockConfigTypeDef sClockSourceConfig = {0};

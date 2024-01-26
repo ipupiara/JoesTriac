@@ -18,14 +18,15 @@ extern "C"
 extern uint8_t extiCheckCnt ;
 extern uint32_t amtExtiMissedTotal;
 extern uint32_t   maxMissedExti;
-extern uint32_t  amtIllegalExti;
+extern uint32_t  amountIllegalExti;
 extern uint32_t amtSyncMissed;
 extern uint32_t syncMissedPeriodStartTick;
 extern void stopExtiCheck();
-extern void startExtiCheck();
+extern void startExtiCheckTimer();
+void initExtiCheckTimer();
 
-void startHandleMissed();
-uint8_t handleMissed();
+void startExtiChecking();
+
 
 
 #ifdef  __cplusplus
