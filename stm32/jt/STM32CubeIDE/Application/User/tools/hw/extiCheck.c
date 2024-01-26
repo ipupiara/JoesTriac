@@ -16,11 +16,11 @@
 
 #define extiCheckAmt  4
 #define extiCheckDelay  10
-#define triacExtiCheckTimer  htim4
-#define extiCheckTimerIRQHandler  TIM4_IRQHandler
-#define extiCheckTimerIRQn   TIM4_IRQn
-#define triacExtiCheckTimerInstance  TIM4
-#define  enableExtiCheckTimer()  __HAL_RCC_TIM4_CLK_ENABLE()
+#define triacExtiCheckTimer  htim3
+#define extiCheckTimerIRQHandler  TIM3_IRQHandler
+#define extiCheckTimerIRQn   TIM3_IRQn
+#define triacExtiCheckTimerInstance  TIM3
+#define  enableExtiCheckTimerClock()  __HAL_RCC_TIM3_CLK_ENABLE()
 #define amtExtiEvChecks   3
 
 
@@ -30,7 +30,7 @@ TIM_HandleTypeDef triacExtiCheckTimer;
 
 uint32_t amtCountedMissed;
 uint32_t lastOkUwTick;
-uint32_t uwTickSinceLastOk;
+uint32_t uwTickWhenLastOk;
 
 //uint32_t syncMissedPeriodStartTick;
 uint32_t amtSyncMissed;  //  todo add to astrolabium
@@ -41,12 +41,12 @@ uint32_t   maxMissedExti;
 uint32_t  amtExtiMissedTotal;
 uint32_t amountIllegalExti;
 uint8_t extiCheckCnt ;
-// uint8_t extiStarting;
+uint8_t extiStarting;
 
 
 void startExtiChecking()
 {
-	uwTickSinceLastOk = 10;
+	uwTickWhenLastOk = 10;
 	amtExtiMissedTotal = 0;
 	maxMissedExti = 0;
 	amtCountedMissed = 0;
@@ -56,7 +56,7 @@ void startExtiChecking()
 	extiCheckCnt=0;
 	amtSyncMissed = 0;
 
-//	extiStarting= 1;
+	extiStarting= 1;
 }
 
 
@@ -71,7 +71,7 @@ void prepareExtiRun()  // todo check if needed
 #define resetHandleMissed() \
   do { \
 	  amtCountedMissed = 0; \
-	  uwTickSinceLastOk = uwTick; \
+	  uwTickWhenLastOk = uwTick; \
   } while(0)
 
 #define incAmtIllegalExti() \
@@ -94,18 +94,19 @@ uint8_t handleMissed()
 
 	if (currentExtiPinState == extiZeroPassTriggerStartValue) {
 
-		uint32_t  amtPassed = ((uwTickSinceLastOk +1 )/10 );
+		uint32_t  amtPassed = ((uwTickWhenLastOk +1 )/10 );
 		uint32_t  amtMissed = amtPassed - 1;
 
-		 if (amtMissed == 0) {
+		 if ((amtMissed == 0) ||(extiStarting ==1 )) {
+			 extiStarting = 0;
 			 resetHandleMissed();
 			 res = 1;
 		 }  else  {
-			amtExtiMissedTotal +=  amtMissed - amtCountedMissed;
+			amtExtiMissedTotal += ( amtMissed - amtCountedMissed);
 			amtCountedMissed = amtMissed;
 			if (amtMissed > maxMissedExti) {maxMissedExti = amtMissed;}
 
-			if (amtPassed & (uint32_t) 0x01) {  //  odd number
+			if (amtPassed & (uint32_t) 0x01) {  //  odd number todo to be tested
 				resetHandleMissed();
 				res = 1;
 			}  else {
@@ -222,7 +223,7 @@ void initExtiCheckTimer()
 	TIM_ClockConfigTypeDef sClockSourceConfig = {0};
 	TIM_MasterConfigTypeDef sMasterConfig = {0};
 
-	enableExtiCheckTimer();
+	enableExtiCheckTimerClock();
 
 	triacExtiCheckTimer.Instance = triacExtiCheckTimerInstance;
 	triacExtiCheckTimer.Init.Prescaler = 10;

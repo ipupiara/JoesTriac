@@ -235,10 +235,8 @@ void TIM5_IRQHandler(void)
   	if (__HAL_TIM_GET_FLAG(&triacDelayTimer, TIM_FLAG_UPDATE) != 0)  {
 		__HAL_TIM_CLEAR_IT(&triacDelayTimer, TIM_IT_UPDATE);
 
-			enableRailTimerPwm();
 			disableDelayTimer();
-//			tim5RunState = tim5RailPwmPhase;
-
+			disableRailTimerPwm();
   	}
 }
 
@@ -247,7 +245,6 @@ void TIM2_IRQHandler(void)
   	if (__HAL_TIM_GET_FLAG(&triacStopTimer, TIM_FLAG_UPDATE) != 0)  {
 		__HAL_TIM_CLEAR_IT(&triacStopTimer, TIM_IT_UPDATE);
 
-		disableDelayTimer();
 		disableRailTimerPwm();
 		disableStopTimer();
 	}
@@ -463,13 +460,16 @@ void EXTI15_10_IRQHandler(void)
 void doJobOnZeroPassEvent(uint8_t ev)
 {
 	if (ev == extiZeroPassTriggerStartValue)   {
+		disableRailTimerPwm();
 		tim5UsedDelay =	triacDelayTimer.Instance->ARR =getTriacTriggerDelay();
+		triacRailPwmTimer.Instance->ARR = stmTriggerDelayMax - tim5UsedDelay;
+		triacRailPwmTimer.Instance->CNT = stmTriggerDelayMax - tim5UsedDelay;
 		triacDelayTimer.Instance->CNT =0;
 		triacStopTimer.Instance->ARR=stmTriggerDelayMax;
 		triacStopTimer.Instance->CNT = 0;
+
 		startStopTimer();
 		startDelayTimer();
-		disableRailTimerPwm();
 	} else {
 		disableDelayTimer();
 		disableRailTimerPwm();
