@@ -46,7 +46,7 @@ uint8_t extiStarting;
 
 void startExtiChecking()
 {
-	uwTickWhenLastOk = 10;
+	uwTickWhenLastOk = 0;
 	amtExtiMissedTotal = 0;
 	maxMissedExti = 0;
 	amtCountedMissed = 0;
@@ -79,6 +79,16 @@ void prepareExtiRun()  // todo check if needed
 	  amountIllegalExti += 1; \
   } while(0)
 
+
+
+// todo do not screw-attach buzzer cable
+#define debugExti() \
+do { \
+	  toggleBuzzer; \
+} while(0)
+
+// for later:
+// #define debugExti()
 
 void initHandleMissed()
 {
@@ -179,6 +189,7 @@ void startExtiCheckTimer()
 		}
 //		if (res == 1)  {
 			startExtiTimer();
+			debugExti();
 //		}
 //	}
 }
@@ -195,6 +206,7 @@ void startExtiCheckTimer()
 void  extiCheckTimerIRQHandler (void)
 {
 	uint8_t extiPinOk  = (currentExtiState == isExtiPinSet());
+	debugExth();
 	if (extiCheckCnt < extiCheckAmt) {
 		++ extiCheckCnt;
 		if (extiPinOk == 0) {

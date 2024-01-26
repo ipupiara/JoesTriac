@@ -533,13 +533,13 @@ void initInterruptsNPorts()
 
 	printf("inside initInterruptsNPorts\n");
 
+	initBuzzerTimerPWM();
 	initZeroPassDetector();
 	initTriacDelayTimer();
 	initTriacStopTimer();
 	initTriacRailPwmTimer();
-	initBuzzerTimerPWM();
-	initAmpsZeroPassDetect();
 	initExtiCheckTimer();
+	initAmpsZeroPassDetect();
 }
 
 
