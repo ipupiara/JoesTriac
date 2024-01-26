@@ -60,12 +60,6 @@ void startExtiChecking()
 }
 
 
-void prepareExtiRun()  // todo check if needed
-{
-
-}
-
-
 #define maxInt32  0xFFFFFFFF
 
 #define resetHandleMissed() \
@@ -84,7 +78,7 @@ void prepareExtiRun()  // todo check if needed
 // todo do not screw-attach buzzer cable
 #define debugExti() \
 do { \
-	  toggleBuzzer; \
+	  toggleBuzzer(); \
 } while(0)
 
 // for later:
@@ -140,7 +134,7 @@ uint8_t currentExtiState;
 //  } while(0)
 
 
-void stopExtiCheck()
+void stopExtiTimer()
 {
 	extiCheckCnt = 0;
 	triacExtiCheckTimer.Instance->CNT = 0;
@@ -156,7 +150,7 @@ void startExtiTimer()
 
 }
 
-void startExtiCheckTimer()
+void startExtiCheck()
 {
 //	uint8_t res = 0;
 //	uint8_t extiState=isExtiPinSet();
@@ -166,7 +160,7 @@ void startExtiCheckTimer()
 								// another exti happened within short time, probable not valid
 								// but maybe a spike within  we loose a valid one.
 								// therefor the handleMissed
-		stopExtiCheck();
+		stopExtiTimer();
 		incAmtIllegalExti();
 	} else {
 //		if  (currentExtiState == extiZeroPassTriggerStartValue) {
@@ -174,7 +168,6 @@ void startExtiCheckTimer()
 //							//  prevent starting outside this time
 //							//  time difference between externally measured 10ms (220V) and internally ones
 //							//  (uwTick) > 1ms. todo make shorter duration window.
-//							//  todo handle first event of run to evaluate correctly
 //				++amtSyncMissed;
 //					res = 0;
 //			}  else {
@@ -206,15 +199,15 @@ void startExtiCheckTimer()
 void  extiCheckTimerIRQHandler (void)
 {
 	uint8_t extiPinOk  = (currentExtiState == isExtiPinSet());
-	debugExth();
+	debugExti();
 	if (extiCheckCnt < extiCheckAmt) {
 		++ extiCheckCnt;
 		if (extiPinOk == 0) {
-			stopExtiCheck();
+			stopExtiTimer();
 			incAmtIllegalExti();
 		}
 	}  else {
-		stopExtiCheck();
+		stopExtiTimer();
 		if ((extiPinOk)== 1 ) {
 			if(handleMissed()) {
 				doJobOnZeroPassEvent(currentExtiState);
@@ -262,6 +255,6 @@ void initExtiCheckTimer()
 	triacExtiCheckTimer.Instance->CR1 &= (~TIM_CR1_OPM_Msk);
 	HAL_NVIC_SetPriority(extiCheckTimerIRQn, triacTriggerIsrPrio, 0);
 	HAL_NVIC_EnableIRQ(extiCheckTimerIRQn);
-	stopExtiCheck();
+	stopExtiTimer();
 }
 

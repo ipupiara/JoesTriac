@@ -451,7 +451,7 @@ void EXTI15_10_IRQHandler(void)
 	  if(__HAL_GPIO_EXTI_GET_IT(zeroPass_Pin) != 0) {
 		__HAL_GPIO_EXTI_CLEAR_IT(zeroPass_Pin);
 
-		startExtiCheckTimer();
+		startExtiCheck();
 	//  todo needs be tested first and
 
 //		doJobOnZeroPassEvent(isExtiPinSet());
