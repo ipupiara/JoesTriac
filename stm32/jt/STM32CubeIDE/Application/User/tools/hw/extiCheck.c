@@ -25,21 +25,22 @@
 
 TIM_HandleTypeDef triacExtiCheckTimer;
 
-uint32_t amtCountedMissed;
-uint32_t uwTickWhenLastOk;
-
-//uint32_t syncMissedPeriodStartTick;
-uint32_t amtSyncMissed;  //  todo add to astrolabium when ever used
-uint32_t amtMissed;
-
-uint8_t extiEvTotalCnt;
+// external variables
 uint32_t   maxMissedExti;
 uint32_t  amtMissedTotal;
 uint32_t amountIllegalExti;
+//uint32_t amtSyncMissed;  //  todo add to astrolabium when ever used
+uint8_t extiEvTotalCnt;
+
+
+//  internal variables
+//uint32_t syncMissedPeriodStartTick;
+uint32_t  uwTickWhenLastOk;
+uint32_t amtCountedMissed;
 uint8_t extiCheckCnt ;
 uint8_t extiStarting;
 uint8_t currentExtiState;
-
+uint32_t amtMissed;
 
 void startExtiChecking()
 {
@@ -47,11 +48,10 @@ void startExtiChecking()
 	amtMissedTotal = 0;
 	maxMissedExti = 0;
 	amtCountedMissed = 0;
-
 //	syncMissedPeriodStartTick = 5; //  initialization can only be done by Exti (iE. zeroPass)
 	amtMissed = 0;
 	extiCheckCnt=0;
-	amtSyncMissed = 0;
+//	amtSyncMissed = 0;
 	extiStarting= 1;
 }
 
@@ -97,9 +97,8 @@ uint8_t handleMissed()
 		uint32_t  amtPassed = ((uwTickWhenLastOk +1 )/10 );
 		uint32_t  amtMissed = amtPassed - 1;
 
-		 if ((amtMissed == 0) ||(extiStarting ==1 )) { // extiStarting last needed here as 0
-														// for current run
-			 extiStarting = 0;
+		 if ((amtMissed == 0) ||(extiStarting ==1 )) {
+			 extiStarting = 0;         // extiStarting last needed here as 1 for current run
 			 resetHandleMissed();
 			 res = 1;
 		 }  else  {
@@ -123,7 +122,6 @@ uint8_t handleMissed()
 
 void stopExtiTimer()
 {
-	extiCheckCnt = 0;
 	triacExtiCheckTimer.Instance->CNT = 0;
 	triacExtiCheckTimer.Instance->CR1 &= ~(TIM_CR1_CEN);
 }
@@ -170,7 +168,7 @@ void startExtiCheck()
 		}
 //		if (res == 1)  {
 			startExtiTimer();
-			debugExti();
+//			debugExti();   // for debug
 //		}
 //	}
 }
@@ -187,7 +185,7 @@ void startExtiCheck()
 void  extiCheckTimerIRQHandler (void)
 {
 	uint8_t extiPinOk  = (currentExtiState == isExtiPinSet());
-	debugExti();
+//	debugExti();
 	if (extiCheckCnt < extiCheckAmt) {
 		++ extiCheckCnt;
 		if (extiPinOk == 0) {

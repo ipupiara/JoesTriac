@@ -124,6 +124,7 @@ typedef struct  {
 			uint32_t  maxExtiM;
 			uint32_t  amtSyncM;
 			uint32_t  amtIllegalExti;
+			uint32_t extiEvTotal;
 		} runScreenData;
 		struct {
 			float   	 devV;
