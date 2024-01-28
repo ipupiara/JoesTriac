@@ -23,12 +23,6 @@ TIM_HandleTypeDef htim5;
 TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim12;
 
-//typedef enum {
-//	delayTimerRailPwmPhase,
-//	delayTimerExtiEvCnt,
-//	delayTimerDelayPhase
-//} delayTimerRunStateType;
-
 
 // TODO not only missed would be a problem  also to much (emi) is a more probable case
 // introduce a eventcounter in exti (additional states) and add short delays therefore

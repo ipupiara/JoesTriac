@@ -8,7 +8,6 @@
 
 #include <stdlib.h>
 #include "TriacIntr.h"
-//#include <StateClass.h>
 #include <defines.h>
 #include <mainJt.h>
 #include <extiCheck.h>
@@ -26,28 +25,26 @@
 
 TIM_HandleTypeDef triacExtiCheckTimer;
 
-
-
 uint32_t amtCountedMissed;
-uint32_t lastOkUwTick;
 uint32_t uwTickWhenLastOk;
 
 //uint32_t syncMissedPeriodStartTick;
-uint32_t amtSyncMissed;  //  todo add to astrolabium
+uint32_t amtSyncMissed;  //  todo add to astrolabium when ever used
 uint32_t amtMissed;
 
 uint8_t extiEvTotalCnt;
 uint32_t   maxMissedExti;
-uint32_t  amtExtiMissedTotal;
+uint32_t  amtMissedTotal;
 uint32_t amountIllegalExti;
 uint8_t extiCheckCnt ;
 uint8_t extiStarting;
+uint8_t currentExtiState;
 
 
 void startExtiChecking()
 {
 	uwTickWhenLastOk = 0;
-	amtExtiMissedTotal = 0;
+	amtMissedTotal = 0;
 	maxMissedExti = 0;
 	amtCountedMissed = 0;
 
@@ -55,7 +52,6 @@ void startExtiChecking()
 	amtMissed = 0;
 	extiCheckCnt=0;
 	amtSyncMissed = 0;
-
 	extiStarting= 1;
 }
 
@@ -101,12 +97,13 @@ uint8_t handleMissed()
 		uint32_t  amtPassed = ((uwTickWhenLastOk +1 )/10 );
 		uint32_t  amtMissed = amtPassed - 1;
 
-		 if ((amtMissed == 0) ||(extiStarting ==1 )) {
+		 if ((amtMissed == 0) ||(extiStarting ==1 )) { // extiStarting last needed here as 0
+														// for current run
 			 extiStarting = 0;
 			 resetHandleMissed();
 			 res = 1;
 		 }  else  {
-			amtExtiMissedTotal += ( amtMissed - amtCountedMissed);
+			amtMissedTotal += ( amtMissed - amtCountedMissed);
 			amtCountedMissed = amtMissed;
 			if (amtMissed > maxMissedExti) {maxMissedExti = amtMissed;}
 
@@ -122,16 +119,6 @@ uint8_t handleMissed()
 	 }
 	return res;
 }
-
-//  zero pass pin irq
-
-uint8_t currentExtiState;
-
-//#define resetExtiTimer() \
-//  do { \
-//	  amtCountedMissed = 0; \
-
-//  } while(0)
 
 
 void stopExtiTimer()
@@ -155,7 +142,8 @@ void startExtiCheck()
 //	uint8_t res = 0;
 //	uint8_t extiState=isExtiPinSet();
 
-	++ extiEvTotalCnt;   // maybe later on astrolabium
+	++ extiEvTotalCnt;   // todo maybe later on astrolabium
+
 	if (extiCheckCnt > 0) {
 								// another exti happened within short time, probable not valid
 								// but maybe a spike within  we loose a valid one.
@@ -172,7 +160,7 @@ void startExtiCheck()
 //					res = 0;
 //			}  else {
 //				syncMissedPeriodStartTick = uwTick;
-//				extiStarting = 1;
+//	//			extiStarting = 1;
 //				res = 1;
 //			}
 //		}  else {

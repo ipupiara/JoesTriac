@@ -15,12 +15,12 @@ extern "C"
 
 
 
-extern uint8_t extiCheckCnt ;
-extern uint32_t amtExtiMissedTotal;
+
+extern uint32_t amtMissedTotal;
 extern uint32_t   maxMissedExti;
 extern uint32_t  amountIllegalExti;
 extern uint32_t amtSyncMissed;
-extern uint32_t syncMissedPeriodStartTick;
+
 
 extern void startExtiCheck();
 void initExtiCheckTimer();

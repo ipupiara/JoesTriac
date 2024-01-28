@@ -231,7 +231,7 @@ void calcNextTriacDelay()
 	double ampsD  = currentAmps();
 	uint32_t adcVal =  getCurrentAmpsADCValue();
 	pid_printf(" corr %f corrI %i cry %f delay %x  amps %f adc %i\n",corrD,corrInt, carryCorrD, newDelay, ampsD, adcVal);
-	pid_printf("amtMissedTotal %i  maxMissed %i\n",amtExtiMissedTotal, maxMissedExti);
+	pid_printf("amtMissedTotal %i  maxMissed %i\n",amtMissedTotal, maxMissedExti);
 #endif
 }
 
