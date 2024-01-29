@@ -17,8 +17,8 @@ extern "C"
 extern uint32_t   maxMissedExti;
 extern uint32_t amtMissedTotal;
 extern uint32_t  amountIllegalExti;
-//extern uint32_t amtSyncMissed;
-extern uint8_t extiEvTotalCnt;
+extern uint32_t amtSyncMissed;
+extern uint32_t extiEvTotalCnt;
 
 extern void startExtiCheck();
 void initExtiCheck();

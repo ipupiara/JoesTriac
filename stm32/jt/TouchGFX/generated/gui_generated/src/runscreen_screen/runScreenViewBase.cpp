@@ -186,6 +186,48 @@ runScreenViewBase::runScreenViewBase() :
     amtSpk.resizeToCurrentText();
     amtSpk.setTypedText(touchgfx::TypedText(T___SINGLEUSE_KY6O));
     add(amtSpk);
+
+    textArea9.setXY(520, 240);
+    textArea9.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea9.setLinespacing(0);
+    textArea9.setTypedText(touchgfx::TypedText(T___SINGLEUSE_GJGR));
+    add(textArea9);
+
+    amtExti.setXY(609, 240);
+    amtExti.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    amtExti.setLinespacing(0);
+    amtExti.setWildcard(touchgfx::TypedText(T___SINGLEUSE_4H27).getText());
+    amtExti.resizeToCurrentText();
+    amtExti.setTypedText(touchgfx::TypedText(T___SINGLEUSE_0CK5));
+    add(amtExti);
+
+    textArea10.setXY(520, 265);
+    textArea10.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea10.setLinespacing(0);
+    textArea10.setTypedText(touchgfx::TypedText(T___SINGLEUSE_145Y));
+    add(textArea10);
+
+    illigelExtiText.setXY(573, 265);
+    illigelExtiText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    illigelExtiText.setLinespacing(0);
+    illigelExtiText.setWildcard(touchgfx::TypedText(T___SINGLEUSE_YDJO).getText());
+    illigelExtiText.resizeToCurrentText();
+    illigelExtiText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_BIDK));
+    add(illigelExtiText);
+
+    textArea11.setXY(520, 289);
+    textArea11.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea11.setLinespacing(0);
+    textArea11.setTypedText(touchgfx::TypedText(T___SINGLEUSE_88CO));
+    add(textArea11);
+
+    syncMissedArea.setXY(573, 289);
+    syncMissedArea.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    syncMissedArea.setLinespacing(0);
+    syncMissedArea.setWildcard(touchgfx::TypedText(T___SINGLEUSE_GTMK).getText());
+    syncMissedArea.resizeToCurrentText();
+    syncMissedArea.setTypedText(touchgfx::TypedText(T___SINGLEUSE_I0F4));
+    add(syncMissedArea);
 }
 
 runScreenViewBase::~runScreenViewBase()

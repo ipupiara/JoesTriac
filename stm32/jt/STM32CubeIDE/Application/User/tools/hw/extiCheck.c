@@ -30,8 +30,8 @@ TIM_HandleTypeDef triacExtiCheckTimer;
 uint32_t   maxMissedExti;
 uint32_t  amtMissedTotal;
 uint32_t amountIllegalExti;
-//uint32_t amtSyncMissed;  //  todo add to astrolabium when ever used
-uint8_t extiEvTotalCnt;
+uint32_t amtSyncMissed;  //  todo add to astrolabium when ever used
+uint32_t extiEvTotalCnt;
 
 
 //  internal variables
@@ -52,7 +52,7 @@ void startExtiChecking()
 //	syncMissedPeriodStartTick = 5; //  initialization can only be done by Exti (iE. zeroPass)
 	amtMissed = 0;
 	extiCheckCnt=0;
-//	amtSyncMissed = 0;
+	amtSyncMissed = 0;
 	extiStarting= 1;
 }
 
@@ -72,7 +72,7 @@ void startExtiChecking()
 
 
 
-// todo do not screw-attach buzzer cable
+// todo do not screw-attach buzzer cable to buzzer
 #define debugExti() \
 do { \
 	  toggleBuzzer(); \
@@ -208,10 +208,6 @@ void initExtiCheckTimer()
 {
 	// todo measure period time on oscilloscope and leave possibility to do so
 
-	initHandleMissed();
-	amountIllegalExti = 0;
-	extiCheckCnt= 0;
-
 	TIM_ClockConfigTypeDef sClockSourceConfig = {0};
 	TIM_MasterConfigTypeDef sMasterConfig = {0};
 
@@ -250,6 +246,6 @@ void initExtiCheck()
 	initHandleMissed();
 	amountIllegalExti = 0;
 	extiCheckCnt= 0;
-	void initExtiCheckTimer();
+	initExtiCheckTimer();
 }
 

@@ -441,6 +441,7 @@ void doJobOnZeroPassEvent(uint8_t ev)
 
 void initTriacControl()
 {
+//	startDebuggingTriacRun();
 	triacTriggerDelay = stmTriggerDelayMax;
 	initZeroPassDetector();
 	initTriacDelayTimer();

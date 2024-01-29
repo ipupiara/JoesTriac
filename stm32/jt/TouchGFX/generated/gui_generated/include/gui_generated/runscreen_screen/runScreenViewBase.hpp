@@ -68,6 +68,12 @@ protected:
     touchgfx::TextAreaWithOneWildcard maxMissedExti;
     touchgfx::TextArea textArea8;
     touchgfx::TextAreaWithOneWildcard amtSpk;
+    touchgfx::TextArea textArea9;
+    touchgfx::TextAreaWithOneWildcard amtExti;
+    touchgfx::TextArea textArea10;
+    touchgfx::TextAreaWithOneWildcard illigelExtiText;
+    touchgfx::TextArea textArea11;
+    touchgfx::TextAreaWithOneWildcard syncMissedArea;
 
     /*
      * Wildcard Buffers

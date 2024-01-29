@@ -6,6 +6,33 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_GTMK" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">         0</Translation>
+      </Text>
+      <Text Id="__SingleUse_I0F4" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_88CO" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">aSym</Translation>
+      </Text>
+      <Text Id="__SingleUse_YDJO" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">         0</Translation>
+      </Text>
+      <Text Id="__SingleUse_BIDK" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_145Y" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">ilEx</Translation>
+      </Text>
+      <Text Id="__SingleUse_4H27" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">              0</Translation>
+      </Text>
+      <Text Id="__SingleUse_0CK5" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_GJGR" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">amtExti</Translation>
+      </Text>
       <Text Id="__SingleUse_FM99" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">0000</Translation>
       </Text>
@@ -13,7 +40,7 @@
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_KL4V" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">spk</Translation>
+        <Translation Language="GB">spkI</Translation>
       </Text>
       <Text Id="__SingleUse_OO01" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">000</Translation>
@@ -28,7 +55,7 @@
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_ORKO" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">/max</Translation>
+        <Translation Language="GB">/maxM</Translation>
       </Text>
       <Text Id="__SingleUse_Z6K7" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">amtM</Translation>
@@ -55,7 +82,7 @@
         <Translation Language="GB">TDly</Translation>
       </Text>
       <Text Id="__SingleUse_WCEJ" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">/Vo</Translation>
+        <Translation Language="GB">/V</Translation>
       </Text>
       <Text Id="__SingleUse_WO37" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">adc</Translation>
