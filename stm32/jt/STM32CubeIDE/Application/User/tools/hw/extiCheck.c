@@ -12,6 +12,7 @@
 #include <mainJt.h>
 #include <extiCheck.h>
 #include <TriacIntr.h>
+#include <triacControl.h>
 
 #define extiCheckAmt  4
 #define extiCheckDelay  10

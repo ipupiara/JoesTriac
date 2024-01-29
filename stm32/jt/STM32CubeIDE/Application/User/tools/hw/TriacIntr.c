@@ -5,23 +5,8 @@
 #include <mainJt.h>
 #include <extiCheck.h>
 #include <stm32f7xx_hal.h>
+#include <triacControl.h>
 
-//#include <stdlib.h>
-//#include "TriacIntr.h"
-//#include <StateClass.h>
-//#include <defines.h>
-//#include <mainJt.h>
-//#include <extiCheck.h>
-
-
-//#define zeroPass_Pin GPIO_PIN_12   moved to TriacIntr.h filet
-//#define zeroPass_Port GPIOA
-#define zeroPassPin_EXTI_IRQn EXTI15_10_IRQn
-
-TIM_HandleTypeDef htim11;
-TIM_HandleTypeDef htim5;
-TIM_HandleTypeDef htim2;
-TIM_HandleTypeDef htim12;
 
 
 // TODO not only missed would be a problem  also to much (emi) is a more probable case
@@ -29,12 +14,6 @@ TIM_HandleTypeDef htim12;
 // todo make this file shorter by splitting it in more files eg. one for triacControl, one for all the rest (buzzer, secondTick, durationtimer, alarm  )
 
 #define buzzerTimer htim11
-
-#define triacStopTimer htim2
-#define triacDelayTimer htim5
-#define triacDelayTimer_IRQn TIM5_IRQn
-#define triacRailPwmTimer htim12
-
 
 #define ampsHigherPort  GPIOB
 #define ampsHigherPin   GPIO_PIN_14
@@ -52,34 +31,6 @@ TIM_HandleTypeDef htim12;
 
 */
 
-
-
-#define TIM_CCxChannelCommand(TIMx , Channel , ChannelState) \
-	do {  \
-	  uint32_t  tmp;   \
-	  tmp = ~(TIM_CCER_CC1E << Channel);          \
-	  TIMx->CCER &=  tmp; \
-	  TIMx->CCER |= (uint32_t)(ChannelState << Channel); \
-	} while (0)
-
-#define disableRailTimerPwm() \
-  do { \
-	  TIM_CCxChannelCommand(triacRailPwmTimer.Instance, TIM_CHANNEL_1, TIM_CCx_DISABLE);  \
-      triacRailPwmTimer.Instance->CR1  &= ~(TIM_CR1_CEN);  \
-  } while(0)
-
-
-#define enableRailTimerPwm() \
-  do { \
-	  TIM_CCxChannelCommand(triacRailPwmTimer.Instance, TIM_CHANNEL_1, TIM_CCx_ENABLE);  \
-      triacRailPwmTimer.Instance->CR1 |= (TIM_CR1_CEN);  \
-  } while(0)
-
-#define disableDelayTimer() \
-  do { \
-        triacDelayTimer.Instance->CR1 &= ~(TIM_CR1_CEN);  \
-        __HAL_TIM_DISABLE_IT(&triacDelayTimer, TIM_IT_UPDATE);\
-  } while(0)
 
 void startDelayTimer ()
 {
@@ -503,9 +454,10 @@ void stopTimersWhenDebugHalt()
 {
 	HAL_DBGMCU_EnableDBGStandbyMode();
 	HAL_DBGMCU_EnableDBGStopMode();
-	DBGMCU->APB1FZ |= ( DBGMCU_APB1_FZ_DBG_TIM12_STOP | DBGMCU_APB1_FZ_DBG_TIM5_STOP);
-	DBGMCU->APB2FZ |= DBGMCU_APB2_FZ_DBG_TIM11_STOP;
+	DBGMCU->APB1FZ |= ( DBGMCU_APB1_FZ_DBG_TIM12_STOP | DBGMCU_APB1_FZ_DBG_TIM5_STOP | DBGMCU_APB1_FZ_DBG_TIM2_STOP  | DBGMCU_APB1_FZ_DBG_TIM3_STOP);
+	DBGMCU->APB2FZ |= (DBGMCU_APB2_FZ_DBG_TIM11_STOP ) ;
 }
+
 
 void startDebuggingTriacRun()
 {
