@@ -1,4 +1,7 @@
 #include <gui/runscreen_screen/runScreenView.hpp>
+#include <stdlib.h>
+#include <math.h>
+#include <mainJt.h>
 
 runScreenView::runScreenView()
 {
@@ -36,6 +39,8 @@ void runScreenView::setupScreen()
 
 	 boxProgress1.setValue(0);
 	 boxProgress1.invalidate();
+
+
 }
 
 void runScreenView::tearDownScreen()
@@ -43,32 +48,46 @@ void runScreenView::tearDownScreen()
     runScreenViewBase::tearDownScreen();
 }
 
-void runScreenView::update(float amps,uint32_t secRemain )
+void runScreenView::update(pJoesPresenterEventT  pMsg )
 {
 
 	// todo bug: amps does not show / calculate delay decimal places in setamperetext
 
-	Unicode::snprintfFloat(currentAmpereTextBuffer, 7, "%6.2f",amps);
+	Unicode::snprintfFloat(currentAmpereTextBuffer, 7, "%6.2f",pMsg->evData.runScreenData.amps);
 	currentAmpereText.setWildcard(currentAmpereTextBuffer);
 	currentAmpereText.invalidate();
 
 //	 int ampValue = ((int)( amps  ));
 
-		ampGauge.setValue(amps);
+		ampGauge.setValue(pMsg->evData.runScreenData.amps);
 		ampGauge.invalidate();
 
-	 uint8_t  minVal = uint8_t( secRemain / 60);
-	 uint8_t  secVal = (uint8_t) ( secRemain % 60);
+	 uint8_t  minVal = uint8_t( pMsg->evData.runScreenData.secondsRemaining  / 60);
+	 uint8_t  secVal = (uint8_t) ( pMsg->evData.runScreenData.secondsRemaining % 60);
 	 Unicode::snprintf(currentTimeTextBuffer, 6, "%02d:%02d", minVal, secVal);
 	 currentTimeText.setWildcard(currentTimeTextBuffer);
 	 currentTimeText.invalidate();
 
 	 float wTime = weldingTimeSec;
-	 float rTime = secRemain;
+	 float rTime = pMsg->evData.runScreenData.secondsRemaining;
 	 float  remain = (wTime - rTime)/ wTime;
 	 uint32_t boxPro = 100 * remain;
 	 boxProgress1.setValue(boxPro);
 	 boxProgress1.invalidate();
+
+	 if (astroBorder.isVisible())  {
+
+	 }
+
+
+	 //		presenterMessage.evData.runScreenData.adcValue = getCurrentAmpsADCValue();
+	 //		presenterMessage.evData.runScreenData.adcVoltage = getCurrentAmpsValue();
+	 //		presenterMessage.evData.runScreenData.triacDelay = getTriacTriggerDelay();
+	 //		presenterMessage.evData.runScreenData.amtExtiM =  amtMissedTotal;
+	 //		presenterMessage.evData.runScreenData.maxExtiM = maxMissedExti;
+	 //		presenterMessage.evData.runScreenData.amtIllegalExti = amountIllegalExti;
+	 //		presenterMessage.evData.runScreenData.extiEvTotal = extiEvTotalCnt;
+
 }
 
 void runScreenView::stopButtonPressed()
