@@ -9,6 +9,7 @@
 #include <uart-comms.h>
 #include <mainJt.h>
 #include <extiCheck.h>
+#include <triacControl.h>
 
 
 #define printfPid

@@ -2,6 +2,7 @@
 #include "TStatechart.h"
 #include "StateClass.h"
 #include <TriacIntr.h>
+#include <TriacControl.h>
 #include <uart-comms.h>
 #include <mainJt.h>
 #include <defines.h>
@@ -507,7 +508,7 @@ uStInt evTriacRunningChecker(void)
 	}		
 
 	if (currentEvent->evType == evSecondsTick) {
-		sendActualValuesToRunNStopScreen(secondsDurationTimerRemaining, secondsBeforeReturn);
+		sendActualValuesToRunNStopScreen(getSecondsDurationTimerRemaining(), secondsBeforeReturn);
 		res =  uStIntHandlingDone;
 	}	
 
@@ -561,7 +562,7 @@ uStInt evRequestStopChecker(void)
 			timeCnt = 0;
 		}
 		--secondsBeforeReturn;
-		sendActualValuesToRunNStopScreen(secondsDurationTimerRemaining, secondsBeforeReturn);
+		sendActualValuesToRunNStopScreen(getSecondsDurationTimerRemaining(), secondsBeforeReturn);
 
 		res =  uStIntHandlingDone;
 	}

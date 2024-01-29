@@ -13,32 +13,8 @@ extern "C"
 //#include <stdio.h>
 
 #define maxSecsPossible  0xFFFFFFFF
-	
-//int8_t durationTimerReachead;
-//int8_t runningSecondsTick;
-
-//extern int64_t  secondCount;
 
 
-//	#define stmTriggerDelayMax  5000
-#define stmTriggerDelayMax  4950
-#define kStepUnitsFactor  5
-#define triacDelayPsc  197   // (defaultTriacDelayPsc / kStepUnitsFactor)
-
-#define zeroPass_Pin GPIO_PIN_12
-#define zeroPass_Port GPIOA
-
-
-#define extiZeroPassTriggerStartValue 1
-#define isPinSet(portx, pinx)  (((portx->IDR) & pinx) != 0) ? 1:0
-#define  isExtiPinSet()  isPinSet (zeroPass_Port,zeroPass_Pin)
-
-
-
-extern uint32_t secondsDurationTimerRemaining;  // todo check this memory direct access
-
-
-void doJobOnZeroPassEvent(uint8_t ev);
 void startDurationTimer(uint32_t secs);
 uint32_t getSecondsDurationTimerRemaining();
 uint32_t getSecondsInDurationTimer();
@@ -51,12 +27,6 @@ void setBuzzerOn();
 void setBuzzerOff();
 void toggleBuzzer();
 
-extern int32_t triacTriggerDelay;
-void setTriacTriggerDelay(int32_t cmsecs);
-int32_t getTriacTriggerDelay();
-
-void startTriacRun();
-void stopTriacRun();
 
 void setCompletionAlarmOn();
 void setCompletionAlarmOff();

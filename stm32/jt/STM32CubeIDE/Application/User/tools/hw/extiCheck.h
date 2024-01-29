@@ -21,7 +21,7 @@ extern uint32_t  amountIllegalExti;
 extern uint8_t extiEvTotalCnt;
 
 extern void startExtiCheck();
-void initExtiCheckTimer();
+void initExtiCheck();
 
 void startExtiChecking();
 

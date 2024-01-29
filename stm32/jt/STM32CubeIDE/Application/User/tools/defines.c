@@ -16,6 +16,7 @@
 #include <triacPID.h>
 #include <i2c.h>
 #include <extiCheck.h>
+#include <triacControl.h>
 
 //#define  microSdWorking
 // despite trying all found examples on google and stm (also for F769Ni)  .... this stm  microSd bu..it did not work

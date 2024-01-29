@@ -245,3 +245,11 @@ void initExtiCheckTimer()
 	stopExtiTimer();
 }
 
+void initExtiCheck()
+{
+	initHandleMissed();
+	amountIllegalExti = 0;
+	extiCheckCnt= 0;
+	void initExtiCheckTimer();
+}
+
