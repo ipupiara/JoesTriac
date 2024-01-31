@@ -64,16 +64,14 @@ protected:
     touchgfx::TextAreaWithOneWildcard delayText;
     touchgfx::TextArea textArea6;
     touchgfx::TextArea textArea7;
-    touchgfx::TextAreaWithOneWildcard amtMissedExti;
-    touchgfx::TextAreaWithOneWildcard maxMissedExti;
-    touchgfx::TextArea textArea8;
-    touchgfx::TextAreaWithOneWildcard amtSpk;
+    touchgfx::TextAreaWithOneWildcard amtMissedZpText;
+    touchgfx::TextAreaWithOneWildcard maxMissedZpText;
     touchgfx::TextArea textArea9;
-    touchgfx::TextAreaWithOneWildcard amtExti;
+    touchgfx::TextAreaWithOneWildcard amtExtiTotalText;
     touchgfx::TextArea textArea10;
     touchgfx::TextAreaWithOneWildcard illigelExtiText;
     touchgfx::TextArea textArea11;
-    touchgfx::TextAreaWithOneWildcard syncMissedArea;
+    touchgfx::TextAreaWithOneWildcard amtSyncWrongText;
 
     /*
      * Wildcard Buffers
@@ -92,12 +90,16 @@ protected:
     touchgfx::Unicode::UnicodeChar adcVoltageTextBuffer[ADCVOLTAGETEXT_SIZE];
     static const uint16_t DELAYTEXT_SIZE = 10;
     touchgfx::Unicode::UnicodeChar delayTextBuffer[DELAYTEXT_SIZE];
-    static const uint16_t AMTMISSEDEXTI_SIZE = 10;
-    touchgfx::Unicode::UnicodeChar amtMissedExtiBuffer[AMTMISSEDEXTI_SIZE];
-    static const uint16_t MAXMISSEDEXTI_SIZE = 10;
-    touchgfx::Unicode::UnicodeChar maxMissedExtiBuffer[MAXMISSEDEXTI_SIZE];
-    static const uint16_t AMTSPK_SIZE = 10;
-    touchgfx::Unicode::UnicodeChar amtSpkBuffer[AMTSPK_SIZE];
+    static const uint16_t AMTMISSEDZPTEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar amtMissedZpTextBuffer[AMTMISSEDZPTEXT_SIZE];
+    static const uint16_t MAXMISSEDZPTEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar maxMissedZpTextBuffer[MAXMISSEDZPTEXT_SIZE];
+    static const uint16_t AMTEXTITOTALTEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar amtExtiTotalTextBuffer[AMTEXTITOTALTEXT_SIZE];
+    static const uint16_t ILLIGELEXTITEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar illigelExtiTextBuffer[ILLIGELEXTITEXT_SIZE];
+    static const uint16_t AMTSYNCWRONGTEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar amtSyncWrongTextBuffer[AMTSYNCWRONGTEXT_SIZE];
 
 private:
 

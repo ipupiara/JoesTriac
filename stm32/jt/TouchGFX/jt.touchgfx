@@ -1700,7 +1700,7 @@
             "Type": "TextArea",
             "Name": "textArea3",
             "X": 520,
-            "Y": 143,
+            "Y": 144,
             "Width": 36,
             "Height": 24,
             "TextId": "__SingleUse_WO37",
@@ -1732,8 +1732,8 @@
           {
             "Type": "TextArea",
             "Name": "adcValueText",
-            "X": 573,
-            "Y": 143,
+            "X": 578,
+            "Y": 144,
             "Width": 57,
             "Height": 23,
             "TextId": "__SingleUse_CAPG",
@@ -1763,7 +1763,7 @@
           {
             "Type": "TextArea",
             "Name": "delayText",
-            "X": 578,
+            "X": 582,
             "Y": 167,
             "Width": 48,
             "Height": 24,
@@ -1800,8 +1800,8 @@
           },
           {
             "Type": "TextArea",
-            "Name": "amtMissedExti",
-            "X": 577,
+            "Name": "amtMissedZpText",
+            "X": 582,
             "Y": 191,
             "Width": 48,
             "Height": 24,
@@ -1816,7 +1816,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "maxMissedExti",
+            "Name": "maxMissedZpText",
             "X": 711,
             "Y": 191,
             "Width": 36,
@@ -1832,37 +1832,10 @@
           },
           {
             "Type": "TextArea",
-            "Name": "textArea8",
-            "X": 520,
-            "Y": 216,
-            "Width": 48,
-            "Height": 24,
-            "TextId": "__SingleUse_KL4V",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "amtSpk",
-            "X": 578,
-            "Y": 216,
-            "Width": 48,
-            "Height": 24,
-            "TextId": "__SingleUse_KY6O",
-            "TextRotation": "0",
-            "AutoSize": true,
-            "Wildcard1": {
-              "TextId": "__SingleUse_FM99",
-              "UseBuffer": true,
-              "BufferSize": 10
-            }
-          },
-          {
-            "Type": "TextArea",
             "Name": "textArea9",
             "X": 520,
-            "Y": 240,
-            "Width": 84,
+            "Y": 215,
+            "Width": 48,
             "Height": 24,
             "TextId": "__SingleUse_GJGR",
             "TextRotation": "0",
@@ -1870,23 +1843,25 @@
           },
           {
             "Type": "TextArea",
-            "Name": "amtExti",
-            "X": 609,
-            "Y": 240,
+            "Name": "amtExtiTotalText",
+            "X": 578,
+            "Y": 220,
             "Width": 180,
             "Height": 24,
             "TextId": "__SingleUse_0CK5",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
-              "TextId": "__SingleUse_4H27"
+              "TextId": "__SingleUse_4H27",
+              "UseBuffer": true,
+              "BufferSize": 10
             }
           },
           {
             "Type": "TextArea",
             "Name": "textArea10",
             "X": 520,
-            "Y": 265,
+            "Y": 240,
             "Width": 48,
             "Height": 24,
             "TextId": "__SingleUse_145Y",
@@ -1897,21 +1872,23 @@
             "Type": "TextArea",
             "Name": "illigelExtiText",
             "X": 573,
-            "Y": 265,
+            "Y": 240,
             "Width": 120,
             "Height": 24,
             "TextId": "__SingleUse_BIDK",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
-              "TextId": "__SingleUse_YDJO"
+              "TextId": "__SingleUse_YDJO",
+              "UseBuffer": true,
+              "BufferSize": 10
             }
           },
           {
             "Type": "TextArea",
             "Name": "textArea11",
             "X": 520,
-            "Y": 289,
+            "Y": 264,
             "Width": 48,
             "Height": 24,
             "TextId": "__SingleUse_88CO",
@@ -1920,16 +1897,18 @@
           },
           {
             "Type": "TextArea",
-            "Name": "syncMissedArea",
-            "X": 573,
-            "Y": 289,
-            "Width": 120,
+            "Name": "amtSyncWrongText",
+            "X": 582,
+            "Y": 265,
+            "Width": 48,
             "Height": 24,
             "TextId": "__SingleUse_I0F4",
             "TextRotation": "0",
             "AutoSize": true,
             "Wildcard1": {
-              "TextId": "__SingleUse_GTMK"
+              "TextId": "__SingleUse_GTMK",
+              "UseBuffer": true,
+              "BufferSize": 10
             }
           }
         ],

@@ -76,17 +76,40 @@ void runScreenView::update(pJoesPresenterEventT  pMsg )
 	 boxProgress1.invalidate();
 
 	 if (astroBorder.isVisible())  {
+		 Unicode::snprintf(adcValueTextBuffer, 6, "%02d", pMsg->evData.runScreenData.adcValue);
+		 adcValueText.setWildcard(adcValueTextBuffer);
+		 adcValueText.invalidate();
+
+		 Unicode::snprintf(adcVoltageTextBuffer, 6, "%02d", pMsg->evData.runScreenData.adcVoltage);
+		 adcVoltageText.setWildcard(adcVoltageTextBuffer);
+		 adcVoltageText.invalidate();
+
+		 Unicode::snprintf(delayTextBuffer, 6, "%02d", pMsg->evData.runScreenData.triacDelay);
+		 delayText.setWildcard(delayTextBuffer);
+		 delayText.invalidate();
+
+		 Unicode::snprintf(maxMissedZpTextBuffer, 6, "%02d", pMsg->evData.runScreenData.triacDelay);
+		 maxMissedZpText.setWildcard(maxMissedZpTextBuffer);
+		 maxMissedZpText.invalidate();
+
+		 Unicode::snprintf(maxMissedZpTextBuffer, 6, "%02d", pMsg->evData.runScreenData.maxMissZp);
+		 currentTimeText.setWildcard(maxMissedZpTextBuffer);
+		 currentTimeText.invalidate();
+
+		 Unicode::snprintf(amtExtiTotalTextBuffer, 6, "%02d", pMsg->evData.runScreenData.extiEvTotal);
+		 currentTimeText.setWildcard(amtExtiTotalTextBuffer);
+		 currentTimeText.invalidate();
+
+		 Unicode::snprintf(illigelExtiTextBuffer, 6, "%02d", pMsg->evData.runScreenData.amtIllExti);
+		 currentTimeText.setWildcard(illigelExtiTextBuffer);
+		 currentTimeText.invalidate();
+
+		 Unicode::snprintf(amtSyncWrongTextBuffer, 6, "%02d", pMsg->evData.runScreenData.amtWrongSyn);
+		 currentTimeText.setWildcard(amtSyncWrongTextBuffer);
+		 currentTimeText.invalidate();
 
 	 }
 
-
-	 //		presenterMessage.evData.runScreenData.adcValue = getCurrentAmpsADCValue();
-	 //		presenterMessage.evData.runScreenData.adcVoltage = getCurrentAmpsValue();
-	 //		presenterMessage.evData.runScreenData.triacDelay = getTriacTriggerDelay();
-	 //		presenterMessage.evData.runScreenData.amtExtiM =  amtMissedTotal;
-	 //		presenterMessage.evData.runScreenData.maxExtiM = maxMissedExti;
-	 //		presenterMessage.evData.runScreenData.amtIllegalExti = amountIllegalExti;
-	 //		presenterMessage.evData.runScreenData.extiEvTotal = extiEvTotalCnt;
 
 }
 

@@ -67,10 +67,11 @@ void sendActualValuesToRunNStopScreen(uint16_t secondsRemaining, uint16_t second
 	presenterMessage.evData.runScreenData.adcValue = getCurrentAmpsADCValue();
 	presenterMessage.evData.runScreenData.adcVoltage = getCurrentAmpsValue();
 	presenterMessage.evData.runScreenData.triacDelay = getTriacTriggerDelay();
-	presenterMessage.evData.runScreenData.amtExtiM =  amtMissedTotal;
-	presenterMessage.evData.runScreenData.maxExtiM = maxMissedExti;
-	presenterMessage.evData.runScreenData.amtIllegalExti = amountIllegalExti;
-	presenterMessage.evData.runScreenData.extiEvTotal = extiEvTotalCnt;
+	presenterMessage.evData.runScreenData.amtMissZp =  amtMissedZpTotal;
+	presenterMessage.evData.runScreenData.maxMissZp = maxMissedZp;
+	presenterMessage.evData.runScreenData.amtIllExti= amountIllegalExti;
+	presenterMessage.evData.runScreenData.extiEvTotal = amtExtiEvTotal;
+	presenterMessage.evData.runScreenData.amtWrongSyn = amtWrongSync;
 	sendPresenterMessage(&presenterMessage);
 }
 

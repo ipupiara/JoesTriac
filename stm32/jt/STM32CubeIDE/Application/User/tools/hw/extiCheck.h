@@ -14,11 +14,12 @@ extern "C"
 #endif
 
 
-extern uint32_t   maxMissedExti;
-extern uint32_t amtMissedTotal;
+extern uint32_t amtMissedZpTotal;
+extern uint32_t   maxMissedZp;
+extern uint32_t amtExtiEvTotal;
 extern uint32_t  amountIllegalExti;
-extern uint32_t amtSyncMissed;
-extern uint32_t extiEvTotalCnt;
+extern uint32_t amtWrongSync;
+
 
 extern void startExtiCheck();
 void initExtiCheck();

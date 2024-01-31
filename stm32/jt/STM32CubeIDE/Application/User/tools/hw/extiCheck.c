@@ -27,11 +27,12 @@
 TIM_HandleTypeDef triacExtiCheckTimer;
 
 // external variables
-uint32_t   maxMissedExti;
-uint32_t  amtMissedTotal;
+uint32_t   maxMissedZp;
+uint32_t  amtMissedZpTotal;
 uint32_t amountIllegalExti;
-uint32_t amtSyncMissed;  //  todo add to astrolabium when ever used
-uint32_t extiEvTotalCnt;
+uint32_t amtExtiEvTotal;
+uint32_t amtWrongSync;  //  todo add to astrolabium when ever used
+
 
 
 //  internal variables
@@ -46,13 +47,13 @@ uint32_t amtMissed;
 void startExtiChecking()
 {
 	uwTickWhenLastOk = 0;
-	amtMissedTotal = 0;
-	maxMissedExti = 0;
+	amtMissedZpTotal = 0;
+	maxMissedZp = 0;
 	amtCountedMissed = 0;
 //	syncMissedPeriodStartTick = 5; //  initialization can only be done by Exti (iE. zeroPass)
 	amtMissed = 0;
 	extiCheckCnt=0;
-	amtSyncMissed = 0;
+	amtWrongSync = 0;
 	extiStarting= 1;
 }
 
@@ -103,9 +104,9 @@ uint8_t handleMissed()
 			 resetHandleMissed();
 			 res = 1;
 		 }  else  {
-			amtMissedTotal += ( amtMissed - amtCountedMissed);
+			amtMissedZpTotal += ( amtMissed - amtCountedMissed);
 			amtCountedMissed = amtMissed;
-			if (amtMissed > maxMissedExti) {maxMissedExti = amtMissed;}
+			if (amtMissed > maxMissedZp) {maxMissedZp= amtMissed;}
 
 			if (amtPassed & (uint32_t) 0x01) {  //  odd number todo to be tested
 				resetHandleMissed();
@@ -141,7 +142,7 @@ void startExtiCheck()
 //	uint8_t res = 0;
 //	uint8_t extiState=isExtiPinSet();
 
-	++ extiEvTotalCnt;   // todo maybe later on astrolabium
+	++ amtExtiEvTotal;   // todo maybe later on astrolabium
 
 	if (extiCheckCnt > 0) {
 								// another exti happened within short time, probable not valid
@@ -155,7 +156,7 @@ void startExtiCheck()
 //							//  prevent starting outside this time
 //							//  time difference between externally measured 10ms (220V) and internally ones
 //							//  (uwTick) > 1ms. todo make shorter duration window.
-//				++amtSyncMissed;
+//				++amtWrongExti;
 //					res = 0;
 //			}  else {
 //				syncMissedPeriodStartTick = uwTick;

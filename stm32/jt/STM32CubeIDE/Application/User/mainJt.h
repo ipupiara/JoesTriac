@@ -120,10 +120,10 @@ typedef struct  {
 			int32_t triacDelay;
 			int32_t adcValue;
 			float adcVoltage;
-			uint32_t  amtExtiM;
-			uint32_t  maxExtiM;
-			uint32_t  amtSyncM;
-			uint32_t  amtIllegalExti;
+			uint32_t  amtMissZp;
+			uint32_t  maxMissZp;
+			uint32_t  amtIllExti;
+			uint32_t  amtWrongSyn;
 			uint32_t extiEvTotal;
 		} runScreenData;
 		struct {

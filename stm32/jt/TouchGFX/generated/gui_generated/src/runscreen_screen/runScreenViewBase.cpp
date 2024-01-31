@@ -98,7 +98,7 @@ runScreenViewBase::runScreenViewBase() :
     astroBorder.setBorderSize(2);
     add(astroBorder);
 
-    textArea3.setXY(520, 143);
+    textArea3.setXY(520, 144);
     textArea3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea3.setLinespacing(0);
     textArea3.setTypedText(touchgfx::TypedText(T___SINGLEUSE_WO37));
@@ -116,7 +116,7 @@ runScreenViewBase::runScreenViewBase() :
     textArea5.setTypedText(touchgfx::TypedText(T___SINGLEUSE_826A));
     add(textArea5);
 
-    adcValueText.setPosition(573, 143, 57, 23);
+    adcValueText.setPosition(578, 144, 57, 23);
     adcValueText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     adcValueText.setLinespacing(0);
     Unicode::snprintf(adcValueTextBuffer, ADCVALUETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_8LLG).getText());
@@ -133,7 +133,7 @@ runScreenViewBase::runScreenViewBase() :
     adcVoltageText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_HJ2X));
     add(adcVoltageText);
 
-    delayText.setXY(578, 167);
+    delayText.setXY(582, 167);
     delayText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     delayText.setLinespacing(0);
     Unicode::snprintf(delayTextBuffer, DELAYTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_KAL2).getText());
@@ -154,80 +154,68 @@ runScreenViewBase::runScreenViewBase() :
     textArea7.setTypedText(touchgfx::TypedText(T___SINGLEUSE_ORKO));
     add(textArea7);
 
-    amtMissedExti.setXY(577, 191);
-    amtMissedExti.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    amtMissedExti.setLinespacing(0);
-    Unicode::snprintf(amtMissedExtiBuffer, AMTMISSEDEXTI_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_WH5L).getText());
-    amtMissedExti.setWildcard(amtMissedExtiBuffer);
-    amtMissedExti.resizeToCurrentText();
-    amtMissedExti.setTypedText(touchgfx::TypedText(T___SINGLEUSE_EWD7));
-    add(amtMissedExti);
+    amtMissedZpText.setXY(582, 191);
+    amtMissedZpText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    amtMissedZpText.setLinespacing(0);
+    Unicode::snprintf(amtMissedZpTextBuffer, AMTMISSEDZPTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_WH5L).getText());
+    amtMissedZpText.setWildcard(amtMissedZpTextBuffer);
+    amtMissedZpText.resizeToCurrentText();
+    amtMissedZpText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_EWD7));
+    add(amtMissedZpText);
 
-    maxMissedExti.setXY(711, 191);
-    maxMissedExti.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    maxMissedExti.setLinespacing(0);
-    Unicode::snprintf(maxMissedExtiBuffer, MAXMISSEDEXTI_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_OO01).getText());
-    maxMissedExti.setWildcard(maxMissedExtiBuffer);
-    maxMissedExti.resizeToCurrentText();
-    maxMissedExti.setTypedText(touchgfx::TypedText(T___SINGLEUSE_XHZM));
-    add(maxMissedExti);
+    maxMissedZpText.setXY(711, 191);
+    maxMissedZpText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    maxMissedZpText.setLinespacing(0);
+    Unicode::snprintf(maxMissedZpTextBuffer, MAXMISSEDZPTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_OO01).getText());
+    maxMissedZpText.setWildcard(maxMissedZpTextBuffer);
+    maxMissedZpText.resizeToCurrentText();
+    maxMissedZpText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_XHZM));
+    add(maxMissedZpText);
 
-    textArea8.setXY(520, 216);
-    textArea8.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    textArea8.setLinespacing(0);
-    textArea8.setTypedText(touchgfx::TypedText(T___SINGLEUSE_KL4V));
-    add(textArea8);
-
-    amtSpk.setXY(578, 216);
-    amtSpk.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    amtSpk.setLinespacing(0);
-    Unicode::snprintf(amtSpkBuffer, AMTSPK_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_FM99).getText());
-    amtSpk.setWildcard(amtSpkBuffer);
-    amtSpk.resizeToCurrentText();
-    amtSpk.setTypedText(touchgfx::TypedText(T___SINGLEUSE_KY6O));
-    add(amtSpk);
-
-    textArea9.setXY(520, 240);
+    textArea9.setXY(520, 215);
     textArea9.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea9.setLinespacing(0);
     textArea9.setTypedText(touchgfx::TypedText(T___SINGLEUSE_GJGR));
     add(textArea9);
 
-    amtExti.setXY(609, 240);
-    amtExti.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    amtExti.setLinespacing(0);
-    amtExti.setWildcard(touchgfx::TypedText(T___SINGLEUSE_4H27).getText());
-    amtExti.resizeToCurrentText();
-    amtExti.setTypedText(touchgfx::TypedText(T___SINGLEUSE_0CK5));
-    add(amtExti);
+    amtExtiTotalText.setXY(578, 220);
+    amtExtiTotalText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    amtExtiTotalText.setLinespacing(0);
+    Unicode::snprintf(amtExtiTotalTextBuffer, AMTEXTITOTALTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_4H27).getText());
+    amtExtiTotalText.setWildcard(amtExtiTotalTextBuffer);
+    amtExtiTotalText.resizeToCurrentText();
+    amtExtiTotalText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_0CK5));
+    add(amtExtiTotalText);
 
-    textArea10.setXY(520, 265);
+    textArea10.setXY(520, 240);
     textArea10.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea10.setLinespacing(0);
     textArea10.setTypedText(touchgfx::TypedText(T___SINGLEUSE_145Y));
     add(textArea10);
 
-    illigelExtiText.setXY(573, 265);
+    illigelExtiText.setXY(573, 240);
     illigelExtiText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     illigelExtiText.setLinespacing(0);
-    illigelExtiText.setWildcard(touchgfx::TypedText(T___SINGLEUSE_YDJO).getText());
+    Unicode::snprintf(illigelExtiTextBuffer, ILLIGELEXTITEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_YDJO).getText());
+    illigelExtiText.setWildcard(illigelExtiTextBuffer);
     illigelExtiText.resizeToCurrentText();
     illigelExtiText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_BIDK));
     add(illigelExtiText);
 
-    textArea11.setXY(520, 289);
+    textArea11.setXY(520, 264);
     textArea11.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea11.setLinespacing(0);
     textArea11.setTypedText(touchgfx::TypedText(T___SINGLEUSE_88CO));
     add(textArea11);
 
-    syncMissedArea.setXY(573, 289);
-    syncMissedArea.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    syncMissedArea.setLinespacing(0);
-    syncMissedArea.setWildcard(touchgfx::TypedText(T___SINGLEUSE_GTMK).getText());
-    syncMissedArea.resizeToCurrentText();
-    syncMissedArea.setTypedText(touchgfx::TypedText(T___SINGLEUSE_I0F4));
-    add(syncMissedArea);
+    amtSyncWrongText.setXY(582, 265);
+    amtSyncWrongText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    amtSyncWrongText.setLinespacing(0);
+    Unicode::snprintf(amtSyncWrongTextBuffer, AMTSYNCWRONGTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_GTMK).getText());
+    amtSyncWrongText.setWildcard(amtSyncWrongTextBuffer);
+    amtSyncWrongText.resizeToCurrentText();
+    amtSyncWrongText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_I0F4));
+    add(amtSyncWrongText);
 }
 
 runScreenViewBase::~runScreenViewBase()

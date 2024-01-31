@@ -7,13 +7,13 @@
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
       <Text Id="__SingleUse_GTMK" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">         0</Translation>
+        <Translation Language="GB">   0</Translation>
       </Text>
       <Text Id="__SingleUse_I0F4" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_88CO" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">aSym</Translation>
+        <Translation Language="GB">wSnc</Translation>
       </Text>
       <Text Id="__SingleUse_YDJO" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">         0</Translation>
@@ -31,16 +31,7 @@
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_GJGR" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">amtExti</Translation>
-      </Text>
-      <Text Id="__SingleUse_FM99" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">0000</Translation>
-      </Text>
-      <Text Id="__SingleUse_KY6O" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">&lt;value&gt;</Translation>
-      </Text>
-      <Text Id="__SingleUse_KL4V" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">spkI</Translation>
+        <Translation Language="GB">amEx</Translation>
       </Text>
       <Text Id="__SingleUse_OO01" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">000</Translation>
