@@ -19,6 +19,7 @@ extern uint32_t   maxMissedZp;
 extern uint32_t amtExtiEvTotal;
 extern uint32_t  amountIllegalExti;
 extern uint32_t amtWrongSync;
+extern uint32_t amtExtiSequenceError;
 
 
 extern void startExtiCheck();

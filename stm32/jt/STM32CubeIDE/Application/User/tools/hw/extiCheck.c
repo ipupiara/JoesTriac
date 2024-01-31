@@ -36,13 +36,15 @@ uint32_t amtWrongSync;  //  todo add to astrolabium when ever used
 
 
 //  internal variables
-//uint32_t syncMissedPeriodStartTick;
+uint32_t syncMissedPeriodStartTick;
 uint32_t  uwTickWhenLastOk;
 uint32_t amtCountedMissed;
 uint8_t extiCheckCnt ;
 uint8_t extiStarting;
 uint8_t currentExtiState;
 uint32_t amtMissed;
+uint32_t extiStateBefore;
+uint32_t amtExtiSequenceError;
 
 void startExtiChecking()
 {
@@ -50,11 +52,11 @@ void startExtiChecking()
 	amtMissedZpTotal = 0;
 	maxMissedZp = 0;
 	amtCountedMissed = 0;
-//	syncMissedPeriodStartTick = 5; //  initialization can only be done by Exti (iE. zeroPass)
+	syncMissedPeriodStartTick = 0;
 	amtMissed = 0;
 	extiCheckCnt=0;
 	amtWrongSync = 0;
-	extiStarting= 1;
+	amtExtiSequenceError = 0;
 }
 
 
@@ -130,8 +132,6 @@ void stopExtiTimer()
 
 void startExtiTimer()
 {
-	currentExtiState=isExtiPinSet();
-	extiCheckCnt = 1;
 	triacExtiCheckTimer.Instance->CNT = 0;
 	triacExtiCheckTimer.Instance->CR1 |= (TIM_CR1_CEN);
 
@@ -139,18 +139,20 @@ void startExtiTimer()
 
 void startExtiCheck()
 {
-//	uint8_t res = 0;
+	uint8_t res = 0;
 //	uint8_t extiState=isExtiPinSet();
 
 	++ amtExtiEvTotal;   // todo maybe later on astrolabium
 
 	if (extiCheckCnt > 0) {
-								// another exti happened within short time, probable not valid
-								// but maybe a spike within  we loose a valid one.
-								// therefor the handleMissed
+								// another exti happened within short time, both are probable not valid
+								// but maybe a spike  just before a valid one, then we loose the valid one.
+								// gives a handleMissed
 		stopExtiTimer();
 		incAmtIllegalExti();
+		res = 0;
 	} else {
+
 //		if  (currentExtiState == extiZeroPassTriggerStartValue) {
 //				if 	((((uwTick- syncMissedPeriodStartTick  ) % 10) >= 2 ) && (extiStarting != 1)) {
 //							//  prevent starting outside this time
@@ -167,12 +169,19 @@ void startExtiCheck()
 //			res =1;   //  todo check that there is only one stop event, but due to timer
 						//testing should not+
 //			happen, only let legal events happen
+			res = 1;
 		}
-//		if (res == 1)  {
-			startExtiTimer();
-//			debugExti();   // for debug
-//		}
 //	}
+	if (res == 1)  {        // one side is always stable, but within this short time is probable a spike return
+
+		//  todo handle amtExtiSequenceError and extiStateBefore
+
+
+		currentExtiState=isExtiPinSet();
+		extiCheckCnt = 1;
+		startExtiTimer();
+//		debugExti();   // for debug
+	}
 }
 
 
