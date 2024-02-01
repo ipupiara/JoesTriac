@@ -152,7 +152,6 @@ void startExtiCheck()
 		incAmtIllegalExti();
 		res = 0;
 	} else {
-
 //		if  (currentExtiState == extiZeroPassTriggerStartValue) {
 //				if 	((((uwTick- syncMissedPeriodStartTick  ) % 10) >= 2 ) && (extiStarting != 1)) {
 //							//  prevent starting outside this time
@@ -169,14 +168,24 @@ void startExtiCheck()
 //			res =1;   //  todo check that there is only one stop event, but due to timer
 						//testing should not+
 //			happen, only let legal events happen
+
 			res = 1;
+
+			currentExtiState=isExtiPinSet();
+			if (extiStarting)  {
+				extiStateBefore = currentExtiState;
+			}  else  {
+				if (extiStateBefore == currentExtiState)  {
+					++ amtExtiSequenceError;
+					extiStateBefore = currentExtiState;
+				}
+			}
 		}
 //	}
+
 	if (res == 1)  {        // one side is always stable, but within this short time is probable a spike return
 
 		//  todo handle amtExtiSequenceError and extiStateBefore
-
-
 		currentExtiState=isExtiPinSet();
 		extiCheckCnt = 1;
 		startExtiTimer();

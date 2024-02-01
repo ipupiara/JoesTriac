@@ -72,6 +72,8 @@ protected:
     touchgfx::TextAreaWithOneWildcard illigelExtiText;
     touchgfx::TextArea textArea11;
     touchgfx::TextAreaWithOneWildcard amtSyncWrongText;
+    touchgfx::TextArea textArea12;
+    touchgfx::TextAreaWithOneWildcard amtSeqErrText;
 
     /*
      * Wildcard Buffers
@@ -94,12 +96,14 @@ protected:
     touchgfx::Unicode::UnicodeChar amtMissedZpTextBuffer[AMTMISSEDZPTEXT_SIZE];
     static const uint16_t MAXMISSEDZPTEXT_SIZE = 10;
     touchgfx::Unicode::UnicodeChar maxMissedZpTextBuffer[MAXMISSEDZPTEXT_SIZE];
-    static const uint16_t AMTEXTITOTALTEXT_SIZE = 10;
+    static const uint16_t AMTEXTITOTALTEXT_SIZE = 20;
     touchgfx::Unicode::UnicodeChar amtExtiTotalTextBuffer[AMTEXTITOTALTEXT_SIZE];
-    static const uint16_t ILLIGELEXTITEXT_SIZE = 10;
+    static const uint16_t ILLIGELEXTITEXT_SIZE = 20;
     touchgfx::Unicode::UnicodeChar illigelExtiTextBuffer[ILLIGELEXTITEXT_SIZE];
     static const uint16_t AMTSYNCWRONGTEXT_SIZE = 10;
     touchgfx::Unicode::UnicodeChar amtSyncWrongTextBuffer[AMTSYNCWRONGTEXT_SIZE];
+    static const uint16_t AMTSEQERRTEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar amtSeqErrTextBuffer[AMTSEQERRTEXT_SIZE];
 
 private:
 

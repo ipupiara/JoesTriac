@@ -125,6 +125,7 @@ typedef struct  {
 			uint32_t  amtIllExti;
 			uint32_t  amtWrongSyn;
 			uint32_t extiEvTotal;
+			uint32_t amtSeqErr;
 		} runScreenData;
 		struct {
 			float   	 devV;

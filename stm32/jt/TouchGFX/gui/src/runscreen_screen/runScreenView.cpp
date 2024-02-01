@@ -76,37 +76,41 @@ void runScreenView::update(pJoesPresenterEventT  pMsg )
 	 boxProgress1.invalidate();
 
 	 if (astroBorder.isVisible())  {
-		 Unicode::snprintf(adcValueTextBuffer, 6, "%02d", pMsg->evData.runScreenData.adcValue);
+		 Unicode::snprintf(adcValueTextBuffer, 6, "%04d", pMsg->evData.runScreenData.adcValue);
 		 adcValueText.setWildcard(adcValueTextBuffer);
 		 adcValueText.invalidate();
 
-		 Unicode::snprintf(adcVoltageTextBuffer, 6, "%02d", pMsg->evData.runScreenData.adcVoltage);
+		 Unicode::snprintfFloat(adcVoltageTextBuffer, 6, "%01.3f", pMsg->evData.runScreenData.adcVoltage);
 		 adcVoltageText.setWildcard(adcVoltageTextBuffer);
 		 adcVoltageText.invalidate();
 
-		 Unicode::snprintf(delayTextBuffer, 6, "%02d", pMsg->evData.runScreenData.triacDelay);
+		 Unicode::snprintf(delayTextBuffer, 6, "%04d", pMsg->evData.runScreenData.triacDelay);
 		 delayText.setWildcard(delayTextBuffer);
 		 delayText.invalidate();
 
-		 Unicode::snprintf(maxMissedZpTextBuffer, 6, "%02d", pMsg->evData.runScreenData.triacDelay);
+		 Unicode::snprintf(amtMissedZpTextBuffer, 6, "%04d", pMsg->evData.runScreenData.maxMissZp);
+		 amtMissedZpText.setWildcard(amtMissedZpTextBuffer);
+		 amtMissedZpText.invalidate();
+
+		 Unicode::snprintf(maxMissedZpTextBuffer, 6, "%03d", pMsg->evData.runScreenData.triacDelay);
 		 maxMissedZpText.setWildcard(maxMissedZpTextBuffer);
 		 maxMissedZpText.invalidate();
 
-		 Unicode::snprintf(maxMissedZpTextBuffer, 6, "%02d", pMsg->evData.runScreenData.maxMissZp);
-		 currentTimeText.setWildcard(maxMissedZpTextBuffer);
-		 currentTimeText.invalidate();
+		 Unicode::snprintf(amtExtiTotalTextBuffer, AMTEXTITOTALTEXT_SIZE, "%016d", pMsg->evData.runScreenData.extiEvTotal);
+		 amtExtiTotalText.setWildcard(amtExtiTotalTextBuffer);
+		 amtExtiTotalText.invalidate();
 
-		 Unicode::snprintf(amtExtiTotalTextBuffer, 6, "%02d", pMsg->evData.runScreenData.extiEvTotal);
-		 currentTimeText.setWildcard(amtExtiTotalTextBuffer);
-		 currentTimeText.invalidate();
+		 Unicode::snprintf(illigelExtiTextBuffer, ILLIGELEXTITEXT_SIZE, "%010d", pMsg->evData.runScreenData.amtIllExti);
+		 illigelExtiText.setWildcard(illigelExtiTextBuffer);
+		 illigelExtiText.invalidate();
 
-		 Unicode::snprintf(illigelExtiTextBuffer, 6, "%02d", pMsg->evData.runScreenData.amtIllExti);
-		 currentTimeText.setWildcard(illigelExtiTextBuffer);
-		 currentTimeText.invalidate();
+		 Unicode::snprintf(amtSyncWrongTextBuffer, 6, "%04d", pMsg->evData.runScreenData.amtWrongSyn);
+		 amtSyncWrongText.setWildcard(amtSyncWrongTextBuffer);
+		 amtSyncWrongText.invalidate();
 
-		 Unicode::snprintf(amtSyncWrongTextBuffer, 6, "%02d", pMsg->evData.runScreenData.amtWrongSyn);
-		 currentTimeText.setWildcard(amtSyncWrongTextBuffer);
-		 currentTimeText.invalidate();
+		 Unicode::snprintf(amtSeqErrTextBuffer, 6, "%04d", pMsg->evData.runScreenData.amtWrongSyn);
+		 amtSeqErrText.setWildcard(amtSeqErrTextBuffer);
+		 amtSeqErrText.invalidate();
 
 	 }
 

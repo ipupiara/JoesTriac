@@ -216,6 +216,21 @@ runScreenViewBase::runScreenViewBase() :
     amtSyncWrongText.resizeToCurrentText();
     amtSyncWrongText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_I0F4));
     add(amtSyncWrongText);
+
+    textArea12.setXY(520, 288);
+    textArea12.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea12.setLinespacing(0);
+    textArea12.setTypedText(touchgfx::TypedText(T___SINGLEUSE_EBF2));
+    add(textArea12);
+
+    amtSeqErrText.setXY(582, 289);
+    amtSeqErrText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    amtSeqErrText.setLinespacing(0);
+    Unicode::snprintf(amtSeqErrTextBuffer, AMTSEQERRTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_CO44).getText());
+    amtSeqErrText.setWildcard(amtSeqErrTextBuffer);
+    amtSeqErrText.resizeToCurrentText();
+    amtSeqErrText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_9SSS));
+    add(amtSeqErrText);
 }
 
 runScreenViewBase::~runScreenViewBase()

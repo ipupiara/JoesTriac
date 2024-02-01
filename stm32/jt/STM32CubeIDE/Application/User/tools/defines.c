@@ -72,6 +72,7 @@ void sendActualValuesToRunNStopScreen(uint16_t secondsRemaining, uint16_t second
 	presenterMessage.evData.runScreenData.amtIllExti= amountIllegalExti;
 	presenterMessage.evData.runScreenData.extiEvTotal = amtExtiEvTotal;
 	presenterMessage.evData.runScreenData.amtWrongSyn = amtWrongSync;
+	presenterMessage.evData.runScreenData.amtSeqErr = amtExtiSequenceError;
 	sendPresenterMessage(&presenterMessage);
 }
 

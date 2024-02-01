@@ -549,7 +549,7 @@
             "X": 26,
             "Y": 27,
             "Width": 168,
-            "Height": 23,
+            "Height": 24,
             "TextId": "__SingleUse_JIYE",
             "TextRotation": "0",
             "AutoSize": true
@@ -560,7 +560,7 @@
             "X": 277,
             "Y": 15,
             "Width": 72,
-            "Height": 45,
+            "Height": 48,
             "TextId": "__SingleUse_8TPJ",
             "TextRotation": "0",
             "AutoSize": true,
@@ -576,7 +576,7 @@
             "X": 26,
             "Y": 169,
             "Width": 132,
-            "Height": 23,
+            "Height": 24,
             "TextId": "__SingleUse_ASW4",
             "TextRotation": "0",
             "AutoSize": true
@@ -587,7 +587,7 @@
             "X": 190,
             "Y": 169,
             "Width": 48,
-            "Height": 23,
+            "Height": 24,
             "TextId": "__SingleUse_ZGP7",
             "TextRotation": "0",
             "Color": {
@@ -762,7 +762,7 @@
             "X": 178,
             "Y": 290,
             "Width": 60,
-            "Height": 23,
+            "Height": 24,
             "TextId": "__SingleUse_1KAN",
             "TextRotation": "0",
             "AutoSize": true,
@@ -778,7 +778,7 @@
             "X": 26,
             "Y": 290,
             "Width": 108,
-            "Height": 23,
+            "Height": 24,
             "TextId": "__SingleUse_X3FF",
             "TextRotation": "0",
             "AutoSize": true
@@ -789,7 +789,7 @@
             "X": 26,
             "Y": 329,
             "Width": 108,
-            "Height": 23,
+            "Height": 24,
             "TextId": "__SingleUse_I5ZJ",
             "TextRotation": "0",
             "AutoSize": true
@@ -800,7 +800,7 @@
             "X": 190,
             "Y": 329,
             "Width": 48,
-            "Height": 23,
+            "Height": 24,
             "TextId": "__SingleUse_14SY",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1854,7 +1854,7 @@
             "Wildcard1": {
               "TextId": "__SingleUse_4H27",
               "UseBuffer": true,
-              "BufferSize": 10
+              "BufferSize": 20
             }
           },
           {
@@ -1881,7 +1881,7 @@
             "Wildcard1": {
               "TextId": "__SingleUse_YDJO",
               "UseBuffer": true,
-              "BufferSize": 10
+              "BufferSize": 20
             }
           },
           {
@@ -1907,6 +1907,33 @@
             "AutoSize": true,
             "Wildcard1": {
               "TextId": "__SingleUse_GTMK",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea12",
+            "X": 520,
+            "Y": 288,
+            "Width": 48,
+            "Height": 24,
+            "TextId": "__SingleUse_EBF2",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "amtSeqErrText",
+            "X": 582,
+            "Y": 289,
+            "Width": 48,
+            "Height": 24,
+            "TextId": "__SingleUse_9SSS",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_CO44",
               "UseBuffer": true,
               "BufferSize": 10
             }
