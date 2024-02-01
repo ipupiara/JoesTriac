@@ -22,6 +22,9 @@
 #define triacExtiCheckTimerInstance  TIM3
 #define  enableExtiCheckTimerClock()  __HAL_RCC_TIM3_CLK_ENABLE()
 #define amtExtiEvChecks   3
+#define msTick  debugTick //  uwTick
+
+uint32_t debugTick;
 
 
 TIM_HandleTypeDef triacExtiCheckTimer;
@@ -65,7 +68,7 @@ void startExtiChecking()
 #define resetHandleMissed() \
   do { \
 	  amtCountedMissed = 0; \
-	  uwTickWhenLastOk = uwTick; \
+	  uwTickWhenLastOk = msTick; \
   } while(0)
 
 #define incAmtIllegalExti() \
@@ -98,7 +101,7 @@ uint8_t handleMissed()
 
 	if (currentExtiPinState == extiZeroPassTriggerStartValue) {
 
-		uint32_t  amtPassed = ((uwTickWhenLastOk +1 )/10 );
+		uint32_t  amtPassed = ((msTick - uwTickWhenLastOk +1 )/10 );
 		uint32_t  amtMissed = amtPassed - 1;
 
 		 if ((amtMissed == 0) ||(extiStarting ==1 )) {
@@ -153,14 +156,14 @@ void startExtiCheck()
 		res = 0;
 	} else {
 //		if  (currentExtiState == extiZeroPassTriggerStartValue) {
-//				if 	((((uwTick- syncMissedPeriodStartTick  ) % 10) >= 2 ) && (extiStarting != 1)) {
+//				if 	((((msTick- syncMissedPeriodStartTick  ) % 10) >= 2 ) && (extiStarting != 1)) {
 //							//  prevent starting outside this time
 //							//  time difference between externally measured 10ms (220V) and internally ones
-//							//  (uwTick) > 1ms. todo make shorter duration window.
+//							//  (msTick) > 1ms. todo make shorter duration window.
 //				++amtWrongExti;
 //					res = 0;
 //			}  else {
-//				syncMissedPeriodStartTick = uwTick;
+//				syncMissedPeriodStartTick = msTick;
 //	//			extiStarting = 1;
 //				res = 1;
 //			}
