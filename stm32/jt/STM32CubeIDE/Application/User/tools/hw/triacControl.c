@@ -392,6 +392,7 @@ void startTriacRun()
 {
 	startExtiChecking();	 //  todo either here or in initInterruptsNPorzes
 	setTriacTriggerDelay(stmTriggerDelayMax);
+	__HAL_GPIO_EXTI_CLEAR_IT(zeroPass_Pin);
 	enableZeroPassDetector();
 //	checkInterrupts();
 }
@@ -443,11 +444,12 @@ void initTriacControl()
 {
 //	startDebuggingTriacRun();
 	triacTriggerDelay = stmTriggerDelayMax;
-	initZeroPassDetector();
+	initExtiCheck();
 	initTriacDelayTimer();
 	initTriacStopTimer();
 	initTriacRailPwmTimer();
-	initExtiCheck();
+	initZeroPassDetector();
+
 //	initAmpsZeroPassDetect();
 #ifdef debugApp
 	startDebuggingTriacRun();

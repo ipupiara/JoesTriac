@@ -60,6 +60,7 @@ void startExtiChecking()
 	extiCheckCnt=0;
 	amtWrongSync = 0;
 	amtExtiSequenceError = 0;
+	extiStarting = 1;
 }
 
 
@@ -101,7 +102,8 @@ uint8_t handleMissed()
 
 	if (currentExtiPinState == extiZeroPassTriggerStartValue) {
 
-		uint32_t  amtPassed = ((msTick - uwTickWhenLastOk +1 )/10 );
+		uint32_t  amtPassed = ((msTick - uwTickWhenLastOk + 2 )/10 );   // we assume that never more than 2 events are missed (the two on the border )
+																		// later we need a better clock (cpu clock counter or timer)
 		uint32_t  amtMissed = amtPassed - 1;
 
 		 if ((amtMissed == 0) ||(extiStarting ==1 )) {
@@ -126,16 +128,17 @@ uint8_t handleMissed()
 	return res;
 }
 
-
 void stopExtiTimer()
 {
 	triacExtiCheckTimer.Instance->CNT = 0;
+	__HAL_TIM_DISABLE_IT(&triacExtiCheckTimer, TIM_IT_UPDATE);
 	triacExtiCheckTimer.Instance->CR1 &= ~(TIM_CR1_CEN);
 }
 
 void startExtiTimer()
 {
 	triacExtiCheckTimer.Instance->CNT = 0;
+	__HAL_TIM_ENABLE_IT(&triacExtiCheckTimer, TIM_IT_UPDATE);
 	triacExtiCheckTimer.Instance->CR1 |= (TIM_CR1_CEN);
 
 }
