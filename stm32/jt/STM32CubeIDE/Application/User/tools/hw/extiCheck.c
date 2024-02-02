@@ -109,6 +109,7 @@ uint8_t handleMissed()
 
 		 if ((amtMissed == 0) ||(extiStarting ==1 )) {
 			 extiStarting = 0;         // extiStarting last needed here as 1 for current run
+			 resetHandleMissed();
 			 res = 1;
 		 }  else  {
 			amtMissedZpTotal += ( amtMissed - amtCountedMissed);
@@ -116,6 +117,7 @@ uint8_t handleMissed()
 			if (amtMissed > maxMissedZp) {maxMissedZp= amtMissed;}
 
 			if (amtPassed & (uint32_t) 0x01) {  //  odd number todo to be tested
+				resetHandleMissed();
 				res = 1;
 			}  else {
 				res = 0;    //  prevent short circuit
@@ -126,7 +128,6 @@ uint8_t handleMissed()
 	 }
 	if (res == 1) {
 		doJobOnZeroPassEvent(currentExtiPinState);
-		resetHandleMissed();
 	}
 	return res;
 }
