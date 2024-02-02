@@ -381,16 +381,16 @@ void EXTI15_10_IRQHandler(void)
 	  if(__HAL_GPIO_EXTI_GET_IT(zeroPass_Pin) != 0) {
 		__HAL_GPIO_EXTI_CLEAR_IT(zeroPass_Pin);
 
-		startExtiCheck();
+	//	startExtiCheck();
 	//  todo needs be tested first and
 
-//		doJobOnZeroPassEvent(isExtiPinSet());
+		doJobOnZeroPassEvent(isExtiPinSet());
 	  }
 }
 
 void startTriacRun()
 {
-	startExtiChecking();	 //  todo either here or in initInterruptsNPorzes
+	startExtiChecking();
 	setTriacTriggerDelay(stmTriggerDelayMax);
 	__HAL_GPIO_EXTI_CLEAR_IT(zeroPass_Pin);
 	enableZeroPassDetector();
@@ -417,8 +417,7 @@ void stopTriacTimersWhenDebugHalt()
 void startDebuggingTriacRun()
 {
 	stopTriacTimersWhenDebugHalt();
-	startTriacRun();
-
+//	startTriacRun();
 }
 
 void doJobOnZeroPassEvent(uint8_t ev)
@@ -442,7 +441,7 @@ void doJobOnZeroPassEvent(uint8_t ev)
 
 void initTriacControl()
 {
-//	startDebuggingTriacRun();
+	startDebuggingTriacRun();   //  todo comment this out after debugging
 	triacTriggerDelay = stmTriggerDelayMax;
 	initExtiCheck();
 	initTriacDelayTimer();

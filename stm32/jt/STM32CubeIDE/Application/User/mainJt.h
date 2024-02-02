@@ -109,7 +109,6 @@ typedef enum {
 typedef struct  {
 	presenterMessageType messageType;
 	union {
-		char calibState  [20];
 		uint32_t calibTriacDelay;
 		float    desiredAmps;
 		uint32_t  alarmTimeSince;

@@ -12,9 +12,11 @@
 // TODO not only missed would be a problem  also to much (emi) is a more probable case
 // introduce a eventcounter in exti (additional states) and add short delays therefore
 // todo make this file shorter by splitting it in more files eg. one for triacControl, one for all the rest (buzzer, secondTick, durationtimer, alarm  )
+
 TIM_HandleTypeDef htim11;
 
 #define buzzerTimer htim11
+
 
 
 /*

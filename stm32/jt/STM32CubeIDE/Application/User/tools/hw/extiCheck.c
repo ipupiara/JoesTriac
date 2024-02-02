@@ -93,7 +93,6 @@ void initHandleMissed()
 
 }
 
-
 uint8_t handleMissed()
 {
 	uint8_t res = 0;
@@ -102,13 +101,14 @@ uint8_t handleMissed()
 
 	if (currentExtiPinState == extiZeroPassTriggerStartValue) {
 
-		uint32_t  amtPassed = ((msTick - uwTickWhenLastOk + 2 )/10 );   // we assume that never more than 2 events are missed (the two on the border )
+		uint32_t  amtPassed = ((msTick - uwTickWhenLastOk + 2 )/10 );   // we assume that never more than 2 events can get missed,
+																		// two just outside the border, due to slightly different clock speeds.
+																		// not very likely, but also not impossible. anyhow amtPassed value will be correct.
 																		// later we need a better clock (cpu clock counter or timer)
 		uint32_t  amtMissed = amtPassed - 1;
 
 		 if ((amtMissed == 0) ||(extiStarting ==1 )) {
 			 extiStarting = 0;         // extiStarting last needed here as 1 for current run
-			 resetHandleMissed();
 			 res = 1;
 		 }  else  {
 			amtMissedZpTotal += ( amtMissed - amtCountedMissed);
@@ -116,7 +116,6 @@ uint8_t handleMissed()
 			if (amtMissed > maxMissedZp) {maxMissedZp= amtMissed;}
 
 			if (amtPassed & (uint32_t) 0x01) {  //  odd number todo to be tested
-				resetHandleMissed();
 				res = 1;
 			}  else {
 				res = 0;    //  prevent short circuit
@@ -125,6 +124,10 @@ uint8_t handleMissed()
 	 }  else {
 		 res = 1;
 	 }
+	if (res == 1) {
+		doJobOnZeroPassEvent(currentExtiPinState);
+		resetHandleMissed();
+	}
 	return res;
 }
 
@@ -140,7 +143,6 @@ void startExtiTimer()
 	triacExtiCheckTimer.Instance->CNT = 0;
 	__HAL_TIM_ENABLE_IT(&triacExtiCheckTimer, TIM_IT_UPDATE);
 	triacExtiCheckTimer.Instance->CR1 |= (TIM_CR1_CEN);
-
 }
 
 void startExtiCheck()
@@ -171,12 +173,6 @@ void startExtiCheck()
 //				res = 1;
 //			}
 //		}  else {
-//			res =1;   //  todo check that there is only one stop event, but due to timer
-						//testing should not+
-//			happen, only let legal events happen
-
-			res = 1;
-
 			currentExtiState=isExtiPinSet();
 			if (extiStarting)  {
 				extiStateBefore = currentExtiState;
@@ -190,8 +186,6 @@ void startExtiCheck()
 //	}
 
 	if (res == 1)  {        // one side is always stable, but within this short time is probable a spike return
-
-		//  todo handle amtExtiSequenceError and extiStateBefore
 		currentExtiState=isExtiPinSet();
 		extiCheckCnt = 1;
 		startExtiTimer();
@@ -272,5 +266,9 @@ void initExtiCheck()
 	amountIllegalExti = 0;
 	extiCheckCnt= 0;
 	initExtiCheckTimer();
+
+	//  general todo smt32F769 check if it needs an external powersupply for debuging...
+	//  or 800ma power over usb
+
 }
 

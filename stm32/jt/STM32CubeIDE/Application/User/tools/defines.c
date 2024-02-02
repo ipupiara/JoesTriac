@@ -50,7 +50,7 @@ void sendActualValuesToCalibScreen()
 	msg.evData.calibrationScreenData.adcValue = getCurrentAmpsADCValue();
 	msg.evData.calibrationScreenData.adcVolts = adcVoltage();
 	msg.evData.calibrationScreenData.calibTriacDly = getTriacTriggerDelay();
-	sendPresenterMessage(&msg);
+//	sendPresenterMessage(&msg);
 }
 
 
