@@ -50,7 +50,7 @@ void sendActualValuesToCalibScreen()
 	msg.evData.calibrationScreenData.adcValue = getCurrentAmpsADCValue();
 	msg.evData.calibrationScreenData.adcVolts = adcVoltage();
 	msg.evData.calibrationScreenData.calibTriacDly = getTriacTriggerDelay();
-//	sendPresenterMessage(&msg);
+	sendPresenterMessage(&msg);
 }
 
 
@@ -474,7 +474,7 @@ tStatus restorePersistenData()
 void errorHandler(uint32_t  code, errorSeverity severity, char* errorString, char* method )
 {
 	char buffer [100];
-	snprintf(buffer, 99, "%s, %s, %10lX, %X", method, errorString,code,severity);
+	err_printf(buffer, 99, "%s, %s, %10lX, %X", method, errorString,code,severity);
 	//  todo log to persistency
 
 	if (severity == stop) {  do {} while (1);}

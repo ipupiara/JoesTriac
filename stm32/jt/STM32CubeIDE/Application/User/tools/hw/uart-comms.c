@@ -33,7 +33,7 @@ osMessageQueueId_t    serialMessageQ;
 char receiveBuffer [maxSerialStringSz+1];
 //char transmitBuffer  [maxSerialStringSz+1];
 
-void private_printf( char *emsg, ...);
+//void private_printf( char *emsg, ...);
 
 void OnPrintError()
 {
@@ -89,48 +89,48 @@ void init_printf()
 
 void info_printf( char *emsg, ...)
 {
-#ifndef debugPid
 	va_list ap;
 	va_start(ap, emsg);
-	private_printf(emsg, ap);
-	va_end(ap);
+#ifndef debugPid
+//	private_printf(emsg, ap);
 #endif
+	va_end(ap);
 }
 
 void pid_printf( char *emsg, ...)
 {
+	va_list ap;
+	va_start(ap, emsg);
 #ifdef debugPid
-	va_list ap;
-	va_start(ap, emsg);
-	private_printf(emsg, ap);
-	va_end(ap);
+//	private_printf(emsg, ap);
 #endif
-}
-
-void private_printf( char *emsg, ...)
-{
-
-	//  todo did not work using touchgfx and freertos ????????   but worked with testmethod in uarthw.c and under debugApp definition
-	//  crashed into an ??? wwdg ??? loop in startup.s  why what how ?????
-	//  todo further debug bug
-
-	osStatus_t status;
-	va_list ap;
-	va_start(ap, emsg);
-
-	if (serialOn == 1) {
-
-		vsnprintf((char *)&transmitBuffer, maxSerialStringSz-1,  emsg, ap);
-		transmitBuffer[maxSerialStringSz-1] = 0;
-
-		status = osMessageQueuePut(serialMessageQ,&transmitBuffer,0,0);
-		if (status != osOK)  {
-			errorHandler(status ,goOn," osMessageQueuePut ","info_printf");
-		}
-	}
 	va_end(ap);
-////	//	printf(emsg, ap);
 }
+
+//void private_printf( char *emsg, ...)
+//{
+//
+//	//  todo did not work using touchgfx and freertos ????????   but worked with testmethod in uarthw.c and under debugApp definition
+//	//  crashed into an ??? wwdg ??? loop in startup.s  why what how ?????
+//	//  todo further debug bug
+//
+//	osStatus_t status;
+//	va_list ap;
+//	va_start(ap, emsg);
+//
+//	if (serialOn == 1) {
+//
+//		vsnprintf((char *)&transmitBuffer, maxSerialStringSz-1,  emsg, ap);
+//		transmitBuffer[maxSerialStringSz-1] = 0;
+//
+//		status = osMessageQueuePut(serialMessageQ,&transmitBuffer,0,0);
+//		if (status != osOK)  {
+//			errorHandler(status ,goOn," osMessageQueuePut ","info_printf");
+//		}
+//	}
+//	va_end(ap);
+//////	//	printf(emsg, ap);
+//}
 
 // just for usage with short strings, otherwise sizes of buffers need to be increased
 void  err_printf ( char *emsg, ...)
@@ -138,7 +138,7 @@ void  err_printf ( char *emsg, ...)
 	va_list ap;
 	va_start(ap, emsg);
 	++ amtErr;
-	private_printf(emsg, ap);
+//	private_printf(emsg, ap);
 	va_end(ap);
 }
 

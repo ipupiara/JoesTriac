@@ -321,10 +321,15 @@ uStInt evCalibrateScaleChecker(void)
 }
 
 
+uint32_t calibrateSecTickCounter;
+uint8_t calibScreenReadyFsm;
+
 void entryCalibrateLowState(void)
 {
 	info_printf("entryCalibrateLowState\n");
 	setTriacTriggerDelay(stmTriggerDelayMax);
+	calibrateSecTickCounter = 0;
+	calibScreenReadyFsm = 0;
 //	setTriacTriggerDelay(100);
 }
 
@@ -334,16 +339,21 @@ void exitCalibrateLowState(void)
 //	clr_scr();
 }
 
+
 uStInt evCalibrateLowChecker(void)
 {
 	printf("check for event in State evStateIdle\n");
 	uStInt res = uStIntNoMatch;
 	if (currentEvent->evType == evCalibScreenReady)
 	{
-		CJoesPresenterEventT msg;
-		msg.messageType = calibDesiredAmps;
-		msg.evData.desiredAmps = calibLowAmps;
-		sendPresenterMessage(&msg);
+		calibScreenReadyFsm = 1;
+
+		// suddenly crashed into a hardfault because the screen was not yet ready
+		// (due to the lack of such an ready event.... poor screen implementation?)
+//		CJoesPresenterEventT msg;
+//		msg.messageType = calibDesiredAmps;
+//		msg.evData.desiredAmps = calibLowAmps;
+//		sendPresenterMessage(&msg);
 	}
 	if (currentEvent->evType == evCalibContinueClick)
 	{
@@ -360,6 +370,15 @@ uStInt evCalibrateLowChecker(void)
 
 		END_EVENT_HANDLER(PJoesTriacStateChart);
 		res =  uStIntHandlingDone;
+	}
+	if (currentEvent->evType == evSecondsTick)  {
+		++calibrateSecTickCounter;
+		if ((calibrateSecTickCounter == 2) && (calibScreenReadyFsm == 1)) {
+			CJoesPresenterEventT msg;
+			msg.messageType = calibDesiredAmps;
+			msg.evData.desiredAmps = calibLowAmps;
+			sendPresenterMessage(&msg);
+		}
 	}
 	return res;
 }

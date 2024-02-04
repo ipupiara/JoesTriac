@@ -296,7 +296,8 @@ void initJt()
 		errorHandler((uint32_t)mainJtMessageQ ,stop," mainJtMessageQ ","initJt");
 	}
 
-	presenterMessageQ =  osMessageQueueNew(5,((sizeof(CJoesPresenterEventT)*memoryMultiplier) +4) , NULL);
+	uint32_t sz = ((sizeof(CJoesPresenterEventT)*memoryMultiplier));
+	presenterMessageQ =  osMessageQueueNew(5,sz , NULL);
 	if (presenterMessageQ  == NULL)   {
 		errorHandler((uint32_t)NULL, stop," presenterMessageQ ", "initJt");
 	}
