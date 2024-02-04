@@ -34,9 +34,8 @@ uint32_t   maxMissedZp;
 uint32_t  amtMissedZpTotal;
 uint32_t amountIllegalExti;
 uint32_t amtExtiEvTotal;
-uint32_t amtWrongSync;  //  todo add to astrolabium when ever used
-
-
+uint32_t amtWrongSync;
+uint32_t amtExtiSequenceError;
 
 //  internal variables
 uint32_t syncMissedPeriodStartTick;
@@ -47,7 +46,7 @@ uint8_t extiStarting;
 uint8_t currentExtiState;
 uint32_t amtMissed;
 uint32_t extiStateBefore;
-uint32_t amtExtiSequenceError;
+
 
 void startExtiChecking()
 {

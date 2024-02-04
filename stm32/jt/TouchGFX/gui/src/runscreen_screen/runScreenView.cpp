@@ -40,7 +40,7 @@ void runScreenView::setupScreen()
 	 boxProgress1.setValue(0);
 	 boxProgress1.invalidate();
 
-
+	 showAstrolabium(false);
 }
 
 void runScreenView::tearDownScreen()
@@ -111,13 +111,65 @@ void runScreenView::update(pJoesPresenterEventT  pMsg )
 		 Unicode::snprintf(amtSeqErrTextBuffer, 6, "%04d", pMsg->evData.runScreenData.amtWrongSyn);
 		 amtSeqErrText.setWildcard(amtSeqErrTextBuffer);
 		 amtSeqErrText.invalidate();
-
 	 }
-
-
 }
+
+void runScreenView::showAstrolabium(bool vis)     // this is bullshit, but how do else with stm touchgfx and it's "rich" user manual
+{
+	adcValueText.setVisible(vis);
+	adcVoltageText.setVisible(vis);
+	delayText.setVisible(vis);
+	amtMissedZpText.setVisible(vis);
+	maxMissedZpText.setVisible(vis);
+	amtExtiTotalText.setVisible(vis);
+	illigelExtiText.setVisible(vis);
+	amtSyncWrongText.setVisible(vis);
+	amtSeqErrText.setVisible(vis);
+	textArea3.setVisible(vis);
+	textArea4.setVisible(vis);
+	textArea5.setVisible(vis);
+	textArea6.setVisible(vis);
+	textArea7.setVisible(vis);
+	textArea9.setVisible(vis);
+	textArea10.setVisible(vis);
+	textArea11.setVisible(vis);
+	textArea12.setVisible(vis);
+	astroBorder.setVisible(vis);
+
+	adcValueText.invalidate();
+	adcVoltageText.invalidate();
+	delayText.invalidate();
+	amtMissedZpText.invalidate();
+	maxMissedZpText.invalidate();
+	amtExtiTotalText.invalidate();
+	illigelExtiText.invalidate();
+	amtSyncWrongText.invalidate();
+	amtSeqErrText.invalidate();
+	textArea3.invalidate();
+	textArea4.invalidate();
+	textArea5.invalidate();
+	textArea6.invalidate();
+	textArea7.invalidate();
+	textArea9.invalidate();
+	textArea10.invalidate();
+	textArea11.invalidate();
+	textArea12.invalidate();
+	astroBorder.invalidate();
+	astroBorder.invalidate();         // hope this works since all is under this border
+}
+
 
 void runScreenView::stopButtonPressed()
 {
 	presenter->stopButtonPressed();
 }
+
+void runScreenView::astroButtonPressed()
+{
+	if (astroBorder.isVisible()) {
+		showAstrolabium(false);
+	} else {
+		showAstrolabium(true);
+	}
+}
+

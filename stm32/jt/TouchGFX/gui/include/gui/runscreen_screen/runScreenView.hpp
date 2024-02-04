@@ -14,7 +14,9 @@ public:
     virtual void tearDownScreen();
     void update(pJoesPresenterEventT  pMsg);
     virtual void stopButtonPressed();
+    virtual void astroButtonPressed();
 protected:
+    void showAstrolabium(bool vis);
     uint32_t weldingTimeSec;
     float     weldingAmps;
 };
