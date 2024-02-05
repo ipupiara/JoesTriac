@@ -114,8 +114,8 @@ typedef struct  {
 		uint32_t  alarmTimeSince;
 		struct {
 			float   	amps;
-			uint16_t  secondsRemaining;
-			uint16_t secondsBeforeReturn;
+			uint32_t  secondsRemaining;
+			uint32_t secondsBeforeReturn;
 			int32_t triacDelay;
 			int32_t adcValue;
 			float adcVoltage;

@@ -88,11 +88,11 @@ void runScreenView::update(pJoesPresenterEventT  pMsg )
 		 delayText.setWildcard(delayTextBuffer);
 		 delayText.invalidate();
 
-		 Unicode::snprintf(amtMissedZpTextBuffer, 6, "%04d", pMsg->evData.runScreenData.maxMissZp);
+		 Unicode::snprintf(amtMissedZpTextBuffer, 6, "%04d", pMsg->evData.runScreenData.amtMissZp);
 		 amtMissedZpText.setWildcard(amtMissedZpTextBuffer);
 		 amtMissedZpText.invalidate();
 
-		 Unicode::snprintf(maxMissedZpTextBuffer, 6, "%03d", pMsg->evData.runScreenData.triacDelay);
+		 Unicode::snprintf(maxMissedZpTextBuffer, 6, "%03d", pMsg->evData.runScreenData.maxMissZp);
 		 maxMissedZpText.setWildcard(maxMissedZpTextBuffer);
 		 maxMissedZpText.invalidate();
 
@@ -108,7 +108,7 @@ void runScreenView::update(pJoesPresenterEventT  pMsg )
 		 amtSyncWrongText.setWildcard(amtSyncWrongTextBuffer);
 		 amtSyncWrongText.invalidate();
 
-		 Unicode::snprintf(amtSeqErrTextBuffer, 6, "%04d", pMsg->evData.runScreenData.amtWrongSyn);
+		 Unicode::snprintf(amtSeqErrTextBuffer, 6, "%04d", pMsg->evData.runScreenData.amtSeqErr);
 		 amtSeqErrText.setWildcard(amtSeqErrTextBuffer);
 		 amtSeqErrText.invalidate();
 	 }
