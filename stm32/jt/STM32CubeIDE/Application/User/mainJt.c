@@ -14,6 +14,7 @@
 #include <uart-comms.h>
 #include <canComms.h>
 #include <defines.h>
+#include <extiCheck.h>
 
 union  {
 	float realVar;
@@ -111,6 +112,13 @@ void mainJt(void *argument)
 	do  {
 		memset(&mJtEv, 0, sizeof(mJtEv));  //  todo sort ifs for best performance,
 		if ((status = osMessageQueueGet(mainJtMessageQ,(void *) &mJtEv, &prio, osWaitForever)) == osOK )  {
+
+
+			startExtiCheck();   // just for debug
+
+
+
+
 			switch (mJtEv.evType) {
 						case secondTick: {
 							durationTimerTick();

@@ -21,7 +21,6 @@ extern uint32_t  amountIllegalExti;
 extern uint32_t amtWrongSync;
 extern uint32_t amtExtiSequenceError;
 
-
 extern void startExtiCheck();
 void initExtiCheck();
 

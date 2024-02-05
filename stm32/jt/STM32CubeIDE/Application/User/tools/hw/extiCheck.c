@@ -24,8 +24,10 @@
 #define amtExtiEvChecks   3
 #define msTick  debugTick //  uwTick
 
-uint32_t debugTick;
+#define isExtiPinSet() debugExtiPin
 
+uint32_t debugTick;
+uint8_t debugExtiPin;
 
 TIM_HandleTypeDef triacExtiCheckTimer;
 

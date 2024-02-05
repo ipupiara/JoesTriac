@@ -27,7 +27,7 @@ extern "C"
 
 #define extiZeroPassTriggerStartValue 1
 #define isPinSet(portx, pinx)  (((portx->IDR) & pinx) != 0) ? 1:0
-#define  isExtiPinSet()  isPinSet (zeroPass_Port,zeroPass_Pin)
+#define isExtiPinSet() isPinSet(zeroPass_Port,zeroPass_Pin)
 
 extern int32_t triacTriggerDelay;
 
@@ -39,6 +39,7 @@ void setTriacTriggerDelay(int32_t cmsecs);
 int32_t getTriacTriggerDelay();
 void startTriacRun();
 void stopTriacRun();
+
 
 #ifdef  __cplusplus
 }

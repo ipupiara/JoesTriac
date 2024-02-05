@@ -33,7 +33,6 @@ TIM_HandleTypeDef htim12;
 #define triacRailPwmTimer htim12
 
 
-
 #define TIM_CCxChannelCommand(TIMx , Channel , ChannelState) \
 	do {  \
 	  uint32_t  tmp;   \
@@ -60,6 +59,9 @@ TIM_HandleTypeDef htim12;
         triacDelayTimer.Instance->CR1 &= ~(TIM_CR1_CEN);  \
         __HAL_TIM_DISABLE_IT(&triacDelayTimer, TIM_IT_UPDATE);\
   } while(0)
+
+int32_t triacTriggerDelay;
+
 
 //#define ampsHigherPort  GPIOB
 //#define ampsHigherPin   GPIO_PIN_14
@@ -134,13 +136,6 @@ void startDelayTimer ()
         __HAL_TIM_ENABLE_IT(&triacStopTimer, TIM_IT_UPDATE);  \
         triacStopTimer.Instance->CR1 |= (TIM_CR1_CEN);  \
   } while(0)
-
-
-void setTriggerPinOn();
-void setTriggerPinOff();
-uint8_t isTriggerPinOn();
-
-int32_t triacTriggerDelay;
 
 void setTriacTriggerDelay(int32_t durationTcnt)
 {
