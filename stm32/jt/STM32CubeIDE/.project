@@ -645,6 +645,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/containers/GaugeWithGoal.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/gui/astrolabiumContainer.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/containers/astrolabiumContainer.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/gui/numericKeyPad.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/containers/numericKeyPad.cpp</locationURI>
@@ -888,6 +893,11 @@
 			<name>Application/User/generated/GaugeWithGoalBase.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/containers/GaugeWithGoalBase.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/astrolabiumContainerBase.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/containers/astrolabiumContainerBase.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/numericKeyPadBase.cpp</name>

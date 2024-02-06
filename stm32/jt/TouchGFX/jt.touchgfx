@@ -3696,6 +3696,244 @@
           }
         ],
         "Interactions": []
+      },
+      {
+        "Name": "astrolabiumContainer",
+        "Width": 300,
+        "Height": 250,
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "box1",
+            "Width": 300,
+            "Height": 250,
+            "Color": {
+              "Red": 165,
+              "Green": 245,
+              "Blue": 147
+            },
+            "Draggable": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "amtSeqErrText",
+            "X": 62,
+            "Y": 148,
+            "Width": 48,
+            "Height": 23,
+            "TextId": "__SingleUse_LSC9",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_5QYB",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea12",
+            "Y": 147,
+            "Width": 48,
+            "Height": 23,
+            "TextId": "__SingleUse_ALYM",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea3",
+            "Y": 2,
+            "Width": 36,
+            "Height": 23,
+            "TextId": "__SingleUse_XF8E",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "amtSyncWrongText",
+            "X": 62,
+            "Y": 124,
+            "Width": 48,
+            "Height": 23,
+            "TextId": "__SingleUse_KVXO",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_IIDS",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea11",
+            "Y": 123,
+            "Width": 48,
+            "Height": 23,
+            "TextId": "__SingleUse_AE3P",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "illigelExtiText",
+            "X": 53,
+            "Y": 99,
+            "Width": 120,
+            "Height": 23,
+            "TextId": "__SingleUse_GGYS",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_9J58",
+              "UseBuffer": true,
+              "BufferSize": 20
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea10",
+            "Y": 99,
+            "Width": 48,
+            "Height": 23,
+            "TextId": "__SingleUse_1312",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea9",
+            "Y": 74,
+            "Width": 48,
+            "Height": 23,
+            "TextId": "__SingleUse_H4U6",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "maxMissedZpText",
+            "X": 191,
+            "Y": 50,
+            "Width": 36,
+            "Height": 23,
+            "TextId": "__SingleUse_1JSV",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_U596",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "amtMissedZpText",
+            "X": 62,
+            "Y": 50,
+            "Width": 48,
+            "Height": 23,
+            "TextId": "__SingleUse_9EOH",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_OOCQ",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea7",
+            "X": 113,
+            "Y": 50,
+            "Width": 60,
+            "Height": 23,
+            "TextId": "__SingleUse_L3I3",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea6",
+            "Y": 50,
+            "Width": 48,
+            "Height": 23,
+            "TextId": "__SingleUse_ATUE",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "delayText",
+            "X": 62,
+            "Y": 26,
+            "Width": 48,
+            "Height": 23,
+            "TextId": "__SingleUse_5JSP",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_XNP3",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "adcValueText",
+            "X": 58,
+            "Y": 3,
+            "Width": 57,
+            "Height": 23,
+            "TextId": "__SingleUse_29C1",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_PEV0",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea5",
+            "Y": 26,
+            "Width": 48,
+            "Height": 23,
+            "TextId": "__SingleUse_IHO9",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "adcVoltageText",
+            "X": 167,
+            "Y": 2,
+            "Width": 60,
+            "Height": 23,
+            "TextId": "__SingleUse_1MVJ",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_XCET",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea4",
+            "X": 113,
+            "Width": 24,
+            "Height": 23,
+            "TextId": "__SingleUse_QHGG",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
       }
     ],
     "Name": "jt",
