@@ -13,7 +13,7 @@
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/containers/progress_indicators/BoxProgress.hpp>
 #include <gui/containers/GaugeWithGoal.hpp>
-#include <touchgfx/widgets/BoxWithBorder.hpp>
+#include <gui/containers/astrolabiumContainer.hpp>
 
 class runScreenViewBase : public touchgfx::View<runScreenPresenter>
 {
@@ -55,25 +55,7 @@ protected:
     touchgfx::BoxProgress boxProgress1;
     GaugeWithGoal ampGauge;
     touchgfx::ButtonWithIcon astroButton;
-    touchgfx::BoxWithBorder astroBorder;
-    touchgfx::TextArea textArea3;
-    touchgfx::TextArea textArea4;
-    touchgfx::TextArea textArea5;
-    touchgfx::TextAreaWithOneWildcard adcValueText;
-    touchgfx::TextAreaWithOneWildcard adcVoltageText;
-    touchgfx::TextAreaWithOneWildcard delayText;
-    touchgfx::TextArea textArea6;
-    touchgfx::TextArea textArea7;
-    touchgfx::TextAreaWithOneWildcard amtMissedZpText;
-    touchgfx::TextAreaWithOneWildcard maxMissedZpText;
-    touchgfx::TextArea textArea9;
-    touchgfx::TextAreaWithOneWildcard amtExtiTotalText;
-    touchgfx::TextArea textArea10;
-    touchgfx::TextAreaWithOneWildcard illigelExtiText;
-    touchgfx::TextArea textArea11;
-    touchgfx::TextAreaWithOneWildcard amtSyncWrongText;
-    touchgfx::TextArea textArea12;
-    touchgfx::TextAreaWithOneWildcard amtSeqErrText;
+    astrolabiumContainer astrolabiumContainer1;
 
     /*
      * Wildcard Buffers
@@ -86,24 +68,6 @@ protected:
     touchgfx::Unicode::UnicodeChar currentTimeTextBuffer[CURRENTTIMETEXT_SIZE];
     static const uint16_t CURRENTAMPERETEXT_SIZE = 10;
     touchgfx::Unicode::UnicodeChar currentAmpereTextBuffer[CURRENTAMPERETEXT_SIZE];
-    static const uint16_t ADCVALUETEXT_SIZE = 10;
-    touchgfx::Unicode::UnicodeChar adcValueTextBuffer[ADCVALUETEXT_SIZE];
-    static const uint16_t ADCVOLTAGETEXT_SIZE = 10;
-    touchgfx::Unicode::UnicodeChar adcVoltageTextBuffer[ADCVOLTAGETEXT_SIZE];
-    static const uint16_t DELAYTEXT_SIZE = 10;
-    touchgfx::Unicode::UnicodeChar delayTextBuffer[DELAYTEXT_SIZE];
-    static const uint16_t AMTMISSEDZPTEXT_SIZE = 10;
-    touchgfx::Unicode::UnicodeChar amtMissedZpTextBuffer[AMTMISSEDZPTEXT_SIZE];
-    static const uint16_t MAXMISSEDZPTEXT_SIZE = 10;
-    touchgfx::Unicode::UnicodeChar maxMissedZpTextBuffer[MAXMISSEDZPTEXT_SIZE];
-    static const uint16_t AMTEXTITOTALTEXT_SIZE = 20;
-    touchgfx::Unicode::UnicodeChar amtExtiTotalTextBuffer[AMTEXTITOTALTEXT_SIZE];
-    static const uint16_t ILLIGELEXTITEXT_SIZE = 20;
-    touchgfx::Unicode::UnicodeChar illigelExtiTextBuffer[ILLIGELEXTITEXT_SIZE];
-    static const uint16_t AMTSYNCWRONGTEXT_SIZE = 10;
-    touchgfx::Unicode::UnicodeChar amtSyncWrongTextBuffer[AMTSYNCWRONGTEXT_SIZE];
-    static const uint16_t AMTSEQERRTEXT_SIZE = 10;
-    touchgfx::Unicode::UnicodeChar amtSeqErrTextBuffer[AMTSEQERRTEXT_SIZE];
 
 private:
 
