@@ -24,7 +24,8 @@
 #define amtExtiEvChecks   3
 #define msTick  debugTick //  uwTick
 
-#define isExtiPinSet() debugExtiPin
+#define extiPinValue() debugExtiPin
+//#define extiPinValue() isExtiPinSet()
 
 uint32_t debugTick;
 uint8_t debugExtiPin;
@@ -98,7 +99,7 @@ uint8_t handleMissed()
 {
 	uint8_t res = 0;
 
-	uint8_t currentExtiPinState = isExtiPinSet();
+	uint8_t currentExtiPinState = extiPinValue();
 
 	if (currentExtiPinState == extiZeroPassTriggerStartValue) {
 
@@ -150,7 +151,7 @@ void startExtiTimer()
 void startExtiCheck()
 {
 	uint8_t res = 0;
-//	uint8_t extiState=isExtiPinSet();
+	currentExtiState=extiPinValue();
 
 	++ amtExtiEvTotal;   // todo maybe later on astrolabium
 
@@ -174,21 +175,19 @@ void startExtiCheck()
 //	//			extiStarting = 1;
 //				res = 1;
 //			}
-//		}  else {
-			currentExtiState=isExtiPinSet();
-			if (extiStarting)  {
+//		}
+		if (extiStarting)  {
+			extiStateBefore = currentExtiState;
+		}  else  {
+			if (extiStateBefore == currentExtiState)  {
+				++ amtExtiSequenceError;
 				extiStateBefore = currentExtiState;
-			}  else  {
-				if (extiStateBefore == currentExtiState)  {
-					++ amtExtiSequenceError;
-					extiStateBefore = currentExtiState;
-				}
 			}
 		}
-//	}
+	}
 
 	if (res == 1)  {        // one side is always stable, but within this short time is probable a spike return
-		currentExtiState=isExtiPinSet();
+		currentExtiState=extiPinValue();
 		extiCheckCnt = 1;
 		startExtiTimer();
 //		debugExti();   // for debug
@@ -206,7 +205,7 @@ void startExtiCheck()
 */
 void  extiCheckTimerIRQHandler (void)
 {
-	uint8_t extiPinOk  = (currentExtiState == isExtiPinSet());
+	uint8_t extiPinOk  = (currentExtiState == extiPinValue());
 //	debugExti();
 	if (extiCheckCnt < extiCheckAmt) {
 		++ extiCheckCnt;

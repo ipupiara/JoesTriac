@@ -9,11 +9,13 @@ astrolabiumContainerBase::astrolabiumContainerBase()
 {
     setWidth(300);
     setHeight(250);
-    box1.setPosition(0, 0, 300, 250);
-    box1.setColor(touchgfx::Color::getColorFromRGB(165, 245, 147));
-    add(box1);
+    boxWithBorder1.setPosition(0, -1, 300, 250);
+    boxWithBorder1.setColor(touchgfx::Color::getColorFromRGB(170, 240, 127));
+    boxWithBorder1.setBorderColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    boxWithBorder1.setBorderSize(3);
+    add(boxWithBorder1);
 
-    amtSeqErrText.setXY(62, 148);
+    amtSeqErrText.setXY(80, 148);
     amtSeqErrText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     amtSeqErrText.setLinespacing(0);
     Unicode::snprintf(amtSeqErrTextBuffer, AMTSEQERRTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_5QYB).getText());
@@ -22,19 +24,19 @@ astrolabiumContainerBase::astrolabiumContainerBase()
     amtSeqErrText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_LSC9));
     add(amtSeqErrText);
 
-    textArea12.setXY(0, 147);
+    textArea12.setXY(6, 147);
     textArea12.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea12.setLinespacing(0);
     textArea12.setTypedText(touchgfx::TypedText(T___SINGLEUSE_ALYM));
     add(textArea12);
 
-    textArea3.setXY(0, 2);
+    textArea3.setXY(6, 3);
     textArea3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea3.setLinespacing(0);
     textArea3.setTypedText(touchgfx::TypedText(T___SINGLEUSE_XF8E));
     add(textArea3);
 
-    amtSyncWrongText.setXY(62, 124);
+    amtSyncWrongText.setXY(80, 124);
     amtSyncWrongText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     amtSyncWrongText.setLinespacing(0);
     Unicode::snprintf(amtSyncWrongTextBuffer, AMTSYNCWRONGTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_IIDS).getText());
@@ -43,13 +45,13 @@ astrolabiumContainerBase::astrolabiumContainerBase()
     amtSyncWrongText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_KVXO));
     add(amtSyncWrongText);
 
-    textArea11.setXY(0, 123);
+    textArea11.setXY(6, 123);
     textArea11.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea11.setLinespacing(0);
     textArea11.setTypedText(touchgfx::TypedText(T___SINGLEUSE_AE3P));
     add(textArea11);
 
-    illigelExtiText.setXY(53, 99);
+    illigelExtiText.setXY(77, 101);
     illigelExtiText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     illigelExtiText.setLinespacing(0);
     Unicode::snprintf(illigelExtiTextBuffer, ILLIGELEXTITEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_9J58).getText());
@@ -58,19 +60,19 @@ astrolabiumContainerBase::astrolabiumContainerBase()
     illigelExtiText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_GGYS));
     add(illigelExtiText);
 
-    textArea10.setXY(0, 99);
+    textArea10.setXY(6, 99);
     textArea10.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea10.setLinespacing(0);
     textArea10.setTypedText(touchgfx::TypedText(T___SINGLEUSE_1312));
     add(textArea10);
 
-    textArea9.setXY(0, 74);
+    textArea9.setXY(6, 75);
     textArea9.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea9.setLinespacing(0);
     textArea9.setTypedText(touchgfx::TypedText(T___SINGLEUSE_H4U6));
     add(textArea9);
 
-    maxMissedZpText.setXY(191, 50);
+    maxMissedZpText.setXY(206, 50);
     maxMissedZpText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     maxMissedZpText.setLinespacing(0);
     Unicode::snprintf(maxMissedZpTextBuffer, MAXMISSEDZPTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_U596).getText());
@@ -79,7 +81,7 @@ astrolabiumContainerBase::astrolabiumContainerBase()
     maxMissedZpText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_1JSV));
     add(maxMissedZpText);
 
-    amtMissedZpText.setXY(62, 50);
+    amtMissedZpText.setXY(77, 50);
     amtMissedZpText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     amtMissedZpText.setLinespacing(0);
     Unicode::snprintf(amtMissedZpTextBuffer, AMTMISSEDZPTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_OOCQ).getText());
@@ -88,19 +90,19 @@ astrolabiumContainerBase::astrolabiumContainerBase()
     amtMissedZpText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_9EOH));
     add(amtMissedZpText);
 
-    textArea7.setXY(113, 50);
+    textArea7.setXY(120, 50);
     textArea7.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea7.setLinespacing(0);
     textArea7.setTypedText(touchgfx::TypedText(T___SINGLEUSE_L3I3));
     add(textArea7);
 
-    textArea6.setXY(0, 50);
+    textArea6.setXY(6, 50);
     textArea6.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea6.setLinespacing(0);
     textArea6.setTypedText(touchgfx::TypedText(T___SINGLEUSE_ATUE));
     add(textArea6);
 
-    delayText.setXY(62, 26);
+    delayText.setXY(77, 26);
     delayText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     delayText.setLinespacing(0);
     Unicode::snprintf(delayTextBuffer, DELAYTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_XNP3).getText());
@@ -109,7 +111,7 @@ astrolabiumContainerBase::astrolabiumContainerBase()
     delayText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_5JSP));
     add(delayText);
 
-    adcValueText.setPosition(58, 3, 57, 23);
+    adcValueText.setPosition(77, 5, 57, 23);
     adcValueText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     adcValueText.setLinespacing(0);
     Unicode::snprintf(adcValueTextBuffer, ADCVALUETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_PEV0).getText());
@@ -117,13 +119,13 @@ astrolabiumContainerBase::astrolabiumContainerBase()
     adcValueText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_29C1));
     add(adcValueText);
 
-    textArea5.setXY(0, 26);
+    textArea5.setXY(6, 27);
     textArea5.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea5.setLinespacing(0);
     textArea5.setTypedText(touchgfx::TypedText(T___SINGLEUSE_IHO9));
     add(textArea5);
 
-    adcVoltageText.setXY(167, 2);
+    adcVoltageText.setXY(176, 5);
     adcVoltageText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     adcVoltageText.setLinespacing(0);
     Unicode::snprintf(adcVoltageTextBuffer, ADCVOLTAGETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_XCET).getText());
@@ -132,11 +134,20 @@ astrolabiumContainerBase::astrolabiumContainerBase()
     adcVoltageText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_1MVJ));
     add(adcVoltageText);
 
-    textArea4.setXY(113, 0);
+    textArea4.setXY(128, 2);
     textArea4.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea4.setLinespacing(0);
     textArea4.setTypedText(touchgfx::TypedText(T___SINGLEUSE_QHGG));
     add(textArea4);
+
+    amtExtiTotalText.setXY(77, 75);
+    amtExtiTotalText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    amtExtiTotalText.setLinespacing(0);
+    Unicode::snprintf(amtExtiTotalTextBuffer, AMTEXTITOTALTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_9FG7).getText());
+    amtExtiTotalText.setWildcard(amtExtiTotalTextBuffer);
+    amtExtiTotalText.resizeToCurrentText();
+    amtExtiTotalText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_BD4W));
+    add(amtExtiTotalText);
 }
 
 astrolabiumContainerBase::~astrolabiumContainerBase()

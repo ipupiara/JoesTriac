@@ -114,7 +114,7 @@ void mainJt(void *argument)
 		if ((status = osMessageQueueGet(mainJtMessageQ,(void *) &mJtEv, &prio, osWaitForever)) == osOK )  {
 
 
-			startExtiCheck();   // just for debug
+//			startExtiCheck();   // just for debug
 
 
 

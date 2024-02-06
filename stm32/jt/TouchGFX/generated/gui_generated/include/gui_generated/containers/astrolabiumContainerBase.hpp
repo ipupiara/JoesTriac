@@ -6,8 +6,7 @@
 
 #include <gui/common/FrontendApplication.hpp>
 #include <touchgfx/containers/Container.hpp>
-#include <touchgfx/widgets/Box.hpp>
-#include <touchgfx/mixins/Draggable.hpp>
+#include <touchgfx/widgets/BoxWithBorder.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 
@@ -26,7 +25,7 @@ protected:
     /*
      * Member Declarations
      */
-    touchgfx::Draggable< touchgfx::Box > box1;
+    touchgfx::BoxWithBorder boxWithBorder1;
     touchgfx::TextAreaWithOneWildcard amtSeqErrText;
     touchgfx::TextArea textArea12;
     touchgfx::TextArea textArea3;
@@ -44,6 +43,7 @@ protected:
     touchgfx::TextArea textArea5;
     touchgfx::TextAreaWithOneWildcard adcVoltageText;
     touchgfx::TextArea textArea4;
+    touchgfx::TextAreaWithOneWildcard amtExtiTotalText;
 
     /*
      * Wildcard Buffers
@@ -64,6 +64,8 @@ protected:
     touchgfx::Unicode::UnicodeChar adcValueTextBuffer[ADCVALUETEXT_SIZE];
     static const uint16_t ADCVOLTAGETEXT_SIZE = 10;
     touchgfx::Unicode::UnicodeChar adcVoltageTextBuffer[ADCVOLTAGETEXT_SIZE];
+    static const uint16_t AMTEXTITOTALTEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar amtExtiTotalTextBuffer[AMTEXTITOTALTEXT_SIZE];
 
 private:
 

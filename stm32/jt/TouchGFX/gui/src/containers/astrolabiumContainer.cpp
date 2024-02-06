@@ -11,36 +11,12 @@ astrolabiumContainer::astrolabiumContainer()
 void astrolabiumContainer::initialize()
 {
     astrolabiumContainerBase::initialize();
+
 }
 
 void astrolabiumContainer::update(pJoesPresenterEventT  pMsg )
 {
-
-	// todo bug: amps does not show / calculate delay decimal places in setamperetext
-
-	Unicode::snprintfFloat(currentAmpereTextBuffer, 7, "%6.2f",pMsg->evData.runScreenData.amps);
-	currentAmpereText.setWildcard(currentAmpereTextBuffer);
-	currentAmpereText.invalidate();
-
-//	 int ampValue = ((int)( amps  ));
-
-		ampGauge.setValue(pMsg->evData.runScreenData.amps);
-		ampGauge.invalidate();
-
-	 uint8_t  minVal = uint8_t( pMsg->evData.runScreenData.secondsRemaining  / 60);
-	 uint8_t  secVal = (uint8_t) ( pMsg->evData.runScreenData.secondsRemaining % 60);
-	 Unicode::snprintf(currentTimeTextBuffer, 6, "%02d:%02d", minVal, secVal);
-	 currentTimeText.setWildcard(currentTimeTextBuffer);
-	 currentTimeText.invalidate();
-
-	 float wTime = weldingTimeSec;
-	 float rTime = pMsg->evData.runScreenData.secondsRemaining;
-	 float  remain = (wTime - rTime)/ wTime;
-	 uint32_t boxPro = 100 * remain;
-	 boxProgress1.setValue(boxPro);
-	 boxProgress1.invalidate();
-
-	 if (astroBorder.isVisible())  {
+	 if (this->isVisible())  {
 		 Unicode::snprintf(adcValueTextBuffer, 6, "%04d", pMsg->evData.runScreenData.adcValue);
 		 adcValueText.setWildcard(adcValueTextBuffer);
 		 adcValueText.invalidate();
