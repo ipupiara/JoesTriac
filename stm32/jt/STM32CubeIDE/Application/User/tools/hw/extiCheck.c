@@ -56,7 +56,6 @@ void startExtiChecking()
 	amtMissedZpTotal = 0;
 	maxMissedZp = 0;
 	amtCountedMissed = 0;
-//	syncMissedPeriodStartTick = 0;
 	extiCheckCnt=0;
 	amtWrongSync = 0;
 	amtExtiSequenceError = 0;
@@ -116,26 +115,34 @@ uint8_t handleMissed()
 			resetHandleMissed();
 			res = 1;
 		} else {
-			uint32_t  amtPassed = ((msTick - uwTickWhenLastOk + 1 )/10 );
-														// todo later we might need a better clock (cpu clock counter or timer)
-			uint32_t  amtMissed = amtPassed - 1;
+			if((((msTick - uwTickWhenLastOk ) % 10 ) + 1 )  > 2 )  {  // tobe tested
+//			if(((msTick - uwTickWhenLastOk ) % 10   ) != 0 )  {  // tobe tested
+				++amtWrongSync;
+				resetHandleMissed();   // take it as a new correct one, but do not fire unless the next is in time.
+				res = 0;
+			}  else {
+				uint32_t  amtPassed = ((msTick - uwTickWhenLastOk + 1 )/10 );
+															// todo later we might need a better clock (cpu clock counter or timer)
+				uint32_t  amtMissed = amtPassed - 1;
+				 if (amtMissed == 0) {
+							// extiStarting last needed here as 1 for current run
+					 resetHandleMissed();
+					 res = 1;
+				 }  else  {
+					amtMissedZpTotal += ( amtMissed - amtCountedMissed);
+					amtCountedMissed = amtMissed;
+					if (amtMissed > maxMissedZp) { maxMissedZp= amtMissed; }
 
-			 if (amtMissed == 0) {
-						// extiStarting last needed here as 1 for current run
-				 resetHandleMissed();
-				 res = 1;
-			 }  else  {
-				amtMissedZpTotal += ( amtMissed - amtCountedMissed);
-				amtCountedMissed = amtMissed;
-				if (amtMissed > maxMissedZp) { maxMissedZp= amtMissed; }
+					if ((amtPassed & ((uint32_t) 0x01)) == 1) {  //  odd number todo to be tested
+						resetHandleMissed();
+						res = 1;
+					}  else {
+						res = 0;    //  prevent short circuit
+					}
 
-				if ((amtPassed & ((uint32_t) 0x01)) == 1) {  //  odd number todo to be tested
-					resetHandleMissed();
-					res = 1;
-				}  else {
-					res = 0;    //  prevent short circuit
-				}
-			 }
+				 }
+			}
+
 		 }
 	 }  else {
 		 extiStarting = 0;
@@ -163,31 +170,17 @@ void startExtiCheck()
 		incAmtIllegalExti();
 		res = 0;
 	} else {
-		if  (currentExtiPinState == extiZeroPassTriggerStartValue) {
-//				if 	((((msTick- syncMissedPeriodStartTick  ) % 10) >= 2 ) && (extiStarting != 1)) {
-//							//  prevent starting outside this time
-//							//  time difference between externally measured 10ms (220V) and internally ones
-//							//  (msTick) > 1ms. todo make shorter duration window.
-//				++amtWrongExti;
-//					res = 0;
-//			}  else {
-////				syncMissedPeriodStartTick = msTick;
-//				res = 1;
-//			}
-		} else {
-			res = 1;
-		}
+		res = 1;
 		if (extiStarting)  {
 			extiStateBefore = currentExtiPinState;
 		}  else  {
 			if (extiStateBefore == currentExtiPinState)  {
 				++ amtExtiSequenceError;
 				extiStateBefore = currentExtiPinState;
+				res = 0;
 			}
 		}
 	}
-
-
 	if (res == 1)  {        // one side is always stable, but within this short time is probable a spike return
 		extiCheckCnt = 1;
 		startExtiTimer();
@@ -198,11 +191,10 @@ void startExtiCheck()
 
 
 /*
- zero pass exti events allways have some hundred usec time difference.
- max measured spike time were approx 10 usec so far approx. what makes the max exitCheck duration
- in case of spikes. A zero pass event in this time could cause problems.
- neglect the case where a 0xEvent happend during this spike- extiCheckTime ?
- else handle Missed might help
+ zero pass exti events always have some hundred usec time difference.
+ max measured spike times were approx 10 usec, what gives us an idea for the
+ needed exitCheck duration. A zero pass event in this time could cause problems.
+ neglect the case where a 0xEvent happend during this spike- extiCheckTime
 */
 void  extiCheckTimerIRQHandler (void)
 {
@@ -219,7 +211,6 @@ void  extiCheckTimerIRQHandler (void)
 		if ((extiPinOk)== 1 ) {
 			if(handleMissed()) {
 				doJobOnZeroPassEvent(currentExtiPinState);
-				extiStarting = 0; // todo check if this is here on the right place
 			}
 		}
 	}
