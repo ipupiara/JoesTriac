@@ -537,7 +537,7 @@ uStInt evTriacRunningChecker(void)
 
 
 
-		startExtiCheck();   // just for debug   //  todo remove/comment out this if not yet done
+//		startExtiCheck();   // just for debug   //  todo remove/comment out this if not yet done
 
 
 

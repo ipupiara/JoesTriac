@@ -86,19 +86,21 @@ void initHandleMissed()
 
 }
 
-void stopExtiTimer()
-{
-	triacExtiCheckTimer.Instance->CNT = 0;
-	__HAL_TIM_DISABLE_IT(&triacExtiCheckTimer, TIM_IT_UPDATE);
-	triacExtiCheckTimer.Instance->CR1 &= ~(TIM_CR1_CEN);
-}
+#define stopExtiTimer() \
+do { \
+	triacExtiCheckTimer.Instance->CNT = 0; \
+	__HAL_TIM_DISABLE_IT(&triacExtiCheckTimer, TIM_IT_UPDATE); \
+	triacExtiCheckTimer.Instance->CR1 &= ~(TIM_CR1_CEN); \
+} while(0)
 
-void startExtiTimer()
-{
-	triacExtiCheckTimer.Instance->CNT = 0;
-	__HAL_TIM_ENABLE_IT(&triacExtiCheckTimer, TIM_IT_UPDATE);
-	triacExtiCheckTimer.Instance->CR1 |= (TIM_CR1_CEN);
-}
+
+#define startExtiTimer() \
+	do { \
+	__HAL_TIM_CLEAR_IT(&triacExtiCheckTimer, TIM_IT_UPDATE); \
+	triacExtiCheckTimer.Instance->CNT = 0; \
+	__HAL_TIM_ENABLE_IT(&triacExtiCheckTimer, TIM_IT_UPDATE); \
+	triacExtiCheckTimer.Instance->CR1 |= (TIM_CR1_CEN); \
+} while(0)
 
 
 
@@ -142,8 +144,8 @@ void startExtiCheck()
 	}
 	if (res == 1)  {        // one side is always stable, but within this short time is probable a spike return
 		extiCheckCnt = 1;
+//		debugExti();
 		startExtiTimer();
-		debugExti();
 	}
 }
 
@@ -156,8 +158,9 @@ void startExtiCheck()
 */
 void  extiCheckTimerIRQHandler (void)
 {
+	__HAL_TIM_CLEAR_IT(&triacExtiCheckTimer, TIM_IT_UPDATE);
 	uint8_t extiPinOk  = (currentExtiPinState == extiPinValue());
-	debugExti();
+//	debugExti();
 	if (extiCheckCnt < extiCheckAmt) {
 		++ extiCheckCnt;
 		if (extiPinOk == 0) {
@@ -240,9 +243,9 @@ void initExtiCheckTimer()
 	enableExtiCheckTimerClock();
 
 	triacExtiCheckTimer.Instance = triacExtiCheckTimerInstance;
-	triacExtiCheckTimer.Init.Prescaler = 10;
+	triacExtiCheckTimer.Init.Prescaler = 200;
 	triacExtiCheckTimer.Init.CounterMode = TIM_COUNTERMODE_UP;
-	triacExtiCheckTimer.Init.Period = 20;
+	triacExtiCheckTimer.Init.Period = 4;
 	triacExtiCheckTimer.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
 	triacExtiCheckTimer.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
 	if (HAL_TIM_Base_Init(&triacExtiCheckTimer) != HAL_OK)

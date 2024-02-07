@@ -159,6 +159,18 @@ void BusFault_Handler(void)
   }
 }
 
+//void WWDG_IRQHandler(void)
+//{
+//	  if (__HAL_WWDG_GET_IT_SOURCE(hwwdg, WWDG_IT_EWI) != RESET)
+//	  {
+//		if (__HAL_WWDG_GET_FLAG(hwwdg, WWDG_FLAG_EWIF) != RESET)
+//		{
+//		  __HAL_WWDG_CLEAR_FLAG(hwwdg, WWDG_FLAG_EWIF);
+//		  printEmergencyData();
+//		}
+//	  }
+//}
+
 /**
   * @brief This function handles Undefined instruction or illegal state.
   */
