@@ -1,7 +1,11 @@
 /*
  * extiCheck.c
  *
- *  Created on: Jan 22, 2024
+ *
+ *
+ *
+ *  Created on: Jan 22, 2024  pn: this check is not 100% exact in every case, but it gives a good picture of the overall Interrupt / spikess behaviour
+ *									moreover, when everything works ok, then it should only set zeros
  *      Author: Brigitte
  */
 
@@ -49,33 +53,23 @@ uint8_t extiStarting;
 uint8_t currentExtiPinState;
 uint32_t extiStateBefore;
 
+uint8_t handleMissed();
 
-void startExtiChecking()
-{
-	uwTickWhenLastOk = 0;
-	amtMissedZpTotal = 0;
-	maxMissedZp = 0;
-	amtCountedMissed = 0;
-	extiCheckCnt=0;
-	amtWrongSync = 0;
-	amtExtiSequenceError = 0;
-	extiStarting = 1;
-}
 
 
 #define maxInt32  0xFFFFFFFF
 
-#define resetHandleMissed() \
+#define resetExtiCheck()   \
+  do { \
+	  extiCheckCnt=0;  \
+  } while(0)
+
+
+#define resetHandleMissed()   \
   do { \
 	  amtCountedMissed = 0; \
 	  uwTickWhenLastOk = msTick; \
   } while(0)
-
-#define incAmtIllegalExti() \
-  do { \
-	  amountIllegalExti += 1; \
-  } while(0)
-
 
 
 // todo do not screw-attach buzzer cable to buzzer
@@ -106,54 +100,19 @@ void startExtiTimer()
 	triacExtiCheckTimer.Instance->CR1 |= (TIM_CR1_CEN);
 }
 
-uint8_t handleMissed()
+
+
+void startExtiChecking()
 {
-	uint8_t res = 0;
-
-	if (currentExtiPinState == extiZeroPassTriggerStartValue)  {
-		if (extiStarting == 1) {
-			resetHandleMissed();
-			res = 1;
-		} else {
-			if((((msTick - uwTickWhenLastOk ) % 10 ) + 1 )  > 2 )  {  // tobe tested
-//			if(((msTick - uwTickWhenLastOk ) % 10   ) != 0 )  {  // tobe tested
-				++amtWrongSync;
-				resetHandleMissed();   // take it as a new correct one, but do not fire unless the next is in time.
-				res = 0;
-			}  else {
-				uint32_t  amtPassed = ((msTick - uwTickWhenLastOk + 1 )/10 );
-															// todo later we might need a better clock (cpu clock counter or timer)
-				uint32_t  amtMissed = amtPassed - 1;
-				 if (amtMissed == 0) {
-							// extiStarting last needed here as 1 for current run
-					 resetHandleMissed();
-					 res = 1;
-				 }  else  {
-					amtMissedZpTotal += ( amtMissed - amtCountedMissed);
-					amtCountedMissed = amtMissed;
-					if (amtMissed > maxMissedZp) { maxMissedZp= amtMissed; }
-
-					if ((amtPassed & ((uint32_t) 0x01)) == 1) {  //  odd number todo to be tested
-						resetHandleMissed();
-						res = 1;
-					}  else {
-						res = 0;    //  prevent short circuit
-					}
-
-				 }
-			}
-
-		 }
-	 }  else {
-		 extiStarting = 0;
-		 res = 1;
-	 }
-	if (res == 1) {
-		doJobOnZeroPassEvent(currentExtiPinState);
-	}
-	return res;
+	uwTickWhenLastOk = 0;
+	amtMissedZpTotal = 0;
+	maxMissedZp = 0;
+	amtCountedMissed = 0;
+	extiCheckCnt=0;
+	amtWrongSync = 0;
+	amtExtiSequenceError = 0;
+	extiStarting = 1;
 }
-
 
 
 void startExtiCheck()
@@ -167,7 +126,8 @@ void startExtiCheck()
 								// but maybe a spike  just before a valid one, then we loose the valid one.
 								// gives a handleMissed
 		stopExtiTimer();
-		incAmtIllegalExti();
+		resetExtiCheck();
+		amountIllegalExti += 1;
 		res = 0;
 	} else {
 		res = 1;
@@ -177,7 +137,6 @@ void startExtiCheck()
 			if (extiStateBefore == currentExtiPinState)  {
 				++ amtExtiSequenceError;
 				extiStateBefore = currentExtiPinState;
-				res = 0;
 			}
 		}
 	}
@@ -187,7 +146,6 @@ void startExtiCheck()
 		debugExti();
 	}
 }
-
 
 
 /*
@@ -204,7 +162,8 @@ void  extiCheckTimerIRQHandler (void)
 		++ extiCheckCnt;
 		if (extiPinOk == 0) {
 			stopExtiTimer();
-			incAmtIllegalExti();
+			resetExtiCheck();
+			amountIllegalExti += 1;
 		}
 	}  else {
 		stopExtiTimer();
@@ -213,8 +172,62 @@ void  extiCheckTimerIRQHandler (void)
 				doJobOnZeroPassEvent(currentExtiPinState);
 			}
 		}
+		resetExtiCheck();
 	}
 }
+
+
+
+
+uint8_t handleMissed()
+{
+	uint8_t res = 0;
+
+	if (currentExtiPinState == extiZeroPassTriggerStartValue)  {
+		if (extiStarting == 1) {
+			extiStarting = 0;
+			resetHandleMissed();
+			res = 1;
+		} else {
+			if((((msTick - uwTickWhenLastOk + 1 ) % 10 )  )  > 1 )  {  // tobe tested
+//			if(((msTick - uwTickWhenLastOk ) % 10   ) != 0 )  {  // tobe tested
+				++amtWrongSync;
+				resetHandleMissed();
+				res = 0; 	// take it as a new correct one, but do not fire unless the next is in time.
+			}  else {
+				uint32_t  amtPassed = ((msTick - uwTickWhenLastOk + 1 )/10 ); // todo later we might need a better clock (cpu clock counter or timer)
+				if (amtPassed > 0) {
+					uint32_t  amtMissed = amtPassed - 1;
+					 if (amtMissed == 0) {
+						 resetHandleMissed();
+						 res = 1;
+					 }  else  {
+						amtMissedZpTotal += ( amtMissed - amtCountedMissed);
+						amtCountedMissed = amtMissed;
+						if (amtMissed > maxMissedZp) { maxMissedZp= amtMissed; }
+
+						if ((amtPassed & ((uint32_t) 0x01)) == 1) {  //  odd number todo to be tested
+							resetHandleMissed();
+							res = 1;
+						}  else {
+							res = 0;    //  prevent short circuit
+						}
+					 }
+				}  else {
+					res = 0;
+					resetHandleMissed();
+					++amtWrongSync;
+				}
+			}
+		 }
+	 }  else {
+		 res = 1;
+	 }
+	return res;
+}
+
+
+
 
 
 void initExtiCheckTimer()
