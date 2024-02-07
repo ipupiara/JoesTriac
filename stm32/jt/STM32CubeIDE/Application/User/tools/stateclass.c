@@ -8,6 +8,7 @@
 #include <defines.h>
 #include "triacPID.h"
 #include <i2c.h>
+#include <extiCheck.h>
 
 
 
@@ -528,6 +529,21 @@ uStInt evTriacRunningChecker(void)
 
 	if (currentEvent->evType == evSecondsTick) {
 		sendActualValuesToRunNStopScreen(getSecondsDurationTimerRemaining(), secondsBeforeReturn);
+
+
+
+
+
+
+
+
+		startExtiCheck();   // just for debug   //  todo remove/comment out this if not yet done
+
+
+
+
+
+
 		res =  uStIntHandlingDone;
 	}	
 

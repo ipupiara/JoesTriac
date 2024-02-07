@@ -112,13 +112,6 @@ void mainJt(void *argument)
 	do  {
 		memset(&mJtEv, 0, sizeof(mJtEv));  //  todo sort ifs for best performance,
 		if ((status = osMessageQueueGet(mainJtMessageQ,(void *) &mJtEv, &prio, osWaitForever)) == osOK )  {
-
-
-//			startExtiCheck();   // just for debug
-
-
-
-
 			switch (mJtEv.evType) {
 						case secondTick: {
 							durationTimerTick();

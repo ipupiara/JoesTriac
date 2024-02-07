@@ -41,13 +41,12 @@ uint32_t amtWrongSync;
 uint32_t amtExtiSequenceError;
 
 //  internal variables
-uint32_t syncMissedPeriodStartTick;
+//uint32_t syncMissedPeriodStartTick;
 uint32_t  uwTickWhenLastOk;
 uint32_t amtCountedMissed;
 uint8_t extiCheckCnt ;
 uint8_t extiStarting;
-uint8_t currentExtiState;
-uint32_t amtMissed;
+uint8_t currentExtiPinState;
 uint32_t extiStateBefore;
 
 
@@ -57,8 +56,7 @@ void startExtiChecking()
 	amtMissedZpTotal = 0;
 	maxMissedZp = 0;
 	amtCountedMissed = 0;
-	syncMissedPeriodStartTick = 0;
-	amtMissed = 0;
+//	syncMissedPeriodStartTick = 0;
 	extiCheckCnt=0;
 	amtWrongSync = 0;
 	amtExtiSequenceError = 0;
@@ -95,45 +93,6 @@ void initHandleMissed()
 
 }
 
-uint8_t handleMissed()
-{
-	uint8_t res = 0;
-
-	uint8_t currentExtiPinState = extiPinValue();
-
-	if (currentExtiPinState == extiZeroPassTriggerStartValue) {
-
-		uint32_t  amtPassed = ((msTick - uwTickWhenLastOk + 2 )/10 );   // we assume that never more than 2 events can get missed,
-																		// two just outside the border, due to slightly different clock speeds.
-																		// not very likely, but also not impossible. anyhow amtPassed value will be correct.
-																		// later we need a better clock (cpu clock counter or timer)
-		uint32_t  amtMissed = amtPassed - 1;
-
-		 if ((amtMissed == 0) ||(extiStarting ==1 )) {
-			 extiStarting = 0;         // extiStarting last needed here as 1 for current run
-			 resetHandleMissed();
-			 res = 1;
-		 }  else  {
-			amtMissedZpTotal += ( amtMissed - amtCountedMissed);
-			amtCountedMissed = amtMissed;
-			if (amtMissed > maxMissedZp) {maxMissedZp= amtMissed;}
-
-			if (amtPassed & (uint32_t) 0x01) {  //  odd number todo to be tested
-				resetHandleMissed();
-				res = 1;
-			}  else {
-				res = 0;    //  prevent short circuit
-			}
-		 }
-	 }  else {
-		 res = 1;
-	 }
-	if (res == 1) {
-		doJobOnZeroPassEvent(currentExtiPinState);
-	}
-	return res;
-}
-
 void stopExtiTimer()
 {
 	triacExtiCheckTimer.Instance->CNT = 0;
@@ -148,12 +107,53 @@ void startExtiTimer()
 	triacExtiCheckTimer.Instance->CR1 |= (TIM_CR1_CEN);
 }
 
+uint8_t handleMissed()
+{
+	uint8_t res = 0;
+
+	if (currentExtiPinState == extiZeroPassTriggerStartValue)  {
+		if (extiStarting == 1) {
+			resetHandleMissed();
+			res = 1;
+		} else {
+			uint32_t  amtPassed = ((msTick - uwTickWhenLastOk + 1 )/10 );
+														// todo later we might need a better clock (cpu clock counter or timer)
+			uint32_t  amtMissed = amtPassed - 1;
+
+			 if (amtMissed == 0) {
+						// extiStarting last needed here as 1 for current run
+				 resetHandleMissed();
+				 res = 1;
+			 }  else  {
+				amtMissedZpTotal += ( amtMissed - amtCountedMissed);
+				amtCountedMissed = amtMissed;
+				if (amtMissed > maxMissedZp) { maxMissedZp= amtMissed; }
+
+				if ((amtPassed & ((uint32_t) 0x01)) == 1) {  //  odd number todo to be tested
+					resetHandleMissed();
+					res = 1;
+				}  else {
+					res = 0;    //  prevent short circuit
+				}
+			 }
+		 }
+	 }  else {
+		 extiStarting = 0;
+		 res = 1;
+	 }
+	if (res == 1) {
+		doJobOnZeroPassEvent(currentExtiPinState);
+	}
+	return res;
+}
+
+
+
 void startExtiCheck()
 {
 	uint8_t res = 0;
-	currentExtiState=extiPinValue();
-
-	++ amtExtiEvTotal;   // todo maybe later on astrolabium
+	currentExtiPinState=extiPinValue();
+	++ amtExtiEvTotal;
 
 	if (extiCheckCnt > 0) {
 								// another exti happened within short time, both are probable not valid
@@ -163,7 +163,7 @@ void startExtiCheck()
 		incAmtIllegalExti();
 		res = 0;
 	} else {
-//		if  (currentExtiState == extiZeroPassTriggerStartValue) {
+		if  (currentExtiPinState == extiZeroPassTriggerStartValue) {
 //				if 	((((msTick- syncMissedPeriodStartTick  ) % 10) >= 2 ) && (extiStarting != 1)) {
 //							//  prevent starting outside this time
 //							//  time difference between externally measured 10ms (220V) and internally ones
@@ -171,26 +171,27 @@ void startExtiCheck()
 //				++amtWrongExti;
 //					res = 0;
 //			}  else {
-//				syncMissedPeriodStartTick = msTick;
-//	//			extiStarting = 1;
+////				syncMissedPeriodStartTick = msTick;
 //				res = 1;
 //			}
-//		}
+		} else {
+			res = 1;
+		}
 		if (extiStarting)  {
-			extiStateBefore = currentExtiState;
+			extiStateBefore = currentExtiPinState;
 		}  else  {
-			if (extiStateBefore == currentExtiState)  {
+			if (extiStateBefore == currentExtiPinState)  {
 				++ amtExtiSequenceError;
-				extiStateBefore = currentExtiState;
+				extiStateBefore = currentExtiPinState;
 			}
 		}
 	}
 
+
 	if (res == 1)  {        // one side is always stable, but within this short time is probable a spike return
-		currentExtiState=extiPinValue();
 		extiCheckCnt = 1;
 		startExtiTimer();
-//		debugExti();   // for debug
+		debugExti();
 	}
 }
 
@@ -205,8 +206,8 @@ void startExtiCheck()
 */
 void  extiCheckTimerIRQHandler (void)
 {
-	uint8_t extiPinOk  = (currentExtiState == extiPinValue());
-//	debugExti();
+	uint8_t extiPinOk  = (currentExtiPinState == extiPinValue());
+	debugExti();
 	if (extiCheckCnt < extiCheckAmt) {
 		++ extiCheckCnt;
 		if (extiPinOk == 0) {
@@ -217,7 +218,8 @@ void  extiCheckTimerIRQHandler (void)
 		stopExtiTimer();
 		if ((extiPinOk)== 1 ) {
 			if(handleMissed()) {
-				doJobOnZeroPassEvent(currentExtiState);
+				doJobOnZeroPassEvent(currentExtiPinState);
+				extiStarting = 0; // todo check if this is here on the right place
 			}
 		}
 	}
