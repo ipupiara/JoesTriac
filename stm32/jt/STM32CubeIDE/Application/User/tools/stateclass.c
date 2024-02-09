@@ -623,12 +623,10 @@ void exitJobOkDisplayState(void)
 }
 
 
-
 uStInt evJobOkDisplayChecker(void)
 {
 	uStInt res = uStIntNoMatch;
 	//	printf("check for event in State evStateIdle\n");
-
 
 	if  (currentEvent->evType == evOkPressed)  {
 			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateTriacIdle);
@@ -650,7 +648,6 @@ uStInt evJobOkDisplayChecker(void)
 	}
 	return (res);
 }
-
 
 
 void entryFatalErrorState(void)

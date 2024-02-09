@@ -18,7 +18,7 @@
 #include <TriacIntr.h>
 #include <triacControl.h>
 
-#define extiCheckAmt  4
+#define extiCheckAmt  3
 #define extiCheckDelay  10
 #define triacExtiCheckTimer  htim3
 #define extiCheckTimerIRQHandler  TIM3_IRQHandler
@@ -103,6 +103,16 @@ do { \
 } while(0)
 
 
+void setExtiPin()
+{
+	ATOMIC_SET_BIT( GPIOA->BSRR, GPIO_PIN_12  );
+}
+
+
+void resetExtiPin()
+{
+	ATOMIC_SET_BIT( GPIOA->BSRR, (((uint32_t)  0x1) << 28)  );
+}
 
 void startExtiChecking()
 {
@@ -116,6 +126,10 @@ void startExtiChecking()
 	extiStarting = 1;
 }
 
+//#define resetWatchDog()  \
+//		if  ( (((WWDG_TypeDef*) WWDG)->CR  & 0x7f) < (((WWDG_TypeDef*) WWDG)->CFR & 0x7f)) { \
+//			WRITE_REG(((WWDG_TypeDef*) WWDG)->CR,0x7f);   \
+//		}      \
 
 void startExtiCheck()
 {
@@ -168,14 +182,16 @@ void  extiCheckTimerIRQHandler (void)
 			resetExtiCheck();
 			amountIllegalExti += 1;
 		}
-	}  else {
-		stopExtiTimer();
-		if ((extiPinOk)== 1 ) {
-			if(handleMissed()) {
-				doJobOnZeroPassEvent(currentExtiPinState);
-			}
-		}
+	}
+	if (extiCheckCnt == extiCheckAmt)
+	{
 		resetExtiCheck();
+		stopExtiTimer();
+		if ((extiPinOk)== 1 )  {
+//			if(handleMissed()) {
+				doJobOnZeroPassEvent(currentExtiPinState);
+			//}
+		}
 	}
 }
 
@@ -198,7 +214,7 @@ uint8_t handleMissed()
 				resetHandleMissed();
 				res = 0; 	// take it as a new correct one, but do not fire unless the next is in time.
 			}  else {
-				uint32_t  amtPassed = ((msTick - uwTickWhenLastOk + 1 )/10 ); // todo later we might need a better clock (cpu clock counter or timer)
+				int32_t  amtPassed = ((msTick - uwTickWhenLastOk + 1 )/10 ); // todo later we might need a better clock (cpu clock counter or timer)
 				if (amtPassed > 0) {
 					uint32_t  amtMissed = amtPassed - 1;
 					 if (amtMissed == 0) {

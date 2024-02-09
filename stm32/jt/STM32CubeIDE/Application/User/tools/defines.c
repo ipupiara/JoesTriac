@@ -18,6 +18,7 @@
 #include <extiCheck.h>
 #include <triacControl.h>
 #include <uart-comms.h>
+#include "stm32f7xx_hal.h"
 
 //#define  microSdWorking
 // despite trying all found examples on google and stm (also for F769Ni)  .... this stm  microSd bu..it did not work
@@ -531,6 +532,8 @@ void setCurrentAdcValAsCalibHigh()
 }
 
 
+//void initHwwdgSpy();
+
 tStatus initDefines()
 {
 	osSemaphoreDef_t  waitSemaphoreDef;
@@ -543,8 +546,134 @@ tStatus initDefines()
 	tStatus success =  tFailed;
 	success = restorePersistenData();
 
+//	initHwwdgSpy();  // just for debugging
+
 	return success;
 }
-
-
-
+//
+//WWDG_HandleTypeDef hwwdg;
+//
+//void initHwwdgSpy()
+//{
+////	__HAL_RCC_WWDG_CLK_ENABLE();
+//
+//  hwwdg.Instance = WWDG;
+//  hwwdg.Init.Prescaler = WWDG_PRESCALER_8;
+//  hwwdg.Init.Window = 0x6F;
+//  hwwdg.Init.Counter = 0x7F;
+//  hwwdg.Init.EWIMode = WWDG_EWI_DISABLE;
+////  if (HAL_WWDG_Init(&hwwdg) != HAL_OK)
+////  {
+////    errorHandler(0,goOn,"when calling HAL_WWDG_Init"," void MWWDG_Init");
+////  }
+//}
+//
+//
+//void rstWatchDog()
+//{
+//
+//	uint32_t cnt = (hwwdg.Instance->CR & 0x7F);
+//	cnt = ((WWDG_TypeDef*) WWDG)->CR;
+//	uint32_t tresh = ( hwwdg.Instance->CFR  & 0x7f);
+//	tresh =(((WWDG_TypeDef*) WWDG)->CFR & 0x7f);
+//	uint8_t res = ((cnt < tresh));
+//	UNUSED(res);
+//
+//	// &&(cnt > 0x3F)); //this part can be left.
+//								// if it should be thus far, it anyhow makes no more differc
+//}
+//
+//#define resetWatchDog()  \
+//		if  ( (((WWDG_TypeDef*) WWDG)->CR  & 0x7f) < (((WWDG_TypeDef*) WWDG)->CFR & 0x7f)) { \
+//			WRITE_REG(((WWDG_TypeDef*) WWDG)->CR,0x7f);   \
+//		}      \
+//
+//
+//
+//
+//uint8_t  isCouterInWindow()
+//{
+//	resetWatchDog();
+//
+//	uint8_t res = 0;
+//	uint32_t cnt = (hwwdg.Instance->CR & 0x7F);
+//	uint32_t tresh = ( hwwdg.Instance->CFR  & 0x7f);
+//	res = ((cnt < tresh) &&(cnt > 0x3F));
+//	return res;
+//}
+//
+//
+////void resetWatchDog()
+////{
+////	if (isCouterInWindow())  {
+////		HAL_WWDG_Refresh(&hwwdg);  WRITE_REG(hwwdg->Instance->CR, (hwwdg->Init.Counter));
+//////		++wwdgCnt;
+////	}
+////}
+//
+//
+//
+////#define useWWDG
+//
+//#ifdef useWWDG
+//WWDG_HandleTypeDef hwwdg;
+//#endif
+//
+////#ifdef useWWDG
+//
+////void WWDG_IRQHandler(void)
+////{
+//////  HAL_WWDG_IRQHandler(&hwwdg);
+////	if (__HAL_WWDG_GET_FLAG(&hwwdg, WWDG_FLAG_EWIF) != RESET)  {
+////		__HAL_WWDG_CLEAR_FLAG(&hwwdg, WWDG_FLAG_EWIF);
+////	}
+////
+////}
+////
+//////  #define WWDG                ((WWDG_TypeDef *) WWDG_BASE)
+////static void MWWDG_Init(void)
+////{
+////	__HAL_RCC_WWDG_CLK_ENABLE();
+////
+////  hwwdg.Instance = WWDG;
+////  hwwdg.Init.Prescaler = WWDG_PRESCALER_8;
+////  hwwdg.Init.Window = 0x6F;
+////  hwwdg.Init.Counter = 0x7F;
+////  hwwdg.Init.EWIMode = WWDG_EWI_ENABLE;
+////  if (HAL_WWDG_Init(&hwwdg) != HAL_OK)
+////  {
+////    errorHandler(0,goOn,"when calling HAL_WWDG_Init"," void MWWDG_Init");
+////  }
+//////	HAL_NVIC_SetPriority(WWDG_IRQn, 0, 0);
+//////	HAL_NVIC_EnableIRQ(WWDG_IRQn);
+////}
+////  todo make defines of below methods
+////uint8_t  isCouterInWindow()
+////{
+////	uint8_t res = 0;
+////	uint32_t cnt = (hwwdg.Instance->CR & 0x7F);
+////	uint32_t tresh = ( hwwdg.Instance->CFR  & 0x7f);
+////	res = ((cnt < tresh) &&(cnt > 0x3F));
+////	return res;
+////}
+////
+//////uint32_t wwdgCnt;
+////
+////void resetWatchDog()
+////{
+////	if (isCouterInWindow())  {
+////		HAL_WWDG_Refresh(&hwwdg);
+//////		++wwdgCnt;
+////	}
+////}
+//
+//#ifdef useWWDG
+//	MWWDG_Init();
+//
+//	while (1)
+//	{
+//	   // while (1) {}  // for testing watchdog
+//	   resetWatchDog();
+//#endif
+//
+//
