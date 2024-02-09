@@ -77,12 +77,12 @@ void printEmergencyData()
 	//  and: https://interrupt.memfault.com/blog/cortex-m-hardfault-debug
 	//  there you will find the more about the error code
 
-	uint32_t CFSR = *(uint32_t *) 0xE000ED28;  // Configurable Fault Status Registers g
+	uint32_t CFSR = *(uint32_t *) 0xE000ED28;  // Configurable Fault Status Registers
 	uint32_t UFSR = *(uint32_t *) 0xE000ED2A;  // UsageFault Status Register
-	uint32_t BFSR = *(uint32_t *) 0xE000ED29;  // BusFault Status Register   g
-	uint32_t ABFSR= *(uint32_t *) 0xE000EFA8;  // Auxiliary Bus Fault Status Register    g
-	uint32_t MMFSR= *(uint32_t *) 0xE000ED28;  // MemManage Status Register   g
-	uint32_t HFSR= *(uint32_t *) 0xE000ED2C;  //  HardFault Status Register    g
+	uint32_t BFSR = *(uint32_t *) 0xE000ED29;  // BusFault Status Register
+	uint32_t ABFSR= *(uint32_t *) 0xE000EFA8;  // Auxiliary Bus Fault Status Register
+	uint32_t MMFSR= *(uint32_t *) 0xE000ED28;  // MemManage Status Register
+	uint32_t HFSR= *(uint32_t *) 0xE000ED2C;  //  HardFault Status Register
 // todo  reviewed , check with processor prog manual
 	while (1);
 	UNUSED(CFSR);
