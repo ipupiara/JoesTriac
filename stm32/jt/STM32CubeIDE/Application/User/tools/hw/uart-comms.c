@@ -110,7 +110,6 @@ void private_printf( char *emsg, ...)
 	va_end(ap);
 }
 
-
 void info_printf( char *emsg, ...)
 {
 	va_list ap;
@@ -134,7 +133,6 @@ void pid_printf( char *emsg, ...)
 #endif
 	va_end(ap);
 }
-
 
 // just for usage with short strings, otherwise sizes of buffers need to be increased
 void  err_printf ( char *emsg, ...)

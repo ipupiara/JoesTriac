@@ -17,7 +17,7 @@ extern "C"
 //#define debugApp
 
 #define triacApplicationIsrPrio    5
-#define triacTriggerIsrPrio   0
+#define triacTriggerIsrPrio   5
 
 #define calibHighAmps  60.0
 #define calibLowAmps   20.0

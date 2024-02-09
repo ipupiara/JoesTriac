@@ -83,7 +83,7 @@ void USART1_IRQHandler(void)
 			   // todo open question why does this get called twice just during first transmit
 			 ATOMIC_CLEAR_BIT(huart1.Instance->CR1, USART_CR1_TXEIE);
 			 ATOMIC_SET_BIT(huart1.Instance->CR1, USART_CR1_TCIE);
-//			 setUartJobSemaQ();
+			 setUartJobSemaQ();
 	   }
 	   else {
 			 huart1.Instance->TDR = *txBufferPtr ;

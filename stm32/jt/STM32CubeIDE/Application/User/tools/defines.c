@@ -108,90 +108,90 @@ void initPersistendData()
 uint32_t getDefinesWeldingTime()
 {
 	uint32_t wTime;
-	taskENTER_CRITICAL();
+	//taskENTER_CRITICAL();
 	wTime = persistentRec.weldingTime;
-	taskEXIT_CRITICAL();
+	////taskEXIT_CRITICAL();
 	return wTime;
 }
 
 float getDefinesWeldingAmps()
 {
 	float amps;
-	taskENTER_CRITICAL();
+	////taskENTER_CRITICAL();
 	amps = persistentRec.weldingAmps;
-	taskEXIT_CRITICAL();
+	//taskEXIT_CRITICAL();
 	return amps;
 }
 
 uint8_t getDefinesAlarmNeeded()
 {
 	uint8_t needed;
-	taskENTER_CRITICAL();
+	////taskENTER_CRITICAL();
 	needed = persistentRec.alarmNeeded;
-	taskEXIT_CRITICAL();
+	//taskEXIT_CRITICAL();
 	return needed;
 }
 
 uint32_t getDefinesAlarmTime()
 {
 	uint32_t aTime;
-	taskENTER_CRITICAL();
+	//taskENTER_CRITICAL();
 	aTime = persistentRec.alarmTime;
-	taskEXIT_CRITICAL();
+	//taskEXIT_CRITICAL();
 	return aTime;
 }
 
 uint32_t getDefinesZCalibOn()
 {
 	uint32_t res;
-	taskENTER_CRITICAL();
+	//taskENTER_CRITICAL();
 	res = persistentRec.zCalibOn;
-	taskEXIT_CRITICAL();
+	//taskEXIT_CRITICAL();
 	return res;
 }
 
 uint32_t getDefinesCalibHighAdc()
 {
 	uint32_t cal;
-	taskENTER_CRITICAL();
+	//taskENTER_CRITICAL();
 	cal = persistentRec.calibHighAdc;
-	taskEXIT_CRITICAL();
+	//taskEXIT_CRITICAL();
 	return cal;
 }
 
 uint32_t getDefinesCalibLowAdc()
 {
 	uint32_t cal;
-	taskENTER_CRITICAL();
+	//taskENTER_CRITICAL();
 	cal = persistentRec.calibLowAdc;
-	taskEXIT_CRITICAL();
+	//taskEXIT_CRITICAL();
 	return cal;
 }
 
 uint32_t getDefinesZeroPotiPos()
 {
 	uint32_t val;
-	taskENTER_CRITICAL();
+	//taskENTER_CRITICAL();
 	val = persistentRec.zeroPotiPos;
-	taskEXIT_CRITICAL();
+	//taskEXIT_CRITICAL();
 	return val;
 }
 
 uint8_t getDefinesSwitchPressureNeeded()
 {
 	uint8_t val;
-	taskENTER_CRITICAL();
+	//taskENTER_CRITICAL();
 	val = persistentRec.switchPressureNeeded;
-	taskEXIT_CRITICAL();
+	//taskEXIT_CRITICAL();
 	return val;
 }
 
 uint16_t getDefinesSwitchPressureTime()
 {
 	uint16_t val;
-	taskENTER_CRITICAL();
+	//taskENTER_CRITICAL();
 	val = persistentRec.switchPressureTime;
-	taskEXIT_CRITICAL();
+	//taskEXIT_CRITICAL();
 	return val;
 }
 
@@ -475,8 +475,8 @@ tStatus restorePersistenData()
 
 void errorHandler(uint32_t  code, errorSeverity severity, char* errorString, char* method )
 {
-	char buffer [100];
-	err_printf(buffer, 99, "%s, %s, %10lX, %X", method, errorString,code,severity);
+//	char buffer [100];
+//	err_printf(buffer, 99, "%s, %s, %10lX, %X", method, errorString,code,severity);
 	//  todo log to persistency
 
 	if (severity == stop) {  do {} while (1);}

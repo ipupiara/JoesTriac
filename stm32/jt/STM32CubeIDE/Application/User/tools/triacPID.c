@@ -54,24 +54,17 @@ uint8_t signum(real re)
 uint32_t getCurrentAmpsADCValue()
 {
 	uint32_t res;
-	taskENTER_CRITICAL();
+//	taskENTER_CRITICAL();
 	res = currentAmpsADCValue;
-	taskEXIT_CRITICAL();
+//	taskEXIT_CRITICAL();
 	return res;
-}
-
-void setCurrentAmpsADCValueNonIsr(uint32_t adcV )
-{
-	taskENTER_CRITICAL();
-	currentAmpsADCValue = adcV;
-	taskEXIT_CRITICAL();
 }
 
 void adcValueReceived(uint16_t adcVal)
 {
-	taskENTER_CRITICAL();
-	setCurrentAmpsADCValueNonIsr(adcVal);
-	taskEXIT_CRITICAL();
+//	taskENTER_CRITICAL();
+	currentAmpsADCValue = adcVal;
+//	taskEXIT_CRITICAL();
 }
 
 void updateGradAmps()

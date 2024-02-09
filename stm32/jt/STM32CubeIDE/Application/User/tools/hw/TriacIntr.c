@@ -217,18 +217,18 @@ void haltDurationTimer()
 uint32_t getSecondsDurationTimerRemaining()
 {
 	uint32_t res;
-	taskENTER_CRITICAL();
+//	taskENTER_CRITICAL();
 	res = secondsDurationTimerRemaining;
-	taskEXIT_CRITICAL();
+//	taskEXIT_CRITICAL();   atomic anyhow
 	return res;
 }
 
 uint32_t getSecondsInDurationTimer()
 {
 	uint32_t res;
-	taskENTER_CRITICAL();
+//	taskENTER_CRITICAL();
 	res = secondsInDurationTimer;
-	taskEXIT_CRITICAL();
+//	taskEXIT_CRITICAL();
 	return res;
 }
 

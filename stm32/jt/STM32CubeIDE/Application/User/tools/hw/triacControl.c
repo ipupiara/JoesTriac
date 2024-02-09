@@ -140,7 +140,6 @@ void startDelayTimer ()
 
 void setTriacTriggerDelay(int32_t durationTcnt)
 {
-	taskENTER_CRITICAL();
 	if (durationTcnt < stmTriggerDelayMax) {
 		if (durationTcnt > 0) {
 			triacTriggerDelay = durationTcnt;
@@ -150,7 +149,7 @@ void setTriacTriggerDelay(int32_t durationTcnt)
 	} else {
 		triacTriggerDelay = stmTriggerDelayMax - 1;
 	}
-	taskEXIT_CRITICAL();  // omitted due to isr problems with freertos, should be no problem here due to atomicity, and 1 changer and 1 consumer-only
+	 // omitted due to isr problems with freertos, should be no problem here due to atomicity, and 1 changer and 1 consumer-only
 }
 
 
