@@ -81,7 +81,7 @@ void runScreenView::update(pJoesPresenterEventT  pMsg )
 
 void runScreenView::showAstrolabium(bool vis)
 {
-	astrolabiumContainer1.setVisible(vis)
+	astrolabiumContainer1.setVisible(vis);
 }
 
 
