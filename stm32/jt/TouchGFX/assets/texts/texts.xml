@@ -6,87 +6,6 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
-      <Text Id="__SingleUse_9FG7" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">00000000</Translation>
-      </Text>
-      <Text Id="__SingleUse_BD4W" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">&lt;value&gt;</Translation>
-      </Text>
-      <Text Id="__SingleUse_XF8E" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">adc</Translation>
-      </Text>
-      <Text Id="__SingleUse_5QYB" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">   0</Translation>
-      </Text>
-      <Text Id="__SingleUse_LSC9" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">&lt;value&gt;</Translation>
-      </Text>
-      <Text Id="__SingleUse_ALYM" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">aSqE</Translation>
-      </Text>
-      <Text Id="__SingleUse_IIDS" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">   0</Translation>
-      </Text>
-      <Text Id="__SingleUse_KVXO" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">&lt;value&gt;</Translation>
-      </Text>
-      <Text Id="__SingleUse_AE3P" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">wSnc</Translation>
-      </Text>
-      <Text Id="__SingleUse_9J58" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">00000000</Translation>
-      </Text>
-      <Text Id="__SingleUse_GGYS" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">&lt;value&gt;</Translation>
-      </Text>
-      <Text Id="__SingleUse_1312" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">ilEx</Translation>
-      </Text>
-      <Text Id="__SingleUse_H4U6" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">amEx</Translation>
-      </Text>
-      <Text Id="__SingleUse_U596" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">000</Translation>
-      </Text>
-      <Text Id="__SingleUse_1JSV" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">&lt;value&gt;</Translation>
-      </Text>
-      <Text Id="__SingleUse_OOCQ" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">0000</Translation>
-      </Text>
-      <Text Id="__SingleUse_9EOH" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">&lt;value&gt;</Translation>
-      </Text>
-      <Text Id="__SingleUse_L3I3" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">/maxM</Translation>
-      </Text>
-      <Text Id="__SingleUse_ATUE" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">amtM</Translation>
-      </Text>
-      <Text Id="__SingleUse_XNP3" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">0000</Translation>
-      </Text>
-      <Text Id="__SingleUse_5JSP" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">&lt;value&gt;</Translation>
-      </Text>
-      <Text Id="__SingleUse_XCET" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">0.000</Translation>
-      </Text>
-      <Text Id="__SingleUse_1MVJ" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">&lt;value&gt;</Translation>
-      </Text>
-      <Text Id="__SingleUse_PEV0" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">0000</Translation>
-      </Text>
-      <Text Id="__SingleUse_29C1" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">&lt;value&gt;</Translation>
-      </Text>
-      <Text Id="__SingleUse_IHO9" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">TDly</Translation>
-      </Text>
-      <Text Id="__SingleUse_QHGG" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">/V</Translation>
-      </Text>
       <Text Id="__SingleUse_UV0W" Alignment="Center" TypographyId="Default">
         <Translation Language="GB">cancel</Translation>
       </Text>
@@ -197,6 +116,15 @@
       </Text>
       <Text Id="__SingleUse_6OBZ" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">000.00</Translation>
+      </Text>
+      <Text Id="__SingleUse_OGN3" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_MZOD" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;potiPos&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_6WAP" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">poti pos</Translation>
       </Text>
       <Text Id="__SingleUse_KE25" Alignment="Center" TypographyId="Default">
         <Translation Language="GB">abort</Translation>
@@ -501,8 +429,8 @@
     </TextGroup>
   </Texts>
   <Typographies>
-    <Typography Id="Default" Font="cour.ttf" Size="20" Bpp="4" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0x30-0x39,0x3A,0x2D" />
-    <Typography Id="Large" Font="cour.ttf" Size="40" Bpp="4" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0x30-0x39,0x3A,0x2D" />
+    <Typography Id="Default" Font="cour.ttf" Size="20" Bpp="4" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0x30-0x39,0x3A" />
+    <Typography Id="Large" Font="cour.ttf" Size="40" Bpp="4" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0x30-0x39,0x3A" />
     <Typography Id="Small" Font="verdana.ttf" Size="10" Bpp="4" Direction="LTR" FallbackCharacter="?" />
   </Typographies>
 </TextDatabase>

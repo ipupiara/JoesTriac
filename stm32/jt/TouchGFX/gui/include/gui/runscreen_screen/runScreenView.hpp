@@ -12,11 +12,9 @@ public:
     virtual ~runScreenView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
-    void update(pJoesPresenterEventT  pMsg);
+    void update(float amps,uint32_t secRemain);
     virtual void stopButtonPressed();
-    virtual void astroButtonPressed();
 protected:
-    void showAstrolabium(bool vis);
     uint32_t weldingTimeSec;
     float     weldingAmps;
 };

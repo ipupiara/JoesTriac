@@ -10,9 +10,59 @@ extern "C"
 	
 #include <stdio.h>
 
-//#include <stdio.h>
-
 #define maxSecsPossible  0xFFFFFFFF
+	
+//int8_t durationTimerReachead;
+//int8_t runningSecondsTick;
+
+//extern int64_t  secondCount;
+
+//#define stmTriggerDelayMax1000     //  measures 10 ms, +- crystal tolerance
+//#define stmTriggerDelayMax2000    // not yet available
+#define stmTriggerDelayMax5000     // not yet available
+
+
+#ifdef stmTriggerDelayMax1000
+
+#define stmTriggerDelayMax  1000
+#define kStepUnitsFactor  1
+#define triacDelayPsc  995   // (defaultTriacDelayPsc / kStepUnitsFactor)
+
+#else
+
+	#ifdef  stmTriggerDelayMax5000
+//		#define stmTriggerDelayMax  5000
+		#define stmTriggerDelayMax  4950
+		#define kStepUnitsFactor  5
+		#define triacDelayPsc  197   // (defaultTriacDelayPsc / kStepUnitsFactor)
+
+	#else
+		#ifdef  stmTriggerDelayMax2000
+
+			#define stmTriggerDelayMax  2000
+			#define kStepUnitsFactor  2
+			#define triacDelayPsc  470   // (defaultTriacDelayPsc / kStepUnitsFactor
+
+	#else)
+
+		#endif
+	#endif
+#endif
+
+
+
+extern uint32_t secondsDurationTimerRemaining;  // todo check this memory direct access
+
+//int8_t adcTick;
+
+
+
+////void setDiffADC();
+////void closeDiffADC();
+//void startSingleADC();
+//int16_t ampsADCValue();
+//int16_t diffADCValue();
+//double adcVoltage();
 
 
 void startDurationTimer(uint32_t secs);
@@ -27,6 +77,12 @@ void setBuzzerOn();
 void setBuzzerOff();
 void toggleBuzzer();
 
+extern int32_t triacTriggerDelay;
+void setTriacTriggerDelay(int32_t cmsecs);
+int32_t getTriacTriggerDelay();
+
+void startTriacRun();
+void stopTriacRun();
 
 void setCompletionAlarmOn();
 void setCompletionAlarmOff();

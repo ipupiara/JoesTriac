@@ -21,7 +21,7 @@ extern "C"
 void init_printf();
 void err_printf ( char *emsg, ...);
 void info_printf( char *emsg, ...);
-void pid_printf( char *emsg, ...);
+
 
 //void start_printf();
 void printStartMessage();

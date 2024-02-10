@@ -14,7 +14,6 @@
 #include <uart-comms.h>
 #include <canComms.h>
 #include <defines.h>
-#include <extiCheck.h>
 
 union  {
 	float realVar;
@@ -99,7 +98,7 @@ void mainJt(void *argument)
 	osStatus_t status;
 	CMainJtEventT  mJtEv;
 	fsmTriacEvent fsmEv;
-	init_printf();
+//	init_printf();
 	initI2c();
 //	initCanComms();
 	initDefines();
@@ -220,7 +219,7 @@ void mainJt(void *argument)
 							break;
 						}
 						default : {
-							errorHandler(mJtEv.evType ,goOn," osMessageQueueGet unknown event "," mainJt ");
+								errorHandler(mJtEv.evType ,goOn," osMessageQueueGet unknown event "," mainJt ");
 						}
 			}
 		} else {
@@ -274,7 +273,7 @@ osStatus_t sendModelMessage(pJoesModelEventT  pMsg)
 
 void initJt()
 {
-#ifndef debugApp
+#ifndef debugTriac
 	mainJtTaskHandle = osThreadNew(mainJt, NULL, &mainJt_attributes);
 	if (mainJtTaskHandle  == NULL)   {
 		errorHandler((uint32_t)mainJtTaskHandle ,stop," mainJtTaskHandle ","initJt");
@@ -297,8 +296,7 @@ void initJt()
 		errorHandler((uint32_t)mainJtMessageQ ,stop," mainJtMessageQ ","initJt");
 	}
 
-	uint32_t sz = ((sizeof(CJoesPresenterEventT)*memoryMultiplier));
-	presenterMessageQ =  osMessageQueueNew(5,sz , NULL);
+	presenterMessageQ =  osMessageQueueNew(5,sizeof(CJoesPresenterEventT)*memoryMultiplier, NULL);
 	if (presenterMessageQ  == NULL)   {
 		errorHandler((uint32_t)NULL, stop," presenterMessageQ ", "initJt");
 	}
@@ -311,12 +309,12 @@ void initJt()
 #else
 
 
-//		initTriacIntr();
-		initUartHw();
+		initTriacIntr();
+//		initUartHw();
 #endif
 }
 
-#ifdef debugApp
+#ifdef debugTriac
 
 void SysTick_Handler(void)
 {

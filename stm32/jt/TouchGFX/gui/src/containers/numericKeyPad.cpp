@@ -25,4 +25,5 @@ void numericKeyPad::setEnable7to9forInput(bool ena)
 	button8.invalidate();
 	button9.setVisible(ena);
 	button9.invalidate();
+
 }
