@@ -14,16 +14,14 @@ extern "C"
 
 #include <stdio.h>
 
-//#define debugTriac
+//#define debugApp
 
 #define triacApplicationIsrPrio    5
-#define triacTriggerIsrPrio   0
+#define triacTriggerIsrPrio   5
 
-#define calibHighAmps  80.0
-#define calibLowAmps   30.0
-#define avrTriggerDelayMaxTcnt  810
+#define calibHighAmps  60.0
+#define calibLowAmps   20.0
 
-#define errorStringLen  20
 #define eepromI2cAddr   0xA0
 
 typedef enum{
@@ -104,6 +102,8 @@ void definesWait(uint32_t ms);
 
 void setCurrentAdcValAsCalibLow();
 void setCurrentAdcValAsCalibHigh();
+
+int32_t i32abs(int32_t val);
 #ifdef  __cplusplus
 }
 #endif

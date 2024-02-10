@@ -13,14 +13,16 @@ extern "C" {
 #endif
 
 #include <stdint.h>
-//#ifndef debugTriac
+#include <defines.h>
+#include <string.h>
+#include "stm32f7xx_hal.h"
+
+//#ifndef debugApp   // not yet completely implemented to exclude these libs
 #include "cmsis_os.h"
 #include <task.h>
 #include <FreeRTOS.h>
 //#endif
-#include <defines.h>
-#include <string.h>
-#include "stm32f7xx_hal.h"
+
 
 
 
@@ -107,15 +109,22 @@ typedef enum {
 typedef struct  {
 	presenterMessageType messageType;
 	union {
-		char calibState  [20];
 		uint32_t calibTriacDelay;
 		float    desiredAmps;
 		uint32_t  alarmTimeSince;
 		struct {
 			float   	amps;
-//			uint16_t  potiPos;
-			uint16_t  secondsRemaining;
-			uint16_t secondsBeforeReturn;
+			uint32_t  secondsRemaining;
+			uint32_t secondsBeforeReturn;
+			int32_t triacDelay;
+			int32_t adcValue;
+			float adcVoltage;
+			uint32_t  amtMissZp;
+			uint32_t  maxMissZp;
+			uint32_t  amtIllExti;
+			uint32_t  amtWrongSyn;
+			uint32_t extiEvTotal;
+			uint32_t amtSeqErr;
 		} runScreenData;
 		struct {
 			float   	 devV;
