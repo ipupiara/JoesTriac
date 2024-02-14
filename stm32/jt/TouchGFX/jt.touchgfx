@@ -1302,6 +1302,44 @@
               "Blue": 255
             },
             "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "buttonWithLabel1",
+            "X": 439,
+            "Y": 240,
+            "Width": 170,
+            "Height": 60,
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "TextId": "__SingleUse_6WAP",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 676,
+            "Y": 254,
+            "Width": 72,
+            "Height": 45,
+            "TextId": "__SingleUse_MZOD",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_OGN3",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
           }
         ],
         "Interactions": [
@@ -1666,30 +1704,6 @@
             "Width": 240,
             "Height": 240,
             "CustomContainerDefinitionName": "GaugeWithGoal"
-          },
-          {
-            "Type": "ButtonWithIcon",
-            "Name": "astroButton",
-            "X": 743,
-            "Y": 4,
-            "Width": 50,
-            "Height": 63,
-            "Pressed": "astro-1-rem.png",
-            "Released": "astro-1-rem.png",
-            "IconPressed": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
-            "IconReleased": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
-            "IconX": 97,
-            "IconHeight": 50,
-            "IconWidth": 50
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "astrolabiumContainer1",
-            "X": 500,
-            "Y": 130,
-            "Width": 300,
-            "Height": 250,
-            "CustomContainerDefinitionName": "astrolabiumContainer"
           }
         ],
         "Interactions": [
@@ -1702,17 +1716,6 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "stopButtonPressed"
-            }
-          },
-          {
-            "InteractionName": "astroButtonInteraction",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "astroButton"
-            },
-            "Action": {
-              "Type": "ActionCustom",
-              "FunctionName": "astroButtonPressed"
             }
           }
         ]
@@ -3446,269 +3449,6 @@
               "Blue": 197
             },
             "ArcCapStyle": "Butt"
-          }
-        ],
-        "Interactions": []
-      },
-      {
-        "Name": "astrolabiumContainer",
-        "Width": 300,
-        "Height": 250,
-        "Components": [
-          {
-            "Type": "BoxWithBorder",
-            "Name": "boxWithBorder1",
-            "Y": -1,
-            "Width": 300,
-            "Height": 250,
-            "Color": {
-              "Red": 170,
-              "Green": 240,
-              "Blue": 127
-            },
-            "BorderSize": 3
-          },
-          {
-            "Type": "TextArea",
-            "Name": "amtSeqErrText",
-            "X": 80,
-            "Y": 148,
-            "Width": 48,
-            "Height": 24,
-            "TextId": "__SingleUse_LSC9",
-            "TextRotation": "0",
-            "AutoSize": true,
-            "Wildcard1": {
-              "TextId": "__SingleUse_5QYB",
-              "UseBuffer": true,
-              "BufferSize": 10
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea12",
-            "X": 6,
-            "Y": 147,
-            "Width": 48,
-            "Height": 24,
-            "TextId": "__SingleUse_ALYM",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea3",
-            "X": 6,
-            "Y": 3,
-            "Width": 36,
-            "Height": 24,
-            "TextId": "__SingleUse_XF8E",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "amtSyncWrongText",
-            "X": 80,
-            "Y": 124,
-            "Width": 48,
-            "Height": 24,
-            "TextId": "__SingleUse_KVXO",
-            "TextRotation": "0",
-            "AutoSize": true,
-            "Wildcard1": {
-              "TextId": "__SingleUse_IIDS",
-              "UseBuffer": true,
-              "BufferSize": 10
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea11",
-            "X": 6,
-            "Y": 123,
-            "Width": 48,
-            "Height": 24,
-            "TextId": "__SingleUse_AE3P",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "illigelExtiText",
-            "X": 77,
-            "Y": 101,
-            "Width": 96,
-            "Height": 24,
-            "TextId": "__SingleUse_GGYS",
-            "TextRotation": "0",
-            "AutoSize": true,
-            "Wildcard1": {
-              "TextId": "__SingleUse_9J58",
-              "UseBuffer": true,
-              "BufferSize": 20
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea10",
-            "X": 6,
-            "Y": 99,
-            "Width": 48,
-            "Height": 24,
-            "TextId": "__SingleUse_1312",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea9",
-            "X": 6,
-            "Y": 75,
-            "Width": 48,
-            "Height": 24,
-            "TextId": "__SingleUse_H4U6",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "maxMissedZpText",
-            "X": 206,
-            "Y": 50,
-            "Width": 36,
-            "Height": 24,
-            "TextId": "__SingleUse_1JSV",
-            "TextRotation": "0",
-            "AutoSize": true,
-            "Wildcard1": {
-              "TextId": "__SingleUse_U596",
-              "UseBuffer": true,
-              "BufferSize": 10
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "amtMissedZpText",
-            "X": 77,
-            "Y": 50,
-            "Width": 48,
-            "Height": 24,
-            "TextId": "__SingleUse_9EOH",
-            "TextRotation": "0",
-            "AutoSize": true,
-            "Wildcard1": {
-              "TextId": "__SingleUse_OOCQ",
-              "UseBuffer": true,
-              "BufferSize": 10
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea7",
-            "X": 120,
-            "Y": 50,
-            "Width": 60,
-            "Height": 24,
-            "TextId": "__SingleUse_L3I3",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea6",
-            "X": 6,
-            "Y": 50,
-            "Width": 48,
-            "Height": 24,
-            "TextId": "__SingleUse_ATUE",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "delayText",
-            "X": 77,
-            "Y": 26,
-            "Width": 48,
-            "Height": 24,
-            "TextId": "__SingleUse_5JSP",
-            "TextRotation": "0",
-            "AutoSize": true,
-            "Wildcard1": {
-              "TextId": "__SingleUse_XNP3",
-              "UseBuffer": true,
-              "BufferSize": 10
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "adcValueText",
-            "X": 77,
-            "Y": 5,
-            "Width": 57,
-            "Height": 23,
-            "TextId": "__SingleUse_29C1",
-            "TextRotation": "0",
-            "Wildcard1": {
-              "TextId": "__SingleUse_PEV0",
-              "UseBuffer": true,
-              "BufferSize": 10
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea5",
-            "X": 6,
-            "Y": 27,
-            "Width": 48,
-            "Height": 24,
-            "TextId": "__SingleUse_IHO9",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "adcVoltageText",
-            "X": 176,
-            "Y": 5,
-            "Width": 60,
-            "Height": 24,
-            "TextId": "__SingleUse_1MVJ",
-            "TextRotation": "0",
-            "AutoSize": true,
-            "Wildcard1": {
-              "TextId": "__SingleUse_XCET",
-              "UseBuffer": true,
-              "BufferSize": 10
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea4",
-            "X": 128,
-            "Y": 2,
-            "Width": 24,
-            "Height": 24,
-            "TextId": "__SingleUse_QHGG",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "amtExtiTotalText",
-            "X": 77,
-            "Y": 75,
-            "Width": 96,
-            "Height": 24,
-            "TextId": "__SingleUse_BD4W",
-            "TextRotation": "0",
-            "AutoSize": true,
-            "Wildcard1": {
-              "TextId": "__SingleUse_9FG7",
-              "UseBuffer": true,
-              "BufferSize": 10
-            }
           }
         ],
         "Interactions": []

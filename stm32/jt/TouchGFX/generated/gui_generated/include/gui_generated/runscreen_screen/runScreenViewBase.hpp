@@ -13,7 +13,6 @@
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/containers/progress_indicators/BoxProgress.hpp>
 #include <gui/containers/GaugeWithGoal.hpp>
-#include <gui/containers/astrolabiumContainer.hpp>
 
 class runScreenViewBase : public touchgfx::View<runScreenPresenter>
 {
@@ -26,10 +25,6 @@ public:
      * Virtual Action Handlers
      */
     virtual void stopButtonPressed()
-    {
-        // Override and implement this function in runScreen
-    }
-    virtual void astroButtonPressed()
     {
         // Override and implement this function in runScreen
     }
@@ -54,8 +49,6 @@ protected:
     touchgfx::TextAreaWithOneWildcard currentAmpereText;
     touchgfx::BoxProgress boxProgress1;
     GaugeWithGoal ampGauge;
-    touchgfx::ButtonWithIcon astroButton;
-    astrolabiumContainer astrolabiumContainer1;
 
     /*
      * Wildcard Buffers

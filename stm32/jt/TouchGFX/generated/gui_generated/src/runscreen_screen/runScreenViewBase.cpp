@@ -85,15 +85,6 @@ runScreenViewBase::runScreenViewBase() :
 
     ampGauge.setXY(280, 145);
     add(ampGauge);
-
-    astroButton.setXY(743, 4);
-    astroButton.setBitmaps(touchgfx::Bitmap(BITMAP_ASTRO_1_REM_ID), touchgfx::Bitmap(BITMAP_ASTRO_1_REM_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID));
-    astroButton.setIconXY(97, 0);
-    astroButton.setAction(buttonCallback);
-    add(astroButton);
-
-    astrolabiumContainer1.setXY(500, 130);
-    add(astrolabiumContainer1);
 }
 
 runScreenViewBase::~runScreenViewBase()
@@ -104,7 +95,6 @@ runScreenViewBase::~runScreenViewBase()
 void runScreenViewBase::setupScreen()
 {
     ampGauge.initialize();
-    astrolabiumContainer1.initialize();
 }
 
 void runScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
@@ -115,12 +105,5 @@ void runScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& sr
         //When stopButton clicked call virtual function
         //Call stopButtonPressed
         stopButtonPressed();
-    }
-    if (&src == &astroButton)
-    {
-        //astroButtonInteraction
-        //When astroButton clicked call virtual function
-        //Call astroButtonPressed
-        astroButtonPressed();
     }
 }

@@ -46,6 +46,8 @@ protected:
     touchgfx::ButtonWithLabel calibHighButton;
     touchgfx::ButtonWithLabel backNSaveButton;
     touchgfx::ButtonWithLabel cancelButton;
+    touchgfx::ButtonWithLabel buttonWithLabel1;
+    touchgfx::TextAreaWithOneWildcard textArea1;
 
     /*
      * Wildcard Buffers
@@ -54,6 +56,8 @@ protected:
     touchgfx::Unicode::UnicodeChar calibLowTextBuffer[CALIBLOWTEXT_SIZE];
     static const uint16_t CALIBHIGHTEXT_SIZE = 10;
     touchgfx::Unicode::UnicodeChar calibHighTextBuffer[CALIBHIGHTEXT_SIZE];
+    static const uint16_t TEXTAREA1_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar textArea1Buffer[TEXTAREA1_SIZE];
 
 private:
 
