@@ -69,6 +69,33 @@ extern TIM_HandleTypeDef htim6;
 
 /* USER CODE BEGIN EV */
 
+
+
+void printEmergencyData()
+{
+	//  see also: STM32F7 Series and STM32H7 Series Cortex®-M7 processor programming manual
+	//  and: https://interrupt.memfault.com/blog/cortex-m-hardfault-debug
+	//  there you will find the more about the error code
+
+	uint32_t CFSR = *(uint32_t *) 0xE000ED28;  // Configurable Fault Status Registers
+	uint32_t UFSR = *(uint32_t *) 0xE000ED2A;  // UsageFault Status Register
+	uint32_t BFSR = *(uint32_t *) 0xE000ED29;  // BusFault Status Register
+	uint32_t ABFSR= *(uint32_t *) 0xE000EFA8;  // Auxiliary Bus Fault Status Register
+	uint32_t MMFSR= *(uint32_t *) 0xE000ED28;  // MemManage Status Register
+	uint32_t HFSR= *(uint32_t *) 0xE000ED2C;  //  HardFault Status Register
+
+	while (1);
+	UNUSED(CFSR);
+	UNUSED(UFSR);
+	UNUSED(BFSR);
+	UNUSED(ABFSR);
+	UNUSED(MMFSR);
+	UNUSED(HFSR);
+}
+
+
+
+
 /* USER CODE END EV */
 
 /******************************************************************************/
@@ -80,7 +107,7 @@ extern TIM_HandleTypeDef htim6;
 void NMI_Handler(void)
 {
   /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
-
+	 printEmergencyData();
   /* USER CODE END NonMaskableInt_IRQn 0 */
   /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
 
@@ -93,7 +120,7 @@ void NMI_Handler(void)
 void HardFault_Handler(void)
 {
   /* USER CODE BEGIN HardFault_IRQn 0 */
-
+	printEmergencyData();
   /* USER CODE END HardFault_IRQn 0 */
   while (1)
   {
@@ -108,7 +135,7 @@ void HardFault_Handler(void)
 void MemManage_Handler(void)
 {
   /* USER CODE BEGIN MemoryManagement_IRQn 0 */
-
+	printEmergencyData();
   /* USER CODE END MemoryManagement_IRQn 0 */
   while (1)
   {
@@ -123,7 +150,7 @@ void MemManage_Handler(void)
 void BusFault_Handler(void)
 {
   /* USER CODE BEGIN BusFault_IRQn 0 */
-
+	printEmergencyData();
   /* USER CODE END BusFault_IRQn 0 */
   while (1)
   {
@@ -132,13 +159,25 @@ void BusFault_Handler(void)
   }
 }
 
+//void WWDG_IRQHandler(void)
+//{
+//	  if (__HAL_WWDG_GET_IT_SOURCE(hwwdg, WWDG_IT_EWI) != RESET)
+//	  {
+//		if (__HAL_WWDG_GET_FLAG(hwwdg, WWDG_FLAG_EWIF) != RESET)
+//		{
+//		  __HAL_WWDG_CLEAR_FLAG(hwwdg, WWDG_FLAG_EWIF);
+//		  printEmergencyData();
+//		}
+//	  }
+//}
+
 /**
   * @brief This function handles Undefined instruction or illegal state.
   */
 void UsageFault_Handler(void)
 {
   /* USER CODE BEGIN UsageFault_IRQn 0 */
-
+	printEmergencyData();
   /* USER CODE END UsageFault_IRQn 0 */
   while (1)
   {

@@ -66,22 +66,6 @@ editCalibValuesScreenViewBase::editCalibValuesScreenViewBase() :
     cancelButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     cancelButton.setAction(buttonCallback);
     add(cancelButton);
-
-    buttonWithLabel1.setXY(439, 240);
-    buttonWithLabel1.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
-    buttonWithLabel1.setLabelText(touchgfx::TypedText(T___SINGLEUSE_6WAP));
-    buttonWithLabel1.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    buttonWithLabel1.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    add(buttonWithLabel1);
-
-    textArea1.setXY(676, 254);
-    textArea1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    textArea1.setLinespacing(0);
-    Unicode::snprintf(textArea1Buffer, TEXTAREA1_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_OGN3).getText());
-    textArea1.setWildcard(textArea1Buffer);
-    textArea1.resizeToCurrentText();
-    textArea1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_MZOD));
-    add(textArea1);
 }
 
 editCalibValuesScreenViewBase::~editCalibValuesScreenViewBase()

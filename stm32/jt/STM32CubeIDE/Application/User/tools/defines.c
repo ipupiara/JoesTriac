@@ -15,6 +15,9 @@
 #include <mainJt.h>
 #include <triacPID.h>
 #include <i2c.h>
+#include <extiCheck.h>
+#include <triacControl.h>
+#include <uart-comms.h>
 
 //#define  microSdWorking
 // despite trying all found examples on google and stm (also for F769Ni)  .... this stm  microSd bu..it did not work
@@ -29,7 +32,7 @@ void definesWait(uint32_t ms)
 	if (status  != osErrorTimeout )  {
 		errorHandler(status,goOn," status ","definesWait1");
 	}  else  {
-		errorHandler(status,goOn," status ","definesWait2");
+//		errorHandler(status,goOn," status ","definesWait2");
 	}
 }
 
@@ -62,7 +65,15 @@ void sendActualValuesToRunNStopScreen(uint16_t secondsRemaining, uint16_t second
 	presenterMessage.evData.runScreenData.secondsRemaining= time;
 	presenterMessage.evData.runScreenData.amps= amps;
 	presenterMessage.evData.runScreenData.secondsBeforeReturn = secondsb4Return;
-
+	presenterMessage.evData.runScreenData.adcValue = getCurrentAmpsADCValue();
+	presenterMessage.evData.runScreenData.adcVoltage = adcVoltage();
+	presenterMessage.evData.runScreenData.triacDelay = getTriacTriggerDelay();
+	presenterMessage.evData.runScreenData.amtMissZp =  amtMissedZpTotal;
+	presenterMessage.evData.runScreenData.maxMissZp = maxMissedZp;
+	presenterMessage.evData.runScreenData.amtIllExti= amountIllegalExti;
+	presenterMessage.evData.runScreenData.extiEvTotal = amtExtiEvTotal;
+	presenterMessage.evData.runScreenData.amtWrongSyn = amtWrongSync;
+	presenterMessage.evData.runScreenData.amtSeqErr = amtExtiSequenceError;
 	sendPresenterMessage(&presenterMessage);
 }
 
@@ -463,24 +474,39 @@ tStatus restorePersistenData()
 
 void errorHandler(uint32_t  code, errorSeverity severity, char* errorString, char* method )
 {
-	char buffer [100];
-	snprintf(buffer, 99, "%s, %s, %10lX, %X", method, errorString,code,severity);
+//	char buffer [100];
+//	err_printf(buffer, 99, "%s, %s, %10lX, %X", method, errorString,code,severity);
 	//  todo log to persistency
 
 	if (severity == stop) {  do {} while (1);}
 }
 
+int32_t i32abs(int32_t val)
+{
+	int32_t res = val;
+	if (res < 0) { res = -res; }
+	return res;
+}
 
 void calibTriacDelayChange(int32_t diff)
 {
+//	printf("calibTriacDelayChange\n");
    int16_t res = getTriacTriggerDelay();
-   res += diff * kStepUnitsFactor;   //  todo change also on ui
+   if ( i32abs (diff) != 1)  {
+	   res += diff * kStepUnitsFactor;   //  todo change also on ui
+   } else  {
+	   res += diff;
+   }
    setTriacTriggerDelay(res);
    CJoesPresenterEventT msg;
+
+   info_printf("calibTriacDelayChange %i\n",res);
 
 	msg.messageType = calibTriacDelay;
 	msg.evData.calibTriacDelay =res;
 	sendPresenterMessage(&msg);
+
+//	printf("calibTriacDelayChange\n");
 }
 
 tStatus isCalibrationReady()

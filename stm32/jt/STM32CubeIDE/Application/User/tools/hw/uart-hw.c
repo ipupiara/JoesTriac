@@ -13,6 +13,8 @@ UART_HandleTypeDef huart1;
 osMessageQueueId_t uartSendSemaphoreQ;
 uint8_t  uartJobSemSet;
 
+uint32_t debugCharCnt, debugStringCnt;
+
 void setUartJobSemaQ()
 {
 #ifndef debugApp
@@ -83,12 +85,13 @@ void USART1_IRQHandler(void)
 			   // todo open question why does this get called twice just during first transmit
 			 ATOMIC_CLEAR_BIT(huart1.Instance->CR1, USART_CR1_TXEIE);
 			 ATOMIC_SET_BIT(huart1.Instance->CR1, USART_CR1_TCIE);
-			 setUartJobSemaQ();
+//			 setUartJobSemaQ();
 	   }
 	   else {
 			 huart1.Instance->TDR = *txBufferPtr ;
 			 txBufferPtr++;
 			 txBufferRemain--;
+			 ++debugCharCnt;
 	   }
 	}
 	uint8_t idleDetected = 0;
@@ -129,6 +132,7 @@ uint8_t startUartHw()
 osStatus_t sendUartString(char* sndStr)
 {
 	osStatus_t res = osOK;
+	++ debugStringCnt;
 	UART_Transmit(&huart1, (uint8_t*) sndStr, strlen(sndStr));
 
 	return res;
@@ -155,6 +159,8 @@ uint8_t initUartHw()
 {
 	uint8_t res = 0;
 
+	debugCharCnt = debugStringCnt = 0;
+
 	uartJobSemSet = 0;
 	#ifndef debugApp
 		uartSendSemaphoreQ =  osMessageQueueNew(3,4, NULL);
@@ -169,7 +175,7 @@ uint8_t initUartHw()
 	 RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
 
 	huart1.Instance = USART1;
-	huart1.Init.BaudRate = 115200;
+	huart1.Init.BaudRate = 57600; //  115200;
 	huart1.Init.WordLength = UART_WORDLENGTH_8B;
 	huart1.Init.StopBits = UART_STOPBITS_1;
 	huart1.Init.Parity = UART_PARITY_NONE;
