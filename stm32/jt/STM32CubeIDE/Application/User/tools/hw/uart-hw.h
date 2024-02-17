@@ -195,7 +195,7 @@ PF6     ------> USART2_RX
 #endif
 
 
-
+extern uint8_t  uartJobSemSet;
 extern osMessageQueueId_t uartSendSemaphoreQ;
 
 uint8_t initUartHw();
