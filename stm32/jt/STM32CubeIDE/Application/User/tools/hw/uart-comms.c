@@ -49,7 +49,10 @@ void  SerialQMethod (void *p_arg)
 		memset(&receiveBuffer, 0, sizeof(maxSerialStringSz));
 		if ((status = osMessageQueueGet(serialMessageQ,(void *) &receiveBuffer, 0, osWaitForever)) == osOK )  {
 			osMessageQueueGet(uartSendSemaphoreQ, &dummyGet, 0, osWaitForever);
+
+			vTaskDelay(3);
 			uartJobSemSet = 0;
+
 			if (status == osOK) {
 			sendUartString((char*)&receiveBuffer);
 			}  else {

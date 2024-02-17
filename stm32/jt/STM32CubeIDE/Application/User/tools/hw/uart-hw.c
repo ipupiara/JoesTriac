@@ -15,6 +15,24 @@ uint8_t  uartJobSemSet;
 
 uint32_t debugCharCnt, debugStringCnt;
 
+#define receiveBookSize  0x400
+uint8_t receiveBook[receiveBookSize];
+uint32_t rBookCnt;
+
+void addToTextBook(uint8_t ch)
+{
+	if (rBookCnt <  receiveBookSize) {
+		receiveBook[rBookCnt] = ch;
+		++rBookCnt;
+	}
+}
+
+void initReceiveTextBook()
+{
+	memset(receiveBook,0x5a,sizeof(receiveBook));
+	memset(receiveBook,0,sizeof(receiveBook));
+	rBookCnt = 0;
+}
 void setUartJobSemaQ()
 {
 #ifndef debugApp
@@ -85,10 +103,10 @@ void USART1_IRQHandler(void)
 			   // todo open question why does this get called twice just during first transmit
 			 ATOMIC_CLEAR_BIT(huart1.Instance->CR1, USART_CR1_TXEIE);
 			 ATOMIC_SET_BIT(huart1.Instance->CR1, USART_CR1_TCIE);
-			 setUartJobSemaQ();
 	   }
 	   else {
 			 huart1.Instance->TDR = *txBufferPtr ;
+			 addToTextBook(*txBufferPtr);
 			 txBufferPtr++;
 			 txBufferRemain--;
 			 ++debugCharCnt;
@@ -96,11 +114,11 @@ void USART1_IRQHandler(void)
 	}
 	uint8_t idleDetected = 0;
 
-	if (__HAL_UART_GET_FLAG(&huart1,USART_ISR_IDLE_Msk)  )  {
-		__HAL_UART_CLEAR_IT(&huart1,USART_ISR_IDLE_Msk);
-		idleDetected = 1;
-	//	++ debugIdleCounter;
-	}
+//	if (__HAL_UART_GET_FLAG(&huart1,USART_ISR_IDLE_Msk)  )  {
+//		__HAL_UART_CLEAR_IT(&huart1,USART_ISR_IDLE_Msk);
+//		idleDetected = 1;
+//	//	++ debugIdleCounter;
+//	}
 
 	if (__HAL_UART_GET_FLAG(&huart1,USART_ICR_TCCF_Msk)  )  {
 		__HAL_UART_CLEAR_IT(&huart1,USART_ICR_TCCF_Msk);
@@ -118,6 +136,7 @@ uint8_t UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t size)
 	uint8_t res = 0;
 	txBufferRemain = size;
 	txBufferPtr  =  pData ;
+	huart1.Instance->CR1 |= USART_CR1_IDLEIE_Msk;
 	__HAL_UART_CLEAR_FLAG(huart, UART_CLEAR_TCF);
 	ATOMIC_SET_BIT(huart->Instance->CR1, USART_CR1_TXEIE);
 	res = 1;
@@ -160,10 +179,11 @@ uint8_t initUartHw()
 	uint8_t res = 0;
 
 	debugCharCnt = debugStringCnt = 0;
+	initReceiveTextBook();
 
 	uartJobSemSet = 0;
 	#ifndef debugApp
-		uartSendSemaphoreQ =  osMessageQueueNew(3,4, NULL);
+		uartSendSemaphoreQ =  osMessageQueueNew(1,4, NULL);
 		if (uartSendSemaphoreQ  == NULL)   {
 			errorHandler(0xff ,stop," osMessageQueueNew ","initUartHw");
 		}
@@ -175,7 +195,7 @@ uint8_t initUartHw()
 	 RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
 
 	huart1.Instance = USART1;
-	huart1.Init.BaudRate = 57600; //  115200;
+	huart1.Init.BaudRate = 115200; //19200;  115200; 57600; 9600
 	huart1.Init.WordLength = UART_WORDLENGTH_8B;
 	huart1.Init.StopBits = UART_STOPBITS_1;
 	huart1.Init.Parity = UART_PARITY_NONE;
@@ -232,7 +252,7 @@ uint8_t initUartHw()
     __HAL_UART_ENABLE(&huart1);
     UART_CheckIdleState(&huart1);
 
-    huart1.Instance->CR1 |= USART_CR1_IDLEIE_Msk;
+//    huart1.Instance->CR1 |= USART_CR1_IDLEIE_Msk;
     huart1.Instance->CR3 |= USART_CR3_EIE_Msk;
 #ifdef debugApp
     uartTest();
