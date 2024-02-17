@@ -85,7 +85,7 @@ void USART1_IRQHandler(void)
 			   // todo open question why does this get called twice just during first transmit
 			 ATOMIC_CLEAR_BIT(huart1.Instance->CR1, USART_CR1_TXEIE);
 			 ATOMIC_SET_BIT(huart1.Instance->CR1, USART_CR1_TCIE);
-//			 setUartJobSemaQ();
+			 setUartJobSemaQ();
 	   }
 	   else {
 			 huart1.Instance->TDR = *txBufferPtr ;
@@ -209,7 +209,7 @@ uint8_t initUartHw()
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 //    uint8_t ena = NVIC_GetEnableIRQ(USART1_IRQn);
-    HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
+    HAL_NVIC_SetPriority(USART1_IRQn, triacApplicationIsrPrio, 0);
     HAL_NVIC_EnableIRQ(USART1_IRQn);
 //    ena = NVIC_GetEnableIRQ(USART1_IRQn);
 
