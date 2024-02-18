@@ -157,22 +157,22 @@ osStatus_t sendUartString(char* sndStr)
 	return res;
 }
 
-void uartTest()
-{
-	char * teststr  = "hello you there, hee duu tettä\n";
-	  while (1)
-	  {
-		  uint32_t halVersion = HAL_GetHalVersion();
-		  UNUSED(halVersion);
-			uint32_t lastUwTick  = uwTick;
-			do {
-				do {} while (((uwTick - lastUwTick) < 100 ) || (uwTick == 0) );
-				sendUartString(teststr);
-//				UART_Transmit( &huart1,(uint8_t *) teststr, strlen(teststr));
-				lastUwTick = uwTick;
-			}   while (1);
-	  }
-}
+//void uartTest()
+//{
+//	char * teststr  = "hello you there, hee duu tettä\n";
+//	  while (1)
+//	  {
+//		  uint32_t halVersion = HAL_GetHalVersion();
+//		  UNUSED(halVersion);
+//			uint32_t lastUwTick  = uwTick;
+//			do {
+//				do {} while (((uwTick - lastUwTick) < 100 ) || (uwTick == 0) );
+//				sendUartString(teststr);
+////				UART_Transmit( &huart1,(uint8_t *) teststr, strlen(teststr));
+//				lastUwTick = uwTick;
+//			}   while (1);
+//	  }
+//}
 
 uint8_t initUartHw()
 {

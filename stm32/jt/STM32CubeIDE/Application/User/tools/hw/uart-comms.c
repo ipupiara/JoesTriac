@@ -21,7 +21,9 @@ uint32_t  amtErr;			// amt calls to err_printf
 uint32_t  amtPrintErr;   // errors during print out, where err_printf should not be called
 
 uint8_t  serialOn;
-char transmitBuffer  [maxSerialStringSz+1];
+char transmitBuffer  [serialBufferSize];
+char receiveBuffer [serialBufferSize];
+uint8_t uartHwBuffer  [serialBufferSize];
 
 osThreadId_t serialQMethodThread;
 const osThreadAttr_t serialQMethod_attributes = {
@@ -30,10 +32,10 @@ const osThreadAttr_t serialQMethod_attributes = {
   .priority = (osPriority_t) osPriorityNormal,
 };
 osMessageQueueId_t    serialMessageQ;
-char receiveBuffer [maxSerialStringSz+1];
-//char transmitBuffer  [maxSerialStringSz+1];
 
-//void private_printf( char *emsg, ...);
+//char transmitBuffer  [maxSerialBufferSize];
+
+
 
 void OnPrintError()
 {
@@ -46,15 +48,17 @@ void  SerialQMethod (void *p_arg)
 	osStatus_t status;
 	uint32_t dummyGet;
 	do  {
-		memset(&receiveBuffer, 0, sizeof(maxSerialStringSz));
+//		memset(&receiveBuffer, 0, sizeof(receiveBuffer));
 		if ((status = osMessageQueueGet(serialMessageQ,(void *) &receiveBuffer, 0, osWaitForever)) == osOK )  {
 			osMessageQueueGet(uartSendSemaphoreQ, &dummyGet, 0, osWaitForever);
+			memset(uartHwBuffer,0,sizeof(receiveBuffer));
+			memcpy( uartHwBuffer, receiveBuffer,strlen(receiveBuffer));    // todo replace above memset by adding a 0 to the uarthwbuffer   serialBufferSize );
 
-			vTaskDelay(3);
+//			vTaskDelay(3);
 			uartJobSemSet = 0;
 
 			if (status == osOK) {
-			sendUartString((char*)&receiveBuffer);
+			sendUartString((char*)&uartHwBuffer);
 			}  else {
 				errorHandler((uint32_t)status ,goOn," osSemaphoreAcquire "," SerialQMethod ");
 			}
@@ -73,7 +77,7 @@ void init_printf()
 	uint8_t err = osOK;
 
 
-	serialMessageQ =  osMessageQueueNew(5,maxSerialStringSz * charWidth, NULL);
+	serialMessageQ =  osMessageQueueNew(5,serialBufferSize * charWidth, NULL);
 	if (serialMessageQ  == NULL)   {
 		errorHandler((uint32_t)serialMessageQ ,stop," serialMessageQ ","init_printf");
 	}
@@ -110,8 +114,8 @@ void private_printf( char *emsg, ...)
 
 	if (serialOn == 1) {
 
-		vsnprintf((char *)&transmitBuffer, maxSerialStringSz-1,  emsg, ap);
-		transmitBuffer[maxSerialStringSz-1] = 0;
+		vsnprintf((char *)&transmitBuffer, serialBufferSize,  emsg, ap);
+		transmitBuffer[serialBufferSize - 1] = 0;
 
 		uint32_t amt =osMessageQueueGetCount(serialMessageQ);
 		calc(amt);

@@ -15,8 +15,8 @@ extern "C"
 {
 #endif
 
-#define maxUartReceiveDmaStringSize  0x80
-#define maxSerialStringSz   0x80
+#define serialStringSz   0x80
+#define serialBufferSize serialStringSz + 1
 
 void init_printf();
 void err_printf ( char *emsg, ...);

@@ -1,4 +1,5 @@
 #include <gui/calibrationscreen_screen/calibrationScreenView.hpp>
+#include <uart-Comms.h>
 
 calibrationScreenView::calibrationScreenView()
 {
@@ -31,9 +32,42 @@ void calibrationScreenView::updateAmpsValues(float adcV, uint32_t adc, uint16_t 
 	delayText.invalidate();
 }
 
+void p_printf(const char *emsg, ...)
+{
+	va_list ap;
+	va_start(ap, emsg);
+	char buffer[100];
+
+	vsnprintf((char *)&buffer, 100,  emsg, ap);
+	info_printf(buffer);
+
+	va_end(ap);
+}
+// causes hardcrash
+void cppvsnprintf(char* buffer,uint32_t maxLen,const char *emsg, ...)
+{
+	va_list ap;
+	va_start(ap, emsg);
+
+
+	vsnprintf((char *)&buffer, maxLen,  emsg, ap);
+
+
+	va_end(ap);
+}
+
+
+
 void calibrationScreenView::updateTriacDelay(uint32_t val)
 {
 	Unicode::snprintf(delayTextBuffer,5, "%4d", val);
+	char const * stringConstant1 = "delay change to %4d \n";
+	char buffer [100];
+	memset(buffer,0x5a,sizeof(buffer));
+	char * pBuffer = (char*)buffer;
+
+	cppvsnprintf(pBuffer,100,stringConstant1, val);
+
 	delayText.setWildcard(delayTextBuffer);
 	delayText.invalidate();
 }

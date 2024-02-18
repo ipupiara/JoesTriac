@@ -5,8 +5,8 @@
  *      Author: diego
  */
 
-#include <stdio.h>
-#include <stdint.h>
+#include <stdArg.h>
+//#include <stdint.h>
 #include <FreeRTOS.h>
 #include <task.h>
 #include "cmsis_os.h"
@@ -491,17 +491,17 @@ int32_t i32abs(int32_t val)
 void calibTriacDelayChange(int32_t diff)
 {
 //	printf("calibTriacDelayChange\n");
-   int16_t res = getTriacTriggerDelay();
+   int32_t res = getTriacTriggerDelay();
    if ( i32abs (diff) != 1)  {
 	   res += diff * kStepUnitsFactor;   //  todo change also on ui
    } else  {
 	   res += diff;
    }
    setTriacTriggerDelay(res);
+   res =  getTriacTriggerDelay();
+
+   info_printf("calibTriacDelayChange %4d \n", res);
    CJoesPresenterEventT msg;
-
-   info_printf("calibTriacDelayChange %i\n",res);
-
 	msg.messageType = calibTriacDelay;
 	msg.evData.calibTriacDelay =res;
 	sendPresenterMessage(&msg);
