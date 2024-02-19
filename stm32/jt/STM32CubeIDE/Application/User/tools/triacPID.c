@@ -231,8 +231,17 @@ void calcNextTriacDelay()
 	double carryCorrD = corrCarryOver;
 	double ampsD  = currentAmps();
 	uint32_t adcVal =  getCurrentAmpsADCValue();
-	pid_printf(" corr %f corrI %i cry %f delay %x  amps %f adc %i\n",corrD,corrInt, carryCorrD, newDelay, ampsD, adcVal);
-	pid_printf("amtMissedTotal %i  maxMissed %i\n",amtMissedZpTotal, maxMissedZp);
+//	pid_printf(" corr %f corrI %i cry %f delay %x  amps %f adc %i\n",corrD,corrInt, carryCorrD, newDelay, ampsD, adcVal);
+//	pid_printf("amtMissedTotal %i  maxMissed %i\n",amtMissedZpTotal, maxMissedZp);
+
+	CJoesModelEventT  msg;
+	msg.messageType = pidPrint;
+	msg.evData.pidPrintData.triAdc = adcVal;
+	msg.evData.pidPrintData.triCorrInt = corrInt;
+	msg.evData.pidPrintData.triDelay = newDelay;
+	sendModelMessage(&msg);
+
+
 #endif
 }
 

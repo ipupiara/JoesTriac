@@ -93,11 +93,11 @@ void init_printf()
 	}
 }
 
-uint32_t calc(uint32_t am)
-{
-	am = am -10;
-	return am;
-}
+//uint32_t calc(uint32_t am)
+//{
+//	am = am -10;
+//	return am;
+//}
 
 void private_printf( char *emsg, ...)
 {
@@ -112,12 +112,13 @@ void private_printf( char *emsg, ...)
 
 	if (serialOn == 1) {
 
-		vsnprintf((char *)&transmitBuffer, serialBufferSize,  emsg, ap);
-		transmitBuffer[serialBufferSize - 1] = 0;
+//		vsnprintf((char *)&transmitBuffer, serialBufferSize,  emsg, ap);
+//		transmitBuffer[serialBufferSize - 1] = 0;
 
-		uint32_t amt =osMessageQueueGetCount(serialMessageQ);
-		calc(amt);
-		status = osMessageQueuePut(serialMessageQ,&transmitBuffer,0,0);
+//		uint32_t amt =osMessageQueueGetCount(serialMessageQ);
+//		calc(amt);
+//		status = osMessageQueuePut(serialMessageQ,&transmitBuffer,0,0);
+		status = osMessageQueuePut(serialMessageQ,emsg,0,0);
 		if (status != osOK)  {
 			errorHandler(status ,goOn," osMessageQueuePut ","info_printf");
 		}

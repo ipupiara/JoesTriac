@@ -3,7 +3,7 @@
 #include <gui/model/ModelListener.hpp>
 #include <gui/common/FrontendApplication.hpp>
 #include <stdint.h>
-#include <mainJt.h>
+#include <uart-Comms.h>
 
 
 Model::Model() : modelListener(0)
@@ -56,6 +56,11 @@ void Model::cppvsnprintf(char* buffer,uint32_t maxLen,const char *emsg, ...)
 	va_end(ap);
 }
 
+void Model::printPid (CJoesModelEventT* mEv)
+{
+
+}
+
 void Model::tick()
 {
 	modelListener->tick();
@@ -93,6 +98,9 @@ void Model::tick()
 			}
 			if (modelMessage.messageType ==  restoreModelData) {
 				restoreData();
+			}
+			if (modelMessage.messageType == pidPrint) {
+				printPid(&modelMessage);
 			}
 		} else {
 //			char* mm = "modelMessageQ";

@@ -161,7 +161,8 @@ typedef enum {
 	changeToRequesStopScreen,
 	changeToJobOkScreen,
 	changeToCalibrationScreen,
-	restoreModelData
+	restoreModelData,
+	pidPrint
 }  modelMessageType;
 
 
@@ -174,6 +175,11 @@ typedef struct  {
 //			uint16_t  potiPos;
 //			uint16_t  secondsRemaining;
 //		} secondRunData;
+		struct {
+			uint32_t triDelay;
+			uint32_t triAdc;
+			uint32_t triCorrInt;
+		} pidPrintData;
 	}  evData;
 } CJoesModelEventT ;
 

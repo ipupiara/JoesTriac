@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <cmsis_os.h>
 #include <defines.h>
+#include <mainJt.h>
 
 class ModelListener;
 
@@ -171,6 +172,7 @@ public:
     void storeSwitchPressureData(uint32_t spTime, uint8_t spNeeded);
 protected:
     static void cppvsnprintf(char* buffer,uint32_t maxLen,const char *emsg, ...);
+    void printPid (CJoesModelEventT* mEv);
 
     //    int16_t weldingTime;
 //    uint32_t weldingAmps;
