@@ -24,6 +24,7 @@ uint8_t  serialOn;
 char transmitBuffer  [serialBufferSize];
 char receiveBuffer [serialBufferSize];
 uint8_t uartHwBuffer  [serialBufferSize];
+uint8_t uartInputBuffer [serialBufferSize];
 
 osThreadId_t serialQMethodThread;
 const osThreadAttr_t serialQMethod_attributes = {

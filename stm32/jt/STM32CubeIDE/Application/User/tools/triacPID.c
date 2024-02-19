@@ -245,6 +245,16 @@ void calcNextTriacDelay()
 #endif
 }
 
+void testPrint()
+{
+	CJoesModelEventT  msg;
+	msg.messageType = pidPrint;
+	msg.evData.pidPrintData.triAdc = 123;
+	msg.evData.pidPrintData.triCorrInt = 456;
+	msg.evData.pidPrintData.triDelay = 7890;
+	sendModelMessage(&msg);
+
+}
 
 
 void InitPID()
@@ -271,6 +281,8 @@ void InitPID()
 	corrCarryOver = 0.0;
 
 	updateGradAmps();
+
+	testPrint();
 }
 
 
@@ -291,6 +303,9 @@ void printPIDState()
 //	printf("calLowAdc %i caHiAdc %i \n",calibLowADC, calibHighADC);
 //	printf("shows at 0 ADC : %f A  grad %f \n",resD, gradD);
 ////	checkEEPOROM();
+
+
+
 }
 
 

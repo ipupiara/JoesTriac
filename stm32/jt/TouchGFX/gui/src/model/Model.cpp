@@ -49,16 +49,16 @@ void Model::cppvsnprintf(char* buffer,uint32_t maxLen,const char *emsg, ...)
 	va_list ap;
 	va_start(ap, emsg);
 
-
 	vsnprintf((char *)buffer, maxLen,  emsg, ap);
-
+	private_printf((char*)emsg);
 
 	va_end(ap);
 }
 
 void Model::printPid (CJoesModelEventT* mEv)
 {
-
+	cppvsnprintf((char *)uartInputBuffer, serialBufferSize,  "pidstep adc %4d, delay %4d, corr %4d ", mEv->evData.pidPrintData.triAdc,
+								mEv->evData.pidPrintData.triDelay , mEv->evData.pidPrintData.triCorrInt);
 }
 
 void Model::tick()
