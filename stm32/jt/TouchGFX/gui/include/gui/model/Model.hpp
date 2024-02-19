@@ -170,7 +170,9 @@ public:
     uint16_t getSwitchPressureTime();
     void storeSwitchPressureData(uint32_t spTime, uint8_t spNeeded);
 protected:
-//    int16_t weldingTime;
+    static void cppvsnprintf(char* buffer,uint32_t maxLen,const char *emsg, ...);
+
+    //    int16_t weldingTime;
 //    uint32_t weldingAmps;
 //    uint16_t alarmTime;
 //    uint8_t alarmNeeded;

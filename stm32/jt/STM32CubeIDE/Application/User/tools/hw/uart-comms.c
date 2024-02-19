@@ -5,7 +5,6 @@
  *      Author: ixchel
  */
 
-
 #include <string.h>
 #include <math.h>
 #include <stdarg.h>
@@ -14,6 +13,7 @@
 #include "cmsis_os.h"
 #include <mainJt.h>
 #include <uart-comms.h>
+//#include <gui/calibrationscreen_screen/calibrationScreenView.hpp>   obviousely does not work like that so easily or maybe not at all
 
 //#define debugPid
 
@@ -48,13 +48,11 @@ void  SerialQMethod (void *p_arg)
 	osStatus_t status;
 	uint32_t dummyGet;
 	do  {
-//		memset(&receiveBuffer, 0, sizeof(receiveBuffer));
 		if ((status = osMessageQueueGet(serialMessageQ,(void *) &receiveBuffer, 0, osWaitForever)) == osOK )  {
 			osMessageQueueGet(uartSendSemaphoreQ, &dummyGet, 0, osWaitForever);
 			memset(uartHwBuffer,0,sizeof(receiveBuffer));
 			memcpy( uartHwBuffer, receiveBuffer,strlen(receiveBuffer));    // todo replace above memset by adding a 0 to the uarthwbuffer   serialBufferSize );
 
-//			vTaskDelay(3);
 			uartJobSemSet = 0;
 
 			if (status == osOK) {

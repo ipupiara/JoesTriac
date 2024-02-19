@@ -11,6 +11,50 @@ Model::Model() : modelListener(0)
 
 }
 
+//void p_printf(const char *emsg, ...)
+//{
+//	va_list ap;
+//	va_start(ap, emsg);
+//	char buffer[100];
+//
+//	vsnprintf((char *)&buffer, 100,  emsg, ap);
+//
+
+//uint32_t amt =osMessageQueueGetCount(serialMessageQ);
+//		calc(amt);
+//		status = osMessageQueuePut(serialMessageQ,&transmitBuffer,0,0);
+//		if (status != osOK)  {
+//			errorHandler(status ,goOn," osMessageQueuePut ","info_printf");
+//		}
+//
+//	va_end(ap);
+//}
+
+//void calibrationScreenView::updateTriacDelay(uint32_t val)
+//{
+//	Unicode::snprintf(delayTextBuffer,5, "%4d", val);
+//	char const * stringConstant1 = "delay change to %4d \n";
+//	char buffer [100];
+//	memset(buffer,0x5a,sizeof(buffer));
+//	char * pBuffer = (char*)buffer;
+//
+////	cppvsnprintf(pBuffer,100,stringConstant1, val);
+//
+//	delayText.setWildcard(delayTextBuffer);
+//	delayText.invalidate();
+//}
+
+void Model::cppvsnprintf(char* buffer,uint32_t maxLen,const char *emsg, ...)
+{
+	va_list ap;
+	va_start(ap, emsg);
+
+
+	vsnprintf((char *)buffer, maxLen,  emsg, ap);
+
+
+	va_end(ap);
+}
 
 void Model::tick()
 {

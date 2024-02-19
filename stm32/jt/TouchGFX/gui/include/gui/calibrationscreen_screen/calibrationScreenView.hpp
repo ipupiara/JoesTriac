@@ -49,6 +49,7 @@ public:
      virtual void continueButtonPressed();
      virtual void skipButtonPressed();
 
+
 protected:
     void sendTriacDelayCalibCorrection(int32_t val);
 
