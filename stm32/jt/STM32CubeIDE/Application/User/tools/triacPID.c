@@ -245,7 +245,7 @@ void calcNextTriacDelay()
 #endif
 }
 
-void testPrint()
+void printPid()
 {
 	CJoesModelEventT  msg;
 	msg.messageType = pidPrint;
@@ -282,7 +282,9 @@ void InitPID()
 
 	updateGradAmps();
 
-	testPrint();
+	vTaskDelay(6000);
+
+
 }
 
 

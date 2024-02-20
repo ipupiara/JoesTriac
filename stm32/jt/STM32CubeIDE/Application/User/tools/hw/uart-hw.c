@@ -102,6 +102,7 @@ void USART1_IRQHandler(void)
 		   if (txBufferRemain == 0U)   {
 			   // todo open question why does this get called twice just during first transmit
 			 ATOMIC_CLEAR_BIT(huart1.Instance->CR1, USART_CR1_TXEIE);
+			 __HAL_UART_CLEAR_FLAG(&huart1, UART_CLEAR_TCF);
 			 ATOMIC_SET_BIT(huart1.Instance->CR1, USART_CR1_TCIE);
 	   }
 	   else {
@@ -124,6 +125,7 @@ void USART1_IRQHandler(void)
 		__HAL_UART_CLEAR_IT(&huart1,USART_ICR_TCCF_Msk);
 		idleDetected = 1;
 		ATOMIC_CLEAR_BIT(huart1.Instance->CR1, USART_CR1_TCIE);
+		huart1.Instance->CR3 &= ~USART_CR3_EIE_Msk;
 	}
 
 	if (idleDetected == 1) {
@@ -136,7 +138,7 @@ uint8_t UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t size)
 	uint8_t res = 0;
 	txBufferRemain = size;
 	txBufferPtr  =  pData ;
-	huart1.Instance->CR1 |= USART_CR1_IDLEIE_Msk;
+	huart1.Instance->CR3 |= USART_CR3_EIE_Msk;
 	__HAL_UART_CLEAR_FLAG(huart, UART_CLEAR_TCF);
 	ATOMIC_SET_BIT(huart->Instance->CR1, USART_CR1_TXEIE);
 	res = 1;
@@ -173,6 +175,10 @@ osStatus_t sendUartString(char* sndStr)
 //			}   while (1);
 //	  }
 //}
+
+
+
+//   todo check looping interrupts in the whole application ( --->>>>>>>  UI not reacting !!!!!!!!!!!!!!!!!!!!!!!!!!)
 
 uint8_t initUartHw()
 {
@@ -228,6 +234,9 @@ uint8_t initUartHw()
     GPIO_InitStruct.Alternate = GPIO_AF4_USART1;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
+    ATOMIC_CLEAR_BIT(huart1.Instance->CR1, (USART_CR1_IDLEIE));
+    ATOMIC_CLEAR_BIT(huart1.Instance->CR1, (USART_CR1_TXEIE));  // todo put into better structure macros
+
 //    uint8_t ena = NVIC_GetEnableIRQ(USART1_IRQn);
     HAL_NVIC_SetPriority(USART1_IRQn, triacApplicationIsrPrio, 0);
     HAL_NVIC_EnableIRQ(USART1_IRQn);
@@ -249,10 +258,11 @@ uint8_t initUartHw()
     CLEAR_BIT(huart1.Instance->CR2, (USART_CR2_LINEN | USART_CR2_CLKEN));
     CLEAR_BIT(huart1.Instance->CR3, (USART_CR3_SCEN | USART_CR3_HDSEL | USART_CR3_IREN));
 
+    ATOMIC_CLEAR_BIT(huart1.Instance->CR1, (USART_CR1_IDLEIE));
     __HAL_UART_ENABLE(&huart1);
     UART_CheckIdleState(&huart1);
 
-//    huart1.Instance->CR1 |= USART_CR1_IDLEIE_Msk;
+//    huart1.Instance->CR3 |= USART_CR3_EIE_Msk;
     huart1.Instance->CR3 |= USART_CR3_EIE_Msk;
 #ifdef debugApp
     uartTest();
