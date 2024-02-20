@@ -227,8 +227,8 @@ void calcNextTriacDelay()
 	setTriacTriggerDelay(newDelay);
 
 #ifdef printfPid
-	double corrD = correction;
-	double carryCorrD = corrCarryOver;
+//	double corrD = correction;
+//	double carryCorrD = corrCarryOver;
 	double ampsD  = currentAmps();
 	uint32_t adcVal =  getCurrentAmpsADCValue();
 //	pid_printf(" corr %f corrI %i cry %f delay %x  amps %f adc %i\n",corrD,corrInt, carryCorrD, newDelay, ampsD, adcVal);
@@ -239,13 +239,14 @@ void calcNextTriacDelay()
 	msg.evData.pidPrintData.triAdc = adcVal;
 	msg.evData.pidPrintData.triCorrInt = corrInt;
 	msg.evData.pidPrintData.triDelay = newDelay;
+	msg.evData.pidPrintData.ampsV = ampsD;
 	sendModelMessage(&msg);
 
 
 #endif
 }
 
-void printPid()
+void testPrintPIDState()
 {
 	CJoesModelEventT  msg;
 	msg.messageType = pidPrint;
@@ -281,34 +282,30 @@ void InitPID()
 	corrCarryOver = 0.0;
 
 	updateGradAmps();
-
-	vTaskDelay(6000);
-
-
 }
 
 
-void printPIDState()
-{
-//	int16_t adcAmps;
-//	float res;
-//	double resD;
-//	double gradD = gradAmps;
+//void printPIDState()
+//{
+////	int16_t adcAmps;
+////	float res;
+////	double resD;
+////	double gradD = gradAmps;
+////
+////	adcAmps = 0;
+////
+////	res = calibLowAmps +  (gradAmps * ((int16_t) adcAmps - (int16_t) calibLowADC  ));
+////	resD = res;
+////
+////	printf("\nPID State\n");
+////	printf("calLowA %i calHighA %i\n",calibLowAmps,calibHighAmps);
+////	printf("calLowAdc %i caHiAdc %i \n",calibLowADC, calibHighADC);
+////	printf("shows at 0 ADC : %f A  grad %f \n",resD, gradD);
+//////	checkEEPOROM();
 //
-//	adcAmps = 0;
 //
-//	res = calibLowAmps +  (gradAmps * ((int16_t) adcAmps - (int16_t) calibLowADC  ));
-//	resD = res;
 //
-//	printf("\nPID State\n");
-//	printf("calLowA %i calHighA %i\n",calibLowAmps,calibHighAmps);
-//	printf("calLowAdc %i caHiAdc %i \n",calibLowADC, calibHighADC);
-//	printf("shows at 0 ADC : %f A  grad %f \n",resD, gradD);
-////	checkEEPOROM();
-
-
-
-}
+//}
 
 
 

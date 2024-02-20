@@ -39,13 +39,11 @@ uint32_t getCurrentAmpsADCValue();
 void setCurrentAmpsADCValueNonIsr(uint32_t adcV );
 float adcVoltage();
 
-void printPid();
-
 void InitPID();
 void resetPID();
 void startTriacPidRun();
 void stopTriacPidRun();
-void printPIDState();
+
 void updateGradAmps();
 extern void calcNextTriacDelay();
 

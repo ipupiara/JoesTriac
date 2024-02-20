@@ -506,8 +506,6 @@ void calibTriacDelayChange(int32_t diff)
 	msg.evData.calibTriacDelay =res;
 	sendPresenterMessage(&msg);
 
-	printPid();
-
 //	printf("calibTriacDelayChange\n");
 }
 

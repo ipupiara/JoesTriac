@@ -179,6 +179,7 @@ typedef struct  {
 			uint32_t triDelay;
 			uint32_t triAdc;
 			uint32_t triCorrInt;
+			float  ampsV;
 		} pidPrintData;
 	}  evData;
 } CJoesModelEventT ;

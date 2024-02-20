@@ -57,8 +57,8 @@ void Model::cppvsnprintf(char* buffer,uint32_t maxLen,const char *emsg, ...)
 
 void Model::printPid (CJoesModelEventT* mEv)
 {
-	cppvsnprintf((char *)uartInputBuffer, serialBufferSize,  "pidstep adc %4d, delay %4d, corr %4d ", mEv->evData.pidPrintData.triAdc,
-								mEv->evData.pidPrintData.triDelay , mEv->evData.pidPrintData.triCorrInt);
+	cppvsnprintf((char *)uartInputBuffer, serialBufferSize,  "pidstep: adc %4d,  amps %06.2f, delay %4d, corr %4d", mEv->evData.pidPrintData.triAdc,
+								 mEv->evData.pidPrintData.ampsV , mEv->evData.pidPrintData.triDelay, mEv->evData.pidPrintData.triCorrInt );
 }
 
 void Model::tick()
