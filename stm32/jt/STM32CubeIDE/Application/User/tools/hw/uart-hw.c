@@ -13,26 +13,7 @@ UART_HandleTypeDef huart1;
 osMessageQueueId_t uartSendSemaphoreQ;
 uint8_t  uartJobSemSet;
 
-uint32_t debugCharCnt, debugStringCnt;
 
-#define receiveBookSize  0x400
-uint8_t receiveBook[receiveBookSize];
-uint32_t rBookCnt;
-
-void addToTextBook(uint8_t ch)
-{
-	if (rBookCnt <  receiveBookSize) {
-		receiveBook[rBookCnt] = ch;
-		++rBookCnt;
-	}
-}
-
-void initReceiveTextBook()
-{
-	memset(receiveBook,0x5a,sizeof(receiveBook));
-	memset(receiveBook,0,sizeof(receiveBook));
-	rBookCnt = 0;
-}
 void setUartJobSemaQ()
 {
 #ifndef debugApp
@@ -107,10 +88,8 @@ void USART1_IRQHandler(void)
 	   }
 	   else {
 			 huart1.Instance->TDR = *txBufferPtr ;
-			 addToTextBook(*txBufferPtr);
 			 txBufferPtr++;
 			 txBufferRemain--;
-			 ++debugCharCnt;
 	   }
 	}
 	uint8_t idleDetected = 0;
@@ -153,7 +132,6 @@ uint8_t startUartHw()
 osStatus_t sendUartString(char* sndStr)
 {
 	osStatus_t res = osOK;
-	++ debugStringCnt;
 	UART_Transmit(&huart1, (uint8_t*) sndStr, strlen(sndStr));
 
 	return res;
@@ -183,10 +161,6 @@ osStatus_t sendUartString(char* sndStr)
 uint8_t initUartHw()
 {
 	uint8_t res = 0;
-
-	debugCharCnt = debugStringCnt = 0;
-	initReceiveTextBook();
-
 	uartJobSemSet = 0;
 	#ifndef debugApp
 		uartSendSemaphoreQ =  osMessageQueueNew(1,4, NULL);
@@ -212,7 +186,7 @@ uint8_t initUartHw()
 	huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
 //	if (HAL_UART_Init(&huart1) != HAL_OK) {
 //		Error_Handler();
-//	}
+//	}   just needed in below UART_SetConfig
 
     PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_USART1;
     PeriphClkInitStruct.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK2;
