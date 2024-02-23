@@ -106,8 +106,8 @@ float adcVoltage()
 	float    Vf;
 
 	ampsAdcHex = getCurrentAmpsADCValue();
-	ampsAdcF  = ampsAdcHex;   // todo tobe tested
-	Vf = (ampsAdcF * 3.3) / adcMaxF;  //  todo set final ref voltage here
+	ampsAdcF  = ampsAdcHex;
+	Vf = (ampsAdcF * 3.3) / adcMaxF;
 
 	return Vf;
 }
@@ -192,14 +192,14 @@ real nextCorrection(real error)
     m_prev_error = error;
 
 	res = m_kPTot*(m_kP*error + m_kI*m_integral + m_kD*deriv);
-			//  todo multiply with time factor, so that correction does not so much depend from stepwidth
+
 	if (res > m_correctionThresh) {
 		res = m_correctionThresh;
 	} else if (res < -1*m_correctionThresh) {
 		res = -1* m_correctionThresh;
 	}
 
-//	if (getCurrentAmpsADCValue() < 500  )  {   //  todo add global constants  for introduced values
+//	if (getCurrentAmpsADCValue() < 500  )  {
 //		res= res/4;
 //	}
 
