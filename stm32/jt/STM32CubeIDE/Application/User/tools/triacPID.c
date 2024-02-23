@@ -253,6 +253,7 @@ void testPrintPIDState()
 	msg.evData.pidPrintData.triAdc = 123;
 	msg.evData.pidPrintData.triCorrInt = 456;
 	msg.evData.pidPrintData.triDelay = 7890;
+	msg.evData.pidPrintData.ampsV = 3.21;
 	sendModelMessage(&msg);
 
 }

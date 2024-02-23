@@ -133,7 +133,8 @@ void startDelayTimer ()
 
 
 #define startStopTimer() \
-  do { \
+  do { 	triacStopTimer.Instance->ARR= stmTriggerDelayMax;\
+  	  	  triacStopTimer.Instance->CNT = 0;\
         __HAL_TIM_ENABLE_IT(&triacStopTimer, TIM_IT_UPDATE);  \
         triacStopTimer.Instance->CR1 |= (TIM_CR1_CEN);  \
   } while(0)
@@ -420,8 +421,6 @@ void doJobOnZeroPassEvent(uint8_t ev)
 {
 	if (ev == extiZeroPassTriggerStartValue)   {
 		disableRailTimerPwm();
-		triacStopTimer.Instance->ARR= stmTriggerDelayMax;
-		triacStopTimer.Instance->CNT = 0;
 		startStopTimer();
 		startDelayTimer();
 	} else {

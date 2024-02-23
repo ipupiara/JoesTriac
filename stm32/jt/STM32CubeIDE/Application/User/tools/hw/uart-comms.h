@@ -18,8 +18,6 @@ extern "C"
 #define serialStringSz   0x80
 #define serialBufferSize serialStringSz + 1
 
-extern uint8_t uartInputBuffer [serialBufferSize];
-
 void init_printf();
 void err_printf ( char *emsg, ...);
 void info_printf( char *emsg, ...);

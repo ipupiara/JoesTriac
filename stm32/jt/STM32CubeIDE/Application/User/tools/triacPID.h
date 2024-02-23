@@ -45,8 +45,8 @@ void startTriacPidRun();
 void stopTriacPidRun();
 
 void updateGradAmps();
-extern void calcNextTriacDelay();
-
+void calcNextTriacDelay();
+void testPrintPIDState();
 
 //void onEntryIdlePID();
 

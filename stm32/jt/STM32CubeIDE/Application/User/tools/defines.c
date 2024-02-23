@@ -500,11 +500,9 @@ void calibTriacDelayChange(int32_t diff)
    setTriacTriggerDelay(res);
    res =  getTriacTriggerDelay();
 
-   info_printf("calibTriacDelayChange %4d \n", res);
-   CJoesPresenterEventT msg;
-	msg.messageType = calibTriacDelay;
-	msg.evData.calibTriacDelay =res;
-	sendPresenterMessage(&msg);
+//   info_printf("calibTriacDelayChange %4d \n", res);
+
+   testPrintPIDState();
 
 //	printf("calibTriacDelayChange\n");
 }

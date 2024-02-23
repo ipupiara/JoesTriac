@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <cmsis_os.h>
 #include <defines.h>
+#include <uart-comms.h>
 #include <mainJt.h>
 
 class ModelListener;
@@ -185,8 +186,8 @@ protected:
 
 protected:
     ModelListener* modelListener;
-    uint16_t   debugWeldingTime = 754;
     CalibCache  calibCache;
+    uint8_t uartInputBuffer [serialBufferSize];
 };
 
 #endif // MODEL_HPP
