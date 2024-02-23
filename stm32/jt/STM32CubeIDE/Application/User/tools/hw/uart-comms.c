@@ -75,7 +75,7 @@ void init_printf()
 	uint8_t err = osOK;
 
 
-	serialMessageQ =  osMessageQueueNew(5,serialBufferSize * charWidth, NULL);
+	serialMessageQ =  osMessageQueueNew(5,serialBufferSize * charWidth, NULL);  // todo set width correct for pointer (4*char width or so )
 	if (serialMessageQ  == NULL)   {
 		errorHandler((uint32_t)serialMessageQ ,stop," serialMessageQ ","init_printf");
 	}

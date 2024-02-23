@@ -57,20 +57,17 @@ void Model::cppvsnprintf(char* buffer,uint32_t maxLen,const char *emsg, ...)
 
 void Model::printPid (CJoesModelEventT* mEv)
 {
-	uint8_t  floatBuffer [20];
-	memset(uartInputBuffer,0,serialBufferSize);
-	cppvsnprintf((char *)uartInputBuffer, serialBufferSize,  "pidstep: adc %4d,   delay %4d, corr %4d, amps ", mEv->evData.pidPrintData.triAdc,
-								  mEv->evData.pidPrintData.triDelay, mEv->evData.pidPrintData.triCorrInt );
+	uint8_t  floatBufferU [40];
+	uint8_t  floatBuffer8 [20];
+
+	memset(floatBufferU,0,sizeof(floatBufferU));
+	memset(floatBuffer8,0,sizeof(floatBuffer8));
+	Unicode::snprintfFloat(( short unsigned int*)floatBufferU, 7, "%6.2f",mEv->evData.pidPrintData.ampsV);
+	Unicode::toUTF8(( short unsigned int*)floatBufferU,  floatBuffer8, 20);
 
 	memset(uartInputBuffer,0,serialBufferSize);
-	Unicode::snprintfFloat(( short unsigned int*)uartInputBuffer, 7, "%06.2f",mEv->evData.pidPrintData.ampsV);
-
-	memset(floatBuffer,0,sizeof(foatBuffer));
-	Unicode::toUTF8(( short unsigned int*)uartInputBuffer,  floatBuffer, 20);
-
-	sendUartString((char*)floatBuffer); // todo move above in front and set amps as %s .. floatBuffer within cppvsn....
-
-
+	cppvsnprintf((char *)uartInputBuffer, serialBufferSize,  "pidstep: adc %4d, amps %s , delay %4d, corr %4d\n", mEv->evData.pidPrintData.triAdc,
+							floatBuffer8,   mEv->evData.pidPrintData.triDelay, mEv->evData.pidPrintData.triCorrInt );
 }
 
 void Model::tick()
