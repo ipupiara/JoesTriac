@@ -318,6 +318,10 @@ uStInt evCalibrateScaleChecker(void)
 		sendActualValuesToCalibScreen();
 		res =  uStIntHandlingDone;
 	}
+	if (currentEvent->evType == evAdcTick)  {
+		calcNextTriacDelay(0);
+		res =  uStIntHandlingDone;
+	}
 	return res;
 }
 
@@ -496,7 +500,7 @@ uStInt evTriacActiveChecker(void)
 	}
 	if (currentEvent->evType == evAdcTick)
 	{
-		calcNextTriacDelay();
+		calcNextTriacDelay(1);
 		res =  uStIntHandlingDone;
 	}
 	return res;

@@ -44,8 +44,7 @@ void resetPID();
 void startTriacPidRun();
 void stopTriacPidRun();
 
-void updateGradAmps();
-void calcNextTriacDelay();
+void calcNextTriacDelay(uint8_t pidOn);
 void testPrintPIDState();
 
 //void onEntryIdlePID();

@@ -54,24 +54,24 @@ uint8_t signum(real re)
 uint32_t getCurrentAmpsADCValue()
 {
 	uint32_t res;
-	taskENTER_CRITICAL();
+//	taskENTER_CRITICAL();
 	res = currentAmpsADCValue;
-	taskEXIT_CRITICAL();
+//	taskEXIT_CRITICAL();
 	return res;
 }
 
 void setCurrentAmpsADCValueNonIsr(uint32_t adcV )
 {
-	taskENTER_CRITICAL();
+//	taskENTER_CRITICAL();
 	currentAmpsADCValue = adcV;
-	taskEXIT_CRITICAL();
+//	taskEXIT_CRITICAL();
 }
 
 void adcValueReceived(uint16_t adcVal)
 {
-	taskENTER_CRITICAL();
+//	taskENTER_CRITICAL();
 	setCurrentAmpsADCValueNonIsr(adcVal);
-	taskEXIT_CRITICAL();
+//	taskEXIT_CRITICAL();
 }
 
 void updateGradAmps()
@@ -95,7 +95,7 @@ uint8_t  sendMessageBuffer [4];
 uint8_t  receiveMessageBuffer[8];
 
 
-
+//  todo  if available send currentAmps() to calib screen for comparing with ammeter
 
 float adcVoltage()
 {
@@ -106,7 +106,7 @@ float adcVoltage()
 	float    Vf;
 
 	ampsAdcHex = getCurrentAmpsADCValue();
-	ampsAdcF  = ampsAdcHex;
+	ampsAdcF  = ampsAdcHex;   // todo tobe tested
 	Vf = (ampsAdcF * 3.3) / adcMaxF;  //  todo set final ref voltage here
 
 	return Vf;
@@ -214,17 +214,24 @@ real nextCorrection(real error)
 }
 
 
-void calcNextTriacDelay()
+void calcNextTriacDelay(uint8_t pidOn)
 {
-	float err;
 	int16_t newDelay;
 	int16_t corrInt;
-	err = getDefinesWeldingAmps() - currentAmps() ;
-	correction = nextCorrection(err) + corrCarryOver;
-	corrInt = correction;
-	corrCarryOver = correction - corrInt;
-	newDelay = getTriacTriggerDelay() - corrInt;
-	setTriacTriggerDelay(newDelay);
+
+	if (pidOn != 0 ) {
+		float err;
+		err = getDefinesWeldingAmps() - currentAmps() ;
+		correction = nextCorrection(err) + corrCarryOver;
+		corrInt = correction;
+		corrCarryOver = correction - corrInt;
+		newDelay = getTriacTriggerDelay() - corrInt;
+		setTriacTriggerDelay(newDelay);
+	}  else   {
+		corrInt = 0;
+		newDelay = getTriacTriggerDelay();
+	}
+
 
 #ifdef printfPid
 //	double corrD = correction;
