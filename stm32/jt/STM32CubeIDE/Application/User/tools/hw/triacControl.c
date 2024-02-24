@@ -45,6 +45,8 @@ TIM_HandleTypeDef htim12;
   do { \
 	  TIM_CCxChannelCommand(triacRailPwmTimer.Instance, TIM_CHANNEL_1, TIM_CCx_DISABLE);  \
       triacRailPwmTimer.Instance->CR1  &= ~(TIM_CR1_CEN);  \
+      amtTim12IrqCallsPerCyleCC = tim12IrqCntCC ; \
+      amtTim12IrqCallsPerCyleUI = tim12IrqCntUI ; \
   } while(0)
 
 
@@ -52,6 +54,8 @@ TIM_HandleTypeDef htim12;
   do { \
 	  TIM_CCxChannelCommand(triacRailPwmTimer.Instance, TIM_CHANNEL_1, TIM_CCx_ENABLE);  \
       triacRailPwmTimer.Instance->CR1 |= (TIM_CR1_CEN);  \
+      tim12IrqCntCC = 0;  \
+      tim12IrqCntUI = 0; \
   } while(0)
 
 #define disableDelayTimer() \
@@ -62,33 +66,44 @@ TIM_HandleTypeDef htim12;
 
 int32_t triacTriggerDelay;
 
-
+uint32_t tim12IrqCntCC, amtTim12IrqCallsPerCyleCC;
+uint32_t tim12IrqCntUI, amtTim12IrqCallsPerCyleUI;
 
 //#define ampsHigherPort  GPIOB
 //#define ampsHigherPin   GPIO_PIN_14
 //#define ampsLowerPort   GPIOB
 //#define ampsLowerPin    GPIO_PIN_15
 //
-//void TIM8_BRK_TIM12_IRQHandler(void)
-//{
-////	uint8_t doit = 0;
-////	if (__HAL_TIM_GET_FLAG(&htim12, TIM_FLAG_UPDATE) != 0)       {
-////		__HAL_TIM_CLEAR_IT(&htim12, TIM_IT_UPDATE);
-////		doit = 1;
-////	}
-////	if (__HAL_TIM_GET_FLAG(&htim12, TIM_FLAG_CC1) != 0)   {
-////		__HAL_TIM_CLEAR_IT(&htim12, TIM_IT_CC1);
-////		doit = 1;
-////	}
-////
-////	if (doit == 1) {
-////		if (isAmpsZero()) {
-////			htim12.Instance->CCR1 = 70;
-////		}  else {
-////			htim12.Instance->CCR1 = 0;
-////		}
-////	}
-//}
+
+
+
+
+
+
+
+void TIM8_BRK_TIM12_IRQHandler(void)
+{
+	uint8_t doit = 0;
+	UNUSED(doit);
+	if (__HAL_TIM_GET_FLAG(&htim12, TIM_FLAG_UPDATE) != 0)       {
+		__HAL_TIM_CLEAR_IT(&htim12, TIM_IT_UPDATE);
+		tim12IrqCntUI += 1;
+		doit = 1;
+	}
+	if (__HAL_TIM_GET_FLAG(&htim12, TIM_FLAG_CC1) != 0)   {
+		__HAL_TIM_CLEAR_IT(&htim12, TIM_IT_CC1);
+		tim12IrqCntCC += 1;
+		doit = 1;
+	}
+
+//	if (doit == 1) {
+//		if (isAmpsZero()) {
+//			htim12.Instance->CCR1 = 70;
+//		}  else {
+//			htim12.Instance->CCR1 = 0;
+//		}
+//	}
+}
 //
 //void initAmpsZeroPassDetect()
 //{
@@ -339,9 +354,9 @@ void initTriacRailPwmTimer()
 		htim12.Instance->CR1 &= (~TIM_CR1_OPM_Msk);
 		htim12.Instance->CR1 &= (~TIM_CR1_UDIS_Msk);
 
-//	    HAL_NVIC_SetPriority(TIM8_BRK_TIM12_IRQn, triacTriggerIsrPrio, 0);
-//	    HAL_NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);
-//	    htim12.Instance->DIER |= (TIM_DIER_UIE |TIM_DIER_CC1IE) ;
+	    HAL_NVIC_SetPriority(TIM8_BRK_TIM12_IRQn, triacTriggerIsrPrio, 0);
+	    HAL_NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);
+	    htim12.Instance->DIER |= (TIM_DIER_UIE |TIM_DIER_CC1IE) ;
 
 	    disableRailTimerPwm();
 }
@@ -388,7 +403,7 @@ void EXTI15_10_IRQHandler(void)
 void startTriacRun()
 {
 	startExtiChecking();
-	setTriacTriggerDelay(stmTriggerDelayMax);
+	setTriacTriggerDelay(stmTriggerDelayMax-200);
 	enableZeroPassDetector();
 //	checkInterrupts();
 }

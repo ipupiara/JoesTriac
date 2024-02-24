@@ -301,7 +301,6 @@ void entryCalibrateScaleState(void)
 	if(status != osOK)  {
 		errorHandler(status,goOn," status ","entryCalibrateScaleState");
 	}
-	setTriacTriggerDelay(stmTriggerDelayMax);
 	startTriacPidRun();
 }
 
@@ -332,7 +331,6 @@ uint8_t calibScreenReadyFsm;
 void entryCalibrateLowState(void)
 {
 	info_printf("entryCalibrateLowState\n");
-	setTriacTriggerDelay(stmTriggerDelayMax);
 	calibrateSecTickCounter = 0;
 	calibScreenReadyFsm = 0;
 //	setTriacTriggerDelay(100);
@@ -478,7 +476,6 @@ void entryTriacActiveState(void)
 {
 	info_printf("entryTriacActiveState\n");
 	startDurationTimer(getDefinesWeldingTime());
-	setTriacTriggerDelay(stmTriggerDelayMax);
 	startTriacPidRun();
 }
 

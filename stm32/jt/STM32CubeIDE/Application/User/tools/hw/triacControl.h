@@ -17,7 +17,7 @@ extern "C"
 #include <math.h>
 
 //	#define stmTriggerDelayMax  5000
-#define stmTriggerDelayMax  4920
+#define stmTriggerDelayMax  4800
 #define kStepUnitsFactor  5
 #define triacDelayPsc  197   // (defaultTriacDelayPsc / kStepUnitsFactor)
 
@@ -37,8 +37,8 @@ void doJobOnZeroPassEvent(uint8_t ev);
 extern int32_t triacTriggerDelay;
 void setTriacTriggerDelay(int32_t cmsecs);
 int32_t getTriacTriggerDelay();
-void startTriacRun();
-void stopTriacRun();
+//void startTriacRun();
+//void stopTriacRun();     only used by pid.c via extern
 
 
 #ifdef  __cplusplus

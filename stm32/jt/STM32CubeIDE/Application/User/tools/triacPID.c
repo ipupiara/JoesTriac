@@ -37,6 +37,8 @@ real m_correctionThresh, q_fact;
 real error , correction;
 real debPart, debDeriv, debInteg, debZXcnt;
 
+extern void startTriacRun();
+extern void stopTriacRun();
 
 float gradAmps; //   (delta amperes) / (delta adc)   ....
 float gradAdc;  
@@ -152,6 +154,7 @@ void stopTriacPidRun()
 
 //uint16_t  adcValueForAmps (float amps)
 //{
+
 //	uint16_t res = 0;
 ////	uint16_t dAdc = gradAdc * (amps - calibLowAmps);
 ////	res = calibLowADC + dAdc;
@@ -183,7 +186,7 @@ real nextCorrection(real error)
     real deriv;
     if (!m_started)
     {
-        m_started = 1;
+       m_started = 1;
         deriv = 0;
     }
     else
@@ -214,7 +217,7 @@ real nextCorrection(real error)
 }
 
 
-void calcNextTriacDelay(uint8_t pidOn)
+void calcNextTriacDelay(uint8_t pidOn)    // todo create a typedef enum for better understanding of code
 {
 	int16_t newDelay;
 	int16_t corrInt;
