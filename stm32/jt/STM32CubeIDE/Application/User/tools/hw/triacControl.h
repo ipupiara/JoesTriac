@@ -17,7 +17,8 @@ extern "C"
 #include <math.h>
 
 //	#define stmTriggerDelayMax  5000
-#define stmTriggerDelayMax  4800
+#define stmTriggerRangeMax  4700
+#define stmTriacMinimalTriggerDuration  200
 #define kStepUnitsFactor  5
 #define triacDelayPsc  197   // (defaultTriacDelayPsc / kStepUnitsFactor)
 

@@ -96,8 +96,8 @@ do { \
 
 #define startExtiTimer() \
 	do { \
-	__HAL_TIM_CLEAR_IT(&triacExtiCheckTimer, TIM_IT_UPDATE); \
 	triacExtiCheckTimer.Instance->CNT = 0; \
+	__HAL_TIM_CLEAR_IT(&triacExtiCheckTimer, TIM_IT_UPDATE); \
 	__HAL_TIM_ENABLE_IT(&triacExtiCheckTimer, TIM_IT_UPDATE); \
 	triacExtiCheckTimer.Instance->CR1 |= (TIM_CR1_CEN); \
 } while(0)

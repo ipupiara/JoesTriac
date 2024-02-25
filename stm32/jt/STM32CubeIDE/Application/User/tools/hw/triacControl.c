@@ -32,6 +32,19 @@ TIM_HandleTypeDef htim12;
 #define triacDelayTimer_IRQn TIM5_IRQn
 #define triacRailPwmTimer htim12
 
+int32_t triacTriggerDelay;
+
+uint32_t tim12IrqCntCC, amtTim12IrqCallsPerCyleCC;
+uint32_t tim12IrqCntUI, amtTim12IrqCallsPerCyleUI;
+
+//#define ampsHigherPort  GPIOB
+//#define ampsHigherPin   GPIO_PIN_14
+//#define ampsLowerPort   GPIOB
+//#define ampsLowerPin    GPIO_PIN_15
+
+uint32_t extiIrqCnt;
+
+
 
 #define TIM_CCxChannelCommand(TIMx , Channel , ChannelState) \
 	do {  \
@@ -50,34 +63,27 @@ TIM_HandleTypeDef htim12;
   } while(0)
 
 
-#define enableRailTimerPwm() \
-  do { \
-	  TIM_CCxChannelCommand(triacRailPwmTimer.Instance, TIM_CHANNEL_1, TIM_CCx_ENABLE);  \
-      triacRailPwmTimer.Instance->CR1 |= (TIM_CR1_CEN);  \
-      tim12IrqCntCC = 0;  \
-      tim12IrqCntUI = 0; \
-  } while(0)
+void enableRailTimerPwm()
+{
+	TIM_CCxChannelCommand(triacRailPwmTimer.Instance, TIM_CHANNEL_1, TIM_CCx_ENABLE);
+    triacRailPwmTimer.Instance->CR1 |= (TIM_CR1_CEN);
+    tim12IrqCntCC = 0;
+    tim12IrqCntUI = 0;
+}
+
+//#define enableRailTimerPwm() \
+//  do { \
+//	  TIM_CCxChannelCommand(triacRailPwmTimer.Instance, TIM_CHANNEL_1, TIM_CCx_ENABLE);  \
+//      triacRailPwmTimer.Instance->CR1 |= (TIM_CR1_CEN);  \
+//      tim12IrqCntCC = 0;  \
+//      tim12IrqCntUI = 0; \
+//  } while(0)
 
 #define disableDelayTimer() \
   do { \
         triacDelayTimer.Instance->CR1 &= ~(TIM_CR1_CEN);  \
         __HAL_TIM_DISABLE_IT(&triacDelayTimer, TIM_IT_UPDATE);\
   } while(0)
-
-int32_t triacTriggerDelay;
-
-uint32_t tim12IrqCntCC, amtTim12IrqCallsPerCyleCC;
-uint32_t tim12IrqCntUI, amtTim12IrqCallsPerCyleUI;
-
-//#define ampsHigherPort  GPIOB
-//#define ampsHigherPin   GPIO_PIN_14
-//#define ampsLowerPort   GPIOB
-//#define ampsLowerPin    GPIO_PIN_15
-//
-
-
-
-
 
 
 
@@ -122,9 +128,10 @@ void TIM8_BRK_TIM12_IRQHandler(void)
 
 void startDelayTimer ()
 {
-    __HAL_TIM_ENABLE_IT(&triacDelayTimer, TIM_IT_UPDATE);
      triacDelayTimer.Instance->ARR =	getTriacTriggerDelay();
      triacDelayTimer.Instance->CNT = 0;
+     __HAL_TIM_CLEAR_IT(&triacDelayTimer, TIM_IT_UPDATE);
+     __HAL_TIM_ENABLE_IT(&triacDelayTimer, TIM_IT_UPDATE);
      triacDelayTimer.Instance->CR1 |= (TIM_CR1_CEN);
 }
 
@@ -148,8 +155,9 @@ void startDelayTimer ()
 
 
 #define startStopTimer() \
-  do { 	triacStopTimer.Instance->ARR= stmTriggerDelayMax;\
+  do { 	triacStopTimer.Instance->ARR= stmTriggerRangeMax;\
   	  	  triacStopTimer.Instance->CNT = 0;\
+  	  	__HAL_TIM_CLEAR_IT(&triacStopTimer, TIM_IT_UPDATE); \
         __HAL_TIM_ENABLE_IT(&triacStopTimer, TIM_IT_UPDATE);  \
         triacStopTimer.Instance->CR1 |= (TIM_CR1_CEN);  \
   } while(0)
@@ -157,14 +165,20 @@ void startDelayTimer ()
 void setTriacTriggerDelay(int32_t durationTcnt)
 {
 //	taskENTER_CRITICAL();
-	if (durationTcnt < stmTriggerDelayMax) {
-		if (durationTcnt > 0) {
-			triacTriggerDelay = durationTcnt;
+	int32_t tDelay= durationTcnt;
+	if (durationTcnt < stmTriggerRangeMax) {
+		if (durationTcnt > 1) {
+			tDelay = durationTcnt;
 		}  else {
-			triacTriggerDelay = 1;
+			tDelay = 1;
 		}
 	} else {
-		triacTriggerDelay = stmTriggerDelayMax - 1;
+		tDelay = stmTriggerRangeMax - 1;
+	}
+	if ((stmTriggerRangeMax - tDelay) < stmTriacMinimalTriggerDuration) {
+		triacTriggerDelay = stmTriggerRangeMax - stmTriacMinimalTriggerDuration;
+	}  else {
+		triacTriggerDelay = tDelay;
 	}
 //	taskEXIT_CRITICAL();  // omitted due to isr problems with freertos, should be no problem here due to atomicity, and 1 changer and 1 consumer-only
 }
@@ -333,7 +347,7 @@ void initTriacRailPwmTimer()
 		  errorHandler(6,stop," HAL_TIM_PWM_Init ","initTriacRailPwmTimer");
 	  }
 	  sConfigOC.OCMode = TIM_OCMODE_PWM1;
-	  sConfigOC.Pulse = 70;
+	  sConfigOC.Pulse = 120;
 	  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
 	  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
 	  if (HAL_TIM_PWM_ConfigChannel(&htim12, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
@@ -354,9 +368,9 @@ void initTriacRailPwmTimer()
 		htim12.Instance->CR1 &= (~TIM_CR1_OPM_Msk);
 		htim12.Instance->CR1 &= (~TIM_CR1_UDIS_Msk);
 
-	    HAL_NVIC_SetPriority(TIM8_BRK_TIM12_IRQn, triacTriggerIsrPrio, 0);
-	    HAL_NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);
-	    htim12.Instance->DIER |= (TIM_DIER_UIE |TIM_DIER_CC1IE) ;
+//	    HAL_NVIC_SetPriority(TIM8_BRK_TIM12_IRQn, triacTriggerIsrPrio, 0);
+//	    HAL_NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);
+//	    htim12.Instance->DIER |= (TIM_DIER_UIE |TIM_DIER_CC1IE) ;
 
 	    disableRailTimerPwm();
 }
@@ -375,6 +389,7 @@ void enableZeroPassDetector()
 
 void initZeroPassDetector()
 {
+	extiIrqCnt = 0;
 	GPIO_InitTypeDef GPIO_InitStruct = {0};
 	GPIO_InitStruct.Pin = zeroPass_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
@@ -385,10 +400,10 @@ void initZeroPassDetector()
 	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
 }
 
-
 void EXTI15_10_IRQHandler(void)
 {
 	uint8_t res = 0;
+	++ extiIrqCnt;
 	UNUSED(res);
 	  if(__HAL_GPIO_EXTI_GET_IT(zeroPass_Pin) != 0) {
 		__HAL_GPIO_EXTI_CLEAR_IT(zeroPass_Pin);
@@ -403,7 +418,8 @@ void EXTI15_10_IRQHandler(void)
 void startTriacRun()
 {
 	startExtiChecking();
-	setTriacTriggerDelay(stmTriggerDelayMax-200);
+	setTriacTriggerDelay(stmTriggerRangeMax);
+
 	enableZeroPassDetector();
 //	checkInterrupts();
 }
@@ -413,6 +429,7 @@ void stopTriacRun()
 	disableZeroPassDetector();
 	// ok as long as we have only one line on this ISR, else use exti interrupt mask register
 	disableDelayTimer();
+	disableStopTimer();
 	disableRailTimerPwm();
 }
 
@@ -434,20 +451,22 @@ void startDebuggingTriacRun()
 
 void doJobOnZeroPassEvent(uint8_t ev)
 {
-	if (ev == extiZeroPassTriggerStartValue)   {
-		disableRailTimerPwm();
-		startStopTimer();
-		startDelayTimer();
-	} else {
-		disableDelayTimer();
-		disableRailTimerPwm();
+	if (extiIrqCnt > 0)  {
+		if (ev == extiZeroPassTriggerStartValue)   {
+			disableRailTimerPwm();
+			startStopTimer();
+			startDelayTimer();
+		} else {
+			disableDelayTimer();
+			disableRailTimerPwm();
+		}
 	}
 }
 
 void initTriacControl()
 {
 	startDebuggingTriacRun();   //  todo comment this out after debugging
-	triacTriggerDelay = stmTriggerDelayMax;
+	triacTriggerDelay = stmTriggerRangeMax;
 //	initExtiCheck();
 	initTriacDelayTimer();
 	initTriacStopTimer();
