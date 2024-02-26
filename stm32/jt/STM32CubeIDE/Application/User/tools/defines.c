@@ -501,9 +501,6 @@ void calibTriacDelayChange(int32_t diff)
    res =  getTriacTriggerDelay();
 
 //   info_printf("calibTriacDelayChange %4d \n", res);
-
-   testPrintPIDState();
-
 //	printf("calibTriacDelayChange\n");
 }
 

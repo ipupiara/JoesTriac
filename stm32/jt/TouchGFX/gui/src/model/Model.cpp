@@ -50,24 +50,28 @@ void Model::cppvsnprintf(char* buffer,uint32_t maxLen,const char *emsg, ...)
 	va_start(ap, emsg);
 
 	vsnprintf((char *)buffer, maxLen,  emsg, ap);
-	sendUartString((char*)buffer);
+	private_printf((char*)buffer);
 
 	va_end(ap);
 }
 
 void Model::printPid (CJoesModelEventT* mEv)
 {
-	uint8_t  floatBufferU [40];
-	uint8_t  floatBuffer8 [20];
+	Unicode::UnicodeChar  floatBufferU [50];
+	uint8_t  floatBuffer8 [50];
+
+	float fParams [4] =  {mEv->evData.pidPrintData.ampsV, mEv->evData.pidPrintData.Vpa
+			                 , mEv->evData.pidPrintData.Vin, mEv->evData.pidPrintData.Vde};
 
 	memset(floatBufferU,0,sizeof(floatBufferU));
 	memset(floatBuffer8,0,sizeof(floatBuffer8));
-	Unicode::snprintfFloat(( short unsigned int*)floatBufferU, 7, "%6.2f",mEv->evData.pidPrintData.ampsV);
-	Unicode::toUTF8(( short unsigned int*)floatBufferU,  floatBuffer8, 20);
+
+	Unicode::snprintfFloats(( short unsigned int*)floatBufferU, 50 ," amps %6.2f, Vp %4.1f, Vi  %4.1f, Vd  %4.1f", fParams );
+	Unicode::toUTF8(( short unsigned int*)floatBufferU,  floatBuffer8, 50);
 
 	memset(uartInputBuffer,0,serialBufferSize);
-	cppvsnprintf((char *)uartInputBuffer, serialBufferSize,  "pidstep: adc %4d, amps %s , delay %4d, corr %4d\n", mEv->evData.pidPrintData.triAdc,
-							floatBuffer8,   mEv->evData.pidPrintData.triDelay, mEv->evData.pidPrintData.triCorrInt );
+	cppvsnprintf((char *)uartInputBuffer, serialBufferSize,  "pidstep: adc %4d, delay %4d, corr %4d %s\n", mEv->evData.pidPrintData.triAdc,
+							mEv->evData.pidPrintData.triDelay, mEv->evData.pidPrintData.triCorrInt, floatBuffer8 );
 }
 
 void Model::tick()

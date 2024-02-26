@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
@@ -15,18 +14,7 @@
 #define printfPid
 #define printfAmps
 
-void initTwa();
-
-typedef enum
-{
-	nearScope,
-	farScope
-} errorScopeEnum;
-
-
-
-
-errorScopeEnum  errorScope;
+// void initTwa();
 
 float currentAmpsValue;
 uint16_t currentAmpsADCValue;
@@ -35,7 +23,8 @@ int8_t m_started;
 real m_kPTot, m_kP, m_kI, m_kD, m_stepTime, m_inv_stepTime, m_prev_error, m_integral_thresh, m_integral;
 real m_correctionThresh, q_fact;
 real error , correction;
-real debPart, debDeriv, debInteg, debZXcnt;
+real  Vp, Vi, Vd;
+
 
 extern void startTriacRun();
 extern void stopTriacRun();
@@ -97,8 +86,6 @@ uint8_t  sendMessageBuffer [4];
 uint8_t  receiveMessageBuffer[8];
 
 
-//  todo  if available send currentAmps() to calib screen for comparing with ammeter
-
 float adcVoltage()
 {
 	int16_t ampsAdcHex;
@@ -113,7 +100,6 @@ float adcVoltage()
 
 	return Vf;
 }
-
 
 float currentAmps()
 {
@@ -130,14 +116,12 @@ float currentAmps()
 	return res;
 }
 
-
 float getCurrentAmpsValue()
 {
 	float  res;
 	res = currentAmps();
 	return res;
 }
-
 
 void startTriacPidRun()
 {
@@ -151,15 +135,6 @@ void stopTriacPidRun()
 	stopADC();
 	stopTriacRun();
 }
-
-//uint16_t  adcValueForAmps (float amps)
-//{
-
-//	uint16_t res = 0;
-////	uint16_t dAdc = gradAdc * (amps - calibLowAmps);
-////	res = calibLowADC + dAdc;
-//	return res;
-//}
 
 void resetPID()
 {
@@ -191,28 +166,15 @@ real nextCorrection(real error)
     }
     else
         deriv = (error - m_prev_error) * m_inv_stepTime;
-
     m_prev_error = error;
 
-	res = m_kPTot*(m_kP*error + m_kI*m_integral + m_kD*deriv);
+	res =  m_kPTot * ((Vp = (m_kP*error)) + (Vi=(m_kI*m_integral)) + ( Vd= (m_kD*deriv)));
 
 	if (res > m_correctionThresh) {
 		res = m_correctionThresh;
 	} else if (res < -1*m_correctionThresh) {
 		res = -1* m_correctionThresh;
 	}
-
-//	if (getCurrentAmpsADCValue() < 500  )  {
-//		res= res/4;
-//	}
-
-#ifdef printfPid
-	double errD = m_kD * error;
-	double parD = m_kP * error;
-	double intD = m_kI * m_integral;
-	double derivD = deriv;
-	pid_printf("err %f par %f int %f deriv %f corr %f\n",errD, parD, intD, derivD, res);
-#endif
     return res;
 }
 
@@ -225,7 +187,7 @@ void calcNextTriacDelay(uint8_t pidOn)    // todo create a typedef enum for bett
 	if (pidOn != 0 ) {
 		float err;
 		err = getDefinesWeldingAmps() - currentAmps() ;
-		correction = nextCorrection(err) + corrCarryOver;
+		correction = (real) nextCorrection(err) + (real) corrCarryOver;
 		corrInt = correction;
 		corrCarryOver = correction - corrInt;
 		newDelay = getTriacTriggerDelay() - corrInt;
@@ -237,12 +199,8 @@ void calcNextTriacDelay(uint8_t pidOn)    // todo create a typedef enum for bett
 
 
 #ifdef printfPid
-//	double corrD = correction;
-//	double carryCorrD = corrCarryOver;
 	double ampsD  = currentAmps();
 	uint32_t adcVal =  getCurrentAmpsADCValue();
-//	pid_printf(" corr %f corrI %i cry %f delay %x  amps %f adc %i\n",corrD,corrInt, carryCorrD, newDelay, ampsD, adcVal);
-//	pid_printf("amtMissedTotal %i  maxMissed %i\n",amtMissedZpTotal, maxMissedZp);
 
 	CJoesModelEventT  msg;
 	msg.messageType = pidPrint;
@@ -250,28 +208,16 @@ void calcNextTriacDelay(uint8_t pidOn)    // todo create a typedef enum for bett
 	msg.evData.pidPrintData.triCorrInt = corrInt;
 	msg.evData.pidPrintData.triDelay = newDelay;
 	msg.evData.pidPrintData.ampsV = ampsD;
+	msg.evData.pidPrintData.Vde = Vd ;
+	msg.evData.pidPrintData.Vin = Vi ;
+	msg.evData.pidPrintData.Vpa = Vp ;
 	sendModelMessage(&msg);
-
-
 #endif
-}
-
-void testPrintPIDState()
-{
-	CJoesModelEventT  msg;
-	msg.messageType = pidPrint;
-	msg.evData.pidPrintData.triAdc = 123;
-	msg.evData.pidPrintData.triCorrInt = 456;
-	msg.evData.pidPrintData.triDelay = 7890;
-	msg.evData.pidPrintData.ampsV = 3.21;
-	sendModelMessage(&msg);
-
 }
 
 
 void InitPID()
 {
-
 	//	initTwa();
 
 	q_fact = 0.0;
@@ -293,32 +239,8 @@ void InitPID()
 	corrCarryOver = 0.0;
 
 	updateGradAmps();
+	Vp = Vi = Vd = 0;
 }
-
-
-//void printPIDState()
-//{
-////	int16_t adcAmps;
-////	float res;
-////	double resD;
-////	double gradD = gradAmps;
-////
-////	adcAmps = 0;
-////
-////	res = calibLowAmps +  (gradAmps * ((int16_t) adcAmps - (int16_t) calibLowADC  ));
-////	resD = res;
-////
-////	printf("\nPID State\n");
-////	printf("calLowA %i calHighA %i\n",calibLowAmps,calibHighAmps);
-////	printf("calLowAdc %i caHiAdc %i \n",calibLowADC, calibHighADC);
-////	printf("shows at 0 ADC : %f A  grad %f \n",resD, gradD);
-//////	checkEEPOROM();
-//
-//
-//
-//}
-
-
 
 
 

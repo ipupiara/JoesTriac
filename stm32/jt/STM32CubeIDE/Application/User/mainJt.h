@@ -180,6 +180,7 @@ typedef struct  {
 			uint32_t triAdc;
 			uint32_t triCorrInt;
 			float  ampsV;
+			float  Vpa, Vin, Vde;
 		} pidPrintData;
 	}  evData;
 } CJoesModelEventT ;
