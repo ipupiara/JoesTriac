@@ -45,6 +45,8 @@
 #include <gui/behaviourconfigscreen_screen/behaviourConfigScreenPresenter.hpp>
 #include <gui/switchpressureconfigscreen_screen/switchPressureConfigScreenView.hpp>
 #include <gui/switchpressureconfigscreen_screen/switchPressureConfigScreenPresenter.hpp>
+#include <gui/graphscreen_screen/graphScreenView.hpp>
+#include <gui/graphscreen_screen/graphScreenPresenter.hpp>
 
 using namespace touchgfx;
 
@@ -274,4 +276,17 @@ void FrontendApplicationBase::gotoswitchPressureConfigScreenScreenNoTransition()
 void FrontendApplicationBase::gotoswitchPressureConfigScreenScreenNoTransitionImpl()
 {
     touchgfx::makeTransition<switchPressureConfigScreenView, switchPressureConfigScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+// graphScreen
+
+void FrontendApplicationBase::gotographScreenScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotographScreenScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotographScreenScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<graphScreenView, graphScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }

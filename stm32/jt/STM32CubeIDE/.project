@@ -705,6 +705,16 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/fatalerrorscreen_screen/fatalErrorScreenView.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/gui/graphScreenPresenter.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/graphscreen_screen/graphScreenPresenter.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/graphScreenView.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/graphscreen_screen/graphScreenView.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/gui/jobCompleteScreenPresenter.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/jobcompletescreen_screen/jobCompleteScreenPresenter.cpp</locationURI>
@@ -930,6 +940,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/fatalerrorscreen_screen/fatalErrorScreenViewBase.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/graphScreenViewBase.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/graphscreen_screen/graphScreenViewBase.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/jobCompleteScreenViewBase.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/jobcompletescreen_screen/jobCompleteScreenViewBase.cpp</locationURI>
@@ -1058,6 +1073,11 @@
 			<name>Application/User/generated/image_icon_theme_images_action_done_50_50_E8F6FB.svg.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__generated/image_icon_theme_images_action_done_50_50_E8F6FB.svg.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_icon_theme_images_action_timeline_50_50_E8F6FB.svg.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__generated/image_icon_theme_images_action_timeline_50_50_E8F6FB.svg.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_Red_Needles_goal_gauge_needle_style_01-removebg-preview-outer-removebg-preview.cpp</name>

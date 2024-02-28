@@ -174,6 +174,7 @@ public:
 protected:
     static void cppvsnprintf(char* buffer,uint32_t maxLen,const char *emsg, ...);
     void printPid (CJoesModelEventT* mEv);
+    void drawPidLine (CJoesModelEventT* mEv);
 
     //    int16_t weldingTime;
 //    uint32_t weldingAmps;

@@ -68,6 +68,9 @@ public:
     // switchPressureConfigScreen
     void gotoswitchPressureConfigScreenScreenNoTransition();
 
+    // graphScreen
+    void gotographScreenScreenNoTransition();
+
 protected:
     touchgfx::Callback<FrontendApplicationBase> transitionCallback;
     FrontendHeap& frontendHeap;
@@ -120,6 +123,9 @@ protected:
 
     // switchPressureConfigScreen
     void gotoswitchPressureConfigScreenScreenNoTransitionImpl();
+
+    // graphScreen
+    void gotographScreenScreenNoTransitionImpl();
 };
 
 #endif // FRONTENDAPPLICATIONBASE_HPP

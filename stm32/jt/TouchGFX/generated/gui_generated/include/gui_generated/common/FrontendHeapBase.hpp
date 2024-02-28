@@ -48,6 +48,8 @@
 #include <gui/behaviourconfigscreen_screen/behaviourConfigScreenPresenter.hpp>
 #include <gui/switchpressureconfigscreen_screen/switchPressureConfigScreenView.hpp>
 #include <gui/switchpressureconfigscreen_screen/switchPressureConfigScreenPresenter.hpp>
+#include <gui/graphscreen_screen/graphScreenView.hpp>
+#include <gui/graphscreen_screen/graphScreenPresenter.hpp>
 
 
 /**
@@ -88,7 +90,8 @@ public:
             touchgfx::meta::TypeList< calibrateZeroScreenView,
             touchgfx::meta::TypeList< behaviourConfigScreenView,
             touchgfx::meta::TypeList< switchPressureConfigScreenView,
-            touchgfx::meta::Nil > > > > > > > > > > > > > > > > >
+            touchgfx::meta::TypeList< graphScreenView,
+            touchgfx::meta::Nil > > > > > > > > > > > > > > > > > >
             > GeneratedViewTypes;
 
     /**
@@ -118,7 +121,8 @@ public:
             touchgfx::meta::TypeList< calibrateZeroScreenPresenter,
             touchgfx::meta::TypeList< behaviourConfigScreenPresenter,
             touchgfx::meta::TypeList< switchPressureConfigScreenPresenter,
-            touchgfx::meta::Nil > > > > > > > > > > > > > > > > >
+            touchgfx::meta::TypeList< graphScreenPresenter,
+            touchgfx::meta::Nil > > > > > > > > > > > > > > > > > >
             > GeneratedPresenterTypes;
 
     /**

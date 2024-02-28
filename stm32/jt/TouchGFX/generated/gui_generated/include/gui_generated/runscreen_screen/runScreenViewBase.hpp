@@ -25,10 +25,6 @@ public:
     /*
      * Virtual Action Handlers
      */
-    virtual void stopButtonPressed()
-    {
-        // Override and implement this function in runScreen
-    }
     virtual void astroButtonPressed()
     {
         // Override and implement this function in runScreen
@@ -56,6 +52,7 @@ protected:
     GaugeWithGoal ampGauge;
     touchgfx::ButtonWithIcon astroButton;
     astrolabiumContainer astrolabiumContainer1;
+    touchgfx::ButtonWithIcon graphButton;
 
     /*
      * Wildcard Buffers

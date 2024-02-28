@@ -13,6 +13,7 @@
 
 #define printfPid
 #define printfAmps
+#define drawGraph
 
 // void initTwa();
 
@@ -34,6 +35,7 @@ float gradAdc;
 uint32_t calibHighADC;
 uint32_t calibLowADC;
 real corrCarryOver;     // carry amount if correction in float gives zero correction in int
+uint32_t pidStepCnt;
 
 uint8_t signum(real re)
 {
@@ -125,6 +127,7 @@ float getCurrentAmpsValue()
 
 void startTriacPidRun()
 {
+	pidStepCnt = 0;
 	startADC();
 	resetPID();
 	startTriacRun();
@@ -212,6 +215,17 @@ void calcNextTriacDelay(uint8_t pidOn)    // todo create a typedef enum for bett
 	msg.evData.pidPrintData.Vin = Vi ;
 	msg.evData.pidPrintData.Vpa = Vp ;
 	sendModelMessage(&msg);
+#endif
+
+#ifdef drawGraph
+	if ((pidStepCnt & ((uint32_t) 0x01)) == 0  ) {
+		CJoesModelEventT  msg;
+		msg.messageType = paintPidGraph;
+		msg.evData.pidGraphData.ampsF = ampsD;
+		msg.evData.pidGraphData.goalF = getDefinesWeldingAmps();
+		sendModelMessage(&msg);
+	}
+	++ pidStepCnt;
 #endif
 }
 

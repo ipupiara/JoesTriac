@@ -33,7 +33,6 @@ runScreenViewBase::runScreenViewBase() :
     stopButton.setXY(493, 384);
     stopButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID), touchgfx::Bitmap(BITMAP_STOPBTN_ID), touchgfx::Bitmap(BITMAP_STOPBTNPRESSED_ID));
     stopButton.setIconXY(0, 0);
-    stopButton.setAction(buttonCallback);
     add(stopButton);
 
     setAmpereText.setXY(465, 12);
@@ -94,6 +93,12 @@ runScreenViewBase::runScreenViewBase() :
 
     astrolabiumContainer1.setXY(500, 130);
     add(astrolabiumContainer1);
+
+    graphButton.setXY(4, 296);
+    graphButton.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_TIMELINE_50_50_E8F6FB_SVG_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID));
+    graphButton.setIconXY(97, 0);
+    graphButton.setAction(buttonCallback);
+    add(graphButton);
 }
 
 runScreenViewBase::~runScreenViewBase()
@@ -109,12 +114,12 @@ void runScreenViewBase::setupScreen()
 
 void runScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
 {
-    if (&src == &stopButton)
+    if (&src == &graphButton)
     {
-        //Interaction1
-        //When stopButton clicked call virtual function
-        //Call stopButtonPressed
-        stopButtonPressed();
+        //graphInteraction
+        //When graphButton clicked change screen to graphScreen
+        //Go to graphScreen with no screen transition
+        application().gotographScreenScreenNoTransition();
     }
     if (&src == &astroButton)
     {

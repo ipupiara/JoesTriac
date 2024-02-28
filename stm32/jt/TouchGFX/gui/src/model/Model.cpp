@@ -4,6 +4,7 @@
 #include <gui/common/FrontendApplication.hpp>
 #include <stdint.h>
 #include <uart-Comms.h>
+#include <gui/graphscreen_screen/graphScreenView.hpp>
 
 
 Model::Model() : modelListener(0)
@@ -74,6 +75,14 @@ void Model::printPid (CJoesModelEventT* mEv)
 							mEv->evData.pidPrintData.triDelay, mEv->evData.pidPrintData.triCorrInt, floatBuffer8 );
 }
 
+void Model::drawPidLine (CJoesModelEventT* mEv)
+{
+	graphScreenView::pInstance->addData(mEv->evData.pidGraphData.ampsF, mEv->evData.pidGraphData.goalF);
+
+}
+
+
+
 void Model::tick()
 {
 	modelListener->tick();
@@ -114,6 +123,9 @@ void Model::tick()
 			}
 			if (modelMessage.messageType == pidPrint) {
 				printPid(&modelMessage);
+			}
+			if (modelMessage.messageType == paintPidGraph) {
+				drawPidLine(&modelMessage);
 			}
 		} else {
 //			char* mm = "modelMessageQ";
