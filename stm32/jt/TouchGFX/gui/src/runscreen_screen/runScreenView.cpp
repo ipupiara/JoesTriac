@@ -46,6 +46,8 @@ void runScreenView::setupScreen()
 
 	 pidDataGraphContainer1.setVisible(false);
 	 pidDataGraphContainer1.invalidate();
+
+	 raiseDoRun();
 }
 
 void runScreenView::tearDownScreen()
@@ -91,7 +93,7 @@ void runScreenView::graphButtonClicked()
 }
 
 
-void runScreenView::updateGraph(pJoesPresenterEventT  pMsg )
+void runScreenView::updatePidGraph(pJoesPresenterEventT  pMsg )
 {
 	pidDataGraphContainer1.updateGraph(pMsg);
 }
@@ -112,3 +114,44 @@ void runScreenView::astroButtonPressed()
 	astrolabiumContainer1.invalidate();
 }
 
+void runScreenView::continueButtonClicked()
+{
+	presenter->continueButtonPressed();
+}
+
+void runScreenView::abortButtonPressed()
+{
+	presenter->abortButtonPressed();
+}
+
+
+void runScreenView::raiseRequestStop()
+{
+	abortButton.setVisible(true);
+	secondsb4ReturnText.setVisible(true);
+	seconb4Title.setVisible(true);
+	continueButton.setVisible(true);
+
+	startButton.setVisible(false);
+	stopButton.setVisible(false);
+	astrolabiumContainer1.setVisible(false);
+	pidDataGraphContainer1.setVisible(false);
+	graphButton.setVisible(false);
+	astroButton.setVisible(false);
+}
+
+void runScreenView::raiseDoRun()
+{
+
+	startButton.setVisible(true);
+	stopButton.setVisible(true);
+	graphButton.setVisible(true);
+	astroButton.setVisible(true);
+
+	abortButton.setVisible(false);
+	secondsb4ReturnText.setVisible(false);
+	seconb4Title.setVisible(false);
+	continueButton.setVisible(false);
+	astrolabiumContainer1.setVisible(false);
+	pidDataGraphContainer1.setVisible(false);
+}

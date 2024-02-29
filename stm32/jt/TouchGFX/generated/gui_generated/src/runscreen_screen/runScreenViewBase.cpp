@@ -8,7 +8,8 @@
 #include <images/BitmapDatabase.hpp>
 
 runScreenViewBase::runScreenViewBase() :
-    buttonCallback(this, &runScreenViewBase::buttonCallbackHandler)
+    buttonCallback(this, &runScreenViewBase::buttonCallbackHandler),
+    flexButtonCallback(this, &runScreenViewBase::flexButtonCallbackHandler)
 {
     touchgfx::CanvasWidgetRenderer::setupBuffer(canvasBuffer, CANVAS_BUFFER_SIZE);
     
@@ -28,16 +29,22 @@ runScreenViewBase::runScreenViewBase() :
     timeValueText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_XHDS));
     add(timeValueText);
 
-    startButton.setXY(124, 384);
+    abortButton.setXY(126, 384);
+    abortButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID), touchgfx::Bitmap(BITMAP_ABORTBTN_ID), touchgfx::Bitmap(BITMAP_ABORTBTNPRESSED_ID));
+    abortButton.setIconXY(0, 0);
+    abortButton.setAction(buttonCallback);
+    add(abortButton);
+
+    startButton.setXY(126, 384);
     startButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID), touchgfx::Bitmap(BITMAP_STARTBTNINACTIVE_ID), touchgfx::Bitmap(BITMAP_STARTBTNINACTIVE_ID));
     startButton.setIconXY(0, 0);
     add(startButton);
 
-    stopButton.setXY(493, 384);
-    stopButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID), touchgfx::Bitmap(BITMAP_STOPBTN_ID), touchgfx::Bitmap(BITMAP_STOPBTNPRESSED_ID));
-    stopButton.setIconXY(0, 0);
-    stopButton.setAction(buttonCallback);
-    add(stopButton);
+    continueButton.setXY(493, 384);
+    continueButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID), touchgfx::Bitmap(BITMAP_CONTINUEBTN_ID), touchgfx::Bitmap(BITMAP_CONTINUEBTNPRESSED_ID));
+    continueButton.setIconXY(0, 0);
+    continueButton.setAction(buttonCallback);
+    add(continueButton);
 
     setAmpereText.setXY(465, 12);
     setAmpereText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
@@ -48,11 +55,23 @@ runScreenViewBase::runScreenViewBase() :
     setAmpereText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_X5Q9));
     add(setAmpereText);
 
+    stopButton.setXY(493, 384);
+    stopButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID), touchgfx::Bitmap(BITMAP_STOPBTN_ID), touchgfx::Bitmap(BITMAP_STOPBTNPRESSED_ID));
+    stopButton.setIconXY(0, 0);
+    stopButton.setAction(buttonCallback);
+    add(stopButton);
+
     textArea1.setXY(14, 94);
     textArea1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea1.setLinespacing(0);
     textArea1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_K159));
     add(textArea1);
+
+    seconb4Title.setXY(526, 281);
+    seconb4Title.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    seconb4Title.setLinespacing(0);
+    seconb4Title.setTypedText(touchgfx::TypedText(T___SINGLEUSE_SZCF));
+    add(seconb4Title);
 
     textArea2.setXY(352, 94);
     textArea2.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
@@ -86,6 +105,15 @@ runScreenViewBase::runScreenViewBase() :
     boxProgress1.setValue(60);
     add(boxProgress1);
 
+    secondsb4ReturnText.setXY(526, 316);
+    secondsb4ReturnText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    secondsb4ReturnText.setLinespacing(0);
+    Unicode::snprintf(secondsb4ReturnTextBuffer, SECONDSB4RETURNTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_CS24).getText());
+    secondsb4ReturnText.setWildcard(secondsb4ReturnTextBuffer);
+    secondsb4ReturnText.resizeToCurrentText();
+    secondsb4ReturnText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_IVAP));
+    add(secondsb4ReturnText);
+
     ampGauge.setXY(280, 145);
     add(ampGauge);
 
@@ -99,15 +127,19 @@ runScreenViewBase::runScreenViewBase() :
     astrolabiumContainer1.setVisible(false);
     add(astrolabiumContainer1);
 
-    graphButton.setXY(4, 296);
-    graphButton.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_TIMELINE_50_50_E8F6FB_SVG_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID));
-    graphButton.setIconXY(97, 0);
-    graphButton.setAction(buttonCallback);
-    add(graphButton);
-
     pidDataGraphContainer1.setXY(18, 11);
     pidDataGraphContainer1.setVisible(false);
     add(pidDataGraphContainer1);
+
+    graphButton.setBoxWithBorderPosition(0, 0, 73, 55);
+    graphButton.setBorderSize(5);
+    graphButton.setBoxWithBorderColors(touchgfx::Color::getColorFromRGB(0, 102, 153), touchgfx::Color::getColorFromRGB(0, 153, 204), touchgfx::Color::getColorFromRGB(0, 51, 102), touchgfx::Color::getColorFromRGB(51, 102, 153));
+    graphButton.setBitmaps(Bitmap(BITMAP_GRAPH1_ID), Bitmap(BITMAP_GRAPH1_ID));
+    graphButton.setBitmapXY(0, 0);
+    graphButton.setAlpha(215);
+    graphButton.setAction(flexButtonCallback);
+    graphButton.setPosition(24, 12, 73, 55);
+    add(graphButton);
 }
 
 runScreenViewBase::~runScreenViewBase()
@@ -138,6 +170,24 @@ void runScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& sr
         //Call stopButtonPressed
         stopButtonPressed();
     }
+    if (&src == &continueButton)
+    {
+        //continueButtonInteraction
+        //When continueButton clicked call virtual function
+        //Call continueButtonClicked
+        continueButtonClicked();
+    }
+    if (&src == &abortButton)
+    {
+        //abortButtonInteraction
+        //When abortButton clicked call virtual function
+        //Call abortButtonPressed
+        abortButtonPressed();
+    }
+}
+
+void runScreenViewBase::flexButtonCallbackHandler(const touchgfx::AbstractButtonContainer& src)
+{
     if (&src == &graphButton)
     {
         //graphButtonInteraction

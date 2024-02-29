@@ -32,6 +32,8 @@ public:
     virtual void tick();
 
     void stopButtonPressed();
+    void continueButtonPressed();
+    void abortButtonPressed();
 
 
 private:

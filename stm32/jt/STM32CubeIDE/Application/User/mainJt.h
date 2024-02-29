@@ -105,7 +105,9 @@ typedef enum {
 	jobOkScreenUpdate,
 	runScreenUpdate,
 	paintPidGraph,
-	pidGraphDataArray
+	pidGraphDataArray,
+	requestStop,
+	doRun
 }  presenterMessageType;
 
 

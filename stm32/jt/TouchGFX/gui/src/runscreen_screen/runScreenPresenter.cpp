@@ -28,6 +28,21 @@ void runScreenPresenter::stopButtonPressed()
 	sendEventToMainJtMessageQ(&msg, isNotFromIsr);
 }
 
+void runScreenPresenter::continueButtonPressed()
+{
+	CMainJtEventT msg;
+	msg.evType = continueButtonClicked;
+	sendEventToMainJtMessageQ(&msg, isNotFromIsr);
+}
+
+void runScreenPresenter::abortButtonPressed()
+{
+	CMainJtEventT msg;
+	msg.evType = stopButtonClicked;
+	sendEventToMainJtMessageQ(&msg, isNotFromIsr);
+}
+
+
 void runScreenPresenter::tick()
 {
 	CJoesPresenterEventT  presenterMessage;
@@ -40,7 +55,7 @@ void runScreenPresenter::tick()
 					view.update(&presenterMessage);
 				}
 				if (presenterMessage.messageType ==  paintPidGraph) {
-					view.updateGraph(&presenterMessage);
+					view.updatePidGraph(&presenterMessage);
 				}
 			}
 		}

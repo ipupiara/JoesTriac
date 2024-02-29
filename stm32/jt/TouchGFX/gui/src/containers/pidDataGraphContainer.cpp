@@ -24,22 +24,14 @@ void pidDataGraphContainer::initialize()
     for (uint16_t cnt = 0; cnt < goalGraph.getMaxCapacity();  ++ cnt) {
     	goalGraph.addDataPoint(goalValue);
     }
-    for (uint16_t cnt = 0; cnt < triacPidGraphData.amtValidPoints ;  ++ cnt) {
-     	goalGraph.addDataPoint(triacPidGraphData.dataValue[cnt]);
-     }
-
-//    pidGraph.addDataPoint(triacPidGraphData.dataValue[cnt]);
-
 	goalGraph.invalidate();
 }
 
 void pidDataGraphContainer::setData(graphDataRec* pData)
 {
-	for (uint16_t cnt = 0; cnt < pidGraph.getMaxCapacity(); ++ cnt) {
+	for (uint16_t cnt = 0; cnt < pData->amtValidPoints; ++ cnt) {
 		pidGraph.addDataPoint(pData->dataValue[cnt]);
-		goalGraph.addDataPoint(pData->goalValue);
 	}
-	goalGraph.invalidate();
 	pidGraph.invalidate();
 }
 

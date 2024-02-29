@@ -15,6 +15,7 @@
 #include <gui/containers/GaugeWithGoal.hpp>
 #include <gui/containers/astrolabiumContainer.hpp>
 #include <gui/containers/pidDataGraphContainer.hpp>
+#include <touchgfx/containers/buttons/Buttons.hpp>
 
 class runScreenViewBase : public touchgfx::View<runScreenPresenter>
 {
@@ -38,6 +39,14 @@ public:
     {
         // Override and implement this function in runScreen
     }
+    virtual void continueButtonClicked()
+    {
+        // Override and implement this function in runScreen
+    }
+    virtual void abortButtonPressed()
+    {
+        // Override and implement this function in runScreen
+    }
 
 protected:
     FrontendApplication& application() {
@@ -50,19 +59,23 @@ protected:
     touchgfx::Box __background;
     touchgfx::Box box1;
     touchgfx::TextAreaWithOneWildcard timeValueText;
+    touchgfx::ButtonWithIcon abortButton;
     touchgfx::ButtonWithIcon startButton;
-    touchgfx::ButtonWithIcon stopButton;
+    touchgfx::ButtonWithIcon continueButton;
     touchgfx::TextAreaWithOneWildcard setAmpereText;
+    touchgfx::ButtonWithIcon stopButton;
     touchgfx::TextArea textArea1;
+    touchgfx::TextArea seconb4Title;
     touchgfx::TextArea textArea2;
     touchgfx::TextAreaWithOneWildcard currentTimeText;
     touchgfx::TextAreaWithOneWildcard currentAmpereText;
     touchgfx::BoxProgress boxProgress1;
+    touchgfx::TextAreaWithOneWildcard secondsb4ReturnText;
     GaugeWithGoal ampGauge;
     touchgfx::ButtonWithIcon astroButton;
     astrolabiumContainer astrolabiumContainer1;
-    touchgfx::ButtonWithIcon graphButton;
     pidDataGraphContainer pidDataGraphContainer1;
+    touchgfx::ImageButtonStyle< touchgfx::BoxWithBorderButtonStyle< touchgfx::ClickButtonTrigger >  >  graphButton;
 
     /*
      * Wildcard Buffers
@@ -75,6 +88,8 @@ protected:
     touchgfx::Unicode::UnicodeChar currentTimeTextBuffer[CURRENTTIMETEXT_SIZE];
     static const uint16_t CURRENTAMPERETEXT_SIZE = 10;
     touchgfx::Unicode::UnicodeChar currentAmpereTextBuffer[CURRENTAMPERETEXT_SIZE];
+    static const uint16_t SECONDSB4RETURNTEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar secondsb4ReturnTextBuffer[SECONDSB4RETURNTEXT_SIZE];
 
 private:
 
@@ -88,11 +103,13 @@ private:
      * Callback Declarations
      */
     touchgfx::Callback<runScreenViewBase, const touchgfx::AbstractButton&> buttonCallback;
+    touchgfx::Callback<runScreenViewBase, const touchgfx::AbstractButtonContainer&> flexButtonCallback;
 
     /*
      * Callback Handler Declarations
      */
     void buttonCallbackHandler(const touchgfx::AbstractButton& src);
+    void flexButtonCallbackHandler(const touchgfx::AbstractButtonContainer& src);
 
 };
 

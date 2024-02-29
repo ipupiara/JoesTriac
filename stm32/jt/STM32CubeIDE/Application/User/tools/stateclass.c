@@ -475,6 +475,9 @@ uStInt evTriacIdleChecker(void)
 void entryTriacActiveState(void)
 {
 	info_printf("entryTriacActiveState\n");
+	CJoesModelEventT  msg;
+	msg.messageType = changeToRunScreen;
+	sendModelMessage(&msg);
 	startDurationTimer(getDefinesWeldingTime());
 	startTriacPidRun();
 }
@@ -506,10 +509,9 @@ uStInt evTriacActiveChecker(void)
 void entryTriacRunningState(void)
 {
 	info_printf("entryTriacRunningState\n");
-
-	CJoesModelEventT  msg;
-	msg.messageType = changeToRunScreen;
-	sendModelMessage(&msg);
+	CJoesPresenterEventT  msg;
+	msg.messageType = doRun;
+	sendPresenterMessage(&msg);
 }
 
 void exitTriacRunningState(void)
@@ -531,18 +533,7 @@ uStInt evTriacRunningChecker(void)
 	if (currentEvent->evType == evSecondsTick) {
 		sendActualValuesToRunNStopScreen(getSecondsDurationTimerRemaining(), secondsBeforeReturn);
 
-
-
-
-
-
-
-
 //		startExtiCheck();   // just for debug   //  todo remove/comment out this if not yet done
-
-
-
-
 
 
 		res =  uStIntHandlingDone;
@@ -556,9 +547,9 @@ void entryRequestStopState(void)
 {
 	info_printf("entryRequestStopState\n");
 
-	CJoesModelEventT  msg;
-	msg.messageType = changeToRequestStopScreen;
-	sendModelMessage(&msg);
+	CJoesPresenterEventT  msg;
+	msg.messageType = requestStop;
+	sendPresenterMessage(&msg);
 	void setBuzzerOn();
 	secondsBeforeReturn = 11;
 }
@@ -566,6 +557,7 @@ void entryRequestStopState(void)
 void exitRequestStopState(void)
 {
 //	info_printf("exit Running\n");
+
 	void setBuzzerOff();
 	secondsBeforeReturn = 0;
 	setBuzzerOff();
