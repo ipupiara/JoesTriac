@@ -3799,12 +3799,11 @@
             "Width": 767,
             "Height": 370,
             "DataSeed": -144564695,
-            "NumberOfValues": 100,
-            "MaxY": 100.0,
-            "Precision": "1",
-            "LastIndex": 99,
+            "NumberOfValues": 600,
+            "MaxY": 120.0,
+            "Precision": "0.1",
+            "LastIndex": 599,
             "XAxisScale": 1.0,
-            "InsertRandomValues": true,
             "GraphType": "GraphScroll",
             "GraphDrawers": [
               {

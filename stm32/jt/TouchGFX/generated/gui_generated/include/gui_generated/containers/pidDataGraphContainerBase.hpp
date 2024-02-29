@@ -37,7 +37,7 @@ protected:
      */
     touchgfx::Box box1;
     touchgfx::ButtonWithLabel backButton;
-    touchgfx::GraphScroll<100> goalGraph;
+    touchgfx::GraphScroll<600> goalGraph;
     touchgfx::GraphElementLine goalGraphLine1;
     touchgfx::PainterRGB565 goalGraphLine1Painter;
     touchgfx::GraphScroll<600> pidGraph;
