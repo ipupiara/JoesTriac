@@ -3771,31 +3771,6 @@
             }
           },
           {
-            "Type": "DynamicGraph",
-            "Name": "pidGraph",
-            "Width": 767,
-            "Height": 373,
-            "DataSeed": -624475605,
-            "NumberOfValues": 600,
-            "MaxY": 120.0,
-            "Precision": "0.1",
-            "LastIndex": 599,
-            "XAxisScale": 1.0,
-            "GraphType": "GraphScroll",
-            "GraphDrawers": [
-              {
-                "Type": "LineDrawer",
-                "LineWidth": 2,
-                "FileNameImage": "",
-                "Color": {
-                  "Red": 20,
-                  "Green": 151,
-                  "Blue": 197
-                }
-              }
-            ]
-          },
-          {
             "Type": "ButtonWithLabel",
             "Name": "backButton",
             "X": 527,
@@ -3817,6 +3792,57 @@
             },
             "TextRotation": "0",
             "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
+          },
+          {
+            "Type": "DynamicGraph",
+            "Name": "goalGraph",
+            "Width": 767,
+            "Height": 370,
+            "DataSeed": -144564695,
+            "NumberOfValues": 100,
+            "MaxY": 100.0,
+            "Precision": "1",
+            "LastIndex": 99,
+            "XAxisScale": 1.0,
+            "InsertRandomValues": true,
+            "GraphType": "GraphScroll",
+            "GraphDrawers": [
+              {
+                "Type": "LineDrawer",
+                "LineWidth": 2,
+                "FileNameImage": "",
+                "Color": {
+                  "Red": 20,
+                  "Green": 151,
+                  "Blue": 197
+                }
+              }
+            ]
+          },
+          {
+            "Type": "DynamicGraph",
+            "Name": "pidGraph",
+            "Width": 767,
+            "Height": 370,
+            "DataSeed": -624475605,
+            "NumberOfValues": 600,
+            "MaxY": 120.0,
+            "Precision": "0.1",
+            "LastIndex": 599,
+            "XAxisScale": 1.0,
+            "GraphType": "GraphScroll",
+            "GraphDrawers": [
+              {
+                "Type": "LineDrawer",
+                "LineWidth": 2,
+                "FileNameImage": "",
+                "Color": {
+                  "Red": 20,
+                  "Green": 151,
+                  "Blue": 197
+                }
+              }
+            ]
           }
         ],
         "Interactions": [

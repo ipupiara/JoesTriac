@@ -7,10 +7,10 @@
 #include <gui/common/FrontendApplication.hpp>
 #include <touchgfx/containers/Container.hpp>
 #include <touchgfx/widgets/Box.hpp>
+#include <touchgfx/widgets/ButtonWithLabel.hpp>
 #include <touchgfx/widgets/graph/GraphScroll.hpp>
 #include <touchgfx/widgets/graph/GraphElements.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB565.hpp>
-#include <touchgfx/widgets/ButtonWithLabel.hpp>
 
 class pidDataGraphContainerBase : public touchgfx::Container
 {
@@ -36,10 +36,13 @@ protected:
      * Member Declarations
      */
     touchgfx::Box box1;
+    touchgfx::ButtonWithLabel backButton;
+    touchgfx::GraphScroll<100> goalGraph;
+    touchgfx::GraphElementLine goalGraphLine1;
+    touchgfx::PainterRGB565 goalGraphLine1Painter;
     touchgfx::GraphScroll<600> pidGraph;
     touchgfx::GraphElementLine pidGraphLine1;
     touchgfx::PainterRGB565 pidGraphLine1Painter;
-    touchgfx::ButtonWithLabel backButton;
 
 private:
 

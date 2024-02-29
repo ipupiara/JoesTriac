@@ -11,7 +11,10 @@ public:
     virtual void backButtonPressed();
     virtual void initialize();
     void updateGraph(pJoesPresenterEventT  pMsg );
+    void setGoalLine(float goalAmps);
 protected:
+
+
 };
 
 #endif // PIDDATAGRAPHCONTAINER_HPP
