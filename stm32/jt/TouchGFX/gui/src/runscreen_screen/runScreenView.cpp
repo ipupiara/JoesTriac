@@ -45,7 +45,6 @@ void runScreenView::setupScreen()
 	 astrolabiumContainer1.invalidate();
 
 	 pidDataGraphContainer1.setVisible(false);
-	 pidDataGraphContainer1.setGoalLine(weldingAmps);
 	 pidDataGraphContainer1.invalidate();
 }
 

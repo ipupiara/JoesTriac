@@ -231,4 +231,13 @@ SECTIONS
     *(.gnu.linkonce.r.*)
     . = ALIGN(0x4);
   } >SDRAM
+
+  TableSection (NOLOAD) :
+  { 
+    *(TableSection TableSection.*)
+    *(.gnu.linkonce.r.*)
+    . = ALIGN(0x4);
+
+  } >SDRAM
+	
 }

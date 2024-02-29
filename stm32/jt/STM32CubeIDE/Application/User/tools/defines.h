@@ -24,6 +24,8 @@ extern "C"
 
 #define eepromI2cAddr   0xA0
 
+#define TABLE_SECTION_SDRAM_PRAGMA LOCATION_PRAGMA("TableSection")
+
 typedef enum{
 	goOn,
 	stop

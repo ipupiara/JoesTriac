@@ -3799,10 +3799,10 @@
             "Width": 767,
             "Height": 370,
             "DataSeed": -144564695,
-            "NumberOfValues": 600,
+            "NumberOfValues": 900,
             "MaxY": 120.0,
             "Precision": "0.1",
-            "LastIndex": 599,
+            "LastIndex": 899,
             "XAxisScale": 1.0,
             "GraphType": "GraphScroll",
             "GraphDrawers": [
@@ -3816,7 +3816,8 @@
                   "Blue": 197
                 }
               }
-            ]
+            ],
+            "Moveable": true
           },
           {
             "Type": "DynamicGraph",
@@ -3824,10 +3825,10 @@
             "Width": 767,
             "Height": 370,
             "DataSeed": -624475605,
-            "NumberOfValues": 600,
+            "NumberOfValues": 900,
             "MaxY": 120.0,
             "Precision": "0.1",
-            "LastIndex": 599,
+            "LastIndex": 899,
             "XAxisScale": 1.0,
             "GraphType": "GraphScroll",
             "GraphDrawers": [
@@ -3841,7 +3842,8 @@
                   "Blue": 197
                 }
               }
-            ]
+            ],
+            "Moveable": true
           }
         ],
         "Interactions": [

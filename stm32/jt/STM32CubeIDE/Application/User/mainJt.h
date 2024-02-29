@@ -21,6 +21,7 @@ extern "C" {
 #include "cmsis_os.h"
 #include <task.h>
 #include <FreeRTOS.h>
+#include <triacPid.h>
 //#endif
 
 
@@ -103,7 +104,8 @@ typedef enum {
 	calibrationScreenUpdate,
 	jobOkScreenUpdate,
 	runScreenUpdate,
-	paintPidGraph
+	paintPidGraph,
+	pidGraphDataArray
 }  presenterMessageType;
 
 
@@ -140,6 +142,7 @@ typedef struct  {
 			float ampsF;
 			float goalF;
 		} pidGraphData;
+		graphDataRec* pidDataArrayPtr;
 	}  evData;
 } CJoesPresenterEventT ;
 

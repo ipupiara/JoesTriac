@@ -30,6 +30,8 @@ real  Vp, Vi, Vd;
 extern void startTriacRun();
 extern void stopTriacRun();
 
+__attribute__((section("TableSection")))  graphDataRec  triacPidGraphData;
+
 float gradAmps; //   (delta amperes) / (delta adc)   ....
 float gradAdc;  
 uint32_t calibHighADC;
@@ -127,6 +129,9 @@ float getCurrentAmpsValue()
 
 void startTriacPidRun()
 {
+	memset((void*)&triacPidGraphData,0,sizeof(triacPidGraphData));
+	triacPidGraphData.goalValue = getDefinesWeldingAmps();
+
 	pidStepCnt = 0;
 	startADC();
 	resetPID();
@@ -219,14 +224,28 @@ void calcNextTriacDelay(uint8_t pidOn)    // todo create a typedef enum for bett
 
 	if (pidOn != 0) {
 		if ((pidStepCnt & ((uint32_t) 0x01)) == 0  ) {
-			CJoesPresenterEventT  msg;
-			msg.messageType = paintPidGraph;
-			msg.evData.pidGraphData.ampsF = ampsD;
-			msg.evData.pidGraphData.goalF = getDefinesWeldingAmps();
-			sendPresenterMessage(&msg);
+			uint32_t indx = pidStepCnt / 2;
+			if (indx < pidGraphSize) {
+				triacPidGraphData.dataValue[indx] = ampsD;
+				++triacPidGraphData.amtValidPoints;
+
+				CJoesPresenterEventT  msg;
+				msg.messageType = paintPidGraph;
+				msg.evData.pidGraphData.ampsF = ampsD;
+				msg.evData.pidGraphData.goalF = getDefinesWeldingAmps();
+				sendPresenterMessage(&msg);
+			}
 		}
 	}
 	++ pidStepCnt;
+}
+
+void sendPidData()
+{
+	CJoesPresenterEventT  msg;
+	msg.messageType = pidGraphDataArray;
+	msg.evData.pidDataArrayPtr = &triacPidGraphData;
+	sendPresenterMessage(&msg);
 }
 
 
@@ -254,6 +273,7 @@ void InitPID()
 
 	updateGradAmps();
 	Vp = Vi = Vd = 0;
+
 }
 
 

@@ -9,6 +9,8 @@
 #include <touchgfx/widgets/Box.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
 #include <touchgfx/widgets/graph/GraphScroll.hpp>
+#include <touchgfx/EasingEquations.hpp>
+#include <touchgfx/mixins/MoveAnimator.hpp>
 #include <touchgfx/widgets/graph/GraphElements.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB565.hpp>
 
@@ -37,10 +39,10 @@ protected:
      */
     touchgfx::Box box1;
     touchgfx::ButtonWithLabel backButton;
-    touchgfx::GraphScroll<600> goalGraph;
+    touchgfx::MoveAnimator< touchgfx::GraphScroll<900> > goalGraph;
     touchgfx::GraphElementLine goalGraphLine1;
     touchgfx::PainterRGB565 goalGraphLine1Painter;
-    touchgfx::GraphScroll<600> pidGraph;
+    touchgfx::MoveAnimator< touchgfx::GraphScroll<900> > pidGraph;
     touchgfx::GraphElementLine pidGraphLine1;
     touchgfx::PainterRGB565 pidGraphLine1Painter;
 

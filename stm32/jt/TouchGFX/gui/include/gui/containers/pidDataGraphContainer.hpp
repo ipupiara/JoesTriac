@@ -2,6 +2,8 @@
 #define PIDDATAGRAPHCONTAINER_HPP
 
 #include <gui_generated/containers/pidDataGraphContainerBase.hpp>
+#define pidGraphSz 900
+
 
 class pidDataGraphContainer : public pidDataGraphContainerBase
 {
@@ -11,7 +13,7 @@ public:
     virtual void backButtonPressed();
     virtual void initialize();
     void updateGraph(pJoesPresenterEventT  pMsg );
-    void setGoalLine(float goalAmps);
+    void setData(graphDataRec* pData);
 protected:
 
 
