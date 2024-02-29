@@ -14,6 +14,7 @@
 #include <touchgfx/containers/progress_indicators/BoxProgress.hpp>
 #include <gui/containers/GaugeWithGoal.hpp>
 #include <gui/containers/astrolabiumContainer.hpp>
+#include <gui/containers/pidDataGraphContainer.hpp>
 
 class runScreenViewBase : public touchgfx::View<runScreenPresenter>
 {
@@ -26,6 +27,14 @@ public:
      * Virtual Action Handlers
      */
     virtual void astroButtonPressed()
+    {
+        // Override and implement this function in runScreen
+    }
+    virtual void stopButtonPressed()
+    {
+        // Override and implement this function in runScreen
+    }
+    virtual void graphButtonClicked()
     {
         // Override and implement this function in runScreen
     }
@@ -53,6 +62,7 @@ protected:
     touchgfx::ButtonWithIcon astroButton;
     astrolabiumContainer astrolabiumContainer1;
     touchgfx::ButtonWithIcon graphButton;
+    pidDataGraphContainer pidDataGraphContainer1;
 
     /*
      * Wildcard Buffers
@@ -67,6 +77,12 @@ protected:
     touchgfx::Unicode::UnicodeChar currentAmpereTextBuffer[CURRENTAMPERETEXT_SIZE];
 
 private:
+
+    /*
+     * Canvas Buffer Size
+     */
+    static const uint32_t CANVAS_BUFFER_SIZE = 12000;
+    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
 
     /*
      * Callback Declarations

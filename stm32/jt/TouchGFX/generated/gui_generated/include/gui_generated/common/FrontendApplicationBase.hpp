@@ -56,20 +56,17 @@ public:
     // jobCompleteScreen
     void gotojobCompleteScreenScreenNoTransition();
 
-    // startupScreen
-    void gotostartupScreenScreenNoTransition();
-
     // calibrateZeroScreen
     void gotocalibrateZeroScreenScreenNoTransition();
 
     // behaviourConfigScreen
     void gotobehaviourConfigScreenScreenNoTransition();
 
+    // startupScreen
+    void gotostartupScreenScreenNoTransition();
+
     // switchPressureConfigScreen
     void gotoswitchPressureConfigScreenScreenNoTransition();
-
-    // graphScreen
-    void gotographScreenScreenNoTransition();
 
 protected:
     touchgfx::Callback<FrontendApplicationBase> transitionCallback;
@@ -112,20 +109,17 @@ protected:
     // jobCompleteScreen
     void gotojobCompleteScreenScreenNoTransitionImpl();
 
-    // startupScreen
-    void gotostartupScreenScreenNoTransitionImpl();
-
     // calibrateZeroScreen
     void gotocalibrateZeroScreenScreenNoTransitionImpl();
 
     // behaviourConfigScreen
     void gotobehaviourConfigScreenScreenNoTransitionImpl();
 
+    // startupScreen
+    void gotostartupScreenScreenNoTransitionImpl();
+
     // switchPressureConfigScreen
     void gotoswitchPressureConfigScreenScreenNoTransitionImpl();
-
-    // graphScreen
-    void gotographScreenScreenNoTransitionImpl();
 };
 
 #endif // FRONTENDAPPLICATIONBASE_HPP

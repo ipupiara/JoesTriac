@@ -79,10 +79,19 @@ void runScreenView::update(pJoesPresenterEventT  pMsg )
 	 astrolabiumContainer1.update(pMsg);
 }
 
-//void runScreenView::showAstrolabium(bool vis)
-//{
-//	astrolabiumContainer1.setVisible(vis)
-//}
+void runScreenView::graphButtonClicked()
+{
+	if (! pidDataGraphContainer1.isVisible()) {
+		pidDataGraphContainer1.setVisible(true);
+	}
+	pidDataGraphContainer1.invalidate();
+}
+
+
+void runScreenView::updateGraph(pJoesPresenterEventT  pMsg )
+{
+	pidDataGraphContainer1.updateGraph(pMsg);
+}
 
 
 void runScreenView::stopButtonPressed()

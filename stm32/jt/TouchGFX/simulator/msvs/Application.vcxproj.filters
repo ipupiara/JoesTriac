@@ -400,18 +400,6 @@
     <Filter Include="Header Files\generated\gui_generated\switchpressureconfigscreen_screen">
       <UniqueIdentifier>72DEE960-BF34-A065-E196-45F77C20AC7A</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\gui\graphscreen_screen">
-      <UniqueIdentifier>B1D90F01-6D3E-3538-F4BC-91F4989E59FF</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\gui\graphscreen_screen">
-      <UniqueIdentifier>E222ABC4-6D58-93B0-5D6F-0D804556CA62</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\generated\gui_generated\graphscreen_screen">
-      <UniqueIdentifier>53C56375-3057-72BE-4E55-CE7B7CF834BB</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generated\gui_generated\graphscreen_screen">
-      <UniqueIdentifier>9CBBF668-C376-3F2E-40C5-8ED9414690B3</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\driver\touch\SDL2TouchController.cpp">
@@ -624,14 +612,11 @@
     <ClCompile Include="..\..\generated\gui_generated\src\containers\astrolabiumContainerBase.cpp">
       <Filter>Source Files\generated\gui_generated\containers</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\gui\src\graphscreen_screen\graphScreenPresenter.cpp">
-      <Filter>Source Files\gui\graphscreen_screen</Filter>
+    <ClCompile Include="..\..\gui\src\containers\pidDataGraphContainer.cpp">
+      <Filter>Source Files\gui\containers</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\gui\src\graphscreen_screen\graphScreenView.cpp">
-      <Filter>Source Files\gui\graphscreen_screen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\generated\gui_generated\src\graphscreen_screen\graphScreenViewBase.cpp">
-      <Filter>Source Files\generated\gui_generated\graphscreen_screen</Filter>
+    <ClCompile Include="..\..\generated\gui_generated\src\containers\pidDataGraphContainerBase.cpp">
+      <Filter>Source Files\generated\gui_generated\containers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1255,14 +1240,11 @@
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\astrolabiumContainerBase.hpp">
       <Filter>Header Files\generated\gui_generated\containers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\gui\include\gui\graphscreen_screen\graphScreenPresenter.hpp">
-      <Filter>Header Files\gui\graphscreen_screen</Filter>
+    <ClInclude Include="..\..\gui\include\gui\containers\pidDataGraphContainer.hpp">
+      <Filter>Header Files\gui\containers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\gui\include\gui\graphscreen_screen\graphScreenView.hpp">
-      <Filter>Header Files\gui\graphscreen_screen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\graphscreen_screen\graphScreenViewBase.hpp">
-      <Filter>Header Files\generated\gui_generated\graphscreen_screen</Filter>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\pidDataGraphContainerBase.hpp">
+      <Filter>Header Files\generated\gui_generated\containers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

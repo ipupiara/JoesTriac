@@ -35,18 +35,16 @@
 #include <gui/requeststopscreen_screen/requestStopScreenPresenter.hpp>
 #include <gui/jobcompletescreen_screen/jobCompleteScreenView.hpp>
 #include <gui/jobcompletescreen_screen/jobCompleteScreenPresenter.hpp>
-#include <gui/startupscreen_screen/startupScreenView.hpp>
-#include <gui/startupscreen_screen/startupScreenPresenter.hpp>
 #include <gui/dummyscreen_screen/dummyScreenView.hpp>
 #include <gui/dummyscreen_screen/dummyScreenPresenter.hpp>
 #include <gui/calibratezeroscreen_screen/calibrateZeroScreenView.hpp>
 #include <gui/calibratezeroscreen_screen/calibrateZeroScreenPresenter.hpp>
 #include <gui/behaviourconfigscreen_screen/behaviourConfigScreenView.hpp>
 #include <gui/behaviourconfigscreen_screen/behaviourConfigScreenPresenter.hpp>
+#include <gui/startupscreen_screen/startupScreenView.hpp>
+#include <gui/startupscreen_screen/startupScreenPresenter.hpp>
 #include <gui/switchpressureconfigscreen_screen/switchPressureConfigScreenView.hpp>
 #include <gui/switchpressureconfigscreen_screen/switchPressureConfigScreenPresenter.hpp>
-#include <gui/graphscreen_screen/graphScreenView.hpp>
-#include <gui/graphscreen_screen/graphScreenPresenter.hpp>
 
 using namespace touchgfx;
 
@@ -226,19 +224,6 @@ void FrontendApplicationBase::gotojobCompleteScreenScreenNoTransitionImpl()
     touchgfx::makeTransition<jobCompleteScreenView, jobCompleteScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
-// startupScreen
-
-void FrontendApplicationBase::gotostartupScreenScreenNoTransition()
-{
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotostartupScreenScreenNoTransitionImpl);
-    pendingScreenTransitionCallback = &transitionCallback;
-}
-
-void FrontendApplicationBase::gotostartupScreenScreenNoTransitionImpl()
-{
-    touchgfx::makeTransition<startupScreenView, startupScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
-}
-
 // calibrateZeroScreen
 
 void FrontendApplicationBase::gotocalibrateZeroScreenScreenNoTransition()
@@ -265,6 +250,19 @@ void FrontendApplicationBase::gotobehaviourConfigScreenScreenNoTransitionImpl()
     touchgfx::makeTransition<behaviourConfigScreenView, behaviourConfigScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
+// startupScreen
+
+void FrontendApplicationBase::gotostartupScreenScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotostartupScreenScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotostartupScreenScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<startupScreenView, startupScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
 // switchPressureConfigScreen
 
 void FrontendApplicationBase::gotoswitchPressureConfigScreenScreenNoTransition()
@@ -276,17 +274,4 @@ void FrontendApplicationBase::gotoswitchPressureConfigScreenScreenNoTransition()
 void FrontendApplicationBase::gotoswitchPressureConfigScreenScreenNoTransitionImpl()
 {
     touchgfx::makeTransition<switchPressureConfigScreenView, switchPressureConfigScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
-}
-
-// graphScreen
-
-void FrontendApplicationBase::gotographScreenScreenNoTransition()
-{
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotographScreenScreenNoTransitionImpl);
-    pendingScreenTransitionCallback = &transitionCallback;
-}
-
-void FrontendApplicationBase::gotographScreenScreenNoTransitionImpl()
-{
-    touchgfx::makeTransition<graphScreenView, graphScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }

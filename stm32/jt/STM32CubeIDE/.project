@@ -655,6 +655,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/containers/numericKeyPad.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/gui/pidDataGraphContainer.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/containers/pidDataGraphContainer.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/gui/dummyScreenPresenter.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/dummyscreen_screen/dummyScreenPresenter.cpp</locationURI>
@@ -703,16 +708,6 @@
 			<name>Application/User/gui/fatalErrorScreenView.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/fatalerrorscreen_screen/fatalErrorScreenView.cpp</locationURI>
-		</link>
-		<link>
-			<name>Application/User/gui/graphScreenPresenter.cpp</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/graphscreen_screen/graphScreenPresenter.cpp</locationURI>
-		</link>
-		<link>
-			<name>Application/User/gui/graphScreenView.cpp</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/graphscreen_screen/graphScreenView.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/gui/jobCompleteScreenPresenter.cpp</name>
@@ -915,6 +910,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/containers/numericKeyPadBase.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/pidDataGraphContainerBase.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/containers/pidDataGraphContainerBase.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/dummyScreenViewBase.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/dummyscreen_screen/dummyScreenViewBase.cpp</locationURI>
@@ -938,11 +938,6 @@
 			<name>Application/User/generated/fatalErrorScreenViewBase.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/fatalerrorscreen_screen/fatalErrorScreenViewBase.cpp</locationURI>
-		</link>
-		<link>
-			<name>Application/User/generated/graphScreenViewBase.cpp</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/graphscreen_screen/graphScreenViewBase.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/jobCompleteScreenViewBase.cpp</name>

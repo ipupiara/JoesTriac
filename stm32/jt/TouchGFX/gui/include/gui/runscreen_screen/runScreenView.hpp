@@ -13,8 +13,11 @@ public:
     virtual void setupScreen();
     virtual void tearDownScreen();
     void update(pJoesPresenterEventT  pMsg);
+    void updateGraph(pJoesPresenterEventT  pMsg);
     virtual void stopButtonPressed();
     virtual void astroButtonPressed();
+    virtual void graphButtonClicked();
+
 protected:
     void showAstrolabium(bool vis);
     uint32_t weldingTimeSec;

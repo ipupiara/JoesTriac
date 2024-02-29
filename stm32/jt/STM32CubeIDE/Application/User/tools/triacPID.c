@@ -13,7 +13,7 @@
 
 #define printfPid
 #define printfAmps
-#define drawGraph
+
 
 // void initTwa();
 
@@ -217,16 +217,16 @@ void calcNextTriacDelay(uint8_t pidOn)    // todo create a typedef enum for bett
 	sendModelMessage(&msg);
 #endif
 
-#ifdef drawGraph
-	if ((pidStepCnt & ((uint32_t) 0x01)) == 0  ) {
-		CJoesModelEventT  msg;
-		msg.messageType = paintPidGraph;
-		msg.evData.pidGraphData.ampsF = ampsD;
-		msg.evData.pidGraphData.goalF = getDefinesWeldingAmps();
-		sendModelMessage(&msg);
+	if (pidOn != 0) {
+		if ((pidStepCnt & ((uint32_t) 0x01)) == 0  ) {
+			CJoesPresenterEventT  msg;
+			msg.messageType = paintPidGraph;
+			msg.evData.pidGraphData.ampsF = ampsD;
+			msg.evData.pidGraphData.goalF = getDefinesWeldingAmps();
+			sendPresenterMessage(&msg);
+		}
 	}
 	++ pidStepCnt;
-#endif
 }
 
 

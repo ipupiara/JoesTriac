@@ -39,6 +39,9 @@ void runScreenPresenter::tick()
 				if (presenterMessage.messageType ==  runScreenUpdate) {
 					view.update(&presenterMessage);
 				}
+				if (presenterMessage.messageType ==  paintPidGraph) {
+					view.updateGraph(&presenterMessage);
+				}
 			}
 		}
 	}

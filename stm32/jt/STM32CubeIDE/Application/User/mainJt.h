@@ -102,7 +102,8 @@ typedef enum {
 	calibrateZeroPPScreenUpdate,
 	calibrationScreenUpdate,
 	jobOkScreenUpdate,
-	runScreenUpdate
+	runScreenUpdate,
+	paintPidGraph
 }  presenterMessageType;
 
 
@@ -135,6 +136,10 @@ typedef struct  {
 			uint32_t  adcValue;
 			uint32_t calibTriacDly;
 		} calibrationScreenData;
+		struct {
+			float ampsF;
+			float goalF;
+		} pidGraphData;
 	}  evData;
 } CJoesPresenterEventT ;
 
@@ -162,8 +167,7 @@ typedef enum {
 	changeToJobOkScreen,
 	changeToCalibrationScreen,
 	restoreModelData,
-	pidPrint,
-	paintPidGraph
+	pidPrint
 }  modelMessageType;
 
 
@@ -183,10 +187,6 @@ typedef struct  {
 			float  ampsV;
 			float  Vpa, Vin, Vde;
 		} pidPrintData;
-		struct {
-			float ampsF;
-			float goalF;
-		} pidGraphData;
 	}  evData;
 } CJoesModelEventT ;
 
