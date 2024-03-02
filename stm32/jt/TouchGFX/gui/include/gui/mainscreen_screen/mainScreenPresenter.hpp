@@ -26,14 +26,13 @@ public:
     virtual void deactivate();
 
     virtual ~mainScreenPresenter() {};
+    virtual void tick();
 
     uint16_t getWeldingTimeSec();
-
     float getWeldingAmps();
 
     void startButtonPressed();
     void configButtonPressed();
-
 private:
     mainScreenPresenter();
 

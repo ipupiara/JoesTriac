@@ -124,10 +124,6 @@ void mainJt(void *argument)
 //							sendI2cByteArray(0xA0,(uint8_t*)byAr,1);
 //							break;
 //						}
-//						case zCalibAuto: {
-//								setZCalibAuto(mJtEv.mainUnion.zAuto);
-//								break;
-//						}
 						case adcTick: {
 							adcValueReceived(mJtEv.mainUnion.advV);
 							fsmEv.evType=evAdcTick;
@@ -172,10 +168,11 @@ void mainJt(void *argument)
 													mJtEv.mainUnion.alarmData.zCalibOn);
 							break;
 						}
-//						case saveZPotiPos: {
-//							saveZeroPotiPos(mJtEv.mainUnion.zPotiPos);
-//							break;
-//						}
+						case pidGraphInitializing: {
+							fsmEv.evType=evPidGraphInit;
+							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
+							break;
+						}
 						case saveCalibLo: {
 							saveCalibLowAdc(mJtEv.mainUnion.calibLow);
 							break;

@@ -8,6 +8,7 @@
 #include <mvp/View.hpp>
 #include <gui/mainscreen_screen/mainScreenPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
+#include <gui/containers/pidDataGraphContainer.hpp>
 #include <touchgfx/widgets/Button.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
@@ -33,6 +34,10 @@ public:
     {
         // Override and implement this function in mainScreen
     }
+    virtual void graphButtonPressed()
+    {
+        // Override and implement this function in mainScreen
+    }
 
 protected:
     FrontendApplication& application() {
@@ -43,6 +48,7 @@ protected:
      * Member Declarations
      */
     touchgfx::Box __background;
+    pidDataGraphContainer pidDataGraphContainer1;
     touchgfx::Box box1;
     touchgfx::Button configButton;
     touchgfx::Box dirtyBox;
@@ -52,6 +58,7 @@ protected:
     touchgfx::ButtonWithIcon startButton;
     touchgfx::ButtonWithIcon stopButton;
     touchgfx::ButtonWithLabel setAmpereButton;
+    touchgfx::ButtonWithIcon graphButton;
     touchgfx::TextAreaWithOneWildcard ampereText;
     GaugeWithGoal gaugeWithGoal;
 
@@ -64,6 +71,12 @@ protected:
     touchgfx::Unicode::UnicodeChar ampereTextBuffer[AMPERETEXT_SIZE];
 
 private:
+
+    /*
+     * Canvas Buffer Size
+     */
+    static const uint32_t CANVAS_BUFFER_SIZE = 12000;
+    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
 
     /*
      * Callback Declarations

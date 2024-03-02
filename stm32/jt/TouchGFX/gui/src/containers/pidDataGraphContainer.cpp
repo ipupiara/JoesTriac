@@ -1,16 +1,20 @@
 #include <gui/containers/pidDataGraphContainer.hpp>
 #include <touchgfx/Color.hpp>
 #include <triacPid.h>
+#include <mainJt.h>
+
+uint32_t getCPPGraphSize()
+{
+	return 900;
+}
+
 
 pidDataGraphContainer::pidDataGraphContainer()
 {
-
 }
 
 void pidDataGraphContainer::updateGraph(pJoesPresenterEventT  pMsg )
 {
-//	goalGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(0xFA, 0x14, 0x2B));
-//	goalGraph.invalidate();
 	pidGraph.addDataPoint(pMsg->evData.pidGraphData.ampsF);
 	pidGraph.invalidate();
 }
@@ -18,22 +22,30 @@ void pidDataGraphContainer::updateGraph(pJoesPresenterEventT  pMsg )
 void pidDataGraphContainer::initialize()
 {
     pidDataGraphContainerBase::initialize();
-
-	goalGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(0xFA, 0x14, 0x2B));
-    float goalValue = getDefinesWeldingAmps();
-    for (uint16_t cnt = 0; cnt < goalGraph.getMaxCapacity();  ++ cnt) {
-    	goalGraph.addDataPoint(goalValue);
-    }
-	goalGraph.invalidate();
+	CMainJtEventT  ev;
+	memset(&ev, 0x0, sizeof(ev));
+	ev.evType = pidGraphInitializing;
+	osStatus_t status =  sendEventToMainJtMessageQ( &ev, isNotFromIsr);
+	if (status != osOK) {
+		errorHandler(status,goOn," status ","pidDataGraphContainer::initialize");
+	}
 }
 
-void pidDataGraphContainer::setData(graphDataRec* pData)
+
+void pidDataGraphContainer::initFromData()
 {
-	for (uint16_t cnt = 0; cnt < pData->amtValidPoints; ++ cnt) {
-		pidGraph.addDataPoint(pData->dataValue[cnt]);
+	graphDataRec* pData = &triacPidGraphData;
+	goalGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(0xFA, 0x14, 0x2B));
+	for (uint16_t cnt = 0; cnt < goalGraph.getMaxCapacity();  ++ cnt) {
+		goalGraph.addDataPoint(pData->goalValue);
+		if (cnt < pData->amtValidPoints) {
+			pidGraph.addDataPoint(pData->dataValue[cnt]);
+		}
 	}
+	goalGraph.invalidate();
 	pidGraph.invalidate();
 }
+
 
 void pidDataGraphContainer::backButtonPressed()
  {

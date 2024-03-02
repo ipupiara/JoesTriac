@@ -5,6 +5,7 @@
 #include<stdint.h>
 #include <math.h>
 
+
 #ifdef  __cplusplus
 extern "C"
 {
@@ -35,6 +36,11 @@ typedef struct {
 	uint32_t amtValidPoints;
 } graphDataRec;
 
+typedef enum{
+	printOnly = 0,
+	pidAndPrint
+} doPidAndPrint ;
+
 extern graphDataRec  triacPidGraphData;
 
 float getCurrentAmpsValue();
@@ -49,7 +55,7 @@ void InitPID();
 void resetPID();
 void startTriacPidRun();
 void stopTriacPidRun();
-void sendPidData();
+
 
 void calcNextTriacDelay(uint8_t pidOn);
 

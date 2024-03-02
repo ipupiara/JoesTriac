@@ -19,6 +19,7 @@
 
 float currentAmpsValue;
 uint16_t currentAmpsADCValue;
+void initPidData();
 
 int8_t m_started;
 real m_kPTot, m_kP, m_kI, m_kD, m_stepTime, m_inv_stepTime, m_prev_error, m_integral_thresh, m_integral;
@@ -30,7 +31,9 @@ real  Vp, Vi, Vd;
 extern void startTriacRun();
 extern void stopTriacRun();
 
-__attribute__((section("TableSection")))  graphDataRec  triacPidGraphData;
+//__attribute__((section("TableSection")))  graphDataRec  triacPidGraphData;
+graphDataRec  triacPidGraphData;
+
 
 float gradAmps; //   (delta amperes) / (delta adc)   ....
 float gradAdc;  
@@ -129,8 +132,7 @@ float getCurrentAmpsValue()
 
 void startTriacPidRun()
 {
-	memset((void*)&triacPidGraphData,0,sizeof(triacPidGraphData));
-	triacPidGraphData.goalValue = getDefinesWeldingAmps();
+	initPidData();
 
 	pidStepCnt = 0;
 	startADC();
@@ -187,12 +189,12 @@ real nextCorrection(real error)
 }
 
 
-void calcNextTriacDelay(uint8_t pidOn)    // todo create a typedef enum for better understanding of code
+void calcNextTriacDelay(doPidAndPrint pidNPrint)    // todo create a typedef enum for better understanding of code
 {
 	int16_t newDelay;
 	int16_t corrInt;
 
-	if (pidOn != 0 ) {
+	if (pidNPrint > printOnly ) {
 		float err;
 		err = getDefinesWeldingAmps() - currentAmps() ;
 		correction = (real) nextCorrection(err) + (real) corrCarryOver;
@@ -222,11 +224,10 @@ void calcNextTriacDelay(uint8_t pidOn)    // todo create a typedef enum for bett
 	sendModelMessage(&msg);
 #endif
 
-	if (pidOn != 0) {
+	if (pidNPrint > printOnly) {
 		if ((pidStepCnt & ((uint32_t) 0x01)) == 0  ) {
-			uint32_t indx = pidStepCnt / 2;
-			if (indx < pidGraphSize) {
-				triacPidGraphData.dataValue[indx] = ampsD;
+			if (triacPidGraphData.amtValidPoints < pidGraphSize) {
+				triacPidGraphData.dataValue[triacPidGraphData.amtValidPoints] = ampsD;  // zero based
 				++triacPidGraphData.amtValidPoints;
 
 				CJoesPresenterEventT  msg;
@@ -240,13 +241,30 @@ void calcNextTriacDelay(uint8_t pidOn)    // todo create a typedef enum for bett
 	++ pidStepCnt;
 }
 
-void sendPidData()
+
+void initPidData()
 {
-	CJoesPresenterEventT  msg;
-	msg.messageType = pidGraphDataArray;
-	msg.evData.pidDataArrayPtr = &triacPidGraphData;
-	sendPresenterMessage(&msg);
+	memset(&triacPidGraphData,0,sizeof(graphDataRec));
+	float goalVal =getDefinesWeldingAmps();
+	triacPidGraphData.goalValue = goalVal;
 }
+
+
+//void pidDataGraphContainer::initFromData(graphDataRec* pData)
+//{
+//	goalGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(0xFA, 0x14, 0x2B));
+//	for (uint16_t cnt = 0; cnt < goalGraph.getMaxCapacity();  ++ cnt) {
+//		goalGraph.addDataPoint(pData->goalValue);
+//		if (cnt < pData->amtValidPoints) {
+//			pidGraph.addDataPoint(pData->dataValue[cnt]);
+//		}
+//	}
+//	goalGraph.invalidate();
+//	pidGraph.invalidate();
+//}
+//
+
+
 
 
 void InitPID()

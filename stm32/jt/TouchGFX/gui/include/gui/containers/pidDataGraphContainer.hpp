@@ -2,8 +2,8 @@
 #define PIDDATAGRAPHCONTAINER_HPP
 
 #include <gui_generated/containers/pidDataGraphContainerBase.hpp>
-#define pidGraphSz 900
 
+uint32_t getCPPGraphSize();
 
 class pidDataGraphContainer : public pidDataGraphContainerBase
 {
@@ -13,7 +13,8 @@ public:
     virtual void backButtonPressed();
     virtual void initialize();
     void updateGraph(pJoesPresenterEventT  pMsg );
-    void setData(graphDataRec* pData);
+    void initNew(graphDataRec* pData);
+    void initFromData();
 protected:
 
 

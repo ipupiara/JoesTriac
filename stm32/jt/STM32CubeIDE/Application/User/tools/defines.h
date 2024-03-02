@@ -86,7 +86,7 @@ tStatus saveAlarmTime(uint32_t aTime);
 tStatus saveZCalibOn(uint32_t val);
 tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded, uint32_t zCalibOn);
 
-void errorHandler(uint32_t  code, errorSeverity severity, char* errorString, char* method );
+void errorHandler(uint32_t  code, errorSeverity severity,const char* errorString, const char* method );
 
 tStatus initDefines();
 

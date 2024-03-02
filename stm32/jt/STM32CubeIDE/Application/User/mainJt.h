@@ -59,7 +59,8 @@ typedef enum {
 	stopButtonClicked,
 	continueButtonClicked,
 	okPressed,
-	autoConfigPressed
+	autoConfigPressed,
+	pidGraphInitializing
 }  mainJtMessageType;
 
 typedef enum {
@@ -105,7 +106,7 @@ typedef enum {
 	jobOkScreenUpdate,
 	runScreenUpdate,
 	paintPidGraph,
-	pidGraphDataArray,
+	pidGraphFromData,
 	requestStop,
 	doRun
 }  presenterMessageType;

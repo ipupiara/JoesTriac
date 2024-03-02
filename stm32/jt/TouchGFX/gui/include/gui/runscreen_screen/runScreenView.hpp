@@ -22,10 +22,12 @@ public:
 
     void raiseRequestStop();
     void raiseDoRun();
+    void initPidGraphFromData();
 protected:
     void showAstrolabium(bool vis);
     uint32_t weldingTimeSec;
     float     weldingAmps;
+    void setActive(touchgfx::Drawable* btn,bool act );
 };
 
 #endif // RUNSCREENVIEW_HPP

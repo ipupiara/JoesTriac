@@ -15,7 +15,7 @@ pidDataGraphContainerBase::pidDataGraphContainerBase() :
     box1.setColor(touchgfx::Color::getColorFromRGB(208, 247, 230));
     add(box1);
 
-    backButton.setXY(527, 393);
+    backButton.setXY(517, 392);
     backButton.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
     backButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_ET5O));
     backButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
@@ -28,6 +28,7 @@ pidDataGraphContainerBase::pidDataGraphContainerBase() :
     goalGraph.setGraphAreaMargin(0, 0, 0, 0);
     goalGraph.setGraphAreaPadding(0, 0, 0, 0);
     goalGraph.setGraphRangeY(0, 120);
+    goalGraph.setAlpha(70);
     goalGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(20, 151, 197));
     goalGraphLine1.setPainter(goalGraphLine1Painter);
     goalGraphLine1.setLineWidth(2);
@@ -41,6 +42,26 @@ pidDataGraphContainerBase::pidDataGraphContainerBase() :
     pidGraph.setGraphAreaMargin(0, 0, 0, 0);
     pidGraph.setGraphAreaPadding(0, 0, 0, 0);
     pidGraph.setGraphRangeY(0, 120);
+    pidGraphMajorXAxisGrid.setColor(touchgfx::Color::getColorFromRGB(20, 151, 197));
+    pidGraphMajorXAxisGrid.setInterval(60);
+    pidGraphMajorXAxisGrid.setLineWidth(1);
+    pidGraphMajorXAxisGrid.setAlpha(62);
+    pidGraphMajorXAxisGrid.setScale(10);
+    pidGraph.addGraphElement(pidGraphMajorXAxisGrid);
+
+    pidGraphMajorYAxisGrid.setColor(touchgfx::Color::getColorFromRGB(20, 151, 197));
+    pidGraphMajorYAxisGrid.setInterval(10);
+    pidGraphMajorYAxisGrid.setLineWidth(1);
+    pidGraphMajorYAxisGrid.setAlpha(62);
+    pidGraphMajorYAxisGrid.setScale(10);
+    pidGraph.addGraphElement(pidGraphMajorYAxisGrid);
+
+    pidGraphMajorXAxisLabel.setInterval(50);
+    pidGraphMajorXAxisLabel.setLabelTypedText(touchgfx::TypedText(T___SINGLEUSE_5F4L));
+    pidGraphMajorXAxisLabel.setColor(touchgfx::Color::getColorFromRGB(20, 151, 197));
+    pidGraphMajorXAxisLabel.setScale(10);
+    pidGraph.addBottomElement(pidGraphMajorXAxisLabel);
+
     pidGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(20, 151, 197));
     pidGraphLine1.setPainter(pidGraphLine1Painter);
     pidGraphLine1.setLineWidth(2);

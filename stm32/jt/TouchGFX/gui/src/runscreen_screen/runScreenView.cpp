@@ -1,6 +1,7 @@
 #include <gui/runscreen_screen/runScreenView.hpp>
 #include <stdlib.h>
 #include <math.h>
+//#include <touchgfx/containers/buttons/Buttons.hpp>
 #include <mainJt.h>
 
 
@@ -82,6 +83,11 @@ void runScreenView::update(pJoesPresenterEventT  pMsg )
 	 boxProgress1.setValue(boxPro);
 	 boxProgress1.invalidate();
 	 astrolabiumContainer1.update(pMsg);
+
+	 secVal = (uint8_t) (pMsg->evData.runScreenData.secondsBeforeReturn);
+	 Unicode::snprintf(secondsb4ReturnTextBuffer, 6, "%02d",  secVal);
+	 secondsb4ReturnText.setWildcard(secondsb4ReturnTextBuffer);
+	 secondsb4ReturnText.invalidate();
 }
 
 void runScreenView::graphButtonClicked()
@@ -124,34 +130,44 @@ void runScreenView::abortButtonPressed()
 	presenter->abortButtonPressed();
 }
 
+void runScreenView::initPidGraphFromData()
+{
+
+}
 
 void runScreenView::raiseRequestStop()
 {
-	abortButton.setVisible(true);
-	secondsb4ReturnText.setVisible(true);
-	seconb4Title.setVisible(true);
-	continueButton.setVisible(true);
+	setActive(&abortButton, true);
+	setActive(&continueButton, true);
+	setActive(&secondsb4ReturnText, true);
+	setActive(&seconb4Title, true);
 
-	startButton.setVisible(false);
-	stopButton.setVisible(false);
-	astrolabiumContainer1.setVisible(false);
-	pidDataGraphContainer1.setVisible(false);
-	graphButton.setVisible(false);
-	astroButton.setVisible(false);
+	setActive(&startButton, false);
+	setActive(&stopButton, false);
+	setActive(&astrolabiumContainer1, false);
+	setActive(&pidDataGraphContainer1, false);
+	setActive(&graphButton, false);
+	setActive(&astroButton, false);
 }
 
 void runScreenView::raiseDoRun()
 {
+	setActive(&startButton, true);
+	setActive(&stopButton, true);
+	setActive(&graphButton, true);
+	setActive(&astroButton, true);
 
-	startButton.setVisible(true);
-	stopButton.setVisible(true);
-	graphButton.setVisible(true);
-	astroButton.setVisible(true);
-
-	abortButton.setVisible(false);
-	secondsb4ReturnText.setVisible(false);
-	seconb4Title.setVisible(false);
-	continueButton.setVisible(false);
-	astrolabiumContainer1.setVisible(false);
-	pidDataGraphContainer1.setVisible(false);
+	setActive(&abortButton, false);
+	setActive(&secondsb4ReturnText, false);
+	setActive(&seconb4Title, false);
+	setActive(&continueButton, false);
+	setActive(&astrolabiumContainer1, false);
+	setActive(&pidDataGraphContainer1, false);
 }
+
+void runScreenView::setActive(Drawable* btn,bool act )
+{
+	btn->setVisible(act);
+	btn->invalidate();
+}
+

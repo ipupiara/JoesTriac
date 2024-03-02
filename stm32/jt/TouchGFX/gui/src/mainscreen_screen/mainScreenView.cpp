@@ -48,3 +48,16 @@ void mainScreenView::startButtonPressed()
 {
 	presenter->startButtonPressed();
 }
+
+void mainScreenView::initPidGraphFromData()
+{
+	pidDataGraphContainer1.initFromData();
+}
+
+void mainScreenView::graphButtonPressed()
+{
+	if (! pidDataGraphContainer1.isVisible()) {
+		pidDataGraphContainer1.setVisible(true);
+	}
+	pidDataGraphContainer1.invalidate();
+}

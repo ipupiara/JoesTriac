@@ -8,8 +8,7 @@
 #include <images/BitmapDatabase.hpp>
 
 runScreenViewBase::runScreenViewBase() :
-    buttonCallback(this, &runScreenViewBase::buttonCallbackHandler),
-    flexButtonCallback(this, &runScreenViewBase::flexButtonCallbackHandler)
+    buttonCallback(this, &runScreenViewBase::buttonCallbackHandler)
 {
     touchgfx::CanvasWidgetRenderer::setupBuffer(canvasBuffer, CANVAS_BUFFER_SIZE);
     
@@ -117,11 +116,17 @@ runScreenViewBase::runScreenViewBase() :
     ampGauge.setXY(280, 145);
     add(ampGauge);
 
-    astroButton.setXY(743, 4);
+    astroButton.setXY(728, 12);
     astroButton.setBitmaps(touchgfx::Bitmap(BITMAP_ASTRO_1_REM_ID), touchgfx::Bitmap(BITMAP_ASTRO_1_REM_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID));
     astroButton.setIconXY(97, 0);
     astroButton.setAction(buttonCallback);
     add(astroButton);
+
+    graphButton.setXY(25, 12);
+    graphButton.setBitmaps(touchgfx::Bitmap(BITMAP_GRAPH1_ID), touchgfx::Bitmap(BITMAP_GRAPH1_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID));
+    graphButton.setIconXY(97, 0);
+    graphButton.setAction(buttonCallback);
+    add(graphButton);
 
     astrolabiumContainer1.setXY(500, 130);
     astrolabiumContainer1.setVisible(false);
@@ -130,16 +135,6 @@ runScreenViewBase::runScreenViewBase() :
     pidDataGraphContainer1.setXY(18, 11);
     pidDataGraphContainer1.setVisible(false);
     add(pidDataGraphContainer1);
-
-    graphButton.setBoxWithBorderPosition(0, 0, 73, 55);
-    graphButton.setBorderSize(5);
-    graphButton.setBoxWithBorderColors(touchgfx::Color::getColorFromRGB(0, 102, 153), touchgfx::Color::getColorFromRGB(0, 153, 204), touchgfx::Color::getColorFromRGB(0, 51, 102), touchgfx::Color::getColorFromRGB(51, 102, 153));
-    graphButton.setBitmaps(Bitmap(BITMAP_GRAPH1_ID), Bitmap(BITMAP_GRAPH1_ID));
-    graphButton.setBitmapXY(0, 0);
-    graphButton.setAlpha(215);
-    graphButton.setAction(flexButtonCallback);
-    graphButton.setPosition(24, 12, 73, 55);
-    add(graphButton);
 }
 
 runScreenViewBase::~runScreenViewBase()
@@ -170,6 +165,13 @@ void runScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& sr
         //Call stopButtonPressed
         stopButtonPressed();
     }
+    if (&src == &graphButton)
+    {
+        //graphButtonInteraction
+        //When graphButton clicked call virtual function
+        //Call graphButtonClicked
+        graphButtonClicked();
+    }
     if (&src == &continueButton)
     {
         //continueButtonInteraction
@@ -183,16 +185,5 @@ void runScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& sr
         //When abortButton clicked call virtual function
         //Call abortButtonPressed
         abortButtonPressed();
-    }
-}
-
-void runScreenViewBase::flexButtonCallbackHandler(const touchgfx::AbstractButtonContainer& src)
-{
-    if (&src == &graphButton)
-    {
-        //graphButtonInteraction
-        //When graphButton clicked call virtual function
-        //Call graphButtonClicked
-        graphButtonClicked();
     }
 }

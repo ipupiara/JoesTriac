@@ -57,6 +57,15 @@ void runScreenPresenter::tick()
 				if (presenterMessage.messageType ==  paintPidGraph) {
 					view.updatePidGraph(&presenterMessage);
 				}
+				if (presenterMessage.messageType ==  requestStop) {
+					view.raiseRequestStop();
+				}
+				if (presenterMessage.messageType ==  doRun) {
+					view.raiseDoRun();
+				}
+//				if (presenterMessage.messageType ==  pidGraphFromData) {  // never should happen here
+//					view.initPidGraphFromData();
+//				}
 			}
 		}
 	}

@@ -41,3 +41,20 @@ void mainScreenPresenter::startButtonPressed()
 	evt.evType = runButtonClicked;
 	sendEventToMainJtMessageQ(&evt,isNotFromIsr);
 }
+
+void mainScreenPresenter::tick()
+{
+	CJoesPresenterEventT  presenterMessage;
+
+
+		while ( osMessageQueueGetCount ( presenterMessageQ))
+		{
+			if ( osMessageQueueGet ( presenterMessageQ, &presenterMessage, NULL, 0) == osOK)  {
+				if (presenterMessage.messageType ==  pidGraphFromData) {  // never should happen here
+					view.initPidGraphFromData();
+				}
+			}
+		}
+
+}
+

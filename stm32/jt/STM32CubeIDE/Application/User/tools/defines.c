@@ -472,7 +472,7 @@ tStatus restorePersistenData()
 #endif
 
 
-void errorHandler(uint32_t  code, errorSeverity severity, char* errorString, char* method )
+void errorHandler(uint32_t  code, errorSeverity severity, const char* errorString, const char* method )
 {
 //	char buffer [100];
 //	err_printf(buffer, 99, "%s, %s, %10lX, %X", method, errorString,code,severity);

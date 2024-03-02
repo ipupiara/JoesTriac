@@ -14,6 +14,9 @@ public:
     virtual void tearDownScreen();
     virtual void configButtonPressed();
     virtual void startButtonPressed();
+    virtual void graphButtonPressed();
+    void initPidGraphFromData();
+
 protected:
 
 };

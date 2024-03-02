@@ -318,7 +318,7 @@ uStInt evCalibrateScaleChecker(void)
 		res =  uStIntHandlingDone;
 	}
 	if (currentEvent->evType == evAdcTick)  {
-		calcNextTriacDelay(0);
+		calcNextTriacDelay(printOnly);
 		res =  uStIntHandlingDone;
 	}
 	return res;
@@ -425,7 +425,7 @@ uStInt evCalibrateHighChecker(void)
 }
 
 int8_t keyInd;
-
+uint8_t pidInitialized;
 
 void entryTriacIdleState(void)
 {
@@ -437,6 +437,7 @@ void entryTriacIdleState(void)
 	if(status != osOK)  {
 		errorHandler(status,goOn," status ","entryTriacIdleState");
 	}
+	pidInitialized = 0;
 }
 
 void exitTriacIdleState(void)
@@ -461,6 +462,18 @@ uStInt evTriacIdleChecker(void)
 		BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateSetup);
 
 		END_EVENT_HANDLER(PJoesTriacStateChart);
+		res =  uStIntHandlingDone;
+	}
+
+	if (currentEvent->evType == evPidGraphInit)  {
+		if (pidInitialized == 0)
+		{
+			CJoesPresenterEventT  msg;
+			msg.messageType = pidGraphFromData;
+			sendPresenterMessage(&msg);
+			pidInitialized = 1;
+		}
+
 		res =  uStIntHandlingDone;
 	}
 
@@ -500,11 +513,13 @@ uStInt evTriacActiveChecker(void)
 	}
 	if (currentEvent->evType == evAdcTick)
 	{
-		calcNextTriacDelay(1);
+		calcNextTriacDelay(pidAndPrint);
 		res =  uStIntHandlingDone;
 	}
 	return res;
 }
+
+
 
 void entryTriacRunningState(void)
 {
@@ -512,6 +527,7 @@ void entryTriacRunningState(void)
 	CJoesPresenterEventT  msg;
 	msg.messageType = doRun;
 	sendPresenterMessage(&msg);
+	pidInitialized = 0;
 }
 
 void exitTriacRunningState(void)
@@ -528,7 +544,7 @@ uStInt evTriacRunningChecker(void)
 				// No event action.
 			END_EVENT_HANDLER(PJoesTriacStateChart);
 			res =  uStIntHandlingDone;
-	}		
+	}
 
 	if (currentEvent->evType == evSecondsTick) {
 		sendActualValuesToRunNStopScreen(getSecondsDurationTimerRemaining(), secondsBeforeReturn);

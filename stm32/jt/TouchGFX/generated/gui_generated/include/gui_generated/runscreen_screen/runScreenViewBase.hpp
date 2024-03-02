@@ -15,7 +15,6 @@
 #include <gui/containers/GaugeWithGoal.hpp>
 #include <gui/containers/astrolabiumContainer.hpp>
 #include <gui/containers/pidDataGraphContainer.hpp>
-#include <touchgfx/containers/buttons/Buttons.hpp>
 
 class runScreenViewBase : public touchgfx::View<runScreenPresenter>
 {
@@ -73,9 +72,9 @@ protected:
     touchgfx::TextAreaWithOneWildcard secondsb4ReturnText;
     GaugeWithGoal ampGauge;
     touchgfx::ButtonWithIcon astroButton;
+    touchgfx::ButtonWithIcon graphButton;
     astrolabiumContainer astrolabiumContainer1;
     pidDataGraphContainer pidDataGraphContainer1;
-    touchgfx::ImageButtonStyle< touchgfx::BoxWithBorderButtonStyle< touchgfx::ClickButtonTrigger >  >  graphButton;
 
     /*
      * Wildcard Buffers
@@ -103,13 +102,11 @@ private:
      * Callback Declarations
      */
     touchgfx::Callback<runScreenViewBase, const touchgfx::AbstractButton&> buttonCallback;
-    touchgfx::Callback<runScreenViewBase, const touchgfx::AbstractButtonContainer&> flexButtonCallback;
 
     /*
      * Callback Handler Declarations
      */
     void buttonCallbackHandler(const touchgfx::AbstractButton& src);
-    void flexButtonCallbackHandler(const touchgfx::AbstractButtonContainer& src);
 
 };
 

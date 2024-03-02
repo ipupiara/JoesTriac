@@ -13,6 +13,7 @@
 #include <touchgfx/mixins/MoveAnimator.hpp>
 #include <touchgfx/widgets/graph/GraphElements.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB565.hpp>
+#include <touchgfx/widgets/graph/GraphLabels.hpp>
 
 class pidDataGraphContainerBase : public touchgfx::Container
 {
@@ -43,6 +44,9 @@ protected:
     touchgfx::GraphElementLine goalGraphLine1;
     touchgfx::PainterRGB565 goalGraphLine1Painter;
     touchgfx::MoveAnimator< touchgfx::GraphScroll<900> > pidGraph;
+    touchgfx::GraphElementGridX pidGraphMajorXAxisGrid;
+    touchgfx::GraphElementGridY pidGraphMajorYAxisGrid;
+    touchgfx::GraphLabelsX pidGraphMajorXAxisLabel;
     touchgfx::GraphElementLine pidGraphLine1;
     touchgfx::PainterRGB565 pidGraphLine1Painter;
 

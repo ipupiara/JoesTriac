@@ -3,7 +3,17 @@
     "Screens": [
       {
         "Name": "mainScreen",
+        "CanvasBufferSize": 12000,
         "Components": [
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "pidDataGraphContainer1",
+            "X": 18,
+            "Y": 11,
+            "Width": 767,
+            "Height": 450,
+            "CustomContainerDefinitionName": "pidDataGraphContainer"
+          },
           {
             "Type": "Box",
             "Name": "box1",
@@ -66,6 +76,7 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "setTimeButton",
+            "X": 2,
             "Y": 6,
             "Width": 170,
             "Height": 60,
@@ -135,12 +146,27 @@
             "TextRotation": "0"
           },
           {
+            "Type": "ButtonWithIcon",
+            "Name": "graphButton",
+            "X": 52,
+            "Y": 91,
+            "Width": 70,
+            "Height": 61,
+            "Pressed": "graph1.png",
+            "Released": "graph1.png",
+            "IconPressed": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconReleased": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconX": 97,
+            "IconHeight": 50,
+            "IconWidth": 50
+          },
+          {
             "Type": "TextArea",
             "Name": "ampereText",
             "X": 465,
             "Y": 12,
             "Width": 144,
-            "Height": 45,
+            "Height": 48,
             "TextId": "__SingleUse_DEJR",
             "TextRotation": "0",
             "AutoSize": true,
@@ -224,6 +250,17 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "startButtonPressed"
+            }
+          },
+          {
+            "InteractionName": "graphButtonInteraction",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "graphButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "graphButtonPressed"
             }
           }
         ]
@@ -1726,12 +1763,27 @@
           {
             "Type": "ButtonWithIcon",
             "Name": "astroButton",
-            "X": 743,
-            "Y": 4,
+            "X": 728,
+            "Y": 12,
             "Width": 50,
             "Height": 63,
             "Pressed": "astro-1-rem.png",
             "Released": "astro-1-rem.png",
+            "IconPressed": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconReleased": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconX": 97,
+            "IconHeight": 50,
+            "IconWidth": 50
+          },
+          {
+            "Type": "ButtonWithIcon",
+            "Name": "graphButton",
+            "X": 25,
+            "Y": 12,
+            "Width": 70,
+            "Height": 61,
+            "Pressed": "graph1.png",
+            "Released": "graph1.png",
             "IconPressed": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
             "IconReleased": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
             "IconX": 97,
@@ -1757,49 +1809,6 @@
             "Height": 450,
             "Visible": false,
             "CustomContainerDefinitionName": "pidDataGraphContainer"
-          },
-          {
-            "Type": "FlexButton",
-            "Name": "graphButton",
-            "X": 24,
-            "Y": 12,
-            "Width": 73,
-            "Height": 55,
-            "Alpha": 215,
-            "ButtonTrigger": {
-              "Type": "ClickButtonTrigger"
-            },
-            "ButtonStyles": [
-              {
-                "Type": "ImageButtonStyle",
-                "ImageReleased": "graph1.png",
-                "ImagePressed": "graph1.png"
-              },
-              {
-                "Type": "BoxWithBorderButtonStyle",
-                "Width": 73,
-                "Height": 55,
-                "LockToFlexButtonSize": true,
-                "BorderSize": 5,
-                "ColorReleased": {
-                  "Green": 102,
-                  "Blue": 153
-                },
-                "ColorPressed": {
-                  "Green": 153,
-                  "Blue": 204
-                },
-                "ColorBorderReleased": {
-                  "Green": 51,
-                  "Blue": 102
-                },
-                "ColorBorderPressed": {
-                  "Red": 51,
-                  "Green": 102,
-                  "Blue": 153
-                }
-              }
-            ]
           }
         ],
         "Interactions": [
@@ -3877,8 +3886,8 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "backButton",
-            "X": 527,
-            "Y": 393,
+            "X": 517,
+            "Y": 392,
             "Width": 240,
             "Height": 50,
             "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
@@ -3908,6 +3917,7 @@
             "Precision": "0.1",
             "LastIndex": 899,
             "XAxisScale": 1.0,
+            "Alpha": 70,
             "GraphType": "GraphScroll",
             "GraphDrawers": [
               {
@@ -3947,6 +3957,41 @@
                 }
               }
             ],
+            "XAxisGrid": {
+              "Type": "GraphGrid",
+              "Color": {
+                "Red": 20,
+                "Green": 151,
+                "Blue": 197
+              },
+              "Interval": 60.0,
+              "LineWidth": 1,
+              "Alpha": 62
+            },
+            "YAxisGrid": {
+              "Type": "GraphGrid",
+              "Color": {
+                "Red": 20,
+                "Green": 151,
+                "Blue": 197
+              },
+              "Interval": 10.0,
+              "LineWidth": 1,
+              "Alpha": 62
+            },
+            "XAxisLabel": {
+              "Type": "GraphLabel",
+              "Interval": 50.0,
+              "DecimalSeparator": "Point",
+              "TextColor": {
+                "Red": 20,
+                "Green": 151,
+                "Blue": 197
+              },
+              "TextId": "__SingleUse_5F4L",
+              "TextRotation": "0",
+              "Position": "Bottom"
+            },
             "Moveable": true
           }
         ],
