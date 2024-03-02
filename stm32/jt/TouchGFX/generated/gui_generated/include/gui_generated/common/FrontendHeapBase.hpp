@@ -40,8 +40,6 @@
 #include <gui/jobcompletescreen_screen/jobCompleteScreenPresenter.hpp>
 #include <gui/dummyscreen_screen/dummyScreenView.hpp>
 #include <gui/dummyscreen_screen/dummyScreenPresenter.hpp>
-#include <gui/calibratezeroscreen_screen/calibrateZeroScreenView.hpp>
-#include <gui/calibratezeroscreen_screen/calibrateZeroScreenPresenter.hpp>
 #include <gui/behaviourconfigscreen_screen/behaviourConfigScreenView.hpp>
 #include <gui/behaviourconfigscreen_screen/behaviourConfigScreenPresenter.hpp>
 #include <gui/startupscreen_screen/startupScreenView.hpp>
@@ -84,11 +82,10 @@ public:
             touchgfx::meta::TypeList< requestStopScreenView,
             touchgfx::meta::TypeList< jobCompleteScreenView,
             touchgfx::meta::TypeList< dummyScreenView,
-            touchgfx::meta::TypeList< calibrateZeroScreenView,
             touchgfx::meta::TypeList< behaviourConfigScreenView,
             touchgfx::meta::TypeList< startupScreenView,
             touchgfx::meta::TypeList< switchPressureConfigScreenView,
-            touchgfx::meta::Nil > > > > > > > > > > > > > > > > >
+            touchgfx::meta::Nil > > > > > > > > > > > > > > > >
             > GeneratedViewTypes;
 
     /**
@@ -114,11 +111,10 @@ public:
             touchgfx::meta::TypeList< requestStopScreenPresenter,
             touchgfx::meta::TypeList< jobCompleteScreenPresenter,
             touchgfx::meta::TypeList< dummyScreenPresenter,
-            touchgfx::meta::TypeList< calibrateZeroScreenPresenter,
             touchgfx::meta::TypeList< behaviourConfigScreenPresenter,
             touchgfx::meta::TypeList< startupScreenPresenter,
             touchgfx::meta::TypeList< switchPressureConfigScreenPresenter,
-            touchgfx::meta::Nil > > > > > > > > > > > > > > > > >
+            touchgfx::meta::Nil > > > > > > > > > > > > > > > >
             > GeneratedPresenterTypes;
 
     /**

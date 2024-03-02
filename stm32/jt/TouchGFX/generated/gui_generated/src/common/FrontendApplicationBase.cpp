@@ -37,8 +37,6 @@
 #include <gui/jobcompletescreen_screen/jobCompleteScreenPresenter.hpp>
 #include <gui/dummyscreen_screen/dummyScreenView.hpp>
 #include <gui/dummyscreen_screen/dummyScreenPresenter.hpp>
-#include <gui/calibratezeroscreen_screen/calibrateZeroScreenView.hpp>
-#include <gui/calibratezeroscreen_screen/calibrateZeroScreenPresenter.hpp>
 #include <gui/behaviourconfigscreen_screen/behaviourConfigScreenView.hpp>
 #include <gui/behaviourconfigscreen_screen/behaviourConfigScreenPresenter.hpp>
 #include <gui/startupscreen_screen/startupScreenView.hpp>
@@ -222,19 +220,6 @@ void FrontendApplicationBase::gotojobCompleteScreenScreenNoTransition()
 void FrontendApplicationBase::gotojobCompleteScreenScreenNoTransitionImpl()
 {
     touchgfx::makeTransition<jobCompleteScreenView, jobCompleteScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
-}
-
-// calibrateZeroScreen
-
-void FrontendApplicationBase::gotocalibrateZeroScreenScreenNoTransition()
-{
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotocalibrateZeroScreenScreenNoTransitionImpl);
-    pendingScreenTransitionCallback = &transitionCallback;
-}
-
-void FrontendApplicationBase::gotocalibrateZeroScreenScreenNoTransitionImpl()
-{
-    touchgfx::makeTransition<calibrateZeroScreenView, calibrateZeroScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
 // behaviourConfigScreen

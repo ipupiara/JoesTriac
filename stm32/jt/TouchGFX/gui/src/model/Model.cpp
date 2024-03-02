@@ -99,9 +99,6 @@ void Model::tick()
 			if (modelMessage.messageType ==  changeToConfigScreen) {
 				static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotoconfigScreenScreenNoTransition();
 			}
-			if (modelMessage.messageType ==  changeToCalibrateZeroScreen) {
-				static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotocalibrateZeroScreenScreenNoTransition();
-			}
 			if (modelMessage.messageType ==  changeToRequestStopScreen) {
 				static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotorequestStopScreenScreenNoTransition();
 			}

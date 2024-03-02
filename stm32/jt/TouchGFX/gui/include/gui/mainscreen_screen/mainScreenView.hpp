@@ -8,17 +8,16 @@
 class mainScreenView : public mainScreenViewBase
 {
 public:
-    mainScreenView();
+    mainScreenView() {};
     virtual ~mainScreenView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
     virtual void configButtonPressed();
     virtual void startButtonPressed();
     virtual void graphButtonPressed();
-    void initPidGraphFromData();
+    void initPidGraphFromData(pJoesPresenterEventT  pMsg);
 
 protected:
-
 };
 
 #endif // MAINSCREENVIEW_HPP

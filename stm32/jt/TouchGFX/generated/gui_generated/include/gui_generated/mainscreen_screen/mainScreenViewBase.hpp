@@ -8,13 +8,13 @@
 #include <mvp/View.hpp>
 #include <gui/mainscreen_screen/mainScreenPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
-#include <gui/containers/pidDataGraphContainer.hpp>
 #include <touchgfx/widgets/Button.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
 #include <touchgfx/widgets/ButtonWithIcon.hpp>
 #include <gui/containers/GaugeWithGoal.hpp>
+#include <gui/containers/pidDataGraphContainer.hpp>
 
 class mainScreenViewBase : public touchgfx::View<mainScreenPresenter>
 {
@@ -48,7 +48,6 @@ protected:
      * Member Declarations
      */
     touchgfx::Box __background;
-    pidDataGraphContainer pidDataGraphContainer1;
     touchgfx::Box box1;
     touchgfx::Button configButton;
     touchgfx::Box dirtyBox;
@@ -61,6 +60,7 @@ protected:
     touchgfx::ButtonWithIcon graphButton;
     touchgfx::TextAreaWithOneWildcard ampereText;
     GaugeWithGoal gaugeWithGoal;
+    pidDataGraphContainer pidDataGraphContainer1;
 
     /*
      * Wildcard Buffers

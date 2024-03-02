@@ -3,7 +3,6 @@
 
 #include <gui_generated/containers/pidDataGraphContainerBase.hpp>
 
-uint32_t getCPPGraphSize();
 
 class pidDataGraphContainer : public pidDataGraphContainerBase
 {
@@ -13,10 +12,11 @@ public:
     virtual void backButtonPressed();
     virtual void initialize();
     void updateGraph(pJoesPresenterEventT  pMsg );
-    void initNew(graphDataRec* pData);
-    void initFromData();
+//    void initNew(graphDataRec* pData);
+    void initFromData(pJoesPresenterEventT  pMsg );
 protected:
-
+    void setOriginalScreen(Screen scr);
+    static Screen originalScreen;
 
 };
 

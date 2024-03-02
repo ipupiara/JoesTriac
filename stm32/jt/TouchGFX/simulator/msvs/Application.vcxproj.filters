@@ -328,12 +328,6 @@
     <Filter Include="Source Files\generated\gui_generated\containers">
       <UniqueIdentifier>FBA712A2-6710-8829-CE5E-EA5E06E5C41A</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\generated\gui_generated\calibratezeroscreen_screen">
-      <UniqueIdentifier>1CA7E651-58AC-30E2-4583-B8283A52006F</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\generated\gui_generated\calibratezeroscreen_screen">
-      <UniqueIdentifier>F5A82C63-7B3D-F255-3F47-7B0D85B22891</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\generated\gui_generated\switchpressureconfigscreen_screen">
       <UniqueIdentifier>038D911A-5A5E-0531-1070-2CE8F262D6E4</UniqueIdentifier>
     </Filter>
@@ -455,9 +449,6 @@
     </ClCompile>
     <ClCompile Include="..\..\gui\src\calibratezeroscreen_screen\calibrateZeroScreenView.cpp">
       <Filter>Source Files\gui\calibratezeroscreen_screen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\generated\gui_generated\src\calibratezeroscreen_screen\calibrateZeroScreenViewBase.cpp">
-      <Filter>Source Files\generated\gui_generated\calibratezeroscreen_screen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\gui\src\calibrationscreen_screen\calibrationScreenPresenter.cpp">
       <Filter>Source Files\gui\calibrationscreen_screen</Filter>
@@ -1083,9 +1074,6 @@
     </ClInclude>
     <ClInclude Include="..\..\gui\include\gui\calibratezeroscreen_screen\calibrateZeroScreenView.hpp">
       <Filter>Header Files\gui\calibratezeroscreen_screen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\calibratezeroscreen_screen\calibrateZeroScreenViewBase.hpp">
-      <Filter>Header Files\generated\gui_generated\calibratezeroscreen_screen</Filter>
     </ClInclude>
     <ClInclude Include="..\..\gui\include\gui\calibrationscreen_screen\calibrationScreenPresenter.hpp">
       <Filter>Header Files\gui\calibrationscreen_screen</Filter>

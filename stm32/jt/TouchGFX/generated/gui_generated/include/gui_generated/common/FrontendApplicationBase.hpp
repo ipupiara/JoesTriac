@@ -56,9 +56,6 @@ public:
     // jobCompleteScreen
     void gotojobCompleteScreenScreenNoTransition();
 
-    // calibrateZeroScreen
-    void gotocalibrateZeroScreenScreenNoTransition();
-
     // behaviourConfigScreen
     void gotobehaviourConfigScreenScreenNoTransition();
 
@@ -108,9 +105,6 @@ protected:
 
     // jobCompleteScreen
     void gotojobCompleteScreenScreenNoTransitionImpl();
-
-    // calibrateZeroScreen
-    void gotocalibrateZeroScreenScreenNoTransitionImpl();
 
     // behaviourConfigScreen
     void gotobehaviourConfigScreenScreenNoTransitionImpl();

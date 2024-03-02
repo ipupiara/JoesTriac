@@ -247,47 +247,6 @@ uStInt evAutoCalibratingChecker(void)
 	return res;
 }
 
-
-void entryCalibrateZeroSignalState(void)
-{
-	CJoesModelEventT  msg;
-	osStatus_t status;
-	info_printf("entryCalibrateZeroSignalState\n");
-	msg.messageType = changeToCalibrateZeroScreen;
-	status = sendModelMessage(&msg);
-	if(status != osOK)  {
-		errorHandler(status,goOn," status ","entryCalibrateZeroSignalState");
-	}
-}
-
-void exitCalibrateZeroSignalState(void)
-{
-	info_printf("exitCalibrateZeroSignalState\n");
-}
-
-
-
-uStInt evCalibrateZeroSignalChecker(void)
-{
-	int8_t res = 0;
-	if (currentEvent->evType == evZeroSignalOK) 
-	{	
-			BEGIN_EVENT_HANDLER(PJoesTriacStateChart, eStateCalibratingScale);
-			// No event action.
-			END_EVENT_HANDLER(PJoesTriacStateChart);
-			res =  uStIntHandlingDone;
-	}
-	
-	if (currentEvent->evType == evSecondsTick) 
-	{	
-//		persistentZeroAdjustSecondTickJob();
-//		displayPotiPersistent();
-		res =  uStIntHandlingDone;
-	}
-	return (res);
-}
-
-
 //  todo handle error if adc not available, currently just hangs, should lead to fatal error
 
 void entryCalibrateScaleState(void)
@@ -470,6 +429,7 @@ uStInt evTriacIdleChecker(void)
 		{
 			CJoesPresenterEventT  msg;
 			msg.messageType = pidGraphFromData;
+			msg.evData.pidDataArrayPtr = &triacPidGraphData;
 			sendPresenterMessage(&msg);
 			pidInitialized = 1;
 		}

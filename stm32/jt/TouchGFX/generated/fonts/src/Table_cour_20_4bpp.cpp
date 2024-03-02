@@ -56,8 +56,7 @@ KEEP extern const touchgfx::GlyphNode glyphs_cour_20_4bpp[] FONT_TABLE_LOCATION_
     {  2699, 0x0076,  12,   9,   9,   0,  12,   0,   0, 0x00 },
     {  2753, 0x0077,  12,   9,   9,   0,  12,   0,   0, 0x00 },
     {  2807, 0x0078,  10,   9,   9,   1,  12,   0,   0, 0x00 },
-    {  2852, 0x0079,  11,  13,   9,   1,  12,   0,   0, 0x00 },
-    {  2930, 0x007A,   8,   9,   9,   2,  12,   0,   0, 0x00 }
+    {  2852, 0x0079,  11,  13,   9,   1,  12,   0,   0, 0x00 }
 };
 
 // cour_20_4bpp
@@ -283,6 +282,6 @@ touchgfx::GeneratedFont& getFont_cour_20_4bpp();
 
 touchgfx::GeneratedFont& getFont_cour_20_4bpp()
 {
-    static touchgfx::GeneratedFont cour_20_4bpp(glyphs_cour_20_4bpp, 54, 24, 20, 0, 0, 4, 1, 0, 0, unicodes_cour_20_4bpp, kerning_cour_20_4bpp, 63, 0, 0, &cour_contextualFormsTable);
+    static touchgfx::GeneratedFont cour_20_4bpp(glyphs_cour_20_4bpp, 53, 24, 20, 0, 0, 4, 1, 0, 0, unicodes_cour_20_4bpp, kerning_cour_20_4bpp, 63, 0, 0, &cour_contextualFormsTable);
     return cour_20_4bpp;
 }

@@ -34,7 +34,6 @@ dummyScreenViewBase::dummyScreenViewBase() :
 
     button5.setXY(0, 67);
     button5.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
-    button5.setAction(buttonCallback);
     add(button5);
 
     button6.setXY(189, 133);
@@ -95,13 +94,6 @@ void dummyScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& 
         //When button4 clicked change screen to configScreen
         //Go to configScreen with no screen transition
         application().gotoconfigScreenScreenNoTransition();
-    }
-    if (&src == &button5)
-    {
-        //Interaction5
-        //When button5 clicked change screen to calibrateZeroScreen
-        //Go to calibrateZeroScreen with no screen transition
-        application().gotocalibrateZeroScreenScreenNoTransition();
     }
     if (&src == &button6)
     {

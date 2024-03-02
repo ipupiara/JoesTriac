@@ -35,6 +35,7 @@ public:
     void configButtonPressed();
 private:
     mainScreenPresenter();
+    bool presenterActive;
 
     mainScreenView& view;
 };

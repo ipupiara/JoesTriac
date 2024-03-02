@@ -2,11 +2,6 @@
 #include <images/BitmapDatabase.hpp>
 #include <mainJt.h>
 
-mainScreenView::mainScreenView()
-{
-//	gaugeWithGoal.setGauge(ampGauge, &goalTextureMapper);
-}
-
 
 void mainScreenView::setupScreen()
 {
@@ -32,6 +27,8 @@ void mainScreenView::setupScreen()
 	gaugeWithGoal.setValue(0);
 	gaugeWithGoal.setGoalValue(ampsValue);
 	gaugeWithGoal.invalidate();
+//	pidDataGraphContainer1.setVisible(false);
+//	pidDataGraphContainer1.invalidate();
 }
 
 void mainScreenView::tearDownScreen()
@@ -49,15 +46,22 @@ void mainScreenView::startButtonPressed()
 	presenter->startButtonPressed();
 }
 
-void mainScreenView::initPidGraphFromData()
+void mainScreenView::initPidGraphFromData(pJoesPresenterEventT  pMsg)
 {
-	pidDataGraphContainer1.initFromData();
+	pidDataGraphContainer1.initFromData(pMsg);
 }
 
 void mainScreenView::graphButtonPressed()
 {
 	if (! pidDataGraphContainer1.isVisible()) {
+		CMainJtEventT  ev;
+		memset(&ev, 0x0, sizeof(ev));
+		ev.evType = pidGraphInitializing;
+		osStatus_t status =  sendEventToMainJtMessageQ( &ev, isNotFromIsr);
+		if (status != osOK) {
+			errorHandler(status,goOn," status ","pidDataGraphContainer::initialize");
+		}
 		pidDataGraphContainer1.setVisible(true);
+		pidDataGraphContainer1.invalidate();
 	}
-	pidDataGraphContainer1.invalidate();
 }

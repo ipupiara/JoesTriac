@@ -16,9 +16,6 @@ mainScreenViewBase::mainScreenViewBase() :
     __background.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     add(__background);
 
-    pidDataGraphContainer1.setXY(18, 11);
-    add(pidDataGraphContainer1);
-
     box1.setPosition(0, 0, 800, 480);
     box1.setColor(touchgfx::Color::getColorFromRGB(190, 226, 247));
     add(box1);
@@ -90,6 +87,10 @@ mainScreenViewBase::mainScreenViewBase() :
 
     gaugeWithGoal.setXY(280, 145);
     add(gaugeWithGoal);
+
+    pidDataGraphContainer1.setXY(18, 11);
+    pidDataGraphContainer1.setVisible(false);
+    add(pidDataGraphContainer1);
 }
 
 mainScreenViewBase::~mainScreenViewBase()
@@ -99,8 +100,8 @@ mainScreenViewBase::~mainScreenViewBase()
 
 void mainScreenViewBase::setupScreen()
 {
-    pidDataGraphContainer1.initialize();
     gaugeWithGoal.initialize();
+    pidDataGraphContainer1.initialize();
 }
 
 void mainScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)

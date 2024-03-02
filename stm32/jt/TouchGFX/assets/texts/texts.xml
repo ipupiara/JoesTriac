@@ -186,24 +186,6 @@
       <Text Id="__SingleUse_I5ZJ" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">adc Value</Translation>
       </Text>
-      <Text Id="__SingleUse_VTJB" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">off</Translation>
-      </Text>
-      <Text Id="__SingleUse_MQ6Q" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">on</Translation>
-      </Text>
-      <Text Id="__SingleUse_Z53N" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">auto finetune &amp; continue</Translation>
-      </Text>
-      <Text Id="__SingleUse_0C4U" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">waiting...</Translation>
-      </Text>
-      <Text Id="__SingleUse_THPN" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">&lt;value&gt;</Translation>
-      </Text>
-      <Text Id="__SingleUse_9F6T" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">state:</Translation>
-      </Text>
       <Text Id="__SingleUse_X3FF" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">adc Volts</Translation>
       </Text>
@@ -212,33 +194,6 @@
       </Text>
       <Text Id="__SingleUse_6OBZ" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">000.00</Translation>
-      </Text>
-      <Text Id="__SingleUse_KE25" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">abort</Translation>
-      </Text>
-      <Text Id="__SingleUse_AM4Z" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">0.00</Translation>
-      </Text>
-      <Text Id="__SingleUse_0Q2U" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">&lt;devVoltage&gt;</Translation>
-      </Text>
-      <Text Id="__SingleUse_Z80T" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">deviation Voltage</Translation>
-      </Text>
-      <Text Id="__SingleUse_FFOK" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">000</Translation>
-      </Text>
-      <Text Id="__SingleUse_TOWM" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">&lt;potipos&gt;</Translation>
-      </Text>
-      <Text Id="__SingleUse_CSK5" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">zero poti pos</Translation>
-      </Text>
-      <Text Id="__SingleUse_96OR" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">please wait ...</Translation>
-      </Text>
-      <Text Id="__SingleUse_INHC" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">calibrate zero position</Translation>
       </Text>
       <Text Id="__SingleUse_PYBL" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">0000</Translation>

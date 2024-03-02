@@ -6,15 +6,6 @@
         "CanvasBufferSize": 12000,
         "Components": [
           {
-            "Type": "CustomContainerInstance",
-            "Name": "pidDataGraphContainer1",
-            "X": 18,
-            "Y": 11,
-            "Width": 767,
-            "Height": 450,
-            "CustomContainerDefinitionName": "pidDataGraphContainer"
-          },
-          {
             "Type": "Box",
             "Name": "box1",
             "Width": 800,
@@ -184,6 +175,16 @@
             "Width": 240,
             "Height": 240,
             "CustomContainerDefinitionName": "GaugeWithGoal"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "pidDataGraphContainer1",
+            "X": 18,
+            "Y": 11,
+            "Width": 767,
+            "Height": 450,
+            "Visible": false,
+            "CustomContainerDefinitionName": "pidDataGraphContainer"
           }
         ],
         "Interactions": [
@@ -2632,18 +2633,6 @@
             }
           },
           {
-            "InteractionName": "Interaction5",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "button5"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionNone",
-              "ActionComponent": "calibrateZeroScreen"
-            }
-          },
-          {
             "InteractionName": "Interaction6",
             "Trigger": {
               "Type": "TriggerClicked",
@@ -2665,242 +2654,6 @@
               "Type": "ActionGotoScreen",
               "ScreenTransitionType": "ScreenTransitionNone",
               "ActionComponent": "calibrationScreen"
-            }
-          }
-        ]
-      },
-      {
-        "Name": "calibrateZeroScreen",
-        "Components": [
-          {
-            "Type": "Box",
-            "Name": "box1",
-            "Width": 800,
-            "Height": 480,
-            "Color": {
-              "Red": 176,
-              "Green": 247,
-              "Blue": 191
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea1",
-            "X": 33,
-            "Y": 36,
-            "Width": 276,
-            "Height": 23,
-            "TextId": "__SingleUse_INHC",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea2",
-            "X": 33,
-            "Y": 92,
-            "Width": 180,
-            "Height": 23,
-            "TextId": "__SingleUse_96OR",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea3",
-            "X": 33,
-            "Y": 156,
-            "Width": 156,
-            "Height": 23,
-            "TextId": "__SingleUse_CSK5",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "zeroPotiPosText",
-            "X": 297,
-            "Y": 147,
-            "Width": 72,
-            "Height": 45,
-            "TextId": "__SingleUse_TOWM",
-            "TextRotation": "0",
-            "AutoSize": true,
-            "Wildcard1": {
-              "TextId": "__SingleUse_FFOK",
-              "UseBuffer": true,
-              "BufferSize": 10
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea4",
-            "X": 33,
-            "Y": 237,
-            "Width": 204,
-            "Height": 23,
-            "TextId": "__SingleUse_Z80T",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "devVoltageText",
-            "X": 273,
-            "Y": 225,
-            "Width": 96,
-            "Height": 45,
-            "TextId": "__SingleUse_0Q2U",
-            "TextRotation": "0",
-            "AutoSize": true,
-            "Wildcard1": {
-              "TextId": "__SingleUse_AM4Z",
-              "UseBuffer": true,
-              "BufferSize": 10
-            }
-          },
-          {
-            "Type": "ButtonWithLabel",
-            "Name": "abortButton",
-            "X": 33,
-            "Y": 378,
-            "Width": 170,
-            "Height": 60,
-            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
-            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "TextId": "__SingleUse_KE25",
-            "ReleasedColor": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "PressedColor": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "TextRotation": "0"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea5",
-            "X": 33,
-            "Y": 301,
-            "Width": 72,
-            "Height": 23,
-            "TextId": "__SingleUse_9F6T",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "stateText",
-            "X": 273,
-            "Y": 301,
-            "Width": 120,
-            "Height": 23,
-            "TextId": "__SingleUse_THPN",
-            "TextRotation": "0",
-            "AutoSize": true,
-            "Wildcard1": {
-              "TextId": "__SingleUse_0C4U",
-              "UseBuffer": true,
-              "BufferSize": 22
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea6",
-            "X": 273,
-            "Y": 397,
-            "Width": 288,
-            "Height": 23,
-            "TextId": "__SingleUse_Z53N",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "RadioButton",
-            "Name": "onRadioButton",
-            "X": 588,
-            "Y": 386,
-            "Width": 44,
-            "Height": 44,
-            "FileNameSelected": "__designer\\Blue_Radio_buttons_Radio_Round_button_active.png",
-            "FileNameSelectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_normal.png",
-            "FileNameUnselected": "__designer\\Blue_Radio_buttons_Radio_Round_button_inactive.png",
-            "FileNameUnselectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_pressed.png",
-            "RadioButtonGroup": "radioButtonGroup1"
-          },
-          {
-            "Type": "RadioButton",
-            "Name": "offRadioButton",
-            "X": 671,
-            "Y": 386,
-            "Width": 44,
-            "Height": 44,
-            "Selected": true,
-            "FileNameSelected": "__designer\\Blue_Radio_buttons_Radio_Round_button_active.png",
-            "FileNameSelectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_normal.png",
-            "FileNameUnselected": "__designer\\Blue_Radio_buttons_Radio_Round_button_inactive.png",
-            "FileNameUnselectedPressed": "__designer\\Blue_Radio_buttons_Radio_Round_button_pressed.png",
-            "RadioButtonGroup": "radioButtonGroup1"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea7",
-            "X": 598,
-            "Y": 356,
-            "Width": 24,
-            "Height": 23,
-            "TextId": "__SingleUse_MQ6Q",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea8",
-            "X": 675,
-            "Y": 356,
-            "Width": 36,
-            "Height": 23,
-            "TextId": "__SingleUse_VTJB",
-            "TextRotation": "0",
-            "AutoSize": true
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "Interaction1",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "abortButton"
-            },
-            "Action": {
-              "Type": "ActionCustom",
-              "FunctionName": "abortPressed"
-            }
-          },
-          {
-            "InteractionName": "Interaction2",
-            "Trigger": {
-              "Type": "TriggerRadioButtonSelected",
-              "TriggerComponent": "onRadioButton"
-            },
-            "Action": {
-              "Type": "ActionCustom",
-              "FunctionName": "autoButtonOn"
-            }
-          },
-          {
-            "InteractionName": "Interaction3",
-            "Trigger": {
-              "Type": "TriggerRadioButtonDeselected",
-              "TriggerComponent": "onRadioButton"
-            },
-            "Action": {
-              "Type": "ActionCustom",
-              "FunctionName": "autoButtonOff"
             }
           }
         ]
@@ -3917,7 +3670,7 @@
             "Precision": "0.1",
             "LastIndex": 899,
             "XAxisScale": 1.0,
-            "Alpha": 70,
+            "Alpha": 86,
             "GraphType": "GraphScroll",
             "GraphDrawers": [
               {
