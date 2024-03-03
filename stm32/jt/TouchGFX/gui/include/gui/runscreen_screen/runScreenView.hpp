@@ -28,6 +28,7 @@ protected:
     uint32_t weldingTimeSec;
     float     weldingAmps;
     void setActive(touchgfx::Drawable* btn,bool act );
+    uint8_t aborting;
 };
 
 #endif // RUNSCREENVIEW_HPP

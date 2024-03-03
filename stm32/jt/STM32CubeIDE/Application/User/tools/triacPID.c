@@ -11,7 +11,7 @@
 #include <triacControl.h>
 
 
-#define printfPid
+//#define printfPid
 #define printfAmps
 
 
@@ -132,8 +132,6 @@ float getCurrentAmpsValue()
 
 void startTriacPidRun()
 {
-	initPidData();
-
 	pidStepCnt = 0;
 	startADC();
 	resetPID();
@@ -224,47 +222,61 @@ void calcNextTriacDelay(doPidAndPrint pidNPrint)    // todo create a typedef enu
 	sendModelMessage(&msg);
 #endif
 
-	if (pidNPrint > printOnly) {
-		if ((pidStepCnt & ((uint32_t) 0x01)) == 0  ) {
-			if (triacPidGraphData.amtValidPoints < pidGraphSize) {
-				triacPidGraphData.dataValue[triacPidGraphData.amtValidPoints] = ampsD;  // zero based
-				++triacPidGraphData.amtValidPoints;
-
-				CJoesPresenterEventT  msg;
-				msg.messageType = paintPidGraph;
-				msg.evData.pidGraphData.ampsF = ampsD;
-				msg.evData.pidGraphData.goalF = getDefinesWeldingAmps();
-				sendPresenterMessage(&msg);
-			}
-		}
-	}
-	++ pidStepCnt;
-}
-
-
-void initPidData()
-{
-	memset(&triacPidGraphData,0,sizeof(graphDataRec));
-	float goalVal =getDefinesWeldingAmps();
-	triacPidGraphData.goalValue = goalVal;
-}
-
-
-//void pidDataGraphContainer::initFromData(graphDataRec* pData)
-//{
-//	goalGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(0xFA, 0x14, 0x2B));
-//	for (uint16_t cnt = 0; cnt < goalGraph.getMaxCapacity();  ++ cnt) {
-//		goalGraph.addDataPoint(pData->goalValue);
-//		if (cnt < pData->amtValidPoints) {
-//			pidGraph.addDataPoint(pData->dataValue[cnt]);
+//	if (pidNPrint > printOnly) {
+//		if ((pidStepCnt & ((uint32_t) 0x01)) == 0  ) {
+//
+//			if (triacPidGraphData.amtValidDataPoints < pidGraphSize) {
+//				triacPidGraphData.dataValues[triacPidGraphData.amtValidDataPoints] = ampsD;  // zero based
+//				++triacPidGraphData.amtValidDataPoints;
+//
+//				CJoesPresenterEventT  msg;
+//				msg.messageType = paintPidGraph;
+//				msg.evData.pidGraphData.ampsF = ampsD;
+//				msg.evData.pidGraphData.goalF = getDefinesWeldingAmps();
+//				sendPresenterMessage(&msg);
+//			}
 //		}
 //	}
-//	goalGraph.invalidate();
-//	pidGraph.invalidate();
-//}
-//
+//	++ pidStepCnt;
+}
+
+void printExistingGraph()
+{
+	CJoesPresenterEventT  msg;          // todo consider implementing this in a method in triacpid or so
+	msg.messageType = pidGraphFromData;
+	msg.evData.pidDataArrayPtr = &triacPidGraphData;
+	sendPresenterMessage(&msg);
+}
+
+void printNextGraphDataPoint(float value)
+{
+	if (triacPidGraphData.amtValidDataPoints < pidGraphSize) {
+		triacPidGraphData.dataValues[triacPidGraphData.amtValidDataPoints] = currentAmps();  // zero based
+		++triacPidGraphData.amtValidDataPoints;
+
+		CJoesPresenterEventT  msg;
+		msg.messageType = paintPidGraph;
+		msg.evData.pidDataArrayPtr=&triacPidGraphData;
+		sendPresenterMessage(&msg);
+	}
+}
+
+//typedef struct {
+//	float  goalValue;
+//	uint32_t weldingDuration;
+//	uint32_t amtValidDataPoints;
+//	uint32_t amtValidGoalPoints;
+//	float  dataValues [pidGraphSize];
+//} graphDataRec;
 
 
+void initPidGraphData(float goalVal, uint32_t secsDuration)
+{
+	memset(&triacPidGraphData,0,sizeof(graphDataRec));
+	triacPidGraphData.goalValue = goalVal;
+	triacPidGraphData.weldingDuration = secsDuration;
+	triacPidGraphData.amtValidGoalPoints = secsDuration; // with current graphs !!!
+}
 
 
 void InitPID()

@@ -15,7 +15,7 @@ public:
     virtual void configButtonPressed();
     virtual void startButtonPressed();
     virtual void graphButtonPressed();
-    void initPidGraphFromData(pJoesPresenterEventT  pMsg);
+    void showPidGraphFromData(pJoesPresenterEventT  pMsg);
 
 protected:
 };

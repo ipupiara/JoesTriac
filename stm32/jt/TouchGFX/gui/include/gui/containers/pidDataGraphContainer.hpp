@@ -18,6 +18,7 @@ protected:
     void setOriginalScreen(Screen scr);
     static Screen originalScreen;
 
+    uint8_t  graphInitialized;
 };
 
 #endif // PIDDATAGRAPHCONTAINER_HPP

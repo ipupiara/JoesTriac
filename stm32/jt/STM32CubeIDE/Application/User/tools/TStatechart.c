@@ -308,8 +308,7 @@ bool ProcessEvent(TStatechart* t)
 				<< ".\n";
 		}
 #endif
-		i32StateBeingTried = t->m_pxaUserStateDefns[i32StateBeingTried].
-			m_i32ParentStateName;
+		i32StateBeingTried = t->m_pxaUserStateDefns[i32StateBeingTried].m_i32ParentStateName;
 	}
 
 	return (bMatchFound);

@@ -9,7 +9,7 @@
  *      Author: Brigitte
  */
 
-
+//   todo tobe tested, only first part tested (exti timer)
 #include <stdlib.h>
 #include "TriacIntr.h"
 #include <defines.h>

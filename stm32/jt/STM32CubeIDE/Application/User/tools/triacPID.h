@@ -23,17 +23,19 @@ typedef double real;
 
 #define kTotal (float) 1.0 * ((float)1000.0 / (float)499.0)  //  used to compensate a changes in cycle time pidStepDelays,
 								// the higher cycle frequency the lower kTotal
-#define kPartial   1.3     //  0.15
-#define kIntegral  0.2  // 1.0       //  0.2
-#define kDerivativ    0.0      //  0.2
+#define kPartial   1.5     //  0.15
+#define kIntegral  0.6  // 1.0       //  0.2
+#define kDerivativ    0.1      //  0.2
 #define integral_thres 4.0    //  5.0
 #define correctionThreshold  80.0   //10 .0   // good to use at least for inductive loads where too high changes can lead to short-circuit
 
 #define pidGraphSize 900
 typedef struct {
-	float  dataValue [pidGraphSize];
 	float  goalValue;
-	uint32_t amtValidPoints;
+	uint32_t weldingDuration;
+	uint32_t amtValidDataPoints;
+	uint32_t amtValidGoalPoints;
+	float  dataValues [pidGraphSize];
 } graphDataRec;
 
 typedef enum{
@@ -58,6 +60,10 @@ void stopTriacPidRun();
 
 
 void calcNextTriacDelay(uint8_t pidOn);
+
+void initPidGraphData(float goalVal, uint32_t secsDuration);
+void printNextGraphDataPoint(float value);
+void printExistingGraph();
 
 #ifdef  __cplusplus
 }

@@ -18,36 +18,42 @@ pidDataGraphContainer::pidDataGraphContainer()
 
 void pidDataGraphContainer::updateGraph(pJoesPresenterEventT  pMsg )
 {
-
-	if (pMsg->evData.pidDataArrayPtr->amtValidPoints == 0)  {
+	graphDataRec*  pRec = pMsg->evData.pidDataArrayPtr;
+	if (graphInitialized == 0)  {
 		goalGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(0xFA, 0x14, 0x2B));
-		for (uint16_t cnt = 0; cnt < goalGraph.getMaxCapacity();  ++ cnt) {
-			goalGraph.addDataPoint(pMsg->evData.pidDataArrayPtr->goalValue);
+		for (uint32_t cnt = 0; cnt < pRec->amtValidGoalPoints  ;  ++ cnt) {
+			goalGraph.addDataPoint(pRec->goalValue);
 		}
+		graphInitialized = 1;
+		goalGraph.invalidate();
 	}
-	pidGraph.addDataPoint(pMsg->evData.pidGraphData.ampsF);
+	if (pRec->amtValidDataPoints < (uint16_t) pidGraph.getMaxCapacity())  {
+		pidGraph.addDataPoint(pRec->dataValues[pRec->amtValidDataPoints -1]);
+	}
 	pidGraph.invalidate();
 }
 
 void pidDataGraphContainer::initialize()
 {
     pidDataGraphContainerBase::initialize();
+    graphInitialized = 0;
 }
 
 
 void pidDataGraphContainer::initFromData(pJoesPresenterEventT  pMsg )
 {
-	goalGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(0xFA, 0x14, 0x2B));
-	for (uint16_t cnt = 0; cnt < goalGraph.getMaxCapacity();  ++ cnt) {
-		goalGraph.addDataPoint(pMsg->evData.pidDataArrayPtr->goalValue);
-		if (cnt < pMsg->evData.pidDataArrayPtr->amtValidPoints) {
-			pidGraph.addDataPoint(pMsg->evData.pidDataArrayPtr->dataValue[cnt]);
+	if (graphInitialized == 0) {
+		graphDataRec*  pRec = pMsg->evData.pidDataArrayPtr;
+		goalGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(0xFA, 0x14, 0x2B));
+
+		for (uint16_t cnt = 0; cnt < pRec->amtValidGoalPoints;  ++ cnt) {
+			goalGraph.addDataPoint(pRec->goalValue);
 		}
+		for (uint16_t cnt = 0; cnt < pRec->amtValidDataPoints;  ++ cnt) {
+			pidGraph.addDataPoint(pRec->dataValues[cnt]);
+		}
+		graphInitialized = 1;
 	}
-	goalGraph.invalidate();
-	pidGraph.invalidate();
-	setVisible(true);
-	invalidate();
 }
 
 

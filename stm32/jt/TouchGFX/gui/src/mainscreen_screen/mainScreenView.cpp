@@ -46,9 +46,11 @@ void mainScreenView::startButtonPressed()
 	presenter->startButtonPressed();
 }
 
-void mainScreenView::initPidGraphFromData(pJoesPresenterEventT  pMsg)
+void mainScreenView::showPidGraphFromData(pJoesPresenterEventT  pMsg)
 {
 	pidDataGraphContainer1.initFromData(pMsg);
+	pidDataGraphContainer1.setVisible(true);
+	pidDataGraphContainer1.invalidate();
 }
 
 void mainScreenView::graphButtonPressed()

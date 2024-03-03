@@ -53,7 +53,7 @@ void mainScreenPresenter::tick()
 		{
 			if ( osMessageQueueGet ( presenterMessageQ, &presenterMessage, NULL, 0) == osOK)  {
 				if (presenterMessage.messageType ==  pidGraphFromData) {  // never should happen here
-					view.initPidGraphFromData(&presenterMessage);
+					view.showPidGraphFromData(&presenterMessage);
 				}
 			}
 		}

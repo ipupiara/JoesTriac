@@ -12,6 +12,7 @@ runScreenView::runScreenView()
 
 void runScreenView::setupScreen()
 {
+
     runScreenViewBase::setupScreen();
 
     weldingTimeSec = presenter->getWeldingTimeSec();
@@ -70,12 +71,6 @@ void runScreenView::update(pJoesPresenterEventT  pMsg )
 		ampGauge.setValue(pMsg->evData.runScreenData.amps);
 		ampGauge.invalidate();
 
-	 uint8_t  minVal = uint8_t( pMsg->evData.runScreenData.secondsRemaining  / 60);
-	 uint8_t  secVal = (uint8_t) ( pMsg->evData.runScreenData.secondsRemaining % 60);
-	 Unicode::snprintf(currentTimeTextBuffer, 6, "%02d:%02d", minVal, secVal);
-	 currentTimeText.setWildcard(currentTimeTextBuffer);
-	 currentTimeText.invalidate();
-
 	 float wTime = weldingTimeSec;
 	 float rTime = pMsg->evData.runScreenData.secondsRemaining;
 	 float  remain = (wTime - rTime)/ wTime;
@@ -84,10 +79,19 @@ void runScreenView::update(pJoesPresenterEventT  pMsg )
 	 boxProgress1.invalidate();
 	 astrolabiumContainer1.update(pMsg);
 
-	 secVal = (uint8_t) (pMsg->evData.runScreenData.secondsBeforeReturn);
-	 Unicode::snprintf(secondsb4ReturnTextBuffer, 6, "%02d",  secVal);
-	 secondsb4ReturnText.setWildcard(secondsb4ReturnTextBuffer);
-	 secondsb4ReturnText.invalidate();
+
+	 if (aborting == 1)  {
+		 uint8_t  minVal = uint8_t( pMsg->evData.runScreenData.secondsRemaining  / 60);
+		 uint8_t  secVal = (uint8_t) ( pMsg->evData.runScreenData.secondsRemaining % 60);
+		 Unicode::snprintf(currentTimeTextBuffer, 6, "%02d:%02d", minVal, secVal);
+		 currentTimeText.setWildcard(currentTimeTextBuffer);
+		 currentTimeText.invalidate();
+
+		 secVal = (uint8_t) (pMsg->evData.runScreenData.secondsBeforeReturn);
+		 Unicode::snprintf(secondsb4ReturnTextBuffer, 6, "%02d",  secVal);
+		 secondsb4ReturnText.setWildcard(secondsb4ReturnTextBuffer);
+		 secondsb4ReturnText.invalidate();
+	 }
 }
 
 void runScreenView::graphButtonClicked()
@@ -130,13 +134,10 @@ void runScreenView::abortButtonPressed()
 	presenter->abortButtonPressed();
 }
 
-void runScreenView::initPidGraphFromData()
-{
-
-}
 
 void runScreenView::raiseRequestStop()
 {
+	aborting = 1;
 	setActive(&abortButton, true);
 	setActive(&continueButton, true);
 	setActive(&secondsb4ReturnText, true);
@@ -152,6 +153,7 @@ void runScreenView::raiseRequestStop()
 
 void runScreenView::raiseDoRun()
 {
+	aborting = 0;
 	setActive(&startButton, true);
 	setActive(&stopButton, true);
 	setActive(&graphButton, true);

@@ -63,9 +63,6 @@ void runScreenPresenter::tick()
 				if (presenterMessage.messageType ==  doRun) {
 					view.raiseDoRun();
 				}
-//				if (presenterMessage.messageType ==  pidGraphFromData) {  // never should happen here
-//					view.initPidGraphFromData();
-//				}
 			}
 		}
 	}

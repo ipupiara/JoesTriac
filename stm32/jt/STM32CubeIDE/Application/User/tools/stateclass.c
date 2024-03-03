@@ -47,7 +47,7 @@ uint32_t timeCnt;
 
 void entryJoesTriac()
 {
-	printf("entryJoesTriac\n");
+	info_printf("entryJoesTriac\n");
 }
 
 void exitJoesTriac()
@@ -63,7 +63,7 @@ uStInt evJoesTriacChecker(void)
 
 void entryTriacOperatingChecker()
 {
-	printf("entryTriacOperatingChecker\n");
+	info_printf("entryTriacOperatingChecker\n");
 }
 
 void exitTriacOperatingChecker()
@@ -383,7 +383,6 @@ uStInt evCalibrateHighChecker(void)
 	return res;
 }
 
-int8_t keyInd;
 uint8_t pidInitialized;
 
 void entryTriacIdleState(void)
@@ -427,10 +426,7 @@ uStInt evTriacIdleChecker(void)
 	if (currentEvent->evType == evPidGraphInit)  {
 		if (pidInitialized == 0)
 		{
-			CJoesPresenterEventT  msg;
-			msg.messageType = pidGraphFromData;
-			msg.evData.pidDataArrayPtr = &triacPidGraphData;
-			sendPresenterMessage(&msg);
+			printExistingGraph();
 			pidInitialized = 1;
 		}
 
@@ -452,6 +448,7 @@ void entryTriacActiveState(void)
 	msg.messageType = changeToRunScreen;
 	sendModelMessage(&msg);
 	startDurationTimer(getDefinesWeldingTime());
+	initPidGraphData(getDefinesWeldingAmps(), getDefinesWeldingTime());
 	startTriacPidRun();
 }
 
@@ -476,6 +473,14 @@ uStInt evTriacActiveChecker(void)
 		calcNextTriacDelay(pidAndPrint);
 		res =  uStIntHandlingDone;
 	}
+
+	if (currentEvent->evType == evSecondsTick) {
+		sendActualValuesToRunNStopScreen(getSecondsDurationTimerRemaining(), secondsBeforeReturn);
+		printNextGraphDataPoint(getCurrentAmpsValue());
+
+		res =  uStIntHandlingDone;
+	}
+
 	return res;
 }
 
@@ -507,12 +512,12 @@ uStInt evTriacRunningChecker(void)
 	}
 
 	if (currentEvent->evType == evSecondsTick) {
-		sendActualValuesToRunNStopScreen(getSecondsDurationTimerRemaining(), secondsBeforeReturn);
+//		sendActualValuesToRunNStopScreen(getSecondsDurationTimerRemaining(), secondsBeforeReturn);
 
 //		startExtiCheck();   // just for debug   //  todo remove/comment out this if not yet done
 
 
-		res =  uStIntHandlingDone;
+//		res =  uStIntHandlingDone;    parent state also needs this event
 	}	
 
 	return res;
@@ -566,9 +571,9 @@ uStInt evRequestStopChecker(void)
 			timeCnt = 0;
 		}
 		--secondsBeforeReturn;
-		sendActualValuesToRunNStopScreen(getSecondsDurationTimerRemaining(), secondsBeforeReturn);
 
-		res =  uStIntHandlingDone;
+
+//		res =  uStIntHandlingDone;
 	}
 	return res;
 }
