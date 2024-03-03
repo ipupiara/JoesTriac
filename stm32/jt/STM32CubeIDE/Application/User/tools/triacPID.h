@@ -36,6 +36,7 @@ typedef struct {
 	uint32_t amtValidDataPoints;
 	uint32_t amtValidGoalPoints;
 	float  dataValues [pidGraphSize];
+	uint16_t  triacValues [pidGraphSize];
 } graphDataRec;
 
 typedef enum{

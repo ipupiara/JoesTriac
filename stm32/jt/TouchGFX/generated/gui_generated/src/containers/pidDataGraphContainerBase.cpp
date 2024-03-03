@@ -68,6 +68,19 @@ pidDataGraphContainerBase::pidDataGraphContainerBase() :
     pidGraph.addGraphElement(pidGraphLine1);
 
     add(pidGraph);
+
+    triacGraph.setPosition(0, 0, 767, 370);
+    triacGraph.setScale(1);
+    triacGraph.setGraphAreaMargin(0, 0, 0, 0);
+    triacGraph.setGraphAreaPadding(0, 0, 0, 0);
+    triacGraph.setGraphRangeY(0, 5000);
+    triacGraph.setAlpha(71);
+    triacGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(20, 151, 197));
+    triacGraphLine1.setPainter(triacGraphLine1Painter);
+    triacGraphLine1.setLineWidth(2);
+    triacGraph.addGraphElement(triacGraphLine1);
+
+    add(triacGraph);
 }
 
 pidDataGraphContainerBase::~pidDataGraphContainerBase()

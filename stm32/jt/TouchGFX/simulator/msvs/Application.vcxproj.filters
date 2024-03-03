@@ -217,17 +217,11 @@
     <Filter Include="Source Files\gui\requeststopscreen_screen">
       <UniqueIdentifier>A84B40E0-7759-46F0-1A6D-C592C2C2E370</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\gui\calibratezeroscreen_screen">
-      <UniqueIdentifier>E8501173-2AB3-5181-5765-DE1467ED05D6</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\gui\requeststopscreen_screen">
       <UniqueIdentifier>867F9DB3-D97A-5B67-8378-8DEEE2E0DFF2</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\gui\switchpressureconfigscreen_screen">
       <UniqueIdentifier>1D13B709-2A7C-5882-96F3-592BD2355DDA</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\gui\calibratezeroscreen_screen">
-      <UniqueIdentifier>C70A99C9-9F1B-DEB7-785B-28857374829D</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\gui\fatalerrorscreen_screen">
       <UniqueIdentifier>BF99DE9B-6039-35C8-C44B-BE71F98EECE6</UniqueIdentifier>
@@ -443,12 +437,6 @@
     </ClCompile>
     <ClCompile Include="..\..\generated\gui_generated\src\behaviourconfigscreen_screen\behaviourConfigScreenViewBase.cpp">
       <Filter>Source Files\generated\gui_generated\behaviourconfigscreen_screen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\gui\src\calibratezeroscreen_screen\calibrateZeroScreenPresenter.cpp">
-      <Filter>Source Files\gui\calibratezeroscreen_screen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\gui\src\calibratezeroscreen_screen\calibrateZeroScreenView.cpp">
-      <Filter>Source Files\gui\calibratezeroscreen_screen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\gui\src\calibrationscreen_screen\calibrationScreenPresenter.cpp">
       <Filter>Source Files\gui\calibrationscreen_screen</Filter>
@@ -1068,12 +1056,6 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\behaviourconfigscreen_screen\behaviourConfigScreenViewBase.hpp">
       <Filter>Header Files\generated\gui_generated\behaviourconfigscreen_screen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\gui\include\gui\calibratezeroscreen_screen\calibrateZeroScreenPresenter.hpp">
-      <Filter>Header Files\gui\calibratezeroscreen_screen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\gui\include\gui\calibratezeroscreen_screen\calibrateZeroScreenView.hpp">
-      <Filter>Header Files\gui\calibratezeroscreen_screen</Filter>
     </ClInclude>
     <ClInclude Include="..\..\gui\include\gui\calibrationscreen_screen\calibrationScreenPresenter.hpp">
       <Filter>Header Files\gui\calibrationscreen_screen</Filter>

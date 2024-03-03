@@ -27,8 +27,6 @@
     <ClCompile Include="..\..\gui\src\behaviourconfigscreen_screen\behaviourConfigScreenPresenter.cpp"/>
     <ClCompile Include="..\..\gui\src\behaviourconfigscreen_screen\behaviourConfigScreenView.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\behaviourconfigscreen_screen\behaviourConfigScreenViewBase.cpp"/>
-    <ClCompile Include="..\..\gui\src\calibratezeroscreen_screen\calibrateZeroScreenPresenter.cpp"/>
-    <ClCompile Include="..\..\gui\src\calibratezeroscreen_screen\calibrateZeroScreenView.cpp"/>
     <ClCompile Include="..\..\gui\src\calibrationscreen_screen\calibrationScreenPresenter.cpp"/>
     <ClCompile Include="..\..\gui\src\calibrationscreen_screen\calibrationScreenView.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\calibrationscreen_screen\calibrationScreenViewBase.cpp"/>
@@ -238,8 +236,6 @@
     <ClInclude Include="..\..\gui\include\gui\behaviourconfigscreen_screen\behaviourConfigScreenPresenter.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\behaviourconfigscreen_screen\behaviourConfigScreenView.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\behaviourconfigscreen_screen\behaviourConfigScreenViewBase.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\calibratezeroscreen_screen\calibrateZeroScreenPresenter.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\calibratezeroscreen_screen\calibrateZeroScreenView.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\calibrationscreen_screen\calibrationScreenPresenter.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\calibrationscreen_screen\calibrationScreenView.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\calibrationscreen_screen\calibrationScreenViewBase.hpp"/>

@@ -252,6 +252,7 @@ void printNextGraphDataPoint(float value)
 {
 	if (triacPidGraphData.amtValidDataPoints < pidGraphSize) {
 		triacPidGraphData.dataValues[triacPidGraphData.amtValidDataPoints] = currentAmps();  // zero based
+		triacPidGraphData.triacValues[triacPidGraphData.amtValidDataPoints] = getCurrentAmpsADCValue();
 		++triacPidGraphData.amtValidDataPoints;
 
 		CJoesPresenterEventT  msg;

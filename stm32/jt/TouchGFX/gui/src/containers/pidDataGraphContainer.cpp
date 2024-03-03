@@ -29,6 +29,7 @@ void pidDataGraphContainer::updateGraph(pJoesPresenterEventT  pMsg )
 	}
 	if (pRec->amtValidDataPoints < (uint16_t) pidGraph.getMaxCapacity())  {
 		pidGraph.addDataPoint(pRec->dataValues[pRec->amtValidDataPoints -1]);
+		triacGraph.addDataPoint(pRec->triacValues[pRec->amtValidDataPoints -1]);
 	}
 	pidGraph.invalidate();
 }
@@ -45,12 +46,13 @@ void pidDataGraphContainer::initFromData(pJoesPresenterEventT  pMsg )
 	if (graphInitialized == 0) {
 		graphDataRec*  pRec = pMsg->evData.pidDataArrayPtr;
 		goalGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(0xFA, 0x14, 0x2B));
-
+		triacGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(0xDF, 0xEB, 0x02));
 		for (uint16_t cnt = 0; cnt < pRec->amtValidGoalPoints;  ++ cnt) {
 			goalGraph.addDataPoint(pRec->goalValue);
 		}
 		for (uint16_t cnt = 0; cnt < pRec->amtValidDataPoints;  ++ cnt) {
 			pidGraph.addDataPoint(pRec->dataValues[cnt]);
+			triacGraph.addDataPoint(pRec->triacValues[cnt]);
 		}
 		graphInitialized = 1;
 	}

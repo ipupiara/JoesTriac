@@ -157,7 +157,7 @@
             "X": 465,
             "Y": 12,
             "Width": 144,
-            "Height": 48,
+            "Height": 45,
             "TextId": "__SingleUse_DEJR",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2581,6 +2581,19 @@
             "Width": 20,
             "Height": 100,
             "RelativeFilename": "Red_Needles_goal_gauge_needle_style_01-removebg-preview.png"
+          },
+          {
+            "Type": "Box",
+            "Name": "box1",
+            "X": 499,
+            "Y": 119,
+            "Width": 50,
+            "Height": 50,
+            "Color": {
+              "Red": 223,
+              "Green": 235,
+              "Blue": 2
+            }
           }
         ],
         "Interactions": [
@@ -2724,7 +2737,7 @@
             "X": 315,
             "Y": 55,
             "Width": 228,
-            "Height": 23,
+            "Height": 24,
             "TextId": "__SingleUse_YTFD",
             "TextRotation": "0",
             "AutoSize": true
@@ -2735,7 +2748,7 @@
             "X": 315,
             "Y": 127,
             "Width": 348,
-            "Height": 23,
+            "Height": 24,
             "TextId": "__SingleUse_CTH6",
             "TextRotation": "0",
             "AutoSize": true
@@ -3746,6 +3759,32 @@
               "Position": "Bottom"
             },
             "Moveable": true
+          },
+          {
+            "Type": "DynamicGraph",
+            "Name": "triacGraph",
+            "Width": 767,
+            "Height": 370,
+            "DataSeed": 1756231700,
+            "NumberOfValues": 600,
+            "MaxY": 5000.0,
+            "Precision": "1",
+            "LastIndex": 599,
+            "XAxisScale": 1.0,
+            "Alpha": 71,
+            "GraphType": "GraphScroll",
+            "GraphDrawers": [
+              {
+                "Type": "LineDrawer",
+                "LineWidth": 2,
+                "FileNameImage": "",
+                "Color": {
+                  "Red": 20,
+                  "Green": 151,
+                  "Blue": 197
+                }
+              }
+            ]
           }
         ],
         "Interactions": [
