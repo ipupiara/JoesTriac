@@ -52,6 +52,14 @@ behaviourConfigScreenViewBase::behaviourConfigScreenViewBase() :
     backButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     backButton.setAction(buttonCallback);
     add(backButton);
+
+    debugButton.setXY(36, 204);
+    debugButton.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
+    debugButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_CJXM));
+    debugButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    debugButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    debugButton.setAction(buttonCallback);
+    add(debugButton);
 }
 
 behaviourConfigScreenViewBase::~behaviourConfigScreenViewBase()
@@ -86,5 +94,12 @@ void behaviourConfigScreenViewBase::buttonCallbackHandler(const touchgfx::Abstra
         //When switchPressureConfigButton clicked change screen to switchPressureConfigScreen
         //Go to switchPressureConfigScreen with no screen transition
         application().gotoswitchPressureConfigScreenScreenNoTransition();
+    }
+    if (&src == &debugButton)
+    {
+        //Interaction1
+        //When debugButton clicked change screen to configScreen
+        //Go to configScreen with no screen transition
+        application().gotoconfigScreenScreenNoTransition();
     }
 }

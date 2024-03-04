@@ -192,15 +192,15 @@ uint8_t handleMissed()
 			resetHandleMissed();
 			res = 1;
 		} else {
-			if((((msTick - uwTickWhenLastOk + 1 ) % 10 )  )  > 1 )  {  // tobe tested
+			if((((msTick - uwTickWhenLastOk + 1 ) % 10 )  )  > 2 )  {  // tobe tested evtl > 2 needed
 //			if(((msTick - uwTickWhenLastOk ) % 10   ) != 0 )  {  // tobe tested
 				++amtWrongSync;
 				resetHandleMissed();
 				res = 0; 	// take it as a new correct one, but do not fire unless the next is in time.
 			}  else {
-				uint32_t  amtPassed = ((msTick - uwTickWhenLastOk + 1 )/10 ); // todo later we might need a better clock (cpu clock counter or timer)
+				int32_t  amtPassed = ((msTick - uwTickWhenLastOk + 1 )/10 ); // todo later we might need a better clock (cpu clock counter or timer)
 				if (amtPassed > 0) {
-					uint32_t  amtMissed = amtPassed - 1;
+					int32_t  amtMissed = amtPassed - 1;
 					 if (amtMissed == 0) {
 						 resetHandleMissed();
 						 res = 1;
@@ -208,6 +208,7 @@ uint8_t handleMissed()
 						amtMissedZpTotal += ( amtMissed - amtCountedMissed);
 						amtCountedMissed = amtMissed;
 						if (amtMissed > maxMissedZp) { maxMissedZp= amtMissed; }
+
 
 						if ((amtPassed & ((uint32_t) 0x01)) == 1) {  //  odd number todo to be tested
 							resetHandleMissed();

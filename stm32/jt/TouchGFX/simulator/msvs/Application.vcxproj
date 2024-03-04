@@ -80,6 +80,9 @@
     <ClCompile Include="..\..\generated\gui_generated\src\containers\astrolabiumContainerBase.cpp"/>
     <ClCompile Include="..\..\gui\src\containers\pidDataGraphContainer.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\containers\pidDataGraphContainerBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\configdebugscreen_screen\configDebugScreenPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\configdebugscreen_screen\configDebugScreenView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\configdebugscreen_screen\configDebugScreenViewBase.cpp"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xml"/>
@@ -289,6 +292,9 @@
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\astrolabiumContainerBase.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\containers\pidDataGraphContainer.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\pidDataGraphContainerBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\configdebugscreen_screen\configDebugScreenPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\configdebugscreen_screen\configDebugScreenView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\configdebugscreen_screen\configDebugScreenViewBase.hpp"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>

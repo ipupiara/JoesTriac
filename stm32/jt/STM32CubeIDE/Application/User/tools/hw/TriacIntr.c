@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include "TriacIntr.h"
+#include <uart-comms.h>
 #include <StateClass.h>
 #include <defines.h>
 #include <mainJt.h>
@@ -42,43 +43,6 @@ void initBuzzerTimerPWM();
 uint32_t secondsDurationTimerRemaining;
 
 uint32_t secondsInDurationTimer;
-
-
-
-
-void checkInterrupts()
-{
-	uint32_t inr;
-	uint32_t prio, subPrio;
-	uint32_t grp = HAL_NVIC_GetPriorityGrouping();
-	uint32_t ena;
-	uint32_t amt = 0;
-
-	for (inr = 0; inr < 109; ++ inr)  {
-		ena = NVIC_GetEnableIRQ(inr);
-		if (ena != 0) {
-			HAL_NVIC_GetPriority((IRQn_Type) inr, grp, &prio, &subPrio);
-			if (prio > -10) {
-				++ amt;
-			}
-			if (inr > 108)  {
-				++amt;
-				--amt;
-			}
-		}
-	}
-	++amt;
-	--amt;
-//	NVIC_GetEnableIRQ(TIM5_IRQn);
-//	UNUSED(grp);
-//	UNUSED(ena);
-//
-//
-//	HAL_NVIC_SetPriority(TIM5_IRQn, 0, 0);
-//	HAL_NVIC_EnableIRQ(TIM5_IRQn);
-//	HAL_NVIC_SetPriority(TIM5_IRQn, 0, 0);
-//	HAL_NVIC_EnableIRQ(TIM5_IRQn);
-}
 
 
 
@@ -245,9 +209,61 @@ void initInterruptsNPorts()
 	initTriacControl();
 }
 
+void checkInterrupts()
+{
+	uint32_t inr;
+	uint32_t prio, subPrio;
+	uint32_t grp = HAL_NVIC_GetPriorityGrouping();
+	uint32_t ena;
+	uint32_t amt = 0;
+
+	for (inr = 0; inr < 109; ++ inr)  {
+		ena = NVIC_GetEnableIRQ(inr);
+		if (ena != 0) {
+			HAL_NVIC_GetPriority((IRQn_Type) inr, grp, &prio, &subPrio);
+			info_printf("interrupt %d, prio %d, subprio % d",inr,prio, subPrio);
+			if (prio > -10) {
+				++ amt;
+			}
+			if (inr > 108)  {
+				++amt;
+				--amt;
+			}
+		}
+	}
+	++amt;
+	--amt;
+//	NVIC_GetEnableIRQ(TIM5_IRQn);
+//	UNUSED(grp);
+//	UNUSED(ena);
+//
+//
+//	HAL_NVIC_SetPriority(TIM5_IRQn, 0, 0);
+//	HAL_NVIC_EnableIRQ(TIM5_IRQn);
+//	HAL_NVIC_SetPriority(TIM5_IRQn, 0, 0);
+//	HAL_NVIC_EnableIRQ(TIM5_IRQn);
+}
+
+
+void stopTimersWhenDebugHalt()
+{
+	HAL_DBGMCU_EnableDBGStandbyMode();
+	HAL_DBGMCU_EnableDBGStopMode();
+	DBGMCU->APB1FZ |= ( DBGMCU_APB1_FZ_DBG_TIM12_STOP | DBGMCU_APB1_FZ_DBG_TIM5_STOP | DBGMCU_APB1_FZ_DBG_TIM2_STOP
+						| DBGMCU_APB1_FZ_DBG_TIM3_STOP |  DBGMCU_APB1_FZ_DBG_WWDG_STOP | DBGMCU_APB1_FZ_DBG_TIM6_STOP);
+	DBGMCU->APB2FZ |= (DBGMCU_APB2_FZ_DBG_TIM11_STOP ) ;
+}
+
+void startDebugRun()
+{
+	stopTriacTimersWhenDebugHalt();
+//  checkInterrupts();
+}
+
+
 void initTriacIntr()
 {
-//	stopTimersWhenDebugHalt();
+//	startDebugRun();
 
 	durationTimerOn = 0;
 	initInterruptsNPorts();

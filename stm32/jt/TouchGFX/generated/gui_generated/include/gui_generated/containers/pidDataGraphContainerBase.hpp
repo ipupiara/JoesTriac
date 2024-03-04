@@ -49,7 +49,7 @@ protected:
     touchgfx::GraphLabelsX pidGraphMajorXAxisLabel;
     touchgfx::GraphElementLine pidGraphLine1;
     touchgfx::PainterRGB565 pidGraphLine1Painter;
-    touchgfx::GraphScroll<600> triacGraph;
+    touchgfx::GraphScroll<900> triacGraph;
     touchgfx::GraphElementLine triacGraphLine1;
     touchgfx::PainterRGB565 triacGraphLine1Painter;
 

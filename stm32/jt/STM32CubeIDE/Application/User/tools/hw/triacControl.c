@@ -408,10 +408,10 @@ void EXTI15_10_IRQHandler(void)
 	  if(__HAL_GPIO_EXTI_GET_IT(zeroPass_Pin) != 0) {
 		__HAL_GPIO_EXTI_CLEAR_IT(zeroPass_Pin);
 
-	//	startExtiCheck();
+		startExtiCheck();
 	//  todo needs be tested first and
 
-		doJobOnZeroPassEvent(isExtiPinSet());
+	//	doJobOnZeroPassEvent(isExtiPinSet());
 	  }
 }
 
@@ -434,21 +434,6 @@ void stopTriacRun()
 }
 
 
-void stopTriacTimersWhenDebugHalt()
-{
-	HAL_DBGMCU_EnableDBGStandbyMode();
-	HAL_DBGMCU_EnableDBGStopMode();
-	DBGMCU->APB1FZ |= ( DBGMCU_APB1_FZ_DBG_TIM12_STOP | DBGMCU_APB1_FZ_DBG_TIM5_STOP | DBGMCU_APB1_FZ_DBG_TIM2_STOP
-						| DBGMCU_APB1_FZ_DBG_TIM3_STOP |  DBGMCU_APB1_FZ_DBG_WWDG_STOP | DBGMCU_APB1_FZ_DBG_TIM6_STOP);
-	DBGMCU->APB2FZ |= (DBGMCU_APB2_FZ_DBG_TIM11_STOP ) ;
-}
-
-void startDebuggingTriacRun()
-{
-	stopTriacTimersWhenDebugHalt();
-//	startTriacRun();
-}
-
 void doJobOnZeroPassEvent(uint8_t ev)
 {
 	if (extiIrqCnt > 0)  {
@@ -465,9 +450,9 @@ void doJobOnZeroPassEvent(uint8_t ev)
 
 void initTriacControl()
 {
-	startDebuggingTriacRun();   //  todo comment this out after debugging
+//	startDebuggingTriacRun();   //  todo comment this out after debugging
 	triacTriggerDelay = stmTriggerRangeMax;
-//	initExtiCheck();
+	initExtiCheck();
 	initTriacDelayTimer();
 	initTriacStopTimer();
 	initTriacRailPwmTimer();

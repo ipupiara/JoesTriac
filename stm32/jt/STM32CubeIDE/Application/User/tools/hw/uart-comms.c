@@ -137,7 +137,7 @@ void  err_printf ( char *emsg, ...)
 	va_end(ap);
 }
 
-void info_printf( char *emsg, ...)
+void info_printf( char *emsg, ...)  // does not run since together with C++  ????
 {
 	va_list ap;
 	va_start(ap, emsg);

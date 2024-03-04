@@ -23,7 +23,7 @@ typedef double real;
 
 #define kTotal (float) 1.0 * ((float)1000.0 / (float)499.0)  //  used to compensate a changes in cycle time pidStepDelays,
 								// the higher cycle frequency the lower kTotal
-#define kPartial   1.5     //  0.15
+#define kPartial   1.6     //  0.15
 #define kIntegral  0.6  // 1.0       //  0.2
 #define kDerivativ    0.1      //  0.2
 #define integral_thres 4.0    //  5.0

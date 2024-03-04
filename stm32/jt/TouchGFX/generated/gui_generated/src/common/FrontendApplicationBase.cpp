@@ -43,6 +43,8 @@
 #include <gui/startupscreen_screen/startupScreenPresenter.hpp>
 #include <gui/switchpressureconfigscreen_screen/switchPressureConfigScreenView.hpp>
 #include <gui/switchpressureconfigscreen_screen/switchPressureConfigScreenPresenter.hpp>
+#include <gui/configdebugscreen_screen/configDebugScreenView.hpp>
+#include <gui/configdebugscreen_screen/configDebugScreenPresenter.hpp>
 
 using namespace touchgfx;
 

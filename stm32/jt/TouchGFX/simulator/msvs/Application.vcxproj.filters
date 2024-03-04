@@ -388,6 +388,18 @@
     <Filter Include="Header Files\generated\gui_generated\switchpressureconfigscreen_screen">
       <UniqueIdentifier>72DEE960-BF34-A065-E196-45F77C20AC7A</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\gui\configdebugscreen_screen">
+      <UniqueIdentifier>A674E52A-0EDC-977A-8114-3CF76A2E4E76</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\configdebugscreen_screen">
+      <UniqueIdentifier>B6143F15-0FE2-0473-8054-DA96B92D1865</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\configdebugscreen_screen">
+      <UniqueIdentifier>E758BEB1-F3F0-BD0D-3BB9-FEC215C41623</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\configdebugscreen_screen">
+      <UniqueIdentifier>4E8B5E15-9416-B9F2-BE7F-F96116B1F6CD</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\driver\touch\SDL2TouchController.cpp">
@@ -596,6 +608,15 @@
     </ClCompile>
     <ClCompile Include="..\..\generated\gui_generated\src\containers\pidDataGraphContainerBase.cpp">
       <Filter>Source Files\generated\gui_generated\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\configdebugscreen_screen\configDebugScreenPresenter.cpp">
+      <Filter>Source Files\gui\configdebugscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\configdebugscreen_screen\configDebugScreenView.cpp">
+      <Filter>Source Files\gui\configdebugscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\configdebugscreen_screen\configDebugScreenViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\configdebugscreen_screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1215,6 +1236,15 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\pidDataGraphContainerBase.hpp">
       <Filter>Header Files\generated\gui_generated\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\configdebugscreen_screen\configDebugScreenPresenter.hpp">
+      <Filter>Header Files\gui\configdebugscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\configdebugscreen_screen\configDebugScreenView.hpp">
+      <Filter>Header Files\gui\configdebugscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\configdebugscreen_screen\configDebugScreenViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\configdebugscreen_screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

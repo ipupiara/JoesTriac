@@ -38,6 +38,8 @@ void pidDataGraphContainer::initialize()
 {
     pidDataGraphContainerBase::initialize();
     graphInitialized = 0;
+    goalGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(0xFA, 0x14, 0x2B));
+    triacGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(0xAA, 0xB2, 0x04));
 }
 
 

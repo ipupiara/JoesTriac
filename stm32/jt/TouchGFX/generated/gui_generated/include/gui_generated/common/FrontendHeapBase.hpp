@@ -46,6 +46,8 @@
 #include <gui/startupscreen_screen/startupScreenPresenter.hpp>
 #include <gui/switchpressureconfigscreen_screen/switchPressureConfigScreenView.hpp>
 #include <gui/switchpressureconfigscreen_screen/switchPressureConfigScreenPresenter.hpp>
+#include <gui/configdebugscreen_screen/configDebugScreenView.hpp>
+#include <gui/configdebugscreen_screen/configDebugScreenPresenter.hpp>
 
 
 /**
@@ -85,7 +87,8 @@ public:
             touchgfx::meta::TypeList< behaviourConfigScreenView,
             touchgfx::meta::TypeList< startupScreenView,
             touchgfx::meta::TypeList< switchPressureConfigScreenView,
-            touchgfx::meta::Nil > > > > > > > > > > > > > > > >
+            touchgfx::meta::TypeList< configDebugScreenView,
+            touchgfx::meta::Nil > > > > > > > > > > > > > > > > >
             > GeneratedViewTypes;
 
     /**
@@ -114,7 +117,8 @@ public:
             touchgfx::meta::TypeList< behaviourConfigScreenPresenter,
             touchgfx::meta::TypeList< startupScreenPresenter,
             touchgfx::meta::TypeList< switchPressureConfigScreenPresenter,
-            touchgfx::meta::Nil > > > > > > > > > > > > > > > >
+            touchgfx::meta::TypeList< configDebugScreenPresenter,
+            touchgfx::meta::Nil > > > > > > > > > > > > > > > > >
             > GeneratedPresenterTypes;
 
     /**

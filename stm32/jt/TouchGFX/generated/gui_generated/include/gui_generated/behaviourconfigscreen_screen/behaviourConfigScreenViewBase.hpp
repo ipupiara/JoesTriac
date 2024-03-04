@@ -33,6 +33,7 @@ protected:
     touchgfx::TextArea textArea1;
     touchgfx::TextArea textArea2;
     touchgfx::ButtonWithLabel backButton;
+    touchgfx::ButtonWithLabel debugButton;
 
 private:
 

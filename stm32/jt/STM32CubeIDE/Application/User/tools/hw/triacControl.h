@@ -38,6 +38,8 @@ void doJobOnZeroPassEvent(uint8_t ev);
 extern int32_t triacTriggerDelay;
 void setTriacTriggerDelay(int32_t cmsecs);
 int32_t getTriacTriggerDelay();
+
+void stopTriacTimersWhenDebugHalt();
 //void startTriacRun();
 //void stopTriacRun();     only used by pid.c via extern
 

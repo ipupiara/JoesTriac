@@ -53,6 +53,10 @@ dummyScreenViewBase::dummyScreenViewBase() :
     image2.setXY(524, 344);
     image2.setBitmap(touchgfx::Bitmap(BITMAP_RED_NEEDLES_GOAL_GAUGE_NEEDLE_STYLE_01_REMOVEBG_PREVIEW_ID));
     add(image2);
+
+    box1.setPosition(499, 119, 50, 50);
+    box1.setColor(touchgfx::Color::getColorFromRGB(223, 235, 2));
+    add(box1);
 }
 
 dummyScreenViewBase::~dummyScreenViewBase()
