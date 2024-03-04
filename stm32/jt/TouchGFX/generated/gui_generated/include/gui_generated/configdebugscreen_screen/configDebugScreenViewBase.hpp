@@ -33,15 +33,10 @@ protected:
     touchgfx::TextArea textArea2;
     touchgfx::TextArea textArea3;
     touchgfx::TextArea printpidText;
-    touchgfx::RadioButtonGroup<6> radioButtonGroup1;
-    touchgfx::RadioButton printPidOnButton;
-    touchgfx::RadioButton extiCheckOnButton;
-    touchgfx::RadioButton extiCheckOffButton;
     touchgfx::TextArea textArea5;
     touchgfx::TextArea textArea6;
-    touchgfx::RadioButton infoPrintfOnButton;
-    touchgfx::RadioButton infoPrintfOffButton;
-    touchgfx::RadioButton printPidOffButton;
+    touchgfx::RadioButtonGroup<1> radioButtonGroup1;
+    touchgfx::RadioButton radioButton1;
 
 private:
 

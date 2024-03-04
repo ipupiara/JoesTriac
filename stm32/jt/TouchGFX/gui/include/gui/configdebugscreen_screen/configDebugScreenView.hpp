@@ -12,6 +12,15 @@ public:
     virtual void setupScreen();
     virtual void tearDownScreen();
 protected:
+    touchgfx::RadioButtonGroup<2> extiRadioButtonGroup;    //  todo check if more groups can be used this way ?????  else  never-touch-gfx
+    touchgfx::RadioButtonGroup<2> pidRadioButtonGroup;
+    touchgfx::RadioButtonGroup<2> infoRadioButtonGroup;
+    touchgfx::RadioButton printPidOnButton;
+    touchgfx::RadioButton printPidOffButton;
+     touchgfx::RadioButton extiCheckOnButton;
+     touchgfx::RadioButton extiCheckOffButton;
+     touchgfx::RadioButton infoPrintfOnButton;
+     touchgfx::RadioButton infoPrintfOffButton;
 };
 
 #endif // CONFIGDEBUGSCREENVIEW_HPP

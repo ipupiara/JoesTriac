@@ -16,7 +16,7 @@ configDebugScreenViewBase::configDebugScreenViewBase()
     box1.setColor(touchgfx::Color::getColorFromRGB(176, 247, 191));
     add(box1);
 
-    textArea1.setXY(54, 21);
+    textArea1.setPosition(54, 21, 120, 51);
     textArea1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea1.setLinespacing(0);
     textArea1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_Y55L));
@@ -40,27 +40,6 @@ configDebugScreenViewBase::configDebugScreenViewBase()
     printpidText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_AQ60));
     add(printpidText);
 
-    printPidOnButton.setXY(207, 222);
-    printPidOnButton.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_OFF_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_OFF_PRESSED_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_ON_DARK_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_ON_PRESSED_ID));
-    printPidOnButton.setSelected(false);
-    printPidOnButton.setDeselectionEnabled(false);
-    radioButtonGroup1.add(printPidOnButton);
-    add(printPidOnButton);
-
-    extiCheckOnButton.setXY(207, 116);
-    extiCheckOnButton.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_OFF_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_OFF_PRESSED_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_ON_DARK_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_ON_PRESSED_ID));
-    extiCheckOnButton.setSelected(false);
-    extiCheckOnButton.setDeselectionEnabled(false);
-    radioButtonGroup1.add(extiCheckOnButton);
-    add(extiCheckOnButton);
-
-    extiCheckOffButton.setXY(291, 116);
-    extiCheckOffButton.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_OFF_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_OFF_PRESSED_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_ON_DARK_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_ON_PRESSED_ID));
-    extiCheckOffButton.setSelected(false);
-    extiCheckOffButton.setDeselectionEnabled(false);
-    radioButtonGroup1.add(extiCheckOffButton);
-    add(extiCheckOffButton);
-
     textArea5.setXY(213, 75);
     textArea5.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea5.setLinespacing(0);
@@ -73,26 +52,13 @@ configDebugScreenViewBase::configDebugScreenViewBase()
     textArea6.setTypedText(touchgfx::TypedText(T___SINGLEUSE_HPZE));
     add(textArea6);
 
-    infoPrintfOnButton.setXY(207, 169);
-    infoPrintfOnButton.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_OFF_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_OFF_PRESSED_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_ON_DARK_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_ON_PRESSED_ID));
-    infoPrintfOnButton.setSelected(false);
-    infoPrintfOnButton.setDeselectionEnabled(false);
-    radioButtonGroup1.add(infoPrintfOnButton);
-    add(infoPrintfOnButton);
-
-    infoPrintfOffButton.setXY(291, 169);
-    infoPrintfOffButton.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_OFF_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_OFF_PRESSED_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_ON_DARK_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_ON_PRESSED_ID));
-    infoPrintfOffButton.setSelected(false);
-    infoPrintfOffButton.setDeselectionEnabled(false);
-    radioButtonGroup1.add(infoPrintfOffButton);
-    add(infoPrintfOffButton);
-
-    printPidOffButton.setXY(291, 222);
-    printPidOffButton.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_OFF_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_OFF_PRESSED_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_ON_DARK_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_ON_PRESSED_ID));
-    printPidOffButton.setSelected(false);
-    printPidOffButton.setDeselectionEnabled(false);
-    radioButtonGroup1.add(printPidOffButton);
-    add(printPidOffButton);
+    radioButton1.setXY(0, 0);
+    radioButton1.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_OFF_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_OFF_PRESSED_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_ON_DARK_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_ON_PRESSED_ID));
+    radioButton1.setSelected(false);
+    radioButton1.setDeselectionEnabled(false);
+    radioButton1.setVisible(false);
+    radioButtonGroup1.add(radioButton1);
+    add(radioButton1);
 }
 
 configDebugScreenViewBase::~configDebugScreenViewBase()
