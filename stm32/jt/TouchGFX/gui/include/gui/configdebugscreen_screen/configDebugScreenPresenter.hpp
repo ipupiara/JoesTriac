@@ -27,6 +27,9 @@ public:
 
     virtual ~configDebugScreenPresenter() {}
 
+    void getDebugData(uint8_t*  pidP, uint8_t* infoP, uint8_t* exti);
+    void setDebugData(uint8_t  pidP, uint8_t infoP, uint8_t exti);
+
 private:
     configDebugScreenPresenter();
 

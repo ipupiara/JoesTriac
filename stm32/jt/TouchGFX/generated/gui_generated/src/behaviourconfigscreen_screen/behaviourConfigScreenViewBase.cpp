@@ -60,6 +60,18 @@ behaviourConfigScreenViewBase::behaviourConfigScreenViewBase() :
     debugButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     debugButton.setAction(buttonCallback);
     add(debugButton);
+
+    textArea3.setXY(315, 198);
+    textArea3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea3.setLinespacing(0);
+    textArea3.setTypedText(touchgfx::TypedText(T___SINGLEUSE_8NKS));
+    add(textArea3);
+
+    textArea4.setXY(315, 230);
+    textArea4.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea4.setLinespacing(0);
+    textArea4.setTypedText(touchgfx::TypedText(T___SINGLEUSE_ERVX));
+    add(textArea4);
 }
 
 behaviourConfigScreenViewBase::~behaviourConfigScreenViewBase()
@@ -100,6 +112,10 @@ void behaviourConfigScreenViewBase::buttonCallbackHandler(const touchgfx::Abstra
         //Interaction1
         //When debugButton clicked change screen to configScreen
         //Go to configScreen with no screen transition
-        application().gotoconfigScreenScreenNoTransition();
+        application().gotoconfigScreenScreenNoTransition();
+        //debugInteraction
+        //When debugButton clicked change screen to configDebugScreen
+        //Go to configDebugScreen with no screen transition
+        application().gotoconfigDebugScreenScreenNoTransition();
     }
 }

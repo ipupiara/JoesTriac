@@ -171,6 +171,9 @@ public:
     uint8_t getSwitchPressureNeeded();
     uint16_t getSwitchPressureTime();
     void storeSwitchPressureData(uint32_t spTime, uint8_t spNeeded);
+    void getDebugData(uint8_t*  pidP, uint8_t* infoP, uint8_t* exti);
+    void setDebugData(uint8_t  pidP, uint8_t infoP, uint8_t exti);
+
 protected:
     static void cppvsnprintf(char* buffer,uint32_t maxLen,const char *emsg, ...);
     void printPid (CJoesModelEventT* mEv);

@@ -40,14 +40,14 @@
 #include <gui/jobcompletescreen_screen/jobCompleteScreenPresenter.hpp>
 #include <gui/dummyscreen_screen/dummyScreenView.hpp>
 #include <gui/dummyscreen_screen/dummyScreenPresenter.hpp>
-#include <gui/behaviourconfigscreen_screen/behaviourConfigScreenView.hpp>
-#include <gui/behaviourconfigscreen_screen/behaviourConfigScreenPresenter.hpp>
 #include <gui/startupscreen_screen/startupScreenView.hpp>
 #include <gui/startupscreen_screen/startupScreenPresenter.hpp>
 #include <gui/switchpressureconfigscreen_screen/switchPressureConfigScreenView.hpp>
 #include <gui/switchpressureconfigscreen_screen/switchPressureConfigScreenPresenter.hpp>
 #include <gui/configdebugscreen_screen/configDebugScreenView.hpp>
 #include <gui/configdebugscreen_screen/configDebugScreenPresenter.hpp>
+#include <gui/behaviourconfigscreen_screen/behaviourConfigScreenView.hpp>
+#include <gui/behaviourconfigscreen_screen/behaviourConfigScreenPresenter.hpp>
 
 
 /**
@@ -84,10 +84,10 @@ public:
             touchgfx::meta::TypeList< requestStopScreenView,
             touchgfx::meta::TypeList< jobCompleteScreenView,
             touchgfx::meta::TypeList< dummyScreenView,
-            touchgfx::meta::TypeList< behaviourConfigScreenView,
             touchgfx::meta::TypeList< startupScreenView,
             touchgfx::meta::TypeList< switchPressureConfigScreenView,
             touchgfx::meta::TypeList< configDebugScreenView,
+            touchgfx::meta::TypeList< behaviourConfigScreenView,
             touchgfx::meta::Nil > > > > > > > > > > > > > > > > >
             > GeneratedViewTypes;
 
@@ -114,10 +114,10 @@ public:
             touchgfx::meta::TypeList< requestStopScreenPresenter,
             touchgfx::meta::TypeList< jobCompleteScreenPresenter,
             touchgfx::meta::TypeList< dummyScreenPresenter,
-            touchgfx::meta::TypeList< behaviourConfigScreenPresenter,
             touchgfx::meta::TypeList< startupScreenPresenter,
             touchgfx::meta::TypeList< switchPressureConfigScreenPresenter,
             touchgfx::meta::TypeList< configDebugScreenPresenter,
+            touchgfx::meta::TypeList< behaviourConfigScreenPresenter,
             touchgfx::meta::Nil > > > > > > > > > > > > > > > > >
             > GeneratedPresenterTypes;
 

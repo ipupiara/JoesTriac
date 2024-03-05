@@ -216,6 +216,10 @@ void mainJt(void *argument)
 							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
 							break;
 						}
+						case storeDebugData: {
+							setDefinesDebugData(mJtEv.mainUnion.debugData.pidPri  ,mJtEv.mainUnion.debugData.infoPri ,
+																	mJtEv.mainUnion.debugData.extiDo);
+						}
 						default : {
 							errorHandler(mJtEv.evType ,goOn," osMessageQueueGet unknown event "," mainJt ");
 						}

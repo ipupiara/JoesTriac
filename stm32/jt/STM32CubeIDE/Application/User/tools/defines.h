@@ -105,6 +105,9 @@ void definesWait(uint32_t ms);
 void setCurrentAdcValAsCalibLow();
 void setCurrentAdcValAsCalibHigh();
 
+void getDefinesDebugData(uint8_t*  pidP, uint8_t* infoP, uint8_t* exti);
+void setDefinesDebugData(uint8_t  pidP, uint8_t infoP, uint8_t exti);
+
 int32_t i32abs(int32_t val);
 #ifdef  __cplusplus
 }

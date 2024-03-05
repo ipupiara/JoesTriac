@@ -60,7 +60,8 @@ typedef enum {
 	continueButtonClicked,
 	okPressed,
 	autoConfigPressed,
-	pidGraphInitializing
+	pidGraphInitializing,
+	storeDebugData
 }  mainJtMessageType;
 
 typedef enum {
@@ -85,6 +86,11 @@ typedef struct  {
 			uint8_t		alarmNeeded;
 			uint32_t    zCalibOn;
 		} alarmData;
+		struct {
+			uint8_t     pidPri;
+			uint8_t		infoPri;
+			uint8_t    extiDo;
+		} debugData;
 	} mainUnion;
 
 } CMainJtEventT ;

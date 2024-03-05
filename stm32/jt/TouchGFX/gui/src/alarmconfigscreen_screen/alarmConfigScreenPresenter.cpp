@@ -47,4 +47,3 @@ void alarmConfigScreenPresenter::tick()
 	}
 	++tickCnt;
 }
-

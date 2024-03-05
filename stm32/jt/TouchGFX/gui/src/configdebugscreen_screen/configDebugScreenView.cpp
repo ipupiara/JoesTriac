@@ -41,8 +41,6 @@ configDebugScreenView::configDebugScreenView()
     infoRadioButtonGroup.add(infoPrintfOffButton);
     add(infoPrintfOffButton);
 
-
-
     infoPrintfOnButton.setXY(207, 169);
     infoPrintfOnButton.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_OFF_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_OFF_PRESSED_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_ON_DARK_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_MEDIUM_ROUNDED_ON_PRESSED_ID));
     infoPrintfOnButton.setSelected(false);
@@ -52,14 +50,39 @@ configDebugScreenView::configDebugScreenView()
 }
 
 
-
-
 void configDebugScreenView::setupScreen()
 {
     configDebugScreenViewBase::setupScreen();
+
+    presenter->getDebugData(&pidPrintB, &infoPrintB, &extiCheckB);
+    if (pidPrintB != 0)  {
+    	printPidOnButton.setSelected(true);
+    }  else {
+    	printPidOffButton.setSelected(true);
+    }
+    if (infoPrintB != 0)  {
+    	infoPrintfOnButton.setSelected(true);
+    }  else {
+    	infoPrintfOffButton.setSelected(true);
+    }
+    if (extiCheckB != 0)  {
+    	extiCheckOnButton.setSelected(true);
+    }  else {
+    	infoPrintfOffButton.setSelected(true);
+    }
 }
 
 void configDebugScreenView::tearDownScreen()
 {
     configDebugScreenViewBase::tearDownScreen();
+}
+
+void configDebugScreenView::cancelButtonPressed()
+{
+	static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotobehaviourConfigScreenScreenNoTransition();
+}
+void configDebugScreenView::saveButtonPressed()
+{
+	presenter->setDebugData(pidPrintB, infoPrintB, extiCheckB);
+	cancelButtonPressed();
 }

@@ -6,7 +6,8 @@
 #include <texts/TextKeysAndLanguages.hpp>
 #include <images/BitmapDatabase.hpp>
 
-configDebugScreenViewBase::configDebugScreenViewBase()
+configDebugScreenViewBase::configDebugScreenViewBase() :
+    buttonCallback(this, &configDebugScreenViewBase::buttonCallbackHandler)
 {
     __background.setPosition(0, 0, 800, 480);
     __background.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
@@ -59,6 +60,22 @@ configDebugScreenViewBase::configDebugScreenViewBase()
     radioButton1.setVisible(false);
     radioButtonGroup1.add(radioButton1);
     add(radioButton1);
+
+    cancelButton.setXY(54, 371);
+    cancelButton.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
+    cancelButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_OONN));
+    cancelButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    cancelButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    cancelButton.setAction(buttonCallback);
+    add(cancelButton);
+
+    saveButton.setXY(400, 371);
+    saveButton.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
+    saveButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_JP7J));
+    saveButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    saveButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    saveButton.setAction(buttonCallback);
+    add(saveButton);
 }
 
 configDebugScreenViewBase::~configDebugScreenViewBase()
@@ -69,4 +86,22 @@ configDebugScreenViewBase::~configDebugScreenViewBase()
 void configDebugScreenViewBase::setupScreen()
 {
 
+}
+
+void configDebugScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
+{
+    if (&src == &cancelButton)
+    {
+        //cancelButtonInteraction
+        //When cancelButton clicked call virtual function
+        //Call cancelButtonPressed
+        cancelButtonPressed();
+    }
+    if (&src == &saveButton)
+    {
+        //saveButtonInteraction
+        //When saveButton clicked call virtual function
+        //Call saveButtonPressed
+        saveButtonPressed();
+    }
 }

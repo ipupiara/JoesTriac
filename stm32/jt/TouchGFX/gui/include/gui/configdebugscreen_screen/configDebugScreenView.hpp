@@ -11,7 +11,14 @@ public:
     virtual ~configDebugScreenView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
+    virtual void cancelButtonPressed();
+    virtual void saveButtonPressed();
+
 protected:
+
+	uint8_t  pidPrintB;
+	uint8_t  infoPrintB;
+	uint8_t  extiCheckB;
     touchgfx::RadioButtonGroup<2> extiRadioButtonGroup;    //  todo check if more groups can be used this way ?????  else  never-touch-gfx
     touchgfx::RadioButtonGroup<2> pidRadioButtonGroup;
     touchgfx::RadioButtonGroup<2> infoRadioButtonGroup;

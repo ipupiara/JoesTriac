@@ -194,6 +194,17 @@ uint16_t getDefinesSwitchPressureTime()
 	return val;
 }
 
+void getDefinesDebugData(uint8_t*  pidP, uint8_t* infoP, uint8_t* exti)
+{
+
+}
+
+void setDefinesDebugData(uint8_t  pidP, uint8_t infoP, uint8_t exti)
+{
+
+}
+
+
 #ifdef microSdWorking
 
 tStatus saveWeldingTime(uint32_t wTime)

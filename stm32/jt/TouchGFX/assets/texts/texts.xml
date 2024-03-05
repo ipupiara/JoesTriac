@@ -6,6 +6,21 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_JP7J" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">save</Translation>
+      </Text>
+      <Text Id="__SingleUse_ERVX" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">use only if you know what you do</Translation>
+      </Text>
+      <Text Id="__SingleUse_8NKS" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">some debug parameter</Translation>
+      </Text>
+      <Text Id="dsljkfsjldhdfeucj" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">save</Translation>
+      </Text>
+      <Text Id="__SingleUse_OONN" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">cancel</Translation>
+      </Text>
       <Text Id="__SingleUse_HPZE" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">off</Translation>
       </Text>

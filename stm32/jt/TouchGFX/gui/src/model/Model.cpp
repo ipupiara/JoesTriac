@@ -272,4 +272,18 @@ void  Model::storeSwitchPressureData(uint32_t spTime, uint8_t spNeeded)
 	storeDefinesSwitchPressureData(spTime,  spNeeded);
 }
 
+void  Model::getDebugData(uint8_t*  pidP, uint8_t* infoP, uint8_t* exti)
+{
+	getDefinesDebugData(pidP, infoP, exti);
+}
 
+
+void  Model::setDebugData(uint8_t  pidP, uint8_t infoP, uint8_t exti)
+{
+	CMainJtEventT evt;
+	evt.evType = storeDebugData;
+	evt.mainUnion.debugData.pidPri = pidP;
+	evt.mainUnion.debugData.infoPri = infoP;
+	evt.mainUnion.debugData.extiDo = exti;
+	sendEventToMainJtMessageQ(&evt,isNotFromIsr);
+}

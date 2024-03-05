@@ -11,6 +11,7 @@
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/RadioButton.hpp>
 #include <touchgfx/widgets/RadioButtonGroup.hpp>
+#include <touchgfx/widgets/ButtonWithLabel.hpp>
 
 class configDebugScreenViewBase : public touchgfx::View<configDebugScreenPresenter>
 {
@@ -18,6 +19,18 @@ public:
     configDebugScreenViewBase();
     virtual ~configDebugScreenViewBase();
     virtual void setupScreen();
+
+    /*
+     * Virtual Action Handlers
+     */
+    virtual void cancelButtonPressed()
+    {
+        // Override and implement this function in configDebugScreen
+    }
+    virtual void saveButtonPressed()
+    {
+        // Override and implement this function in configDebugScreen
+    }
 
 protected:
     FrontendApplication& application() {
@@ -37,8 +50,20 @@ protected:
     touchgfx::TextArea textArea6;
     touchgfx::RadioButtonGroup<1> radioButtonGroup1;
     touchgfx::RadioButton radioButton1;
+    touchgfx::ButtonWithLabel cancelButton;
+    touchgfx::ButtonWithLabel saveButton;
 
 private:
+
+    /*
+     * Callback Declarations
+     */
+    touchgfx::Callback<configDebugScreenViewBase, const touchgfx::AbstractButton&> buttonCallback;
+
+    /*
+     * Callback Handler Declarations
+     */
+    void buttonCallbackHandler(const touchgfx::AbstractButton& src);
 
 };
 

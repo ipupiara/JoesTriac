@@ -37,14 +37,14 @@
 #include <gui/jobcompletescreen_screen/jobCompleteScreenPresenter.hpp>
 #include <gui/dummyscreen_screen/dummyScreenView.hpp>
 #include <gui/dummyscreen_screen/dummyScreenPresenter.hpp>
-#include <gui/behaviourconfigscreen_screen/behaviourConfigScreenView.hpp>
-#include <gui/behaviourconfigscreen_screen/behaviourConfigScreenPresenter.hpp>
 #include <gui/startupscreen_screen/startupScreenView.hpp>
 #include <gui/startupscreen_screen/startupScreenPresenter.hpp>
 #include <gui/switchpressureconfigscreen_screen/switchPressureConfigScreenView.hpp>
 #include <gui/switchpressureconfigscreen_screen/switchPressureConfigScreenPresenter.hpp>
 #include <gui/configdebugscreen_screen/configDebugScreenView.hpp>
 #include <gui/configdebugscreen_screen/configDebugScreenPresenter.hpp>
+#include <gui/behaviourconfigscreen_screen/behaviourConfigScreenView.hpp>
+#include <gui/behaviourconfigscreen_screen/behaviourConfigScreenPresenter.hpp>
 
 using namespace touchgfx;
 
@@ -224,19 +224,6 @@ void FrontendApplicationBase::gotojobCompleteScreenScreenNoTransitionImpl()
     touchgfx::makeTransition<jobCompleteScreenView, jobCompleteScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
-// behaviourConfigScreen
-
-void FrontendApplicationBase::gotobehaviourConfigScreenScreenNoTransition()
-{
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotobehaviourConfigScreenScreenNoTransitionImpl);
-    pendingScreenTransitionCallback = &transitionCallback;
-}
-
-void FrontendApplicationBase::gotobehaviourConfigScreenScreenNoTransitionImpl()
-{
-    touchgfx::makeTransition<behaviourConfigScreenView, behaviourConfigScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
-}
-
 // startupScreen
 
 void FrontendApplicationBase::gotostartupScreenScreenNoTransition()
@@ -261,4 +248,30 @@ void FrontendApplicationBase::gotoswitchPressureConfigScreenScreenNoTransition()
 void FrontendApplicationBase::gotoswitchPressureConfigScreenScreenNoTransitionImpl()
 {
     touchgfx::makeTransition<switchPressureConfigScreenView, switchPressureConfigScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+// configDebugScreen
+
+void FrontendApplicationBase::gotoconfigDebugScreenScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoconfigDebugScreenScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotoconfigDebugScreenScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<configDebugScreenView, configDebugScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+// behaviourConfigScreen
+
+void FrontendApplicationBase::gotobehaviourConfigScreenScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotobehaviourConfigScreenScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotobehaviourConfigScreenScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<behaviourConfigScreenView, behaviourConfigScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
