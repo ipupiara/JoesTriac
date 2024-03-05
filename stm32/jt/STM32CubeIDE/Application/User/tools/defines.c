@@ -83,10 +83,12 @@ typedef struct {
 	float   weldingAmps;
 	uint32_t  calibLowAdc, calibHighAdc, zeroPotiPos;
 	uint8_t  alarmNeeded;
-	uint8_t  zCalibOn;
 	uint32_t  alarmTime;
 	uint8_t switchPressureNeeded;
 	uint16_t switchPressureTime;
+	uint8_t  extiOn;
+	uint8_t  pidPrintOn;
+	uint8_t  infoPrintOn;
 } persistentData;
 
 persistentData  persistentRec;
@@ -99,9 +101,11 @@ void initPersistendData()
 	persistentRec.calibHighAdc = 0;
 	persistentRec.alarmNeeded = 1;
 	persistentRec.alarmTime   = 12;
-	persistentRec.zCalibOn = 0;
+	persistentRec.extiOn = 0;
 	persistentRec.switchPressureNeeded = 0;
 	persistentRec.switchPressureTime = 0;
+	persistentRec.infoPrintOn = 0;
+	persistentRec.pidPrintOn = 0;
 }
 
 uint32_t getDefinesWeldingTime()
@@ -140,15 +144,6 @@ uint32_t getDefinesAlarmTime()
 	return aTime;
 }
 
-uint32_t getDefinesZCalibOn()
-{
-	uint32_t res;
-//	taskENTER_CRITICAL();
-	res = persistentRec.zCalibOn;
-//	taskEXIT_CRITICAL();
-	return res;
-}
-
 uint32_t getDefinesCalibHighAdc()
 {
 	uint32_t cal;
@@ -165,15 +160,6 @@ uint32_t getDefinesCalibLowAdc()
 	cal = persistentRec.calibLowAdc;
 //	taskEXIT_CRITICAL();
 	return cal;
-}
-
-uint32_t getDefinesZeroPotiPos()
-{
-	uint32_t val;
-//	taskENTER_CRITICAL();
-	val = persistentRec.zeroPotiPos;
-//	taskEXIT_CRITICAL();
-	return val;
 }
 
 uint8_t getDefinesSwitchPressureNeeded()
@@ -289,32 +275,45 @@ tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded)
 
 #else
 
-#define amountPersistentValues  8
+#define amountPersistentValues  11
+
+	uint16_t weldingTime;
+	float   weldingAmps;
+	uint16_t  calibLowAdc;
+	uint16_t  calibHighAdc;
+	uint8_t  alarmNeeded;
+	uint16_t  alarmTime;
+	uint8_t switchPressureNeeded;
+	uint16_t switchPressureTime;
+	uint8_t  extiOn;
+	uint8_t  pidPrintOn;
+	uint8_t  infoPrintOn;
+
 
 #define wTimePos  0
-#define wAmpsPos wTimePos+ 4
-#define cLowPos  wTimePos+ 8
-#define cHighPos wTimePos+ 12
-#define zPotiPos wTimePos+ 16
-#define aNeededPos wTimePos+ 20
-#define zOnPos wTimePos+ 24
-#define aTimePos  wTimePos+ 28
-#define spTimePos wTimePos + 32
-#define spNeededPos wTimePos + 36
+#define wAmpsPos wTimePos+ 2
+#define cLowPos  wAmpsPos+ 4
+#define cHighPos cLowPos+ 2
+#define aNeededPos cHighPos+ 2
+#define aTimePos  aNeededPos+ 1
+#define spTimePos aTimePos + 2
+#define spNeededPos spTimePos + 2
+#define	extiPos spNeededPos + 1
+#define pidPrPos extiPos + 1
+#define infoPrPos + 1
 
-#define amtPersistentVariables  10
-varData  variableData  [amtPersistentVariables]= {
-		{(void *)(&persistentRec.weldingTime), intVar32, wTimePos,sizeof(persistentRec.weldingTime)},
+varData  variableData  [amountPersistentValues]= {
+		{(void *)(&persistentRec.weldingTime), intVar16, wTimePos,sizeof(persistentRec.weldingTime)},
 		{(void *)(&persistentRec.weldingAmps), realVar,wAmpsPos, sizeof(persistentRec.weldingAmps)},
-		{(void *)(&persistentRec.calibLowAdc), intVar32, cLowPos, sizeof(persistentRec.calibLowAdc)},
-		{(void *)(&persistentRec.calibHighAdc), intVar32, cHighPos, sizeof(persistentRec.calibHighAdc)},
-		{(void *)(&persistentRec.zeroPotiPos), intVar32, zPotiPos, sizeof(persistentRec.zeroPotiPos)},
-		{(void *)(&persistentRec.zCalibOn), intVar8, zOnPos, sizeof(persistentRec.zCalibOn)},
+		{(void *)(&persistentRec.calibLowAdc), intVar16, cLowPos, sizeof(persistentRec.calibLowAdc)},
+		{(void *)(&persistentRec.calibHighAdc), intVar16, cHighPos, sizeof(persistentRec.calibHighAdc)},
 		{(void *)(&persistentRec.alarmNeeded), intVar8, aNeededPos, sizeof(persistentRec.alarmNeeded)},
-		{(void *)(&persistentRec.alarmTime), intVar32, aTimePos, sizeof(persistentRec.alarmTime)},
+		{(void *)(&persistentRec.alarmTime), intVar16, aTimePos, sizeof(persistentRec.alarmTime)},
 		{(void *)(&persistentRec.switchPressureNeeded), intVar8, spNeededPos, sizeof(persistentRec.switchPressureNeeded)},
-		{(void *)(&persistentRec.switchPressureTime), intVar32, spTimePos, sizeof(persistentRec.switchPressureTime)}};
-
+		{(void *)(&persistentRec.switchPressureTime), intVar16, spTimePos, sizeof(persistentRec.switchPressureTime)},
+		{(void *)(&persistentRec.extiOn), intVar8, extiPos, sizeof(persistentRec.extiOn)},
+		{(void *)(&persistentRec.pidPrintOn), intVar8, pidPrPos, sizeof(persistentRec.pidPrintOn)},
+		{(void *)(&persistentRec.infoPrintOn), intVar8, infoPrPos, sizeof(persistentRec.infoPrintOn)}};
 
 void eepromSave(pVarData pVD)
 {
@@ -394,22 +393,6 @@ tStatus saveCalibHighAdc(uint32_t cHigh)
 	return success;
 }
 
-tStatus saveZeroPotiPos(uint32_t val)
-{
-	tStatus success = tOk;
-	persistentRec.zeroPotiPos = val;
-	eepromSave(&variableData[4]);
-	return success;
-}
-
-tStatus saveZCalibOn(uint32_t val)
-{
-	tStatus success = tOk;
-	persistentRec.zCalibOn = val;
-	eepromSave(&variableData[5]);
-	return success;
-}
-
 tStatus saveAlarmNeeded(uint8_t aNeeded)
 {
 	tStatus success = tOk;
@@ -446,7 +429,7 @@ tStatus	 saveSwitchPressureTime(uint32_t aTime)
 tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded, uint32_t zCalibOn)
 {
 	tStatus success = tOk;
-	success= saveZCalibOn(zCalibOn);
+//	success= saveZCalibOn(zCalibOn);
 	success= saveAlarmNeeded(aNeeded);
 	success= saveAlarmTime(aTime);
 	return success;

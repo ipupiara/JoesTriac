@@ -23,7 +23,6 @@ enum eStates
 			eStateSetup,
 				eStateSetupIdle,
 				eStateAutoCalibrating,
-//					eStateCalibrateZeroSignal,
 					eStateCalibratingScale,
 						eStateCalibrateLow,
 						eStateCalibrateHigh,
@@ -716,15 +715,6 @@ xStateType xaStates[eNumberOfStates] = {
 				tfNull,
 				entryAutoCalibratingState,
 				exitAutoCalibratingState},
-
-//					{eStateCalibrateZeroSignal,
-//					eStateAutoCalibrating,
-//					eStateCalibrateLow,
-//					0,
-//					evCalibrateZeroSignalChecker,
-//					tfNull,
-//					entryCalibrateZeroSignalState,
-//					exitCalibrateZeroSignalState},
 
 					{eStateCalibratingScale,
 					eStateAutoCalibrating,

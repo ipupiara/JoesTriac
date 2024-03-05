@@ -21,11 +21,9 @@ public:
 
 	  uint32_t getCalibLow();
 	  uint32_t getCalibHigh();
-	  uint32_t getZeroPotiPos();
 
 	   void setCalibHigh(uint32_t cH);
 	   void setCalibLow(uint32_t cL);
-	   void setZeroPotiPos(uint32_t cL);
 
 	    void   saveCalibValues();
 

@@ -46,16 +46,6 @@ void   JtPresenter::resetCache()
 	model->resetCalibValues();
 }
 
-uint32_t  JtPresenter::getZeroPotiPos()
-{
-	return model->getZeroPotiPos();
-}
-
-void JtPresenter::setZeroPotiPos(uint32_t cL)
-{
-	model->setZeroPotiPos(cL);
-}
-
 uint16_t JtPresenter::getWeldingTimeSec()
 {
 	return model->getWeldingTimeSec();

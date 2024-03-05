@@ -40,7 +40,8 @@ typedef enum  {
 typedef enum  {
 	realVar,
 	intVar32,
-	intVar8
+	intVar8,
+	intVar16
 } varType;
 
 typedef struct  {
@@ -52,22 +53,17 @@ typedef struct  {
 
 typedef varData* pVarData;
 
-
 uint32_t getDefinesWeldingTime();
 
 float getDefinesWeldingAmps();
 
 uint8_t getDefinesAlarmNeeded();
 
-uint32_t getDefinesZCalibOn();
-
 uint32_t getDefinesAlarmTime();
 
 uint32_t getDefinesCalibHighAdc();
 
 uint32_t getDefinesCalibLowAdc();
-
-uint32_t getDefinesZeroPotiPos();
 
 uint8_t getDefinesSwitchPressureNeeded();
 
@@ -79,11 +75,9 @@ tStatus saveWeldingAmps(float wAmps);
 
 tStatus saveCalibLowAdc(uint32_t cHigh);
 tStatus saveCalibHighAdc(uint32_t cLow);
-tStatus saveZeroPotiPos(uint32_t val);
 
 tStatus saveAlarmNeeded(uint8_t aNeeded);
 tStatus saveAlarmTime(uint32_t aTime);
-tStatus saveZCalibOn(uint32_t val);
 tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded, uint32_t zCalibOn);
 
 void errorHandler(uint32_t  code, errorSeverity severity,const char* errorString, const char* method );
@@ -91,7 +85,6 @@ void errorHandler(uint32_t  code, errorSeverity severity,const char* errorString
 tStatus initDefines();
 
 tStatus isCalibrationReady();
-void setZCalibAuto(uint32_t on);
 
 void sendActualValuesToCalibScreen();
 void sendActualValuesToRunNStopScreen(uint16_t secondsRemaining,uint16_t secondsb4Return);

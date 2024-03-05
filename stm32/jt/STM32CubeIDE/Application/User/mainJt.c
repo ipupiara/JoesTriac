@@ -16,11 +16,11 @@
 #include <defines.h>
 #include <extiCheck.h>
 
-union  {
-	float realVar;
-	uint32_t intVar32;
-	uint8_t  intVar8;
-} valType ;
+//union  {
+//	float realVar;
+//	uint32_t intVar32;
+//	uint8_t  intVar8;
+//} valType ;
 
 
 //////////////////  types and variables   //////////////////////////////7

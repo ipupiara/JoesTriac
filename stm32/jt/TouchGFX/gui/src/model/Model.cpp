@@ -115,9 +115,6 @@ void Model::tick()
 				printPid(&modelMessage);
 			}
 		} else {
-//			char* mm = "modelMessageQ";
-//			char* met = "Model::tick";
-//			errorHandler(status, goOn,mm,met);
 		}
 
 	}
@@ -164,13 +161,6 @@ uint8_t  Model::getAlarmNeeded()
 	return res;
 }
 
-uint32_t Model::getZCalibOn()
-{
-	uint32_t res;
-	res = getDefinesZCalibOn();
-	return res;
-}
-
 void Model::storeAlarm(uint8_t alNeeded, uint16_t alTime, uint32_t zCalibOn)
 {
 	CMainJtEventT evt;
@@ -189,7 +179,6 @@ void Model::restoreData()  // check if this method is in use somewhere
 //	alarmNeeded =  getDefinesAlarmNeeded();
 //
 //	alarmTime =  (uint16_t) getDefinesAlarmTime();
-//	zCalibOn  =  getDefinesZCalibOn();
 }
 
 uint32_t Model::getCalibHigh()
@@ -222,16 +211,6 @@ void   Model::resetCalibValues()
 	calibCache.resetCalibValues();
 }
 
-uint32_t Model::getZeroPotiPos()
-{
-	return calibCache.getZeroPotiPos();
-}
-
-void Model::setZeroPotiPos(uint32_t val)
-{
-	calibCache.setZeroPotiPos(val);
-}
-
 void Model::CalibCache::storeCalibHigh()
 {
 	CMainJtEventT evt;
@@ -247,15 +226,6 @@ void Model::CalibCache::storeCalibLow()
 	evt.mainUnion.calibLow = calibLowCache;
 	sendEventToMainJtMessageQ(&evt,isNotFromIsr);
 }
-
-void Model::CalibCache::storeZeroPotiPos()
-{
-	CMainJtEventT evt;
-	evt.evType = saveZPotiPos;
-	evt.mainUnion.zPotiPos = zeroPotiPosCache;
-	sendEventToMainJtMessageQ(&evt,isNotFromIsr);
-}
-
 
 uint8_t Model::getSwitchPressureNeeded()
 {
