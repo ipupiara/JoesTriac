@@ -190,6 +190,20 @@ void setDefinesDebugData(uint8_t  pidP, uint8_t infoP, uint8_t exti)
 
 }
 
+uint8_t getDoExti()
+{
+	return persistentRec.extiOn;
+}
+
+uint8_t getDoInfoPrint()
+{
+	return persistentRec.infoPrintOn;
+}
+
+uint8_t getDoPidPrint()
+{
+	return persistentRec.pidPrintOn;
+}
 
 #ifdef microSdWorking
 

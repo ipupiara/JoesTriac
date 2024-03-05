@@ -99,6 +99,11 @@ void setCurrentAdcValAsCalibLow();
 void setCurrentAdcValAsCalibHigh();
 
 void getDefinesDebugData(uint8_t*  pidP, uint8_t* infoP, uint8_t* exti);
+
+uint8_t getDoExti();
+uint8_t getDoInfoPrint();
+uint8_t getDoPidPrint();
+
 void setDefinesDebugData(uint8_t  pidP, uint8_t infoP, uint8_t exti);
 
 int32_t i32abs(int32_t val);

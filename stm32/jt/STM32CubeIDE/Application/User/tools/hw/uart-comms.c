@@ -15,7 +15,8 @@
 #include <uart-comms.h>
 //#include <gui/calibrationscreen_screen/calibrationScreenView.hpp>   obviousely does not work like that so easily or maybe not at all
 
-//#define debugPid
+uint8_t doInfoPrint;
+uint8_t doPidPrint;
 
 uint32_t  amtErr;			// amt calls to err_printf
 uint32_t  amtPrintErr;   // errors during print out, where err_printf should not be called
@@ -69,11 +70,11 @@ void  SerialQMethod (void *p_arg)
 void init_printf()
 {
 
+
 	serialOn = 0;
 	amtErr = 0;
 	amtPrintErr = 0;
 	uint8_t err = osOK;
-
 
 	serialMessageQ =  osMessageQueueNew(5,serialBufferSize * charWidth, NULL);  // todo set width correct for pointer (4*char width or so )
 	if (serialMessageQ  == NULL)   {
@@ -141,9 +142,9 @@ void info_printf( char *emsg, ...)  // does not run since together with C++  ???
 {
 	va_list ap;
 	va_start(ap, emsg);
-#ifndef debugPid
-	private_printf(emsg, ap);
-#endif
+	if (getDoInfoPrint() != 0) {
+		private_printf(emsg, ap);
+	}
 	va_end(ap);
 }
 
@@ -151,9 +152,9 @@ void pid_printf( char *emsg, ...)
 {
 	va_list ap;
 	va_start(ap, emsg);
-#ifdef debugPid
-	private_printf(emsg, ap);
-#endif
+	if (getDoPidPrint() != 0)  {
+		private_printf(emsg, ap);
+	}
 	va_end(ap);
 }
 

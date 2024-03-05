@@ -37,6 +37,8 @@ int32_t triacTriggerDelay;
 uint32_t tim12IrqCntCC, amtTim12IrqCallsPerCyleCC;
 uint32_t tim12IrqCntUI, amtTim12IrqCallsPerCyleUI;
 
+uint8_t doExti;
+
 //#define ampsHigherPort  GPIOB
 //#define ampsHigherPin   GPIO_PIN_14
 //#define ampsLowerPort   GPIOB
@@ -406,17 +408,20 @@ void EXTI15_10_IRQHandler(void)
 	++ extiIrqCnt;
 	UNUSED(res);
 	  if(__HAL_GPIO_EXTI_GET_IT(zeroPass_Pin) != 0) {
-		__HAL_GPIO_EXTI_CLEAR_IT(zeroPass_Pin);
+			__HAL_GPIO_EXTI_CLEAR_IT(zeroPass_Pin);
 
-		startExtiCheck();
-	//  todo needs be tested first and
-
-	//	doJobOnZeroPassEvent(isExtiPinSet());
+			if (doExti != 0) {
+				startExtiCheck();
+			//  todo needs be tested first and
+			}  else {
+				doJobOnZeroPassEvent(isExtiPinSet());
+			}
 	  }
 }
 
 void startTriacRun()
 {
+	doExti = getDoExti();
 	startExtiChecking();
 	setTriacTriggerDelay(stmTriggerRangeMax);
 
@@ -451,6 +456,7 @@ void doJobOnZeroPassEvent(uint8_t ev)
 void initTriacControl()
 {
 //	startDebuggingTriacRun();   //  todo comment this out after debugging
+
 	triacTriggerDelay = stmTriggerRangeMax;
 	initExtiCheck();
 	initTriacDelayTimer();
