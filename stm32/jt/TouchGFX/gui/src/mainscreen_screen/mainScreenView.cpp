@@ -29,6 +29,9 @@ void mainScreenView::setupScreen()
 	gaugeWithGoal.invalidate();
 //	pidDataGraphContainer1.setVisible(false);
 //	pidDataGraphContainer1.invalidate();
+
+//	pidDataGraphContainer1.graphInitialized = 0;   todo tobe tested when debugging problem that graph disappears sometimes after screen changes
+	// comlicated call mechanism left so far, idea was to be able to send different graphs from repository to screen, just a brainstorm scratch paper idea
 }
 
 void mainScreenView::tearDownScreen()
@@ -63,6 +66,7 @@ void mainScreenView::graphButtonPressed()
 		if (status != osOK) {
 			errorHandler(status,goOn," status ","pidDataGraphContainer::initialize");
 		}
+
 		pidDataGraphContainer1.setVisible(true);
 		pidDataGraphContainer1.invalidate();
 	}

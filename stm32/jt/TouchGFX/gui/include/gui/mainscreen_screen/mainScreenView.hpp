@@ -18,6 +18,7 @@ public:
     void showPidGraphFromData(pJoesPresenterEventT  pMsg);
 
 protected:
+
 };
 
 #endif // MAINSCREENVIEW_HPP

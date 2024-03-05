@@ -14,11 +14,11 @@ public:
     void updateGraph(pJoesPresenterEventT  pMsg );
 //    void initNew(graphDataRec* pData);
     void initFromData(pJoesPresenterEventT  pMsg );
+    uint8_t  graphInitialized;
 protected:
     void setOriginalScreen(Screen scr);
     static Screen originalScreen;
 
-    uint8_t  graphInitialized;
 };
 
 #endif // PIDDATAGRAPHCONTAINER_HPP

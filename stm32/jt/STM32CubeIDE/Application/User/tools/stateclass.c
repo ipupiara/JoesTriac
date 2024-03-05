@@ -382,7 +382,6 @@ uStInt evCalibrateHighChecker(void)
 	return res;
 }
 
-uint8_t pidInitialized;
 
 void entryTriacIdleState(void)
 {
@@ -394,7 +393,6 @@ void entryTriacIdleState(void)
 	if(status != osOK)  {
 		errorHandler(status,goOn," status ","entryTriacIdleState");
 	}
-	pidInitialized = 0;
 }
 
 void exitTriacIdleState(void)
@@ -423,11 +421,7 @@ uStInt evTriacIdleChecker(void)
 	}
 
 	if (currentEvent->evType == evPidGraphInit)  {
-		if (pidInitialized == 0)
-		{
 			printExistingGraph();
-			pidInitialized = 1;
-		}
 
 		res =  uStIntHandlingDone;
 	}
@@ -491,7 +485,6 @@ void entryTriacRunningState(void)
 	CJoesPresenterEventT  msg;
 	msg.messageType = doRun;
 	sendPresenterMessage(&msg);
-	pidInitialized = 0;
 }
 
 void exitTriacRunningState(void)
