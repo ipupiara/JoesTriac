@@ -10,6 +10,8 @@
 #include <touchgfx/widgets/Box.hpp>
 #include <touchgfx/widgets/Button.hpp>
 #include <touchgfx/widgets/Image.hpp>
+#include <touchgfx/widgets/RadioButton.hpp>
+#include <touchgfx/widgets/RadioButtonGroup.hpp>
 
 class dummyScreenViewBase : public touchgfx::View<dummyScreenPresenter>
 {
@@ -37,6 +39,8 @@ protected:
     touchgfx::Image image1;
     touchgfx::Image image2;
     touchgfx::Box box1;
+    touchgfx::RadioButtonGroup<1> radioButtonGroup1;
+    touchgfx::RadioButton radioButton1;
 
 private:
 

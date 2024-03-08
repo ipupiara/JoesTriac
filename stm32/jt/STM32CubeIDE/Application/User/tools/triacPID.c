@@ -124,7 +124,7 @@ void calcNextTriacDelay(doPidAndPrint pidNPrint)
 	}
 
 
-	printTriacData(pidAndPrint);
+//	printTriacData(pidAndPrint);
 
 #ifdef printfPid
 	double ampsD  = currentAmps();
@@ -157,7 +157,7 @@ void calcNextTriacDelay(doPidAndPrint pidNPrint)
 //			}
 //		}
 //	}
-//	++ pidStepCnt;
+	++ pidStepCnt;
 }
 
 void printTriacData(doPidAndPrint pidNPrint)

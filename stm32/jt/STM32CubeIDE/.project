@@ -1065,6 +1065,26 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__generated/image_alternate_theme_images_widgets_gauge_medium_needles_smooth.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/image_alternate_theme_images_widgets_radiobutton_radio_large_round_off.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__generated/image_alternate_theme_images_widgets_radiobutton_radio_large_round_off.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_alternate_theme_images_widgets_radiobutton_radio_large_round_off_pressed.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__generated/image_alternate_theme_images_widgets_radiobutton_radio_large_round_off_pressed.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_alternate_theme_images_widgets_radiobutton_radio_large_round_on_action.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__generated/image_alternate_theme_images_widgets_radiobutton_radio_large_round_on_action.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_alternate_theme_images_widgets_radiobutton_radio_large_round_on_pressed.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__generated/image_alternate_theme_images_widgets_radiobutton_radio_large_round_on_pressed.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/image_alternate_theme_images_widgets_radiobutton_radio_medium_rounded_off.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__generated/image_alternate_theme_images_widgets_radiobutton_radio_medium_rounded_off.cpp</locationURI>

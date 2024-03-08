@@ -132,7 +132,7 @@ uint8_t startUartHw()
 osStatus_t sendUartString(char* sndStr)
 {
 	osStatus_t res = osOK;
-	UART_Transmit(&huart1, (uint8_t*) sndStr, strlen(sndStr));
+//	UART_Transmit(&huart1, (uint8_t*) sndStr, strlen(sndStr));
 
 	return res;
 }

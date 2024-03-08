@@ -29,25 +29,25 @@ configDebugScreenViewBase::configDebugScreenViewBase() :
     textArea2.setTypedText(touchgfx::TypedText(T___SINGLEUSE_EA7H));
     add(textArea2);
 
-    textArea3.setXY(54, 169);
+    textArea3.setXY(54, 204);
     textArea3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea3.setLinespacing(0);
     textArea3.setTypedText(touchgfx::TypedText(T___SINGLEUSE_4FRP));
     add(textArea3);
 
-    printpidText.setXY(54, 228);
+    printpidText.setXY(54, 285);
     printpidText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     printpidText.setLinespacing(0);
     printpidText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_AQ60));
     add(printpidText);
 
-    textArea5.setXY(213, 75);
+    textArea5.setXY(213, 72);
     textArea5.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea5.setLinespacing(0);
     textArea5.setTypedText(touchgfx::TypedText(T___SINGLEUSE_5DBZ));
     add(textArea5);
 
-    textArea6.setXY(291, 75);
+    textArea6.setXY(330, 72);
     textArea6.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea6.setLinespacing(0);
     textArea6.setTypedText(touchgfx::TypedText(T___SINGLEUSE_HPZE));
