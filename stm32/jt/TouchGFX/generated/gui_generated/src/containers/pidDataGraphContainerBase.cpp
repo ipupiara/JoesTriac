@@ -28,7 +28,7 @@ pidDataGraphContainerBase::pidDataGraphContainerBase() :
     goalGraph.setGraphAreaMargin(0, 0, 0, 0);
     goalGraph.setGraphAreaPadding(0, 0, 0, 0);
     goalGraph.setGraphRangeY(0, 120);
-    goalGraph.setAlpha(86);
+    goalGraph.setAlpha(189);
     goalGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(20, 151, 197));
     goalGraphLine1.setPainter(goalGraphLine1Painter);
     goalGraphLine1.setLineWidth(2);

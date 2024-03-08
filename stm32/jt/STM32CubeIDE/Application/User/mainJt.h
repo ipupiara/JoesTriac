@@ -179,7 +179,8 @@ typedef enum {
 	changeToJobOkScreen,
 	changeToCalibrationScreen,
 	restoreModelData,
-	pidPrint
+	pidPrint,
+	doRunScreenUpdate
 }  modelMessageType;
 
 
@@ -198,6 +199,7 @@ typedef struct  {
 			uint32_t triCorrInt;
 			float  ampsV;
 			float  Vpa, Vin, Vde;
+			doPidAndPrint pidAndPrintBool;
 		} pidPrintData;
 	}  evData;
 } CJoesModelEventT ;

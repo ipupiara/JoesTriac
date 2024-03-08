@@ -59,19 +59,22 @@ void Model::printPid (CJoesModelEventT* mEv)
 {
 	Unicode::UnicodeChar  floatBufferU [50];
 	uint8_t  floatBuffer8 [50];
-
-	float fParams [4] =  {mEv->evData.pidPrintData.ampsV, mEv->evData.pidPrintData.Vpa
-			                 , mEv->evData.pidPrintData.Vin, mEv->evData.pidPrintData.Vde};
-
 	memset(floatBufferU,0,sizeof(floatBufferU));
 	memset(floatBuffer8,0,sizeof(floatBuffer8));
-
-	Unicode::snprintfFloats(( short unsigned int*)floatBufferU, 50 ," amps %6.2f, Vp %4.1f, Vi  %4.1f, Vd  %4.1f", fParams );
-	Unicode::toUTF8(( short unsigned int*)floatBufferU,  floatBuffer8, 50);
-
 	memset(uartInputBuffer,0,serialBufferSize);
-	cppvsnprintf((char *)uartInputBuffer, serialBufferSize,  "pidstep: adc %4d, delay %4d, corr %4d %s\n", mEv->evData.pidPrintData.triAdc,
-							mEv->evData.pidPrintData.triDelay, mEv->evData.pidPrintData.triCorrInt, floatBuffer8 );
+
+	if (mEv->evData.pidPrintData.pidAndPrintBool == pidAndPrint) {
+		float fParams [4] =  {mEv->evData.pidPrintData.ampsV, mEv->evData.pidPrintData.Vpa
+								 , mEv->evData.pidPrintData.Vin, mEv->evData.pidPrintData.Vde};
+		Unicode::snprintfFloats(( short unsigned int*)floatBufferU, 50 ," amps %6.2f, Vp %4.1f, Vi  %4.1f, Vd  %4.1f", fParams );
+		Unicode::toUTF8(( short unsigned int*)floatBufferU,  floatBuffer8, 50);
+
+		cppvsnprintf((char *)uartInputBuffer, serialBufferSize,  "pidstep: adc %4d, delay %4d, corr %4d %s\n", mEv->evData.pidPrintData.triAdc,
+								mEv->evData.pidPrintData.triDelay, mEv->evData.pidPrintData.triCorrInt, floatBuffer8 );
+	}  else {
+		cppvsnprintf((char *)uartInputBuffer, serialBufferSize,  "pidstep: adc %4d, delay %4d", mEv->evData.pidPrintData.triAdc,
+										mEv->evData.pidPrintData.triDelay);
+	}
 }
 
 

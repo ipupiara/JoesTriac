@@ -24,9 +24,9 @@ typedef double real;
 #define kTotal (float) 1.0 * ((float)1000.0 / (float)499.0)  //  used to compensate a changes in cycle time pidStepDelays,
 								// the higher cycle frequency the lower kTotal
 #define kPartial   1.6     //  0.15
-#define kIntegral  0.6  // 1.0       //  0.2
-#define kDerivativ    0.1      //  0.2
-#define integral_thres 4.0    //  5.0
+#define kIntegral  1.0  // 1.0       //  0.2
+#define kDerivativ    0.15      //  0.2
+#define integral_thres 3.0    //  5.0
 #define correctionThreshold  80.0   //10 .0   // good to use at least for inductive loads where too high changes can lead to short-circuit
 
 #define pidGraphSize 900
@@ -51,7 +51,7 @@ void startAmpsADC();
 void stopAmpsADC();
 void adcValueReceived(uint16_t adcVal);
 uint32_t getCurrentAmpsADCValue();
-void setCurrentAmpsADCValueNonIsr(uint32_t adcV );
+void setCurrentAmpsADCValue(uint32_t adcV );
 float adcVoltage();
 
 void InitPID();
@@ -59,8 +59,7 @@ void resetPID();
 void startTriacPidRun();
 void stopTriacPidRun();
 
-
-void calcNextTriacDelay(uint8_t pidOn);
+void calcNextTriacDelay(doPidAndPrint pidNPrint);
 
 void initPidGraphData(float goalVal, uint32_t secsDuration);
 void printNextGraphDataPoint(float value);

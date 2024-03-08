@@ -14,11 +14,12 @@
 //#define printfPid
 #define printfAmps
 
-
 // void initTwa();
 
-float currentAmpsValue;
-uint16_t currentAmpsADCValue;
+
+extern void startTriacRun();
+extern void stopTriacRun();
+void printTriacData(doPidAndPrint pidNPrint);
 void initPidData();
 
 int8_t m_started;
@@ -26,19 +27,13 @@ real m_kPTot, m_kP, m_kI, m_kD, m_stepTime, m_inv_stepTime, m_prev_error, m_inte
 real m_correctionThresh, q_fact;
 real error , correction;
 real  Vp, Vi, Vd;
-
-
-extern void startTriacRun();
-extern void stopTriacRun();
+int16_t newDelay;
+int16_t corrInt;
 
 //__attribute__((section("TableSection")))  graphDataRec  triacPidGraphData;
 graphDataRec  triacPidGraphData;
 
 
-float gradAmps; //   (delta amperes) / (delta adc)   ....
-float gradAdc;  
-uint32_t calibHighADC;
-uint32_t calibLowADC;
 real corrCarryOver;     // carry amount if correction in float gives zero correction in int
 uint32_t pidStepCnt;
 
@@ -49,86 +44,12 @@ uint8_t signum(real re)
 	return res;
 }
 
-uint32_t getCurrentAmpsADCValue()
-{
-	uint32_t res;
-//	taskENTER_CRITICAL();
-	res = currentAmpsADCValue;
-//	taskEXIT_CRITICAL();
-	return res;
-}
-
-void setCurrentAmpsADCValueNonIsr(uint32_t adcV )
-{
-//	taskENTER_CRITICAL();
-	currentAmpsADCValue = adcV;
-//	taskEXIT_CRITICAL();
-}
-
-void adcValueReceived(uint16_t adcVal)
-{
-//	taskENTER_CRITICAL();
-	setCurrentAmpsADCValueNonIsr(adcVal);
-//	taskEXIT_CRITICAL();
-}
-
-void updateGradAmps()
-{
-	float dADC;
-	float dAmps;
-	dAmps = calibHighAmps - calibLowAmps;
-	dADC = getDefinesCalibHighAdc() - getDefinesCalibLowAdc();
-	if ( fabs(dADC) > 1) {
-		gradAmps = dAmps / dADC;
-	} else gradAmps = 0;
-	if (fabs (dAmps) > 1)  {
-		gradAdc = dADC / dAmps;
-	} else gradAdc = 0;
-}
-
-
 uint8_t idleTickCnt;
 
-uint8_t  sendMessageBuffer [4];
-uint8_t  receiveMessageBuffer[8];
+//uint8_t  sendMessageBuffer [4];
+//uint8_t  receiveMessageBuffer[8];
 
 
-float adcVoltage()
-{
-	int16_t ampsAdcHex;
-	float   ampsAdcF;
-	float   adcMaxF = 0x0FFF;
-
-	float    Vf;
-
-	ampsAdcHex = getCurrentAmpsADCValue();
-	ampsAdcF  = ampsAdcHex;
-	Vf = (ampsAdcF * 3.3) / adcMaxF;
-
-	return Vf;
-}
-
-float currentAmps()
-{
-	uint32_t adcVal;
-	float res = 0.0;
-
-	adcVal = getCurrentAmpsADCValue();
-
-	int32_t diffAdc = ((uint32_t) (adcVal)) - ((uint32_t) ( getDefinesCalibLowAdc()))  ;
-
-	float diffI = (gradAmps * diffAdc);
-
-	res = calibLowAmps +  diffI;
-	return res;
-}
-
-float getCurrentAmpsValue()
-{
-	float  res;
-	res = currentAmps();
-	return res;
-}
 
 void startTriacPidRun()
 {
@@ -150,7 +71,6 @@ void resetPID()
  	m_integral =0;
 	m_prev_error = 0;
 	m_started = 0;
-	updateGradAmps();
 }
 
 real nextCorrection(real error)
@@ -187,10 +107,8 @@ real nextCorrection(real error)
 }
 
 
-void calcNextTriacDelay(doPidAndPrint pidNPrint)    // todo create a typedef enum for better understanding of code
+void calcNextTriacDelay(doPidAndPrint pidNPrint)
 {
-	int16_t newDelay;
-	int16_t corrInt;
 
 	if (pidNPrint > printOnly ) {
 		float err;
@@ -205,6 +123,8 @@ void calcNextTriacDelay(doPidAndPrint pidNPrint)    // todo create a typedef enu
 		newDelay = getTriacTriggerDelay();
 	}
 
+
+	printTriacData(pidAndPrint);
 
 #ifdef printfPid
 	double ampsD  = currentAmps();
@@ -238,6 +158,24 @@ void calcNextTriacDelay(doPidAndPrint pidNPrint)    // todo create a typedef enu
 //		}
 //	}
 //	++ pidStepCnt;
+}
+
+void printTriacData(doPidAndPrint pidNPrint)
+{
+	double ampsD  = currentAmps();
+	uint32_t adcVal =  getCurrentAmpsADCValue();
+
+	CJoesModelEventT  msg;
+	msg.messageType = pidPrint;
+	msg.evData.pidPrintData.triAdc = adcVal;
+	msg.evData.pidPrintData.triCorrInt = corrInt;
+	msg.evData.pidPrintData.ampsV = ampsD;
+	msg.evData.pidPrintData.triCorrInt = corrInt;
+	msg.evData.pidPrintData.Vde = Vd ;
+	msg.evData.pidPrintData.Vin = Vi ;
+	msg.evData.pidPrintData.Vpa = Vp ;
+	msg.evData.pidPrintData.pidAndPrintBool = pidNPrint;
+	sendModelMessage(&msg);
 }
 
 void printExistingGraph()
@@ -285,7 +223,6 @@ void InitPID()
 	//	initTwa();
 
 	q_fact = 0.0;
-	currentAmpsValue = 0.0;
 
 	m_kPTot = kTotal;
 	m_kP   = kPartial ;
@@ -301,8 +238,6 @@ void InitPID()
 	m_integral = 0;
 	m_started = 0;
 	corrCarryOver = 0.0;
-
-	updateGradAmps();
 	Vp = Vi = Vd = 0;
 
 }

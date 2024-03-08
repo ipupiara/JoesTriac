@@ -2691,7 +2691,7 @@
             "X": 120,
             "Y": 133,
             "Width": 360,
-            "Height": 48,
+            "Height": 45,
             "TextId": "__SingleUse_NW6D",
             "TextRotation": "0",
             "AutoSize": true
@@ -2702,7 +2702,7 @@
             "X": 120,
             "Y": 240,
             "Width": 264,
-            "Height": 48,
+            "Height": 45,
             "TextId": "__SingleUse_P107",
             "TextRotation": "0",
             "AutoSize": true
@@ -2952,7 +2952,7 @@
             "X": 54,
             "Y": 122,
             "Width": 108,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_EA7H",
             "TextRotation": "0",
             "AutoSize": true
@@ -2963,7 +2963,7 @@
             "X": 54,
             "Y": 169,
             "Width": 108,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_4FRP",
             "TextRotation": "0",
             "AutoSize": true
@@ -2974,7 +2974,7 @@
             "X": 54,
             "Y": 228,
             "Width": 96,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_AQ60",
             "TextRotation": "0",
             "AutoSize": true
@@ -2985,7 +2985,7 @@
             "X": 213,
             "Y": 75,
             "Width": 24,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_5DBZ",
             "TextRotation": "0",
             "AutoSize": true
@@ -2996,7 +2996,7 @@
             "X": 291,
             "Y": 75,
             "Width": 36,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_HPZE",
             "TextRotation": "0",
             "AutoSize": true
@@ -3916,7 +3916,7 @@
             "Precision": "0.1",
             "LastIndex": 899,
             "XAxisScale": 1.0,
-            "Alpha": 86,
+            "Alpha": 189,
             "GraphType": "GraphScroll",
             "GraphDrawers": [
               {

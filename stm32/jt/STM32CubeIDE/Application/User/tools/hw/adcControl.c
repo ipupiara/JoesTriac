@@ -11,11 +11,94 @@ ADC_HandleTypeDef currentSensorADC;
 
 osTimerId_t   mainJtAdcTimer;
 
+float currentAmpsValue;
+uint16_t currentAmpsADCValue;
+
+float gradAmps; //   (delta amperes) / (delta adc)   ....
+float gradAdc;
+//uint32_t calibHighADC;
+//uint32_t calibLowADC;
+
+void updateGradAmps()
+{
+	float dADC;
+	float dAmps;
+	dAmps = calibHighAmps - calibLowAmps;
+	dADC = getDefinesCalibHighAdc() - getDefinesCalibLowAdc();
+	if ( fabs(dADC) > 1) {
+		gradAmps = dAmps / dADC;
+	} else gradAmps = 0;
+	if (fabs (dAmps) > 1)  {
+		gradAdc = dADC / dAmps;
+	} else gradAdc = 0;
+}
+
 
 void adcTimerCallback(void *argument)
 {
 	currentSensorADC.Instance->CR2 |= (uint32_t)ADC_CR2_SWSTART;
 }
+
+uint32_t getCurrentAmpsADCValue()
+{
+	uint32_t res;
+//	taskENTER_CRITICAL();
+	res = currentAmpsADCValue;
+//	taskEXIT_CRITICAL();
+	return res;
+}
+
+void setCurrentAmpsADCValue(uint32_t adcV )
+{
+//	taskENTER_CRITICAL();
+	currentAmpsADCValue = adcV;
+//	taskEXIT_CRITICAL();
+}
+
+void adcValueReceived(uint16_t adcVal)
+{
+//	taskENTER_CRITICAL();
+	setCurrentAmpsADCValue(adcVal);
+//	taskEXIT_CRITICAL();
+}
+
+float adcVoltage()
+{
+	int16_t ampsAdcHex;
+	float   ampsAdcF;
+	float   adcMaxF = 0x0FFF;
+
+	float    Vf;
+
+	ampsAdcHex = getCurrentAmpsADCValue();
+	ampsAdcF  = ampsAdcHex;
+	Vf = (ampsAdcF * 3.3) / adcMaxF;
+
+	return Vf;
+}
+
+float currentAmps()
+{
+	uint32_t adcVal;
+	float res = 0.0;
+
+	adcVal = getCurrentAmpsADCValue();
+
+	int32_t diffAdc = ((uint32_t) (adcVal)) - ((uint32_t) ( getDefinesCalibLowAdc()))  ;
+
+	float diffI = (gradAmps * diffAdc);
+
+	res = calibLowAmps +  diffI;
+	return res;
+}
+
+float getCurrentAmpsValue()
+{
+	float  res;
+	res = currentAmps();
+	return res;
+}
+
 
 void startAdcTimer()
 {
@@ -43,6 +126,7 @@ void eocIrqHandler(ADC_HandleTypeDef* hadc)
 	if (hadc == &currentSensorADC) {
 		uint16_t adcV = 0;
 		adcV = currentSensorADC.Instance->DR;
+		setCurrentAmpsADCValue(adcV);
 
 		CMainJtEventT  ev;
 		memset(&ev, 0x0, sizeof(ev));
@@ -180,6 +264,8 @@ void setAdcUpperThreshold(ADC_HandleTypeDef* hadc,uint32_t  limit)
 
 void startADC()
 {
+	updateGradAmps();
+	currentAmpsValue = currentSensorADC.Instance->DR;
 	__HAL_ADC_ENABLE(&currentSensorADC);
 	startAdcTimer();
 }
@@ -192,6 +278,9 @@ void stopADC()
 
 void initAdc()
 {
+	currentAmpsValue = 0.0;
+	updateGradAmps();
+
 	mainJtAdcTimer= osTimerNew (adcTimerCallback, osTimerPeriodic, (void *) 0x02, NULL);
 	if (mainJtAdcTimer  == NULL)   {
 		errorHandler((uint32_t)mainJtAdcTimer ,stop,"mainJtAdcTimer ","initAdc");

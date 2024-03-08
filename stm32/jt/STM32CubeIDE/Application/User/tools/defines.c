@@ -24,6 +24,7 @@
 
 osSemaphoreId_t   waitSema;
 
+tStatus initNSavePersistentData();
 
 void definesWait(uint32_t ms)
 {
@@ -323,8 +324,8 @@ varData  variableData  [amountPersistentValues]= {
 		{(void *)(&persistentRec.calibHighAdc), intVar16, cHighPos, sizeof(persistentRec.calibHighAdc)},
 		{(void *)(&persistentRec.alarmNeeded), intVar8, aNeededPos, sizeof(persistentRec.alarmNeeded)},
 		{(void *)(&persistentRec.alarmTime), intVar16, aTimePos, sizeof(persistentRec.alarmTime)},
-		{(void *)(&persistentRec.switchPressureNeeded), intVar8, spNeededPos, sizeof(persistentRec.switchPressureNeeded)},
 		{(void *)(&persistentRec.switchPressureTime), intVar16, spTimePos, sizeof(persistentRec.switchPressureTime)},
+		{(void *)(&persistentRec.switchPressureNeeded), intVar8, spNeededPos, sizeof(persistentRec.switchPressureNeeded)},
 		{(void *)(&persistentRec.extiOn), intVar8, extiPos, sizeof(persistentRec.extiOn)},
 		{(void *)(&persistentRec.pidPrintOn), intVar8, pidPrPos, sizeof(persistentRec.pidPrintOn)},
 		{(void *)(&persistentRec.infoPrintOn), intVar8, infoPrPos, sizeof(persistentRec.infoPrintOn)}};
@@ -477,6 +478,15 @@ tStatus restorePersistenData()
 	return success;
 }
 
+tStatus initNSavePersistentData()
+{
+	tStatus success = tFailed;
+	initPersistendData();
+	success = saveAll();
+	return success;
+}
+
+
 #endif
 
 
@@ -547,7 +557,7 @@ tStatus initDefines()
 
 	tStatus success =  tFailed;
 	success = restorePersistenData();
-
+//	success = initNSavePersistentData();   // for emergency and updates
 	return success;
 }
 

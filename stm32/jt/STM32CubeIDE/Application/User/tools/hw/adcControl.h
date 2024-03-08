@@ -16,6 +16,11 @@ void initAdc();
 void startADC();
 void stopADC();
 
+float currentAmps();
+uint32_t getCurrentAmpsADCValue();
+
+void setCurrentAmpsADCValue(uint32_t adcV );
+
 #ifdef  __cplusplus
 }
 #endif
