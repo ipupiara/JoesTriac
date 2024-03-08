@@ -163,8 +163,7 @@ void mainJt(void *argument)
 							break;
 						}
 						case storeAlarmData: {
-							saveAlarmData(mJtEv.mainUnion.alarmData.alarmTime,mJtEv.mainUnion.alarmData.alarmNeeded,
-													mJtEv.mainUnion.alarmData.zCalibOn);
+							saveAlarmData(mJtEv.mainUnion.alarmData.alarmTime,mJtEv.mainUnion.alarmData.alarmNeeded);
 							break;
 						}
 						case pidGraphInitializing: {

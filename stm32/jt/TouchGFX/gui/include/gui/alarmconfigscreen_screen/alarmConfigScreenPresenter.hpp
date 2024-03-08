@@ -31,7 +31,7 @@ public:
 //    uint32_t getZCalibOn();
     uint16_t getAlarmTime();
 
-    void  storeAlarmData(uint32_t aTime, uint8_t aNeeded, uint32_t zCalibOn);
+    void  storeAlarmData(uint32_t aTime, uint8_t aNeeded);
 
     virtual void tick();
 

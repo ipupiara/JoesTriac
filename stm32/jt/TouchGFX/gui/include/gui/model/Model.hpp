@@ -123,7 +123,7 @@ public:
 
     uint16_t getAlarmTime();
     uint8_t  getAlarmNeeded();
-    void storeAlarm(uint8_t alNeeded, uint16_t alTime, uint32_t zCalibOn);
+    void storeAlarm(uint8_t alNeeded, uint16_t alTime);
     float getWeldingAmps();
     void storeWeldingAmps(float amps);
     uint32_t getCalibHigh();

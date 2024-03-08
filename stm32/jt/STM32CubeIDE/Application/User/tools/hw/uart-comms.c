@@ -142,7 +142,7 @@ void info_printf( char *emsg, ...)  // does not run since together with C++  ???
 {
 	va_list ap;
 	va_start(ap, emsg);
-	if (getDoInfoPrint() != 0) {
+	if (getInfoPrint() != 0) {
 		private_printf(emsg, ap);
 	}
 	va_end(ap);

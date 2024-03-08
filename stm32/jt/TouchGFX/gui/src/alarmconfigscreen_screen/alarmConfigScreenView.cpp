@@ -36,10 +36,8 @@ void alarmConfigScreenView::backNSaveButtonPressed()
 {
 	uint8_t aNeeded;
 	uint16_t aTime = timeValueMin;
-	uint32_t zCalibOn;
 	aNeeded = radioButtonAlarmOn.getSelected();
-	zCalibOn=  0; //ZCalibOnButton.getSelected();
-	presenter->storeAlarmData(aTime,aNeeded, zCalibOn);
+	presenter->storeAlarmData(aTime,aNeeded);
 	cancelButtonPressed();
 }
 

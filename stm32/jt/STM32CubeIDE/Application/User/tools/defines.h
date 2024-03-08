@@ -53,32 +53,39 @@ typedef struct  {
 
 typedef varData* pVarData;
 
-uint32_t getDefinesWeldingTime();
+uint16_t getDefinesWeldingTime();
 
 float getDefinesWeldingAmps();
 
 uint8_t getDefinesAlarmNeeded();
 
-uint32_t getDefinesAlarmTime();
+uint16_t getDefinesAlarmTime();
 
-uint32_t getDefinesCalibHighAdc();
+uint16_t getDefinesCalibHighAdc();
 
-uint32_t getDefinesCalibLowAdc();
+uint16_t getDefinesCalibLowAdc();
 
 uint8_t getDefinesSwitchPressureNeeded();
 
 uint16_t getDefinesSwitchPressureTime();
-tStatus  storeDefinesSwitchPressureData(uint32_t spTime, uint8_t spNeeded);
 
-tStatus saveWeldingTime(uint32_t wTime);
+uint8_t getDoExti();
+
+uint8_t getInfoPrint();
+
+uint8_t getPidPrint();
+
+tStatus  storeDefinesSwitchPressureData(uint16_t spTime, uint8_t spNeeded);
+
+tStatus saveWeldingTime(uint16_t wTime);
 tStatus saveWeldingAmps(float wAmps);
 
-tStatus saveCalibLowAdc(uint32_t cHigh);
-tStatus saveCalibHighAdc(uint32_t cLow);
+tStatus saveCalibLowAdc(uint16_t cHigh);
+tStatus saveCalibHighAdc(uint16_t cLow);
 
 tStatus saveAlarmNeeded(uint8_t aNeeded);
-tStatus saveAlarmTime(uint32_t aTime);
-tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded, uint32_t zCalibOn);
+tStatus saveAlarmTime(uint16_t aTime);
+tStatus saveAlarmData(uint16_t aTime, uint8_t aNeeded);
 
 void errorHandler(uint32_t  code, errorSeverity severity,const char* errorString, const char* method );
 

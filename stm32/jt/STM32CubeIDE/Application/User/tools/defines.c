@@ -79,18 +79,21 @@ void sendActualValuesToRunNStopScreen(uint16_t secondsRemaining, uint16_t second
 }
 
 
+
 typedef struct {
-	uint32_t weldingTime;
+	uint16_t weldingTime;
 	float   weldingAmps;
-	uint32_t  calibLowAdc, calibHighAdc, zeroPotiPos;
+	uint16_t  calibLowAdc;
+	uint16_t calibHighAdc;
 	uint8_t  alarmNeeded;
-	uint32_t  alarmTime;
+	uint16_t  alarmTime;
 	uint8_t switchPressureNeeded;
 	uint16_t switchPressureTime;
 	uint8_t  extiOn;
 	uint8_t  pidPrintOn;
 	uint8_t  infoPrintOn;
 } persistentData;
+
 
 persistentData  persistentRec;
 
@@ -109,7 +112,7 @@ void initPersistendData()
 	persistentRec.pidPrintOn = 0;
 }
 
-uint32_t getDefinesWeldingTime()
+uint16_t getDefinesWeldingTime()
 {
 	uint32_t wTime;
 //	taskENTER_CRITICAL();
@@ -136,7 +139,7 @@ uint8_t getDefinesAlarmNeeded()
 	return needed;
 }
 
-uint32_t getDefinesAlarmTime()
+uint16_t getDefinesAlarmTime()
 {
 	uint32_t aTime;
 //	taskENTER_CRITICAL();
@@ -145,7 +148,7 @@ uint32_t getDefinesAlarmTime()
 	return aTime;
 }
 
-uint32_t getDefinesCalibHighAdc()
+uint16_t getDefinesCalibHighAdc()
 {
 	uint32_t cal;
 //	taskENTER_CRITICAL();
@@ -154,7 +157,7 @@ uint32_t getDefinesCalibHighAdc()
 	return cal;
 }
 
-uint32_t getDefinesCalibLowAdc()
+uint16_t getDefinesCalibLowAdc()
 {
 	uint32_t cal;
 //	taskENTER_CRITICAL();
@@ -181,27 +184,18 @@ uint16_t getDefinesSwitchPressureTime()
 	return val;
 }
 
-void getDefinesDebugData(uint8_t*  pidP, uint8_t* infoP, uint8_t* exti)
-{
-
-}
-
-void setDefinesDebugData(uint8_t  pidP, uint8_t infoP, uint8_t exti)
-{
-
-}
 
 uint8_t getDoExti()
 {
 	return persistentRec.extiOn;
 }
 
-uint8_t getDoInfoPrint()
+uint8_t getInfoPrint()
 {
 	return persistentRec.infoPrintOn;
 }
 
-uint8_t getDoPidPrint()
+uint8_t getPidPrint()
 {
 	return persistentRec.pidPrintOn;
 }
@@ -292,18 +286,6 @@ tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded)
 
 #define amountPersistentValues  11
 
-	uint16_t weldingTime;
-	float   weldingAmps;
-	uint16_t  calibLowAdc;
-	uint16_t  calibHighAdc;
-	uint8_t  alarmNeeded;
-	uint16_t  alarmTime;
-	uint8_t switchPressureNeeded;
-	uint16_t switchPressureTime;
-	uint8_t  extiOn;
-	uint8_t  pidPrintOn;
-	uint8_t  infoPrintOn;
-
 
 #define wTimePos  0
 #define wAmpsPos wTimePos+ 2
@@ -375,7 +357,7 @@ tStatus saveAll()
 	return success;
 }
 
-tStatus saveWeldingTime(uint32_t wTime)
+tStatus saveWeldingTime(uint16_t wTime)
 {
 	tStatus success = tOk;
 	persistentRec.weldingTime = wTime;
@@ -392,7 +374,7 @@ tStatus saveWeldingAmps(float wAmps)
 	return success;
 }
 
-tStatus saveCalibLowAdc(uint32_t cLow)
+tStatus saveCalibLowAdc(uint16_t cLow)
 {
 	tStatus success = tOk;
 	persistentRec.calibLowAdc = cLow;
@@ -400,7 +382,7 @@ tStatus saveCalibLowAdc(uint32_t cLow)
 	return success;
 }
 
-tStatus saveCalibHighAdc(uint32_t cHigh)
+tStatus saveCalibHighAdc(uint16_t cHigh)
 {
 	tStatus success = tOk;
 	persistentRec.calibHighAdc = cHigh;
@@ -412,15 +394,15 @@ tStatus saveAlarmNeeded(uint8_t aNeeded)
 {
 	tStatus success = tOk;
 	persistentRec.alarmNeeded = aNeeded;
-	eepromSave(&variableData[6]);
+	eepromSave(&variableData[4]);
 	return success;
 }
 
-tStatus saveAlarmTime(uint32_t aTime)
+tStatus saveAlarmTime(uint16_t aTime)
 {
 	tStatus success = tOk;
 	persistentRec.alarmTime = aTime;
-	eepromSave(&variableData[7]);
+	eepromSave(&variableData[5]);
 	return success;
 }
 
@@ -428,35 +410,59 @@ tStatus saveSwitchPressureNeeded(uint8_t aNeeded)
 {
 	tStatus success = tOk;
 	persistentRec.switchPressureNeeded = aNeeded;
+	eepromSave(&variableData[6]);
+	return success;
+}
+
+tStatus	 saveSwitchPressureTime(uint16_t aTime)
+{
+	tStatus success = tOk;
+	persistentRec.switchPressureTime = aTime;
+	eepromSave(&variableData[7]);
+	return success;
+}
+
+tStatus	 saveExtiOn(uint8_t val)
+{
+	tStatus success = tOk;
+	persistentRec.extiOn = val;
 	eepromSave(&variableData[8]);
 	return success;
 }
 
-tStatus	 saveSwitchPressureTime(uint32_t aTime)
+tStatus	 savePidPrint(uint8_t val)
 {
 	tStatus success = tOk;
-	persistentRec.switchPressureTime = aTime;
+	persistentRec.pidPrintOn = val;
 	eepromSave(&variableData[9]);
 	return success;
 }
 
-
-tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded, uint32_t zCalibOn)
+tStatus	 saveInfoPrint(uint8_t val)
 {
 	tStatus success = tOk;
-//	success= saveZCalibOn(zCalibOn);
+	persistentRec.infoPrintOn = val;
+	eepromSave(&variableData[10]);
+	return success;
+}
+
+tStatus saveAlarmData(uint16_t aTime, uint8_t aNeeded)
+{
+	tStatus success = tOk;
 	success= saveAlarmNeeded(aNeeded);
 	success= saveAlarmTime(aTime);
 	return success;
 }
 
-tStatus storeDefinesSwitchPressureData(uint32_t spTime, uint8_t spNeeded)
+tStatus storeDefinesSwitchPressureData(uint16_t spTime, uint8_t spNeeded)
 {
 	tStatus success = tOk;
 	success= saveSwitchPressureNeeded(spNeeded);
 	success= saveSwitchPressureTime(spTime);
 	return success;
 }
+
+
 
 
 tStatus savePersistendData()
@@ -486,6 +492,19 @@ tStatus initNSavePersistentData()
 	return success;
 }
 
+void getDefinesDebugData(uint8_t*  pidP, uint8_t* infoP, uint8_t* exti)
+{
+	*pidP = getPidPrint();
+	*infoP = getInfoPrint();
+	*exti  = getDoExti();
+}
+
+void setDefinesDebugData(uint8_t  pidP, uint8_t infoP, uint8_t exti)
+{
+	saveExtiOn(exti);
+	savePidPrint(pidP);
+	saveInfoPrint(infoP);
+}
 
 #endif
 

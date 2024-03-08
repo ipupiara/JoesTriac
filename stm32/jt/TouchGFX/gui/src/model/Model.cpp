@@ -164,13 +164,12 @@ uint8_t  Model::getAlarmNeeded()
 	return res;
 }
 
-void Model::storeAlarm(uint8_t alNeeded, uint16_t alTime, uint32_t zCalibOn)
+void Model::storeAlarm(uint8_t alNeeded, uint16_t alTime)
 {
 	CMainJtEventT evt;
 	evt.evType = storeAlarmData;
 	evt.mainUnion.alarmData.alarmTime = alTime;
 	evt.mainUnion.alarmData.alarmNeeded = alNeeded;
-	evt.mainUnion.alarmData.zCalibOn = zCalibOn;
 	sendEventToMainJtMessageQ(&evt,isNotFromIsr);
 }
 
