@@ -421,7 +421,7 @@ uStInt evTriacIdleChecker(void)
 	}
 
 	if (currentEvent->evType == evPidGraphInit)  {
-			printExistingGraph();
+//			printExistingGraph();
 
 		res =  uStIntHandlingDone;
 	}
@@ -469,7 +469,7 @@ uStInt evTriacActiveChecker(void)
 
 	if (currentEvent->evType == evSecondsTick) {
 		sendActualValuesToRunNStopScreen(getSecondsDurationTimerRemaining(), secondsBeforeReturn);
-		printNextGraphDataPoint(getCurrentAmpsValue());
+//		printNextGraphDataPoint(getCurrentAmpsValue());
 
 		res =  uStIntHandlingDone;
 	}

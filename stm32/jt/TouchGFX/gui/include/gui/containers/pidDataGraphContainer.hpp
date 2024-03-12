@@ -15,6 +15,7 @@ public:
     void updateGraph(pJoesPresenterEventT  pMsg );
 //    void initNew(graphDataRec* pData);
     void initFromData(pJoesPresenterEventT  pMsg );
+    void initFromGraphDataRec(graphDataRec* pRec);
     void showPidGraphFromData(pJoesPresenterEventT  pMsg);
     uint8_t  graphInitialized;
 protected:

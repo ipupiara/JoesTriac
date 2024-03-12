@@ -14,6 +14,7 @@ void  pidDataGraphContainer::setOriginalScreen(Screen scr)
 
 pidDataGraphContainer::pidDataGraphContainer()
 {
+	pidDataGraphContainerBase();
 }
 
 void pidDataGraphContainer::updateGraph(pJoesPresenterEventT  pMsg )
@@ -24,14 +25,18 @@ void pidDataGraphContainer::updateGraph(pJoesPresenterEventT  pMsg )
 		for (uint32_t cnt = 0; cnt < pRec->amtValidGoalPoints  ;  ++ cnt) {
 			goalGraph.addDataPoint(pRec->goalValue);
 		}
-		graphInitialized = 1;
+//		graphInitialized = 1;
 		goalGraph.invalidate();
 	}
 	if (pRec->amtValidDataPoints < (uint16_t) pidGraph.getMaxCapacity())  {
 		pidGraph.addDataPoint(pRec->dataValues[pRec->amtValidDataPoints -1]);
 		triacGraph.addDataPoint(pRec->triacValues[pRec->amtValidDataPoints -1]);
 	}
-	pidGraph.invalidate();
+	if (graphInitialized == 0) {
+		pidGraph.invalidate();
+		triacGraph.invalidate();
+		graphInitialized = 1;
+	}
 }
 
 void pidDataGraphContainer::initialize()
@@ -49,10 +54,9 @@ void pidDataGraphContainer::showPidGraphFromData(pJoesPresenterEventT  pMsg)
 	invalidate();
 }
 
-void pidDataGraphContainer::initFromData(pJoesPresenterEventT  pMsg )
+void pidDataGraphContainer::initFromGraphDataRec(graphDataRec* pRec)
 {
 	if (graphInitialized == 0) {
-		graphDataRec*  pRec = pMsg->evData.pidDataArrayPtr;
 		goalGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(0xFA, 0x14, 0x2B));
 		triacGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(0xDF, 0xEB, 0x02));
 		for (uint16_t cnt = 0; cnt < pRec->amtValidGoalPoints;  ++ cnt) {
@@ -66,6 +70,11 @@ void pidDataGraphContainer::initFromData(pJoesPresenterEventT  pMsg )
 	}
 }
 
+void pidDataGraphContainer::initFromData(pJoesPresenterEventT  pMsg )
+{
+	initFromGraphDataRec(pMsg->evData.pidDataArrayPtr);
+}
+
 void pidDataGraphContainer::backButtonPressed()
  {
      setVisible(false);
@@ -76,6 +85,9 @@ void pidDataGraphContainer::redrawPressed()
  {
 	removeAll();
 	pidDataGraphContainerBase();
-	this->removeAll();
 	printExistingGraph();  // todo tobe tested
+	initFromGraphDataRec(&triacPidGraphData);
  }
+
+
+//   todo much of this code is just a scratch and needs reworking and reduce the repetitions  :-)

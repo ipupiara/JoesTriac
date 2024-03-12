@@ -162,28 +162,28 @@ void calcNextTriacDelay(doPidAndPrint pidNPrint)
 
 void printTriacData(doPidAndPrint pidNPrint)
 {
-	double ampsD  = currentAmps();
-	uint32_t adcVal =  getCurrentAmpsADCValue();
-
-	CJoesModelEventT  msg;
-	msg.messageType = pidPrint;
-	msg.evData.pidPrintData.triAdc = adcVal;
-	msg.evData.pidPrintData.triCorrInt = corrInt;
-	msg.evData.pidPrintData.ampsV = ampsD;
-	msg.evData.pidPrintData.triCorrInt = corrInt;
-	msg.evData.pidPrintData.Vde = Vd ;
-	msg.evData.pidPrintData.Vin = Vi ;
-	msg.evData.pidPrintData.Vpa = Vp ;
-	msg.evData.pidPrintData.pidAndPrintBool = pidNPrint;
-	sendModelMessage(&msg);
+//	double ampsD  = currentAmps();
+//	uint32_t adcVal =  getCurrentAmpsADCValue();
+//
+//	CJoesModelEventT  msg;
+//	msg.messageType = pidPrint;
+//	msg.evData.pidPrintData.triAdc = adcVal;
+//	msg.evData.pidPrintData.triCorrInt = corrInt;
+//	msg.evData.pidPrintData.ampsV = ampsD;
+//	msg.evData.pidPrintData.triCorrInt = corrInt;
+//	msg.evData.pidPrintData.Vde = Vd ;
+//	msg.evData.pidPrintData.Vin = Vi ;
+//	msg.evData.pidPrintData.Vpa = Vp ;
+//	msg.evData.pidPrintData.pidAndPrintBool = pidNPrint;
+//	sendModelMessage(&msg);
 }
 
 void printExistingGraph()
 {
-	CJoesPresenterEventT  msg;          // todo consider implementing this in a method in triacpid or so
-	msg.messageType = pidGraphFromData;
-	msg.evData.pidDataArrayPtr = &triacPidGraphData;
-	sendPresenterMessage(&msg);
+//	CJoesPresenterEventT  msg;          // todo consider implementing this in a method in triacpid or so
+//	msg.messageType = pidGraphFromData;
+//	msg.evData.pidDataArrayPtr = &triacPidGraphData;
+//	sendPresenterMessage(&msg);
 }
 
 void printNextGraphDataPoint(float value)
