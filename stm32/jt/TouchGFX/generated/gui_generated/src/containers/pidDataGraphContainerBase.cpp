@@ -74,13 +74,21 @@ pidDataGraphContainerBase::pidDataGraphContainerBase() :
     triacGraph.setGraphAreaMargin(0, 0, 0, 0);
     triacGraph.setGraphAreaPadding(0, 0, 0, 0);
     triacGraph.setGraphRangeY(0, 5000);
-    triacGraph.setAlpha(71);
+    triacGraph.setAlpha(109);
     triacGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(20, 151, 197));
     triacGraphLine1.setPainter(triacGraphLine1Painter);
     triacGraphLine1.setLineWidth(2);
     triacGraph.addGraphElement(triacGraphLine1);
 
     add(triacGraph);
+
+    redrawButton.setXY(12, 392);
+    redrawButton.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
+    redrawButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_HBF2));
+    redrawButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    redrawButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    redrawButton.setAction(buttonCallback);
+    add(redrawButton);
 }
 
 pidDataGraphContainerBase::~pidDataGraphContainerBase()
@@ -101,5 +109,12 @@ void pidDataGraphContainerBase::buttonCallbackHandler(const touchgfx::AbstractBu
         //When backButton clicked call virtual function
         //Call backButtonPressed
         backButtonPressed();
+    }
+    if (&src == &redrawButton)
+    {
+        //Interaction1
+        //When redrawButton clicked call virtual function
+        //Call redrawPressed
+        redrawPressed();
     }
 }

@@ -10,10 +10,12 @@ public:
     pidDataGraphContainer();
     virtual ~pidDataGraphContainer() {}
     virtual void backButtonPressed();
+    virtual void redrawPressed();
     virtual void initialize();
     void updateGraph(pJoesPresenterEventT  pMsg );
 //    void initNew(graphDataRec* pData);
     void initFromData(pJoesPresenterEventT  pMsg );
+    void showPidGraphFromData(pJoesPresenterEventT  pMsg);
     uint8_t  graphInitialized;
 protected:
     void setOriginalScreen(Screen scr);

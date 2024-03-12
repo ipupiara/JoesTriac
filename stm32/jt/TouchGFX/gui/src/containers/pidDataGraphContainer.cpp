@@ -42,6 +42,12 @@ void pidDataGraphContainer::initialize()
     triacGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(0xAA, 0xB2, 0x04));
 }
 
+void pidDataGraphContainer::showPidGraphFromData(pJoesPresenterEventT  pMsg)
+{
+	initFromData(pMsg);
+	setVisible(true);
+	invalidate();
+}
 
 void pidDataGraphContainer::initFromData(pJoesPresenterEventT  pMsg )
 {
@@ -60,9 +66,16 @@ void pidDataGraphContainer::initFromData(pJoesPresenterEventT  pMsg )
 	}
 }
 
-
 void pidDataGraphContainer::backButtonPressed()
  {
      setVisible(false);
      invalidate();
+ }
+
+void pidDataGraphContainer::redrawPressed()
+ {
+	removeAll();
+	pidDataGraphContainerBase();
+	this->removeAll();
+	printExistingGraph();  // todo tobe tested
  }

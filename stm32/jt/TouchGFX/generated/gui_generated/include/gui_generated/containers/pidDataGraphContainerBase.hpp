@@ -29,6 +29,10 @@ public:
     {
         // Override and implement this function in pidDataGraphContainer
     }
+    virtual void redrawPressed()
+    {
+        // Override and implement this function in pidDataGraphContainer
+    }
 
 protected:
     FrontendApplication& application() {
@@ -52,6 +56,7 @@ protected:
     touchgfx::GraphScroll<900> triacGraph;
     touchgfx::GraphElementLine triacGraphLine1;
     touchgfx::PainterRGB565 triacGraphLine1Painter;
+    touchgfx::ButtonWithLabel redrawButton;
 
 private:
 

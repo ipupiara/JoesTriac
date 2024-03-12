@@ -4018,7 +4018,7 @@
             "Precision": "1",
             "LastIndex": 899,
             "XAxisScale": 1.0,
-            "Alpha": 71,
+            "Alpha": 109,
             "GraphType": "GraphScroll",
             "GraphDrawers": [
               {
@@ -4032,6 +4032,29 @@
                 }
               }
             ]
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "redrawButton",
+            "X": 12,
+            "Y": 392,
+            "Width": 240,
+            "Height": 50,
+            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
+            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
+            "TextId": "__SingleUse_HBF2",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
           }
         ],
         "Interactions": [
@@ -4044,6 +4067,17 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "backButtonPressed"
+            }
+          },
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "redrawButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "redrawPressed"
             }
           }
         ]

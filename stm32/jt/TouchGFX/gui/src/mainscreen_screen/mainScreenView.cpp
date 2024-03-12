@@ -51,23 +51,12 @@ void mainScreenView::startButtonPressed()
 
 void mainScreenView::showPidGraphFromData(pJoesPresenterEventT  pMsg)
 {
-	pidDataGraphContainer1.initFromData(pMsg);
-	pidDataGraphContainer1.setVisible(true);
-	pidDataGraphContainer1.invalidate();
+	pidDataGraphContainer1.showPidGraphFromData(pMsg);
 }
 
 void mainScreenView::graphButtonPressed()
 {
 	if (! pidDataGraphContainer1.isVisible()) {
-		CMainJtEventT  ev;
-		memset(&ev, 0x0, sizeof(ev));
-		ev.evType = pidGraphInitializing;
-		osStatus_t status =  sendEventToMainJtMessageQ( &ev, isNotFromIsr);
-		if (status != osOK) {
-			errorHandler(status,goOn," status ","pidDataGraphContainer::initialize");
-		}
-
-		pidDataGraphContainer1.setVisible(true);
-		pidDataGraphContainer1.invalidate();
+	   printExistingGraph();
 	}
 }

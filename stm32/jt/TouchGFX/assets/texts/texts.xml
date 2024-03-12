@@ -6,6 +6,9 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_HBF2" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">redraw</Translation>
+      </Text>
       <Text Id="__SingleUse_JP7J" Alignment="Center" TypographyId="Default">
         <Translation Language="GB">save</Translation>
       </Text>
