@@ -297,7 +297,7 @@ tStatus saveAlarmData(uint32_t aTime, uint8_t aNeeded)
 #define spNeededPos spTimePos + 2
 #define	extiPos spNeededPos + 1
 #define pidPrPos extiPos + 1
-#define infoPrPos + 1
+#define infoPrPos  pidPrPos + 1
 
 varData  variableData  [amountPersistentValues]= {
 		{(void *)(&persistentRec.weldingTime), intVar16, wTimePos,sizeof(persistentRec.weldingTime)},

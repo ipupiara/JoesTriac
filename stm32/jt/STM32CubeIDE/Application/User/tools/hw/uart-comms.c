@@ -94,11 +94,6 @@ void init_printf()
 	}
 }
 
-//uint32_t calc(uint32_t am)
-//{
-//	am = am -10;
-//	return am;
-//}
 
 void private_printf( char *emsg, ...)
 {
@@ -143,7 +138,7 @@ void info_printf( char *emsg, ...)  // does not run since together with C++  ???
 	va_list ap;
 	va_start(ap, emsg);
 	if (getInfoPrint() != 0) {
-		private_printf(emsg, ap);
+//		private_printf(emsg, ap);
 	}
 	va_end(ap);
 }
@@ -153,7 +148,7 @@ void pid_printf( char *emsg, ...)
 	va_list ap;
 	va_start(ap, emsg);
 	if (getDoPidPrint() != 0)  {
-		private_printf(emsg, ap);
+//		private_printf(emsg, ap);
 	}
 	va_end(ap);
 }

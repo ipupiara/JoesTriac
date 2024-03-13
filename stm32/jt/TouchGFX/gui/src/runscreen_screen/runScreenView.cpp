@@ -59,14 +59,10 @@ void runScreenView::tearDownScreen()
 
 void runScreenView::update(pJoesPresenterEventT  pMsg )
 {
-
-	// todo bug: amps does not show / calculate delay decimal places in setamperetext
-
 	Unicode::snprintfFloat(currentAmpereTextBuffer, 7, "%6.2f",pMsg->evData.runScreenData.amps);
 	currentAmpereText.setWildcard(currentAmpereTextBuffer);
 	currentAmpereText.invalidate();
 
-//	 int ampValue = ((int)( amps  ));
 
 		ampGauge.setValue(pMsg->evData.runScreenData.amps);
 		ampGauge.invalidate();
@@ -77,16 +73,16 @@ void runScreenView::update(pJoesPresenterEventT  pMsg )
 	 uint32_t boxPro = 100 * remain;
 	 boxProgress1.setValue(boxPro);
 	 boxProgress1.invalidate();
+
+	 uint8_t  minVal = uint8_t( pMsg->evData.runScreenData.secondsRemaining  / 60);
+	 uint8_t  secVal = (uint8_t) ( pMsg->evData.runScreenData.secondsRemaining % 60);
+	 Unicode::snprintf(currentTimeTextBuffer, 6, "%02d:%02d", minVal, secVal);
+	 currentTimeText.setWildcard(currentTimeTextBuffer);
+	 currentTimeText.invalidate();
+
 	 astrolabiumContainer1.update(pMsg);
 
-
 	 if (aborting == 1)  {
-		 uint8_t  minVal = uint8_t( pMsg->evData.runScreenData.secondsRemaining  / 60);
-		 uint8_t  secVal = (uint8_t) ( pMsg->evData.runScreenData.secondsRemaining % 60);
-		 Unicode::snprintf(currentTimeTextBuffer, 6, "%02d:%02d", minVal, secVal);
-		 currentTimeText.setWildcard(currentTimeTextBuffer);
-		 currentTimeText.invalidate();
-
 		 secVal = (uint8_t) (pMsg->evData.runScreenData.secondsBeforeReturn);
 		 Unicode::snprintf(secondsb4ReturnTextBuffer, 6, "%02d",  secVal);
 		 secondsb4ReturnText.setWildcard(secondsb4ReturnTextBuffer);
@@ -164,7 +160,7 @@ void runScreenView::raiseDoRun()
 	setActive(&seconb4Title, false);
 	setActive(&continueButton, false);
 	setActive(&astrolabiumContainer1, false);
-	setActive(&pidDataGraphContainer1, false);
+//	setActive(&pidDataGraphContainer1, false);
 }
 
 void runScreenView::setActive(Drawable* btn,bool act )

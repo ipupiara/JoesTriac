@@ -178,8 +178,7 @@ typedef enum {
 	changeToJobOkScreen,
 	changeToCalibrationScreen,
 	restoreModelData,
-	pidPrint,
-	doRunScreenUpdate
+	pidPrint
 }  modelMessageType;
 
 

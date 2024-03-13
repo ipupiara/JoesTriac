@@ -504,10 +504,6 @@ uStInt evTriacRunningChecker(void)
 	}
 
 	if (currentEvent->evType == evSecondsTick) {
-
-		startExtiCheck();   // just for debug   //  todo remove/comment out this if not yet done
-
-
 //		res =  uStIntHandlingDone;    parent state also needs this event
 	}	
 

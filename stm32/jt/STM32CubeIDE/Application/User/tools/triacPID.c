@@ -214,7 +214,7 @@ void initPidGraphData(float goalVal, uint32_t secsDuration)
 	memset(&triacPidGraphData,0,sizeof(graphDataRec));
 	triacPidGraphData.goalValue = goalVal;
 	triacPidGraphData.weldingDuration = secsDuration;
-	triacPidGraphData.amtValidGoalPoints = secsDuration; // with current graphs !!!
+	triacPidGraphData.amtValidGoalPoints = secsDuration; // approx. with current graphs !!!
 }
 
 

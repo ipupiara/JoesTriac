@@ -2,7 +2,7 @@
 
 jobCompleteScreenView::jobCompleteScreenView()
 {
-
+	//  todo add coolingtime on screen
 }
 
 void jobCompleteScreenView::setupScreen()

@@ -68,7 +68,7 @@ void configDebugScreenView::setupScreen()
     if (extiCheckB != 0)  {
     	extiCheckOnButton.setSelected(true);
     }  else {
-    	extiCheckOnButton.setSelected(true);
+    	extiCheckOffButton.setSelected(true);
     }
 }
 
