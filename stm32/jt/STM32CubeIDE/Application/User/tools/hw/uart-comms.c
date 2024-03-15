@@ -15,8 +15,6 @@
 #include <uart-comms.h>
 //#include <gui/calibrationscreen_screen/calibrationScreenView.hpp>   obviousely does not work like that so easily or maybe not at all
 
-uint8_t doInfoPrint;
-uint8_t doPidPrint;
 
 uint32_t  amtErr;			// amt calls to err_printf
 uint32_t  amtPrintErr;   // errors during print out, where err_printf should not be called
@@ -108,28 +106,24 @@ void private_printf( char *emsg, ...)
 
 	if (serialOn == 1) {
 
-//		vsnprintf((char *)&transmitBuffer, serialBufferSize,  emsg, ap);
-//		transmitBuffer[serialBufferSize - 1] = 0;
+		vsnprintf((char *)&transmitBuffer, serialBufferSize,  emsg, ap);
+		transmitBuffer[serialBufferSize - 1] = 0;
 
-//		uint32_t amt =osMessageQueueGetCount(serialMessageQ);
-//		calc(amt);
-//		status = osMessageQueuePut(serialMessageQ,&transmitBuffer,0,0);
-		status = osMessageQueuePut(serialMessageQ,emsg,0,0);
+		status = osMessageQueuePut(serialMessageQ,&transmitBuffer,0,0);
+//		status = osMessageQueuePut(serialMessageQ,emsg,0,0);
 		if (status != osOK)  {
 			errorHandler(status ,goOn," osMessageQueuePut ","info_printf");
 		}
 	}
 	va_end(ap);
-////	//	printf(emsg, ap);
 }
 
-// just for usage with short strings, otherwise sizes of buffers need to be increased
 void  err_printf ( char *emsg, ...)
 {
 	va_list ap;
 	va_start(ap, emsg);
 	++ amtErr;
-//	private_printf(emsg, ap);
+	private_printf(emsg, ap);
 	va_end(ap);
 }
 
@@ -137,8 +131,8 @@ void info_printf( char *emsg, ...)  // does not run since together with C++  ???
 {
 	va_list ap;
 	va_start(ap, emsg);
-	if (getInfoPrint() != 0) {
-//		private_printf(emsg, ap);
+	if (getDoInfoPrint() != 0) {
+		private_printf(emsg, ap);
 	}
 	va_end(ap);
 }
@@ -148,7 +142,7 @@ void pid_printf( char *emsg, ...)
 	va_list ap;
 	va_start(ap, emsg);
 	if (getDoPidPrint() != 0)  {
-//		private_printf(emsg, ap);
+		private_printf(emsg, ap);
 	}
 	va_end(ap);
 }

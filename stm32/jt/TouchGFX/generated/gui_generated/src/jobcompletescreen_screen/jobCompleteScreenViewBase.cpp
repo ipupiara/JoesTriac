@@ -17,13 +17,13 @@ jobCompleteScreenViewBase::jobCompleteScreenViewBase() :
     box1.setColor(touchgfx::Color::getColorFromRGB(190, 226, 247));
     add(box1);
 
-    textArea1.setXY(65, 111);
+    textArea1.setPosition(65, 111, 288, 53);
     textArea1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea1.setLinespacing(0);
     textArea1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_EJ31));
     add(textArea1);
 
-    returnButton.setXY(65, 343);
+    returnButton.setXY(65, 379);
     returnButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
     returnButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_0ZCT));
     returnButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
@@ -31,7 +31,7 @@ jobCompleteScreenViewBase::jobCompleteScreenViewBase() :
     returnButton.setAction(buttonCallback);
     add(returnButton);
 
-    textArea2.setXY(71, 217);
+    textArea2.setXY(65, 217);
     textArea2.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     textArea2.setLinespacing(0);
     textArea2.setTypedText(touchgfx::TypedText(T___SINGLEUSE_Y76B));
@@ -51,6 +51,27 @@ jobCompleteScreenViewBase::jobCompleteScreenViewBase() :
     timeText.resizeToCurrentText();
     timeText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_4I0G));
     add(timeText);
+
+    textArea4.setXY(65, 291);
+    textArea4.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea4.setLinespacing(0);
+    textArea4.setTypedText(touchgfx::TypedText(T___SINGLEUSE_URB0));
+    add(textArea4);
+
+    totalTimeText.setXY(233, 291);
+    totalTimeText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    totalTimeText.setLinespacing(0);
+    Unicode::snprintf(totalTimeTextBuffer, TOTALTIMETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_DVCN).getText());
+    totalTimeText.setWildcard(totalTimeTextBuffer);
+    totalTimeText.resizeToCurrentText();
+    totalTimeText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_BE2W));
+    add(totalTimeText);
+
+    textArea5.setXY(400, 291);
+    textArea5.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea5.setLinespacing(0);
+    textArea5.setTypedText(touchgfx::TypedText(T___SINGLEUSE_3ASW));
+    add(textArea5);
 }
 
 jobCompleteScreenViewBase::~jobCompleteScreenViewBase()

@@ -8,6 +8,11 @@ jobCompleteScreenView::jobCompleteScreenView()
 void jobCompleteScreenView::setupScreen()
 {
     jobCompleteScreenViewBase::setupScreen();
+    uint8_t alarmTime = getDefinesAlarmTime();
+
+	Unicode::snprintf(totalTimeTextBuffer, 6, "%02d", alarmTime);
+	totalTimeText.setWildcard(totalTimeTextBuffer);
+	totalTimeText.invalidate();
 }
 
 void jobCompleteScreenView::tearDownScreen()

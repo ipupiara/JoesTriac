@@ -69,12 +69,6 @@ uint8_t getDefinesSwitchPressureNeeded();
 
 uint16_t getDefinesSwitchPressureTime();
 
-uint8_t getDoExti();
-
-uint8_t getInfoPrint();
-
-uint8_t getPidPrint();
-
 tStatus  storeDefinesSwitchPressureData(uint16_t spTime, uint8_t spNeeded);
 
 tStatus saveWeldingTime(uint16_t wTime);

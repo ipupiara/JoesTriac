@@ -18,7 +18,7 @@
 #include <TriacIntr.h>
 #include <triacControl.h>
 
-#define extiCheckAmt  4
+#define extiCheckAmt  3
 #define extiCheckDelay  10
 #define triacExtiCheckTimer  htim3
 #define extiCheckTimerIRQHandler  TIM3_IRQHandler
@@ -26,10 +26,10 @@
 #define triacExtiCheckTimerInstance  TIM3
 #define  enableExtiCheckTimerClock()  __HAL_RCC_TIM3_CLK_ENABLE()
 #define amtExtiEvChecks   3
-#define msTick  debugTick //  uwTick
+#define msTick  uwTick   //  uwTick , debugTick
 
-#define extiPinValue() debugExtiPin
-//#define extiPinValue() isExtiPinSet()
+//#define extiPinValue() debugExtiPin
+#define extiPinValue() isExtiPinSet()
 
 uint32_t debugTick;
 uint8_t debugExtiPin;
@@ -59,11 +59,6 @@ uint8_t handleMissed();
 
 #define maxInt32  0xFFFFFFFF
 
-#define resetExtiCheck()   \
-  do { \
-	  extiCheckCnt=0;  \
-  } while(0)
-
 
 #define resetHandleMissed()   \
   do { \
@@ -72,7 +67,7 @@ uint8_t handleMissed();
   } while(0)
 
 
-// todo do not screw-attach buzzer cable to buzzer
+// todo do not screw-attach buzzer cable to buzzer when debugging, remove debugExti() after debugging
 #define debugExti() \
 do { \
 	  toggleBuzzer(); \
@@ -86,11 +81,12 @@ void initHandleMissed()
 
 }
 
-#define stopExtiTimer() \
+#define stopExtiCheck() \
 do { \
 	triacExtiCheckTimer.Instance->CNT = 0; \
 	__HAL_TIM_DISABLE_IT(&triacExtiCheckTimer, TIM_IT_UPDATE); \
 	triacExtiCheckTimer.Instance->CR1 &= ~(TIM_CR1_CEN); \
+	extiCheckCnt=0;\
 } while(0)
 
 
@@ -119,33 +115,33 @@ void startExtiChecking()
 
 void startExtiCheck()
 {
-	uint8_t res = 0;
 	currentExtiPinState=extiPinValue();
 	++ amtExtiEvTotal;
 
-	if (extiCheckCnt > 0) {
-								// another exti happened within short time, both are probable not valid
-								// but maybe a spike  just before a valid one, then we loose the valid one.
-								// gives a handleMissed
-		stopExtiTimer();
-		resetExtiCheck();
-		amountIllegalExti += 1;
-		res = 0;
+	if (currentExtiPinState != extiZeroPassTriggerStartValue) {
+		++ amtExtiSequenceError;  // just for debugging this if  amtExtiSeq... addition for breakpoint  !!!
 	} else {
-		res = 1;
-		if (extiStarting)  {
-			extiStateBefore = currentExtiPinState;
-		}  else  {
-			if (extiStateBefore == currentExtiPinState)  {
-				++ amtExtiSequenceError;
+
+		if (extiCheckCnt > 0) {
+									// another exti happened within short time, both are probable not valid
+									// but maybe also a spike  just close a valid one, then we loose the valid one.
+									// gives a handleMissed
+	//dbg		stopExtiCheck();
+			amountIllegalExti += 1;
+		} else {
+			if (extiStarting  == 1)  {
+				extiStateBefore = currentExtiPinState;
+			}  else  {
+				if (extiStateBefore == currentExtiPinState)  {
+					++ amtExtiSequenceError;
+				}
 				extiStateBefore = currentExtiPinState;
 			}
+			extiCheckCnt = 1;
+			debugExti();
+			startExtiTimer();
 		}
-	}
-	if (res == 1)  {        // one side is always stable, but within this short time is probable a spike return
-		extiCheckCnt = 1;
-//		debugExti();
-		startExtiTimer();
+
 	}
 }
 
@@ -160,27 +156,41 @@ void  extiCheckTimerIRQHandler (void)
 {
 	__HAL_TIM_CLEAR_IT(&triacExtiCheckTimer, TIM_IT_UPDATE);
 	uint8_t extiPinOk  = (currentExtiPinState == extiPinValue());
-//	debugExti();
+	debugExti();
+	++ extiCheckCnt;
 	if (extiCheckCnt < extiCheckAmt) {
-		++ extiCheckCnt;
 		if (extiPinOk == 0) {
-			stopExtiTimer();
-			resetExtiCheck();
+//dbg			stopExtiCheck();
 			amountIllegalExti += 1;
 		}
 	}  else {
-		stopExtiTimer();
+		stopExtiCheck();
 		if ((extiPinOk)== 1 ) {
-			if(handleMissed()) {
-				doJobOnZeroPassEvent(currentExtiPinState);
-			}
+//dbg			if(handleMissed()) {
+//				doJobOnZeroPassEvent(currentExtiPinState);
+//			}
+		}  else {
+			amountIllegalExti += 1;
 		}
-		resetExtiCheck();
 	}
 }
 
+uint8_t min1Diff, max1Diff;
 
+void check1TimeDiff()
+{
+	uint8_t diff = msTick - uwTickWhenLastOk;
+	if (diff < 15) {
+		if (diff < min1Diff) {min1Diff = diff;}
+		if (diff > max1Diff) {max1Diff = diff;}
+	}
+}
 
+void init1TimeDiff()
+{
+	min1Diff = 0xff;
+	max1Diff = 0;
+}
 
 uint8_t handleMissed()
 {
@@ -190,15 +200,17 @@ uint8_t handleMissed()
 		if (extiStarting == 1) {
 			extiStarting = 0;
 			resetHandleMissed();
+			init1TimeDiff();
 			res = 1;
-		} else {
-			if((((msTick - uwTickWhenLastOk + 1 ) % 10 )  )  > 2 )  {  // tobe tested evtl > 2 needed
-//			if(((msTick - uwTickWhenLastOk ) % 10   ) != 0 )  {  // tobe tested
+		} else {  // todo later we should use a better clock base (cpu clock counter or timer)
+			check1TimeDiff();
+			if((((msTick - uwTickWhenLastOk + 1 ) % 10 )  )  > 2 )  {  // tobe tested evtl > 2 needed or 1 possible
+		//			if(((msTick - uwTickWhenLastOk ) % 10   ) != 0 )  {  // tobe tested
 				++amtWrongSync;
 				resetHandleMissed();
 				res = 0; 	// take it as a new correct one, but do not fire unless the next is in time.
 			}  else {
-				int32_t  amtPassed = ((msTick - uwTickWhenLastOk + 1 )/10 ); // todo later we might need a better clock (cpu clock counter or timer)
+				int32_t  amtPassed = ((msTick - uwTickWhenLastOk + 1 )/10 );
 				if (amtPassed > 0) {
 					int32_t  amtMissed = amtPassed - 1;
 					 if (amtMissed == 0) {
@@ -244,7 +256,7 @@ void initExtiCheckTimer()
 	enableExtiCheckTimerClock();
 
 	triacExtiCheckTimer.Instance = triacExtiCheckTimerInstance;
-	triacExtiCheckTimer.Init.Prescaler = 200;
+	triacExtiCheckTimer.Init.Prescaler = 2;
 	triacExtiCheckTimer.Init.CounterMode = TIM_COUNTERMODE_UP;
 	triacExtiCheckTimer.Init.Period = 4;
 	triacExtiCheckTimer.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -268,7 +280,7 @@ void initExtiCheckTimer()
 	triacExtiCheckTimer.Instance->CR1 &= (~TIM_CR1_OPM_Msk);
 	HAL_NVIC_SetPriority(extiCheckTimerIRQn, triacTriggerIsrPrio, 0);
 	HAL_NVIC_EnableIRQ(extiCheckTimerIRQn);
-	stopExtiTimer();
+	stopExtiCheck();
 }
 
 void initExtiCheck()

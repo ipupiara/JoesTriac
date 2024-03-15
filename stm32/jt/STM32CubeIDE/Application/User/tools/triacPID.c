@@ -11,7 +11,7 @@
 #include <triacControl.h>
 
 
-//#define printfPid
+#define printfPid
 #define printfAmps
 
 // void initTwa();
@@ -127,19 +127,21 @@ void calcNextTriacDelay(doPidAndPrint pidNPrint)
 //	printTriacData(pidAndPrint);
 
 #ifdef printfPid
-	double ampsD  = currentAmps();
-	uint32_t adcVal =  getCurrentAmpsADCValue();
+	if (getDoPidPrint() > 0)  {
+		double ampsD  = currentAmps();
+		uint32_t adcVal =  getCurrentAmpsADCValue();
 
-	CJoesModelEventT  msg;
-	msg.messageType = pidPrint;
-	msg.evData.pidPrintData.triAdc = adcVal;
-	msg.evData.pidPrintData.triCorrInt = corrInt;
-	msg.evData.pidPrintData.triDelay = newDelay;
-	msg.evData.pidPrintData.ampsV = ampsD;
-	msg.evData.pidPrintData.Vde = Vd ;
-	msg.evData.pidPrintData.Vin = Vi ;
-	msg.evData.pidPrintData.Vpa = Vp ;
-	sendModelMessage(&msg);
+		CJoesModelEventT  msg;
+		msg.messageType = pidPrint;
+		msg.evData.pidPrintData.triAdc = adcVal;
+		msg.evData.pidPrintData.triCorrInt = corrInt;
+		msg.evData.pidPrintData.triDelay = newDelay;
+		msg.evData.pidPrintData.ampsV = ampsD;
+		msg.evData.pidPrintData.Vde = Vd ;
+		msg.evData.pidPrintData.Vin = Vi ;
+		msg.evData.pidPrintData.Vpa = Vp ;
+		sendModelMessage(&msg);
+	}
 #endif
 
 //	if (pidNPrint > printOnly) {

@@ -24,6 +24,8 @@ configDebugScreenView::configDebugScreenView()
     extiCheckOnButton.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_LARGE_ROUND_OFF_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_LARGE_ROUND_OFF_PRESSED_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_LARGE_ROUND_ON_ACTION_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_LARGE_ROUND_ON_PRESSED_ID));
     extiCheckOnButton.setSelected(false);
     extiCheckOnButton.setDeselectionEnabled(false);
+    extiCheckOnButton.setTouchable(false);
+    extiCheckOnButton.setAlpha(80);
     extiRadioButtonGroup.add(extiCheckOnButton);
     add(extiCheckOnButton);
 
@@ -31,6 +33,8 @@ configDebugScreenView::configDebugScreenView()
     extiCheckOffButton.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_LARGE_ROUND_OFF_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_LARGE_ROUND_OFF_PRESSED_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_LARGE_ROUND_ON_ACTION_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_LARGE_ROUND_ON_PRESSED_ID));
     extiCheckOffButton.setSelected(false);
     extiCheckOffButton.setDeselectionEnabled(false);
+    extiCheckOffButton.setTouchable(false);
+    extiCheckOffButton.setAlpha(80);
     extiRadioButtonGroup.add(extiCheckOffButton);
     add(extiCheckOffButton);
 

@@ -190,12 +190,12 @@ uint8_t getDoExti()
 	return persistentRec.extiOn;
 }
 
-uint8_t getInfoPrint()
+uint8_t getDoInfoPrint()
 {
 	return persistentRec.infoPrintOn;
 }
 
-uint8_t getPidPrint()
+uint8_t getDoPidPrint()
 {
 	return persistentRec.pidPrintOn;
 }
@@ -494,9 +494,9 @@ tStatus initNSavePersistentData()
 
 void getDefinesDebugData(uint8_t*  pidP, uint8_t* infoP, uint8_t* exti)
 {
-	*pidP = getPidPrint();
-	*infoP = getInfoPrint();
-	*exti  = getDoExti();
+	*pidP = persistentRec.pidPrintOn;
+	*infoP = persistentRec.infoPrintOn;
+	*exti  = persistentRec.extiOn;
 }
 
 void setDefinesDebugData(uint8_t  pidP, uint8_t infoP, uint8_t exti)

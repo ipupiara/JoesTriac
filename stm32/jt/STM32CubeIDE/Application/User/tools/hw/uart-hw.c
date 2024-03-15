@@ -175,7 +175,7 @@ uint8_t initUartHw()
 	 RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
 
 	huart1.Instance = USART1;
-	huart1.Init.BaudRate = 115200; //19200;  115200; 57600; 9600
+	huart1.Init.BaudRate = 57600; //19200;  115200; 57600; 9600
 	huart1.Init.WordLength = UART_WORDLENGTH_8B;
 	huart1.Init.StopBits = UART_STOPBITS_1;
 	huart1.Init.Parity = UART_PARITY_NONE;
