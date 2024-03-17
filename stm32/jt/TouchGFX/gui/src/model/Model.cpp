@@ -63,7 +63,7 @@ void Model::printPid (CJoesModelEventT* mEv)
 	memset(floatBuffer8,0,sizeof(floatBuffer8));
 	memset(uartInputBuffer,0,serialBufferSize);
 
-	if (mEv->evData.pidPrintData.pidAndPrintBool == pidAndPrint) {
+	if (mEv->evData.pidPrintData.pidAndPrintBool == printPidAndRun) {
 		float fParams [4] =  {mEv->evData.pidPrintData.ampsV, mEv->evData.pidPrintData.Vpa
 								 , mEv->evData.pidPrintData.Vin, mEv->evData.pidPrintData.Vde};
 		Unicode::snprintfFloats(( short unsigned int*)floatBufferU, 50 ," amps %6.2f, Vp %4.1f, Vi  %4.1f, Vd  %4.1f", fParams );

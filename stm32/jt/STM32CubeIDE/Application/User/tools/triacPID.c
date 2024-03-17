@@ -19,14 +19,13 @@
 
 extern void startTriacRun();
 extern void stopTriacRun();
-void printTriacData(doPidAndPrint pidNPrint);
 void initPidData();
 
 int8_t m_started;
 real m_kPTot, m_kP, m_kI, m_kD, m_stepTime, m_inv_stepTime, m_prev_error, m_integral_thresh, m_integral;
 real m_correctionThresh, q_fact;
 real error , correction;
-real  Vp, Vi, Vd;
+real  Vpart, Vint, Vder;
 int16_t newDelay;
 int16_t corrInt;
 
@@ -96,7 +95,7 @@ real nextCorrection(real error)
         deriv = (error - m_prev_error) * m_inv_stepTime;
     m_prev_error = error;
 
-	res =  m_kPTot * ((Vp = (m_kP*error)) + (Vi=(m_kI*m_integral)) + ( Vd= (m_kD*deriv)));
+	res =  m_kPTot * ((Vpart = (m_kP*error)) + (Vint=(m_kI*m_integral)) + ( Vder= (m_kD*deriv)));
 
 	if (res > m_correctionThresh) {
 		res = m_correctionThresh;
@@ -107,27 +106,30 @@ real nextCorrection(real error)
 }
 
 
-void calcNextTriacDelay(doPidAndPrint pidNPrint)
+void calcNextTriacDelay()
+{
+	float err;
+	err = getDefinesWeldingAmps() - currentAmps() ;
+	correction = (real) nextCorrection(err) + (real) corrCarryOver;
+	corrInt = correction;
+	corrCarryOver = correction - corrInt;
+	newDelay = getTriacTriggerDelay() - corrInt;
+	setTriacTriggerDelay(newDelay);
+
+	printTriacPidAndRunData(printPidAndRun);
+
+	++ pidStepCnt;
+}
+
+
+void printTriacPidAndRunData(doPidAndPrint pidNPrint)
 {
 
-	if (pidNPrint > printOnly ) {
-		float err;
-		err = getDefinesWeldingAmps() - currentAmps() ;
-		correction = (real) nextCorrection(err) + (real) corrCarryOver;
-		corrInt = correction;
-		corrCarryOver = correction - corrInt;
-		newDelay = getTriacTriggerDelay() - corrInt;
-		setTriacTriggerDelay(newDelay);
-	}  else   {
-		corrInt = 0;
-		newDelay = getTriacTriggerDelay();
-	}
-
-
-//	printTriacData(pidAndPrint);
-
-#ifdef printfPid
 	if (getDoPidPrint() > 0)  {
+		if (pidNPrint == printRunOnly ) {
+			corrInt = 0;
+			newDelay = getTriacTriggerDelay();
+		}
 		double ampsD  = currentAmps();
 		uint32_t adcVal =  getCurrentAmpsADCValue();
 
@@ -137,47 +139,11 @@ void calcNextTriacDelay(doPidAndPrint pidNPrint)
 		msg.evData.pidPrintData.triCorrInt = corrInt;
 		msg.evData.pidPrintData.triDelay = newDelay;
 		msg.evData.pidPrintData.ampsV = ampsD;
-		msg.evData.pidPrintData.Vde = Vd ;
-		msg.evData.pidPrintData.Vin = Vi ;
-		msg.evData.pidPrintData.Vpa = Vp ;
+		msg.evData.pidPrintData.Vde = Vder ;
+		msg.evData.pidPrintData.Vin = Vint ;
+		msg.evData.pidPrintData.Vpa = Vpart ;
 		sendModelMessage(&msg);
 	}
-#endif
-
-//	if (pidNPrint > printOnly) {
-//		if ((pidStepCnt & ((uint32_t) 0x01)) == 0  ) {
-//
-//			if (triacPidGraphData.amtValidDataPoints < pidGraphSize) {
-//				triacPidGraphData.dataValues[triacPidGraphData.amtValidDataPoints] = ampsD;  // zero based
-//				++triacPidGraphData.amtValidDataPoints;
-//
-//				CJoesPresenterEventT  msg;
-//				msg.messageType = paintPidGraph;
-//				msg.evData.pidGraphData.ampsF = ampsD;
-//				msg.evData.pidGraphData.goalF = getDefinesWeldingAmps();
-//				sendPresenterMessage(&msg);
-//			}
-//		}
-//	}
-	++ pidStepCnt;
-}
-
-void printTriacData(doPidAndPrint pidNPrint)
-{
-//	double ampsD  = currentAmps();
-//	uint32_t adcVal =  getCurrentAmpsADCValue();
-//
-//	CJoesModelEventT  msg;
-//	msg.messageType = pidPrint;
-//	msg.evData.pidPrintData.triAdc = adcVal;
-//	msg.evData.pidPrintData.triCorrInt = corrInt;
-//	msg.evData.pidPrintData.ampsV = ampsD;
-//	msg.evData.pidPrintData.triCorrInt = corrInt;
-//	msg.evData.pidPrintData.Vde = Vd ;
-//	msg.evData.pidPrintData.Vin = Vi ;
-//	msg.evData.pidPrintData.Vpa = Vp ;
-//	msg.evData.pidPrintData.pidAndPrintBool = pidNPrint;
-//	sendModelMessage(&msg);
 }
 
 void printExistingGraph()
@@ -240,7 +206,7 @@ void InitPID()
 	m_integral = 0;
 	m_started = 0;
 	corrCarryOver = 0.0;
-	Vp = Vi = Vd = 0;
+	Vpart = Vint = Vder = 0;
 
 }
 

@@ -40,8 +40,8 @@ typedef struct {
 } graphDataRec;
 
 typedef enum{
-	printOnly = 0,
-	pidAndPrint
+	printRunOnly = 0,
+	printPidAndRun
 } doPidAndPrint ;
 
 extern graphDataRec  triacPidGraphData;
@@ -59,11 +59,13 @@ void resetPID();
 void startTriacPidRun();
 void stopTriacPidRun();
 
-void calcNextTriacDelay(doPidAndPrint pidNPrint);
+void calcNextTriacDelay();
 
 void initPidGraphData(float goalVal, uint32_t secsDuration);
 void printNextGraphDataPoint(float value);
 void printExistingGraph();
+void printTriacPidAndRunData(doPidAndPrint pidNPrint);
+
 
 #ifdef  __cplusplus
 }

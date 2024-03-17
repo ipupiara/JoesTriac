@@ -28,6 +28,21 @@
 #define amtExtiEvChecks   3
 #define msTick  uwTick   //  uwTick , debugTick
 
+/*
+ * future todo debug and code
+ *
+ * set timer endless toggle buzzer wire and measure frequency without any
+ * code from exti
+ *
+ *
+ *
+ *
+ *
+ *
+*/
+
+
+
 //#define extiPinValue() debugExtiPin
 #define extiPinValue() isExtiPinSet()
 
@@ -154,30 +169,33 @@ void startExtiCheck()
 */
 void  extiCheckTimerIRQHandler (void)
 {
-	__HAL_TIM_CLEAR_IT(&triacExtiCheckTimer, TIM_IT_UPDATE);
-	uint8_t extiPinOk  = (currentExtiPinState == extiPinValue());
-	debugExti();
-	++ extiCheckCnt;
-	if (extiCheckCnt < extiCheckAmt) {
-		if (extiPinOk == 0) {
-//dbg			stopExtiCheck();
-			amountIllegalExti += 1;
-		}
-	}  else {
-		stopExtiCheck();
-		if ((extiPinOk)== 1 ) {
-//dbg			if(handleMissed()) {
-//				doJobOnZeroPassEvent(currentExtiPinState);
-//			}
+	if (__HAL_TIM_GET_FLAG(&triacExtiCheckTimer, TIM_FLAG_UPDATE) != 0)       {
+		__HAL_TIM_CLEAR_IT(&triacExtiCheckTimer, TIM_IT_UPDATE);
+
+		uint8_t extiPinOk  = (currentExtiPinState == extiPinValue());
+		debugExti();
+		++ extiCheckCnt;
+		if (extiCheckCnt < extiCheckAmt) {
+			if (extiPinOk == 0) {
+	//dbg			stopExtiCheck();
+				amountIllegalExti += 1;
+			}
 		}  else {
-			amountIllegalExti += 1;
+			stopExtiCheck();
+			if ((extiPinOk)== 1 ) {
+	//dbg			if(handleMissed()) {
+	//				doJobOnZeroPassEvent(currentExtiPinState);
+	//			}
+			}  else {
+				amountIllegalExti += 1;
+			}
 		}
 	}
 }
 
 uint8_t min1Diff, max1Diff;
 
-void check1TimeDiff()
+void debugCheck1TimeDiff()
 {
 	uint8_t diff = msTick - uwTickWhenLastOk;
 	if (diff < 15) {
@@ -203,7 +221,7 @@ uint8_t handleMissed()
 			init1TimeDiff();
 			res = 1;
 		} else {  // todo later we should use a better clock base (cpu clock counter or timer)
-			check1TimeDiff();
+			debugCheck1TimeDiff();
 			if((((msTick - uwTickWhenLastOk + 1 ) % 10 )  )  > 2 )  {  // tobe tested evtl > 2 needed or 1 possible
 		//			if(((msTick - uwTickWhenLastOk ) % 10   ) != 0 )  {  // tobe tested
 				++amtWrongSync;
@@ -290,7 +308,7 @@ void initExtiCheck()
 	extiCheckCnt= 0;
 	initExtiCheckTimer();
 
-	//  general todo smt32F769 check if it needs an external powersupply for debuging...
+	//  general todo smt32F769 check if it needs an external powersupply for debugging...
 	//  or 800ma power over usb
 
 }

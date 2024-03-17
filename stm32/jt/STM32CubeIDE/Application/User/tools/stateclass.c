@@ -276,7 +276,7 @@ uStInt evCalibrateScaleChecker(void)
 		res =  uStIntHandlingDone;
 	}
 	if (currentEvent->evType == evAdcTick)  {
-		calcNextTriacDelay(printOnly);
+		printTriacPidAndRunData(printRunOnly);
 		res =  uStIntHandlingDone;
 	}
 	return res;
@@ -463,13 +463,13 @@ uStInt evTriacActiveChecker(void)
 	}
 	if (currentEvent->evType == evAdcTick)
 	{
-		calcNextTriacDelay(pidAndPrint);
+		calcNextTriacDelay();
 		res =  uStIntHandlingDone;
 	}
 
 	if (currentEvent->evType == evSecondsTick) {
 		sendActualValuesToRunNStopScreen(getSecondsDurationTimerRemaining(), secondsBeforeReturn);
-//		printNextGraphDataPoint(getCurrentAmpsValue());
+		printNextGraphDataPoint(getCurrentAmpsValue());
 
 		res =  uStIntHandlingDone;
 	}
@@ -518,7 +518,8 @@ void entryRequestStopState(void)
 	CJoesPresenterEventT  msg;
 	msg.messageType = requestStop;
 	sendPresenterMessage(&msg);
-	void setBuzzerOn();
+	timeCnt = 0;
+	setBuzzerOn();
 	secondsBeforeReturn = 11;
 }
 
@@ -526,7 +527,6 @@ void exitRequestStopState(void)
 {
 //	info_printf("exit Running\n");
 
-	void setBuzzerOff();
 	secondsBeforeReturn = 0;
 	setBuzzerOff();
 }
@@ -558,8 +558,6 @@ uStInt evRequestStopChecker(void)
 			timeCnt = 0;
 		}
 		--secondsBeforeReturn;
-
-
 //		res =  uStIntHandlingDone;
 	}
 	return res;
