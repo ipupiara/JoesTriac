@@ -148,10 +148,10 @@ void printTriacPidAndRunData(doPidAndPrint pidNPrint)
 
 void printExistingGraph()
 {
-//	CJoesPresenterEventT  msg;          // todo consider implementing this in a method in triacpid or so
-//	msg.messageType = pidGraphFromData;
-//	msg.evData.pidDataArrayPtr = &triacPidGraphData;
-//	sendPresenterMessage(&msg);
+	CJoesPresenterEventT  msg;
+	msg.messageType = pidGraphFromData;
+	msg.evData.pidGraphDataArrayPtr = &triacPidGraphData;
+	sendPresenterMessage(&msg);
 }
 
 void printNextGraphDataPoint(float value)
@@ -163,18 +163,10 @@ void printNextGraphDataPoint(float value)
 
 		CJoesPresenterEventT  msg;
 		msg.messageType = paintPidGraph;
-		msg.evData.pidDataArrayPtr=&triacPidGraphData;
+		msg.evData.pidGraphDataArrayPtr=&triacPidGraphData;
 		sendPresenterMessage(&msg);
 	}
 }
-
-//typedef struct {
-//	float  goalValue;
-//	uint32_t weldingDuration;
-//	uint32_t amtValidDataPoints;
-//	uint32_t amtValidGoalPoints;
-//	float  dataValues [pidGraphSize];
-//} graphDataRec;
 
 
 void initPidGraphData(float goalVal, uint32_t secsDuration)

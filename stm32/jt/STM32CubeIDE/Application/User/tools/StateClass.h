@@ -33,7 +33,8 @@ typedef enum eEventTypes
 	evConfigPressed,
 	evAutoConfigPressed,
 	evPidGraphInit,
-	evFatalError
+	evFatalError,
+	evRedrawPressed
 }fsmTriacEventType;
 
 

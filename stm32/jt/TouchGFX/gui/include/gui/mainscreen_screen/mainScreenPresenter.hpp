@@ -33,6 +33,7 @@ public:
 
     void startButtonPressed();
     void configButtonPressed();
+    void redrawPressed();
 private:
     mainScreenPresenter();
     bool presenterActive;

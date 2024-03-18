@@ -166,8 +166,8 @@ void mainJt(void *argument)
 							saveAlarmData(mJtEv.mainUnion.alarmData.alarmTime,mJtEv.mainUnion.alarmData.alarmNeeded);
 							break;
 						}
-						case pidGraphInitializing: {
-							fsmEv.evType=evPidGraphInit;
+						case redrawButtonPressed: {
+							fsmEv.evType=evRedrawPressed;
 							processTriacFsmEvent(PJoesTriacStateChart,&fsmEv);
 							break;
 						}

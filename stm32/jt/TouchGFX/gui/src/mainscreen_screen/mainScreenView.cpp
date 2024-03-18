@@ -57,6 +57,6 @@ void mainScreenView::showPidGraphFromData(pJoesPresenterEventT  pMsg)
 void mainScreenView::graphButtonPressed()
 {
 	if (! pidDataGraphContainer1.isVisible()) {
-//	   printExistingGraph();
+	   presenter->redrawPressed();
 	}
 }

@@ -8,6 +8,12 @@ mainScreenPresenter::mainScreenPresenter(mainScreenView& v)
 
 }
 
+void mainScreenPresenter::redrawPressed()
+{
+	CMainJtEventT evnt;
+	evnt.evType = redrawButtonPressed;
+	sendEventToMainJtMessageQ( &evnt, isNotFromIsr);
+}
 void mainScreenPresenter::activate()
 {
 	setPresenterQActive();

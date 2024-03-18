@@ -420,7 +420,7 @@ uStInt evTriacIdleChecker(void)
 		res =  uStIntHandlingDone;
 	}
 
-	if (currentEvent->evType == evPidGraphInit)  {
+	if (currentEvent->evType == evRedrawPressed)  {
 //			printExistingGraph();
 
 		res =  uStIntHandlingDone;

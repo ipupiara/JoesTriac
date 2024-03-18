@@ -61,7 +61,8 @@ typedef enum {
 	okPressed,
 	autoConfigPressed,
 	pidGraphInitializing,
-	storeDebugData
+	storeDebugData,
+	redrawButtonPressed,
 }  mainJtMessageType;
 
 typedef enum {
@@ -150,7 +151,7 @@ typedef struct  {
 			float ampsF;
 			float goalF;
 		} pidGraphData;
-		graphDataRec* pidDataArrayPtr;
+		graphDataRec* pidGraphDataArrayPtr;
 	}  evData;
 } CJoesPresenterEventT ;
 
