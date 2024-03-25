@@ -14,6 +14,7 @@
 #include <touchgfx/widgets/graph/GraphElements.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB565.hpp>
 #include <touchgfx/widgets/graph/GraphLabels.hpp>
+#include <touchgfx/widgets/ButtonWithIcon.hpp>
 
 class pidDataGraphContainerBase : public touchgfx::Container
 {
@@ -30,6 +31,10 @@ public:
         // Override and implement this function in pidDataGraphContainer
     }
     virtual void redrawPressed()
+    {
+        // Override and implement this function in pidDataGraphContainer
+    }
+    virtual void zoomButttonPressed()
     {
         // Override and implement this function in pidDataGraphContainer
     }
@@ -57,6 +62,7 @@ protected:
     touchgfx::GraphElementLine triacGraphLine1;
     touchgfx::PainterRGB565 triacGraphLine1Painter;
     touchgfx::ButtonWithLabel redrawButton;
+    touchgfx::ButtonWithIcon zoomButton;
 
 private:
 

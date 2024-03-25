@@ -89,6 +89,12 @@ pidDataGraphContainerBase::pidDataGraphContainerBase() :
     redrawButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     redrawButton.setAction(buttonCallback);
     add(redrawButton);
+
+    zoomButton.setXY(326, 374);
+    zoomButton.setBitmaps(touchgfx::Bitmap(BITMAP_ZOOMNORMAL_ID), touchgfx::Bitmap(BITMAP_ZOOMPRESSED_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID));
+    zoomButton.setIconXY(97, 0);
+    zoomButton.setAction(buttonCallback);
+    add(zoomButton);
 }
 
 pidDataGraphContainerBase::~pidDataGraphContainerBase()
@@ -112,9 +118,16 @@ void pidDataGraphContainerBase::buttonCallbackHandler(const touchgfx::AbstractBu
     }
     if (&src == &redrawButton)
     {
-        //Interaction1
+        //redrawInteraction
         //When redrawButton clicked call virtual function
         //Call redrawPressed
         redrawPressed();
+    }
+    if (&src == &zoomButton)
+    {
+        //ZoomInteraction
+        //When zoomButton clicked call virtual function
+        //Call zoomButttonPressed
+        zoomButttonPressed();
     }
 }

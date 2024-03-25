@@ -1024,7 +1024,7 @@
             "X": 466,
             "Y": 60,
             "Width": 120,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_TPKG",
             "TextRotation": "0",
             "AutoSize": true
@@ -1035,7 +1035,7 @@
             "X": 602,
             "Y": 48,
             "Width": 48,
-            "Height": 48,
+            "Height": 45,
             "TextId": "__SingleUse_Y4IF",
             "TextRotation": "0",
             "AutoSize": true,
@@ -1051,7 +1051,7 @@
             "X": 466,
             "Y": 141,
             "Width": 60,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_MZQ4",
             "TextRotation": "0",
             "AutoSize": true
@@ -1153,7 +1153,7 @@
             "X": 586,
             "Y": 108,
             "Width": 24,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_EHX2",
             "TextRotation": "0",
             "AutoSize": true
@@ -1164,7 +1164,7 @@
             "X": 653,
             "Y": 108,
             "Width": 36,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_CDHX",
             "TextRotation": "0",
             "AutoSize": true
@@ -1412,7 +1412,7 @@
             "X": 465,
             "Y": 12,
             "Width": 144,
-            "Height": 46,
+            "Height": 45,
             "TextId": "__SingleUse_EKBE",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2448,7 +2448,7 @@
             "X": 65,
             "Y": 217,
             "Width": 120,
-            "Height": 48,
+            "Height": 45,
             "TextId": "__SingleUse_Y76B",
             "TextRotation": "0",
             "AutoSize": true
@@ -2459,7 +2459,7 @@
             "X": 400,
             "Y": 217,
             "Width": 168,
-            "Height": 48,
+            "Height": 45,
             "TextId": "__SingleUse_UCEI",
             "TextRotation": "0",
             "AutoSize": true
@@ -2470,7 +2470,7 @@
             "X": 233,
             "Y": 217,
             "Width": 120,
-            "Height": 48,
+            "Height": 45,
             "TextId": "__SingleUse_4I0G",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2486,7 +2486,7 @@
             "X": 65,
             "Y": 291,
             "Width": 48,
-            "Height": 48,
+            "Height": 45,
             "TextId": "__SingleUse_URB0",
             "TextRotation": "0",
             "AutoSize": true
@@ -2497,7 +2497,7 @@
             "X": 233,
             "Y": 291,
             "Width": 48,
-            "Height": 48,
+            "Height": 45,
             "TextId": "__SingleUse_BE2W",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2513,7 +2513,7 @@
             "X": 400,
             "Y": 291,
             "Width": 312,
-            "Height": 48,
+            "Height": 45,
             "TextId": "__SingleUse_3ASW",
             "TextRotation": "0",
             "AutoSize": true
@@ -2856,7 +2856,7 @@
             "X": 379,
             "Y": 132,
             "Width": 180,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_F7T3",
             "TextRotation": "0",
             "AutoSize": true
@@ -2894,7 +2894,7 @@
             "X": 590,
             "Y": 84,
             "Width": 24,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_LTQX",
             "TextRotation": "0",
             "AutoSize": true
@@ -2905,7 +2905,7 @@
             "X": 674,
             "Y": 84,
             "Width": 36,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_0Y8O",
             "TextRotation": "0",
             "AutoSize": true
@@ -2916,7 +2916,7 @@
             "X": 379,
             "Y": 251,
             "Width": 240,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_9H0N",
             "TextRotation": "0",
             "AutoSize": true
@@ -2927,7 +2927,7 @@
             "X": 668,
             "Y": 243,
             "Width": 48,
-            "Height": 48,
+            "Height": 45,
             "TextId": "__SingleUse_SAF4",
             "TextRotation": "0",
             "AutoSize": true,
@@ -3005,7 +3005,7 @@
             "X": 54,
             "Y": 122,
             "Width": 108,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_EA7H",
             "TextRotation": "0",
             "AutoSize": true
@@ -3016,7 +3016,7 @@
             "X": 54,
             "Y": 204,
             "Width": 108,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_4FRP",
             "TextRotation": "0",
             "AutoSize": true
@@ -3027,7 +3027,7 @@
             "X": 54,
             "Y": 285,
             "Width": 96,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_AQ60",
             "TextRotation": "0",
             "AutoSize": true
@@ -3038,7 +3038,7 @@
             "X": 213,
             "Y": 72,
             "Width": 24,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_5DBZ",
             "TextRotation": "0",
             "AutoSize": true
@@ -3049,7 +3049,7 @@
             "X": 330,
             "Y": 72,
             "Width": 36,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_HPZE",
             "TextRotation": "0",
             "AutoSize": true
@@ -3205,7 +3205,7 @@
             "X": 315,
             "Y": 55,
             "Width": 228,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_YTFD",
             "TextRotation": "0",
             "AutoSize": true
@@ -3216,7 +3216,7 @@
             "X": 315,
             "Y": 127,
             "Width": 348,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_CTH6",
             "TextRotation": "0",
             "AutoSize": true
@@ -3273,7 +3273,7 @@
             "X": 315,
             "Y": 198,
             "Width": 240,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_8NKS",
             "TextRotation": "0",
             "AutoSize": true
@@ -3284,7 +3284,7 @@
             "X": 315,
             "Y": 230,
             "Width": 384,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_ERVX",
             "TextRotation": "0",
             "AutoSize": true
@@ -3678,7 +3678,7 @@
             "X": 80,
             "Y": 148,
             "Width": 48,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_LSC9",
             "TextRotation": "0",
             "AutoSize": true,
@@ -3694,7 +3694,7 @@
             "X": 6,
             "Y": 147,
             "Width": 48,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_ALYM",
             "TextRotation": "0",
             "AutoSize": true
@@ -3705,7 +3705,7 @@
             "X": 6,
             "Y": 3,
             "Width": 36,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_XF8E",
             "TextRotation": "0",
             "AutoSize": true
@@ -3716,7 +3716,7 @@
             "X": 80,
             "Y": 124,
             "Width": 48,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_KVXO",
             "TextRotation": "0",
             "AutoSize": true,
@@ -3732,7 +3732,7 @@
             "X": 6,
             "Y": 123,
             "Width": 48,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_AE3P",
             "TextRotation": "0",
             "AutoSize": true
@@ -3743,7 +3743,7 @@
             "X": 77,
             "Y": 101,
             "Width": 96,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_GGYS",
             "TextRotation": "0",
             "AutoSize": true,
@@ -3759,7 +3759,7 @@
             "X": 6,
             "Y": 99,
             "Width": 48,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_1312",
             "TextRotation": "0",
             "AutoSize": true
@@ -3770,7 +3770,7 @@
             "X": 6,
             "Y": 75,
             "Width": 48,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_H4U6",
             "TextRotation": "0",
             "AutoSize": true
@@ -3781,7 +3781,7 @@
             "X": 206,
             "Y": 50,
             "Width": 36,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_1JSV",
             "TextRotation": "0",
             "AutoSize": true,
@@ -3797,7 +3797,7 @@
             "X": 77,
             "Y": 50,
             "Width": 48,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_9EOH",
             "TextRotation": "0",
             "AutoSize": true,
@@ -3813,7 +3813,7 @@
             "X": 120,
             "Y": 50,
             "Width": 60,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_L3I3",
             "TextRotation": "0",
             "AutoSize": true
@@ -3824,7 +3824,7 @@
             "X": 6,
             "Y": 50,
             "Width": 48,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_ATUE",
             "TextRotation": "0",
             "AutoSize": true
@@ -3835,7 +3835,7 @@
             "X": 77,
             "Y": 26,
             "Width": 48,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_5JSP",
             "TextRotation": "0",
             "AutoSize": true,
@@ -3866,7 +3866,7 @@
             "X": 6,
             "Y": 27,
             "Width": 48,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_IHO9",
             "TextRotation": "0",
             "AutoSize": true
@@ -3877,7 +3877,7 @@
             "X": 176,
             "Y": 5,
             "Width": 60,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_1MVJ",
             "TextRotation": "0",
             "AutoSize": true,
@@ -3893,7 +3893,7 @@
             "X": 128,
             "Y": 2,
             "Width": 24,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_QHGG",
             "TextRotation": "0",
             "AutoSize": true
@@ -3904,7 +3904,7 @@
             "X": 77,
             "Y": 75,
             "Width": 96,
-            "Height": 24,
+            "Height": 23,
             "TextId": "__SingleUse_BD4W",
             "TextRotation": "0",
             "AutoSize": true,
@@ -4094,6 +4094,21 @@
             },
             "TextRotation": "0",
             "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
+          },
+          {
+            "Type": "ButtonWithIcon",
+            "Name": "zoomButton",
+            "X": 326,
+            "Y": 374,
+            "Width": 88,
+            "Height": 76,
+            "Pressed": "zoomPressed.png",
+            "Released": "zoomNormal.png",
+            "IconPressed": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconReleased": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconX": 97,
+            "IconHeight": 50,
+            "IconWidth": 50
           }
         ],
         "Interactions": [
@@ -4109,7 +4124,7 @@
             }
           },
           {
-            "InteractionName": "Interaction1",
+            "InteractionName": "redrawInteraction",
             "Trigger": {
               "Type": "TriggerClicked",
               "TriggerComponent": "redrawButton"
@@ -4117,6 +4132,17 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "redrawPressed"
+            }
+          },
+          {
+            "InteractionName": "ZoomInteraction",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "zoomButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "zoomButttonPressed"
             }
           }
         ]

@@ -59,6 +59,8 @@ const uint16_t BITMAP_STARTBTNPRESSED_ID = 49;
 const uint16_t BITMAP_STOPBTN_ID = 50;
 const uint16_t BITMAP_STOPBTNINACTIVE_ID = 51;
 const uint16_t BITMAP_STOPBTNPRESSED_ID = 52;
+const uint16_t BITMAP_ZOOMNORMAL_ID = 53;
+const uint16_t BITMAP_ZOOMPRESSED_ID = 54;
 
 namespace BitmapDatabase
 {

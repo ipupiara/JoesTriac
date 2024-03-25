@@ -32,6 +32,7 @@ void mainScreenView::setupScreen()
 
 	pidDataGraphContainer1.graphInitialized = 0; //  todo tobe tested when debugging problem that graph disappears sometimes after screen changes
 	// complicated call mechanism left so far, idea was to be able to send different graphs from repository to screen, just a brainstorm scratch paper idea
+	pidDataGraphContainer1.setRedrawButtonVisible(true);
 }
 
 void mainScreenView::tearDownScreen()
@@ -50,6 +51,7 @@ void mainScreenView::startButtonPressed()
 }
 
 void mainScreenView::showPidGraphFromData(pJoesPresenterEventT  pMsg)
+//  todo for timing reason print in graph own Q-method instead of within touchgfx tick with low prio(pJoesPresenterEventT  pMsg)
 {
 	pidDataGraphContainer1.showPidGraphFromData(pMsg);
 }
@@ -57,6 +59,7 @@ void mainScreenView::showPidGraphFromData(pJoesPresenterEventT  pMsg)
 void mainScreenView::graphButtonPressed()
 {
 	if (! pidDataGraphContainer1.isVisible()) {
-	   presenter->redrawPressed();
+		pidDataGraphContainer1.setVisible(true);
 	}
+	pidDataGraphContainer1.invalidate();
 }

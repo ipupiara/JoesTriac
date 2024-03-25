@@ -1,6 +1,5 @@
 #include <gui/containers/pidDataGraphContainer.hpp>
 #include <touchgfx/Color.hpp>
-#include <triacPid.h>
 #include <mainJt.h>
 
 
@@ -9,6 +8,8 @@ static Screen originalScreen;
 void  pidDataGraphContainer::setOriginalScreen(Screen scr)
 {
 	originalScreen = scr;
+	pGraphRec = NULL;
+	zoomState = zoomNormal;
 }
 
 
@@ -19,21 +20,22 @@ pidDataGraphContainer::pidDataGraphContainer()
 
 void pidDataGraphContainer::updateGraph(pJoesPresenterEventT  pMsg )
 {
-	graphDataRec*  pRec = pMsg->evData.pidGraphDataArrayPtr;
+	pGraphRec =  pMsg->evData.pidGraphDataArrayPtr;
 	if (graphInitialized == 0)  {
 		goalGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(0xFA, 0x14, 0x2B));
-		for (uint32_t cnt = 0; cnt < pRec->amtValidGoalPoints  ;  ++ cnt) {
-			goalGraph.addDataPoint(pRec->goalValue);
+		for (uint32_t cnt = 0; cnt < pGraphRec->amtValidGoalPoints  ;  ++ cnt) {
+			goalGraph.addDataPoint(pGraphRec->goalValue);
 		}
-		goalGraph.invalidate();  // todo test if invalidates are needed here and below or if invalidate of the whole containter is preferable
+//		goalGraph.invalidate();  // todo test if invalidates are needed here and below or if invalidate of the whole containter is preferable
 	}
-	if (pRec->amtValidDataPoints < (uint16_t) pidGraph.getMaxCapacity())  {
-		pidGraph.addDataPoint(pRec->dataValues[pRec->amtValidDataPoints -1]);
-		triacGraph.addDataPoint(pRec->triacValues[pRec->amtValidDataPoints -1]);
+	if (pGraphRec->amtValidDataPoints < (uint16_t) pidGraph.getMaxCapacity() )  {
+		pidGraph.addDataPoint(pGraphRec->dataValues[pGraphRec->amtValidDataPoints -1]);
+		triacGraph.addDataPoint(pGraphRec->triacValues[pGraphRec->amtValidDataPoints -1]);
 	}
 	if (graphInitialized == 0) {
-		pidGraph.invalidate();
-		triacGraph.invalidate();
+		origYMax = pidGraph.getGraphRangeYMaxAsFloat();
+//		pidGraph.invalidate();
+//		triacGraph.invalidate();  maybe not needed
 		graphInitialized = 1;
 	}
 }
@@ -50,11 +52,15 @@ void pidDataGraphContainer::showPidGraphFromData(pJoesPresenterEventT  pMsg)
 {
 	initFromGraphDataRec(pMsg->evData.pidGraphDataArrayPtr);
 	setVisible(true);
-	invalidate();
+//	invalidate();  maybe not needed
 }
 
 void pidDataGraphContainer::initFromGraphDataRec(graphDataRec* pRec)
 {
+	pGraphRec = pRec;
+	goalGraph.clear();
+	pidGraph.clear();
+	triacGraph.clear();
 	goalGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(0xFA, 0x14, 0x2B));
 	triacGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(0xDF, 0xEB, 0x02));
 	for (uint16_t cnt = 0; cnt < pRec->amtValidGoalPoints;  ++ cnt) {
@@ -65,8 +71,9 @@ void pidDataGraphContainer::initFromGraphDataRec(graphDataRec* pRec)
 		triacGraph.addDataPoint(pRec->triacValues[cnt]);
 	}
 	graphInitialized = 1;
+	origYMax = pidGraph.getGraphRangeYMaxAsFloat();
 	setVisible(true);
-	invalidate();
+//	invalidate();  maybe not needed
 }
 
 void pidDataGraphContainer::backButtonPressed()
@@ -77,11 +84,31 @@ void pidDataGraphContainer::backButtonPressed()
 
 void pidDataGraphContainer::redrawPressed()
  {
-	removeAll();
-//	pidDataGraphContainerBase();  //  todo test if needed (guess not :-)
-	printExistingGraph();  // todo tobe tested
-	initFromGraphDataRec(&triacPidGraphData);
+	//  todo for timing reason print in graph own Q-method instead of within touchgfx tick with low prio
+    if (pGraphRec != NULL ) {
+    	initFromGraphDataRec(pGraphRec);
+    }  else {
+    	printExistingGraph();
+    }
  }
 
+void pidDataGraphContainer::setRedrawButtonVisible(bool vis)
+{
+	redrawButton.setVisible(vis);
+}
 
-//   todo much of this code is just a scratch and needs reworking and reduce the repetitions  :-)
+void pidDataGraphContainer::zoomButttonPressed()
+{
+	if (pGraphRec != NULL ) {
+		if (zoomState == zoomNormal)  {
+			goalGraph.setGraphRangeY((float)(pGraphRec->goalValue - 10.0), (float) (pGraphRec->goalValue + 10.0));
+			pidGraph.setGraphRangeY((float)(pGraphRec->goalValue - 10.0), (float) (pGraphRec->goalValue + 10.0));
+			zoomState = zoomPressed;
+		}  else  {
+			goalGraph.setGraphRangeY(0.0, origYMax);
+			pidGraph.setGraphRangeY(0.0, origYMax);
+			zoomState = zoomNormal;
+		}
+	}
+}
+

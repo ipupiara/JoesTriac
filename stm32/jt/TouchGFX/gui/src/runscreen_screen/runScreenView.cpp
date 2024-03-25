@@ -49,6 +49,7 @@ void runScreenView::setupScreen()
 	 pidDataGraphContainer1.setVisible(false);
 	 pidDataGraphContainer1.invalidate();
 
+	 pidDataGraphContainer1.setRedrawButtonVisible(false);
 	 raiseDoRun();
 }
 

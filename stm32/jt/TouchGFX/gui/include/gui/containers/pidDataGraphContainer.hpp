@@ -2,6 +2,13 @@
 #define PIDDATAGRAPHCONTAINER_HPP
 
 #include <gui_generated/containers/pidDataGraphContainerBase.hpp>
+#include <triacPid.h>
+
+typedef enum  {
+	zoomNormal,
+	zoomPressed
+
+}zoomStateType;
 
 
 class pidDataGraphContainer : public pidDataGraphContainerBase
@@ -17,8 +24,13 @@ public:
     void initFromData(pJoesPresenterEventT  pMsg );
     void initFromGraphDataRec(graphDataRec* pRec);
     void showPidGraphFromData(pJoesPresenterEventT  pMsg);
+    void setRedrawButtonVisible(bool vis);
+    virtual void zoomButttonPressed();
     uint8_t  graphInitialized;
 protected:
+    graphDataRec*  pGraphRec;
+    zoomStateType zoomState;
+    float origYMax;
     void setOriginalScreen(Screen scr);
     static Screen originalScreen;
 

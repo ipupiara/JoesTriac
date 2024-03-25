@@ -1255,6 +1255,16 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_stopBtnPressed.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/image_zoomNormal.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_zoomNormal.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_zoomPressed.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_zoomPressed.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/LanguageGb.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/texts/src/LanguageGb.cpp</locationURI>

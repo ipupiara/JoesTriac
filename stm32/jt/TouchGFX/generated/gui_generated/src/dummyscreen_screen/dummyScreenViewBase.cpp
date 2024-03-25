@@ -60,8 +60,9 @@ dummyScreenViewBase::dummyScreenViewBase() :
 
     radioButton1.setXY(608, 49);
     radioButton1.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_LARGE_ROUND_OFF_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_LARGE_ROUND_OFF_PRESSED_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_LARGE_ROUND_ON_ACTION_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_RADIOBUTTON_RADIO_LARGE_ROUND_ON_PRESSED_ID));
-    radioButton1.setSelected(false);
+    radioButton1.setSelected(true);
     radioButton1.setDeselectionEnabled(false);
+    radioButton1.setAlpha(80);
     radioButtonGroup1.add(radioButton1);
     add(radioButton1);
 }
