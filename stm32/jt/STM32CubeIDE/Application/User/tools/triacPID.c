@@ -78,6 +78,9 @@ real nextCorrection(real error)
     if (fabs(error) < m_integral_thresh) {
 		q_fact = 1.0;
 		m_kI = 	kIntegral;
+//		if (((error > 0) && (m_integral < 0 )) || ((error < 0) && (m_integral > 0 )))  {
+//			m_integral = 0;
+//		}
 		m_integral += m_stepTime*q_fact*error;
     } else  {
 		m_kI = 0.0;
