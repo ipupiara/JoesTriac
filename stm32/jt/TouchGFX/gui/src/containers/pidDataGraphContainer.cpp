@@ -85,11 +85,7 @@ void pidDataGraphContainer::backButtonPressed()
 void pidDataGraphContainer::redrawPressed()
  {
 	//  todo for timing reason print in graph own Q-method instead of within touchgfx tick with low prio
-    if (pGraphRec != NULL ) {
-    	initFromGraphDataRec(pGraphRec);
-    }  else {
-    	printExistingGraph();
-    }
+    printExistingGraph();
  }
 
 void pidDataGraphContainer::setRedrawButtonVisible(bool vis)
