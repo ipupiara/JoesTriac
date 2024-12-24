@@ -3005,7 +3005,7 @@
             "X": 54,
             "Y": 122,
             "Width": 108,
-            "Height": 23,
+            "Height": 24,
             "TextId": "__SingleUse_EA7H",
             "TextRotation": "0",
             "AutoSize": true
@@ -3016,7 +3016,7 @@
             "X": 54,
             "Y": 204,
             "Width": 108,
-            "Height": 23,
+            "Height": 24,
             "TextId": "__SingleUse_4FRP",
             "TextRotation": "0",
             "AutoSize": true
@@ -3027,7 +3027,7 @@
             "X": 54,
             "Y": 285,
             "Width": 96,
-            "Height": 23,
+            "Height": 24,
             "TextId": "__SingleUse_AQ60",
             "TextRotation": "0",
             "AutoSize": true
@@ -3038,7 +3038,7 @@
             "X": 213,
             "Y": 72,
             "Width": 24,
-            "Height": 23,
+            "Height": 24,
             "TextId": "__SingleUse_5DBZ",
             "TextRotation": "0",
             "AutoSize": true
@@ -3049,7 +3049,7 @@
             "X": 330,
             "Y": 72,
             "Width": 36,
-            "Height": 23,
+            "Height": 24,
             "TextId": "__SingleUse_HPZE",
             "TextRotation": "0",
             "AutoSize": true
@@ -3112,6 +3112,29 @@
             },
             "TextRotation": "0",
             "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "canDebugButton",
+            "X": 520,
+            "Y": 59,
+            "Width": 240,
+            "Height": 50,
+            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
+            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
+            "TextId": "__SingleUse_8HI9",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
           }
         ],
         "Interactions": [
@@ -3135,6 +3158,18 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "saveButtonPressed"
+            }
+          },
+          {
+            "InteractionName": "canDebugInteraction",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "canDebugButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "canDebugScreen"
             }
           }
         ]
@@ -3344,6 +3379,286 @@
             "Trigger": {
               "Type": "TriggerClicked",
               "TriggerComponent": "debugButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "configDebugScreen"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "canDebugScreen",
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "box1",
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 176,
+              "Green": 247,
+              "Blue": 191
+            }
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "triacDebugSelection",
+            "X": 316,
+            "Y": 18,
+            "Width": 315,
+            "Height": 85,
+            "CustomContainerDefinitionName": "canDebugSelectConta"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "ammeterDebugSelection",
+            "X": 316,
+            "Y": 128,
+            "Width": 315,
+            "Height": 85,
+            "CustomContainerDefinitionName": "canDebugSelectConta"
+          },
+          {
+            "Type": "RadioButton",
+            "Name": "triacHostSelect",
+            "X": 221,
+            "Y": 24,
+            "Width": 36,
+            "Height": 36,
+            "FileNameSelected": "__generated\\alternate_theme_images_widgets_radiobutton_radio_medium_rounded_on_dark.png",
+            "FileNameSelectedPressed": "__generated\\alternate_theme_images_widgets_radiobutton_radio_medium_rounded_on_pressed.png",
+            "FileNameUnselected": "__generated\\alternate_theme_images_widgets_radiobutton_radio_medium_rounded_off.png",
+            "FileNameUnselectedPressed": "__generated\\alternate_theme_images_widgets_radiobutton_radio_medium_rounded_off_pressed.png",
+            "RadioButtonGroup": "radioButtonGroup1",
+            "Preset": "alternate_theme\\presets\\radiobutton\\radio\\medium_dark_rounded.json"
+          },
+          {
+            "Type": "RadioButton",
+            "Name": "ammeterHostSelect",
+            "X": 221,
+            "Y": 128,
+            "Width": 36,
+            "Height": 36,
+            "FileNameSelected": "__generated\\alternate_theme_images_widgets_radiobutton_radio_medium_rounded_on_dark.png",
+            "FileNameSelectedPressed": "__generated\\alternate_theme_images_widgets_radiobutton_radio_medium_rounded_on_pressed.png",
+            "FileNameUnselected": "__generated\\alternate_theme_images_widgets_radiobutton_radio_medium_rounded_off.png",
+            "FileNameUnselectedPressed": "__generated\\alternate_theme_images_widgets_radiobutton_radio_medium_rounded_off_pressed.png",
+            "RadioButtonGroup": "radioButtonGroup1",
+            "Preset": "alternate_theme\\presets\\radiobutton\\radio\\medium_dark_rounded.json"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 159,
+            "Y": 70,
+            "Width": 108,
+            "Height": 24,
+            "TextId": "__SingleUse_F1B4",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea2",
+            "X": 135,
+            "Y": 176,
+            "Width": 132,
+            "Height": 24,
+            "TextId": "__SingleUse_CDH6",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea3",
+            "X": 25,
+            "Y": 240,
+            "Width": 132,
+            "Height": 24,
+            "TextId": "__SingleUse_ARDH",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea4",
+            "X": 648,
+            "Y": 24,
+            "Width": 72,
+            "Height": 24,
+            "TextId": "__SingleUse_IS6Y",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea5",
+            "X": 648,
+            "Y": 70,
+            "Width": 72,
+            "Height": 24,
+            "TextId": "__SingleUse_21IU",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea6",
+            "X": 648,
+            "Y": 176,
+            "Width": 72,
+            "Height": 24,
+            "TextId": "__SingleUse_242V",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea7",
+            "X": 648,
+            "Y": 134,
+            "Width": 72,
+            "Height": 24,
+            "TextId": "__SingleUse_8DZ6",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea9",
+            "X": 24,
+            "Y": 307,
+            "Width": 36,
+            "Height": 24,
+            "TextId": "__SingleUse_56Y0",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea10",
+            "X": 25,
+            "Y": 350,
+            "Width": 36,
+            "Height": 24,
+            "TextId": "__SingleUse_NHT4",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea11",
+            "X": 25,
+            "Y": 377,
+            "Width": 36,
+            "Height": 24,
+            "TextId": "__SingleUse_AWVE",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea12",
+            "X": 25,
+            "Y": 283,
+            "Width": 36,
+            "Height": 24,
+            "TextId": "__SingleUse_T46J",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "cnt101",
+            "X": 88,
+            "Y": 283,
+            "Width": 95,
+            "Height": 24,
+            "TextId": "__SingleUse_QYX1",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_2R5O",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "cnt201",
+            "X": 88,
+            "Y": 350,
+            "Width": 95,
+            "Height": 24,
+            "TextId": "__SingleUse_JO4G",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_T8Z6",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "cnt103",
+            "X": 88,
+            "Y": 374,
+            "Width": 95,
+            "Height": 21,
+            "TextId": "__SingleUse_ONH9",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_PF6P",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "cnt203",
+            "X": 87,
+            "Y": 307,
+            "Width": 96,
+            "Height": 24,
+            "TextId": "__SingleUse_TT31",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_YBR6",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "returnButton",
+            "X": 487,
+            "Y": 407,
+            "Width": 240,
+            "Height": 50,
+            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
+            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
+            "TextId": "__SingleUse_TV5T",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "returnButtonInteraction",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "returnButton"
             },
             "Action": {
               "Type": "ActionGotoScreen",
@@ -4146,6 +4461,101 @@
             }
           }
         ]
+      },
+      {
+        "Name": "canDebugSelectConta",
+        "Width": 315,
+        "Height": 85,
+        "Components": [
+          {
+            "Type": "BoxWithBorder",
+            "Name": "boxWithBorder1",
+            "Width": 315,
+            "Height": 85,
+            "Color": {
+              "Red": 247,
+              "Green": 218,
+              "Blue": 218
+            },
+            "BorderSize": 1
+          },
+          {
+            "Type": "RadioButton",
+            "Name": "nonButton",
+            "X": 6,
+            "Y": 6,
+            "Width": 36,
+            "Height": 36,
+            "FileNameSelected": "__generated\\alternate_theme_images_widgets_radiobutton_radio_medium_rounded_on_dark.png",
+            "FileNameSelectedPressed": "__generated\\alternate_theme_images_widgets_radiobutton_radio_medium_rounded_on_pressed.png",
+            "FileNameUnselected": "__generated\\alternate_theme_images_widgets_radiobutton_radio_medium_rounded_off.png",
+            "FileNameUnselectedPressed": "__generated\\alternate_theme_images_widgets_radiobutton_radio_medium_rounded_off_pressed.png",
+            "RadioButtonGroup": "radioButtonGroup1",
+            "Preset": "alternate_theme\\presets\\radiobutton\\radio\\medium_dark_rounded.json"
+          },
+          {
+            "Type": "RadioButton",
+            "Name": "singleButton",
+            "X": 116,
+            "Y": 6,
+            "Width": 36,
+            "Height": 36,
+            "FileNameSelected": "__generated\\alternate_theme_images_widgets_radiobutton_radio_medium_rounded_on_dark.png",
+            "FileNameSelectedPressed": "__generated\\alternate_theme_images_widgets_radiobutton_radio_medium_rounded_on_pressed.png",
+            "FileNameUnselected": "__generated\\alternate_theme_images_widgets_radiobutton_radio_medium_rounded_off.png",
+            "FileNameUnselectedPressed": "__generated\\alternate_theme_images_widgets_radiobutton_radio_medium_rounded_off_pressed.png",
+            "RadioButtonGroup": "radioButtonGroup1",
+            "Preset": "alternate_theme\\presets\\radiobutton\\radio\\medium_dark_rounded.json"
+          },
+          {
+            "Type": "RadioButton",
+            "Name": "continuousButton",
+            "X": 270,
+            "Y": 6,
+            "Width": 36,
+            "Height": 36,
+            "FileNameSelected": "__generated\\alternate_theme_images_widgets_radiobutton_radio_medium_rounded_on_dark.png",
+            "FileNameSelectedPressed": "__generated\\alternate_theme_images_widgets_radiobutton_radio_medium_rounded_on_pressed.png",
+            "FileNameUnselected": "__generated\\alternate_theme_images_widgets_radiobutton_radio_medium_rounded_off.png",
+            "FileNameUnselectedPressed": "__generated\\alternate_theme_images_widgets_radiobutton_radio_medium_rounded_off_pressed.png",
+            "RadioButtonGroup": "radioButtonGroup1",
+            "Preset": "alternate_theme\\presets\\radiobutton\\radio\\medium_dark_rounded.json"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 6,
+            "Y": 49,
+            "Width": 48,
+            "Height": 24,
+            "TextId": "__SingleUse_INT2",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea2",
+            "X": 80,
+            "Y": 49,
+            "Width": 72,
+            "Height": 24,
+            "TextId": "__SingleUse_94WC",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea7",
+            "X": 186,
+            "Y": 49,
+            "Width": 120,
+            "Height": 24,
+            "TextId": "__SingleUse_Z6KK",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
       }
     ],
     "Name": "jt",

@@ -6,6 +6,78 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_TV5T" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">return</Translation>
+      </Text>
+      <Text Id="__SingleUse_8HI9" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">can debug</Translation>
+      </Text>
+      <Text Id="__SingleUse_YBR6" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="__SingleUse_TT31" Alignment="Right" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_T8Z6" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="__SingleUse_PF6P" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="__SingleUse_ONH9" Alignment="Right" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_JO4G" Alignment="Right" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_2R5O" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="__SingleUse_QYX1" Alignment="Right" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_T46J" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">101</Translation>
+      </Text>
+      <Text Id="__SingleUse_AWVE" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">103</Translation>
+      </Text>
+      <Text Id="__SingleUse_NHT4" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">201</Translation>
+      </Text>
+      <Text Id="__SingleUse_56Y0" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">203</Translation>
+      </Text>
+      <Text Id="__SingleUse_8DZ6" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">tx 201</Translation>
+      </Text>
+      <Text Id="__SingleUse_242V" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">rx 103</Translation>
+      </Text>
+      <Text Id="__SingleUse_21IU" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">rx 203</Translation>
+      </Text>
+      <Text Id="__SingleUse_IS6Y" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">tx 101</Translation>
+      </Text>
+      <Text Id="__SingleUse_ARDH" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">messages rx</Translation>
+      </Text>
+      <Text Id="__SingleUse_CDH6" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">ammeterHost</Translation>
+      </Text>
+      <Text Id="__SingleUse_F1B4" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">triacHost</Translation>
+      </Text>
+      <Text Id="__SingleUse_Z6KK" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">continuous</Translation>
+      </Text>
+      <Text Id="__SingleUse_94WC" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">single</Translation>
+      </Text>
+      <Text Id="__SingleUse_INT2" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">none</Translation>
+      </Text>
       <Text Id="__SingleUse_3ASW" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">minutes total</Translation>
       </Text>

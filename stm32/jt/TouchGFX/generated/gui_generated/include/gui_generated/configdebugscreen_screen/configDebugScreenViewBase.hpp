@@ -52,6 +52,7 @@ protected:
     touchgfx::RadioButton radioButton1;
     touchgfx::ButtonWithLabel cancelButton;
     touchgfx::ButtonWithLabel saveButton;
+    touchgfx::ButtonWithLabel canDebugButton;
 
 private:
 

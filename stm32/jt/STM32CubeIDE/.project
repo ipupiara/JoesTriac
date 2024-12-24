@@ -615,6 +615,16 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/calibrationscreen_screen/calibrationScreenView.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/gui/canDebugScreenPresenter.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/candebugscreen_screen/canDebugScreenPresenter.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/canDebugScreenView.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/candebugscreen_screen/canDebugScreenView.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/gui/FrontendApplication.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/common/FrontendApplication.cpp</locationURI>
@@ -648,6 +658,11 @@
 			<name>Application/User/gui/astrolabiumContainer.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/containers/astrolabiumContainer.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/canDebugSelectConta.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/containers/canDebugSelectConta.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/gui/numericKeyPad.cpp</name>
@@ -880,6 +895,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/calibrationscreen_screen/calibrationScreenViewBase.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/canDebugScreenViewBase.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/candebugscreen_screen/canDebugScreenViewBase.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/FrontendApplicationBase.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/common/FrontendApplicationBase.cpp</locationURI>
@@ -903,6 +923,11 @@
 			<name>Application/User/generated/astrolabiumContainerBase.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/containers/astrolabiumContainerBase.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/canDebugSelectContaBase.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/containers/canDebugSelectContaBase.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/numericKeyPadBase.cpp</name>

@@ -76,6 +76,14 @@ configDebugScreenViewBase::configDebugScreenViewBase() :
     saveButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     saveButton.setAction(buttonCallback);
     add(saveButton);
+
+    canDebugButton.setXY(520, 59);
+    canDebugButton.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
+    canDebugButton.setLabelText(touchgfx::TypedText(T___SINGLEUSE_8HI9));
+    canDebugButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    canDebugButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    canDebugButton.setAction(buttonCallback);
+    add(canDebugButton);
 }
 
 configDebugScreenViewBase::~configDebugScreenViewBase()
@@ -103,5 +111,12 @@ void configDebugScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractBu
         //When saveButton clicked call virtual function
         //Call saveButtonPressed
         saveButtonPressed();
+    }
+    if (&src == &canDebugButton)
+    {
+        //canDebugInteraction
+        //When canDebugButton clicked change screen to canDebugScreen
+        //Go to canDebugScreen with no screen transition
+        application().gotocanDebugScreenScreenNoTransition();
     }
 }

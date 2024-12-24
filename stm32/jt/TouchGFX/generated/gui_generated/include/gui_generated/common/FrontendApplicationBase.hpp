@@ -68,6 +68,9 @@ public:
     // behaviourConfigScreen
     void gotobehaviourConfigScreenScreenNoTransition();
 
+    // canDebugScreen
+    void gotocanDebugScreenScreenNoTransition();
+
 protected:
     touchgfx::Callback<FrontendApplicationBase> transitionCallback;
     FrontendHeap& frontendHeap;
@@ -120,6 +123,9 @@ protected:
 
     // behaviourConfigScreen
     void gotobehaviourConfigScreenScreenNoTransitionImpl();
+
+    // canDebugScreen
+    void gotocanDebugScreenScreenNoTransitionImpl();
 };
 
 #endif // FRONTENDAPPLICATIONBASE_HPP

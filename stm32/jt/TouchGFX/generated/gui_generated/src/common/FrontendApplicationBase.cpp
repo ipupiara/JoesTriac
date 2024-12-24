@@ -45,6 +45,8 @@
 #include <gui/configdebugscreen_screen/configDebugScreenPresenter.hpp>
 #include <gui/behaviourconfigscreen_screen/behaviourConfigScreenView.hpp>
 #include <gui/behaviourconfigscreen_screen/behaviourConfigScreenPresenter.hpp>
+#include <gui/candebugscreen_screen/canDebugScreenView.hpp>
+#include <gui/candebugscreen_screen/canDebugScreenPresenter.hpp>
 
 using namespace touchgfx;
 
@@ -274,4 +276,17 @@ void FrontendApplicationBase::gotobehaviourConfigScreenScreenNoTransition()
 void FrontendApplicationBase::gotobehaviourConfigScreenScreenNoTransitionImpl()
 {
     touchgfx::makeTransition<behaviourConfigScreenView, behaviourConfigScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+// canDebugScreen
+
+void FrontendApplicationBase::gotocanDebugScreenScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotocanDebugScreenScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotocanDebugScreenScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<canDebugScreenView, canDebugScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }

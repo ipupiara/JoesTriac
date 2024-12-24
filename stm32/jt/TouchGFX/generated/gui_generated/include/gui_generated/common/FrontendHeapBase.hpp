@@ -48,6 +48,8 @@
 #include <gui/configdebugscreen_screen/configDebugScreenPresenter.hpp>
 #include <gui/behaviourconfigscreen_screen/behaviourConfigScreenView.hpp>
 #include <gui/behaviourconfigscreen_screen/behaviourConfigScreenPresenter.hpp>
+#include <gui/candebugscreen_screen/canDebugScreenView.hpp>
+#include <gui/candebugscreen_screen/canDebugScreenPresenter.hpp>
 
 
 /**
@@ -88,7 +90,8 @@ public:
             touchgfx::meta::TypeList< switchPressureConfigScreenView,
             touchgfx::meta::TypeList< configDebugScreenView,
             touchgfx::meta::TypeList< behaviourConfigScreenView,
-            touchgfx::meta::Nil > > > > > > > > > > > > > > > > >
+            touchgfx::meta::TypeList< canDebugScreenView,
+            touchgfx::meta::Nil > > > > > > > > > > > > > > > > > >
             > GeneratedViewTypes;
 
     /**
@@ -118,7 +121,8 @@ public:
             touchgfx::meta::TypeList< switchPressureConfigScreenPresenter,
             touchgfx::meta::TypeList< configDebugScreenPresenter,
             touchgfx::meta::TypeList< behaviourConfigScreenPresenter,
-            touchgfx::meta::Nil > > > > > > > > > > > > > > > > >
+            touchgfx::meta::TypeList< canDebugScreenPresenter,
+            touchgfx::meta::Nil > > > > > > > > > > > > > > > > > >
             > GeneratedPresenterTypes;
 
     /**

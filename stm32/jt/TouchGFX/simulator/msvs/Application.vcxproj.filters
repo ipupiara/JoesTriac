@@ -400,6 +400,18 @@
     <Filter Include="Source Files\generated\gui_generated\configdebugscreen_screen">
       <UniqueIdentifier>4E8B5E15-9416-B9F2-BE7F-F96116B1F6CD</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\gui\candebugscreen_screen">
+      <UniqueIdentifier>F4012324-DE24-B5C9-1E19-422140317F38</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\candebugscreen_screen">
+      <UniqueIdentifier>DD672412-2069-512C-30D2-124F7BB163B7</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\candebugscreen_screen">
+      <UniqueIdentifier>01A35C27-16A2-E63F-A624-D71018F288F7</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\candebugscreen_screen">
+      <UniqueIdentifier>6E5A2EDF-20B2-FCF8-A352-A97093FB6577</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\driver\touch\SDL2TouchController.cpp">
@@ -617,6 +629,21 @@
     </ClCompile>
     <ClCompile Include="..\..\generated\gui_generated\src\configdebugscreen_screen\configDebugScreenViewBase.cpp">
       <Filter>Source Files\generated\gui_generated\configdebugscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\containers\canDebugSelectConta.cpp">
+      <Filter>Source Files\gui\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\containers\canDebugSelectContaBase.cpp">
+      <Filter>Source Files\generated\gui_generated\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\candebugscreen_screen\canDebugScreenPresenter.cpp">
+      <Filter>Source Files\gui\candebugscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\candebugscreen_screen\canDebugScreenView.cpp">
+      <Filter>Source Files\gui\candebugscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\candebugscreen_screen\canDebugScreenViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\candebugscreen_screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1245,6 +1272,21 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\configdebugscreen_screen\configDebugScreenViewBase.hpp">
       <Filter>Header Files\generated\gui_generated\configdebugscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\containers\canDebugSelectConta.hpp">
+      <Filter>Header Files\gui\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\canDebugSelectContaBase.hpp">
+      <Filter>Header Files\generated\gui_generated\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\candebugscreen_screen\canDebugScreenPresenter.hpp">
+      <Filter>Header Files\gui\candebugscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\candebugscreen_screen\canDebugScreenView.hpp">
+      <Filter>Header Files\gui\candebugscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\candebugscreen_screen\canDebugScreenViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\candebugscreen_screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
