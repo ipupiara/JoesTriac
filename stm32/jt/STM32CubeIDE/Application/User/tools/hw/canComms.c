@@ -1,4 +1,5 @@
 #include <string.h>
+#include <mainJt.h>
 #include <canComms.h>
 #include <defines.h>
 #include  <stm32f7xx_hal.h>
@@ -69,7 +70,7 @@ void sendCanTestMessage(canHosts cHost ,canTestTypes canTestType)
 				break;
 			}
 			default : {
-				errorHandler(canTestType ,goOn," sendCanTestMessage "," unknown testtype ");
+				errorHandler(canTestType ,goOn," sendCanTestMessage "," unknown testtype or host (triacHost)");
 			}
 		}
 	}
@@ -89,7 +90,7 @@ void sendCanTestMessage(canHosts cHost ,canTestTypes canTestType)
 				break;
 			}
 			default : {
-				errorHandler(canTestType ,goOn," sendCanTestMessage "," unknown testtype ");
+				errorHandler(canTestType ,goOn," sendCanTestMessage "," unknown testtype or host (ammeterHost)");
 			}
 		}
 	}
@@ -99,18 +100,13 @@ void sendCanTestMessage(canHosts cHost ,canTestTypes canTestType)
 
 uint8_t syncSendTempixSimpleCommand( TempixSimpleCommand* scmd)
 {
-	// semaphore allows waiting for a mailbox if full
-	//
-	uint8_t err = 1;
-//	OSSemPend(canQSem, 0, &err);
+	uint8_t err = osOK;
 //	if (err == OS_ERR_NONE ) {
 //		if ( sendCanTempixSimpleCommand(&hcan1, scmd) == 1) {
-//			err = 0;
+//			osError = 0;
 //		}
-//		OSSemPost(canQSem);
-//	}  else  {
-//		err +=  0x80;
-//	}
+//	else {err = 1;}
+
 	return err;
 }
 

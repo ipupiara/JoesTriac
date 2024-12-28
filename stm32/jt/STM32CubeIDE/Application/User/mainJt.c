@@ -101,7 +101,7 @@ void mainJt(void *argument)
 	fsmTriacEvent fsmEv;
 	init_printf();
 	initI2c();
-//	initCanComms();
+	initCanComms();
 	initDefines();
 	InitPID();
 	initAdc();
