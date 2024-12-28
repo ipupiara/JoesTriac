@@ -3409,7 +3409,7 @@
             "Y": 18,
             "Width": 315,
             "Height": 85,
-            "CustomContainerDefinitionName": "canDebugSelectConta"
+            "CustomContainerDefinitionName": "canDebugSelectContainer"
           },
           {
             "Type": "CustomContainerInstance",
@@ -3418,7 +3418,7 @@
             "Y": 128,
             "Width": 315,
             "Height": 85,
-            "CustomContainerDefinitionName": "canDebugSelectConta"
+            "CustomContainerDefinitionName": "canDebugSelectContainer"
           },
           {
             "Type": "RadioButton",
@@ -4463,7 +4463,7 @@
         ]
       },
       {
-        "Name": "canDebugSelectConta",
+        "Name": "canDebugSelectContainer",
         "Width": 315,
         "Height": 85,
         "Components": [
@@ -4555,7 +4555,41 @@
             "AutoSize": true
           }
         ],
-        "Interactions": []
+        "Interactions": [
+          {
+            "InteractionName": "noneButtonSelectedInteraction",
+            "Trigger": {
+              "Type": "TriggerRadioButtonSelected",
+              "TriggerComponent": "nonButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "nonButtonSelected"
+            }
+          },
+          {
+            "InteractionName": "singleButtonSelectedInteraction",
+            "Trigger": {
+              "Type": "TriggerRadioButtonSelected",
+              "TriggerComponent": "singleButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "singleButtonSelected"
+            }
+          },
+          {
+            "InteractionName": "continuousButtonSelectedInteraction",
+            "Trigger": {
+              "Type": "TriggerRadioButtonSelected",
+              "TriggerComponent": "continuousButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "continuousButtonSelected"
+            }
+          }
+        ]
       }
     ],
     "Name": "jt",

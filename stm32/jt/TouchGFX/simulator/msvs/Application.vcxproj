@@ -83,11 +83,11 @@
     <ClCompile Include="..\..\gui\src\configdebugscreen_screen\configDebugScreenPresenter.cpp"/>
     <ClCompile Include="..\..\gui\src\configdebugscreen_screen\configDebugScreenView.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\configdebugscreen_screen\configDebugScreenViewBase.cpp"/>
-    <ClCompile Include="..\..\gui\src\containers\canDebugSelectConta.cpp"/>
-    <ClCompile Include="..\..\generated\gui_generated\src\containers\canDebugSelectContaBase.cpp"/>
     <ClCompile Include="..\..\gui\src\candebugscreen_screen\canDebugScreenPresenter.cpp"/>
     <ClCompile Include="..\..\gui\src\candebugscreen_screen\canDebugScreenView.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\candebugscreen_screen\canDebugScreenViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\containers\canDebugSelectContainer.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\containers\canDebugSelectContainerBase.cpp"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xml"/>
@@ -301,10 +301,11 @@
     <ClInclude Include="..\..\gui\include\gui\configdebugscreen_screen\configDebugScreenView.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\configdebugscreen_screen\configDebugScreenViewBase.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\containers\canDebugSelectConta.hpp"/>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\canDebugSelectContaBase.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\candebugscreen_screen\canDebugScreenPresenter.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\candebugscreen_screen\canDebugScreenView.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\candebugscreen_screen\canDebugScreenViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\containers\canDebugSelectContainer.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\canDebugSelectContainerBase.hpp"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>

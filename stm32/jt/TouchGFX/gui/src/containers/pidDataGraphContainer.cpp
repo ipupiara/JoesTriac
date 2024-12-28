@@ -1,7 +1,7 @@
 #include <gui/containers/pidDataGraphContainer.hpp>
 #include <touchgfx/Color.hpp>
-#include <mainJt.h>
 
+#include <mainJt.h>
 
 static Screen originalScreen;
 

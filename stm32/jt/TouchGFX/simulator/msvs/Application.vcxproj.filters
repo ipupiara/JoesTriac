@@ -630,12 +630,6 @@
     <ClCompile Include="..\..\generated\gui_generated\src\configdebugscreen_screen\configDebugScreenViewBase.cpp">
       <Filter>Source Files\generated\gui_generated\configdebugscreen_screen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\gui\src\containers\canDebugSelectConta.cpp">
-      <Filter>Source Files\gui\containers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\generated\gui_generated\src\containers\canDebugSelectContaBase.cpp">
-      <Filter>Source Files\generated\gui_generated\containers</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\gui\src\candebugscreen_screen\canDebugScreenPresenter.cpp">
       <Filter>Source Files\gui\candebugscreen_screen</Filter>
     </ClCompile>
@@ -644,6 +638,12 @@
     </ClCompile>
     <ClCompile Include="..\..\generated\gui_generated\src\candebugscreen_screen\canDebugScreenViewBase.cpp">
       <Filter>Source Files\generated\gui_generated\candebugscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\containers\canDebugSelectContainer.cpp">
+      <Filter>Source Files\gui\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\containers\canDebugSelectContainerBase.cpp">
+      <Filter>Source Files\generated\gui_generated\containers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1276,9 +1276,6 @@
     <ClInclude Include="..\..\gui\include\gui\containers\canDebugSelectConta.hpp">
       <Filter>Header Files\gui\containers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\canDebugSelectContaBase.hpp">
-      <Filter>Header Files\generated\gui_generated\containers</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\gui\include\gui\candebugscreen_screen\canDebugScreenPresenter.hpp">
       <Filter>Header Files\gui\candebugscreen_screen</Filter>
     </ClInclude>
@@ -1287,6 +1284,12 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\candebugscreen_screen\canDebugScreenViewBase.hpp">
       <Filter>Header Files\generated\gui_generated\candebugscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\containers\canDebugSelectContainer.hpp">
+      <Filter>Header Files\gui\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\canDebugSelectContainerBase.hpp">
+      <Filter>Header Files\generated\gui_generated\containers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

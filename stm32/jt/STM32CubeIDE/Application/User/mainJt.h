@@ -22,6 +22,7 @@ extern "C" {
 #include <task.h>
 #include <FreeRTOS.h>
 #include <triacPid.h>
+#include <canComms.h>
 //#endif
 
 

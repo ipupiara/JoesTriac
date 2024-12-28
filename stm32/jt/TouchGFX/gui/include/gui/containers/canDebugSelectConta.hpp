@@ -1,15 +1,18 @@
 #ifndef CANDEBUGSELECTCONTA_HPP
 #define CANDEBUGSELECTCONTA_HPP
 
-#include <gui_generated/containers/canDebugSelectContaBase.hpp>
+#include <gui_generated/containers/canDebugSelectContainerBase.hpp>
+#include <canComms.h>
 
-class canDebugSelectConta : public canDebugSelectContaBase
+class canDebugSelectContainer : public canDebugSelectContainerBase
 {
 public:
-    canDebugSelectConta();
-    virtual ~canDebugSelectConta() {}
+    canDebugSelectContainer();
+    virtual ~canDebugSelectContainer() {}
 
     virtual void initialize();
+
+
 protected:
 };
 

@@ -1,7 +1,7 @@
 #include <string.h>
 #include <canComms.h>
+#include <defines.h>
 #include  <stm32f7xx_hal.h>
-#include <main.h>
 
 CAN_HandleTypeDef hcan1;
 
@@ -11,6 +11,89 @@ CAN_HandleTypeDef hcan1;
 //OS_FLAG_GRP*   TransmitMailboxStatus;
 
 //OS_EVENT *canQSem;
+
+////////////////////    canTest   /////////////////////////
+
+canTestTypes currentTestSelection;
+canHosts currentHost;
+uint32_t msgNrToSend;
+
+void sendTestMessage(canHosts cHost )
+{
+
+}
+
+void setCurrentCanSelection(canHosts cHost ,canTestTypes canTestType)
+{
+	currentHost = cHost;
+	currentTestSelection = canTestType;
+}
+
+void stopContinuousTest(canHosts cHost )
+{
+
+}
+
+void startContinuousTest(canHosts cHost )
+{
+
+}
+
+void doNoTest(canHosts cHost )
+{
+	stopContinuousTest(cHost);
+}
+
+void doSingleTest(canHosts cHost )
+{
+	stopContinuousTest(cHost );
+	sendTestMessage(cHost);
+}
+
+
+void sendCanTestMessage(canHosts cHost ,canTestTypes canTestType)
+{
+	if (cHost == triacHost)  {
+		switch (canTestType) {
+			case noCanTest: {
+				doNoTest(triacHost);
+				break;
+			}
+			msgNrToSend = 101;
+			case singleCanTest: {
+				doSingleTest(triacHost);
+				break;
+			}
+			case continuousCanTest: {
+				startContinuousTest(triacHost);
+				break;
+			}
+			default : {
+				errorHandler(canTestType ,goOn," sendCanTestMessage "," unknown testtype ");
+			}
+		}
+	}
+	if (cHost == ammeterHost)  {
+		switch (canTestType) {
+			case noCanTest: {
+				doNoTest(ammeterHost);
+				break;
+			}
+			msgNrToSend = 101;
+			case singleCanTest: {
+				doSingleTest(ammeterHost);
+				break;
+			}
+			case continuousCanTest: {
+				startContinuousTest(ammeterHost);
+				break;
+			}
+			default : {
+				errorHandler(canTestType ,goOn," sendCanTestMessage "," unknown testtype ");
+			}
+		}
+	}
+}
 
 
 

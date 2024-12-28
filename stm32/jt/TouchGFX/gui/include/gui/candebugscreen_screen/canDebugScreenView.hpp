@@ -3,6 +3,7 @@
 
 #include <gui_generated/candebugscreen_screen/canDebugScreenViewBase.hpp>
 #include <gui/candebugscreen_screen/canDebugScreenPresenter.hpp>
+#include <canComms.h>
 
 class canDebugScreenView : public canDebugScreenViewBase
 {
@@ -11,6 +12,7 @@ public:
     virtual ~canDebugScreenView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
+
 protected:
 };
 

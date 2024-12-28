@@ -8,7 +8,7 @@
 #include <mvp/View.hpp>
 #include <gui/candebugscreen_screen/canDebugScreenPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
-#include <gui/containers/canDebugSelectConta.hpp>
+#include <gui/containers/canDebugSelectContainer.hpp>
 #include <touchgfx/widgets/RadioButton.hpp>
 #include <touchgfx/widgets/RadioButtonGroup.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
@@ -32,8 +32,8 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Box box1;
-    canDebugSelectConta triacDebugSelection;
-    canDebugSelectConta ammeterDebugSelection;
+    canDebugSelectContainer triacDebugSelection;
+    canDebugSelectContainer ammeterDebugSelection;
     touchgfx::RadioButtonGroup<2> radioButtonGroup1;
     touchgfx::RadioButton triacHostSelect;
     touchgfx::RadioButton ammeterHostSelect;

@@ -660,9 +660,9 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/containers/astrolabiumContainer.cpp</locationURI>
 		</link>
 		<link>
-			<name>Application/User/gui/canDebugSelectConta.cpp</name>
+			<name>Application/User/gui/canDebugSelectContainer.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/containers/canDebugSelectConta.cpp</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/containers/canDebugSelectContainer.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/gui/numericKeyPad.cpp</name>
@@ -925,9 +925,9 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/containers/astrolabiumContainerBase.cpp</locationURI>
 		</link>
 		<link>
-			<name>Application/User/generated/canDebugSelectContaBase.cpp</name>
+			<name>Application/User/generated/canDebugSelectContainerBase.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/containers/canDebugSelectContaBase.cpp</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/containers/canDebugSelectContainerBase.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/numericKeyPadBase.cpp</name>

@@ -3,6 +3,11 @@
 #include <stdint.h>
 #include  <stm32f7xx_hal.h>
 
+#ifdef  __cplusplus
+extern "C"
+{
+#endif
+
 #ifdef STM32F756xx
 #include <stm32f7xx_hal.h>
 #endif
@@ -23,12 +28,12 @@
 #define thottleActorPingResponse	 0x00000221
 #define thottleActorPingRquest		 0x00000222
 
+
 //typedef struct
 //{
 //	uint32_t   canId;
 //	uint8_t     message [8];
 //}  TempixCanMessage;
-
 
 
 typedef struct
@@ -48,4 +53,10 @@ uint8_t addTxMessage(CAN_HandleTypeDef *hcan, CAN_TxHeaderTypeDef *pHeader, uint
 
 uint8_t sendCanTempixSimpleCommand(CAN_HandleTypeDef* pCan, TempixSimpleCommand* scmd);
 
+
+#ifdef  __cplusplus
+}
 #endif
+
+#endif
+
