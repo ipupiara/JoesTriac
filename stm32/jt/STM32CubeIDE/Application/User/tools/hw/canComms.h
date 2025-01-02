@@ -1,7 +1,7 @@
 #ifndef canComms_h
 #define canComms_h
 #include <stdint.h>
-//#include <uosii-includes.h>
+
 #include <canRelated.h>
 
 

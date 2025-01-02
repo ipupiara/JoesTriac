@@ -53,6 +53,7 @@ protected:
     touchgfx::TextAreaWithOneWildcard cnt103;
     touchgfx::TextAreaWithOneWildcard cnt203;
     touchgfx::ButtonWithLabel returnButton;
+    touchgfx::TextArea textArea13;
 
     /*
      * Wildcard Buffers

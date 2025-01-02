@@ -142,6 +142,12 @@ canDebugScreenViewBase::canDebugScreenViewBase() :
     returnButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     returnButton.setAction(buttonCallback);
     add(returnButton);
+
+    textArea13.setXY(316, 240);
+    textArea13.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea13.setLinespacing(0);
+    textArea13.setTypedText(touchgfx::TypedText(T___SINGLEUSE_2WW1));
+    add(textArea13);
 }
 
 canDebugScreenViewBase::~canDebugScreenViewBase()

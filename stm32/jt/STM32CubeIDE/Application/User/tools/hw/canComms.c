@@ -3,6 +3,11 @@
 #include <canComms.h>
 #include <defines.h>
 #include  <stm32f7xx_hal.h>
+#include "cmsis_os.h"
+#include <timers.h>
+#include <task.h>
+#include <FreeRTOS.h>
+
 
 CAN_HandleTypeDef hcan1;
 
@@ -15,14 +20,51 @@ CAN_HandleTypeDef hcan1;
 
 ////////////////////    canTest   /////////////////////////
 
+
+
+// todo  messageReceived handling to ui,
+
+
+#define triacPingId   0x101
+#define triacPingRespondId   0x203
+
+#define ammeterPingId    0x201
+#define ammeterPingRespondId   0x103
+
+void initCanFilters();
+
 canTestTypes currentTestSelection;
 canHosts currentHost;
 uint32_t msgNrToSend;
 
+osTimerId_t   canTestTimer;
+
+void sendCanPingMessage(uint32_t pingId)
+{
+	TempixSimpleCommand scmd;
+	scmd.commandId = pingId;
+	scmd.commandData1 = 0xaaaaaaaa;
+	scmd.commandData2 = 0xaaaaaaaa;
+
+	syncSendTempixSimpleCommand( &scmd);
+}
+
 void sendTestMessage(canHosts cHost )
 {
+	if (currentHost == triacHost) {
+		sendCanPingMessage(triacPingId);
+	}
+	if (currentHost == ammeterHost) {
+		sendCanPingMessage(ammeterPingId);
+	}
 
 }
+
+void canTestTickCallback(void *argument)
+{
+	sendTestMessage(currentHost);
+}
+
 
 void setCurrentCanSelection(canHosts cHost ,canTestTypes canTestType)
 {
@@ -32,12 +74,18 @@ void setCurrentCanSelection(canHosts cHost ,canTestTypes canTestType)
 
 void stopContinuousTest(canHosts cHost )
 {
-
+//	osTimerStop(canTestTimer);
+	xTimerStop( canTestTimer, 100 );
 }
 
 void startContinuousTest(canHosts cHost )
 {
+	osStatus_t  status;
 
+	status = osTimerStart (canTestTimer, 1000);
+	if (status !=  osOK)  {
+		errorHandler((uint32_t)status ,goOn," osTimerStart "," osStarted ");
+	}
 }
 
 void doNoTest(canHosts cHost )
@@ -93,6 +141,14 @@ void sendCanTestMessage(canHosts cHost ,canTestTypes canTestType)
 				errorHandler(canTestType ,goOn," sendCanTestMessage "," unknown testtype or host (ammeterHost)");
 			}
 		}
+	}
+}
+
+void initCanTest()
+{
+	canTestTimer = osTimerNew (canTestTickCallback, osTimerPeriodic, (void *) 0x01, NULL);
+	if (canTestTimer  == NULL)   {
+		errorHandler((uint32_t)canTestTimer ,stop," canTestTimer ","initJt");
 	}
 }
 
@@ -449,13 +505,25 @@ void initCanFilters()
 	CAN_FilterTypeDef  filterTypeDef;
 	filterTypeDef.FilterScale = CAN_FILTERSCALE_16BIT;
 	filterTypeDef.FilterMode = CAN_FILTERMODE_IDMASK;
-	filterTypeDef.FilterIdHigh = 0x0200;   // 0x0100 on receiver side
-	filterTypeDef.FilterMaskIdHigh =  0x0700;
+	filterTypeDef.FilterIdHigh = 0x200;   // 0x0100 on receiver side
+	filterTypeDef.FilterMaskIdHigh =  0x0701;
 	filterTypeDef.FilterIdLow  = 0x07FF;
 	filterTypeDef.FilterMaskIdLow =	0x07FF;
 	filterTypeDef.FilterBank = 0;
-	filterTypeDef.SlaveStartFilterBank = 1;
+//	filterTypeDef.SlaveStartFilterBank = 1;
 	filterTypeDef.FilterFIFOAssignment = CAN_FILTER_FIFO0;
+
+	filterTypeDef.FilterScale = CAN_FILTERSCALE_16BIT;
+	filterTypeDef.FilterMode = CAN_FILTERMODE_IDLIST;
+	filterTypeDef.FilterIdHigh = 0x0101;   // 0x0100 on receiver side
+	filterTypeDef.FilterMaskIdHigh =  0x0103;
+	filterTypeDef.FilterIdLow  = 0x0201;
+	filterTypeDef.FilterMaskIdLow =	0x203;
+	filterTypeDef.FilterBank = 1;
+	filterTypeDef.SlaveStartFilterBank = 2;
+	filterTypeDef.FilterFIFOAssignment = CAN_FILTER_FIFO0;
+
+
 	initState = HAL_CAN_ConfigFilter(&hcan1, &filterTypeDef);
 	if (initState != HAL_OK) {
 		Install_Error_Handler();
@@ -510,12 +578,4 @@ void initCanComms()
 
 }
 
-void sendCanPingMessage()
-{
-	TempixSimpleCommand scmd;
-	scmd.commandId = controllerPingRequest;
-	scmd.commandData1 = 0xaaaaaaaa;
-	scmd.commandData2 = 0xaaaaaaaa;
 
-	syncSendTempixSimpleCommand( &scmd);
-}
