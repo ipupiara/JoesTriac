@@ -58,7 +58,7 @@ void mainScreenPresenter::tick()
 		while ( osMessageQueueGetCount ( presenterMessageQ))
 		{
 			if ( osMessageQueueGet ( presenterMessageQ, &presenterMessage, NULL, 0) == osOK)  {
-				if (presenterMessage.messageType ==  pidGraphFromData) {  // never should happen here
+				if (presenterMessage.messageType ==  canDebugData) {  // never should happen here
 					view.showPidGraphFromData(&presenterMessage);
 				}
 			}

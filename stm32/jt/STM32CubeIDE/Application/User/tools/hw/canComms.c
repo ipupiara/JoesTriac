@@ -31,6 +31,16 @@ CAN_HandleTypeDef hcan1;
 #define ammeterPingId    0x201
 #define ammeterPingRespondId   0x103
 
+typedef struct {
+	uint32_t  rec101Cnt;
+	uint32_t  rec203Cnt;
+	uint32_t  rec201Cnt;
+	uint32_t  rec103Cnt;
+	uint32_t  errorCnt;
+} canDebugEventCountersType;
+
+canDebugEventCountersType canDebugEventCounters;
+
 void initCanFilters();
 
 canTestTypes currentTestSelection;
@@ -150,6 +160,7 @@ void initCanTest()
 	if (canTestTimer  == NULL)   {
 		errorHandler((uint32_t)canTestTimer ,stop," canTestTimer ","initJt");
 	}
+	memset(&canDebugEventCounters,0,sizeof(canDebugEventCounters));
 }
 
 
@@ -182,13 +193,60 @@ void dispatchMsgOfFifo(uint32_t RxFifo)
 {
 	CAN_RxHeaderTypeDef  mHeader;
 	uint8_t mData[8];
+	CJoesPresenterEventT  msg;
 
-	if ( HAL_CAN_GetRxMessage(&hcan1, RxFifo, &mHeader, mData) == HAL_OK) {
-		if (mHeader.StdId == thottleActorPingResponse) {
-			sendBackGroundCanMessage(&mHeader, mData);
+	if (RxFifo == CAN_RX_FIFO0)  {
+		if ( HAL_CAN_GetRxMessage(&hcan1, RxFifo, &mHeader, mData) == HAL_OK) {
+			if (mHeader.StdId == thottleActorPingResponse) {
+				sendBackGroundCanMessage(&mHeader, mData);
+			}
+		}  else {
+			// handle some Error
 		}
-	}  else {
-		// handle some Error
+	}
+	if (RxFifo == CAN_RX_FIFO1)  {
+
+// todo put ammeter messages first in an if to avoid debug handling during calibration
+
+		if ( HAL_CAN_GetRxMessage(&hcan1, RxFifo, &mHeader, mData) == HAL_OK) {
+			memset(&msg,0,sizeof(msg));
+			switch (mHeader.StdId) {
+						case 0x101: {
+							++(canDebugEventCounters.rec101Cnt);
+							msg.evData.canDebugScreenData.msgId=0x101;
+							msg.evData.canDebugScreenData.amtReceived=canDebugEventCounters.rec101Cnt;
+							break;
+						}
+						case 0x103: {
+							++(canDebugEventCounters.rec103Cnt);
+							msg.evData.canDebugScreenData.msgId=0x103;
+							msg.evData.canDebugScreenData.amtReceived=canDebugEventCounters.rec103Cnt;
+							break;
+						}
+						case 0x201: {
+							++(canDebugEventCounters.rec201Cnt);
+							msg.evData.canDebugScreenData.msgId=0x201;
+							msg.evData.canDebugScreenData.amtReceived=canDebugEventCounters.rec201Cnt;
+							break;
+						}
+						case 0x203: {
+							++(canDebugEventCounters.rec203Cnt);
+							msg.evData.canDebugScreenData.msgId=0x203;
+							msg.evData.canDebugScreenData.amtReceived=canDebugEventCounters.rec203Cnt;
+							break;
+						}
+						default : {
+//							errorHandler(mJtEv.evType ,goOn," osMessageQueueGet unknown event "," mainJt ");
+						}
+			}
+			if (msg.evData.canDebugScreenData.msgId != 0) {
+				msg.messageType = canDebugData;
+				msg.evData.canDebugScreenData.amtErrors = canDebugEventCounters.errorCnt;
+				sendPresenterMessage(&msg);
+			}
+		}  else {
+			// handle some Error
+		}
 	}
 }
 
@@ -306,6 +364,7 @@ void CAN1_RX0_IRQHandler(void)
 		}
 	}
 
+
 //
 //	  /* Receive FIFO 0 overrun interrupt management *****************************/
 //	  if ((interrupts & CAN_IT_RX_FIFO0_OVERRUN) != RESET)
@@ -377,7 +436,7 @@ void CAN1_SCE_IRQHandler(void)
 	  {
 	    if ((msrflags & CAN_MSR_ERRI) != 0)
 	    {
-	      //
+	    	++canDebugEventCounters.errorCnt;
 	      if (((interrupts & CAN_IT_ERROR_WARNING) != 0) &&
 	          ((esrflags & CAN_ESR_EWGF) != 0))
 	      {

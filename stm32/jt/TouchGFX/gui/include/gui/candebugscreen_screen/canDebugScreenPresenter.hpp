@@ -25,11 +25,13 @@ public:
      */
     virtual void deactivate();
 
+    virtual void tick();
+
     virtual ~canDebugScreenPresenter() {}
 
 private:
     canDebugScreenPresenter();
-
+    bool presenterActive;
     canDebugScreenView& view;
 };
 

@@ -115,6 +115,7 @@ typedef enum {
 	paintPidGraph,
 	pidGraphFromData,
 	requestStop,
+	canDebugData,
 	doRun
 }  presenterMessageType;
 
@@ -152,6 +153,11 @@ typedef struct  {
 			float ampsF;
 			float goalF;
 		} pidGraphData;
+		struct {
+			uint16_t  msgId;
+			uint32_t  amtReceived;
+			uint32_t  amtErrors;
+		} canDebugScreenData ;
 		graphDataRec* pidGraphDataArrayPtr;
 	}  evData;
 } CJoesPresenterEventT ;
