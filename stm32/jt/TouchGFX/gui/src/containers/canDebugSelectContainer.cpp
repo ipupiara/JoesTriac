@@ -23,6 +23,8 @@ void canDebugSelectContainer::setSelection(canHosts cHost ,canTestTypes canTestT
 		nonButton.setSelected(true);
 		singleButton.setSelected(false);
 		continuousButton.setSelected(false);
+		singleButton.setVisible(true);
+		continuousButton.setSelected(true);
 		sendSelection(cHost ,noCanTest);
 	}
 	if (canTestType == singleCanTest)
@@ -36,6 +38,8 @@ void canDebugSelectContainer::setSelection(canHosts cHost ,canTestTypes canTestT
 		nonButton.setSelected(false);
 		singleButton.setSelected(false);
 		continuousButton.setSelected(true);
+		singleButton.setVisible(false);
+		continuousButton.setSelected(false);
 		sendSelection(cHost ,continuousCanTest);
 	}
 }
