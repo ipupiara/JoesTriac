@@ -12,6 +12,9 @@
 #include <string.h>
 #include <sdDisk.h>
 
+extern DMA_HandleTypeDef hdma_sdmmc2_rx;
+extern DMA_HandleTypeDef hdma_sdmmc2_tx;
+
 SD_HandleTypeDef hsd2;
 DMA_HandleTypeDef hdma_sdmmc2_rx;
 DMA_HandleTypeDef hdma_sdmmc2_tx;
@@ -35,6 +38,37 @@ static void mmcGPIOInit(void)
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOI_CLK_ENABLE();
 
+
+  /**SDMMC2 GPIO Configuration
+  PB4     ------> SDMMC2_D3
+  PB3     ------> SDMMC2_D2
+  PD7     ------> SDMMC2_CMD
+  PD6     ------> SDMMC2_CK
+  PG10     ------> SDMMC2_D1
+  PG9     ------> SDMMC2_D0
+  */
+  GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_3;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF10_SDMMC2;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  GPIO_InitStruct.Pin = GPIO_PIN_7|GPIO_PIN_6;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF11_SDMMC2;
+  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+  GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_9;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF11_SDMMC2;
+  HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
+
+
   /*Configure GPIO pin : PI15 */
   GPIO_InitStruct.Pin = GPIO_PIN_15;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
@@ -48,14 +82,10 @@ static void mmcGPIOInit(void)
 
 static void mmcSdmmc2SdInit(void)
 {
+  RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
 
-  /* USER CODE BEGIN SDMMC2_Init 0 */
+	__HAL_RCC_SDMMC2_CLK_ENABLE();
 
-  /* USER CODE END SDMMC2_Init 0 */
-
-  /* USER CODE BEGIN SDMMC2_Init 1 */
-
-  /* USER CODE END SDMMC2_Init 1 */
   hsd2.Instance = SDMMC2;
   hsd2.Init.ClockEdge = SDMMC_CLOCK_EDGE_RISING;
   hsd2.Init.ClockBypass = SDMMC_CLOCK_BYPASS_DISABLE;
@@ -63,10 +93,17 @@ static void mmcSdmmc2SdInit(void)
   hsd2.Init.BusWide = SDMMC_BUS_WIDE_4B;
   hsd2.Init.HardwareFlowControl = SDMMC_HARDWARE_FLOW_CONTROL_DISABLE;
   hsd2.Init.ClockDiv = 0;
-  /* USER CODE BEGIN SDMMC2_Init 2 */
 
-  /* USER CODE END SDMMC2_Init 2 */
+  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SDMMC2|RCC_PERIPHCLK_CLK48;
+  PeriphClkInitStruct.Clk48ClockSelection = RCC_CLK48SOURCE_PLL;
+  PeriphClkInitStruct.Sdmmc2ClockSelection = RCC_SDMMC2CLKSOURCE_CLK48;
+  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
+  {
+    Error_Handler();
+  }
 
+  HAL_NVIC_SetPriority(SDMMC2_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(SDMMC2_IRQn);
 }
 
 /**
@@ -78,14 +115,50 @@ static void mmcDMAInit(void)
   /* DMA controller clock enable */
   __HAL_RCC_DMA2_CLK_ENABLE();
 
-  /* DMA interrupt init */
-  /* DMA2_Stream0_IRQn interrupt configuration */
+   hdma_sdmmc2_rx.Instance = DMA2_Stream0;
+   hdma_sdmmc2_rx.Init.Channel = DMA_CHANNEL_11;
+   hdma_sdmmc2_rx.Init.Direction = DMA_PERIPH_TO_MEMORY;
+   hdma_sdmmc2_rx.Init.PeriphInc = DMA_PINC_DISABLE;
+   hdma_sdmmc2_rx.Init.MemInc = DMA_MINC_ENABLE;
+   hdma_sdmmc2_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
+   hdma_sdmmc2_rx.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
+   hdma_sdmmc2_rx.Init.Mode = DMA_PFCTRL;
+   hdma_sdmmc2_rx.Init.Priority = DMA_PRIORITY_LOW;
+   hdma_sdmmc2_rx.Init.FIFOMode = DMA_FIFOMODE_ENABLE;
+   hdma_sdmmc2_rx.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
+   hdma_sdmmc2_rx.Init.MemBurst = DMA_MBURST_INC4;
+   hdma_sdmmc2_rx.Init.PeriphBurst = DMA_PBURST_INC4;
+   if (HAL_DMA_Init(&hdma_sdmmc2_rx) != HAL_OK)
+   {
+     Error_Handler();
+   }
+   __HAL_LINKDMA(&hsd2,hdmarx,hdma_sdmmc2_rx);
+
+   /* SDMMC2_TX Init */
+   hdma_sdmmc2_tx.Instance = DMA2_Stream5;
+   hdma_sdmmc2_tx.Init.Channel = DMA_CHANNEL_11;
+   hdma_sdmmc2_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
+   hdma_sdmmc2_tx.Init.PeriphInc = DMA_PINC_DISABLE;
+   hdma_sdmmc2_tx.Init.MemInc = DMA_MINC_ENABLE;
+   hdma_sdmmc2_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
+   hdma_sdmmc2_tx.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
+   hdma_sdmmc2_tx.Init.Mode = DMA_PFCTRL;
+   hdma_sdmmc2_tx.Init.Priority = DMA_PRIORITY_LOW;
+   hdma_sdmmc2_tx.Init.FIFOMode = DMA_FIFOMODE_ENABLE;
+   hdma_sdmmc2_tx.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
+   hdma_sdmmc2_tx.Init.MemBurst = DMA_MBURST_INC4;
+   hdma_sdmmc2_tx.Init.PeriphBurst = DMA_PBURST_INC4;
+   if (HAL_DMA_Init(&hdma_sdmmc2_tx) != HAL_OK)
+   {
+     Error_Handler();
+   }
+   __HAL_LINKDMA(&hsd2,hdmatx,hdma_sdmmc2_tx);
+
   HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(DMA2_Stream0_IRQn);
   /* DMA2_Stream5_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA2_Stream5_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(DMA2_Stream5_IRQn);
-
 }
 
 uint32_t  testMmc()
@@ -118,8 +191,8 @@ uint32_t initMmc()
 	res = FR_OK;
 
 	mmcGPIOInit();
-	mmcDMAInit();
 	mmcSdmmc2SdInit();
+	mmcDMAInit();
 	MX_FATFS_Init();
 		if(f_mount(&SDFatFS, (TCHAR const*)SDPath, 0) != FR_OK)
 		{

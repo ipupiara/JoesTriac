@@ -14,7 +14,6 @@
 #define APPLICATION_USER_TOOLS_HW_SDDISK_H_
 
 
-
 uint32_t initMmc();
 uint32_t mmcStoreDefines(uint32_t * persistentDefines);
 uint32_t writeToLogfile(char* transmitBuffer);
