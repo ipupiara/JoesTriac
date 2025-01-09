@@ -49,6 +49,9 @@ extern "C" {
 /* USER CODE BEGIN EM */
 
 /* USER CODE END EM */
+extern DMA_HandleTypeDef hdma_sdmmc2_rx;
+extern DMA_HandleTypeDef hdma_sdmmc2_tx;
+extern SD_HandleTypeDef hsd2;
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);

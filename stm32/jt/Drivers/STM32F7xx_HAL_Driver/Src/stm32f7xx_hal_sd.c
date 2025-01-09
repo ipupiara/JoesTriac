@@ -2952,15 +2952,15 @@ static uint32_t SD_WideBus_Enable(SD_HandleTypeDef *hsd)
     return HAL_SD_ERROR_LOCK_UNLOCK_FAILED;
   }
 
-  /* Get SCR Register */
-  errorstate = SD_FindSCR(hsd, scr);
-  if(errorstate != HAL_SD_ERROR_NONE)
-  {
-    return errorstate;
-  }
-
-  /* If requested card supports wide bus operation */
-  if((scr[1U] & SDMMC_WIDE_BUS_SUPPORT) != SDMMC_ALLZERO)
+//  /* Get SCR Register */
+//  errorstate = SD_FindSCR(hsd, scr);
+//  if(errorstate != HAL_SD_ERROR_NONE)
+//  {
+//    return errorstate;
+//  }
+//
+//  /* If requested card supports wide bus operation */
+//  if((scr[1U] & SDMMC_WIDE_BUS_SUPPORT) != SDMMC_ALLZERO)
   {
     /* Send CMD55 APP_CMD with argument as card's RCA.*/
     errorstate = SDMMC_CmdAppCommand(hsd->Instance, (uint32_t)(hsd->SdCard.RelCardAdd << 16U));
@@ -2978,10 +2978,10 @@ static uint32_t SD_WideBus_Enable(SD_HandleTypeDef *hsd)
 
     return HAL_SD_ERROR_NONE;
   }
-  else
-  {
-    return HAL_SD_ERROR_REQUEST_NOT_APPLICABLE;
-  }
+//  else
+//  {
+//    return HAL_SD_ERROR_REQUEST_NOT_APPLICABLE;
+//  }
 }
 
 /**
