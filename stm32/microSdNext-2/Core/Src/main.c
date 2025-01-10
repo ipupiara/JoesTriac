@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2024 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -103,6 +103,86 @@ int main(void)
   MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
 
+
+	if(f_mount(&SDFatFS, (TCHAR const*)SDPath, 1) != FR_OK)
+	{
+		Error_Handler();
+	}
+	else
+	{
+//		if(f_mkfs((TCHAR const*)SDPath, FM_ANY, 0, rtext, sizeof(rtext)) != FR_OK)
+//	    {
+//			Error_Handler();
+//	    }
+//		else
+//		{
+			//Open file for writing (Create)
+			if(f_open(&SDFile, "STM32.TXT", FA_CREATE_ALWAYS | FA_WRITE) != FR_OK)
+			{
+				Error_Handler();
+			}
+			else
+			{
+
+				//Write to the text file
+				res = f_write(&SDFile, wtext, strlen((char *)wtext), (void *)&byteswritten);
+				if((byteswritten == 0) || (res != FR_OK))
+				{
+					Error_Handler();
+				}
+				else
+				{
+
+					f_close(&SDFile);
+				}
+			}
+//		}
+	}
+	f_mount(&SDFatFS, (TCHAR const*)NULL, 0);
+
+
+
+
+ /*
+
+	if(f_mount(&SDFatFS, (TCHAR const*)SDPath, 1) != FR_OK)
+	{
+		Error_Handler();
+	}
+	else
+	{
+//		if(f_mkfs((TCHAR const*)SDPath, FM_ANY, 0, rtext, sizeof(rtext)) != FR_OK)
+//	    {
+//			Error_Handler();
+//	    }
+//		else
+		{
+			//Open file for writing (Create)
+			if(f_open(&SDFile, "STM32.TXT", FA_CREATE_ALWAYS | FA_WRITE) != FR_OK)
+			{
+				Error_Handler();
+			}
+			else
+			{
+
+				//Write to the text file
+				res = f_write(&SDFile, wtext, strlen((char *)wtext), (void *)&byteswritten);
+				if((byteswritten == 0) || (res != FR_OK))
+				{
+					Error_Handler();
+				}
+				else
+				{
+
+					f_close(&SDFile);
+				}
+			}
+		}
+	}
+	f_mount(&SDFatFS, (TCHAR const*)NULL, 0);
+*//* USER CODE END 2 */
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -110,41 +190,6 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-		if(f_mount(&SDFatFS, (TCHAR const*)SDPath, 0) != FR_OK)
-		{
-			Error_Handler();
-		}
-		else
-		{
-			if(f_mkfs((TCHAR const*)SDPath, FM_ANY, 0, rtext, sizeof(rtext)) != FR_OK)
-		    {
-				Error_Handler();
-		    }
-			else
-			{
-				//Open file for writing (Create)
-				if(f_open(&SDFile, "STM32.TXT", FA_CREATE_ALWAYS | FA_WRITE) != FR_OK)
-				{
-					Error_Handler();
-				}
-				else
-				{
-
-					//Write to the text file
-					res = f_write(&SDFile, wtext, strlen((char *)wtext), (void *)&byteswritten);
-					if((byteswritten == 0) || (res != FR_OK))
-					{
-						Error_Handler();
-					}
-					else
-					{
-
-						f_close(&SDFile);
-					}
-				}
-			}
-		}
-		f_mount(&SDFatFS, (TCHAR const*)NULL, 0);
 
     /* USER CODE BEGIN 3 */
   }

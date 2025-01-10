@@ -249,6 +249,21 @@ void DMA2_Stream1_IRQHandler(void)
 }
 
 /**
+  * @brief This function handles DMA2 stream5 global interrupt.
+  */
+void DMA2_Stream5_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA2_Stream5_IRQn 0 */
+
+  /* USER CODE END DMA2_Stream5_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_sdmmc2_tx);
+  /* USER CODE BEGIN DMA2_Stream5_IRQn 1 */
+
+  /* USER CODE END DMA2_Stream5_IRQn 1 */
+}
+
+
+/**
   * @brief This function handles LTDC global interrupt.
   */
 void LTDC_IRQHandler(void)

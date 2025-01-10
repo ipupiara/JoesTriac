@@ -7,7 +7,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2024 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -183,6 +183,9 @@ void HAL_SD_MspInit(SD_HandleTypeDef* hsd)
 
     __HAL_LINKDMA(hsd,hdmatx,hdma_sdmmc2_tx);
 
+    /* SDMMC2 interrupt Init */
+    HAL_NVIC_SetPriority(SDMMC2_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(SDMMC2_IRQn);
   /* USER CODE BEGIN SDMMC2_MspInit 1 */
 
   /* USER CODE END SDMMC2_MspInit 1 */
@@ -223,6 +226,9 @@ void HAL_SD_MspDeInit(SD_HandleTypeDef* hsd)
     /* SDMMC2 DMA DeInit */
     HAL_DMA_DeInit(hsd->hdmarx);
     HAL_DMA_DeInit(hsd->hdmatx);
+
+    /* SDMMC2 interrupt DeInit */
+    HAL_NVIC_DisableIRQ(SDMMC2_IRQn);
   /* USER CODE BEGIN SDMMC2_MspDeInit 1 */
 
   /* USER CODE END SDMMC2_MspDeInit 1 */
