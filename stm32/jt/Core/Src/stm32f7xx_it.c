@@ -228,7 +228,8 @@ void DMA2_Stream0_IRQHandler(void)
   /* USER CODE BEGIN DMA2_Stream0_IRQn 0 */
 
   /* USER CODE END DMA2_Stream0_IRQn 0 */
-  HAL_DMA_IRQHandler(&hdma_jpeg_in);
+//  HAL_DMA_IRQHandler(&hdma_jpeg_in);
+  HAL_DMA_IRQHandler(&hdma_sdmmc2_rx);
   /* USER CODE BEGIN DMA2_Stream0_IRQn 1 */
 
   /* USER CODE END DMA2_Stream0_IRQn 1 */

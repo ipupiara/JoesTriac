@@ -23,6 +23,7 @@
 #include "app_touchgfx.h"
 #endif
 #include "mainJt.h"
+#include "sdDisk.h"
 
 #include "../mx25l512/mx25l512.h"
 #include "../otm8009a/otm8009a.h"
@@ -130,7 +131,7 @@ int main(void)
   HAL_Init();
   SystemClock_Config();
 
-
+  initMmc();
 
 #ifndef debugApp
 
@@ -144,7 +145,7 @@ int main(void)
   MX_I2C4_Init();
   MX_LIBJPEG_Init();
   MX_CRC_Init();
-  MX_JPEG_Init();
+//  MX_JPEG_Init();
 //  MX_ADC1_Init();
 //  MX_CAN1_Init();
 //  MX_USART6_UART_Init();
@@ -196,8 +197,8 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLM = 25;
   RCC_OscInitStruct.PLL.PLLN = 400;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = 2;
-  RCC_OscInitStruct.PLL.PLLR = 7;
+  RCC_OscInitStruct.PLL.PLLQ = 8;
+  RCC_OscInitStruct.PLL.PLLR = 2;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();

@@ -9,6 +9,7 @@ extern "C"
 #endif
 	
 #include <stdio.h>
+#include <stdint.h>
 
 //#include <stdio.h>
 

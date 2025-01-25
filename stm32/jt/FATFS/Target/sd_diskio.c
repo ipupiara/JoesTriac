@@ -215,6 +215,7 @@ DRESULT SD_read(BYTE lun, BYTE *buff, DWORD sector, UINT count)
                              count) == MSD_OK)
     {
       ReadStatus = 0;
+      uint32_t stat;
       /* Wait that the reading process is completed or a timeout occurs */
       timeout = HAL_GetTick();
       while((ReadStatus == 0) && ((HAL_GetTick() - timeout) < SD_TIMEOUT))
@@ -232,7 +233,7 @@ DRESULT SD_read(BYTE lun, BYTE *buff, DWORD sector, UINT count)
 
         while((HAL_GetTick() - timeout) < SD_TIMEOUT)
         {
-          if (BSP_SD_GetCardState() == SD_TRANSFER_OK)
+          if ((stat = (BSP_SD_GetCardState())) == SD_TRANSFER_OK)
           {
             res = RES_OK;
 #if (ENABLE_SD_DMA_CACHE_MAINTENANCE == 1)
