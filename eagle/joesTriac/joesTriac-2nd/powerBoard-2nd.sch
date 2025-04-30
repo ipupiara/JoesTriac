@@ -11562,8 +11562,21 @@ NS Package M08A</description>
 <text x="-68.58" y="-7.62" size="1.778" layer="91">  -2.5V</text>
 <text x="-124.46" y="60.96" size="1.778" layer="91">/+16V</text>
 <text x="-127" y="-10.16" size="1.778" layer="91">/-16V</text>
-<text x="49.276" y="21.59" size="1.9304" layer="91">zero pass signal</text>
+<text x="26.416" y="21.59" size="1.9304" layer="91">zero pass signal, not implemented</text>
 <text x="22.86" y="65.278" size="1.778" layer="91">hysterese</text>
+<wire x1="-5.08" y1="101.6" x2="-5.08" y2="91.44" width="0.1524" layer="99"/>
+<wire x1="-5.08" y1="91.44" x2="2.54" y2="91.44" width="0.1524" layer="99"/>
+<wire x1="2.54" y1="91.44" x2="2.54" y2="73.66" width="0.1524" layer="99"/>
+<wire x1="2.54" y1="73.66" x2="-2.54" y2="73.66" width="0.1524" layer="99"/>
+<wire x1="-2.54" y1="73.66" x2="-2.54" y2="68.58" width="0.1524" layer="99"/>
+<wire x1="-2.54" y1="68.58" x2="-5.08" y2="66.04" width="0.1524" layer="99"/>
+<wire x1="-5.08" y1="66.04" x2="-10.16" y2="66.04" width="0.1524" layer="99"/>
+<wire x1="-10.16" y1="66.04" x2="-10.16" y2="22.86" width="0.1524" layer="99"/>
+<wire x1="-10.16" y1="22.86" x2="20.32" y2="22.86" width="0.1524" layer="99"/>
+<wire x1="20.32" y1="22.86" x2="20.32" y2="20.32" width="0.1524" layer="99"/>
+<wire x1="20.32" y1="20.32" x2="73.66" y2="20.32" width="0.1524" layer="99"/>
+<wire x1="73.66" y1="20.32" x2="73.66" y2="101.6" width="0.1524" layer="99"/>
+<wire x1="73.66" y1="101.6" x2="-5.08" y2="101.6" width="0.1524" layer="99"/>
 </plain>
 <instances>
 <instance part="TR1" gate="1" x="-40.64" y="88.9"/>

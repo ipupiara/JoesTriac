@@ -9146,7 +9146,7 @@ manufacturer Siemens</description>
 <text x="88.9" y="0" size="1.778" layer="91">out</text>
 <text x="-15.24" y="48.26" size="1.778" layer="91">PH6</text>
 <text x="124.46" y="46.482" size="1.778" layer="91">triac trigger</text>
-<text x="162.56" y="60.96" size="1.778" layer="91">connector to boards</text>
+<text x="162.56" y="60.96" size="1.778" layer="91">connector to triac board</text>
 <text x="139.7" y="31.242" size="1.778" layer="91">VoltageZeroPass</text>
 <text x="-22.86" y="3.302" size="1.778" layer="91">VoltageZeroPass</text>
 <text x="-15.24" y="40.64" size="1.778" layer="91">PA12</text>
@@ -9158,6 +9158,7 @@ manufacturer Siemens</description>
 <text x="-55.88" y="43.18" size="1.778" layer="91">PA6</text>
 <text x="-50.8" y="19.05" size="1.778" layer="91">adc</text>
 <text x="66.04" y="-22.86" size="1.778" layer="91">adc</text>
+<text x="134.62" y="20.32" size="1.778" layer="91">gnd needed if cpu and triac boards protected by emi filters</text>
 </plain>
 <instances>
 <instance part="IC1" gate="G$1" x="33.02" y="55.88"/>
@@ -9309,6 +9310,10 @@ manufacturer Siemens</description>
 <junction x="104.14" y="17.78"/>
 <pinref part="R4" gate="G$1" pin="1"/>
 <wire x1="116.84" y1="22.86" x2="116.84" y2="17.78" width="0.1524" layer="91"/>
+<wire x1="116.84" y1="17.78" x2="129.54" y2="17.78" width="0.1524" layer="91"/>
+<wire x1="129.54" y1="17.78" x2="129.54" y2="43.18" width="0.1524" layer="91"/>
+<pinref part="J5" gate="-6" pin="MS"/>
+<wire x1="129.54" y1="43.18" x2="160.02" y2="43.18" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="C1" gate="G$1" pin="2"/>

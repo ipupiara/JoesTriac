@@ -6251,6 +6251,8 @@ manufacturer Siemens</description>
 <text x="-93.98" y="58.42" size="1.778" layer="91">MOC3021</text>
 <text x="-93.98" y="60.96" size="1.778" layer="91">=====</text>
 <text x="-88.9" y="60.96" size="1.778" layer="91">=====</text>
+<text x="-2.54" y="111.76" size="1.778" layer="92">XXXXXXX</text>
+<text x="-1.778" y="128.016" size="1.778" layer="91">2505/NJ221</text>
 </plain>
 <instances>
 <instance part="X1" gate="-4" x="50.8" y="88.9"/>

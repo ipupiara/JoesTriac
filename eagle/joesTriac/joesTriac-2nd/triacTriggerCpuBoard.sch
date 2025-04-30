@@ -5889,6 +5889,7 @@ manufacturer Murata</description>
 <text x="-48.26" y="83.82" size="1.778" layer="91">plus bias/GND on all 3</text>
 <text x="68.58" y="101.6" size="1.778" layer="91">triac trigger</text>
 <text x="-25.4" y="111.76" size="1.778" layer="91">evtl 3.6</text>
+<text x="-119.38" y="106.68" size="5.08" layer="91">not implemented</text>
 </plain>
 <instances>
 <instance part="C4" gate="G$1" x="-2.54" y="99.06"/>
@@ -6247,6 +6248,11 @@ manufacturer Murata</description>
 <wire x1="50.8" y1="83.82" x2="50.8" y2="76.2" width="0.1524" layer="91"/>
 <pinref part="IC1" gate="G$1" pin="PA4"/>
 <wire x1="50.8" y1="76.2" x2="43.18" y2="76.2" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$24" class="0">
+<segment>
+<wire x1="-66.04" y1="104.14" x2="-119.38" y2="104.14" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>

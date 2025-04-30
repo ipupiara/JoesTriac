@@ -131,8 +131,6 @@ int main(void)
   HAL_Init();
   SystemClock_Config();
 
-  initMmc();
-
 #ifndef debugApp
 
   MX_GPIO_Init();

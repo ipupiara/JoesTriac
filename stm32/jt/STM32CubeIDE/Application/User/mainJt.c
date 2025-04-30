@@ -28,7 +28,7 @@
 
 uint8_t presenterQActive;
 
-void mainJt(void *argument);
+//void mainJt(void *argument);
 
 
 osThreadId_t mainJtTaskHandle;
@@ -101,7 +101,7 @@ void mainJt(void *argument)
 	CMainJtEventT  mJtEv;
 	fsmTriacEvent fsmEv;
 
-	initMmc();
+//	initMmc();
 	init_printf();
 	initI2c();
 	initCanComms();
