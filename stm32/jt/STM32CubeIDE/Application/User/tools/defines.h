@@ -21,7 +21,7 @@ extern "C"
 #define triacApplicationIsrPrio    5
 #define triacTriggerIsrPrio   0
 
-#define calibHighAmps  60.0
+#define calibHighAmps  80.0
 #define calibLowAmps   20.0
 
 #define eepromI2cAddr   0xA0
