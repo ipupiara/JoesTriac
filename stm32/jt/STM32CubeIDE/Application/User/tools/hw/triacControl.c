@@ -395,11 +395,12 @@ void initZeroPassDetector()
 	GPIO_InitTypeDef GPIO_InitStruct = {0};
 	GPIO_InitStruct.Pin = zeroPass_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
-	GPIO_InitStruct.Pull = GPIO_PULLUP;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(zeroPass_Port, &GPIO_InitStruct);
 
 	HAL_NVIC_SetPriority(EXTI15_10_IRQn, triacTriggerIsrPrio, 0);
 	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
+//     	res= HAL_NVIC_GetActive(EXTI15_10_IRQn);    meaning of "active"  nowhere explained (seemingly a "writer did himself not understand" problem, ie. a secretary, student, "chinese" or so)
 }
 
 void EXTI15_10_IRQHandler(void)
@@ -422,7 +423,7 @@ void EXTI15_10_IRQHandler(void)
 void startTriacRun()
 {
 	doExti = getDoExti();
-	startExtiChecking();
+//	startExtiChecking();
 	setTriacTriggerDelay(stmTriggerRangeMax);
 
 	enableZeroPassDetector();
@@ -441,7 +442,7 @@ void stopTriacRun()
 
 void doJobOnZeroPassEvent(uint8_t ev)
 {
-	if (extiIrqCnt > 0)  {
+	if (extiIrqCnt > 0)  {   // gets 0 again after approx. 4660 hours of welding without turn off
 		if (ev == extiZeroPassTriggerStartValue)   {
 			disableRailTimerPwm();
 			startStopTimer();

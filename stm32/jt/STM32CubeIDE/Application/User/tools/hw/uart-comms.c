@@ -96,6 +96,7 @@ void init_printf()
 void private_printf( char *emsg, ...)
 {
 
+/*
 	//  todo did not work using touchgfx and freertos ????????   but worked with testmethod in uarthw.c and under debugApp definition
 	//  crashed into an ??? wwdg ??? loop in startup.s  why what how ?????
 	//  todo further debug bug
@@ -116,6 +117,7 @@ void private_printf( char *emsg, ...)
 		}
 	}
 	va_end(ap);
+*/
 }
 
 void  err_printf ( char *emsg, ...)

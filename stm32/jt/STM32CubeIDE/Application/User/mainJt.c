@@ -102,9 +102,9 @@ void mainJt(void *argument)
 	fsmTriacEvent fsmEv;
 
 //	initMmc();
-	init_printf();
-	initI2c();
-	initCanComms();
+//	init_printf();
+//	initI2c();
+//	initCanComms();  do not enable, uses currently pin of 0x input
 	initDefines();
 	InitPID();
 	initAdc();
