@@ -72,6 +72,21 @@ jobCompleteScreenViewBase::jobCompleteScreenViewBase() :
     textArea5.setLinespacing(0);
     textArea5.setTypedText(touchgfx::TypedText(T___SINGLEUSE_3ASW));
     add(textArea5);
+
+    textArea6.setXY(400, 348);
+    textArea6.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    textArea6.setLinespacing(0);
+    textArea6.setTypedText(touchgfx::TypedText(T___SINGLEUSE_A6GC));
+    add(textArea6);
+
+    alarmStateText.setXY(544, 348);
+    alarmStateText.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    alarmStateText.setLinespacing(0);
+    Unicode::snprintf(alarmStateTextBuffer, ALARMSTATETEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_DYN5).getText());
+    alarmStateText.setWildcard(alarmStateTextBuffer);
+    alarmStateText.resizeToCurrentText();
+    alarmStateText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_2R20));
+    add(alarmStateText);
 }
 
 jobCompleteScreenViewBase::~jobCompleteScreenViewBase()

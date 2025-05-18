@@ -45,6 +45,8 @@ protected:
     touchgfx::TextArea textArea4;
     touchgfx::TextAreaWithOneWildcard totalTimeText;
     touchgfx::TextArea textArea5;
+    touchgfx::TextArea textArea6;
+    touchgfx::TextAreaWithOneWildcard alarmStateText;
 
     /*
      * Wildcard Buffers
@@ -53,6 +55,8 @@ protected:
     touchgfx::Unicode::UnicodeChar timeTextBuffer[TIMETEXT_SIZE];
     static const uint16_t TOTALTIMETEXT_SIZE = 10;
     touchgfx::Unicode::UnicodeChar totalTimeTextBuffer[TOTALTIMETEXT_SIZE];
+    static const uint16_t ALARMSTATETEXT_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar alarmStateTextBuffer[ALARMSTATETEXT_SIZE];
 
 private:
 

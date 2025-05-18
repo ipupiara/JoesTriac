@@ -13,6 +13,14 @@ void jobCompleteScreenView::setupScreen()
 	Unicode::snprintf(totalTimeTextBuffer, 6, "%02d", alarmTime);
 	totalTimeText.setWildcard(totalTimeTextBuffer);
 	totalTimeText.invalidate();
+	uint8_t alarmState = getDefinesAlarmNeeded();
+	if (alarmState == 0) {
+		Unicode::snprintf(alarmStateTextBuffer, 4, "off");
+	} else {
+		Unicode::snprintf(alarmStateTextBuffer, 4, "on");
+	}
+	alarmStateText.setWildcard(alarmStateTextBuffer);
+	alarmStateText.invalidate();
 }
 
 void jobCompleteScreenView::tearDownScreen()

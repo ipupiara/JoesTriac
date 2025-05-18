@@ -2448,7 +2448,7 @@
             "X": 65,
             "Y": 217,
             "Width": 120,
-            "Height": 45,
+            "Height": 48,
             "TextId": "__SingleUse_Y76B",
             "TextRotation": "0",
             "AutoSize": true
@@ -2459,7 +2459,7 @@
             "X": 400,
             "Y": 217,
             "Width": 168,
-            "Height": 45,
+            "Height": 48,
             "TextId": "__SingleUse_UCEI",
             "TextRotation": "0",
             "AutoSize": true
@@ -2470,7 +2470,7 @@
             "X": 233,
             "Y": 217,
             "Width": 120,
-            "Height": 45,
+            "Height": 48,
             "TextId": "__SingleUse_4I0G",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2486,7 +2486,7 @@
             "X": 65,
             "Y": 291,
             "Width": 48,
-            "Height": 45,
+            "Height": 48,
             "TextId": "__SingleUse_URB0",
             "TextRotation": "0",
             "AutoSize": true
@@ -2497,7 +2497,7 @@
             "X": 233,
             "Y": 291,
             "Width": 48,
-            "Height": 45,
+            "Height": 48,
             "TextId": "__SingleUse_BE2W",
             "TextRotation": "0",
             "AutoSize": true,
@@ -2512,11 +2512,38 @@
             "Name": "textArea5",
             "X": 400,
             "Y": 291,
-            "Width": 312,
-            "Height": 45,
+            "Width": 360,
+            "Height": 48,
             "TextId": "__SingleUse_3ASW",
             "TextRotation": "0",
             "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea6",
+            "X": 400,
+            "Y": 348,
+            "Width": 120,
+            "Height": 48,
+            "TextId": "__SingleUse_A6GC",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "alarmStateText",
+            "X": 544,
+            "Y": 348,
+            "Width": 72,
+            "Height": 48,
+            "TextId": "__SingleUse_2R20",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_DYN5",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
           }
         ],
         "Interactions": [

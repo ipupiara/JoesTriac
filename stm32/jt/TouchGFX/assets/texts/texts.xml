@@ -6,6 +6,15 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_DYN5" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">off</Translation>
+      </Text>
+      <Text Id="__SingleUse_2R20" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_A6GC" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">alarm</Translation>
+      </Text>
       <Text Id="__SingleUse_2WW1" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">all numbers are hexadecimal</Translation>
       </Text>
@@ -82,7 +91,7 @@
         <Translation Language="GB">none</Translation>
       </Text>
       <Text Id="__SingleUse_3ASW" Alignment="Left" TypographyId="Large">
-        <Translation Language="GB">minutes total</Translation>
+        <Translation Language="GB">minutes cooling</Translation>
       </Text>
       <Text Id="__SingleUse_DVCN" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">00</Translation>
